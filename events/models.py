@@ -62,7 +62,10 @@ class TeamEvent(models.Model):
     def __str__(self):
         return self.event_details.name
     #I m not sure if I can use foreign keys this way. Somebody please check this.   
-        
+    # karthikabinav here:
+    # checked the above way and is a correct way to do it.
+    # reference:http://svn.tools.ietf.org/svn/tools/ietfdb/branch/idsubmit/ietf/idtracker/models.py
+    # in the above reference he uses the above way for foriegn keys     
     class Admin:
         pass    
 
