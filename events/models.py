@@ -18,9 +18,12 @@ class Tag(models.Model):
     class Admin:
         pass
 
-#class Tabs(models.Model):
-#    content=models.TextField()
-            
+class image_for_tabs(models.Model):
+    image=ImageField(upload_to="public_html/2011/media/") #how to avoid file conflicts ? Files with same name
+    
+class Tabs(models.Model):
+    content=models.TextField()
+    tabimage=models.ManyToManyField(image_for_tabs)  #One tab may have multiple images. We don't know how many      
 class event(models.Model):
     
     name = models.CharField(max_length=100)
@@ -31,7 +34,9 @@ class event(models.Model):
     users = models.ManyToManyField(generic_user, related_name='events', blank=True, null=True)
     chosen_users = models.ManyToManyField(generic_user, blank=True, null=True, related_name='qualified_events')
     logo=models.FileField(upload_to="logos/", blank=True, null=True)
-    tabs=models.XMLField() 
+    tabs=models.ForeignKey(Tabs)
+    #Many to Many or foreign key ? I dunno
+    # OR tabs=models.XMLField()
     #Defined tabs as an XML field. Thought it would be easier to handle an XML file. I don't know how to write to view for this yet. We need to find out 
     
     def __str__(self):
