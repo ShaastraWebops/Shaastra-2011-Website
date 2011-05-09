@@ -3,7 +3,7 @@ from django.contrib import admin
 from main_test.users import *
 
 
-
+# Please note that __str__ is not recommended in django docs. Should we switch to unicode ?
 # Author: Chetan Bademi - Wrote the initial model
 class Tag(models.Model):   
 #E.g.: aerofest, coding etc
@@ -51,7 +51,20 @@ class Event(models.Model):
     class Admin:
         pass
 
+#Team event will be derived from the Event class
+#Author: Swaroop Ramaswamy - Inital model        
+class TeamEvent(models.Model):
 
+    event_details = ForeignKey(Event)
+    teams = models.ManyToManyField(Team,  blank=True, null=True, related_name='Team_events')
+    chosen_teams = models.ManyToManyField(Team, blank=True, null=True, related_name='Team_qualified_events')
+    
+    def __str__(self):
+        return self.event_details.name
+    #I m not sure if I can use foreign keys this way. Somebody please check this.   
+        
+    class Admin:
+        pass    
 
 # Author: Chetan Bademi - Wrote the initial model
 class Tabs(models.Model): 

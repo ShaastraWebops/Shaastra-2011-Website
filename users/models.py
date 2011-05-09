@@ -47,6 +47,7 @@ STATE_CHOICES = (
 	("Puducherry" , "Puducherry"),
 	("Outside India" , "Outside India"),
 )
+#Just copy pasted last year's code. Will work just fine I guess
 class College(models.Model):
     name=models.CharField(max_length=255,help_text = 'The name of your college. Please refrain from using short forms.')
     city=models.CharField(max_length=30,help_text = 'The name of the city where your college is located. Please refrain from using short forms.')
@@ -58,6 +59,8 @@ class College(models.Model):
     class Admin:
         pass
         
+#User profile common to all users. Coord class can be dervied from this
+#Author: Swaroop Ramaswamy - inital model                
 class generic_user(models.Model):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
@@ -73,6 +76,18 @@ class generic_user(models.Model):
     
     def __str__(self):
         return self.user.username
+
+    class Admin:
+        pass
+#Author: Swaroop Ramaswamy - inital model        
+class Team(models.Model):
+    name = models.CharField (max_length=255)
+    password = models.CharField (max_length=255)
+    #Do we really need a team password ? 
+    leader = models.ForeignKey(generic_user, related_name="team_leader")
+    members = models.ManyToManyField (generic_user, related_name="team members")
+    def __str__(self):
+        return self.name
 
     class Admin:
         pass
