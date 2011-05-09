@@ -10,6 +10,17 @@ from main_test.users.models import *
 
 # Create your models here.
 
+class Tag(models.Model):
+    name=models.CharField(max_length=30)
+    def __str__(self):
+        return self.name
+    
+    class Admin:
+        pass
+
+#class Tabs(models.Model):
+#    content=models.TextField()
+            
 class event(models.Model):
     
     name = models.CharField(max_length=100)
@@ -20,6 +31,8 @@ class event(models.Model):
     users = models.ManyToManyField(generic_user, related_name='events', blank=True, null=True)
     chosen_users = models.ManyToManyField(generic_user, blank=True, null=True, related_name='qualified_events')
     logo=models.FileField(upload_to="logos/", blank=True, null=True)
+    tabs=models.XMLField() 
+    #Defined tabs as an XML field. Thought it would be easier to handle an XML file. I don't know how to write to view for this yet. We need to find out 
     
     def __str__(self):
         return self.name
@@ -27,13 +40,7 @@ class event(models.Model):
     class Admin:
         pass
     
-class Tag(models.Model):
-    name=models.CharField(max_length=30)
-    def __str__(self):
-        return self.name
-    
-    class Admin:
-        pass
+
 
 
 
