@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib import admin
+from main_test.users import *
 
 
 
@@ -20,18 +22,18 @@ class Event(models.Model):
     # Registration start and end time
     start_time = models.DateTimeField(null=True,blank=True)
     end_time = models.DateTimeField(null=True,blank=True)
-    coords = models.ManyToManyField(User, blank=True, null=True, related_name='coord_events')
+    coords = models.ManyToManyField(generic_user, blank=True, null=True, related_name='coord_events')
     
     # Registration
     registrable = models.BooleanField(default=False)
-    users = models.ManyToManyField(User,  blank=True, null=True, related_name='users_events')
-    chosen_users = models.ManyToManyField(User, blank=True, null=True, related_name='qualified_events')
+    users = models.ManyToManyField(generic_user,  blank=True, null=True, related_name='users_events')
+    chosen_users = models.ManyToManyField(generic_user, blank=True, null=True, related_name='qualified_events')
     
     # Hospitality
     accommodation = models.BooleanField(default=False)
     
     # MyShaastra 
-    flagged_by = models.ManyToManyField(User,  blank=True, null=True, related_name='flagged_events')
+    flagged_by = models.ManyToManyField(generic_user,  blank=True, null=True, related_name='flagged_events')
     
     # Logo and Sponsorship logos
     #NOTE: Rename the uploaded image file to event name.
@@ -52,7 +54,7 @@ class Event(models.Model):
 
 
 # Author: Chetan Bademi - Wrote the initial model
-def Tabs(models.Model): 
+class Tabs(models.Model): 
     # NOTE: Will one text field per tab suffice?
     text        = models.CharField(max_length=10000)
     images      = models.ManyToManyField(TabImage      , blank=True, null=True, related_name='questions')
@@ -67,12 +69,17 @@ def Tabs(models.Model):
 
 
 # Author: Chetan Bademi - Wrote the initial model
-def TabImage(models.Model):
+class TabImage(models.Model):
     # TASK: Each tab can have more than one image. Each tab can be associated with more than one TabImage object(s)
     # Rename the image file to the id of the TabImage object. 
     # Ex: When a user wants to upload a image file, a TabImage object is created. Say it's id is 44. 
     # Then rename the file to 44.jpg and store it in "public_html/2011/TabImage/"
-    image = models.ImageField(upload_to='public_html/2011/TabImage/')
+    image_id = models.AutoField(unique=True)
+    image = models.ImageField(upload_to=('public_html/2011/TabImage/%s.jpg',str(image_id)))
+    # I really don't know whether this will work. Just change this if you find out a method that works 
+    # Converted image_id to a string and then changed the upload_to path.  
+    # Unique image id, the idea is to rename the file to the image_id
+    # We can identify each image by it's unique image_ids
     def __str__(self):
         return self.name
     class Admin:
@@ -80,13 +87,16 @@ def TabImage(models.Model):
     
 
 # Author: Chetan Bademi - Wrote the initial model
-def TabForum(models.Model):
+class TabForum(models.Model):
     name = models.CharField( max_length = 30 )
+    #Name of the thread , could be decided by the author of the thread
     tags = models.ManyToManyField(Tag, blank=True, null=True)
-    started_by = models.ForeignKey(User,blank=True, null=True, related_name='started_by')
+    #Tags associated with the thread, similar to tags in blogspot/wordpress
+    started_by = models.ForeignKey(generic_user,blank=True, null=True, related_name='started_by')
     time_created = models.DateTimeField(auto_now=False, auto_now_add=False)
     time_modified = models.DateTimeField(auto_now=False, auto_now_add=False)
     replies = models.ManyToManyField(TabForumReply,blank=True,null=True,related_name='replies')
+    #Reply to each thread , will have user who replied, content and timestamp
     def __str__(self):
         return self.name
     class Admin:
@@ -94,10 +104,12 @@ def TabForum(models.Model):
 
 
 # Author: Chetan Bademi - Wrote the initial model
-def TabForumReply(models.Model):
-    reply_by = models.ForeignKey(User,blank=True, null=True, related_name='reply_by')
+class TabForumReply(models.Model):
+    reply_by = models.ForeignKey(generic_user,blank=True, null=True, related_name='reply_by')
+    #We could display some profile details of the poster. Like in launchpad or bugzilla
     time_stamp = models.DateTimeField(auto_now=False, auto_now_add=False)
-    content = models.CharField( max_length = 3000 ) 
+    content = models.TextField()
+    # Using TextField to allow for long replies, also allows better form handling
     # Id of the TabForumReply object to which the user replied to.
     # Using this we can provide link to the post to which this was a reply. 
     reply_to = models.IntegerField()
