@@ -20,18 +20,18 @@ class Event(models.Model):
     # Registration start and end time
     start_time = models.DateTimeField(null=True,blank=True)
     end_time = models.DateTimeField(null=True,blank=True)
-    coords = models.ManyToManyField(User, blank=True, null=True, related_name='coord_events')
+    coords = models.ManyToManyField(generic_user, blank=True, null=True, related_name='coord_events')
     
     # Registration
     registrable = models.BooleanField(default=False)
-    users = models.ManyToManyField(User,  blank=True, null=True, related_name='users_events')
-    chosen_users = models.ManyToManyField(User, blank=True, null=True, related_name='qualified_events')
+    users = models.ManyToManyField(generic_user,  blank=True, null=True, related_name='users_events')
+    chosen_users = models.ManyToManyField(generic_user, blank=True, null=True, related_name='qualified_events')
     
     # Hospitality
     accommodation = models.BooleanField(default=False)
     
     # MyShaastra 
-    flagged_by = models.ManyToManyField(User,  blank=True, null=True, related_name='flagged_events')
+    flagged_by = models.ManyToManyField(generic_user,  blank=True, null=True, related_name='flagged_events')
     
     # Logo and Sponsorship logos
     #NOTE: Rename the uploaded image file to event name.
@@ -52,7 +52,7 @@ class Event(models.Model):
 
 
 # Author: Chetan Bademi - Wrote the initial model
-def Tabs(models.Model): 
+class Tabs(models.Model): 
     # NOTE: Will one text field per tab suffice?
     text        = models.CharField(max_length=10000)
     images      = models.ManyToManyField(TabImage      , blank=True, null=True, related_name='questions')
@@ -67,7 +67,7 @@ def Tabs(models.Model):
 
 
 # Author: Chetan Bademi - Wrote the initial model
-def TabImage(models.Model):
+class TabImage(models.Model):
     # TASK: Each tab can have more than one image. Each tab can be associated with more than one TabImage object(s)
     # Rename the image file to the id of the TabImage object. 
     # Ex: When a user wants to upload a image file, a TabImage object is created. Say it's id is 44. 
@@ -80,10 +80,10 @@ def TabImage(models.Model):
     
 
 # Author: Chetan Bademi - Wrote the initial model
-def TabForum(models.Model):
+class TabForum(models.Model):
     name = models.CharField( max_length = 30 )
     tags = models.ManyToManyField(Tag, blank=True, null=True)
-    started_by = models.ForeignKey(User,blank=True, null=True, related_name='started_by')
+    started_by = models.ForeignKey(generic_user,blank=True, null=True, related_name='started_by')
     time_created = models.DateTimeField(auto_now=False, auto_now_add=False)
     time_modified = models.DateTimeField(auto_now=False, auto_now_add=False)
     replies = models.ManyToManyField(TabForumReply,blank=True,null=True,related_name='replies')
@@ -94,8 +94,8 @@ def TabForum(models.Model):
 
 
 # Author: Chetan Bademi - Wrote the initial model
-def TabForumReply(models.Model):
-    reply_by = models.ForeignKey(User,blank=True, null=True, related_name='reply_by')
+class TabForumReply(models.Model):
+    reply_by = models.ForeignKey(generic_user,blank=True, null=True, related_name='reply_by')
     time_stamp = models.DateTimeField(auto_now=False, auto_now_add=False)
     content = models.CharField( max_length = 3000 ) 
     # Id of the TabForumReply object to which the user replied to.
