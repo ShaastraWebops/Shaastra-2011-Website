@@ -55,7 +55,7 @@ class Event(models.Model):
 #Author: Swaroop Ramaswamy - Inital model        
 class TeamEvent(models.Model):
 
-    event_details = ForeignKey(Event)
+    event_details = models.ForeignKey(Event)
     teams = models.ManyToManyField(Team,  blank=True, null=True, related_name='Team_events')
     chosen_teams = models.ManyToManyField(Team, blank=True, null=True, related_name='Team_qualified_events')
     
