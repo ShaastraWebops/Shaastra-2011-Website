@@ -91,7 +91,10 @@ class TabForum(models.Model):
     name = models.CharField( max_length = 30 )
     #Name of the thread , could be decided by the author of the thread
     tags = models.ManyToManyField(Tag, blank=True, null=True)
+<<<<<<< HEAD
     #Tags associated with the thread, similar to tags in blogspot/wordpress
+=======
+>>>>>>> 70c37b4c296877cd132f2d270ee62e475795f779
     started_by = models.ForeignKey(generic_user,blank=True, null=True, related_name='started_by')
     time_created = models.DateTimeField(auto_now=False, auto_now_add=False)
     time_modified = models.DateTimeField(auto_now=False, auto_now_add=False)
@@ -106,7 +109,10 @@ class TabForum(models.Model):
 # Author: Chetan Bademi - Wrote the initial model
 class TabForumReply(models.Model):
     reply_by = models.ForeignKey(generic_user,blank=True, null=True, related_name='reply_by')
+<<<<<<< HEAD
     #We could display some profile details of the poster. Like in launchpad or bugzilla
+=======
+>>>>>>> 70c37b4c296877cd132f2d270ee62e475795f779
     time_stamp = models.DateTimeField(auto_now=False, auto_now_add=False)
     content = models.TextField()
     # Using TextField to allow for long replies, also allows better form handling
