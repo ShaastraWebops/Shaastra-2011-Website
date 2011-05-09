@@ -1,3 +1,79 @@
 from django.db import models
+from django.contrib import admin
+from django import forms
 
 # Create your models here.
+
+GENDER_CHOICES = (
+    ('M','Male'),
+    ('F','Female'),
+)
+
+STATE_CHOICES = (
+	("Andhra Pradesh" , "Andhra Pradesh"),
+	("Arunachal Pradesh" , "Arunachal Pradesh"),
+	("Assam" , "Assam"),
+	("Bihar" , "Bihar"),
+	("Chhattisgarh" , "Chhattisgarh"),
+	("Goa" , "Goa"),
+	("Gujarat" , "Gujarat"),
+	("Haryana" , "Haryana"),
+	("Himachal Pradesh" , "Himachal Pradesh"),
+	("Jammu And Kashmir" , "Jammu And Kashmir"),
+	("Jharkhand" , "Jharkhand"),
+	("Karnataka" , "Karnataka"),
+	("Kerala" , "Kerala"),
+	("Madhya Pradesh" , "Madhya Pradesh"),
+	("Maharashtra" , "Maharashtra"),
+	("Manipur" , "Manipur"),
+	("Meghalaya" , "Meghalaya"),
+	("Mizoram" , "Mizoram"),
+	("Nagaland" , "Nagaland"),
+	("Orissa" , "Orissa"),
+	("Punjab" , "Punjab"),
+	("Rajasthan" , "Rajasthan"),
+	("Sikkim" , "Sikkim"),
+	("Tamil Nadu" , "Tamil Nadu"),
+	("Tripura" , "Tripura"),
+	("Uttar Pradesh" , "Uttar Pradesh"),
+	("Uttarakhand" , "Uttarakhand"),
+	("West Bengal" , "West Bengal"),
+	("Andaman And Nicobar Islands" , "Andaman And Nicobar Islands"),
+	("Chandigarh" , "Chandigarh"),
+	("Dadra And Nagar Haveli" , "Dadra And Nagar Haveli"),
+	("Daman And Diu" , "Daman And Diu"),
+	("Lakshadweep" , "Lakshadweep"),
+	("NCT/Delhi" , "NCT/Delhi"),
+	("Puducherry" , "Puducherry"),
+	("Outside India" , "Outside India"),
+)
+class College(models.Model):
+    name=models.CharField(max_length=255,help_text = 'The name of your college. Please refrain from using short forms.')
+    city=models.CharField(max_length=30,help_text = 'The name of the city where your college is located. Please refrain from using short forms.')
+    state=models.CharField(max_length=40,choices=STATE_CHOICES, help_text = 'The state where your college is located. Select from the drop down list')
+
+    def __str__(self):
+        return "%s, %s, %s"%(self.name, self.city, self.state)
+
+    class Admin:
+        pass
+        
+class generic_user(models.Model):
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30)
+    gender = models.CharField(max_length=1,choices=GENDER_CHOICES,default='M')
+    age = models.IntegerField(default=18,)
+    branch = models.CharField(max_length=50,default='Enter Branch Here',blank=True)
+    mobile_number = models.CharField(max_length=15)
+    college = models.ForeignKey(College)
+    college_roll = models.CharField(max_length=40,default='Enter College Id/Roll No.')
+    shaastra_id = models.CharField(max_length=20, default=False, unique = True)
+    activation_key = models.CharField(max_length=40)
+    key_expires = models.DateTimeField()
+    
+    def __str__(self):
+        return self.user.username
+
+    class Admin:
+        pass
+
