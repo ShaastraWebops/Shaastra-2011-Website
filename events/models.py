@@ -174,13 +174,13 @@ class Question(models.Model):
     #Should we do this or should be do what we did for Tabimage ?    
     #Retrieve choices in case of MCQ type
     def get_choices(self):
-        if(self.type != 3):
+        if(self.question_type != 3):
             raise ValueError
-        list = MCQOption.objects.filter(question = self)
+        list = MCQOption.objects.filter(question_id = self)   
         choices = []
         num = 1
         for option in list:
-            choices.append( (num, option.content) )
+            choices.append( (num, option.choice_text) )
             num += 1
         return tuple(choices)
 
