@@ -134,48 +134,7 @@ QUESTION_TYPE = (
 					(3, 'MCQ'),
 				)
 
-#Author: Praveen Venkatesh - Created inital model
-#Try to use ModelForms in order to render this model - appears to make things easy
-class Question(models.Model):
 
-	#Event specifics
-    event = models.ForeignKey(Event)
-    
-    #Question specifics
-    text = models.TextField(max_length = 1000, blank = True, null = True)
-    question_type = models.IntegerField(choices = QUESTION_TYPE, blank = False, null = False)
-    question_number = models.IntegerField ( blank = False, 
-    									 	null = False,
-    									 	verbose_name = 'Number displayed in the button for this question.',)
-    
-    #File specifics
-	question_file = models.FileField(upload_to = 'files/%s/'%str(event), blank = True, null = True)
-		#Not sure if this syntax is correct             ^^^^^
-    
-    #Retrieve choices in case of MCQ type
-    def get_choices(self):
-        if(self.type != 3):
-            raise ValueError
-        list = MCQOption.objects.filter(question = self)
-        choices = []
-        num = 1
-        for option in list:
-            choices.append( (num, option.content) )
-            num += 1
-        return tuple(choices)
-
-    #To render or not to render
-    visible = models.BooleanField(default = True)
-
-    #Define thyself!
-    def __str__(self):
-        return self.text
-    
-    class Admin:
-        pass
-    
-    class Meta:
-		ordering = ['question_number', 'id',]	
 
 #Author: Praveen Venkatesh - Created inital model
 class MCQOption(models.Model):
@@ -194,4 +153,50 @@ class MCQOption(models.Model):
 		
 	class Meta:
 		ordering = ['id',] 
+		
+#Author: Praveen Venkatesh - Created inital model
+#Try to use ModelForms in order to render this model - appears to make things easy		
+class Question(models.Model):
+
+	#Event specifics
+    event = models.ForeignKey(Event)
+    
+    #Question specifics
+    text = models.TextField(max_length = 1000, blank = True, null = True)
+    question_type = models.IntegerField(choices = QUESTION_TYPE, blank = False, null = False)
+    question_number = models.IntegerField ( blank = False, 
+    									 	null = False,
+    									 	verbose_name = 'Number displayed in the button for this question.',)
+    
+    #File specifics
+	question_file = models.FileField(upload_to = 'files/%s/'%str(event), blank = True, null = True)
+		#Not sure if this syntax is correct             ^^^^^
+    #Should we do this or should be do what we did for Tabimage ?    
+    #Retrieve choices in case of MCQ type
+    def get_choices(self):
+        if(self.type != 3):
+            raise ValueError
+        list = MCQOption.objects.filter(question = self)
+        choices = []
+        num = 1
+        for option in list:
+            choices.append( (num, option.content) )
+            num += 1
+        return tuple(choices)
+
+    #To render or not to render
+    visible = models.BooleanField(default = True)
+
+    #Define thyself!
+    def __str__(self):
+        return self.text
+    #Should we have a question id ? Returning the text field doesn't seem so appropriate to me. We can have question id as an AutoField and return str(self.question_id)    
+    
+    class Admin:
+        pass
+    
+    class Meta:
+		ordering = ['question_number', 'id',]	
+
+
 
