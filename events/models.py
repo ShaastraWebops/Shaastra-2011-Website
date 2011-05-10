@@ -20,7 +20,7 @@ class Tabs(models.Model):
     #forums      = models.ManyToManyField(TabForum      , blank=True, null=True, related_name='forums')
   
     def __str__(self):
-        return self.name
+        return self.text
     class Admin:
         pass
 
@@ -38,7 +38,7 @@ class TabImage(models.Model):
     # Unique image id, the idea is to rename the file to the image_id
     # We can identify each image by it's unique image_ids
     def __str__(self):
-        return self.name
+        return str(self.image_id)
     class Admin:
         pass
     
@@ -127,4 +127,71 @@ class TeamEvent(models.Model):
     class Admin:
         pass    
 
+#Author: Praveen Venkatesh
+QUESTION_TYPE = (
+					(1, 'Text'),
+					(2, 'File'),
+					(3, 'MCQ'),
+				)
+
+#Author: Praveen Venkatesh - Created inital model
+#Try to use ModelForms in order to render this model - appears to make things easy
+class Question(models.Model):
+
+	#Event specifics
+    event = models.ForeignKey(Event)
+    
+    #Question specifics
+    text = models.TextField(max_length = 1000, blank = True, null = True)
+    question_type = models.IntegerField(choices = QUESTION_TYPE, blank = False, null = False)
+    question_number = models.IntegerField ( blank = False, 
+    									 	null = False,
+    									 	verbose_name = 'Number displayed in the button for this question.',)
+    
+    #File specifics
+	question_file = models.FileField(upload_to = 'files/%s/'%str(event), blank = True, null = True)
+		#Not sure if this syntax is correct             ^^^^^
+    
+    #Retrieve choices in case of MCQ type
+    def get_choices(self):
+        if(self.type != 3):
+            raise ValueError
+        list = MCQOption.objects.filter(question = self)
+        choices = []
+        num = 1
+        for option in list:
+            choices.append( (num, option.content) )
+            num += 1
+        return tuple(choices)
+
+    #To render or not to render
+    visible = models.BooleanField(default = True)
+
+    #Define thyself!
+    def __str__(self):
+        return self.text
+    
+    class Admin:
+        pass
+    
+    class Meta:
+		ordering = ['question_number', 'id',]	
+
+#Author: Praveen Venkatesh - Created inital model
+class MCQOption(models.Model):
+
+	#Question specifics
+	question_id = models.ForeignKey(Question)
+	
+	#Choice specifics
+	choice_text = models.TextField(max_length = 1000)
+	
+	def __str__(self):
+		return self.choice_text
+	
+	class Admin:
+		pass
+		
+	class Meta:
+		ordering = ['id',] 
 
