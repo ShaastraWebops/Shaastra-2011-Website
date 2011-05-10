@@ -4,7 +4,6 @@ from main_test.users.models import *
 
 
 # Please note that __str__ is not recommended in django docs. Should we switch to unicode ?
-# Author: Chetan Bademi - Wrote the initial model
 class Tag(models.Model):   
 #E.g.: aerofest, coding etc
     name=models.CharField(max_length=30)
@@ -12,7 +11,7 @@ class Tag(models.Model):
         return self.name
     class Admin:
         pass
-# Author: Chetan Bademi - Wrote the initial model
+    
 class Tabs(models.Model): 
     # NOTE: Will one text field per tab suffice?
     text        = models.CharField(max_length=10000)
@@ -27,7 +26,6 @@ class Tabs(models.Model):
 
 
 
-# Author: Chetan Bademi - Wrote the initial model
 class TabImage(models.Model):
     # TASK: Each tab can have more than one image. Each tab can be associated with more than one TabImage object(s)
     # Rename the image file to the id of the TabImage object. 
@@ -44,7 +42,6 @@ class TabImage(models.Model):
     class Admin:
         pass
     
-# Author: Chetan Bademi - Wrote the initial model
 class TabForumReply(models.Model):
     reply_by = models.ForeignKey(generic_user,blank=True, null=True, related_name='reply_by')
     #We could display some profile details of the poster. Like in launchpad or bugzilla
@@ -59,7 +56,6 @@ class TabForumReply(models.Model):
     dislikes = models.IntegerField()
     # NOTE: Do we need edit history? I don't think it's worth implementing this feature.
     
-# Author: Chetan Bademi - Wrote the initial model
 class TabForum(models.Model):
     name = models.CharField( max_length = 30 )
     #Name of the thread , could be decided by the author of the thread
@@ -76,8 +72,6 @@ class TabForum(models.Model):
         pass
 
 
-    
-# Author: Chetan Bademi - Wrote the initial model
 class Event(models.Model):
     name = models.CharField(max_length=80)
     url = models.URLField(null=True,verify_exists=False, blank=True)
