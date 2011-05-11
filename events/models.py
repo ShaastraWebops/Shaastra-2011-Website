@@ -79,7 +79,6 @@ class TabForum(models.Model):
     class Admin:
         pass
 
-
 class Event(models.Model):
     name = models.CharField(max_length=80)
     url = models.URLField(null=True,verify_exists=False, blank=True)
