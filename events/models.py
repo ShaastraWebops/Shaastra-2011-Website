@@ -14,9 +14,11 @@ class Tag(models.Model):
     
 class Tabs(models.Model): 
     # NOTE: Will one text field per tab suffice?
+
     title       = models.CharField(max_length=100)
     event       = models.ForeignKey(Event)
     text        = models.TextField() 
+
     #images      = models.ManyToManyField(TabImage      , blank=True, null=True, related_name='questions')
     #questions   = models.ManyToManyField(TabQuestion   , blank=True, null=True, related_name='questions')
     #forums      = models.ManyToManyField(TabForum      , blank=True, null=True, related_name='forums')
@@ -102,6 +104,8 @@ class Event(models.Model):
     logo=models.FileField(upload_to="public_html/2011/events_logos/", blank=True, null=True)
     sponslogo=models.FileField(upload_to="public_html/2011/events_sponslogos/", blank=True, null=True)
     
+    # Tabs
+    #tabs = models.ManyToManyField(Tabs, blank=True, null=True, related_name='tabs')
   
     def __str__(self):
         return self.name
