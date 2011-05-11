@@ -85,7 +85,7 @@ class coord(generic_user):
     event_name=models.ForeignKey(Event)
     #Think about what else we need for a coord . We might need department etc
     #Could set college to IIT Madras, not implementing it right now to avoid confusion
-    def set_college()
+    def set_college():
         pass
     
     class Admin:
