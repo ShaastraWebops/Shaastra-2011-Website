@@ -80,7 +80,7 @@ class Event(models.Model):
     # Registration start and end time
     start_time = models.DateTimeField(null=True,blank=True)
     end_time = models.DateTimeField(null=True,blank=True)
-    coords = models.ManyToManyField(generic_user, blank=True, null=True, related_name='coord_events')
+    coords = models.ManyToManyField(coord, blank=True, null=True, related_name='coord_events')
     
     # Registration
     registrable = models.BooleanField(default=False)
@@ -110,15 +110,15 @@ class Event(models.Model):
         pass
 
 #Team event will be derived from the Event class
-#Author: Swaroop Ramaswamy - Inital model        
-class TeamEvent(models.Model):
+#Author: Swaroop Ramaswamy - Inital model 
+#Using inheritance instead of foreign key. Seems cleaner       
+class TeamEvent(Event):
 
-    event_details = models.ForeignKey(Event)
     teams = models.ManyToManyField(Team,  blank=True, null=True, related_name='Team_events')
     chosen_teams = models.ManyToManyField(Team, blank=True, null=True, related_name='Team_qualified_events')
     
     def __str__(self):
-        return self.event_details.name
+        return self.name
     #I m not sure if I can use foreign keys this way. Somebody please check this.   
     # karthikabinav here:
     # checked the above way and is a correct way to do it.
