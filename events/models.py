@@ -11,9 +11,45 @@ class Tag(models.Model):
         return self.name
     class Admin:
         pass
+        
+class Event(models.Model):
+    name = models.CharField(max_length=80)
+    url = models.URLField(null=True,verify_exists=False, blank=True)
+    tags=models.ManyToManyField(Tag, blank=True, null=True)
     
-<<<<<<< HEAD
-class Tabs(models.Model): 
+    # Registration start and end time
+    start_time = models.DateTimeField(null=True,blank=True)
+    end_time = models.DateTimeField(null=True,blank=True)
+    coords = models.ManyToManyField(coord, blank=True, null=True, related_name='coord_events')
+    
+    # Registration
+    registrable = models.BooleanField(default=False)
+    users = models.ManyToManyField(generic_user,  blank=True, null=True, related_name='users_events')
+    chosen_users = models.ManyToManyField(generic_user, blank=True, null=True, related_name='qualified_events')
+    
+    # Hospitality
+    accommodation = models.BooleanField(default=False)
+    
+    # MyShaastra 
+    flagged_by = models.ManyToManyField(generic_user,  blank=True, null=True, related_name='flagged_events')
+    
+    # Logo and Sponsorship logos
+    #NOTE: Rename the uploaded image file to event name.
+    #NOTE: Assumption: There's one logo and one spons logo for each event
+    # Is this the correct path? CHECK THIS!
+    logo=models.FileField(upload_to="public_html/2011/events_logos/", blank=True, null=True)
+    sponslogo=models.FileField(upload_to="public_html/2011/events_sponslogos/", blank=True, null=True)
+    
+    # QuickTabs
+    #tabs = models.ManyToManyField(QuickTabs, blank=True, null=True, related_name='tabs')
+  
+    def __str__(self):
+        return self.name
+        
+    class Admin:
+        pass  
+        
+class QuickTabs(models.Model): 
     # NOTE: Will one text field per tab suffice?
 
     title       = models.CharField(max_length=100)
@@ -28,9 +64,6 @@ class Tabs(models.Model):
         return self.text
     class Admin:
         pass
-=======
-
->>>>>>> a4814ac3832d0baae6f91307347d8be417e85ce9
 
 
 
@@ -79,45 +112,10 @@ class TabForum(models.Model):
     class Admin:
         pass
 
-class Event(models.Model):
-    name = models.CharField(max_length=80)
-    url = models.URLField(null=True,verify_exists=False, blank=True)
-    tags=models.ManyToManyField(Tag, blank=True, null=True)
-    
-    # Registration start and end time
-    start_time = models.DateTimeField(null=True,blank=True)
-    end_time = models.DateTimeField(null=True,blank=True)
-    coords = models.ManyToManyField(coord, blank=True, null=True, related_name='coord_events')
-    
-    # Registration
-    registrable = models.BooleanField(default=False)
-    users = models.ManyToManyField(generic_user,  blank=True, null=True, related_name='users_events')
-    chosen_users = models.ManyToManyField(generic_user, blank=True, null=True, related_name='qualified_events')
-    
-    # Hospitality
-    accommodation = models.BooleanField(default=False)
-    
-    # MyShaastra 
-    flagged_by = models.ManyToManyField(generic_user,  blank=True, null=True, related_name='flagged_events')
-    
-    # Logo and Sponsorship logos
-    #NOTE: Rename the uploaded image file to event name.
-    #NOTE: Assumption: There's one logo and one spons logo for each event
-    # Is this the correct path? CHECK THIS!
-    logo=models.FileField(upload_to="public_html/2011/events_logos/", blank=True, null=True)
-    sponslogo=models.FileField(upload_to="public_html/2011/events_sponslogos/", blank=True, null=True)
-    
-    # Tabs
-    #tabs = models.ManyToManyField(Tabs, blank=True, null=True, related_name='tabs')
-  
-    def __str__(self):
-        return self.name
-        
-    class Admin:
-        pass
 
 
-class Tabs(models.Model): 
+
+class QuickQuickTabs(models.Model): 
     # NOTE: Will one text field per tab suffice?
     title  = models.CharField(max_length=80)
     text        = models.CharField(max_length=10000)
