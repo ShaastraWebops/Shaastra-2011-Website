@@ -11,10 +11,51 @@ class Tag(models.Model):
         return self.name
     class Admin:
         pass
+        
+class Event(models.Model):
+    name = models.CharField(max_length=80)
+    url = models.URLField(null=True,verify_exists=False, blank=True)
+    tags=models.ManyToManyField(Tag, blank=True, null=True)
     
-class Tabs(models.Model): 
+    # Registration start and end time
+    start_time = models.DateTimeField(null=True,blank=True)
+    end_time = models.DateTimeField(null=True,blank=True)
+    coords = models.ManyToManyField(coord, blank=True, null=True, related_name='coord_events')
+    
+    # Registration
+    registrable = models.BooleanField(default=False)
+    users = models.ManyToManyField(generic_user,  blank=True, null=True, related_name='users_events')
+    chosen_users = models.ManyToManyField(generic_user, blank=True, null=True, related_name='qualified_events')
+    
+    # Hospitality
+    accommodation = models.BooleanField(default=False)
+    
+    # MyShaastra 
+    flagged_by = models.ManyToManyField(generic_user,  blank=True, null=True, related_name='flagged_events')
+    
+    # Logo and Sponsorship logos
+    #NOTE: Rename the uploaded image file to event name.
+    #NOTE: Assumption: There's one logo and one spons logo for each event
+    # Is this the correct path? CHECK THIS!
+    logo=models.FileField(upload_to="public_html/2011/events_logos/", blank=True, null=True)
+    sponslogo=models.FileField(upload_to="public_html/2011/events_sponslogos/", blank=True, null=True)
+    
+    # QuickTabs
+    #tabs = models.ManyToManyField(QuickTabs, blank=True, null=True, related_name='tabs')
+  
+    def __str__(self):
+        return self.name
+        
+    class Admin:
+        pass  
+        
+class QuickTabs(models.Model): 
     # NOTE: Will one text field per tab suffice?
-    text        = models.CharField(max_length=10000)
+
+    title       = models.CharField(max_length=100)
+    event       = models.ForeignKey(Event)
+    text        = models.TextField() 
+
     #images      = models.ManyToManyField(TabImage      , blank=True, null=True, related_name='questions')
     #questions   = models.ManyToManyField(TabQuestion   , blank=True, null=True, related_name='questions')
     #forums      = models.ManyToManyField(TabForum      , blank=True, null=True, related_name='forums')
@@ -72,53 +113,35 @@ class TabForum(models.Model):
         pass
 
 
-class Event(models.Model):
-    name = models.CharField(max_length=80)
-    url = models.URLField(null=True,verify_exists=False, blank=True)
-    tags=models.ManyToManyField(Tag, blank=True, null=True)
-    
-    # Registration start and end time
-    start_time = models.DateTimeField(null=True,blank=True)
-    end_time = models.DateTimeField(null=True,blank=True)
-    coords = models.ManyToManyField(generic_user, blank=True, null=True, related_name='coord_events')
-    
-    # Registration
-    registrable = models.BooleanField(default=False)
-    users = models.ManyToManyField(generic_user,  blank=True, null=True, related_name='users_events')
-    chosen_users = models.ManyToManyField(generic_user, blank=True, null=True, related_name='qualified_events')
-    
-    # Hospitality
-    accommodation = models.BooleanField(default=False)
-    
-    # MyShaastra 
-    flagged_by = models.ManyToManyField(generic_user,  blank=True, null=True, related_name='flagged_events')
-    
-    # Logo and Sponsorship logos
-    #NOTE: Rename the uploaded image file to event name.
-    #NOTE: Assumption: There's one logo and one spons logo for each event
-    # Is this the correct path? CHECK THIS!
-    logo=models.FileField(upload_to="public_html/2011/events_logos/", blank=True, null=True)
-    sponslogo=models.FileField(upload_to="public_html/2011/events_sponslogos/", blank=True, null=True)
-    
-    # Tabs
-    tabs = models.ManyToManyField(Tabs, blank=True, null=True, related_name='tabs')
+
+
+class QuickQuickTabs(models.Model): 
+    # NOTE: Will one text field per tab suffice?
+    title  = models.CharField(max_length=80)
+    text        = models.CharField(max_length=10000)
+    events     = models.ForeignKey(Event)
+    #images      = models.ManyToManyField(TabImage      , blank=True, null=True, related_name='questions')
+    #questions   = models.ManyToManyField(TabQuestion   , blank=True, null=True, related_name='questions')
+    #forums      = models.ManyToManyField(TabForum      , blank=True, null=True, related_name='forums')
   
     def __str__(self):
-        return self.name
-        
+        return self.text
     class Admin:
         pass
 
-#Team event will be derived from the Event class
-#Author: Swaroop Ramaswamy - Inital model        
-class TeamEvent(models.Model):
 
-    event_details = models.ForeignKey(Event)
+
+
+#Team event will be derived from the Event class
+#Author: Swaroop Ramaswamy - Inital model 
+#Using inheritance instead of foreign key. Seems cleaner       
+class TeamEvent(Event):
+
     teams = models.ManyToManyField(Team,  blank=True, null=True, related_name='Team_events')
     chosen_teams = models.ManyToManyField(Team, blank=True, null=True, related_name='Team_qualified_events')
     
     def __str__(self):
-        return self.event_details.name
+        return self.name
     #I m not sure if I can use foreign keys this way. Somebody please check this.   
     # karthikabinav here:
     # checked the above way and is a correct way to do it.

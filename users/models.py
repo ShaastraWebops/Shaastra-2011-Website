@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib import admin
 from django import forms
+from main_test.events.models import *
 
 # Create your models here.
 
@@ -79,6 +80,22 @@ class generic_user(models.Model):
 
     class Admin:
         pass
+
+class coord(generic_user):
+    event_name=models.ForeignKey(Event)
+    department=models.CharField(max_length=80)
+    # not sure if this is required
+    tdp= models.ManyToManyField(Question,blank=True,null=True)
+     # not sure if a tdp field is required.
+     # Can we handle it with just the question model??
+    #Think about what else we need for a coord . We might need department etc
+    #Could set college to IIT Madras, not implementing it right now to avoid confusion
+    def set_college():
+        pass
+    
+    class Admin:
+        pass    
+            
 #Author: Swaroop Ramaswamy - inital model        
 class Team(models.Model):
     name = models.CharField (max_length=255)
