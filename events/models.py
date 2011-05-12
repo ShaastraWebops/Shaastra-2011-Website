@@ -115,7 +115,7 @@ class TabForum(models.Model):
 
 
 
-class QuickQuickTabs(models.Model): 
+class QuickTabs(models.Model): 
     # NOTE: Will one text field per tab suffice?
     title  = models.CharField(max_length=80)
     text        = models.CharField(max_length=10000)
