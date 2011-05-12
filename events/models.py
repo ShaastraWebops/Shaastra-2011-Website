@@ -222,5 +222,29 @@ class Question(models.Model):
 		ordering = ['question_number', 'id',]	
 
 
-
-
+#Author: Sivaramakrishnan, created the initial model
+class Submission(models.Model)
+	
+	# event details
+	event = models.ForeignKey(Event)
+	# user details
+	user = models.ForeignKey(generic_user)
+	
+	# submission date
+	date = models.DateTimeField(auto_now_add=True)
+	
+	# to mark if the answer is interesting, if it is read or not, and if the participant is selected or not
+	interesting_answer = models.BooleanField(default=False,blank = True)
+	read = models.BooleanField(default=False,blank = True)
+    	selected = models.BooleanField(default=False,blank = True)	
+    	
+    	score = models.FloatField(null=True, blank=True)
+    	lock_answer = models.BooleanField(default=False,blank = True)
+    	
+    	
+class TeamSubmission(Submission)
+	
+	team = models.ManyToManyField(Team)
+	team_event = models.ManyToManyField(TeamEvent)
+	
+	
