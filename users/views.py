@@ -272,3 +272,81 @@ def join_team (request):
 #Can be changed later
     return render_to_response('registration/join_team.html', locals(), context_instance= global_context(request)) 
 
+
+def remove_team_member (request, t_name=None, u_name=None):
+    user = request.user
+    teams = user.teams_lead.all()
+    if t_name is None or t_name == '':
+        invalid_team = session_get(request, "invalid_team")
+        return HttpResponseRedirect ('%s/teams/manage/'%settings.SITE_URL)
+
+    t_name = t_name.replace('/','')
+    team = teams.filter(name=t_name)
+    if not team: 
+        request.session ['invalid_team'] = t_name
+        return HttpResponseRedirect ('%s/teams/manage/'%settings.SITE_URL)
+    team = team[0]
+        
+    if u_name is None or u_name == '':
+        invalid_user = session_get(request, "invalid_user")
+        return HttpResponseRedirect ('%s/teams/manage/%s'%(settings.SITE_URL,
+            t_name))
+                
+    member = team.members.filter(username=u_name)
+
+    if not member: 
+        request.session ['invalid_member'] = u_name
+        return HttpResponseRedirect ('%s/teams/manage/%s'%(settings.SITE_URL,
+            t_name))
+    member = member[0];
+
+    if member == team.leader:
+        request.session ['leader_chosen'] = u_name
+        return HttpResponseRedirect ('%s/teams/manage/%s'%(settings.SITE_URL,
+            t_name))
+
+    mail_template=get_template('email/team_joined.html')
+    body = mail_template.render(Context({'teamname':team, 'team':team, 'member': request.user}))
+    send_mail('[Shaastra 11 Userportal] Team Member Removed ', body, 'noreply@shaastra.com', [member.email, team.leader.email], fail_silently=False)
+
+    team.members.remove(member)
+    request.session ['remove_success'] = u_name
+            
+    return HttpResponseRedirect ('%s/teams/manage/%s'%(settings.SITE_URL,t_name))
+
+def activate (request, a_key = None ):
+    SITE_URL = settings.SITE_URL
+    if (a_key == '' or a_key==None):
+	key_dne = True
+	return render_to_response('registration/activated.html',locals(), context_instance= global_context(request))
+    else:
+      try:
+	user_profile = models.UserProfile.objects.get(activation_key = a_key)
+      except ObjectDoesNotExist:
+	prof_dne = True
+	return render_to_response('registration/activated.html',locals(), context_instance= global_context(request))
+      
+      #Cleanup operation
+      if user_profile.key_expires < datetime.datetime.today():
+	expired = True
+	user = user_profile.user
+	user.delete()
+	user_profile.delete()
+	return render_to_response('registration/activated.html',locals(), context_instance= global_context(request))
+	
+      else:
+	user = user_profile.user
+	user.is_active = True
+	user.save()
+	request.session["registered"]=True
+	
+	#send another mail
+	mail_template=get_template('email/thankyou.html')
+        body = mail_template.render(Context({'username':user.username}))
+        send_mail('Account activated', body, 'noreply@shaastra.org', [user.email,], fail_silently=False)
+        
+	#print "IS AUTHENTICATED",user.is_authenticated()
+	activated = True
+	return render_to_response('registration/activated.html',locals(), context_instance= global_context(request))
+
+
