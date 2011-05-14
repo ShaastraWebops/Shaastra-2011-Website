@@ -11,8 +11,45 @@ class Tag(models.Model):
         return self.name
     class Admin:
         pass
+        
+class Event(models.Model):
+    name = models.CharField(max_length=80)
+    url = models.URLField(null=True,verify_exists=False, blank=True)
+    tags=models.ManyToManyField(Tag, blank=True, null=True)
     
-class Tabs(models.Model): 
+    # Registration start and end time
+    start_time = models.DateTimeField(null=True,blank=True)
+    end_time = models.DateTimeField(null=True,blank=True)
+    coords = models.ForeignKey(coord)
+    
+    # Registration
+    registrable = models.BooleanField(default=False)
+    users = models.ManyToManyField(User,  blank=True, null=True, related_name='users_events')
+    chosen_users = models.ManyToManyField(User, blank=True, null=True, related_name='qualified_events')
+    
+    # Hospitality
+    accommodation = models.BooleanField(default=False)
+    
+    # MyShaastra 
+    flagged_by = models.ManyToManyField(User,  blank=True, null=True, related_name='flagged_events')
+    
+    # Logo and Sponsorship logos
+    #NOTE: Rename the uploaded image file to event name.
+    #NOTE: Assumption: There's one logo and one spons logo for each event
+    # Is this the correct path? CHECK THIS!
+    logo=models.FileField(upload_to="public_html/2011/events_logos/", blank=True, null=True)
+    sponslogo=models.FileField(upload_to="public_html/2011/events_sponslogos/", blank=True, null=True)
+    
+    # QuickTabs
+    #tabs = models.ManyToManyField(QuickTabs, blank=True, null=True, related_name='tabs')
+  
+    def __str__(self):
+        return self.name
+        
+    class Admin:
+        pass  
+        
+class QuickTabs(models.Model): 
     # NOTE: Will one text field per tab suffice?
 
     title       = models.CharField(max_length=100)
@@ -46,7 +83,7 @@ class TabImage(models.Model):
         pass
     
 class TabForumReply(models.Model):
-    reply_by = models.ForeignKey(generic_user,blank=True, null=True, related_name='reply_by')
+    reply_by = models.ForeignKey(User,blank=True, null=True, related_name='reply_by')
     #We could display some profile details of the poster. Like in launchpad or bugzilla
     time_stamp = models.DateTimeField(auto_now=False, auto_now_add=False)
     content = models.TextField()
@@ -64,7 +101,7 @@ class TabForum(models.Model):
     #Name of the thread , could be decided by the author of the thread
     tags = models.ManyToManyField(Tag, blank=True, null=True)
     #Tags associated with the thread, similar to tags in blogspot/wordpress
-    started_by = models.ForeignKey(generic_user,blank=True, null=True, related_name='started_by')
+    started_by = models.ForeignKey(User,blank=True, null=True, related_name='started_by')
     time_created = models.DateTimeField(auto_now=False, auto_now_add=False)
     time_modified = models.DateTimeField(auto_now=False, auto_now_add=False)
     replies = models.ManyToManyField(TabForumReply,blank=True,null=True,related_name='replies')
@@ -75,40 +112,19 @@ class TabForum(models.Model):
         pass
 
 
-class Event(models.Model):
-    name = models.CharField(max_length=80)
-    url = models.URLField(null=True,verify_exists=False, blank=True)
-    tags=models.ManyToManyField(Tag, blank=True, null=True)
-    
-    # Registration start and end time
-    start_time = models.DateTimeField(null=True,blank=True)
-    end_time = models.DateTimeField(null=True,blank=True)
-    coords = models.ManyToManyField(coord, blank=True, null=True, related_name='coord_events')
-    
-    # Registration
-    registrable = models.BooleanField(default=False)
-    users = models.ManyToManyField(generic_user,  blank=True, null=True, related_name='users_events')
-    chosen_users = models.ManyToManyField(generic_user, blank=True, null=True, related_name='qualified_events')
-    
-    # Hospitality
-    accommodation = models.BooleanField(default=False)
-    
-    # MyShaastra 
-    flagged_by = models.ManyToManyField(generic_user,  blank=True, null=True, related_name='flagged_events')
-    
-    # Logo and Sponsorship logos
-    #NOTE: Rename the uploaded image file to event name.
-    #NOTE: Assumption: There's one logo and one spons logo for each event
-    # Is this the correct path? CHECK THIS!
-    logo=models.FileField(upload_to="public_html/2011/events_logos/", blank=True, null=True)
-    sponslogo=models.FileField(upload_to="public_html/2011/events_sponslogos/", blank=True, null=True)
-    
-    # Tabs
-    #tabs = models.ManyToManyField(Tabs, blank=True, null=True, related_name='tabs')
+
+
+class QuickTabs(models.Model): 
+    # NOTE: Will one text field per tab suffice?
+    title  = models.CharField(max_length=80)
+    text        = models.CharField(max_length=10000)
+    events     = models.ForeignKey(Event)
+    #images      = models.ManyToManyField(TabImage      , blank=True, null=True, related_name='questions')
+    #questions   = models.ManyToManyField(TabQuestion   , blank=True, null=True, related_name='questions')
+    #forums      = models.ManyToManyField(TabForum      , blank=True, null=True, related_name='forums')
   
     def __str__(self):
-        return self.name
-        
+        return self.text
     class Admin:
         pass
 
@@ -126,7 +142,6 @@ class Tabs(models.Model):
         return self.text
     class Admin:
         pass
-
 
 
 
@@ -220,4 +235,29 @@ class Question(models.Model):
 		ordering = ['question_number', 'id',]	
 
 
-
+#Author: Sivaramakrishnan, created the initial model
+class Submission(models.Model)
+	
+	# event details
+	event = models.ForeignKey(Event)
+	# user details
+	user = models.ForeignKey(User)
+	
+	# submission date
+	date = models.DateTimeField(auto_now_add=True)
+	
+	# to mark if the answer is interesting, if it is read or not, and if the participant is selected or not
+	interesting_answer = models.BooleanField(default=False,blank = True)
+	read = models.BooleanField(default=False,blank = True)
+    	selected = models.BooleanField(default=False,blank = True)	
+    	
+    	score = models.FloatField(null=True, blank=True)
+    	lock_answer = models.BooleanField(default=False,blank = True)
+    	
+    	
+class TeamSubmission(Submission)
+	
+	team = models.ManyToManyField(Team)
+	team_event = models.ManyToManyField(TeamEvent)
+	
+	
