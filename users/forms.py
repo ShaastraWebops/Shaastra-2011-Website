@@ -226,3 +226,10 @@ class ModifyCompleteUserProfileForm(forms.ModelForm):
     class Meta:
         model = models.UserProfile
         fields = ('first_name', 'last_name', 'gender', 'age', 'branch', 'mobile_number', 'college', 'college_roll','id_type')
+
+class UserLoginForm(forms.Form):
+    username=forms.CharField(help_text='Your username as registered with the Shaastra Userportal')
+    password=forms.CharField(widget=forms.PasswordInput, help_text='Your password. If you do not remember this, please use the link below')
+
+class ForgotPasswordForm(forms.Form):
+    email = forms.EmailField()        
