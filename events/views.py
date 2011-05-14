@@ -19,6 +19,7 @@ import os
 def show_quick_tab(request):
     data=QuickTab.objects.all()
     event_name,title,text=data.event.name,data.title,data.text
+<<<<<<< HEAD
     return render_to_response('events/QuickTabs.html', locals(), context_instance= global_context(request)) 
    
         
@@ -55,3 +56,27 @@ def edit_content(request,event_name = None,title)
         				qtab.text = text
        
         				
+=======
+    return render_to_response('events/QuickTabs.html', locals(), context_instance= global_context(request))
+
+# here is my idea of adding new tab
+# # i presume there will be a button say add tab
+#  once that is clicked a form will come asking for name of tab
+#  the user fills the title for tab in it
+#  someone please correct me if i am wrong
+
+def add_quick_tabs(request):
+	if request.method=='GET':
+		data=request.GET.copy()
+		form = forms.AddTabForm(data)
+
+		
+			title=form.cleaned_data['title']
+			return render_to_response('events/QuickTabs.html', locals(), context_instance= global_context(request))
+	
+	
+
+	
+
+
+>>>>>>> 166d7acb09545fe1c9ae4208690b4f67f00ef5db

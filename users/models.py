@@ -86,7 +86,7 @@ class coord(User):
     event_name=models.ForeignKey(Event)
     department=models.CharField(max_length=80)
     # not sure if this is required
-    tdp= models.ManyToManyField(Question,blank=True,null=True)
+    #tdp= models.ManyToManyField(Question,blank=True,null=True)
      # not sure if a tdp field is required.
      # Can we handle it with just the question model??
     #Think about what else we need for a coord . We might need department etc
