@@ -183,7 +183,7 @@ def coord_registration(request):
                     coord_profile.save()
                     
                     request.session ["registered"] = "True"
-                    unb_register (user, form.cleaned_data['password'], True)
+                    unb_register (user, form.cleaned_data['password'], True)#We don't need this do we?
 
 					# we should look into this template later
                     mail_template=get_template('email/coords.html')
