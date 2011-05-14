@@ -247,4 +247,4 @@ class TeamSubmission(Submission)
 	team = models.ManyToManyField(Team)
 	team_event = models.ManyToManyField(TeamEvent)
 	
-	
+
