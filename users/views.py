@@ -2,15 +2,21 @@
 # Create your views here.
 
 from django.shortcuts import render_to_response
-from django.contrib.auth import authenticate, login
 from django.http import HttpResponse, HttpResponseRedirect
-
+from django.core.exceptions import ObjectDoesNotExist
+from django.contrib import auth
 from django.template.loader import get_template
 from django.template.context import Context, RequestContext
+from django.utils.translation import ugettext as _
+from django.core.mail import send_mail,EmailMessage,SMTPConnection
+from django.contrib.sessions.models import Session
 
-import forms
-from main_test.users import models
-import sha, random, datetime
+from main_test.misc.util import *
+from main_test.settings import *
+from main_test.registration.php_serialize.PHPSerialize import *
+from main_test.registration.models import UserProfile
+import models,forms
+import sha,random,datetime
 
 def login_user(request):
 
