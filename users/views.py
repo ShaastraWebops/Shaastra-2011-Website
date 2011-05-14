@@ -96,7 +96,7 @@ def user_registration(request):
                 try:
 					user_profile.save()
                     try:
-						unb_register (user, form.cleaned_data['password'])
+						unb_register (user, form.cleaned_data['password'])#Do we need this?
                     except:
 						pass
                     
@@ -349,4 +349,25 @@ def activate (request, a_key = None ):
 	activated = True
 	return render_to_response('registration/activated.html',locals(), context_instance= global_context(request))
 
+def manage_teams (request, t_name = None):
+    user = request.user
+    teams = user.teams_lead.all()
+    if t_name is None or t_name == '':
+        invalid_team = session_get(request, "invalid_team")
+        invalid_passwd = session_get(request, "invalid_passwd")
+        return render_to_response('registration/manage_list_teams.html', locals(), context_instance= global_context(request)) 
+    t_name = t_name.replace('/','')
+
+    team = teams.filter(name=t_name)
+    if not team: 
+        request.session ['invalid_team'] = t_name
+        return HttpResponseRedirect ('%s/manage_teams/'%settings.SITE_URL)
+
+    remove_success = session_get(request, "remove_success")
+    invalid_member = session_get(request, "invalid_member")
+    leader_chosen = session_get(request, "leader_chosen")
+    team = team[0]
+    members = team.members.all()
+                
+    return render_to_response('registration/manage_team_members.html', locals(), context_instance= global_context(request)) 
 
