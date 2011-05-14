@@ -206,4 +206,28 @@ def coord_registration(request):
     return render_to_response('registration/register_coord.html', locals(), context_instance= global_context(request)) 
 
 
-
+def register_team (request):
+    user = request.user
+    if request.method == 'POST':
+        data = request.POST.copy()
+        form = forms.AddTeamForm (data)
+        if form.is_valid():
+            password = md5.new(form.cleaned_data['password']).hexdigest()
+            team = models.Team (
+                    name = form.cleaned_data['teamname'],
+                    password = password,
+                    leader = user,
+                )
+            team.save()
+            team.members.add (user)
+            team.save()
+            request.session ["team_registered"] = True
+            #This template is not yet made 
+            mail_template=get_template('email/thankyou.html')
+            body = mail_template.render(Context({'teamname':user.username,}))
+            send_mail('Shaastra 11 Team Registered', body, 'noreply@shaastra.com', [user.email,], fail_silently=False)
+            return HttpResponseRedirect ("%s/teams/view/%s"%(settings.SITE_URL, team.name))
+    else: 
+        form = forms.AddTeamForm ()
+#This can be changed later if needed
+    return render_to_response('registration/register_team.html', locals(), context_instance= global_context(request))
