@@ -24,14 +24,14 @@ class Event(models.Model):
     
     # Registration
     registrable = models.BooleanField(default=False)
-    users = models.ManyToManyField(generic_user,  blank=True, null=True, related_name='users_events')
-    chosen_users = models.ManyToManyField(generic_user, blank=True, null=True, related_name='qualified_events')
+    users = models.ManyToManyField(User,  blank=True, null=True, related_name='users_events')
+    chosen_users = models.ManyToManyField(User, blank=True, null=True, related_name='qualified_events')
     
     # Hospitality
     accommodation = models.BooleanField(default=False)
     
     # MyShaastra 
-    flagged_by = models.ManyToManyField(generic_user,  blank=True, null=True, related_name='flagged_events')
+    flagged_by = models.ManyToManyField(User,  blank=True, null=True, related_name='flagged_events')
     
     # Logo and Sponsorship logos
     #NOTE: Rename the uploaded image file to event name.
@@ -84,7 +84,7 @@ class TabImage(models.Model):
         pass
     
 class TabForumReply(models.Model):
-    reply_by = models.ForeignKey(generic_user,blank=True, null=True, related_name='reply_by')
+    reply_by = models.ForeignKey(User,blank=True, null=True, related_name='reply_by')
     #We could display some profile details of the poster. Like in launchpad or bugzilla
     time_stamp = models.DateTimeField(auto_now=False, auto_now_add=False)
     content = models.TextField()
@@ -102,7 +102,7 @@ class TabForum(models.Model):
     #Name of the thread , could be decided by the author of the thread
     tags = models.ManyToManyField(Tag, blank=True, null=True)
     #Tags associated with the thread, similar to tags in blogspot/wordpress
-    started_by = models.ForeignKey(generic_user,blank=True, null=True, related_name='started_by')
+    started_by = models.ForeignKey(User,blank=True, null=True, related_name='started_by')
     time_created = models.DateTimeField(auto_now=False, auto_now_add=False)
     time_modified = models.DateTimeField(auto_now=False, auto_now_add=False)
     replies = models.ManyToManyField(TabForumReply,blank=True,null=True,related_name='replies')
@@ -228,7 +228,7 @@ class Submission(models.Model)
 	# event details
 	event = models.ForeignKey(Event)
 	# user details
-	user = models.ForeignKey(generic_user)
+	user = models.ForeignKey(User)
 	
 	# submission date
 	date = models.DateTimeField(auto_now_add=True)

@@ -62,7 +62,7 @@ class College(models.Model):
         
 #User profile common to all users. Coord class can be dervied from this
 #Author: Swaroop Ramaswamy - inital model                
-class generic_user(models.Model):
+class User(models.Model):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     gender = models.CharField(max_length=1,choices=GENDER_CHOICES,default='M')
@@ -81,7 +81,7 @@ class generic_user(models.Model):
     class Admin:
         pass
 
-class coord(generic_user):
+class coord(User):
     event_name=models.ForeignKey(Event)
     department=models.CharField(max_length=80)
     # not sure if this is required
@@ -101,8 +101,8 @@ class Team(models.Model):
     name = models.CharField (max_length=255)
     password = models.CharField (max_length=255)
     #Do we really need a team password ? 
-    leader = models.ForeignKey(generic_user, related_name="team_leader")
-    members = models.ManyToManyField (generic_user, related_name="team members")
+    leader = models.ForeignKey(User, related_name="team_leader")
+    members = models.ManyToManyField (User, related_name="team members")
     def __str__(self):
         return self.name
 
