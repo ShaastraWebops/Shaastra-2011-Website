@@ -175,7 +175,10 @@ class MCQOption(models.Model):
 		pass
 		
 	class Meta:
-		ordering = ['id',] 
+		ordering = ['id',]
+
+class TeamMCQOption(MCQOption):
+    pass		 
 		
 #Author: Praveen Venkatesh - Created inital model
 #Try to use ModelForms in order to render this model - appears to make things easy		
@@ -219,32 +222,58 @@ class Question(models.Model):
         pass
     
     class Meta:
-		ordering = ['question_number', 'id',]	
-
+		ordering = ['question_number', 'id',]
+			
+class TeamQuestion(Question)
+    event=models.ForeignKey(TeamEvent)
 
 #Author: Sivaramakrishnan, created the initial model
 class Submission(models.Model)
-	
-	# event details
-	event = models.ForeignKey(Event)
-	# user details
-	user = models.ForeignKey(User)
-	
-	# submission date
-	date = models.DateTimeField(auto_now_add=True)
-	
-	# to mark if the answer is interesting, if it is read or not, and if the participant is selected or not
-	interesting_answer = models.BooleanField(default=False,blank = True)
-	read = models.BooleanField(default=False,blank = True)
-    	selected = models.BooleanField(default=False,blank = True)	
-    	
-    	score = models.FloatField(null=True, blank=True)
-    	lock_answer = models.BooleanField(default=False,blank = True)
+    user = models.ForeignKey(User)
+    event = models.ForeignKey(Event)
+    interesting = models.BooleanField(default=False,blank = True)
+    sub_read = models.BooleanField(default=False,blank = True)
+    selected = models.BooleanField(default=False,blank = True)
+    score = models.FloatField(null=True, blank=True)
+    rank = models.IntegerField(null=True,blank=True)
+    is_new = models.BooleanField(default=True, blank=True)
+    modified = models.BooleanField(default=False, blank=True)
     	
     	
-class TeamSubmission(Submission)
+class TeamSubmission(Submission):
 	
 	team = models.ManyToManyField(Team)
-	team_event = models.ManyToManyField(TeamEvent)
+	event = models.ManyToManyField(TeamEvent)
+
+class MCQAnswer (models.Model):
+    question = models.ForeignKey(Question, editable=False)
+    answered_by = models.ForeignKey(User)
+    content = models.ForeignKey(MCQOption)
+
+    def __str__(self):
+        return str(self.content)
+        
+    class Admin:
+        pass
+
+class TeamMCQAnswer (MCQAnswer):
+    answered_by = models.ForeignKey(Team)
+            
+class FileAnswer(models.Model):
+    question = models.ForeignKey(Question, editable=False)
+    content=models.FileField(upload_to="files/", null=True)
+    answered_by = models.ForeignKey(User)
+
+    def __str__(self):
+        return self.content
+
+    class Admin:
+        pass
+    
+class TeamFileAnswer(FileAnswer):
+    answered_by = models.ForeignKey(Team)
+        
+        
+        	
 	
 	
