@@ -74,6 +74,7 @@ class User(models.Model):
     shaastra_id = models.CharField(max_length=20, default=False, unique = True)
     activation_key = models.CharField(max_length=40)
     key_expires = models.DateTimeField()
+    want_hospi = models.BooleanField(default = False)
     
     def __str__(self):
         return self.user.username
@@ -90,7 +91,8 @@ class coord(User):
      # Can we handle it with just the question model??
     #Think about what else we need for a coord . We might need department etc
     #Could set college to IIT Madras, not implementing it right now to avoid confusion
-    def set_college():
+    def set_coord():
+        want_hospi=False
         pass
     
     class Admin:
