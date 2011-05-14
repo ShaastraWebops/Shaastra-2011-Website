@@ -24,14 +24,14 @@ class Event(models.Model):
     
     # Registration
     registrable = models.BooleanField(default=False)
-    users = models.ManyToManyField(generic_user,  blank=True, null=True, related_name='users_events')
-    chosen_users = models.ManyToManyField(generic_user, blank=True, null=True, related_name='qualified_events')
+    users = models.ManyToManyField(User,  blank=True, null=True, related_name='users_events')
+    chosen_users = models.ManyToManyField(User, blank=True, null=True, related_name='qualified_events')
     
     # Hospitality
     accommodation = models.BooleanField(default=False)
     
     # MyShaastra 
-    flagged_by = models.ManyToManyField(generic_user,  blank=True, null=True, related_name='flagged_events')
+    flagged_by = models.ManyToManyField(User,  blank=True, null=True, related_name='flagged_events')
     
     # Logo and Sponsorship logos
     #NOTE: Rename the uploaded image file to event name.
@@ -84,7 +84,7 @@ class TabImage(models.Model):
         pass
     
 class TabForumReply(models.Model):
-    reply_by = models.ForeignKey(generic_user,blank=True, null=True, related_name='reply_by')
+    reply_by = models.ForeignKey(User,blank=True, null=True, related_name='reply_by')
     #We could display some profile details of the poster. Like in launchpad or bugzilla
     time_stamp = models.DateTimeField(auto_now=False, auto_now_add=False)
     content = models.TextField()
@@ -102,7 +102,7 @@ class TabForum(models.Model):
     #Name of the thread , could be decided by the author of the thread
     tags = models.ManyToManyField(Tag, blank=True, null=True)
     #Tags associated with the thread, similar to tags in blogspot/wordpress
-    started_by = models.ForeignKey(generic_user,blank=True, null=True, related_name='started_by')
+    started_by = models.ForeignKey(User,blank=True, null=True, related_name='started_by')
     time_created = models.DateTimeField(auto_now=False, auto_now_add=False)
     time_modified = models.DateTimeField(auto_now=False, auto_now_add=False)
     replies = models.ManyToManyField(TabForumReply,blank=True,null=True,related_name='replies')
@@ -175,7 +175,10 @@ class MCQOption(models.Model):
 		pass
 		
 	class Meta:
-		ordering = ['id',] 
+		ordering = ['id',]
+
+class TeamMCQOption(MCQOption):
+    pass		 
 		
 #Author: Praveen Venkatesh - Created inital model
 #Try to use ModelForms in order to render this model - appears to make things easy		
@@ -219,32 +222,58 @@ class Question(models.Model):
         pass
     
     class Meta:
-		ordering = ['question_number', 'id',]	
-
+		ordering = ['question_number', 'id',]
+			
+class TeamQuestion(Question)
+    event=models.ForeignKey(TeamEvent)
 
 #Author: Sivaramakrishnan, created the initial model
 class Submission(models.Model)
-	
-	# event details
-	event = models.ForeignKey(Event)
-	# user details
-	user = models.ForeignKey(generic_user)
-	
-	# submission date
-	date = models.DateTimeField(auto_now_add=True)
-	
-	# to mark if the answer is interesting, if it is read or not, and if the participant is selected or not
-	interesting_answer = models.BooleanField(default=False,blank = True)
-	read = models.BooleanField(default=False,blank = True)
-    	selected = models.BooleanField(default=False,blank = True)	
-    	
-    	score = models.FloatField(null=True, blank=True)
-    	lock_answer = models.BooleanField(default=False,blank = True)
+    user = models.ForeignKey(User)
+    event = models.ForeignKey(Event)
+    interesting = models.BooleanField(default=False,blank = True)
+    sub_read = models.BooleanField(default=False,blank = True)
+    selected = models.BooleanField(default=False,blank = True)
+    score = models.FloatField(null=True, blank=True)
+    rank = models.IntegerField(null=True,blank=True)
+    is_new = models.BooleanField(default=True, blank=True)
+    modified = models.BooleanField(default=False, blank=True)
     	
     	
-class TeamSubmission(Submission)
+class TeamSubmission(Submission):
 	
 	team = models.ManyToManyField(Team)
-	team_event = models.ManyToManyField(TeamEvent)
+	event = models.ManyToManyField(TeamEvent)
+
+class MCQAnswer (models.Model):
+    question = models.ForeignKey(Question, editable=False)
+    answered_by = models.ForeignKey(User)
+    content = models.ForeignKey(MCQOption)
+
+    def __str__(self):
+        return str(self.content)
+        
+    class Admin:
+        pass
+
+class TeamMCQAnswer (MCQAnswer):
+    answered_by = models.ForeignKey(Team)
+            
+class FileAnswer(models.Model):
+    question = models.ForeignKey(Question, editable=False)
+    content=models.FileField(upload_to="files/", null=True)
+    answered_by = models.ForeignKey(User)
+
+    def __str__(self):
+        return self.content
+
+    class Admin:
+        pass
+    
+class TeamFileAnswer(FileAnswer):
+    answered_by = models.ForeignKey(Team)
+        
+        
+        	
 	
 
