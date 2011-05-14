@@ -20,7 +20,7 @@ class Event(models.Model):
     # Registration start and end time
     start_time = models.DateTimeField(null=True,blank=True)
     end_time = models.DateTimeField(null=True,blank=True)
-    coords = models.ManyToManyField(coord, blank=True, null=True, related_name='coord_events')
+    coords = models.ForeignKey(coord)
     
     # Registration
     registrable = models.BooleanField(default=False)
@@ -115,7 +115,7 @@ class TabForum(models.Model):
 
 
 
-class QuickQuickTabs(models.Model): 
+class QuickTabs(models.Model): 
     # NOTE: Will one text field per tab suffice?
     title  = models.CharField(max_length=80)
     text        = models.CharField(max_length=10000)
