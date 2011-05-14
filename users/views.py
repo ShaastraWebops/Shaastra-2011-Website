@@ -206,4 +206,69 @@ def coord_registration(request):
     return render_to_response('registration/register_coord.html', locals(), context_instance= global_context(request)) 
 
 
+def register_team (request):
+    user = request.user
+    if request.method == 'POST':
+        data = request.POST.copy()
+        form = forms.AddTeamForm (data)
+        if form.is_valid():
+            password = md5.new(form.cleaned_data['password']).hexdigest()
+            team = models.Team (
+                    name = form.cleaned_data['teamname'],
+                    password = password,
+                    leader = user,
+                )
+            team.save()
+            team.members.add (user)
+            team.save()
+            request.session ["team_registered"] = True
+            #This template is not yet made 
+            mail_template=get_template('email/thankyou.html')
+            body = mail_template.render(Context({'teamname':user.username,}))
+            send_mail('Shaastra 11 Team Registered', body, 'noreply@shaastra.com', [user.email,], fail_silently=False)
+            return HttpResponseRedirect ("%s/teams/view/%s"%(settings.SITE_URL, team.name))
+    else: 
+        form = forms.AddTeamForm ()
+#This can be changed later if needed
+    return render_to_response('registration/register_team.html', locals(), context_instance= global_context(request))
+
+def join_team (request):
+    user = request.user
+    if request.method == 'POST':
+        data = request.POST.copy()
+        form = forms.JoinTeamForm (data)
+        if form.is_valid():
+            try:
+                password = md5.new(form.cleaned_data['password']).hexdigest()
+                team = models.Team.objects.get(
+                    name = form.cleaned_data['teamname'],
+                    password = password
+                )
+                if team in user.teams.all():
+                    request.session ["already_joined"] = str(team)
+                else:
+                    flag=True
+                    cur_len=len(team.members.all())
+                    event_list=team.events.all()
+                    for e in event_list:
+                        if cur_len == e.size:
+                            flag=False
+                    if flag:
+                        
+                        team.members.add (user)
+                        mail_template=get_template('email/team_joined.html')
+                        body = mail_template.render(Context({'teamname':team, 'team':team, 'member': request.user}))
+                        send_mail('[Shaastra 2011 Userportal] Team Member Added ', body, 'noreply@shaastra.com', [request.user.email, team.leader.email], fail_silently=False)
+                        team.save()
+                        request.session ["team_joined"] = str(team)
+                    else :
+                        size_i= True
+                        return render_to_response('registration/join_team.html', locals(), context_instance= global_context(request)) 
+            except ObjectDoesNotExist:
+                request.session ["invalid_passwd"] = form.cleaned_data["teamname"]
+            return HttpResponseRedirect ("%s/teams/"%settings.SITE_URL)
+    else: 
+        form = forms.JoinTeamForm ()
+#Can be changed later
+    return render_to_response('registration/join_team.html', locals(), context_instance= global_context(request)) 
 
