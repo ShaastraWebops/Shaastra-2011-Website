@@ -29,7 +29,6 @@ class Tabs(models.Model):
         pass
 
 
-
 class TabImage(models.Model):
     # TASK: Each tab can have more than one image. Each tab can be associated with more than one TabImage object(s)
     # Rename the image file to the id of the TabImage object. 
@@ -112,6 +111,24 @@ class Event(models.Model):
         
     class Admin:
         pass
+
+
+class Tabs(models.Model): 
+    # NOTE: Will one text field per tab suffice?
+    title  = models.CharField(max_length=80)
+    text        = models.CharField(max_length=10000)
+    events     = models.ForeignKey(Event)
+    #images      = models.ManyToManyField(TabImage      , blank=True, null=True, related_name='questions')
+    #questions   = models.ManyToManyField(TabQuestion   , blank=True, null=True, related_name='questions')
+    #forums      = models.ManyToManyField(TabForum      , blank=True, null=True, related_name='forums')
+  
+    def __str__(self):
+        return self.text
+    class Admin:
+        pass
+
+
+
 
 #Team event will be derived from the Event class
 #Author: Swaroop Ramaswamy - Inital model 
