@@ -64,7 +64,8 @@ def edit_content(request,event_name = None,title)
 #  once that is clicked a form will come asking for name of tab
 #  the user fills the title for tab in it
 #  someone please correct me if i am wrong
-
+@needs_authentication
+@coords_only
 def add_quick_tabs(request):
 	if request.method=='GET':
 		data=request.GET.copy()
