@@ -234,7 +234,7 @@ class TeamQuestion(Question)
 
 #Author: Sivaramakrishnan, created the initial model
 #This is has been changed using abstract classes.
-class Submission(models.Model)
+class Submission_base(models.Model)
     
     
     interesting = models.BooleanField(default=False,blank = True)
@@ -249,12 +249,12 @@ class Submission(models.Model)
           abstract = True
     	
     	
-class TeamSubmission(Submission):
+class TeamSubmission(Submission_base):
 	
 	team = models.ManyToManyField(Team)
 	event = models.ManyToManyField(TeamEvent)
 
-class UserSubmission(Submission):
+class Submission(Submission_base):
 	
 	user = models.ManyToManyField(User)
 	event = models.ManyToManyField(TeamEvent)
