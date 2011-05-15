@@ -18,20 +18,50 @@ from main_test.registration.models import UserProfile
 import models,forms
 import sha,random,datetime
 
-def login_user(request):
+def home (request):
+    redirected=session_get(request,"from_url")
+    access_denied = session_get (request, "access_denied")
+    logged_in = session_get (request, "logged_in")
+    already_logged = session_get (request, "already_logged")
+    hospi_success=session_get(request,"hospi_success")
+    key = request.session.session_key
+    return render_to_response('home/home.html', locals(), context_instance= global_context(request)) 
+
+def edited (request):
+
+    print dir(request.session)
+    print request.session.keys()
+    #print request.session['unb_User']
+    #return render_to_response('home/home.html', locals(), context_instance= global_context(request)) 
+    response = render_to_response('home/home.html', locals(), context_instance= global_context(request)) 
+    return response
+
+def registered (request):
+
+    redirected=session_get(request,"from_url")
+    access_denied = session_get (request, "access_denied")
+    logged_in = session_get (request, "logged_in")
+    already_logged = session_get (request, "already_logged")
+    hospi_success=session_get(request,"hospi_success")
+    return render_to_response('home/registered.html', locals(), context_instance= global_context(request)) 
+
+def deadlines(request):
+    return render_to_response('home/deadlines.html', locals(), context_instance= global_context(request))
+
+@no_login
+def login (request):
 
     redirected = request.session.get ("from_url", False)
     registered = session_get (request, "registered")
     form = forms.UserLoginForm ()
-    username = password = ''
+
     if request.method == 'POST':
         data = request.POST.copy()
 	  if request.POST.get('from_url',False):
 	    request.session['from_url']='http://www.shaastra.org/2010/helpdesk/forum.php?req=setuser'
-	    #Obviously needs fixing. :P
 	    print request.session['from_url']
-      else:
-	    form = forms.UserLoginForm (data)
+        else:
+	  form = forms.UserLoginForm (data)
 	  if form.is_valid():
             user = auth.authenticate(username=form.cleaned_data['username'], password=form.cleaned_data["password"])
             if user is not None and user.is_active == True:
@@ -43,6 +73,16 @@ def login_user(request):
                     url = "%s/home/"%settings.SITE_URL
                 
                 request.session['logged_in'] = True
+
+# This was added to get additional hospi information towards the end
+#                if user.get_profile().profile_not_set :
+#                    url = "%s/profile/"%settings.SITE_URL
+                response= HttpResponseRedirect (url)
+                try:
+                    response.set_cookie('logged_out', 0)
+                except:
+                    pass
+                return response
             else:
                 request.session['invalid_login'] = True
                 return HttpResponseRedirect (request.path)
@@ -51,6 +91,98 @@ def login_user(request):
         form = forms.UserLoginForm ()
 
     return render_to_response('home/login.html', locals(), context_instance= global_context(request)) 
+
+def forgot_password (request):
+    if request.method == 'POST':
+        data = request.POST.copy()
+        form = forms.ForgotPasswordForm (data)
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            try:
+                user = models.User.objects.get(email=email)
+                try:
+                        userprof = UserProfile.objects.get(user=user)
+                        salt = sha.new(str(random.random())).hexdigest()[:5]
+                        userprof.activation_key = sha.new(salt+user.username).hexdigest()
+                        userprof.save()
+                        mail_template=get_template('email/forgot.html')
+                        body = mail_template.render(Context({'username':user.username, 'reset_pass':userprof.activation_key}))
+                        send_mail('Shaastra UserPortal Password', body, 'noreply@shaastra.org', [email,], fail_silently=False)
+                        request.session['success'] = True
+                except ObjectDoesNotExist:
+                        request.session['invalid_email']=email
+            except ObjectDoesNotExist:
+                request.session['invalid_email'] = email
+    else: 
+        form = forms.ForgotPasswordForm ()
+    
+    success = session_get (request, "success")
+    invalid_email = session_get (request, "invalid_email")
+    reset = session_get(request,"reset")
+    reset_fail = session_get(request,"reset_fail")
+    u_name = session_get(request,"u_name")
+    new_pass = session_get(request,"new_pass")
+
+    return render_to_response('home/forgot.html', locals(), context_instance= global_context(request)) 
+
+def reset_password(request,u_name = None,new_pass = None):
+
+    success = session_get(request,"success")
+    invalid_email = session_get(request,"invalid_email")
+    reset = session_get(request,"reset")
+    reset_fail = session_get(request,"reset_fail")
+
+    if u_name is None or u_name == '':
+        reset_fail = True
+        return render_to_response ('home/forgot.html', locals(), context_instance = global_context(request))
+
+    if new_pass is None or new_pass == '':
+        reset_fail = True
+        return render_to_response('home/forgot.html', locals(), context_instance = global_context(request))
+    
+    u_name = u_name.replace('/','')
+    
+    try:
+        user = models.User.objects.get(username=u_name)
+        try:
+                userprofile = UserProfile.objects.get(user=user, activation_key=new_pass)
+                password=auth.models.UserManager().make_random_password()
+                user.set_password(password)
+                user.save()
+                salt = sha.new(str(random.random())).hexdigest()[:5]
+                userprofile.activation_key = sha.new(salt+user.username).hexdigest()
+                userprofile.save()
+                request.session['password'] = password
+                request.session['reset'] = True
+        except ObjectDoesNotExist:
+                request.session['reset_fail']=True
+    except ObjectDoesNotExist:
+        request.session['reset_fail'] = True
+
+    reset = session_get(request,"reset")
+    reset_fail = session_get(request,"reset_fail")
+    new_pass = session_get(request,"password")
+
+    return render_to_response('home/forgot.html', locals(), context_instance = global_context(request))
+    
+def logout (request):
+    if request.user.is_authenticated():
+        auth.logout (request)
+        url = "%s/home/"%settings.SITE_URL
+        response= HttpResponseRedirect (url)
+        try:
+            response.set_cookie('logged_out', 1)
+        except:
+            pass
+        return response
+        
+    #return HttpResponseRedirect("%s/home/"%settings.SITE_URL)
+    return render_to_response('home/home.html', locals(), context_instance= global_context(request)) 
+
+def check(request):
+  return HttpResponse("The Site Url Is %s" %SITE_URL)
+
+
     
 
 # just copied the user registration
@@ -156,8 +288,9 @@ def college_registration (request):
                 return HttpResponse("exists")
         else:
             return HttpResponse("failed")
-
-		
+            
+@needs_authentication
+@admin_only
 def coord_registration(request):
     if request.method == 'POST':
         data = request.POST.copy()
@@ -211,7 +344,7 @@ def coord_registration(request):
     # have to look into this later
     return render_to_response('registration/register_coord.html', locals(), context_instance= global_context(request)) 
 
-
+@needs_authentication
 def register_team (request):
     user = request.user
     if request.method == 'POST':
@@ -238,6 +371,7 @@ def register_team (request):
 #This can be changed later if needed
     return render_to_response('registration/register_team.html', locals(), context_instance= global_context(request))
 
+@needs_authentication
 def join_team (request):
     user = request.user
     if request.method == 'POST':
@@ -278,7 +412,7 @@ def join_team (request):
 #Can be changed later
     return render_to_response('registration/join_team.html', locals(), context_instance= global_context(request)) 
 
-
+@needs_authentication
 def remove_team_member (request, t_name=None, u_name=None):
     user = request.user
     teams = user.teams_lead.all()
@@ -355,6 +489,7 @@ def activate (request, a_key = None ):
 	activated = True
 	return render_to_response('registration/activated.html',locals(), context_instance= global_context(request))
 
+@needs_authentication
 def manage_teams (request, t_name = None):
     user = request.user
     teams = user.teams_lead.all()
@@ -484,4 +619,89 @@ def super_profile(request, u_name):
         selected_team_events  += models.TeamSubmission.objects.filter(team=team, selected=True)
     print selected_events,selected_team_events
     return render_to_response('registration/super_profile.html', locals(), context_instance= global_context(request)) 
+
+@needs_authentication
+def change_password(request,t_name = None):
+    
+    user = request.user
+    if t_name is None or t_name == '':
+        invalid_team = session_get(request, "invalid_team")
+        invalid_passwd = session_get(request, "invalid_passwd")
+        return render_to_response('registration/manage_list_teams.html', locals(), context_instance= global_context(request)) 
+    
+    t_name = t_name.replace('/','')
+    team = models.Team.objects.filter(name=t_name)
+    pwd=''
+    incorrect_password=False
+    if team:
+        team=team[0]
+    if request.method == 'POST':
+        try:
+            if request.POST['password1'] == request.POST['password2']:
+               print "hi"
+               pwd = request.POST.get('password1','')
+            else:
+                incorrect_password=True
+        except:
+            pass
+        print pwd
+        if pwd:
+            team.password = md5.new(pwd).hexdigest()
+            team.save()
+            return HttpResponseRedirect ('%s/teams/manage/'%settings.SITE_URL)
+    
+    return render_to_response('registration/team_changepwd.html',locals(), context_instance= global_context(request)) 
+
+@needs_authentication
+def view_teams (request, t_name = None):
+    user = request.user
+    teams = user.teams.all()
+    if t_name is None or t_name == '':
+        invalid_team = session_get(request, "invalid_team")
+        invalid_passwd = session_get(request, "invalid_passwd")
+        return render_to_response('registration/list_teams.html', locals(), context_instance= global_context(request)) 
+    else:
+	#Comment out the following two lines when event registrations are open
+	#not_started = True
+	#return render_to_response('home/home.html',locals(),context_instance= global_context(request))
+        t_name = t_name.replace('/','')
+        
+        if not teams.filter(name=t_name): 
+            request.session ['invalid_team'] = t_name
+            return HttpResponseRedirect ('%s/teams/'%settings.SITE_URL)
+            
+        else:
+            team = teams.get(name=t_name)
+            events_list = models.TeamEvent.objects.filter(registerable=True)
+            list1=[]
+            list2=[]
+            show_hospi = False
+            for usr in team.members.all():
+                if usr.get_profile().want_hospi :
+                    show_hospi=True
+                    break
+            
+            for e in events_list:
+                if e.hospi_only :
+                    list1.append(e)
+                else :
+                    list2.append(e)
+            
+            events= []
+            events1=[]
+            events2=[]
+            
+            invalid_event = session_get(request, "invalid_event")
+            event_success = session_get(request,"event_success")
+
+            for event in events_list:
+                events.append ((camelize(event.name),event,len(event.teams.filter(name=team))))
+                
+            for event in list1:
+                events1.append ((camelize(event.name),event,len(event.teams.filter(name=team)) >0))
+                
+            for event in list2:
+                events2.append ((camelize(event.name),event,len(event.teams.filter(name=team)) >0))
+                
+            return render_to_response('registration/list_team_events.html', locals(), context_instance= global_context(request))         
 
