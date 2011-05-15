@@ -1,3 +1,8 @@
+# Inheritance is COMPLETELY screwed up. Need to fix ALL team events etc. 
+# Please see http://docs.djangoproject.com/en/dev/topics/db/models/ . Esp the last para.
+# NEEDS FIXING IMMEDIATELY
+
+
 from django.db import models
 from django.contrib import admin
 from main_test.users.models import *
@@ -276,4 +281,4 @@ class TeamFileAnswer(FileAnswer):
         
         	
 	
-	
+
