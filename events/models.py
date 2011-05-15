@@ -187,10 +187,8 @@ class TeamMCQOption(MCQOption):
 		
 #Author: Praveen Venkatesh - Created inital model
 #Try to use ModelForms in order to render this model - appears to make things easy		
-class Question(models.Model):
-
-	#Event specifics
-    event = models.ForeignKey(Event)
+#Instead of derived classes, now using abstract class
+class Question_base(models.Model):
     
     #Question specifics
     text = models.TextField(max_length = 1000, blank = True, null = True)
@@ -228,8 +226,16 @@ class Question(models.Model):
     
     class Meta:
 		ordering = ['question_number', 'id',]
+          	abstract = True
+    	
 			
-class TeamQuestion(Question)
+class Question(Question_base)
+
+
+	#Event specifics
+    event = models.ForeignKey(Event)
+
+class TeamQuestion(Question_base)
     event=models.ForeignKey(TeamEvent)
 
 #Author: Sivaramakrishnan, created the initial model
@@ -257,7 +263,7 @@ class TeamSubmission(Submission_base):
 class Submission(Submission_base):
 	
 	user = models.ManyToManyField(User)
-	event = models.ManyToManyField(TeamEvent)
+	event = models.ManyToManyField(Event)
 
 class MCQAnswer (models.Model):
     question = models.ForeignKey(Question, editable=False)
