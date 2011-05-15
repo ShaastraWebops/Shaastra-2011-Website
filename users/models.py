@@ -62,7 +62,8 @@ class College(models.Model):
         
 #User profile common to all users. Coord class can be dervied from this
 #Author: Swaroop Ramaswamy - inital model                
-class User(models.Model):
+class UserProfile(models.Model):
+    user = models.ForeignKey(User, unique=True)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     gender = models.CharField(max_length=1,choices=GENDER_CHOICES,default='M')
@@ -82,7 +83,7 @@ class User(models.Model):
     class Admin:
         pass
 
-class coord(User):
+class coord(UserProfile):
     event_name=models.ForeignKey(Event)
     department=models.CharField(max_length=80)
     # not sure if this is required
