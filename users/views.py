@@ -214,7 +214,7 @@ def user_registration(request):
                 activation_key = sha.new(salt+user.username).hexdigest()
                 key_expires=datetime.datetime.today() + datetime.timedelta(2)
 
-				user_profile = models.User(
+				user_profile = models.UserProfile(
                         user = user,
                         first_name = form.cleaned_data['first_name'].lower(),
                         last_name = form.cleaned_data['last_name'].lower(),
@@ -233,10 +233,6 @@ def user_registration(request):
 
                 try:
 					user_profile.save()
-                    try:
-						unb_register (user, form.cleaned_data['password'])#Do we need this?
-                    except:
-						pass
                     
                     print "*************************                  ", activation_key
                    #dont know where to get templates from. have to change this later
@@ -304,7 +300,7 @@ def coord_registration(request):
                     )
                 #user.groups.add(models.Group.objects.get(name="Coords"))
                 #user.is_staff = True
-
+                #Need to fix this, there are more attributes for the coords model 
                 coord_profile = models.coord(
                         user = user,
                         first_name = form.cleaned_data['first_name'],
@@ -322,7 +318,6 @@ def coord_registration(request):
                     coord_profile.save()
                     
                     request.session ["registered"] = "True"
-                    unb_register (user, form.cleaned_data['password'], True)#We don't need this do we?
 
 					# we should look into this template later
                     mail_template=get_template('email/coords.html')
