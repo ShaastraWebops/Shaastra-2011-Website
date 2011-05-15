@@ -168,7 +168,7 @@ QUESTION_TYPE = (
 class MCQOption(models.Model):
 
 	#Question specifics
-	question_id = models.ForeignKey(Question)
+	question_id = models.ForeignKey(Question_base)
 	
 	#Choice specifics
 	choice_text = models.TextField(max_length = 1000)
@@ -265,9 +265,8 @@ class Submission(Submission_base):
 	user = models.ManyToManyField(User)
 	event = models.ManyToManyField(Event)
 
-class MCQAnswer (models.Model):
-    question = models.ForeignKey(Question, editable=False)
-    answered_by = models.ForeignKey(User)
+class MCQAnswer_base (models.Model):
+   
     content = models.ForeignKey(MCQOption)
 
     def __str__(self):
@@ -276,22 +275,37 @@ class MCQAnswer (models.Model):
     class Admin:
         pass
 
-class TeamMCQAnswer (MCQAnswer):
-    answered_by = models.ForeignKey(Team)
-            
-class FileAnswer(models.Model):
-    question = models.ForeignKey(Question, editable=False)
-    content=models.FileField(upload_to="files/", null=True)
+    class meta:
+	  abstract=True	
+class MCQAnswer(MCQAnswer_base):
+    question = models.ForeignKey(Question, editable=False)	
     answered_by = models.ForeignKey(User)
 
+class TeamMCQAnswer (MCQAnswer_base):
+     question = models.ForeignKey(TeamQuestion, editable=False)
+     answered_by = models.ForeignKey(Team)
+            
+class FileAnswer_base(models.Model):
+  
+    content=models.FileField(upload_to="files/", null=True)
+   
     def __str__(self):
         return self.content
 
     class Admin:
         pass
+
+    class meta:
+	  abstract=True	
     
-class TeamFileAnswer(FileAnswer):
-    answered_by = models.ForeignKey(Team)
+class FileAnswer(FileAnswer_base):
+	question = models.ForeignKey(Question, editable=False)      
+	answered_by = models.ForeignKey(User)
+
+
+class TeamFileAnswer(FileAnswer_base):
+	question = models.ForeignKey(TeamQuestion, editable=False)    
+	answered_by = models.ForeignKey(Team)
         
         
         	

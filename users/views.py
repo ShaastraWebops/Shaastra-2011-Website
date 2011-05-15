@@ -377,3 +377,111 @@ def manage_teams (request, t_name = None):
                 
     return render_to_response('registration/manage_team_members.html', locals(), context_instance= global_context(request)) 
 
+@needs_authentication 
+def profile(request):
+    user = request.user
+    userprof=request.user.get_profile()
+    if request.method=="POST":
+        data=request.POST.copy()        
+        form1 = forms.ModifyUserForm (prefix='1', instance=user, data=data)
+        form2 = forms.ModifyUserProfileForm (prefix='2', instance=userprof, data=data)
+        if form1.is_valid() and form2.is_valid():
+            if form1.cleaned_data["password1"] != '':
+                user.set_password(form1.cleaned_data["password1"])
+            user.email = form1.cleaned_data["email"]
+            user.save()
+            userprof.profile_not_set=False
+            userprof.save()
+            form2.save()
+            request.session['success'] = True
+            return HttpResponseRedirect (request.path)
+    else:
+        form1 = forms.ModifyUserForm (prefix='1', instance=user)
+        form2 = forms.ModifyUserProfileForm (prefix='2', instance=userprof)
+        print form2.as_table
+    
+    success = session_get(request,'success')
+
+    return render_to_response('registration/profile.html', locals(), context_instance= global_context(request)) 
+
+
+@needs_authentication
+@coords_only
+def edit_profile (request, u_id=None):
+    if (not u_id):
+        if request.method=="POST":            
+            data = request.POST.copy()       
+            form = forms.SelectUserForm (data = data)
+            if form.is_valid():
+                userid = form.cleaned_data["shaastra_id"]
+                try:    
+                    participant = models.User.objects.get(id=userid)
+                except ObjectDoesNotExist:
+                    return HttpResponseRedirect ('%s/edit_profile/%s/'%(settings.SITE_URL,userid))
+                uprof = participant.get_profile()
+                if (form.cleaned_data["user_email"]):
+                    mail = form.cleaned_data["user_email"]
+                    u = models.User.objects.filter(email=mail)
+                    if (not u):
+                        uprof.user.email=mail
+                        uprof.id_type = "onthespot"
+                        uprof.user.save()
+                        uprof.save()
+
+                    if u:
+                        uprof.id_type = "onthespot-portaluser"
+                        uprof.user.email=mail
+                        uprof.user.save()
+                        uprof.save()
+                        request.session["mail_id_present"]=True 
+                else:
+                    uprof.id_type = "onthespot"
+                    uprof.save()
+                return HttpResponseRedirect ('%s/edit_profile/%s/'%(settings.SITE_URL,userid))
+
+        else:
+            form = forms.SelectUserForm ()
+        success = session_get(request,'success')
+       
+        return render_to_response('registration/select_profile.html', locals(), context_instance= global_context(request)) 
+
+    try:
+        participant = models.User.objects.get(id=u_id)
+    except ObjectDoesNotExist:
+        request.session["invalid_user"] = u_id
+        return HttpResponseRedirect ('%s/profile/'%settings.SITE_URL)
+    userprof=participant.get_profile()
+    if request.method=="POST":
+        data=request.POST.copy()       
+        form = forms.ModifyCompleteUserProfileForm (instance=userprof, data=data)
+        form.save()
+        request.session['success'] = True
+        return HttpResponseRedirect ('%s/edit_profile/'%(settings.SITE_URL))
+    else:
+       form = forms.ModifyCompleteUserProfileForm (instance=userprof)
+    success = session_get(request,'success')
+    flag_email = session_get(request,'mail_id_present')
+
+    return render_to_response('registration/edit_profile.html', locals(), context_instance= global_context(request)) 
+
+@coords_only
+@needs_authentication 
+def super_profile(request, u_name):
+    user = request.user
+    u_name = u_name.replace("/","")
+    try:
+        participant = models.User.objects.get(username=u_name)
+    except ObjectDoesNotExist:
+        request.session["invalid_user"] = u_name
+        return HttpResponseRedirect ('%s/profile/'%settings.SITE_URL)
+
+    participant_prof=participant.get_profile()
+    selected_events = models.Submission.objects.filter(user = participant, selected = True)
+    teams = participant.teams.all()
+    print teams
+    selected_team_events = []
+    for team in teams:
+        selected_team_events  += models.TeamSubmission.objects.filter(team=team, selected=True)
+    print selected_events,selected_team_events
+    return render_to_response('registration/super_profile.html', locals(), context_instance= global_context(request)) 
+
