@@ -233,9 +233,10 @@ class TeamQuestion(Question)
     event=models.ForeignKey(TeamEvent)
 
 #Author: Sivaramakrishnan, created the initial model
+#This is has been changed using abstract classes.
 class Submission(models.Model)
-    user = models.ForeignKey(User)
-    event = models.ForeignKey(Event)
+    
+    
     interesting = models.BooleanField(default=False,blank = True)
     sub_read = models.BooleanField(default=False,blank = True)
     selected = models.BooleanField(default=False,blank = True)
@@ -243,11 +244,19 @@ class Submission(models.Model)
     rank = models.IntegerField(null=True,blank=True)
     is_new = models.BooleanField(default=True, blank=True)
     modified = models.BooleanField(default=False, blank=True)
+    
+    class meta:
+          abstract = True
     	
     	
 class TeamSubmission(Submission):
 	
 	team = models.ManyToManyField(Team)
+	event = models.ManyToManyField(TeamEvent)
+
+class UserSubmission(Submission):
+	
+	user = models.ManyToManyField(User)
 	event = models.ManyToManyField(TeamEvent)
 
 class MCQAnswer (models.Model):
