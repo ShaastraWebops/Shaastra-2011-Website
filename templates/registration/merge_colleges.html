@@ -1,0 +1,57 @@
+{% extends "base_default.html" %}
+
+{% block body %}
+    
+    {% if success %}
+<div class="register">
+ The Colleges you selected have been merged together.
+</div>
+{%endif%}
+<div class="errors">
+ <p>
+  <b>
+   WARNING:
+  </b>
+  <br />
+  The changes made through this page are permanent.Please be extremely careful when making changes.
+ </p>
+</div>
+<div class="register">
+ <p>
+  <b>
+   USAGE:
+  </b>
+  <br />
+  The first field (Selected College) is the most appropriate name for a college in the list.It will be retained.
+  <br />
+  The next selection box allows you to select multiple colleges that will be merged into the college selected in the first field.
+  <br />
+  You may select multiple colleges by using the
+  <i>
+   Shift
+  </i>
+  or
+  <i>
+   Ctrl
+  </i>
+  keys.
+  <br />
+  Click merge to make your changes permanent.
+ </p>
+</div>
+<div class="register">
+ <h1>
+  Merge Colleges:
+ </h1>
+ <p>
+  Please make thee appropriate choices:
+ </p>
+ <form action="{{SITE_URL}}/clean/merge/" method="POST">
+  <table name="register">
+   {{ form.as_table }}
+  </table>
+  <input type="submit" value="Merge!" />
+  <br />
+ </form>
+</div>
+{% endblock %}

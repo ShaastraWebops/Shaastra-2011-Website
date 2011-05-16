@@ -1,0 +1,27 @@
+{% extends "base_default.html" %}
+<div class="register">
+ <h1>
+  View Teams
+ </h1>
+ <p>
+  Please choose a team:
+ </p>
+ {% if chosen_teams %}
+ <h4>
+  Selected Participants
+ </h4>
+ <ul>
+  {% for t in chosen_teams %}
+  <li>
+   <a href="{{SITE_URL}}/hospitlaity/team_events/{{event_id}}/{{t.id}}">
+    {{t}}
+   </a>
+  </li>
+  {% endfor %}
+ </ul>
+ {% endif %}
+        
+        
+
+{% endblock %}
+</div>

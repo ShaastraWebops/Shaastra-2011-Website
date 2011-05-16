@@ -1,0 +1,72 @@
+{% extends "base_default.html" %}
+
+{% block body %}
+
+    <div class="register">
+    <h1>Shaastra 2010: Shaastra ID</h1>
+    
+    <div class="register">
+        <center>
+        {%if not userprof.h_granted %}
+            <p>Your Shaastra ID is: </p>
+            <h3>{{shaastra_id}}</h3>
+            <table>
+            <tr> <td><b>Name: </b></td><td> {{userprof.first_name}} {{userprof.last_name}}</td> </tr>
+            <tr> <td> <b>Gender: </b> </td><td> {{userprof.gender}} </td> </tr>
+            <tr> <td> <b>Mobile No.: </b> </td><td> {{userprof.mobile_number}} </td> </tr>
+            <tr> <td> <b>College Roll No.: </b> </td><td> {{userprof.college_roll}} </td> </tr>
+            <tr> <td> <b>College: </b> </td><td> {{userprof.college}} </td> </tr>
+            <tr> <td> <b>Branch: </b> </td> <td> {{userprof.branch}} </td></tr>
+            <tr> <td><b>Email: </b> </td><td> {{user.email}} </td></tr>
+            </table>
+        {%else%}
+<p>
+You have been granted accomodation, and should receive an email with your Shaastra ID. Your SAAR must have reached your inbox/spam folder by now.
+</p>
+        {%endif%}
+        </center>
+    </div>
+        {%if not userprof.h_granted %}
+
+<p>NOTE :- Please check your spam folder thoroughly to identify any communication from SHAASTRA. If this happens, please set it as 'NOT SPAM' for receiving further mails.</p> 
+       
+     <h3><a href="{{SITE_URL}}/print_sid/">Click here for a printable version</a></h3>
+        {%endif%}
+
+    <p>Each user will be given a Shaastra ID, which we will use to keep track
+    of the events you've registered etc. while at Shaastra, and speed up the registration process on site.</p>
+
+    <h2> FAQ </h2>
+<p> <ol>
+<li> 
+<b> What is Shaastra ID number? </b> <br \>
+<p>Shaastra ID number is a unique reference number assigned to each participant at Shaastra that will be used to track his/her progress, achievements and records at Shaastra.</p>
+</li>
+<li>
+<b>Why do I need a Shaastra ID card?</b><br />
+<p>You cannot take part in any event at Shaastra without a valid Shaastra ID card, and therefore it's indispensable that you get yourself a Shaastra ID card in case you're interested in participating in any of the events at Shaastra. Your Shaastra ID card will be a physical document mentioning your details along with your Shaastra ID number.</p>
+</li>
+<li>
+<b>What if I do not register online for this Shaastra ID card?</b> <br />
+<p>Not a problem! You can use the on-the-spot registration during the days of Shaastra to procure a Shaastra ID card for yourself. You need to come to one of the registration desks, fill in your details on a form, show your college ID and get a Shaastra ID card issued to you.</p>
+</li>
+<li>
+<b>If I can get the Shaastra ID card on-the-spot, why should I register online for it?</b> <br />
+<p>
+There will be hundreds of participants standing in long queues in front of the registration desks, waiting to get Shaastra ID cards issued for themselves. If you do not mind giving them company, you are welcome to opt for on-the-spot registration. However, if you believe that there are many more interesting things happening at Shaastra, opting for online registration will definitely save you a few precious minutes.
+</p>
+</li>
+
+<li>
+<b>What then is the exact procedure for registering online for a Shaastra ID card? </b> <br />
+<p>
+Your Shaastra ID number will be visible to you on the "View Shaastra ID" page. You need to bring a printout of this page (along with your college ID card) to Shaastra and get it verified at one of our registration desks. You'll be handed over your Shaastra ID card immediately. 
+</p>
+</li>
+</ol> </p>
+
+    </div>
+
+ 
+{% endblock %}
+

@@ -1,0 +1,78 @@
+{% extends "base_default.html" %}
+{% block body %}
+<script language="JavaScript" src="{{MEDIA_URL}}/js/Calendar/calendar_eu.js">
+</script>
+<div class="register">
+ <h1>
+  Accomodation Details
+ </h1>
+ {% if submitted %}
+ <div class="success">
+  Your details have been saved.
+ </div>
+ {%endif%}
+ <div class="info">
+  <p>
+   The below hospitality details form only applies to participants
+   <i>
+    who have been selected for accommodation
+   </i>
+   , and have been intimated via email of the same. Also, please enter these details as soon as possible, preferably
+   <b>
+    before the 19th of September
+   </b>
+   .
+  </p>
+ </div>
+ <p>
+  Please enter the following details :
+ </p>
+ <form name="hospiDet" action="{{SITE_URL}}/hospitality/accomodation/details/" method="POST">
+  <div class="info">
+   <table name="register">
+    {% for field in form %}
+    <tr>
+     <td>
+      {{ field.label_tag}}
+     </td>
+     <td>
+      :
+     </td>
+     <td>
+      {{ field }}
+     </td>
+     <td>
+      {% if field.errors %}
+      <div class="errors">
+       {{field.errors}}
+      </div>
+      {%endif%}               
+                               
+                  {% ifequal field.html_name date.0 %}
+      <script language="javascript">
+       var cal_arr = new tcal ({
+                        // input name
+                    'controlname': 'id_dateOfArrival'
+                    });
+      </script>
+      {% endifequal %}
+                 {% ifequal field.html_name date.1 %}
+      <script language="javascript">
+       var cal_arr = new tcal ({
+                        // input name
+                    'controlname': 'id_dateOfDept'
+                    });
+      </script>
+      {% endifequal %}
+     </td>
+     <td>
+      <img height=20 width=20 src="{{ MEDIA_URL }}/images/help_icon.png" title="{{ field.help_text }}">
+     </td>
+    </tr>
+    {% endfor %}
+   </table>
+  </div>
+  <input type="submit" value="Submit" />
+ </form>
+</div>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends "base_default.html" %}
+{% block body %}
+<script language="JavaScript" src="{{MEDIA_URL}}/js/Calendar/calendar_eu.js">
+</script>
+<div class="register">
+ <h1>
+  Accomodation Details
+ </h1>
+ <p>
+  Please enter the following details :
+ </p>
+ {% if submitted %}
+ <div class="info">
+  Your details have been saved.
+ </div>
+ {%endif%}
+ <form name="hospiDet" action="{{SITE_URL}}/hospitality/accomodation/details/" method="POST">
+  <div class="info">
+   <table name="register">
+    {% for field in form %}
+    <tr>
+     <td>
+      {{ field.label_tag}}
+     </td>
+     <td>
+      :
+     </td>
+     <td>
+      {% if field.errors %}
+      <div class="errors">
+       {{field.errors}}
+      </div>
+      {%endif%}               
+                {{ field }}               
+                  {% ifequal field.html_name date.0 %}
+      <script language="JavaScript">
+       var cal_arr = new tcal ({
+                        // input name
+                    'controlname': 'id_dateOfArrival'
+                    });
+      </script>
+      {% endifequal %}
+                 {% ifequal field.html_name date.1 %}
+      <script language="JavaScript">
+       var cal_arr = new tcal ({
+                        // input name
+                    'controlname': 'id_dateOfDept'
+                    });
+      </script>
+      {% endifequal %}
+     </td>
+    </tr>
+    {% endfor %}
+   </table>
+  </div>
+  <input type="submit" value="Submit" />
+ </form>
+</div>
+{% endblock %}

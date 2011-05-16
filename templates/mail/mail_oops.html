@@ -1,0 +1,19 @@
+{% extends "base_default.html" %}
+
+{% block body %}
+<div class="register">
+ <h1>
+  Shaastra 2010 User Portal OOPS
+ </h1>
+ <ol>
+  {% for user in semiregistered %}
+  <li>
+   {{user}}
+  </li>
+  {%endfor%}
+ </ol>
+ <form action="{{SITE_URL}}/mail/oops/" method="POST">
+  <input type="submit" value="Send" />
+ </form>
+</div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "base_default.html" %}
+
+{% block body %}
+    {% if success %}
+<div class="info">
+ Profile Saved.
+</div>
+{% endif %}
+<div class="register">
+ <h1>
+  View Profile
+ </h1>
+ <p>
+  Please enter the Shaastra ID.(
+ </p>
+ <form action="{{SITE_URL}}/qms/view_profile/" method="POST">
+  <div class="info">
+   <table name="register">
+    {{ form.as_table }}
+   </table>
+   <input type="submit" value="View" />
+  </div>
+ </form>
+</div>
+{% endblock %}

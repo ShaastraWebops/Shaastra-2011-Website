@@ -1,0 +1,38 @@
+{% extends "base_default.html" %}
+{% block body %}
+<h1>
+ Bulk Mail Form
+</h1>
+{% if success %}
+<div class="info">
+ Mails have been sent succesfully.
+</div>
+{% endif %}
+<div class="register">
+ <p>
+  This application allows you to send mails to
+  <b>
+   <i>
+    all users
+   </i>
+  </b>
+  who have registered on the userportal.Please check the content carefully before you send the message.
+  <br />
+  <b>
+   Note
+  </b>
+  :If you'd like to contact individual users,please use your web mail account instead.
+ </p>
+ <p>
+  Please fill in the subject and content of your mail in the appropriate fields:
+  <form action="{{SITE_URL}}/mail/all/" method="POST">
+   <div class="register">
+    <table name="register">
+     {{ form.as_table }}
+    </table>
+    <input type="submit" value="Submit" />
+   </div>
+  </form>
+ </p>
+</div>
+{% endblock %}

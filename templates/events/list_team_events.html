@@ -1,0 +1,64 @@
+{% extends "base_default.html" %}
+
+{% block body %}
+    {% if event_success %}
+<div class="register">
+ <b>
+  {{event_success}}
+ </b>
+ : Successfully Updated
+</div>
+{%endif%}
+
+    {% if invalid_event %}
+<div class="errors">
+ <b>
+  {{invalid_event}}
+ </b>
+ : Event does not exist. Please check the spelling.
+</div>
+{%endif%}
+<div class="register" style="background-color:rgb(255,255,255);">
+ <font color="brown">
+  <h1>
+   Attention!
+  </h1>
+ </font>
+ <p style="color:brown">
+  <ul>
+   <li>
+    Please note that to participate as a team for a team event,it is necessary that all  your team members are registered on the Userportal and all of them join the team,created by the team leader.
+   </li>
+   <li>
+    Also note that your chances of getting accommodation will increase with the number of events for which you answer questionnaires.Just updating your profile/registering your team for accommodation will not ensure you getting accommodation.
+   </li>
+  </ul>
+ </p>
+</div>
+<div class="register">
+ <p>
+  Note: We have changed the registration process. Now, you must lock your answers before the event coordinator sees it, after which you can not change your answers again. The registration is not on a first come first serve basis, so please take your time.
+ </p>
+</div>
+<div class="register">
+ <a href="{{SITE_URL}}/events/">
+  <h1>
+   Team Event Registration
+  </h1>
+ </a>
+</div>
+<div class="register">
+ {% if show_hospi %}
+ <ul>
+  {% for event in events1 %}
+       {%if event.2%}
+  <div class="register">
+   {%else%}
+   <div class="errors">
+    {%endif%}
+   </div>
+  </div>
+  <li>
+  </li>
+ </ul>
+</div>

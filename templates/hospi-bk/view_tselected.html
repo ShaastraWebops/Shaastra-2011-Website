@@ -1,0 +1,50 @@
+{% extends "base_default.html" %}
+{% block body %}
+       <script language="javascript" type="text/javascript" src="{{MEDIA_URL}}/js/wz_tooltip.js"></script>
+    <div class="register">
+        <h1>{{event.name}}</h1>
+        <p>Please choose teams </p>
+       <form action="" method="post">
+       {% if selected_teams %}
+           <h4> Selected Teams </h4>
+           <table>
+            <tr> <th width=200 >Selected Teams </th><th width=60>Score</th></tr>
+            {% for p in selected_data %}
+            <tr> <td>
+              {{ p.1.team }}</td> <td>{{ p.1.score }} </td> </tr>
+           
+              {% for itr in p.0 %}
+                <tr><td  align="center"> <a href="{{SITE_URL}}/profile/view/{{itr.0}}" onmouseover="TagToTip('{{p.1.team}}_{{itr.0}}_tooltip')" onmouseout="UnTip()">{{ itr.0 }}</a> </td>
+           <td>   <input type="checkbox" name="{{itr.0}}_selected" {% ifequal itr.3.given_accomodation %} checked="checked" {% endifequal %} ></td>
+              </tr>
+              
+              <div id="{{p.1.team}}_{{itr.0}}_tooltip" class="info">
+              <b>Name</b> : {{itr.1.first_name}} {{itr.1.last_name}}<br/>
+              <b>College</b> : {{ itr.1.college }}<br/>
+              <br/>Selected events:<br/>
+              <ul>
+              {% for e in itr.2.0%}
+                <li> {{ e.event }} </li>
+                {% endfor %}        
+              </ul>
+            </div>
+              
+              {% endfor %}
+           
+            {% endfor %}
+            
+             <!---ToolTip Thingy -->
+           
+            
+            </table>
+            </ul>
+            <input type="submit" value="Save Changes">
+            </form>
+	  <br/>
+	 <!--<a href="{{SITE_URL}}/hospitality/view/selected/{{currevent}}?mail=true" >Send Mail</a>-->
+	
+        {% endif %}
+    </div>    
+        
+{% endblock %}
+

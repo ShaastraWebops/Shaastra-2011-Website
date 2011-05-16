@@ -1,0 +1,85 @@
+{% extends "base_default.html" %}
+
+{% block body %}
+<div class="register">
+ <h1>
+  {{userprof.first_name}}'s Profile
+ </h1>
+ <div class="info">
+  <table name="register">
+   <tr>
+    <th>
+     User Name:
+    </th>
+    <td id="first_name">
+     {{userprof.user.username}}
+    </td>
+   </tr>
+   <tr>
+    <th>
+     Name:
+    </th>
+    <td id="name">
+     {{userprof.first_name}} {{userprof.last_name}}
+    </td>
+   </tr>
+   <tr>
+    <th>
+     College:
+    </th>
+    <td id="last_name">
+     {{userprof.college}}
+    </td>
+   </tr>
+   <tr>
+    <th>
+     College Roll No.:
+    </th>
+    <td id="last_name">
+     {{userprof.college_roll}}
+    </td>
+   </tr>
+   <tr>
+    <th>
+     Age:
+    </th>
+    <td id="last_name">
+     {{userprof.age}}
+    </td>
+   </tr>
+   <tr>
+    <th>
+     Gender:
+    </th>
+    <td id="last_name">
+     {{userprof.gender}}
+    </td>
+   </tr>
+   <tr>
+    <th>
+     Id Type:
+    </th>
+    <td id="last_name">
+     {{userprof.id_type}}
+    </td>
+   </tr>
+   <tr>
+    <th>
+     Mobile No.:
+    </th>
+    <td id="last_name">
+     {{userprof.mobile_number}}
+    </td>
+   </tr>
+   <tr>
+    <th>
+     Branch:
+    </th>
+    <td id="last_name">
+     {{userprof.branch}}
+    </td>
+   </tr>
+  </table>
+ </div>
+</div>
+{% endblock %}

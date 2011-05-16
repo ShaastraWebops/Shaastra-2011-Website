@@ -1,0 +1,242 @@
+{% extends "base_default.html" %}
+
+{% block body %}
+{% if too_large or too_small %}
+    <div class="errors">
+        <p>
+        Your team is either too big or too small. It should be between {{event_min_size}} and {{event_size}}, but currently has {{t_size}} members. You should either add more members or remove some from the Manage Team page.
+        </p>
+    </div>
+    {% else %}
+    {% if is_hospi %}
+    <div class="info">
+        <p>This event is eligible for hospitality accommodation.</p>
+    </div>
+    {% endif %}
+    
+
+      {% if errors %}
+           <div class="errors">
+	    <h3> There are errors in your submission! </h3>
+	  Click on the indicated question number to find out what the error is.<br /> Please resolve them to continue.
+             <!-- Normal questions -->
+           </div>
+        {% endif %}
+
+
+    <div class="register">
+        <h1 align="center">Event Registration</h1>
+        <a href="{{SITE_URL}}/teams/view/{{t_name}}"> <- Back to the list of team events.</a> (Note: Any unsaved changes will be lost)
+
+        <h2 align="center"> {{event}} </h2>
+        {% if event.logo %} <img src="{{MEDIA_URL}}{{event.logo}}" /> {%endif %}
+    </div>
+
+    <!--
+    <div class="register">
+        <p>Event registration closes at {{ end_time }}</p>
+    </div>
+    -->    
+    {% if already_saved %}
+      <div class="errors">
+          You have already Locked your answers. Further editing is not allowed.
+      </div>
+    {% endif %}
+
+    {% if already_selected %}
+      <div class="errors">
+          Your team has already been selected for the event {{ event.name }}.
+      </div>
+    {% endif %}
+
+
+    <div class="register">
+        <p align = "justify">
+        Please fill in the following details. Note that your answers will not be
+        submitted to the respective Coordinators unless you <b>lock</b> your event's
+        answers. However, once you have locked your answers, you can not make any
+        changes to your answers. Please take your time and ensure that all your
+        answers are complete.
+        </p>
+
+    <script type="text/javascript">
+        function notifyUser() {
+            return confirm ('Are you sure you want to lock your answers? Once locked, you will not be able to edit your answers again.');
+        }
+    </script>
+
+<!-- Check if event has started or not -->
+{% if not event_started %}
+  <div class="errors">	{{ event.name }} has not yet started. Please check back at {{ event.start_time }}.
+  </div>
+{% else %}
+  {% if event_ended %}
+    <div class="errors">{{ event.name }} has now ended.<br /> You can view your submitted answers below, but no further changes are allowed.<br /> Thank you for participating.
+      </div>
+  {% endif %}
+
+
+
+
+    <form enctype="multipart/form-data" action="{{SITE_URL}}/events/register-teams/{{t_name}}/{{e_name}}" method="POST">
+       
+<!--
+	{% if event_form.2 %}
+	  <div class="warning"> {{ event_form.1.0.question|safe }} </div>
+	{% endif %}-->
+
+<!-- Displaying Overall messages -->
+{% for msg in messages %}
+  {% ifequal msg.type 1 %}
+    <div class = "warning">{{ msg.content }}</div>
+  {% endifequal %}
+{% endfor %}
+
+<!-- To display buttons -->
+<div class="success">
+Click on these buttons to view the respective questions:<br /><br />
+<table id="buttons" align="center">
+<tr>
+{% for form in event_form.1 %}
+<td>
+<input type="button" id="{{ form.question.id }}_number" style = "width: auto" onclick='javascript:show_division("{{ form.question.id }}_div","{{ form.question.id }}_msg","{{ form.question.pref_id }}")'>
+</td>
+{% endfor %}
+</tr>
+<tr>
+
+{% for form in event_form.1 %}
+<td>
+<div id="{{ form.question.id }}_number_error"></div>
+</td>
+{% endfor %}
+</tr>
+</table>
+<br /><br />
+<div style="font-family:verdana;color:red;font-size:12px;line-height:1.5em;vertical-align:top"><b>Note:</b> 
+You can click on any question even if 
+you're halfway through one of them. 
+Just make sure you finally save your data before navigating away from this page.</div>
+</div>
+<!-- Button block over -->
+
+<!-- To display the form as such -->
+        {% for form in event_form.1 %}
+
+<div class = "warning" id="{{ form.question.id }}_msg"></div>	<!-- for msgs -->
+<!-- Question -->
+<div id="{{ form.question.id }}_div">
+<table>
+<tr>
+	<td width="75%">  <div  class="answer"><b> {{ form.question|safe }} </b></div> </td> 
+</tr>
+<tr>
+     <td>  {{ form.content }} </td> <!-- answer block -->
+     <td>
+      {% ifequal form.question.type 2 %}
+      <div class="info">
+      Please note that only the following file types are allowed for submission:
+      {% for fy in fwl %}
+    {{ fy }}
+      {% endfor %}
+      </div>
+    {% endifequal %}
+
+      {% if form.content.errors %}	<!-- errors in the side -->
+           <div class="errors">
+	  {% for error in form.content.errors %}
+		  {{ error|escape }}
+	  {% endfor %}
+	    </div>
+        {% endif %}
+      </td>  
+</tr>
+</table>
+</div>
+
+        {% endfor %}
+
+        <br /> <br />
+
+       <div class="register">
+      {% if not event_ended %}
+        {% if event_form.0 %}
+       <p> Your answers have been locked. Any changes you make now can not be saved. 
+       </p>
+       {% else %}
+       <p> Your answers have not been locked yet.  </p>
+       <input type="submit" name="save" value="Save Answers" /> 
+       <input onClick="return notifyUser();" type="submit" name="lock" value="Lock Answers" />
+       {% endif %}
+      {% else %}
+	<p>The event has ended. No more changes are possible.</p>
+      {% endif %}
+        </div>
+
+    </form>
+{% endif %}
+{% endif %}
+
+    </div>
+
+
+<script type="text/javascript">
+
+// Assuming event_form.1.0 is comment if comment is present.
+
+function show_numbers()
+{
+var val;
+{% for form in event_form.1 %}
+  val={{ form.question.pref_id }} - {{ event_form.1.0.question.pref_id }};
+  {% if not event_form.2 %}
+    val+=1;
+  {% endif %}
+  document.getElementById("{{form.question.id}}_number").value=val;
+{% endfor %}
+}
+
+function hide_all()
+{
+
+{% for form in event_form.1 %}
+  document.getElementById("{{form.question.id}}_div").style.display="none";
+  document.getElementById("{{form.question.id}}_msg").style.display="none";
+{% endfor %}
+
+  }
+
+function show_division(fld,fld2,prefid)
+{
+  hide_all();
+  document.getElementById(fld).style.display="block";
+  {% for msg in messages %}
+ {% ifequal msg.type 2 %}
+  if ({{msg.qn_higher}} >= prefid && prefid >= {{msg.qn_lower}}){
+      document.getElementById(fld2).style.display="block";
+      document.getElementById(fld2).innerHTML="{{ msg.content }}";
+  }
+ {% endifequal %}
+{% endfor %}
+}
+
+function set_error_states()
+{
+  {% for form in event_form.1 %}
+    {% if form.content.errors %}
+      document.getElementById("{{ form.question.id }}_number_error").innerHTML='<img height=20 width=20 src="{{ MEDIA_URL }}/images/error.png">';
+      document.getElementById("{{ form.question.id }}_number").style.color="red";
+    {% else %}
+      document.getElementById("{{ form.question.id }}_number_error").innerHTML="";
+      document.getElementById("{{ form.question.id }}_number").style.color="black";
+    {% endif %}
+  {% endfor %}
+}
+
+ hide_all();
+show_numbers();
+set_error_states();
+
+</script>
+{% endblock %}
+

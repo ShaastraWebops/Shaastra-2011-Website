@@ -1,0 +1,38 @@
+{% extends "base_default.html" %}
+{% block body %}
+<h1>
+ News Letter Form
+</h1>
+{% if success %}
+<div class="register">
+ News Letter has been sent succesfully.
+</div>
+{% endif %}
+<div class="register">
+ <p>
+  This application allows you to send a news letter to
+  <b>
+   <i>
+    all registered users
+   </i>
+  </b>
+  .
+  <br />
+  <b>
+   Note
+  </b>
+  :If you'd like to contact individual users, please use your web mail account instead.
+ </p>
+ <p>
+  Please fill in the subject and content of the news letter in the appropriate fields:
+  <form action="{{SITE_URL}}/mail/selected/" method="POST">
+   <div class="register">
+    <table name="register">
+     {{ form.as_table }}
+    </table>
+    <input type="submit" value="Submit" />
+   </div>
+  </form>
+ </p>
+</div>
+{% endblock %}

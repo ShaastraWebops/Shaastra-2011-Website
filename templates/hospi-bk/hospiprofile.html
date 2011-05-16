@@ -1,0 +1,98 @@
+{% extends "base_default.html" %}
+
+{% block body %}
+    {% if flag %}
+<div class="errors">
+ <h1>
+  Warning:
+ </h1>
+ <p>
+  There are some users in the teams you lead whose profile has not been updated with the new details required for us to provide accommodation.
+  <ul>
+   {% for i in cup_users %}
+   <li>
+    {{i}}
+   </li>
+   {% endfor %}
+  </ul>
+  Please inform them and ask them to update their profiles.
+ </p>
+</div>
+{% endif %}
+    
+    {% if hsuccess %}
+<div class="register">
+ <h1>
+  Hospitality Registration Successful
+ </h1>
+ <p>
+  Your registration for hospitality has been completed successfully for you and the teams you selected in the previous page.Your responses to the different event questionnaires will determine whether you will be provided accommodation or not.Start answering event questionnaires for all events you are interested in :
+  <br />
+  <ul>
+   <li>
+    <a href="{{SITE_URL}}/events/">
+     Here for individual events
+    </a>
+   </li>
+   <li>
+    <a href="{{SITE_URL}}/teams/">
+     Here for team events
+    </a>
+   </li>
+  </ul>
+ </p>
+</div>
+{% endif %}
+<div class="register">
+ <h1>
+  Hospitality Profile
+ </h1>
+ <p>
+  Please fill in the details in the form to complete your request for accommodation.If you do not complete this form,your request for accommodation will not be granted.
+ </p>
+ <h2>
+  Instructions:
+ </h2>
+ <p>
+  Fill in the form with accurate details or your request will not be granted.Note that there is an option at the end of the form to register for all the members of teams for which you are the team leader.Please select all the teams you want to register for and they will be registered with the same details you have supplied.If some teammate wants to change any of these details for his or her self alone ,he/she will have to log in individually and change his/her details.
+ </p>
+</div>
+<div class="register">
+ <h2>
+  Team Details
+ </h2>
+ <p>
+  You may choose to supply details for your team members by selecting the apprpriate team names in the next box.Here are the details of the teams of which you are the leader:
+  <ul>
+   {% for i in teammems %}
+   <li>
+    {{i.0}} :
+        {% for u in i.1 %} 
+            {{u.username}},
+        {% endfor %}
+   </li>
+   {% endfor %}
+  </ul>
+ </p>
+</div>
+<div class="register">
+ <p>
+  Please fill in the required details:
+ </p>
+</div>
+<div class="register">
+ <form action="{{SITE_URL}}/hospitality/profile/" method="POST">
+  <div class="register">
+   <table name="register">
+    {{ form2.as_table }}
+   </table>
+  </div>
+  <div class="register">
+   <table name="register">
+    {{ form1.as_table }}
+   </table>
+   <input type="submit" value="Register" />
+  </div>
+ </form>
+</div>
+{% endblock %}

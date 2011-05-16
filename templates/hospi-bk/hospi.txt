@@ -1,0 +1,9 @@
+'register for hospi' -> 'click on the checkbox if you want accomdodation' -> radio button
+ 
+ 'register' -'save answers'
+ 
+ 'register for this event(checkbox)'- 'submit' with alert
+ 
+ 'teams -events' - all events in a list box, team events redirect to /userportal/teams
+ 
+ after choosing accomodation, next page- list of events

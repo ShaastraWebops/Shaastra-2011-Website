@@ -1,0 +1,153 @@
+{% extends "base_default.html" %}
+{% block body %}
+       <script language="javascript" type="text/javascript" src="{{MEDIA_URL}}/js/wz_tooltip.js"></script>
+       <script language="javascript" type="text/javascript">
+        function showdiv(fld) {fld.style.display = 'block';}
+       </script> 
+       <style type="text/css">
+        table { margin: 1em; border-collapse: collapse; margin-right:5; width:auto;}
+        td, th { padding: .3em; border: 1px #000000 solid; background:#EAECF3;}
+        th { background: #BDE5F8; } 
+       </style> 
+    <div class="register" width="100%">
+        <h1>{{event.name}}</h1>
+        <div class="info">
+            Nuber of boys accomodated : {{ boys }} <br/>
+            Nuber of girls accomodated : {{ girls }}
+        </div>
+       <form action="" method="post">
+       {% if selected_teams %}
+           <h4> Selected Teams </h4>
+           <table class="sortable">
+            <tr> 
+		<th>Rank</th>
+                <th>Score</th>
+		<th>(Selected team) Member</th>
+		<th>Gender</th>
+		<th>College</th>
+                <th>Phone</th>
+		<th>Status</th>
+{% if not event_coord %}<th>Send mail?</th>{% endif %}
+	    </tr>
+          {% for p in selected_data %}
+            {% for itr in p.0 %}
+            <tr>
+             <td>{{p.1.rank}}</td>
+             <td>{{p.1.score}}</td>
+             <td  align="center">
+                <a href="{{SITE_URL}}/profile/view/{{itr.0}}" onmouseover="TagToTip('{{p.1.team}}_{{itr.0}}_tooltip')" onmouseout="UnTip()">({{ p.1.team }})<br /> {{itr.1.first_name}} <br />{{itr.1.last_name}}</a> 
+             </td>
+             <td>{% ifequal itr.1.gender '1' %}
+                    M
+                 {% else %}
+                 {% ifequal itr.1.gender '2' %}
+                    F
+                 {% else %}
+                    {{itr.1.gender}}
+                 {% endifequal %}
+                 {% endifequal %}
+             </td>
+             <td>{{itr.1.college}}</td>
+             <td>{{itr.1.mobile_number}}</td>
+<!--              <td> -->
+                 {% ifequal itr.4.given_accomodation 1 %}
+                     {% if not itr.4.sentMail %} <td sorttable_customkey="2">
+                      {% if not event_coord %}
+                        <script language="javascript" type="text/javascript">
+                         function change_n_hide_mail_{{itr.0}}(){
+                            document.getElementById("{{itr.0}}_select-status").style.display="block";
+                            document.getElementById("{{itr.0}}_mail_reminder_div").style.display="none";
+                         }
+                        </script>
+                        <input type="button" style="width:auto" onclick="change_n_hide_mail_{{itr.0}}()" value="Change" />
+                      {% endif %}
+                     {% else %} <td sorttable_customkey="1">
+                     {% endif %}
+                     Accomodated
+                 {% else %}
+                   {% if not event_coord %}
+                     {% ifequal itr.4.given_accomodation 2 %} <td sorttable_customkey="4">
+                         Rejected
+                         <input type="button" style="width:auto" onclick='javascript:document.getElementById("{{itr.0}}_select-status").style.display="block"' value="Change" />
+                     {% else %} <td sorttable_customkey="3">
+                            <input type="radio" name="{{itr.0}}_selected" value=1 onClick="showdiv(document.getElementById('{{itr.0}}_mail_div'))"/> Accept<br />
+                            <input type="radio" name="{{itr.0}}_selected" value=2 onClick="javascript:document.getElementById('{{itr.0}}_mail_div').style.display='none'"/> Reject
+                     {% endifequal %}
+                   {% else %}<td sorttable_customkey="4">
+                   {% endif %}
+                 {% endifequal %}
+               {% if not event_coord %}
+                 <div id="{{itr.0}}_select-status" style="display:none">
+                    <input type="radio" name="{{itr.0}}_selected" value=1 onClick="showdiv(document.getElementById('{{itr.0}}_mail_div'))"/> Accept<br />
+                    <input type="radio" name="{{itr.0}}_selected" value=2 onClick="javascript:document.getElementById('{{itr.0}}_mail_div').style.display='none'"/> Reject
+   	         </div>
+               {% endif %}
+             </td>
+{% if not event_coord %}
+<!--              <td> -->
+             {% if not itr.4.sentMail %}
+               {% ifequal itr.4.given_accomodation 1 %} <td sorttable_customkey="2">
+                   <div id="{{itr.0}}_mail_reminder_div">
+	            <div style="font-family:verdana;color:red;font-size:10px;line-height:1em;vertical-align:top">This participant was not sent a mail. <br />Do you want to send it now?
+	            </div>
+                    <div>
+                     <input type="checkbox" name="{{itr.0}}_mail" value=1 /> Yes
+                    </div>
+                   </div>
+               {% else %} <td sorttable_customkey="3">
+               {% endifequal %}
+             {% else %} <td sorttable_customkey="1">
+		<div style="font-family:verdana;color:green;font-size:14px;line-height:1em;vertical-align:top">Mail sent.</div>
+             {% endif %}
+              <div id="{{itr.0}}_mail_div" style="display:none">
+               <input type="checkbox" name="{{itr.0}}_mail" value=1 />
+              </div>
+             </td>
+{% endif %}
+            </tr>
+              <div id="{{p.1.team}}_{{itr.0}}_tooltip" class="info" style="display:none" >
+               <b>Email :</b><br/>{{itr.0.email}}
+               <b><br/><br/>User's all teams :</b>
+	       <ul>
+                {%for team in itr.3%}
+                <li> {{team}} </li>
+                {%endfor%}
+               </ul>
+               <b>Selected team-events:</b>
+               <ul>
+                {% for e in itr.2.1 %}
+                <li> {{ e.event }} </li>
+                {% endfor %}
+               </ul>
+               <b>Selected events:</b>
+               <ul>
+                {% for e in itr.2.0 %}
+                <li> {{ e.event }} </li>
+                {% endfor %}
+               </ul>
+              </div>
+            {% endfor %}
+          {% endfor %}
+       </table>
+     </ul>
+{% if not event_coord %}
+            <div class="errors">
+              <h3>Important!</h3>
+	    Please select an option.<br />
+	  Note that if you select the first or third option, you <i>can</i> send mails to selected participants later too.
+            </div>
+            <div class="success">
+             <input type="radio" name="mail" value=2 >
+                Save the accomodation status without sending mails.<br />
+             <input type="radio" name="mail" value=1 Checked >
+                Mail ALL the participants who you accepted in THIS session.<br />
+             <input type="radio" name="mail" value=0 >
+                Mail the participants only with "ticked" send mail field.<br />
+             <input type="submit" value="Save Changes">
+            </div>
+{% endif %}
+ </form>
+ {% endif %}
+ </div>
+{% endblock %}
+
