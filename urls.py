@@ -1,10 +1,12 @@
 from django.conf.urls.defaults import patterns, include, url
+from upload.views import upload_file
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
 #testing
 urlpatterns = patterns('',
+     (r'^upload/$', 'upload_file'),
     # Examples:
     # url(r'^$', 'main_test.views.home', name='home'),
     # url(r'^main_test/', include('main_test.foo.urls')),

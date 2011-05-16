@@ -1,0 +1,12 @@
+<form enctype="multipart/form-data" method="post" action="/upload_file/">
+ {% csrf_token %}
+ <table>
+     <tr><td>
+     <b> {{ form.file.label_tag }}</b>  {{ form.file}}
+     </td></tr>
+     <tr><td>
+     <input type="hidden" value="title" name="title" id="title" />
+     <input type="submit" value="Save" id="Save"/>
+     </td></tr>
+     </table>
+    </form>
