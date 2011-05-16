@@ -57,12 +57,12 @@ def login (request):
 
     if request.method == 'POST':
         data = request.POST.copy()
-	  if request.POST.get('from_url',False):
-	    request.session['from_url']='http://www.shaastra.org/2010/helpdesk/forum.php?req=setuser'
-	    print request.session['from_url']
-        else:
-	  form = forms.UserLoginForm (data)
-	  if form.is_valid():
+#	  if request.POST.get('from_url',False):
+#	    request.session['from_url']='http://www.shaastra.org/2010/helpdesk/forum.php?req=setuser'
+#	    print request.session['from_url']
+#        else:
+        form = forms.UserLoginForm (data)
+	    if form.is_valid():
             user = auth.authenticate(username=form.cleaned_data['username'], password=form.cleaned_data["password"])
             if user is not None and user.is_active == True:
                 auth.login (request, user)
@@ -205,8 +205,7 @@ def user_registration(request):
                     email = form.cleaned_data['email'],
                     password = form.cleaned_data['password']
                     )
-
-				college=form.cleaned_data['college']
+                college=form.cleaned_data['college']
 
 				user.is_active = False
 

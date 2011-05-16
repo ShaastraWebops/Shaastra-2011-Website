@@ -6,6 +6,7 @@
 from django.db import models
 from django.contrib import admin
 from main_test.users.models import *
+from django.contrib.auth.models import User, Group
 
 
 # Please note that __str__ is not recommended in django docs. Should we switch to unicode ?
@@ -25,7 +26,7 @@ class Event(models.Model):
     # Registration start and end time
     start_time = models.DateTimeField(null=True,blank=True)
     end_time = models.DateTimeField(null=True,blank=True)
-    coords = models.ForeignKey(coord)
+    coords = models.ForeignKey(User)
     
     # Registration
     registrable = models.BooleanField(default=False)
@@ -142,8 +143,8 @@ class QuickTabs(models.Model):
 #Using inheritance instead of foreign key. Seems cleaner       
 class TeamEvent(Event):
 
-    teams = models.ManyToManyField(Team,  blank=True, null=True, related_name='Team_events')
-    chosen_teams = models.ManyToManyField(Team, blank=True, null=True, related_name='Team_qualified_events')
+    #teams = models.ManyToManyField(Team,  blank=True, null=True, related_name='Team_events')
+    #chosen_teams = models.ManyToManyField(Team, blank=True, null=True, related_name='Team_qualified_events')
     
     def __str__(self):
         return self.name
@@ -165,26 +166,7 @@ QUESTION_TYPE = (
 
 
 #Author: Praveen Venkatesh - Created inital model
-class MCQOption(models.Model):
 
-	#Question specifics
-	question_id = models.ForeignKey(Question_base)
-	
-	#Choice specifics
-	choice_text = models.TextField(max_length = 1000)
-	
-	def __str__(self):
-		return self.choice_text
-	
-	class Admin:
-		pass
-		
-	class Meta:
-		ordering = ['id',]
-
-class TeamMCQOption(MCQOption):
-    pass		 
-		
 #Author: Praveen Venkatesh - Created inital model
 #Try to use ModelForms in order to render this model - appears to make things easy		
 #Instead of derived classes, now using abstract class
@@ -198,8 +180,8 @@ class Question_base(models.Model):
     									 	verbose_name = 'Number displayed in the button for this question.',)
     
     #File specifics
-	question_file = models.FileField(upload_to = 'files/%s/'%str(event), blank = True, null = True)
-		#Not sure if this syntax is correct             ^^^^^
+    question_file = models.FileField(upload_to = ('files/%s/',str(Event)), blank = True, null = True)
+	#Not sure if this syntax is correct             ^^^^^
     #Should we do this or should be do what we did for Tabimage ?    
     #Retrieve choices in case of MCQ type
     def get_choices(self):
@@ -229,18 +211,40 @@ class Question_base(models.Model):
           	abstract = True
     	
 			
-class Question(Question_base)
+class Question(Question_base):
 
 
 	#Event specifics
     event = models.ForeignKey(Event)
 
-class TeamQuestion(Question_base)
+class TeamQuestion(Question_base):
     event=models.ForeignKey(TeamEvent)
+    
+class MCQOption(models.Model):
+
+	#Question specifics
+	question_id = models.ForeignKey(Question)
+	
+	#Choice specifics
+	choice_text = models.TextField(max_length = 1000)
+	
+	def __str__(self):
+		return self.choice_text
+	
+	class Admin:
+		pass
+		
+	class Meta:
+		ordering = ['id',]
+
+class TeamMCQOption(MCQOption):
+    #question_id = models.ForeignKey(TeamQuestion)
+    pass		 
+		
 
 #Author: Sivaramakrishnan, created the initial model
 #This is has been changed using abstract classes.
-class Submission_base(models.Model)
+class Submission_base(models.Model):
     
     
     interesting = models.BooleanField(default=False,blank = True)
@@ -257,7 +261,7 @@ class Submission_base(models.Model)
     	
 class TeamSubmission(Submission_base):
 	
-	team = models.ManyToManyField(Team)
+	#team = models.ManyToManyField(Team)
 	event = models.ManyToManyField(TeamEvent)
 
 class Submission(Submission_base):
@@ -283,7 +287,7 @@ class MCQAnswer(MCQAnswer_base):
 
 class TeamMCQAnswer (MCQAnswer_base):
      question = models.ForeignKey(TeamQuestion, editable=False)
-     answered_by = models.ForeignKey(Team)
+     #answered_by = models.ForeignKey(Team)
             
 class FileAnswer_base(models.Model):
   
@@ -305,7 +309,7 @@ class FileAnswer(FileAnswer_base):
 
 class TeamFileAnswer(FileAnswer_base):
 	question = models.ForeignKey(TeamQuestion, editable=False)    
-	answered_by = models.ForeignKey(Team)
+	#answered_by = models.ForeignKey(Team)
         
         
         	
