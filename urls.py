@@ -20,8 +20,8 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
      url(r'^main-test/admin/', include(admin.site.urls)),
-     url(r'^main-test/events/', include ('main_test.events.urls')),
-     url(r'^main-test/home/', include ('main_test.users.urls')),   
+     url(r'^main-test/events/', include ('main_test.events.urls')),  
+     url(r'^main-test/', include ('main_test.users.urls')),	
 )
 
 #Check
