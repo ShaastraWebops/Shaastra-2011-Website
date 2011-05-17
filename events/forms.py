@@ -16,6 +16,9 @@ import models
 
 FILES_WHITELIST = ('.pdf','.txt','.doc','.docx','.zip','.avi','.wmv','.xls','.xlsx','.ppt','.pptx','.rar','.tar','.tar.gz','.dwg',)
 
+class CoordsLoginForm(forms.FormField):
+    username=forms.CharField(help_text='The coord username given to you')
+    password=forms.CharField(widget=forms.PasswordInput, help_text='The coord password given to you')
 
 class ExtFileField(forms.FileField):
     """

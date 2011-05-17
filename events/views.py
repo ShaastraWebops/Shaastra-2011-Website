@@ -15,6 +15,28 @@ import datetime
 
 import os
 
+def coordslogin (request)
+    form=forms.CoordLoginForm()
+    if request.method == 'POST':
+        data = request.POST.copy()
+        form = forms.CoordLoginForm(data)
+        if form.is_valid():
+            user = auth.authenticate(username=form.cleaned_data['username'], password=form.cleaned_data["password"])
+            if user is not None and user.is_active == True:
+                auth.login (request, user)
+                request.session['logged_in'] = True
+                url="%s/coordhome/"%settings.SITE_URL
+                response= HttpResponseRedirect (url)
+                return response
+            else:
+                request.session['invalid_login'] = True
+                url="%s/coordlogin"%settings.SITE_URL
+                return HttpResponseRedirect (url)
+        else                       
+            invalid_login = session_get(request, "invalid_login")
+            form = forms.UserLoginForm () 
+    return render_to_response('events/coordlogin.html', locals(), context_instance= global_context(request))
+                   
 #I m _not_ writing templates write now. Just creating empty html files. 
 def show_quick_tab(request):
     data=QuickTab.objects.all()
