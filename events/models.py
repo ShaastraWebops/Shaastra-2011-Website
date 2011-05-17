@@ -5,7 +5,7 @@
 
 from django.db import models
 from django.contrib import admin
-from main_test.users.models import *
+from users.models import Team
 from django.contrib.auth.models import User, Group
 
 
@@ -45,9 +45,6 @@ class Event(models.Model):
     # Is this the correct path? CHECK THIS!
     logo=models.FileField(upload_to="public_html/2011/events_logos/", blank=True, null=True)
     sponslogo=models.FileField(upload_to="public_html/2011/events_sponslogos/", blank=True, null=True)
-
-    # QuickTabs
-    #tabs = models.ManyToManyField(QuickTabs, blank=True, null=True, related_name='tabs')
 
     def __str__(self):
         return self.name
@@ -118,33 +115,13 @@ class TabForum(models.Model):
     class Admin:
         pass
 
-
-
-
-class QuickTabs(models.Model): 
-    # NOTE: Will one text field per tab suffice?
-    title  = models.CharField(max_length=80)
-    text   = models.CharField(max_length=10000)
-    events = models.ForeignKey(Event)
-    #images      = models.ManyToManyField(TabImage      , blank=True, null=True, related_name='questions')
-    #questions   = models.ManyToManyField(TabQuestion   , blank=True, null=True, related_name='questions')
-    #forums      = models.ManyToManyField(TabForum      , blank=True, null=True, related_name='forums')
-
-    def __str__(self):
-        return self.text
-    class Admin:
-        pass
-
-
-
-
 #Team event will be derived from the Event class
 #Author: Swaroop Ramaswamy - Inital model 
 #Using inheritance instead of foreign key. Seems cleaner       
 class TeamEvent(Event):
 
-    #teams = models.ManyToManyField(Team,  blank=True, null=True, related_name='Team_events')
-    #chosen_teams = models.ManyToManyField(Team, blank=True, null=True, related_name='Team_qualified_events')
+    teams = models.ManyToManyField(Team,  blank=True, null=True, related_name='Team_events')
+    chosen_teams = models.ManyToManyField(Team, blank=True, null=True, related_name='Team_qualified_events')
 
     def __str__(self):
         return self.name
@@ -255,7 +232,7 @@ class Submission_base(models.Model):
 
 class TeamSubmission(Submission_base):
 
-    #team = models.ManyToManyField(Team)
+    team = models.ManyToManyField(Team)
     event = models.ManyToManyField(TeamEvent)
 
 class Submission(Submission_base):
@@ -281,7 +258,7 @@ class MCQAnswer(MCQAnswer_base):
 
 class TeamMCQAnswer (MCQAnswer_base):
     question = models.ForeignKey(TeamQuestion, editable=False)
-    #answered_by = models.ForeignKey(Team)
+    answered_by = models.ForeignKey(Team)
 
 class FileAnswer_base(models.Model):
 
@@ -303,7 +280,7 @@ class FileAnswer(FileAnswer_base):
 
 class TeamFileAnswer(FileAnswer_base):
     question = models.ForeignKey(TeamQuestion, editable=False)    
-    #answered_by = models.ForeignKey(Team)
+    answered_by = models.ForeignKey(Team)
 
 
 
