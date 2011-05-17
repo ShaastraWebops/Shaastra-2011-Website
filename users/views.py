@@ -62,17 +62,15 @@ def login (request):
 
     if request.method == 'POST':
         data = request.POST.copy()
-<<<<<<< HEAD
+
 #	  if request.POST.get('from_url',False):
 #	    request.session['from_url']='http://www.shaastra.org/2010/helpdesk/forum.php?req=setuser'
 #	    print request.session['from_url']
 #         else:
         form = forms.UserLoginForm (data)
 	if form.is_valid():
-=======
         form = forms.UserLoginForm (data)
         if form.is_valid():
->>>>>>> 6a79896a607fc88a78d42162c8fceb7c97b00e79
             user = auth.authenticate(username=form.cleaned_data['username'], password=form.cleaned_data["password"])
             if user is not None and user.is_active == True:
                 auth.login (request, user)
@@ -202,7 +200,6 @@ def check(request):
 
 def user_registration(request):
 
-<<<<<<< HEAD
 	colls = models.College.objects.all()
     
 
@@ -263,7 +260,6 @@ def user_registration(request):
             coll_form = forms.AddCollegeForm(prefix="id2")
 	    #again have to change this later. dont know which html to use??	
             return render_to_response('users/register_user.html', locals(), context_instance= global_context(request))
-=======
     colls = models.College.objects.all()
     if request.method=='POST':
         data = request.POST.copy()
@@ -314,7 +310,6 @@ def user_registration(request):
         coll_form = forms.AddCollegeForm(prefix="id2")
 	#again have to change this later. dont know which html to use??	
     return render_to_response('users/register_user.html', locals(), context_instance= global_context(request))
->>>>>>> 6a79896a607fc88a78d42162c8fceb7c97b00e79
 
 
 
@@ -327,7 +322,6 @@ def college_registration (request):
         if form.is_valid():
             college=clean_string(form.cleaned_data['name'])
             if college.find('&')>=0:
-<<<<<<< HEAD
 		college = college.replace('&','and')
                 city=clean_string(form.cleaned_data['city'])
 		state=clean_string(form.cleaned_data['state'])
@@ -342,14 +336,12 @@ def college_registration (request):
                      city = city,
                      state = state
                      )
-=======
                 college = college.replace('&','and')
                 city=clean_string(form.cleaned_data['city'])
                 state=clean_string(form.cleaned_data['state'])
 
             if len (models.College.objects.filter(name=college, city=city, state=state))== 0 :
                 college=models.College (name = college, city = city, state = state)
->>>>>>> 6a79896a607fc88a78d42162c8fceb7c97b00e79
                 college.save()
                 return HttpResponse("created")
             else:
@@ -380,11 +372,8 @@ def coord_registration(request):
                         college = models.College.objects.get (name="Indian Institute of Technology Madras"),
                         mobile_number = form.cleaned_data['mobile_number'],
                         event_name=form.cleaned_data['event_name'],
-<<<<<<< HEAD
 			department=form.cleaned_data['department']
-=======
-						department=form.cleaned_data['department'],
->>>>>>> 6a79896a607fc88a78d42162c8fceb7c97b00e79
+			department=form.cleaned_data['department'],
                     )
                     #i think we should automatically assign the department based on event name.
                     # we will look into this later
