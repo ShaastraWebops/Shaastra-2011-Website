@@ -8,12 +8,14 @@ from django.contrib import admin
 from users.models import Team
 from django.contrib.auth.models import User, Group
 
+#Global - Directory where all the other image directories go
+IMAGE_DIR = '2011/media/main/images/'
 
-# Please note that __str__ is not recommended in django docs. Should we switch to unicode ?
+# Please note that __unicode__ is not recommended in django docs. Should we switch to unicode ?
 class Tag(models.Model):   
 #E.g.: aerofest, coding etc
     name=models.CharField(max_length=30)
-    def __str__(self):
+    def __unicode__(self):
         return self.name
     class Admin:
         pass
@@ -43,10 +45,10 @@ class Event(models.Model):
     #NOTE: Rename the uploaded image file to event name.
     #NOTE: Assumption: There's one logo and one spons logo for each event
     # Is this the correct path? CHECK THIS!
-    logo=models.FileField(upload_to="public_html/2011/events_logos/", blank=True, null=True)
-    sponslogo=models.FileField(upload_to="public_html/2011/events_sponslogos/", blank=True, null=True)
+    logo=models.FileField(upload_to="%sevent_logos/"%IMAGE_DIR, blank=True, null=True)
+    sponslogo=models.FileField(upload_to="%sspons_logos/"%IMAGE_DIR, blank=True, null=True)
 
-    def __str__(self):
+    def __unicode__(self):
         return self.name
 
     class Admin:
@@ -59,11 +61,11 @@ class QuickTabs(models.Model):
     event       = models.ForeignKey(Event)
     text        = models.TextField() 
 
-    #images      = models.ManyToManyField(TabImage      , blank=True, null=True, related_name='questions')
+    images      = models.ManyToManyField(TabImage      , blank=True, null=True, related_name='questions')
     #questions   = models.ManyToManyField(TabQuestion   , blank=True, null=True, related_name='questions')
     #forums      = models.ManyToManyField(TabForum      , blank=True, null=True, related_name='forums')
 
-    def __str__(self):
+    def __unicode__(self):
         return self.text
     class Admin:
         pass
@@ -76,12 +78,12 @@ class TabImage(models.Model):
     # Ex: When a user wants to upload a image file, a TabImage object is created. Say it's id is 44. 
     # Then rename the file to 44.jpg and store it in "public_html/2011/TabImage/"
     image_id = models.AutoField(unique=True, primary_key=True)
-    image = models.ImageField(upload_to=('public_html/2011/TabImage/%s.jpg',str(image_id)))
+    image = models.ImageField(upload_to=('%(dir)sTabImage/%(id)s.jpg'%\{"dir"=IMAGE_DIR, "id"=str(image_id)}))
     # I really don't know whether this will work. Just change this if you find out a method that works 
     # Converted image_id to a string and then changed the upload_to path.  
     # Unique image id, the idea is to rename the file to the image_id
     # We can identify each image by it's unique image_ids
-    def __str__(self):
+    def __unicode__(self):
         return str(self.image_id)
     class Admin:
         pass
@@ -99,9 +101,12 @@ class TabForumReply(models.Model):
     likes = models.IntegerField()
     dislikes = models.IntegerField()
     # NOTE: Do we need edit history? I don't think it's worth implementing this feature.
+    def __unicode__(self):
+    	return self.content
 
 class TabForum(models.Model):
     name = models.CharField( max_length = 30 )
+    content = models.TextField()    
     #Name of the thread , could be decided by the author of the thread
     tags = models.ManyToManyField(Tag, blank=True, null=True)
     #Tags associated with the thread, similar to tags in blogspot/wordpress
@@ -110,10 +115,11 @@ class TabForum(models.Model):
     time_modified = models.DateTimeField(auto_now=False, auto_now_add=False)
     replies = models.ManyToManyField(TabForumReply,blank=True,null=True,related_name='replies')
     #Reply to each thread , will have user who replied, content and timestamp
-    def __str__(self):
+    def __unicode__(self):
         return self.name
     class Admin:
         pass
+
 
 #Team event will be derived from the Event class
 #Author: Swaroop Ramaswamy - Inital model 
@@ -123,7 +129,7 @@ class TeamEvent(Event):
     teams = models.ManyToManyField(Team,  blank=True, null=True, related_name='Team_events')
     chosen_teams = models.ManyToManyField(Team, blank=True, null=True, related_name='Team_qualified_events')
 
-    def __str__(self):
+    def __unicode__(self):
         return self.name
     #I m not sure if I can use foreign keys this way. Somebody please check this.   
     # karthikabinav here:
@@ -133,13 +139,11 @@ class TeamEvent(Event):
     class Admin:
         pass    
 
+
 #Author: Praveen Venkatesh
 QUESTION_TYPE = ((1, 'Text'),
                  (2, 'File'),
                  (3, 'MCQ'),)
-
-
-
 #Author: Praveen Venkatesh - Created inital model
 
 #Author: Praveen Venkatesh - Created inital model
@@ -172,7 +176,7 @@ class Question_base(models.Model):
     visible = models.BooleanField(default = True)
 
     #Define thyself!
-    def __str__(self):
+    def __unicode__(self):
         return self.text
     #Should we have a question id ? Returning the text field doesn't seem so appropriate to me. We can have question id as an AutoField and return str(self.question_id)    
 
@@ -199,7 +203,7 @@ class MCQOption(models.Model):
     #Choice specifics
     choice_text = models.TextField(max_length = 1000)
 
-    def __str__(self):
+    def __unicode__(self):
         return self.choice_text
 
     class Admin:
@@ -244,7 +248,7 @@ class MCQAnswer_base (models.Model):
 
     content = models.ForeignKey(MCQOption)
 
-    def __str__(self):
+    def __unicode__(self):
         return str(self.content)
 
     class Admin:
@@ -264,7 +268,7 @@ class FileAnswer_base(models.Model):
 
     content=models.FileField(upload_to="files/", null=True)
 
-    def __str__(self):
+    def __unicode__(self):
         return self.content
 
     class Admin:
