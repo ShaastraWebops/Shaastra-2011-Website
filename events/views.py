@@ -15,6 +15,7 @@ import datetime
 
 import os
 
+#We can check if coords are logged in using the request.session['logged_in'] variable and then allow them to edit the corresponding event page after verifying this.
 def coordslogin (request)
     form=forms.CoordLoginForm()
     if request.method == 'POST':
@@ -26,16 +27,21 @@ def coordslogin (request)
                 auth.login (request, user)
                 request.session['logged_in'] = True
                 url="%s/coordhome/"%settings.SITE_URL
+                #This URL can be changed as required later
                 response= HttpResponseRedirect (url)
                 return response
             else:
                 request.session['invalid_login'] = True
+                request.session['logged_in'] = False
                 url="%s/coordlogin"%settings.SITE_URL
-                return HttpResponseRedirect (url)
-        else                       
+                #This URL can be changed as required later
+                response= HttpResponseRedirect (url)
+                return response
+        else:                       
             invalid_login = session_get(request, "invalid_login")
             form = forms.UserLoginForm () 
     return render_to_response('events/coordlogin.html', locals(), context_instance= global_context(request))
+    #This URL can be changed as required later
                    
 #I m _not_ writing templates write now. Just creating empty html files. 
 def show_quick_tab(request):
