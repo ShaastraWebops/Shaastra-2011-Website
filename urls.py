@@ -5,8 +5,8 @@ from django.conf.urls.defaults import *
 from django.contrib import admin
 admin.autodiscover()
 
-handler404 = "userportal.misc.util.not_found"
-handler500 = "userportal.misc.util.server_error"
+handler404 = "main_test.misc.util.not_found"
+handler500 = "main_test.misc.util.server_error"
 
 #testing
 urlpatterns = patterns('',

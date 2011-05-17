@@ -8,13 +8,13 @@ from django.contrib.auth.models import User
 from django.template import Template, Context
 from django.utils.safestring import mark_safe
 
-from userportal.recaptcha import fields as recaptcha_fields
+#from userportal.recaptcha import fields as recaptcha_fields
 
-from userportal.misc import util
-from userportal import settings
+from main_test.misc import util
+from main_test import settings
 
-from userportal.registration import models
-from userportal.events import models
+from main_test.users import models
+from main_test.events import models
 
 alnum_re = re.compile(r'^[\w.-]+$') # regexp. from jamesodo in #django  [a-zA-Z0-9_.]
 alphanumric = re.compile(r"[a-zA-Z0-9]+$")

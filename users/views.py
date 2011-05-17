@@ -13,8 +13,7 @@ from django.contrib.sessions.models import Session
 
 from main_test.misc.util import *
 from main_test.settings import *
-from main_test.registration.php_serialize.PHPSerialize import *
-from main_test.registration.models import UserProfile
+from main_test.users.models import UserProfile
 import models,forms
 import sha,random,datetime
 
@@ -57,12 +56,8 @@ def login (request):
 
     if request.method == 'POST':
         data = request.POST.copy()
-#	  if request.POST.get('from_url',False):
-#	    request.session['from_url']='http://www.shaastra.org/2010/helpdesk/forum.php?req=setuser'
-#	    print request.session['from_url']
-#        else:
         form = forms.UserLoginForm (data)
-	    if form.is_valid():
+        if form.is_valid():
             user = auth.authenticate(username=form.cleaned_data['username'], password=form.cleaned_data["password"])
             if user is not None and user.is_active == True:
                 auth.login (request, user)
@@ -86,10 +81,11 @@ def login (request):
             else:
                 request.session['invalid_login'] = True
                 return HttpResponseRedirect (request.path)
-    else: 
-        invalid_login = session_get(request, "invalid_login")
-        form = forms.UserLoginForm ()
-
+        else: 
+            invalid_login = session_get(request, "invalid_login")
+            form = forms.UserLoginForm ()
+    else:
+        pass
     return render_to_response('home/login.html', locals(), context_instance= global_context(request)) 
 
 def forgot_password (request):
@@ -208,8 +204,7 @@ def user_registration(request):
             activation_key = sha.new(salt+user.username).hexdigest()
             key_expires=datetime.datetime.today() + datetime.timedelta(2)
 
-            user_profile = models.UserProfile
-            (user = user,
+            user_profile = models.UserProfile(user = user,
              first_name = form.cleaned_data['first_name'].lower(),
              last_name = form.cleaned_data['last_name'].lower(),
              college = college,
@@ -233,10 +228,10 @@ def user_registration(request):
                 body = mail_template.render(Context({'username':user.username, 'SITE_URL':settings.SITE_URL, 'activationkey':user_profile.activation_key }))
                 send_mail('Shaastra 2011 Userportal account confirmation', body,'noreply@shaastra.org', [user.email,], fail_silently=False)
                 return HttpResponseRedirect ("%s/home/registered/"%settings.SITE_URL)
-                except:
-                    user.delete();
-                    user_profile.delete();
-                    raise
+            except:
+                user.delete();
+                user_profile.delete();
+                raise
     else: 
         form = forms.AddUserForm ()
         coll_form = forms.AddCollegeForm(prefix="id2")
@@ -289,8 +284,8 @@ def coord_registration(request):
                         last_name = form.cleaned_data['last_name'],
                         college = models.College.objects.get (name="Indian Institute of Technology Madras"),
                         mobile_number = form.cleaned_data['mobile_number'],
-                        event_name=form.cleaned_data['event_name']
-						department=form.cleaned_data['department']
+                        event_name=form.cleaned_data['event_name'],
+						department=form.cleaned_data['department'],
                     )
                     #i think we should automatically assign the department based on event name.
                     # we will look into this later
