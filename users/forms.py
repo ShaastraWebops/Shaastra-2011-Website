@@ -10,6 +10,7 @@ from django.utils.safestring import mark_safe
 
 #from userportal.recaptcha import fields as recaptcha_fields
 
+<<<<<<< HEAD
 #from userportal.misc import util
 from main_test.misc import util
 #from userportal import settings
@@ -18,6 +19,11 @@ from main_test import settings
 #from userportal.registration import models
 #from userportal.events import models
 
+=======
+from main_test.misc import util
+from main_test import settings
+
+>>>>>>> 6a79896a607fc88a78d42162c8fceb7c97b00e79
 from main_test.users import models
 from main_test.events import models
 

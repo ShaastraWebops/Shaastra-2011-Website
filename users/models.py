@@ -1,7 +1,12 @@
 from django.db import models
 from django.contrib import admin
+<<<<<<< HEAD
 #from django import forms
 from main_test.events.models import Event,TeamEvent
+=======
+from django import forms
+#from events.models import Event,TeamEvent
+>>>>>>> 6a79896a607fc88a78d42162c8fceb7c97b00e79
 from django.contrib.auth.models import User, Group
 
 from main_test.settings import MEDIA_ROOT
@@ -86,7 +91,7 @@ class UserProfile(models.Model):
         pass
 
 class coord(UserProfile):
-    event_name=models.ForeignKey(Event)
+    #event_name=models.ForeignKey(Event)
     department=models.CharField(max_length=80)
     # not sure if this is required
     #tdp= models.ManyToManyField(Question,blank=True,null=True)
