@@ -13,7 +13,13 @@ from django.contrib.sessions.models import Session
 
 from main_test.misc.util import *
 from main_test.settings import *
+<<<<<<< HEAD
+#from main_test.registration.php_serialize.PHPSerialize import *
 from main_test.users.models import UserProfile
+
+=======
+from main_test.users.models import UserProfile
+>>>>>>> 6a79896a607fc88a78d42162c8fceb7c97b00e79
 import models,forms
 import sha,random,datetime
 
@@ -56,6 +62,13 @@ def login (request):
 
     if request.method == 'POST':
         data = request.POST.copy()
+
+#	  if request.POST.get('from_url',False):
+#	    request.session['from_url']='http://www.shaastra.org/2010/helpdesk/forum.php?req=setuser'
+#	    print request.session['from_url']
+#         else:
+        form = forms.UserLoginForm (data)
+	if form.is_valid():
         form = forms.UserLoginForm (data)
         if form.is_valid():
             user = auth.authenticate(username=form.cleaned_data['username'], password=form.cleaned_data["password"])
@@ -187,6 +200,66 @@ def check(request):
 
 def user_registration(request):
 
+	colls = models.College.objects.all()
+    
+
+	if request.method=='POST':
+		data = request.POST.copy()
+        form = forms.AddUserForm (data)
+        
+        if form.is_valid():
+            if form.cleaned_data["password"] == form.cleaned_data["password_again"]:
+                user = models.User.objects.create_user(
+                    username = form.cleaned_data['username'],
+                    email = form.cleaned_data['email'],
+                    password = form.cleaned_data['password']
+                    )
+                college=form.cleaned_data['college']
+
+		user.is_active = False
+
+		salt = sha.new(str(random.random())).hexdigest()[:5]
+                activation_key = sha.new(salt+user.username).hexdigest()
+                key_expires=datetime.datetime.today() + datetime.timedelta(2)
+
+		user_profile = models.UserProfile(
+                        user = user,
+                        first_name = form.cleaned_data['first_name'].lower(),
+                        last_name = form.cleaned_data['last_name'].lower(),
+                        college = college,
+                        mobile_number = form.cleaned_data['mobile_number'],
+                        gender = form.cleaned_data['gender'],
+                        age = form.cleaned_data['age'],
+                        branch = clean_string(form.cleaned_data['branch']),
+                        college_roll=form.cleaned_data['college_roll'],
+                        want_hospi = form.cleaned_data['want_hospi'],
+                        activation_key = activation_key,
+                        key_expires = key_expires,
+                    )
+                user.save()
+
+
+                try:
+		    user_profile.save()
+                    
+                    print "*************************                  ", activation_key
+                   #dont know where to get templates from. have to change this later
+		    mail_template=get_template('email/activate.html')
+                    body = mail_template.render(Context({'username':user.username,
+							 'SITE_URL':settings.SITE_URL,
+							 'activationkey':user_profile.activation_key }))
+                    send_mail('Shaastra 2011 Userportal account confirmation', body,'noreply@shaastra.org', [user.email,], fail_silently=False)
+                    return HttpResponseRedirect ("%s/home/registered/"%settings.SITE_URL)
+
+                except:
+                    user.delete();
+                    user_profile.delete();
+                    raise
+        else: 
+            form = forms.AddUserForm ()
+            coll_form = forms.AddCollegeForm(prefix="id2")
+	    #again have to change this later. dont know which html to use??	
+            return render_to_response('users/register_user.html', locals(), context_instance= global_context(request))
     colls = models.College.objects.all()
     if request.method=='POST':
         data = request.POST.copy()
@@ -249,6 +322,20 @@ def college_registration (request):
         if form.is_valid():
             college=clean_string(form.cleaned_data['name'])
             if college.find('&')>=0:
+		college = college.replace('&','and')
+                city=clean_string(form.cleaned_data['city'])
+		state=clean_string(form.cleaned_data['state'])
+  
+          
+            if len (models.College.objects.filter(
+                name=college,
+                city=city,
+                state=state))== 0 :
+		college=models.College (
+                     name = college,
+                     city = city,
+                     state = state
+                     )
                 college = college.replace('&','and')
                 city=clean_string(form.cleaned_data['city'])
                 state=clean_string(form.cleaned_data['state'])
@@ -285,7 +372,8 @@ def coord_registration(request):
                         college = models.College.objects.get (name="Indian Institute of Technology Madras"),
                         mobile_number = form.cleaned_data['mobile_number'],
                         event_name=form.cleaned_data['event_name'],
-						department=form.cleaned_data['department'],
+			department=form.cleaned_data['department']
+			department=form.cleaned_data['department'],
                     )
                     #i think we should automatically assign the department based on event name.
                     # we will look into this later

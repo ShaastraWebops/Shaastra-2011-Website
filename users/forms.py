@@ -10,6 +10,16 @@ from django.utils.safestring import mark_safe
 
 #from userportal.recaptcha import fields as recaptcha_fields
 
+
+#from userportal.misc import util
+from main_test.misc import util
+#from userportal import settings
+from main_test import settings
+
+#from userportal.registration import models
+#from userportal.events import models
+
+
 from main_test.misc import util
 from main_test import settings
 
@@ -29,7 +39,7 @@ HOSPI_CHOICES = (
         (0, 'No.'),
         )
 
-COLLEGE_CHOICES = [(e.id, "%s, %s, %s"%(e.state,e.city,e.name)) for e in models.College.objects.order_by("state","city","name",)]
+#COLLEGE_CHOICES = [(e.id, "%s, %s, %s"%(e.state,e.city,e.name)) for e in models.College.objects.order_by("state","city","name",)]
 
 #Added to render the radio buttons horizontally
 class HorizRadioRenderer(forms.RadioSelect.renderer):
@@ -117,7 +127,7 @@ class AddUserForm(forms.Form):
     mobile_number=forms.CharField(max_length=15,help_text='Enter your mobile number. eg, 9884098840')
     college_roll=forms.CharField(label="College Id/Roll Number",max_length=40,help_text='Your college roll number. eg, ME09B053')
     college = forms.CharField(max_length=120,widget=forms.TextInput(attrs={'id':'coll_input'}),help_text='Select your college from the list. If it is not there, use the link below')
-    recaptcha = recaptcha_fields.ReCaptchaField(label='Show us that you are not a bot!',help_text='Enter the words shown in the space provided')
+    #recaptcha = recaptcha_fields.ReCaptchaField(label='Show us that you are not a bot!',help_text='Enter the words shown in the space provided')
     want_hospi = forms.CharField(label='Want to be considered for accommodation ?',required=True,widget=forms.RadioSelect(renderer=HorizRadioRenderer,choices=HOSPI_CHOICES), help_text='In case you want accomodation. Please check the list of events for which accomodation will be provided before applying.')
     
     
