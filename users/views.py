@@ -13,13 +13,12 @@ from django.contrib.sessions.models import Session
 
 from main_test.misc.util import *
 from main_test.settings import *
-<<<<<<< HEAD
+
 #from main_test.registration.php_serialize.PHPSerialize import *
 from main_test.users.models import UserProfile
 
-=======
 from main_test.users.models import UserProfile
->>>>>>> 6a79896a607fc88a78d42162c8fceb7c97b00e79
+
 import models,forms
 import sha,random,datetime
 
@@ -69,28 +68,28 @@ def login (request):
 #         else:
         form = forms.UserLoginForm (data)
 	if form.is_valid():
-        form = forms.UserLoginForm (data)
-        if form.is_valid():
-            user = auth.authenticate(username=form.cleaned_data['username'], password=form.cleaned_data["password"])
-            if user is not None and user.is_active == True:
-                auth.login (request, user)
+            form = forms.UserLoginForm (data)
+            if form.is_valid():
+                user = auth.authenticate(username=form.cleaned_data['username'], password=form.cleaned_data["password"])
+                if user is not None and user.is_active == True:
+                    auth.login (request, user)
 
-                url = session_get(request, "from_url")
-                # Handle redirection
-                if not url:
-                    url = "%s/home/"%settings.SITE_URL
+                    url = session_get(request, "from_url")
+                    # Handle redirection
+                    if not url:
+                        url = "%s/home/"%settings.SITE_URL
 
-                request.session['logged_in'] = True
+                    request.session['logged_in'] = True
 
 # This was added to get additional hospi information towards the end
 #                if user.get_profile().profile_not_set :
 #                    url = "%s/profile/"%settings.SITE_URL
-                response= HttpResponseRedirect (url)
-                try:
-                    response.set_cookie('logged_out', 0)
-                except:
-                    pass
-                return response
+                    response= HttpResponseRedirect (url)
+                    try:
+                        response.set_cookie('logged_out', 0)
+                    except:
+                        pass
+                    return response
             else:
                 request.session['invalid_login'] = True
                 return HttpResponseRedirect (request.path)
@@ -200,11 +199,11 @@ def check(request):
 
 def user_registration(request):
 
-	colls = models.College.objects.all()
+    colls = models.College.objects.all()
     
 
-	if request.method=='POST':
-		data = request.POST.copy()
+    if request.method=='POST':
+	data = request.POST.copy()
         form = forms.AddUserForm (data)
         
         if form.is_valid():
@@ -260,22 +259,23 @@ def user_registration(request):
             coll_form = forms.AddCollegeForm(prefix="id2")
 	    #again have to change this later. dont know which html to use??	
             return render_to_response('users/register_user.html', locals(), context_instance= global_context(request))
+   
     colls = models.College.objects.all()
     if request.method=='POST':
         data = request.POST.copy()
-    form = forms.AddUserForm (data)
+        form = forms.AddUserForm (data)
 
-    if form.is_valid():
-        if form.cleaned_data["password"] == form.cleaned_data["password_again"]:
-            user = models.User.objects.create_user(
-                username = form.cleaned_data['username'],
-                email = form.cleaned_data['email'],
-                password = form.cleaned_data['password'])
-            college=form.cleaned_data['college']
-            user.is_active = False
-            salt = sha.new(str(random.random())).hexdigest()[:5]
-            activation_key = sha.new(salt+user.username).hexdigest()
-            key_expires=datetime.datetime.today() + datetime.timedelta(2)
+        if form.is_valid():
+            if form.cleaned_data["password"] == form.cleaned_data["password_again"]:
+                user = models.User.objects.create_user(
+                    username = form.cleaned_data['username'],
+                    email = form.cleaned_data['email'],
+                    password = form.cleaned_data['password'])
+                college=form.cleaned_data['college']
+                user.is_active = False
+                salt = sha.new(str(random.random())).hexdigest()[:5]
+                activation_key = sha.new(salt+user.username).hexdigest()
+                key_expires=datetime.datetime.today() + datetime.timedelta(2)
 
             user_profile = models.UserProfile(user = user,
              first_name = form.cleaned_data['first_name'].lower(),
@@ -372,7 +372,6 @@ def coord_registration(request):
                         college = models.College.objects.get (name="Indian Institute of Technology Madras"),
                         mobile_number = form.cleaned_data['mobile_number'],
                         event_name=form.cleaned_data['event_name'],
-			department=form.cleaned_data['department']
 			department=form.cleaned_data['department'],
                     )
                     #i think we should automatically assign the department based on event name.

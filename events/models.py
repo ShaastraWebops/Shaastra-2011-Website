@@ -5,9 +5,9 @@
 
 from django.db import models
 from django.contrib import admin
-from users.models import Team
-from django.contrib.auth.models import User, Group
 
+from django.contrib.auth.models import User, Group
+from users.models import Team
 
 # Please note that __str__ is not recommended in django docs. Should we switch to unicode ?
 class Tag(models.Model):   
