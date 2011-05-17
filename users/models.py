@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib import admin
 from django import forms
-from main_test.events.models import Event,TeamEvent
+from events.models import Event,TeamEvent
 from django.contrib.auth.models import User, Group
 
 # Create your models here.
