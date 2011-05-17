@@ -1,7 +1,12 @@
 from django.db import models
 from django.contrib import admin
+<<<<<<< HEAD
 #from django import forms
 
+=======
+from django import forms
+#from main_test.events.models import Event,TeamEvent
+>>>>>>> a8616962e2f917b2b7f3a1785f9dee7e3c3e449c
 from django import forms
 #from events.models import Event,TeamEvent
 

@@ -19,7 +19,6 @@ import os
 def show_quick_tab(request):
     data=QuickTab.objects.all()
     event_name,title,text=data.event.name,data.title,data.text
-<<<<<<< HEAD
     return render_to_response('events/QuickTabs.html', locals(), context_instance= global_context(request)) 
 
 
@@ -43,11 +42,13 @@ def edit_content(request,event_name = None,title)
         e_name = e_name.replace('/','')
 
         if not events_list.filter(name=event_name): 
+            pass
         # to be redirected to appropriate page
         else:
 
             coord_list = models.coord.objects.filter(event_name = event_name)
             if not user in coord_list:
+                pass
             #redirect to appropriate page
             else:
 
@@ -60,7 +61,7 @@ def edit_content(request,event_name = None,title)
                         qtab.text = text
 
 
-=======
+
     return render_to_response('events/QuickTabs.html', locals(), context_instance= global_context(request))
 
 # here is my idea of adding new tab
@@ -77,4 +78,3 @@ def add_quick_tabs(request):
         title=form.cleaned_data['title']
         return render_to_response('events/QuickTabs.html', locals(), context_instance= global_context(request))
 
->>>>>>> 166d7acb09545fe1c9ae4208690b4f67f00ef5db

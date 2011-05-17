@@ -13,12 +13,18 @@ from django.contrib.sessions.models import Session
 
 from main_test.misc.util import *
 from main_test.settings import *
+<<<<<<< HEAD
 
 #from main_test.registration.php_serialize.PHPSerialize import *
 from main_test.users.models import UserProfile
 
 from main_test.users.models import UserProfile
 
+=======
+#from main_test.registration.php_serialize.PHPSerialize import *
+from main_test.users.models import UserProfile
+from main_test.users.models import UserProfile
+>>>>>>> a8616962e2f917b2b7f3a1785f9dee7e3c3e449c
 import models,forms
 import sha,random,datetime
 
