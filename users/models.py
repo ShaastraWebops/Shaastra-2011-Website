@@ -81,6 +81,7 @@ class College(models.Model):
 #User profile common to all users
 #Author: Swaroop Ramaswamy - inital model                
 class UserProfile(models.Model):
+<<<<<<< HEAD
     user 			= models.ForeignKey		(User, unique = True)
     gender 			= models.CharField		(max_length = 1, choices = GENDER_CHOICES, default = 'F')   #Defaults to 'girl' ;-)
     age 			= models.IntegerField 	(default = 18,)
@@ -92,6 +93,23 @@ class UserProfile(models.Model):
     activation_key 	= models.CharField		(max_length = 40)
     key_expires 	= models.DateTimeField	()
     want_hospi 		= models.BooleanField	(default = False)
+=======
+    user = models.ForeignKey(User, unique=True)
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30)
+    gender = models.CharField(max_length=1,choices=GENDER_CHOICES,default='M')
+    age = models.IntegerField(default=18,)
+    branch = models.CharField(max_length=50,default='Enter Branch Here',blank=True)
+    mobile_number = models.CharField(max_length=15)
+    college = models.ForeignKey(College)
+    college_roll = models.CharField(max_length=40,default='Enter College Id/Roll No.')
+    shaastra_id = models.CharField(max_length=20, default=False, unique = True)
+    activation_key = models.CharField(max_length=40)
+    key_expires = models.DateTimeField()
+    want_hospi = models.BooleanField(default = False)
+    is_coord = models.BooleanField(default = False )
+    coord_event = models.CharField(max_length=30, default = None)
+>>>>>>> da284cdf7bb1570726bf1eac1237abd32a7b2f37
     
     def __unicode__(self):
         return self.user.username
@@ -104,7 +122,7 @@ class UserProfile(models.Model):
 # Suggest using is_coord() to find out if a user is a coord
 '''
 class coord(UserProfile):
-    #event_name=models.ForeignKey(Event)
+    event_name=models.ForeignKey(Event)
     department=models.CharField(max_length=80)
     # not sure if this is required
     #tdp= models.ManyToManyField(Question,blank=True,null=True)
