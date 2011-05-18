@@ -153,13 +153,9 @@ class Question_base(models.Model):
     question_number = models.IntegerField ( blank = False, null = False, verbose_name = 'Number displayed in the button for this question.',) 
 
     #File specifics
-<<<<<<< HEAD
+
     question_file = models.FileField(upload_to = 'files/%s/'%str(event), blank = True, null = True)
-		#Not sure if this syntax is correct             ^^^^^
-=======
-    question_file = models.FileField(upload_to = ('files/%s/',str(Event)), blank = True, null = True)
-	#Not sure if this syntax is correct             ^^^^^
->>>>>>> a8616962e2f917b2b7f3a1785f9dee7e3c3e449c
+    #Not sure if this syntax is correct             ^^^^^
     #Should we do this or should be do what we did for Tabimage ?    
     #Retrieve choices in case of MCQ type
     def get_choices(self):
