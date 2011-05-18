@@ -10,6 +10,7 @@ from django.contrib.auth.models import User, Group
 
 #Global - Directory where all the other image directories go
 IMAGE_DIR = '2011/media/main/images/'
+FILE_DIR = '2011/media/main/files/'
 
 # Please note that __unicode__ is not recommended in django docs. Should we switch to unicode ?
 class Tag(models.Model):   
@@ -54,14 +55,35 @@ class Event(models.Model):
     class Admin:
         pass  
 
+
+class TabFile(models.Model):
+    
+    file_id = models.AutoField(unique=True, primary_key=True)
+    File = models.FileField(upload_to=('%sTabFile/%s'%(FILE_DIR,file_id)),blank=True, null=True)
+    def __unicode__(self):
+        return str(self.image_id)
+    class Admin:
+        pass
+        
+
 class QuickTabs(models.Model): 
-    # NOTE: Will one text field per tab suffice?
 
     title       = models.CharField(max_length=100)
     event       = models.ForeignKey(Event)
-    text        = models.TextField() 
-
-    images      = models.ManyToManyField(TabImage      , blank=True, null=True, related_name='questions')
+    
+    #10kb should be enough.
+    text        = models.CharField(max_length=10000)
+    
+    # No more than 10 tabs per event.
+    pref = models.IntegerField(max_length=2);
+    
+    #files 
+    files =  models.ManyToManyField(TabFile, blank=True, null=True, related_name='files')
+    
+    # According to sudarshan, tab doesn't contain any images
+    #images      = models.ManyToManyField(TabImage      , blank=True, null=True, related_name='questions')
+    
+    #Sudarshan asked us to separate Q&A from the tabs
     #questions   = models.ManyToManyField(TabQuestion   , blank=True, null=True, related_name='questions')
     #forums      = models.ManyToManyField(TabForum      , blank=True, null=True, related_name='forums')
 
@@ -78,7 +100,7 @@ class TabImage(models.Model):
     # Ex: When a user wants to upload a image file, a TabImage object is created. Say it's id is 44. 
     # Then rename the file to 44.jpg and store it in "public_html/2011/TabImage/"
     image_id = models.AutoField(unique=True, primary_key=True)
-    image = models.ImageField(upload_to=('%(dir)sTabImage/%(id)s.jpg'%\{"dir"=IMAGE_DIR, "id"=str(image_id)}))
+    image = models.ImageField(upload_to=('%sTabImage/%s'%(IMAGE_DIR,image_id)),blank=True, null=True)
     # I really don't know whether this will work. Just change this if you find out a method that works 
     # Converted image_id to a string and then changed the upload_to path.  
     # Unique image id, the idea is to rename the file to the image_id
@@ -87,6 +109,7 @@ class TabImage(models.Model):
         return str(self.image_id)
     class Admin:
         pass
+
 
 class TabForumReply(models.Model):
     reply_by = models.ForeignKey(User,blank=True, null=True, related_name='reply_by')
