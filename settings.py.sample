@@ -130,6 +130,9 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
 )
 
+#Added for implementing user profiles
+AUTH_PROFILE_MODULE = "users.UserProfile"
+
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
 # the site admins on every HTTP 500 error.
