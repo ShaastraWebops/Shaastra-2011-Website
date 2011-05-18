@@ -5,11 +5,13 @@ from django.contrib import auth
 from django.template.loader import get_template
 from django.template.context import Context, RequestContext
 
-from main_test.misc.util import *
+from main_test.misc.util import *               #Importing everything - just in case
 from main_test.settings import *
 from main_test.users.models import User
-
-import forms, models
+from main_test.events.models import *
+from main_test.events.forms import *
+from main_test.submissions.models import *    
+from main_test.submissions.forms import *
 
 import datetime
 
