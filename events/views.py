@@ -46,12 +46,59 @@ def coordslogin (request)
     #This URL can be changed as required later
                    
 #I m _not_ writing templates write now. Just creating empty html files. 
-def show_quick_tab(request):
+def show_quick_tab(request,event_name=None):
     data=QuickTab.objects.all()
     event_name,title,text=data.event.name,data.title,data.text
     return render_to_response('events/QuickTabs.html', locals(), context_instance= global_context(request)) 
 
+<<<<<<< HEAD
 @needs_authentication
+=======
+
+# here is my idea of adding new tab
+# # i presume there will be a button say add tab
+#  once that is clicked a form will come asking for name of tab
+#  the user fills the title for tab in it
+#  someone please correct me if i am wrong
+@needs_authentication
+@coords_only
+def add_quick_tabs(request,event_name = None):
+    #just a check if the coord is viewing the right page...
+    
+    user=request.user
+    userprof=user.get_profile()
+    events_list = models.Event.objects.filter(registerable=True)
+    
+    if event_name is None or event_name == "":
+        #the url can be changed later
+        return HttpResponseRedirect ('%s/events/'%settings.SITE_URL)
+    #check if events name is there in the list
+    else if:
+        event_name=decamelize(event_name)
+        event_name=event_name.replace('/','')
+        if not events_list.filter(name=event_name): 
+            request.session ['invalid_event'] = event_name
+            return HttpResponseRedirect ('%s/events/'%settings.SITE_URL)
+    
+    else if:
+        coord_list = models.coord.objects.filter(event_name = event_name)
+        if not user in coord_list:
+            return HttpResponseRedirect ('%s/events/'%settings.SITE_URL)
+    
+    else:
+        if request.method=='GET': # get or post  ????
+            data=request.GET.copy()
+            form = forms.AddTabForm(data)
+            title=form.cleaned_data['title']
+            event = event_name
+            text = form.cleaned_data['text']
+            return render_to_response('events/QuickTabs.html', locals(), context_instance= global_context(request))
+        
+        
+def remove_quick_tab(request,event_name = None,title):
+        
+
+>>>>>>> ed60cf68833259aa6207327efe34d8e70a7d9c03
 def edit_content(request,event_name = None,title)
 
     user = request.user
@@ -65,18 +112,3 @@ def edit_content(request,event_name = None,title)
 
 
     return render_to_response('events/QuickTabs.html', locals(), context_instance= global_context(request))
-
-# here is my idea of adding new tab
-# # i presume there will be a button say add tab
-#  once that is clicked a form will come asking for name of tab
-#  the user fills the title for tab in it
-#  someone please correct me if i am wrong
-@needs_authentication
-@coords_only
-def add_quick_tabs(request):
-    if request.method=='GET':
-        data=request.GET.copy()
-        form = forms.AddTabForm(data)
-        title=form.cleaned_data['title']
-        return render_to_response('events/QuickTabs.html', locals(), context_instance= global_context(request))
-
