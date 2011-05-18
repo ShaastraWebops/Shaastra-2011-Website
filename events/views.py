@@ -5,16 +5,46 @@ from django.contrib import auth
 from django.template.loader import get_template
 from django.template.context import Context, RequestContext
 
-from main_test.misc.util import *
+from main_test.misc.util import *               #Importing everything - just in case
 from main_test.settings import *
 from main_test.users.models import User
-
-import forms, models
+from main_test.events.models import *
+from main_test.events.forms import *
+from main_test.submissions.models import *    
+from main_test.submissions.forms import *
 
 import datetime
 
 import os
 
+#We can check if coords are logged in using the request.session['logged_in'] variable and then allow them to edit the corresponding event page after verifying this.
+def coordslogin (request)
+    form=forms.CoordLoginForm()
+    if request.method == 'POST':
+        data = request.POST.copy()
+        form = forms.CoordLoginForm(data)
+        if form.is_valid():
+            user = auth.authenticate(username=form.cleaned_data['username'], password=form.cleaned_data["password"])
+            if user is not None and user.is_active == True:
+                auth.login (request, user)
+                request.session['logged_in'] = True
+                url="%s/coordhome/"%settings.SITE_URL
+                #This URL can be changed as required later
+                response= HttpResponseRedirect (url)
+                return response
+            else:
+                request.session['invalid_login'] = True
+                request.session['logged_in'] = False
+                url="%s/coordlogin"%settings.SITE_URL
+                #This URL can be changed as required later
+                response= HttpResponseRedirect (url)
+                return response
+        else:                       
+            invalid_login = session_get(request, "invalid_login")
+            form = forms.UserLoginForm () 
+    return render_to_response('events/coordlogin.html', locals(), context_instance= global_context(request))
+    #This URL can be changed as required later
+                   
 #I m _not_ writing templates write now. Just creating empty html files. 
 def show_quick_tab(request):
     data=QuickTab.objects.all()

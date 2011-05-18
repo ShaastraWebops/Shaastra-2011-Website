@@ -8,12 +8,15 @@ from django.contrib import admin
 from users.models import Team
 from django.contrib.auth.models import User, Group
 
+#Global - Directory where all the other image directories go
+IMAGE_DIR = '2011/media/main/images/'
+FILE_DIR = '2011/media/main/files/'
 
-# Please note that __str__ is not recommended in django docs. Should we switch to unicode ?
+# Please note that __unicode__ is not recommended in django docs. Should we switch to unicode ?
 class Tag(models.Model):   
 #E.g.: aerofest, coding etc
     name=models.CharField(max_length=30)
-    def __str__(self):
+    def __unicode__(self):
         return self.name
     class Admin:
         pass
@@ -43,27 +46,48 @@ class Event(models.Model):
     #NOTE: Rename the uploaded image file to event name.
     #NOTE: Assumption: There's one logo and one spons logo for each event
     # Is this the correct path? CHECK THIS!
-    logo=models.FileField(upload_to="public_html/2011/events_logos/", blank=True, null=True)
-    sponslogo=models.FileField(upload_to="public_html/2011/events_sponslogos/", blank=True, null=True)
+    logo=models.FileField(upload_to="%sevent_logos/"%IMAGE_DIR, blank=True, null=True)
+    sponslogo=models.FileField(upload_to="%sspons_logos/"%IMAGE_DIR, blank=True, null=True)
 
-    def __str__(self):
+    def __unicode__(self):
         return self.name
 
     class Admin:
         pass  
 
+
+class TabFile(models.Model):
+    
+    file_id = models.AutoField(unique=True, primary_key=True)
+    File = models.FileField(upload_to=('%sTabFile/%s'%(FILE_DIR,file_id)),blank=True, null=True)
+    def __unicode__(self):
+        return str(self.image_id)
+    class Admin:
+        pass
+        
+
 class QuickTabs(models.Model): 
-    # NOTE: Will one text field per tab suffice?
 
     title       = models.CharField(max_length=100)
     event       = models.ForeignKey(Event)
-    text        = models.TextField() 
-
+    
+    #10kb should be enough.
+    text        = models.CharField(max_length=10000)
+    
+    # No more than 10 tabs per event.
+    pref = models.IntegerField(max_length=2);
+    
+    #files 
+    files =  models.ManyToManyField(TabFile, blank=True, null=True, related_name='files')
+    
+    # According to sudarshan, tab doesn't contain any images
     #images      = models.ManyToManyField(TabImage      , blank=True, null=True, related_name='questions')
+    
+    #Sudarshan asked us to separate Q&A from the tabs
     #questions   = models.ManyToManyField(TabQuestion   , blank=True, null=True, related_name='questions')
     #forums      = models.ManyToManyField(TabForum      , blank=True, null=True, related_name='forums')
 
-    def __str__(self):
+    def __unicode__(self):
         return self.text
     class Admin:
         pass
@@ -76,15 +100,16 @@ class TabImage(models.Model):
     # Ex: When a user wants to upload a image file, a TabImage object is created. Say it's id is 44. 
     # Then rename the file to 44.jpg and store it in "public_html/2011/TabImage/"
     image_id = models.AutoField(unique=True, primary_key=True)
-    image = models.ImageField(upload_to=('public_html/2011/TabImage/%s.jpg',str(image_id)))
+    image = models.ImageField(upload_to=('%sTabImage/%s'%(IMAGE_DIR,image_id)),blank=True, null=True)
     # I really don't know whether this will work. Just change this if you find out a method that works 
     # Converted image_id to a string and then changed the upload_to path.  
     # Unique image id, the idea is to rename the file to the image_id
     # We can identify each image by it's unique image_ids
-    def __str__(self):
+    def __unicode__(self):
         return str(self.image_id)
     class Admin:
         pass
+
 
 class TabForumReply(models.Model):
     reply_by = models.ForeignKey(User,blank=True, null=True, related_name='reply_by')
@@ -99,9 +124,12 @@ class TabForumReply(models.Model):
     likes = models.IntegerField()
     dislikes = models.IntegerField()
     # NOTE: Do we need edit history? I don't think it's worth implementing this feature.
+    def __unicode__(self):
+    	return self.content
 
 class TabForum(models.Model):
     name = models.CharField( max_length = 30 )
+    content = models.TextField()    
     #Name of the thread , could be decided by the author of the thread
     tags = models.ManyToManyField(Tag, blank=True, null=True)
     #Tags associated with the thread, similar to tags in blogspot/wordpress
@@ -110,10 +138,11 @@ class TabForum(models.Model):
     time_modified = models.DateTimeField(auto_now=False, auto_now_add=False)
     replies = models.ManyToManyField(TabForumReply,blank=True,null=True,related_name='replies')
     #Reply to each thread , will have user who replied, content and timestamp
-    def __str__(self):
+    def __unicode__(self):
         return self.name
     class Admin:
         pass
+
 
 #Team event will be derived from the Event class
 #Author: Swaroop Ramaswamy - Inital model 
@@ -123,7 +152,7 @@ class TeamEvent(Event):
     teams = models.ManyToManyField(Team,  blank=True, null=True, related_name='Team_events')
     chosen_teams = models.ManyToManyField(Team, blank=True, null=True, related_name='Team_qualified_events')
 
-    def __str__(self):
+    def __unicode__(self):
         return self.name
     #I m not sure if I can use foreign keys this way. Somebody please check this.   
     # karthikabinav here:
@@ -133,155 +162,20 @@ class TeamEvent(Event):
     class Admin:
         pass    
 
-#Author: Praveen Venkatesh
-QUESTION_TYPE = ((1, 'Text'),
-                 (2, 'File'),
-                 (3, 'MCQ'),)
+class Update(models.Model):
+	event = models.ForeignKey(Event)
+	update_time = models.DateTimeField(null = False)
+	
+	#Allotting 1kB of space just in case there's a lot of formatting
+	#This field should contain an html-ready update for direct display
+	content_formatted = models.CharField(max_length = 1000)
+	
+	def __unicode__(self):
+		return self.content
+		
+	class Admin:
+		pass	
 
-
-
-#Author: Praveen Venkatesh - Created inital model
-
-#Author: Praveen Venkatesh - Created inital model
-#Try to use ModelForms in order to render this model - appears to make things easy		
-#Instead of derived classes, now using abstract class
-class Question_base(models.Model):
-
-    #Question specifics
-    text = models.TextField(max_length = 1000, blank = True, null = True)
-    question_type = models.IntegerField(choices = QUESTION_TYPE, blank = False, null = False)
-    question_number = models.IntegerField ( blank = False, null = False, verbose_name = 'Number displayed in the button for this question.',) 
-
-    #File specifics
-
-    question_file = models.FileField(upload_to = 'files/%s/'%str(event), blank = True, null = True)
-    #Not sure if this syntax is correct             ^^^^^
-    #Should we do this or should be do what we did for Tabimage ?    
-    #Retrieve choices in case of MCQ type
-    def get_choices(self):
-        if(self.question_type != 3):
-            raise ValueError
-        list = MCQOption.objects.filter(question_id = self)   
-        choices = []
-        num = 1
-        for option in list:
-            choices.append( (num, option.choice_text) )
-            num += 1
-        return tuple(choices)
-
-    #To render or not to render
-    visible = models.BooleanField(default = True)
-
-    #Define thyself!
-    def __str__(self):
-        return self.text
-    #Should we have a question id ? Returning the text field doesn't seem so appropriate to me. We can have question id as an AutoField and return str(self.question_id)    
-
-    class Admin:
-        pass
-
-    class Meta:
-        ordering = ['question_number', 'id',]
-        abstract = True
-
-
-class Question(Question_base):
-    #Event specifics
-    event = models.ForeignKey(Event)
-
-class TeamQuestion(Question_base):
-    event=models.ForeignKey(TeamEvent)
-
-class MCQOption(models.Model):
-
-    #Question specifics
-    question_id = models.ForeignKey(Question)
-
-    #Choice specifics
-    choice_text = models.TextField(max_length = 1000)
-
-    def __str__(self):
-        return self.choice_text
-
-    class Admin:
-        pass
-
-    class Meta:
-        ordering = ['id',]
-
-class TeamMCQOption(MCQOption):
-    #question_id = models.ForeignKey(TeamQuestion)
-    pass		 
-
-
-#Author: Sivaramakrishnan, created the initial model
-#This is has been changed using abstract classes.
-class Submission_base(models.Model):
-
-
-    interesting = models.BooleanField(default=False,blank = True)
-    sub_read = models.BooleanField(default=False,blank = True)
-    selected = models.BooleanField(default=False,blank = True)
-    score = models.FloatField(null=True, blank=True)
-    rank = models.IntegerField(null=True,blank=True)
-    is_new = models.BooleanField(default=True, blank=True)
-    modified = models.BooleanField(default=False, blank=True)
-
-    class meta:
-        abstract = True
-
-
-class TeamSubmission(Submission_base):
-
-    team = models.ManyToManyField(Team)
-    event = models.ManyToManyField(TeamEvent)
-
-class Submission(Submission_base):
-
-    user = models.ManyToManyField(User)
-    event = models.ManyToManyField(Event)
-
-class MCQAnswer_base (models.Model):
-
-    content = models.ForeignKey(MCQOption)
-
-    def __str__(self):
-        return str(self.content)
-
-    class Admin:
-        pass
-
-    class meta:
-        abstract=True	
-class MCQAnswer(MCQAnswer_base):
-    question = models.ForeignKey(Question, editable=False)	
-    answered_by = models.ForeignKey(User)
-
-class TeamMCQAnswer (MCQAnswer_base):
-    question = models.ForeignKey(TeamQuestion, editable=False)
-    answered_by = models.ForeignKey(Team)
-
-class FileAnswer_base(models.Model):
-
-    content=models.FileField(upload_to="files/", null=True)
-
-    def __str__(self):
-        return self.content
-
-    class Admin:
-        pass
-
-    class meta:
-        abstract=True	
-
-class FileAnswer(FileAnswer_base):
-    question = models.ForeignKey(Question, editable=False)      
-    answered_by = models.ForeignKey(User)
-
-
-class TeamFileAnswer(FileAnswer_base):
-    question = models.ForeignKey(TeamQuestion, editable=False)    
-    answered_by = models.ForeignKey(Team)
 
 
 
