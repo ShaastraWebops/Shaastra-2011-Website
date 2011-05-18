@@ -92,27 +92,22 @@ def add_quick_tabs(request,event_name = None):
             return render_to_response('events/QuickTabs.html', locals(), context_instance= global_context(request))
         
         
-def remove_quick_tab(request,event_name = None,title):
+def remove_quick_tab(request,tab_id):
 
     user=request.user
     userprof=user.get_profile()
-    
-    if event_name is None or event_name == "":
-        #the url can be changed later
+    try:
+        tab_id=int(tab_id)
+    else:
         return HttpResponseRedirect ('%s/events/'%settings.SITE_URL)
-    #check if events name is there in the list
-    else if:
-        event_name=decamelize(event_name)
-        event_name=event_name.replace('/','')
-        if not events_list.filter(name=event_name): 
-            request.session ['invalid_event'] = event_name
-            return HttpResponseRedirect ('%s/events/'%settings.SITE_URL)
     
-    else if:
-        coord_list = models.coord.objects.filter(event_name = event_name)
-        if not user in coord_list:
-            return HttpResponseRedirect ('%s/events/'%settings.SITE_URL)
-            
+    tab=models.QuickTab.objects.filter(id=tab_id)
+    event_name=tab.event_name
+    title=tab.title
+   
+    coord_list = models.coord.objects.filter(event_name = event_name)
+    if not user in coord_list:
+        return HttpResponseRedirect ('%s/events/'%settings.SITE_URL)
     else:
         if request.method == 'GET':
             tab=models.QuickTab.objects.filter(event_name = event_name)
