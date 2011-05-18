@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from main_test.events.models import Event
 
 GENDER_CHOICES = (
     ('M','Male'),
@@ -76,7 +77,10 @@ class UserProfile(models.Model):
     activation_key 	= models.CharField		(max_length = 40)
     key_expires 	= models.DateTimeField	()
     want_hospi 		= models.BooleanField	(default = False)
-    
+
+	#In case a this user is a coord, which event is (s)he under?
+	event = models.ForeignKey(Event)	
+	    
     def __unicode__(self):
         return self.user.username
 

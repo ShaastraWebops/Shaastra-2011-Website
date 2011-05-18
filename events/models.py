@@ -30,7 +30,9 @@ class Event(models.Model):
     # Registration start and end time
     start_time = models.DateTimeField(null=True,blank=True)
     end_time = models.DateTimeField(null=True,blank=True)
-    coords = models.ForeignKey(User)
+    
+    #This is a huge cup!!! The foreign key should be in UserProfile, not here
+    #coords = models.ForeignKey(User)
 
     # Registration
     registrable = models.BooleanField(default=False)
