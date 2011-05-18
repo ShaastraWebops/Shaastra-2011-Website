@@ -1,8 +1,13 @@
 from django.db import models
 from django.contrib import admin
 from django import forms
-from main_test.events.models import *
+#from main_test.events.models import Event,TeamEvent
+from django import forms
+#from events.models import Event,TeamEvent
 
+from django.contrib.auth.models import User, Group
+
+from main_test.settings import MEDIA_ROOT
 # Create your models here.
 
 GENDER_CHOICES = (
@@ -84,7 +89,7 @@ class UserProfile(models.Model):
         pass
 
 class coord(UserProfile):
-    event_name=models.ForeignKey(Event)
+    #event_name=models.ForeignKey(Event)
     department=models.CharField(max_length=80)
     # not sure if this is required
     #tdp= models.ManyToManyField(Question,blank=True,null=True)

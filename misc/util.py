@@ -5,8 +5,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template.loader import get_template
 from django.template.context import Context, RequestContext
 
-from userportal import settings
-from userportal.registration import models
+from main_test import settings
+from main_test.users import models
 
 import MySQLdb
 import re, md5, time
