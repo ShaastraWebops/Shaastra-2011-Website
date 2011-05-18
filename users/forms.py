@@ -7,6 +7,7 @@ import re
 from django.contrib.auth.models import User
 from django.template import Template, Context
 from django.utils.safestring import mark_safe
+from main_test.users.models import *
 
 #from userportal.recaptcha import fields as recaptcha_fields
 
