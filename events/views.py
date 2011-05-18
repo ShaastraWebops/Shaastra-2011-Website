@@ -93,45 +93,63 @@ def add_quick_tabs(request,event_name = None):
         
         
 def remove_quick_tab(request,event_name = None,title):
-        
+
+    user=request.user
+    userprof=user.get_profile()
+    
+    if event_name is None or event_name == "":
+        #the url can be changed later
+        return HttpResponseRedirect ('%s/events/'%settings.SITE_URL)
+    #check if events name is there in the list
+    else if:
+        event_name=decamelize(event_name)
+        event_name=event_name.replace('/','')
+        if not events_list.filter(name=event_name): 
+            request.session ['invalid_event'] = event_name
+            return HttpResponseRedirect ('%s/events/'%settings.SITE_URL)
+    
+    else if:
+        coord_list = models.coord.objects.filter(event_name = event_name)
+        if not user in coord_list:
+            return HttpResponseRedirect ('%s/events/'%settings.SITE_URL)
+            
+    else:
+        if request.method == 'GET':
+            tab=models.QuickTab.objects.filter(event_name = event_name)
+            tab.delete()
+            return render_to_response('events/QuickTabs.html', locals(), context_instance= global_context(request))
+            
+            
 
 def edit_content(request,event_name = None,title)
 
-    user = request.user
-    userprof = user.get_profile()
-    events_list = models.Event.objects.filter(registerable=True)
-
-    # PLEASE USE ELIFs HERE...
-    # INSTEAD OF MULTIPLE ELSES AND IFS
-
-
-    #invalid 
-    if e_name is None or e_name == '':  
-
-    # to be redirected to appropriate page
-    else:
-
-    	e_name = decamelize(e_name)   
-        e_name = e_name.replace('/','')
-
+    user=request.user
+    userprof=user.get_profile()
+    
+    if event_name is None or event_name == "":
+        #the url can be changed later
+        return HttpResponseRedirect ('%s/events/'%settings.SITE_URL)
+    #check if events name is there in the list
+    else if:
+        event_name=decamelize(event_name)
+        event_name=event_name.replace('/','')
         if not events_list.filter(name=event_name): 
-            pass
-        # to be redirected to appropriate page
-        else:
-
-            coord_list = models.coord.objects.filter(event_name = event_name)
-            if not user in coord_list:
-                pass
-            #redirect to appropriate page
-            else:
-
-                if request.method == 'POST':
-                    data = request.POST.copy()
-                    form = forms.EditData(data)
-                    qtab = models.QuickTab.objects.filter(title = title, event = event_name)
-                    if form.is_valid():
-                        text = form.cleaned_data["text"]
-                        qtab.text = text
+            request.session ['invalid_event'] = event_name
+            return HttpResponseRedirect ('%s/events/'%settings.SITE_URL)
+    
+    else if:
+        coord_list = models.coord.objects.filter(event_name = event_name)
+        if not user in coord_list:
+            return HttpResponseRedirect ('%s/events/'%settings.SITE_URL)
+            
+    else:
+        if request.method == 'POST':
+            data = request.POST.copy()
+            form = forms.EditData(data)
+            qtab = models.QuickTab.objects.filter(title = title, event = event_name)
+            if form.is_valid():
+                text = form.cleaned_data["text"]
+                qtab.text = text
 
 
 
