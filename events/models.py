@@ -139,6 +139,19 @@ class TeamEvent(Event):
     class Admin:
         pass    
 
+class Update(models.Model):
+	event = models.ForeignKey(Event)
+	update_time = models.DateTimeField(null = False)
+	
+	#Allotting 1kB of space just in case there's a lot of formatting
+	#This field should contain an html-ready update for direct display
+	content_formatted = models.CharField(max_length = 1000)
+	
+	def __unicode__(self):
+		return self.content
+		
+	class Admin:
+		pass	
 
 
 
