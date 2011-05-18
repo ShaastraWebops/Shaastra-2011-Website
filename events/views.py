@@ -58,7 +58,7 @@ def show_quick_tab(request,event_name=None):
 #  someone please correct me if i am wrong
 @needs_authentication
 @coords_only
-def edit_tab_content(request,event_name = None):
+def edit_tab_content(request):
     #just a check if the coord is viewing the right page...
     if request.method=='POST': # get or post  ????
         user=request.user
@@ -70,38 +70,18 @@ def edit_tab_content(request,event_name = None):
         form = forms.EditTabForm(data,initial={'title': tab_to_edit.title,'text': tab_to_edit.text})
         if form.is_valid():
             title=form.cleaned_data['title']
-        text = form.cleaned_data['text']
+            text = form.cleaned_data['text']
         #not handling file uploads as of now
     return render_to_response('events/edittabs.html', locals(), context_instance= global_context(request))
         
         
-def remove_quick_tab(request,event_name = None,title):
+def remove_quick_tab(request):
 
-    user=request.user
-    userprof=user.get_profile()
-    
-    if event_name is None or event_name == "":
-        #the url can be changed later
-        return HttpResponseRedirect ('%s/events/'%settings.SITE_URL)
-    #check if events name is there in the list
-    else if:
-        event_name=decamelize(event_name)
-        event_name=event_name.replace('/','')
-        if not events_list.filter(name=event_name): 
-            request.session ['invalid_event'] = event_name
-            return HttpResponseRedirect ('%s/events/'%settings.SITE_URL)
-    
-    else if:
-        coord_list = models.coord.objects.filter(event_name = event_name)
-        if not user in coord_list:
-            return HttpResponseRedirect ('%s/events/'%settings.SITE_URL)
-            
-    else:
-        if request.method == 'GET':
-            tab=models.QuickTab.objects.filter(event_name = event_name)
-            tab.delete()
-            return render_to_response('events/QuickTabs.html', locals(), context_instance= global_context(request))
-            
+    if request.method=='POST'
+        tabs_id=request.session["tab_id"]
+        tab_to_delete=models.QuickTab.objects.filter(id=tabs_id)
+        tab_to_delete.delete()
+        
             
 
 
