@@ -1,21 +1,5 @@
 from django.db import models
-<<<<<<< HEAD
 from django.contrib.auth.models import User
-=======
-from django.contrib import admin
-#from django import forms
-
-from django import forms
-#from main_test.events.models import Event,TeamEvent
-
-from django import forms
-#from events.models import Event,TeamEvent
-
-from django.contrib.auth.models import User, Group
-
-from main_test.settings import MEDIA_ROOT
-# Create your models here.
->>>>>>> 770adf52c7de37bf35304d7f4265987b5090a308
 
 GENDER_CHOICES = (
     ('M','Male'),
@@ -81,7 +65,6 @@ class College(models.Model):
 #User profile common to all users
 #Author: Swaroop Ramaswamy - inital model                
 class UserProfile(models.Model):
-<<<<<<< HEAD
     user 			= models.ForeignKey		(User, unique = True)
     gender 			= models.CharField		(max_length = 1, choices = GENDER_CHOICES, default = 'F')   #Defaults to 'girl' ;-)
     age 			= models.IntegerField 	(default = 18,)
@@ -93,23 +76,6 @@ class UserProfile(models.Model):
     activation_key 	= models.CharField		(max_length = 40)
     key_expires 	= models.DateTimeField	()
     want_hospi 		= models.BooleanField	(default = False)
-=======
-    user = models.ForeignKey(User, unique=True)
-    first_name = models.CharField(max_length=30)
-    last_name = models.CharField(max_length=30)
-    gender = models.CharField(max_length=1,choices=GENDER_CHOICES,default='M')
-    age = models.IntegerField(default=18,)
-    branch = models.CharField(max_length=50,default='Enter Branch Here',blank=True)
-    mobile_number = models.CharField(max_length=15)
-    college = models.ForeignKey(College)
-    college_roll = models.CharField(max_length=40,default='Enter College Id/Roll No.')
-    shaastra_id = models.CharField(max_length=20, default=False, unique = True)
-    activation_key = models.CharField(max_length=40)
-    key_expires = models.DateTimeField()
-    want_hospi = models.BooleanField(default = False)
-    is_coord = models.BooleanField(default = False )
-    coord_event = models.CharField(max_length=30, default = None)
->>>>>>> da284cdf7bb1570726bf1eac1237abd32a7b2f37
     
     def __unicode__(self):
         return self.user.username
