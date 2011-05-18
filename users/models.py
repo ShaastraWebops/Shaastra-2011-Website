@@ -1,5 +1,21 @@
 from django.db import models
+<<<<<<< HEAD
 from django.contrib.auth.models import User
+=======
+from django.contrib import admin
+#from django import forms
+
+from django import forms
+#from main_test.events.models import Event,TeamEvent
+
+from django import forms
+#from events.models import Event,TeamEvent
+
+from django.contrib.auth.models import User, Group
+
+from main_test.settings import MEDIA_ROOT
+# Create your models here.
+>>>>>>> 770adf52c7de37bf35304d7f4265987b5090a308
 
 GENDER_CHOICES = (
     ('M','Male'),
@@ -46,6 +62,7 @@ STATE_CHOICES = (
 )
 
 #Just copy pasted last year's code. Will work just fine I guess
+
 class College(models.Model):
     name	=	models.CharField (	max_length = 255,
     								help_text  = 'The name of your college. Please refrain from using short forms.' )
