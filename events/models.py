@@ -75,7 +75,7 @@ class QuickTabs(models.Model):
     event       = models.ForeignKey(Event)
     
     #10kb should be enough.
-    text        = models.CharField(max_length=10000)
+    text        = models.TextField()
     
     # No more than 10 tabs per event.
     pref = models.IntegerField(max_length=2);

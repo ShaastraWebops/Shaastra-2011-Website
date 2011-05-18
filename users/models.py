@@ -85,6 +85,8 @@ class UserProfile(models.Model):
     activation_key = models.CharField(max_length=40)
     key_expires = models.DateTimeField()
     want_hospi = models.BooleanField(default = False)
+    is_coord = models.BooleanField(default = False )
+    coord_event = models.CharField(max_length=30, default = None)
     
     def __str__(self):
         return self.user.username
@@ -93,7 +95,7 @@ class UserProfile(models.Model):
         pass
 
 class coord(UserProfile):
-    #event_name=models.ForeignKey(Event)
+    event_name=models.ForeignKey(Event)
     department=models.CharField(max_length=80)
     # not sure if this is required
     #tdp= models.ManyToManyField(Question,blank=True,null=True)
