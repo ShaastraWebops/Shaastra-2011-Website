@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib import admin
-from users.models import Team
 from django.contrib.auth.models import User, Group
 from main_test.events.models import *
 
@@ -56,8 +55,10 @@ class Question(Question_base):
     #Event specifics
     event = models.ForeignKey(Event)
 
+'''
 class TeamQuestion(Question_base):
     event=models.ForeignKey(TeamEvent)
+'''
 
 class MCQOption(models.Model):
 
@@ -76,10 +77,11 @@ class MCQOption(models.Model):
     class Meta:
         ordering = ['id',]
 
+'''
 class TeamMCQOption(MCQOption):
     #question_id = models.ForeignKey(TeamQuestion)
     pass		 
-
+'''
 
 #Author: Sivaramakrishnan, created the initial model
 #This is has been changed using abstract classes.
@@ -97,11 +99,12 @@ class Submission_base(models.Model):
     class meta:
         abstract = True
 
-
+'''
 class TeamSubmission(Submission_base):
 
     team = models.ManyToManyField(Team)
     event = models.ManyToManyField(TeamEvent)
+'''
 
 class Submission(Submission_base):
 
@@ -124,9 +127,11 @@ class MCQAnswer(MCQAnswer_base):
     question = models.ForeignKey(Question, editable=False)	
     answered_by = models.ForeignKey(User)
 
+'''
 class TeamMCQAnswer (MCQAnswer_base):
     question = models.ForeignKey(TeamQuestion, editable=False)
     answered_by = models.ForeignKey(Team)
+'''
 
 class FileAnswer_base(models.Model):
 
@@ -145,8 +150,8 @@ class FileAnswer(FileAnswer_base):
     question = models.ForeignKey(Question, editable=False)      
     answered_by = models.ForeignKey(User)
 
-
+'''
 class TeamFileAnswer(FileAnswer_base):
     question = models.ForeignKey(TeamQuestion, editable=False)    
     answered_by = models.ForeignKey(Team)
-
+'''

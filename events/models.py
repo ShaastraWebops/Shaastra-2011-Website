@@ -6,14 +6,12 @@
 from django.db import models
 from django.contrib import admin
 
-<<<<<<< HEAD
 from django.contrib.auth.models import User, Group
-from users.models import Team
-=======
+
 #Global - Directory where all the other image directories go
 IMAGE_DIR = '2011/media/main/images/'
 FILE_DIR = '2011/media/main/files/'
->>>>>>> 42badaa363a82167fda822fdbab1ecf43cb0ff32
+
 
 # Please note that __unicode__ is not recommended in django docs. Should we switch to unicode ?
 class Tag(models.Model):   
@@ -146,7 +144,7 @@ class TabForum(models.Model):
     class Admin:
         pass
 
-
+'''
 #Team event will be derived from the Event class
 #Author: Swaroop Ramaswamy - Inital model 
 #Using inheritance instead of foreign key. Seems cleaner       
@@ -164,6 +162,7 @@ class TeamEvent(Event):
     # in the above reference he uses the above way for foriegn keys     
     class Admin:
         pass    
+'''
 
 class Update(models.Model):
 	event = models.ForeignKey(Event)
