@@ -16,6 +16,8 @@ from main_test.submissions.forms import *
 import datetime
 
 import os
+#Fileupload is not done perfectly. 
+#Desired - Once a file is uploaded page should be refreshed and the uploaded file should be visible as a url link below the textarea
 
 #We can check if coords are logged in using the request.session['logged_in'] variable and then allow them to edit the corresponding event page after verifying this.
 def coordslogin (request)
@@ -45,43 +47,73 @@ def coordslogin (request)
     return render_to_response('events/coordlogin.html', locals(), context_instance= global_context(request))
     #This URL can be changed as required later
                    
-#I m _not_ writing templates write now. Just creating empty html files. 
+#I m _not_ writing templates write now. Just creating empty html files.
+#Handler for displaying /2011/event/eventname page 
 def show_quick_tab(request,event_name=None):
-    data=QuickTab.objects.all()
-    event_name,title,text=data.event.name,data.title,data.text
-    return render_to_response('events/QuickTabs.html', locals(), context_instance= global_context(request)) 
-
-# here is my idea of adding new tab
-# # i presume there will be a button say add tab
-#  once that is clicked a form will come asking for name of tab
-#  the user fills the title for tab in it
-#  someone please correct me if i am wrong
-@needs_authentication
-@coords_only
-def edit_tab_content(request):
-    #just a check if the coord is viewing the right page...
-    if request.method=='POST': # get or post  ????
+    tab_list=models.QuickTab.objects.filter(event.name = event_name)
+    display_edit = False
+    if request.method=='POST': 
         user=request.user
         userprof=user.get_profile()
-        event_name=userprof.coord_event
+        if userprof.is_coord == True and userprof.coord_event.name == event_name
+            display_edit=True  
+    return render_to_response('events/QuickTabs.html', locals(), context_instance= global_context(request)) 
+    
+def dashboard(request):
+    if request.method=='POST':
+        user = request.user
+        userprof = user.get_profile()
+        tab_list = models.QuickTab.objects.filter(event = userprof.coord_event)
+    return render_to_response('events/dashboard.html', locals(), context_instance= global_context(request))    
+
+def file_upload_handler(f):
+    destination = open('/2011/events/files/', 'wb+') #obviously this is just a placeholder, the location has to be changed
+    for chunk in f.chunks():
+        destination.write(chunk)
+        destination.close()
+
+@needs_authentication
+@coords_only    
+def edit_tab_content(request):
+    #just a check if the coord is viewing the right page...
+    if request.method=='POST': 
+        user=request.user
+        userprof=user.get_profile()
         tabs_id=request.session["tab_id"]
         tab_to_edit=models.QuickTabs.objects.filter(id = tabs_id)
         data=request.POST.copy()
-        form = forms.EditTabForm(data,initial={'title': tab_to_edit.title,'text': tab_to_edit.text})
+        filedata=request.FILES.copy()
+        tab_file_list='%sTabFile/%s'%(FILE_DIR,tab_to_edit.files)
+        #Display the tab_file_list as a list in after text area
+        form = forms.EditTabForm(data,filedata,initial={'title': tab_to_edit.title,'text': tab_to_edit.text})
         if form.is_valid():
-            title=form.cleaned_data['title']
-            text = form.cleaned_data['text']
+            tab_to_edit.title= form.cleaned_data['title']
+            tab_to_edit.text = form.cleaned_data['text']
+            file_upload_handler(request.FILES['tabfile'])
         #not handling file uploads as of now
     return render_to_response('events/edittabs.html', locals(), context_instance= global_context(request))
         
+def add_quick_tab(request):
+    if request.method=='POST'
+        userprof=request.user.get_profile()
+        newtab=QuickTab(title='', text='', pref_no=0 , event= userprof.coord_event ,Files = '')
+        request.session["tab_id"]=newtab.id
+        data=request.POST.copy()
+        form = forms.EditTabForm(data,filedata,initial={'title': tab_to_edit.title,'text': tab_to_edit.text})
+        if form.is_valid():
+            tab_to_edit.title= form.cleaned_data['title']
+            tab_to_edit.text = form.cleaned_data['text']
+            file_upload_handler(request.FILES['tabfile'])
+    return render_to_response('events/edittabs.html', locals(), context_instance= global_context(request))    
         
+            
 def remove_quick_tab(request):
 
     if request.method=='POST'
         tabs_id=request.session["tab_id"]
         tab_to_delete=models.QuickTab.objects.filter(id=tabs_id)
         tab_to_delete.delete()
-        
+    return HttpResponseRedirect('/events/edit/')    
             
 
 

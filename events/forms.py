@@ -17,10 +17,6 @@ from main_test.submissions.models import *
 
 FILES_WHITELIST = ('.pdf','.txt','.doc','.docx','.zip','.avi','.wmv','.xls','.xlsx','.ppt','.pptx','.rar','.tar','.tar.gz','.dwg',)
 
-class CoordsLoginForm(forms.FormField):
-    username=forms.CharField(help_text='The coord username given to you')
-    password=forms.CharField(widget=forms.PasswordInput, help_text='The coord password given to you')
-
 class ExtFileField(forms.FileField):
     """
     Same as forms.FileField, but you can specify a file extension whitelist.
@@ -51,6 +47,16 @@ class ExtFileField(forms.FileField):
         if ext not in self.ext_whitelist:
 	    error_text = 'Not allowed filetype!'
             raise forms.ValidationError(error_text)
+
+class CoordsLoginForm(forms.FormField):
+    username=forms.CharField(help_text='The coord username given to you')
+    password=forms.CharField(widget=forms.PasswordInput, help_text='The coord password given to you')
+
+class EditTabForm(forms.FormField):
+    title=forms.CharField(help_text='Title of the tab')
+    text=forms.TextField(widget=forms.TextArea, help_text='Text content of the tab')
+    tabfile=forms.ExtFileField(required=False)    
+
 
 
 

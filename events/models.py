@@ -1,6 +1,3 @@
-# Inheritance is COMPLETELY screwed up. Need to fix ALL team events etc. 
-# Please see http://docs.djangoproject.com/en/dev/topics/db/models/ . Esp the last para.
-# NEEDS FIXING IMMEDIATELY
 
 
 from django.db import models
@@ -13,7 +10,7 @@ IMAGE_DIR = '2011/media/main/images/'
 FILE_DIR = '2011/media/main/files/'
 
 
-# Please note that __unicode__ is not recommended in django docs. Should we switch to unicode ?
+
 class Tag(models.Model):   
 #E.g.: aerofest, coding etc
     name=models.CharField(max_length=30)
@@ -31,8 +28,6 @@ class Event(models.Model):
     start_time = models.DateTimeField(null=True,blank=True)
     end_time = models.DateTimeField(null=True,blank=True)
     
-    #This is a huge cup!!! The foreign key should be in UserProfile, not here
-    #coords = models.ForeignKey(User)
 
     # Registration
     registrable = models.BooleanField(default=False)
@@ -62,7 +57,10 @@ class Event(models.Model):
 class TabFile(models.Model):
     
     file_id = models.AutoField(unique=True, primary_key=True)
-    File = models.FileField(upload_to=('%sTabFile/%s'%(FILE_DIR,file_id)),blank=True, null=True)
+    #File = models.FileField(upload_to=('%sTabFile/%s'%(FILE_DIR,file_id)),blank=True, null=True)
+    #Pack this file id funda. we ll just upload to file dir. We ll have to give a warning message if they upload a file and that overwrites the file in the directory. This way files wont be arbitrarily named
+    File = models.FileField(upload_to=('%sTabFile/'%(FILE_DIR),blank=True, null=True)
+    
     def __unicode__(self):
         return str(self.image_id)
     class Admin:
