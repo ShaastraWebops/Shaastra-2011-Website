@@ -79,7 +79,7 @@ class UserProfile(models.Model):
     want_hospi 		= models.BooleanField	(default = False)
 
 	#In case a this user is a coord, which event is (s)he under?
-	event = models.ForeignKey(Event)	
+    event = models.ForeignKey(Event)	
 	    
     def __unicode__(self):
         return self.user.username
