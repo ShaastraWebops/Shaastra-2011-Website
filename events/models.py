@@ -6,9 +6,7 @@
 from django.db import models
 from django.contrib import admin
 
-
 from django.contrib.auth.models import User, Group
-from users.models import Team
 
 #Global - Directory where all the other image directories go
 IMAGE_DIR = '2011/media/main/images/'
@@ -32,7 +30,9 @@ class Event(models.Model):
     # Registration start and end time
     start_time = models.DateTimeField(null=True,blank=True)
     end_time = models.DateTimeField(null=True,blank=True)
-    coords = models.ForeignKey(User)
+    
+    #This is a huge cup!!! The foreign key should be in UserProfile, not here
+    #coords = models.ForeignKey(User)
 
     # Registration
     registrable = models.BooleanField(default=False)
@@ -75,7 +75,7 @@ class QuickTabs(models.Model):
     event       = models.ForeignKey(Event)
     
     #10kb should be enough.
-    text        = models.CharField(max_length=10000)
+    text        = models.TextField()
     
     # No more than 10 tabs per event.
     pref = models.IntegerField(max_length=2);
@@ -146,7 +146,7 @@ class TabForum(models.Model):
     class Admin:
         pass
 
-
+'''
 #Team event will be derived from the Event class
 #Author: Swaroop Ramaswamy - Inital model 
 #Using inheritance instead of foreign key. Seems cleaner       
@@ -164,6 +164,7 @@ class TeamEvent(Event):
     # in the above reference he uses the above way for foriegn keys     
     class Admin:
         pass    
+'''
 
 class Update(models.Model):
 	event = models.ForeignKey(Event)

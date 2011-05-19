@@ -51,7 +51,6 @@ def show_quick_tab(request,event_name=None):
     event_name,title,text=data.event.name,data.title,data.text
     return render_to_response('events/QuickTabs.html', locals(), context_instance= global_context(request)) 
 
-
 # here is my idea of adding new tab
 # # i presume there will be a button say add tab
 #  once that is clicked a form will come asking for name of tab
@@ -59,80 +58,32 @@ def show_quick_tab(request,event_name=None):
 #  someone please correct me if i am wrong
 @needs_authentication
 @coords_only
-def add_quick_tabs(request,event_name = None):
+def edit_tab_content(request):
     #just a check if the coord is viewing the right page...
-    
-    user=request.user
-    userprof=user.get_profile()
-    events_list = models.Event.objects.filter(registerable=True)
-    
-    if event_name is None or event_name == "":
-        #the url can be changed later
-        return HttpResponseRedirect ('%s/events/'%settings.SITE_URL)
-    #check if events name is there in the list
-    else if:
-        event_name=decamelize(event_name)
-        event_name=event_name.replace('/','')
-        if not events_list.filter(name=event_name): 
-            request.session ['invalid_event'] = event_name
-            return HttpResponseRedirect ('%s/events/'%settings.SITE_URL)
-    
-    else if:
-        coord_list = models.coord.objects.filter(event_name = event_name)
-        if not user in coord_list:
-            return HttpResponseRedirect ('%s/events/'%settings.SITE_URL)
-    
-    else:
-        if request.method=='GET': # get or post  ????
-            data=request.GET.copy()
-            form = forms.AddTabForm(data)
+    if request.method=='POST': # get or post  ????
+        user=request.user
+        userprof=user.get_profile()
+        event_name=userprof.coord_event
+        tabs_id=request.session["tab_id"]
+        tab_to_edit=models.QuickTabs.objects.filter(id = tabs_id)
+        data=request.POST.copy()
+        form = forms.EditTabForm(data,initial={'title': tab_to_edit.title,'text': tab_to_edit.text})
+        if form.is_valid():
             title=form.cleaned_data['title']
-            event = event_name
             text = form.cleaned_data['text']
-            return render_to_response('events/QuickTabs.html', locals(), context_instance= global_context(request))
+        #not handling file uploads as of now
+    return render_to_response('events/edittabs.html', locals(), context_instance= global_context(request))
         
         
-def remove_quick_tab(request,event_name = None,title):
+def remove_quick_tab(request):
+
+    if request.method=='POST'
+        tabs_id=request.session["tab_id"]
+        tab_to_delete=models.QuickTab.objects.filter(id=tabs_id)
+        tab_to_delete.delete()
         
-
-def edit_content(request,event_name = None,title)
-
-    user = request.user
-    userprof = user.get_profile()
-    events_list = models.Event.objects.filter(registerable=True)
-
-    # PLEASE USE ELIFs HERE...
-    # INSTEAD OF MULTIPLE ELSES AND IFS
-
-
-    #invalid 
-    if e_name is None or e_name == '':  
-
-    # to be redirected to appropriate page
-    else:
-
-    	e_name = decamelize(e_name)   
-        e_name = e_name.replace('/','')
-
-        if not events_list.filter(name=event_name): 
-            pass
-        # to be redirected to appropriate page
-        else:
-
-            coord_list = models.coord.objects.filter(event_name = event_name)
-            if not user in coord_list:
-                pass
-            #redirect to appropriate page
-            else:
-
-                if request.method == 'POST':
-                    data = request.POST.copy()
-                    form = forms.EditData(data)
-                    qtab = models.QuickTab.objects.filter(title = title, event = event_name)
-                    if form.is_valid():
-                        text = form.cleaned_data["text"]
-                        qtab.text = text
+            
 
 
 
-    return render_to_response('events/QuickTabs.html', locals(), context_instance= global_context(request))
+
