@@ -1,0 +1,90 @@
+{% extends "base_default.html" %}
+
+{% block body %}
+
+
+<a name="go_here">
+<!--i cant find is_coord in views. should i write it in different template or same. since add tab view not implemented yet -->
+{%if is_coord %}
+<div id="table" align="center">
+<table cellspacing="30" rules="cols" cellpadding="10">
+<tr>
+<td width="40%">
+<div class="info">
+<form action="{{SITE_URL}}/events/coord/dashboard" method="POST">
+<table name="form_dashboard">
+<tr>
+<td>{{ form.event.label_tag }}</td>
+<td>{{ form.event }}
+</td>
+</tr>
+<tr />
+<tr />
+<tr />
+<tr />
+<tr />
+<tr />
+
+
+
+
+<tr>
+<td>{{ form.title.label_tag }}</td>
+<td>{{ form.title}}
+</td>
+</tr>
+<tr />
+<tr />
+<tr />
+<tr />
+<tr />
+<tr />
+
+
+<tr>
+<td>{{ form.text.label_tag }}</td>
+<td>{{ form.text}}
+</td>
+</tr>
+<tr />
+<tr />
+<tr />
+<tr />
+<tr />
+<tr />
+
+</table>
+<input type="submit" value="submit" />
+</div>
+
+
+
+
+{%else %}
+<div id="event_name" align="center" >
+<h1>{{event_name}}
+</h1>
+</div>
+<div id="tab_title" align="center">
+{{title}}
+</div>
+<div id="text" align="center">
+<p>{{text}}</p>
+</div>
+{% endif%}
+</a>
+
+<!-- display all the tabs-->
+<!--in views i cant find a iteration variable for all tab list. so i have left this to only one part. will come back and correct it  -->
+<table cellspacing="30" rules="cols" cellpadding="10">
+<tr><td>
+<a href="#go_here">{{title}}</a>
+</td>
+</tr>
+</table>
+
+
+<!--on mouse click, if coord show form else display content -->
+
+
+
