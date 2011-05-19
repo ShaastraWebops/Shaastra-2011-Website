@@ -81,7 +81,7 @@ class UserProfile(models.Model):
     coord_event     = models.ForeignKey     (Event,default = Null)
 
 	#In case a this user is a coord, which event is (s)he under?
-	event = models.ForeignKey(Event)	
+    event = models.ForeignKey(Event)	
 	    
     def __unicode__(self):
         return self.user.username
