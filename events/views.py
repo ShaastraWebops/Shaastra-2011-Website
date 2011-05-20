@@ -134,10 +134,10 @@ def add_quick_tab(request):
 def remove_quick_tab(request):
     userprof=request.user.get_profile()
     event_name = userprof.coord_event.name
-    tabs_id=request.POST["{{row_id}}"]
-    tab_to_delete=models.QuickTab.objects.filter(id=tabs_id)
+    tabs_id=request.POST["tab_id"]
+    tab_to_delete=models.QuickTabs.objects.filter(id=tabs_id)
     tab_to_delete.delete()
-    return HttpResponseRedirect('/events/edit/')    
+    return HttpResponseRedirect('/events/dashboard/')    
             
 
 
