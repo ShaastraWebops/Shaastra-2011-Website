@@ -41,15 +41,15 @@ def coordslogin (request):
         else:                       
             invalid_login = session_get(request, "invalid_login")
             form = forms.CoordsLoginForm () 
-    #return render_to_response('event/login.html', locals(), context_instance= global_context(request))
+    return render_to_response('event/login.html', locals(), context_instance= global_context(request))
     #This URL can be changed as required later
                    
 #I m _not_ writing templates write now. Just creating empty html files.
 #Handler for displaying /2011/event/eventname page 
 def show_quick_tab(request,event_name=None):
     tab_list=models.QuickTabs.objects.filter(event__name = event_name)
-    for t in tab_list:
-        self.file_list=unicode(models.TabFile.objects.filter(Tab = self ))
+    #for t in tab_list:
+    #    self.file_list=unicode(models.TabFile.objects.filter(Tab = self ))
     #So each object in tab_list will have a file_list which is a list of urls to be displayed for the correspdong tab    
     display_edit = False
     if request.method=='POST': 
