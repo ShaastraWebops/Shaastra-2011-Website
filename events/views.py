@@ -16,31 +16,32 @@ import os
 #Desired - Once a file is uploaded page should be refreshed and the uploaded file should be visible as a url link below the textarea
 
 #We can check if coords are logged in using the request.session['logged_in'] variable and then allow them to edit the corresponding event page after verifying this.
+
 def coordslogin (request):
     form=forms.CoordsLoginForm()
     if request.method == 'POST':
         data = request.POST.copy()
-        form = forms.CoordLoginForm(data)
+        form = forms.CoordsLoginForm(data)
         if form.is_valid():
             user = auth.authenticate(username=form.cleaned_data['username'], password=form.cleaned_data["password"])
             if user is not None and user.is_active == True:
                 auth.login (request, user)
                 request.session['logged_in'] = True
-                url="%s/coordhome/"%settings.SITE_URL
+                url="%sevents/dashboard/"%settings.SITE_URL
                 #This URL can be changed as required later
                 response= HttpResponseRedirect (url)
                 return response
             else:
                 request.session['invalid_login'] = True
                 request.session['logged_in'] = False
-                url="%s/login"%settings.SITE_URL
+                url="%sevents/login"%settings.SITE_URL
                 #This URL can be changed as required later
                 response= HttpResponseRedirect (url)
                 return response
         else:                       
             invalid_login = session_get(request, "invalid_login")
             form = forms.CoordsLoginForm () 
-    return render_to_response('event/login.html', locals(), context_instance= global_context(request))
+    return render_to_response('event/clogin.html', locals(), context_instance= global_context(request))
     #This URL can be changed as required later
                    
 #I m _not_ writing templates write now. Just creating empty html files.
@@ -60,7 +61,7 @@ def show_quick_tab(request,event_name=None):
     
 def dashboard(request):
     userprof=request.user.get_profile()
-    event_name = userprof.coord_event.self()
+    event_name = userprof.coord_event.name()
     if request.method=='POST':
         user = request.user
         userprof = user.get_profile()
