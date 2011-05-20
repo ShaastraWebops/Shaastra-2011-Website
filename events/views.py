@@ -16,7 +16,8 @@ import os
 #Desired - Once a file is uploaded page should be refreshed and the uploaded file should be visible as a url link below the textarea
 
 #We can check if coords are logged in using the request.session['logged_in'] variable and then allow them to edit the corresponding event page after verifying this.
-
+IMAGE_DIR = '2011/media/main/images/'
+FILE_DIR = '2011/media/main/files/'
 def coordslogin (request):
     form=forms.CoordsLoginForm()
     if request.method == 'POST':
@@ -79,11 +80,14 @@ def edit_tab_content(request):
         tabs_id=request.POST["tab_id"]
         tab_to_edit=models.QuickTabs.objects.filter(id = tabs_id)
         data=request.POST.copy()
-        filedata=request.FILES.copy()
-        tab_file_list='%sTabFile/%s'%(FILE_DIR,tab_to_edit.files)
-        fileurllist=[]
+        if request.FILES:
+            filedata=request.FILES.copy()
+            tab_file_list='%sTabFile/%s'%(FILE_DIR,tab_to_edit.files)
+            fileurllist=[]
         #Display the tab_file_list as a list in after text area
-        form = forms.EditTabForm(data,filedata,initial={'title': tab_to_edit.title,'text': tab_to_edit.text})
+            form = forms.EditTabForm(data,filedata,initial={'title': tab_to_edit.title,'text': tab_to_edit.text})
+        else :
+            form = forms.EditTabForm(initial={'title': tab_to_edit.title,'text': tab_to_edit.text})    
         if form.cleaned_data['title']=="":
             form = forms.EditTabForm()
             return render_to_response('event/add_tab.html', locals(), context_instance= global_context(request))
@@ -103,17 +107,17 @@ def edit_tab_content(request):
         
 def add_quick_tab(request):
     userprof=request.user.get_profile()
-    event_name = userprof.coord_event.name()
-    if request.method=='POST':
-        newtab=QuickTab(title='', text='', pref_no=0 , event= userprof.coord_event ,Files = '')
+    event_name = userprof.coord_event.name
+    if request.method=='POST'  :
+        newtab=models.QuickTabs(title='', text='', pref=0 , event= userprof.coord_event )
         data=request.POST.copy()
         filedata = request.FILES.copy()
         form = forms.EditTabForm(data,filedata)
         fileurllist=[]
-        if form.cleaned_data['title']=="":
-            form = forms.EditTabForm()
-            return render_to_response('event/edit_tab.html', locals(), context_instance= global_context(request))
-        elif form.is_valid():
+      #  if form.cleaned_data['title']=="":
+      #      form = forms.EditTabForm()
+      #      return render_to_response('event/edit_tab.html', locals(), context_instance= global_context(request))
+        if form.is_valid():
             newtab.title= form.cleaned_data['title']
             newtab.text = form.cleaned_data['text']
             filetitle = form.cleaned_data['filetitle']

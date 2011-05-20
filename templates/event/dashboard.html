@@ -36,7 +36,7 @@
         <td>
             Edit
             <form action="/events/dashboard/edit_tab/" method = 'POST'>
-            <input type="hidden" value="{{row.id}}">
+            <input type="hidden" value="{{row.id}}" name=tab_id >
             <input type="submit" value="Edit">
             </form>
         </td>
@@ -53,5 +53,9 @@
     </tr>
 {% endfor %} 
 </table>
+<form action="/events/dashboard/add_tab/" method = 'POST'>
+            <input type="hidden" value="{{row.id}}">
+            <input type="submit" value="Add tab">
+            </form>
 
 
