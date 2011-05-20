@@ -1,11 +1,20 @@
+<!--finally a working model for tabs. javascript from tabastic -->
+
 {% extends "index.html" %}
 
 {% block body %}
 
+<head>
+<script type="text/javascript" src="AddClassKillClass.js"></script>
+<script type="text/javascript" src="AttachEvent.js"></script>
+<script type="text/javascript" src="AddCSS.js"></script>
+<script type="text/javascript" src="tabtastic.js"></script>
 
-<a name="go_here">
-<!--i cant find is_coord in views. should i write it in different template or same. since add tab view not implemented yet -->
-{%if is_coord %}
+</head>
+
+<!--i have commented this since chetan has written something similar -->
+
+<!--{%if is_coord and coord_event%}
 <div id="table" align="center">
 <table cellspacing="30" rules="cols" cellpadding="10">
 <tr>
@@ -56,11 +65,22 @@
 </table>
 <input type="submit" value="submit" />
 </div>
+-->
 
 
 
+<!--{%else %}-->
 
-{%else %}
+{%for {{title}} in tab_list%}
+<ul class="tabset_tabs">
+   <li><a href="#go_here" class="active">{{title}}</a></li>
+   {% if forloop.last and display_edit %}
+   <li><a href="#go_to_edit" class="active">EDIT</a></li>   
+   {%endif%}
+</ul>
+
+{%endfor%}
+<div id="go_here" class="tabset_content">
 <div id="event_name" align="center" >
 <h1>{{event_name}}
 </h1>
@@ -71,20 +91,14 @@
 <div id="text" align="center">
 <p>{{text}}</p>
 </div>
-{% endif%}
-</a>
-
-<!-- display all the tabs-->
-<!--in views i cant find a iteration variable for all tab list. so i have left this to only one part. will come back and correct it  -->
-<table cellspacing="30" rules="cols" cellpadding="10">
-<tr><td>
-<a href="#go_here">{{title}}</a>
-</td>
-</tr>
-</table>
+</div>
 
 
-<!--on mouse click, if coord show form else display content -->
+
+
+
+
+
 
 
 
