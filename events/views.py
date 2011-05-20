@@ -62,10 +62,10 @@ def show_quick_tab(request,event_name=None):
 def dashboard(request):
     userprof=request.user.get_profile()
     event_name = userprof.coord_event.name
-    if request.method=='POST':
-        user = request.user
-        userprof = user.get_profile()
-        tab_list = models.QuickTab.objects.filter(event = userprof.coord_event)
+    #if request.method=='POST':
+    #user = request.user
+    #userprof = user.get_profile()
+    tab_list = models.QuickTab.objects.filter(event__name = event_name)
         
     return render_to_response('event/dashboard.html', locals(), context_instance= global_context(request))    
 
@@ -105,7 +105,7 @@ def edit_tab_content(request):
         
 def add_quick_tab(request):
     userprof=request.user.get_profile()
-    event_name = userprof.coord_event.self()
+    event_name = userprof.coord_event.name()
     if request.method=='POST':
         newtab=QuickTab(title='', text='', pref_no=0 , event= userprof.coord_event ,Files = '')
         data=request.POST.copy()
