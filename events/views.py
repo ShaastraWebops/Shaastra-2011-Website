@@ -58,21 +58,20 @@ def show_quick_tab(request,event_name=None):
         if userprof.is_coord == True and userprof.coord_event.name == event_name:
             display_edit=True  
     return render_to_response('event/QuickTabs.html', locals(), context_instance= global_context(request)) 
-    
+
+@needs_authentication    
 def dashboard(request):
-    userprof=request.user.get_profile()
-    #event_name = userprof.coord_event.name
     #if request.method=='POST':
-        #user = request.user
-        #userprof = user.get_profile()
-        #tab_list = models.QuickTab.objects.filter(event__name = event_name)  
+        
+    userprof=request.user.get_profile()
+    event_name = userprof.coord_event.name
+    tab_list = models.QuickTabs.objects.filter(event__name = event_name)  
     return render_to_response('event/dashboard.html', locals(), context_instance= global_context(request))    
 
-@needs_authentication
-@coords_only    
+@needs_authentication   
 def edit_tab_content(request):
     userprof=request.user.get_profile()
-    event_name = userprof.coord_event.self()
+    event_name = userprof.coord_event.name
     #just a check if the coord is viewing the right page...
     if request.method=='POST': 
         user=request.user
@@ -87,7 +86,7 @@ def edit_tab_content(request):
         form = forms.EditTabForm(data,filedata,initial={'title': tab_to_edit.title,'text': tab_to_edit.text})
         if form.cleaned_data['title']=="":
             form = forms.EditTabForm()
-            return render_to_response('event/edit_tab.html', locals(), context_instance= global_context(request))
+            return render_to_response('event/add_tab.html', locals(), context_instance= global_context(request))
         if form.is_valid():
             tab_to_edit.title= form.cleaned_data['title']
             tab_to_edit.text = form.cleaned_data['text']
@@ -100,7 +99,7 @@ def edit_tab_content(request):
     #use fileurllist to display the urls of the files associated with each tab
     else:
         form = forms.EditTabForm()
-    return render_to_response('events/edit_tab.html', locals(), context_instance= global_context(request))
+    return render_to_response('event/add_tab.html', locals(), context_instance= global_context(request))
         
 def add_quick_tab(request):
     userprof=request.user.get_profile()
@@ -130,11 +129,10 @@ def add_quick_tab(request):
             
 def remove_quick_tab(request):
     userprof=request.user.get_profile()
-    event_name = userprof.coord_event.self()
-    if request.method=='POST':
-        tabs_id=request.session["tab_id"]
-        tab_to_delete=models.QuickTab.objects.filter(id=tabs_id)
-        tab_to_delete.delete()
+    event_name = userprof.coord_event.name
+    tabs_id=request.POST["{{row_id}}"]
+    tab_to_delete=models.QuickTab.objects.filter(id=tabs_id)
+    tab_to_delete.delete()
     return HttpResponseRedirect('/events/edit/')    
             
 
