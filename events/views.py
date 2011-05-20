@@ -41,7 +41,7 @@ def coordslogin (request):
         else:                       
             invalid_login = session_get(request, "invalid_login")
             form = forms.CoordsLoginForm () 
-    return render_to_response('event/clogin.html', locals(), context_instance= global_context(request))
+    #return render_to_response('event/clogin.html', locals(), context_instance= global_context(request))
     #This URL can be changed as required later
                    
 #I m _not_ writing templates write now. Just creating empty html files.
@@ -61,13 +61,13 @@ def show_quick_tab(request,event_name=None):
     
 def dashboard(request):
     userprof=request.user.get_profile()
-    event_name = userprof.coord_event.name()
+    event_name = userprof.coord_event.name
     if request.method=='POST':
         user = request.user
         userprof = user.get_profile()
         tab_list = models.QuickTab.objects.filter(event = userprof.coord_event)
         
-    return render_to_response('events/dashboard.html', locals(), context_instance= global_context(request))    
+    return render_to_response('event/dashboard.html', locals(), context_instance= global_context(request))    
 
 @needs_authentication
 @coords_only    
