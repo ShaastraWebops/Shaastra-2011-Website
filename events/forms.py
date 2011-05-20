@@ -57,6 +57,7 @@ class EditTabForm(forms.FormField):
     text=forms.TextField(widget=forms.TextArea, help_text='Text content of the tab')
     filetitle=forms.CharField(help_text='Title of the file')
     tabfile=forms.ExtFileField(required=False)    
+    tab_pref=forms.IntegerField(required=True,help_text='Order of the tab for displaying.')
 
 
 
