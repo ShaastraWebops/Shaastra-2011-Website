@@ -61,12 +61,11 @@ def show_quick_tab(request,event_name=None):
     
 def dashboard(request):
     userprof=request.user.get_profile()
-    event_name = userprof.coord_event.name
+    #event_name = userprof.coord_event.name
     #if request.method=='POST':
-    #user = request.user
-    #userprof = user.get_profile()
-    tab_list = models.QuickTab.objects.filter(event__name = event_name)
-        
+        #user = request.user
+        #userprof = user.get_profile()
+        #tab_list = models.QuickTab.objects.filter(event__name = event_name)  
     return render_to_response('event/dashboard.html', locals(), context_instance= global_context(request))    
 
 @needs_authentication
