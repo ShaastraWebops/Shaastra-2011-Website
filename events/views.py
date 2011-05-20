@@ -89,7 +89,7 @@ def edit_tab_content(request):
         fileurllist=[]
         #Display the tab_file_list as a list in after text area
         form = forms.EditTabForm(data,filedata,initial={'title': tab_to_edit.title,'text': tab_to_edit.text})
-        if(form.cleaned_data['title']=="":
+        if form.cleaned_data['title']=="":
             form = forms.EditTabForm()
             return render_to_response('events/edit_tab.html', locals(), context_instance= global_context(request))
         if form.is_valid():
@@ -115,7 +115,7 @@ def add_quick_tab(request):
         filedata = request.FILES.copy()
         form = forms.EditTabForm(data,filedata)
         fileurllist=[]
-        if(form.cleaned_data['title']=="":
+        if form.cleaned_data['title']=="":
             form = forms.EditTabForm()
             return render_to_response('events/edit_tab.html', locals(), context_instance= global_context(request))
         else if form.is_valid():
