@@ -114,7 +114,8 @@ class TabImage(models.Model):
 
 #Team event will be derived from the Event class
 #Author: Swaroop Ramaswamy - Inital model 
-#Using inheritance instead of foreign key. Seems cleaner       
+#Using inheritance instead of foreign key. Seems cleaner 
+'''      
 class TeamEvent(Event):
 
     teams = models.ManyToManyField(Team,  blank=True, null=True, related_name='Team_events')

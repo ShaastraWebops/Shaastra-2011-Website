@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from django import forms
-from django.db import models as d_models
 #from django.core.validators import alnum_re
 from django.contrib.auth.models import User
 from django.template import Template, Context
@@ -8,8 +7,6 @@ from django.template import Template, Context
 from main_test import settings
 from main_test.misc import util
 
-from django.template.defaultfilters import filesizeformat
-from django.utils.translation import ugettext_lazy as _
 import os
 
 from main_test.events.models import *
@@ -48,15 +45,15 @@ class ExtFileField(forms.FileField):
 	    error_text = 'Not allowed filetype!'
             raise forms.ValidationError(error_text)
 
-class CoordsLoginForm(forms.FormField):
+class CoordsLoginForm(forms.Form):
     username=forms.CharField(help_text='The coord username given to you')
     password=forms.CharField(widget=forms.PasswordInput, help_text='The coord password given to you')
 
-class EditTabForm(forms.FormField):
+class EditTabForm(forms.Form):
     title=forms.CharField(help_text='Title of the tab')
-    text=forms.TextField(widget=forms.TextArea, help_text='Text content of the tab')
+    text=forms.CharField(widget=forms.Textarea, help_text='Text content of the tab')
     filetitle=forms.CharField(help_text='Title of the file')
-    tabfile=forms.ExtFileField(required=False)    
+    tabfile=forms.FileField(required=False)    
     tab_pref=forms.IntegerField(required=True,help_text='Order of the tab for displaying.')
 
 

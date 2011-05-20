@@ -11,8 +11,6 @@ handler500 = "main_test.misc.util.server_error"
 
 #testing
 urlpatterns = patterns('',
-         (r'^upload/$', upload_file1),
-             (r'^upload_file1/$', upload_file1)
     # (r'^upload/$', 'upload_file'),
     # Examples:
     # url(r'^$', 'main_test.views.home', name='home'),
@@ -22,7 +20,7 @@ urlpatterns = patterns('',
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
-     url(r'^admin/', include(admin.site.urls)),
+     url(r'^admin/', include('admin.site.urls')),
      url(r'^events/', include ('main_test.events.urls')),  
      url(r'^/', include ('main_test.users.urls')),	
 )

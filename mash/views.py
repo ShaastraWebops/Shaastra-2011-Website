@@ -7,7 +7,7 @@ from django.shortcuts import render_to_response
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from mash.models import UploadFileForm
+#from mash.models import UploadFileForm
 from django import forms
 import os
 
