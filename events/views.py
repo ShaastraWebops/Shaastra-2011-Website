@@ -109,11 +109,11 @@ def add_quick_tab(request):
             newtab.title= form.cleaned_data['title']
             newtab.text = form.cleaned_data['text']
             filetitle = form.cleaned_data['filetitle']
+            newtab.pref=form.cleaned_data['tab_pref']
             newtab.save()
             filetosave=request.FILES['tabfile']
             tabfile=TabFile(File=filetosave,Tab=newtab,filename=filetosave['filename'],title=filetitle)
             tabfile.save()
-            
     return render_to_response('events/edittabs.html', locals(), context_instance= global_context(request))    
         
             
