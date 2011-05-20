@@ -55,6 +55,7 @@ class CoordsLoginForm(forms.FormField):
 class EditTabForm(forms.FormField):
     title=forms.CharField(help_text='Title of the tab')
     text=forms.TextField(widget=forms.TextArea, help_text='Text content of the tab')
+    filetitle=forms.CharField(help_text='Title of the file')
     tabfile=forms.ExtFileField(required=False)    
 
 

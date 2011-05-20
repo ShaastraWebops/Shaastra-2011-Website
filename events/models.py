@@ -54,17 +54,7 @@ class Event(models.Model):
         pass  
 
 
-class TabFile(models.Model):
-    
-    file_id = models.AutoField(unique=True, primary_key=True)
-    #File = models.FileField(upload_to=('%sTabFile/%s'%(FILE_DIR,file_id)),blank=True, null=True)
-    #Pack this file id funda. we ll just upload to file dir. We ll have to give a warning message if they upload a file and that overwrites the file in the directory. This way files wont be arbitrarily named
-    File = models.FileField(upload_to=('%sTabFile/'%(FILE_DIR),blank=True, null=True)
-    
-    def __unicode__(self):
-        return str(self.image_id)
-    class Admin:
-        pass
+
         
 
 class QuickTabs(models.Model): 
@@ -78,8 +68,6 @@ class QuickTabs(models.Model):
     # No more than 10 tabs per event.
     pref = models.IntegerField(max_length=2);
     
-    #files 
-    files =  models.ManyToManyField(TabFile, blank=True, null=True, related_name='files')
     
     # According to sudarshan, tab doesn't contain any images
     #images      = models.ManyToManyField(TabImage      , blank=True, null=True, related_name='questions')
@@ -93,7 +81,20 @@ class QuickTabs(models.Model):
     class Admin:
         pass
 
-
+class TabFile(models.Model):
+    
+    file_id = models.AutoField(unique=True, primary_key=True)
+    #File = models.FileField(upload_to=('%sTabFile/%s'%(FILE_DIR,file_id)),blank=True, null=True)
+    #Pack this file id funda. we ll just upload to file dir. We ll have to give a warning message if they upload a file and that overwrites the file in the directory. This way files wont be arbitrarily named
+    File = models.FileField(upload_to='%sTabFile/'%(FILE_DIR),blank=True, null=True)
+    Tab = models.ForeignKey(QuickTabs)
+    filename = models.CharField(max_length= 150)
+    title = models.CharField(max_length = 150)
+    
+    def __unicode__(self):
+        return ('%sTabFile/'%(FILE_DIR) + self.filename )
+    class Admin:
+        pass
 
 class TabImage(models.Model):
     # TASK: Each tab can have more than one image. Each tab can be associated with more than one TabImage object(s)

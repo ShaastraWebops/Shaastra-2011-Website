@@ -51,6 +51,9 @@ def coordslogin (request)
 #Handler for displaying /2011/event/eventname page 
 def show_quick_tab(request,event_name=None):
     tab_list=models.QuickTab.objects.filter(event.name = event_name)
+    for t in tab_list
+        self.file_list=unicode(models.TabFile.objects.filter(Tab = self ))
+    #So each object in tab_list will have a file_list which is a list of urls to be displayed for the correspdong tab    
     display_edit = False
     if request.method=='POST': 
         user=request.user
@@ -64,13 +67,8 @@ def dashboard(request):
         user = request.user
         userprof = user.get_profile()
         tab_list = models.QuickTab.objects.filter(event = userprof.coord_event)
+        
     return render_to_response('events/dashboard.html', locals(), context_instance= global_context(request))    
-
-def file_upload_handler(f):
-    destination = open('/2011/events/files/', 'wb+') #obviously this is just a placeholder, the location has to be changed
-    for chunk in f.chunks():
-        destination.write(chunk)
-        destination.close()
 
 @needs_authentication
 @coords_only    
@@ -79,31 +77,43 @@ def edit_tab_content(request):
     if request.method=='POST': 
         user=request.user
         userprof=user.get_profile()
-        tabs_id=request.session["tab_id"]
+        tabs_id=request.POST["tab_id"]
         tab_to_edit=models.QuickTabs.objects.filter(id = tabs_id)
         data=request.POST.copy()
         filedata=request.FILES.copy()
         tab_file_list='%sTabFile/%s'%(FILE_DIR,tab_to_edit.files)
+        fileurllist=[]
         #Display the tab_file_list as a list in after text area
         form = forms.EditTabForm(data,filedata,initial={'title': tab_to_edit.title,'text': tab_to_edit.text})
         if form.is_valid():
             tab_to_edit.title= form.cleaned_data['title']
             tab_to_edit.text = form.cleaned_data['text']
-            file_upload_handler(request.FILES['tabfile'])
-        #not handling file uploads as of now
+            filetitle = form.cleaned_data['filetitle']
+            tab_to_edit.save()
+            filetosave=request.FILES['tabfile']
+            tabfile=TabFile(File=filetosave,Tab=tab_to_edit,filename=filetosave['filename'],title=filetitle)
+            tabfile.save()
+            fileurllist=unicode(models.TabFile.objects.filter(Tab = tab_to_edit))
+        #use fileurllist to display the urls of the files associated with each tab
     return render_to_response('events/edittabs.html', locals(), context_instance= global_context(request))
         
 def add_quick_tab(request):
     if request.method=='POST'
         userprof=request.user.get_profile()
         newtab=QuickTab(title='', text='', pref_no=0 , event= userprof.coord_event ,Files = '')
-        request.session["tab_id"]=newtab.id
         data=request.POST.copy()
-        form = forms.EditTabForm(data,filedata,initial={'title': tab_to_edit.title,'text': tab_to_edit.text})
+        filedata = request.FILES.copy()
+        form = forms.EditTabForm(data,filedata)
+        fileurllist=[]
         if form.is_valid():
-            tab_to_edit.title= form.cleaned_data['title']
-            tab_to_edit.text = form.cleaned_data['text']
-            file_upload_handler(request.FILES['tabfile'])
+            newtab.title= form.cleaned_data['title']
+            newtab.text = form.cleaned_data['text']
+            filetitle = form.cleaned_data['filetitle']
+            newtab.save()
+            filetosave=request.FILES['tabfile']
+            tabfile=TabFile(File=filetosave,Tab=newtab,filename=filetosave['filename'],title=filetitle)
+            tabfile.save()
+            
     return render_to_response('events/edittabs.html', locals(), context_instance= global_context(request))    
         
             
