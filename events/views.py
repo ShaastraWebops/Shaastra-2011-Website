@@ -41,7 +41,7 @@ def coordslogin (request):
         else:                       
             invalid_login = session_get(request, "invalid_login")
             form = forms.CoordsLoginForm () 
-    #return render_to_response('event/clogin.html', locals(), context_instance= global_context(request))
+    #return render_to_response('event/login.html', locals(), context_instance= global_context(request))
     #This URL can be changed as required later
                    
 #I m _not_ writing templates write now. Just creating empty html files.

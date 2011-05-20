@@ -1,8 +1,5 @@
 <!--finally a working model for tabs. javascript from tabastic -->
 
-{% extends "index.html" %}
-
-{% block body %}
 
 <head>
 <script type="text/javascript" src="AddClassKillClass.js"></script>
@@ -12,64 +9,7 @@
 
 </head>
 
-<!--i have commented this since chetan has written something similar -->
 
-<!--{%if is_coord and coord_event%}
-<div id="table" align="center">
-<table cellspacing="30" rules="cols" cellpadding="10">
-<tr>
-<td width="40%">
-<div class="info">
-<form action="{{SITE_URL}}/events/coord/dashboard" method="POST">
-<table name="form_dashboard">
-<tr>
-<td>{{ form.event.label_tag }}</td>
-<td>{{ form.event }}
-</td>
-</tr>
-<tr />
-<tr />
-<tr />
-<tr />
-<tr />
-<tr />
-
-
-
-
-<tr>
-<td>{{ form.title.label_tag }}</td>
-<td>{{ form.title}}
-</td>
-</tr>
-<tr />
-<tr />
-<tr />
-<tr />
-<tr />
-<tr />
-
-
-<tr>
-<td>{{ form.text.label_tag }}</td>
-<td>{{ form.text}}
-</td>
-</tr>
-<tr />
-<tr />
-<tr />
-<tr />
-<tr />
-<tr />
-
-</table>
-<input type="submit" value="submit" />
-</div>
--->
-
-
-
-<!--{%else %}-->
 
 {%for {{title}} in tab_list%}
 <ul class="tabset_tabs">
