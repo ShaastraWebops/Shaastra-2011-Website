@@ -5,7 +5,7 @@
 
 
 <!-- coord can add tab by clicking on this -->
-<a href="/add_tab/"> Add tab </a> 
+<a href="2011/events/{{event_name}}/edit/add_tab/"> Add tab </a> 
 
 
 <!-- coord can edit the existing tabs -->
@@ -27,12 +27,12 @@
         
         <td>
             Edit
-            <form action="/edit_tab/"><input type="hidden" value="{{row.id}}"></form>
+            <form action="2011/events/{{event_name}}/edit/edit_tab/"><input type="hidden" value="{{row.id}}"></form>
         </td>
         
         <td>
             Delete
-            <form action="/delete_tab/"><input type="hidden" value="{{row.id}}"></form>
+            <form action="2011/events/{{event_name}}/edit/delete_tab/"><input type="hidden" value="{{row.id}}"></form>
         </td>
         
         

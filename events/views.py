@@ -63,6 +63,8 @@ def show_quick_tab(request,event_name=None):
     return render_to_response('events/QuickTabs.html', locals(), context_instance= global_context(request)) 
     
 def dashboard(request):
+    userprof=request.user.get_profile()
+    event_name = userprof.coord_event.self()
     if request.method=='POST':
         user = request.user
         userprof = user.get_profile()
@@ -73,6 +75,8 @@ def dashboard(request):
 @needs_authentication
 @coords_only    
 def edit_tab_content(request):
+    userprof=request.user.get_profile()
+    event_name = userprof.coord_event.self()
     #just a check if the coord is viewing the right page...
     if request.method=='POST': 
         user=request.user
@@ -85,6 +89,9 @@ def edit_tab_content(request):
         fileurllist=[]
         #Display the tab_file_list as a list in after text area
         form = forms.EditTabForm(data,filedata,initial={'title': tab_to_edit.title,'text': tab_to_edit.text})
+        if(form.cleaned_data['title']=="":
+            form = forms.EditTabForm()
+            return render_to_response('events/edit_tab.html', locals(), context_instance= global_context(request))
         if form.is_valid():
             tab_to_edit.title= form.cleaned_data['title']
             tab_to_edit.text = form.cleaned_data['text']
@@ -93,19 +100,25 @@ def edit_tab_content(request):
             filetosave=request.FILES['tabfile']
             tabfile=TabFile(File=filetosave,Tab=tab_to_edit,filename=filetosave['filename'],title=filetitle)
             tabfile.save()
-            fileurllist=unicode(models.TabFile.objects.filter(Tab = tab_to_edit))
-        #use fileurllist to display the urls of the files associated with each tab
-    return render_to_response('events/edittabs.html', locals(), context_instance= global_context(request))
+            fileurllist=unicode(models.TabFile.objects.filter(Tab = tab_to_edit))            
+    #use fileurllist to display the urls of the files associated with each tab
+    else:
+        form = forms.EditTabForm()
+    return render_to_response('events/edit_tab.html', locals(), context_instance= global_context(request))
         
 def add_quick_tab(request):
+    userprof=request.user.get_profile()
+    event_name = userprof.coord_event.self()
     if request.method=='POST'
-        userprof=request.user.get_profile()
         newtab=QuickTab(title='', text='', pref_no=0 , event= userprof.coord_event ,Files = '')
         data=request.POST.copy()
         filedata = request.FILES.copy()
         form = forms.EditTabForm(data,filedata)
         fileurllist=[]
-        if form.is_valid():
+        if(form.cleaned_data['title']=="":
+            form = forms.EditTabForm()
+            return render_to_response('events/edit_tab.html', locals(), context_instance= global_context(request))
+        else if form.is_valid():
             newtab.title= form.cleaned_data['title']
             newtab.text = form.cleaned_data['text']
             filetitle = form.cleaned_data['filetitle']
@@ -114,11 +127,14 @@ def add_quick_tab(request):
             filetosave=request.FILES['tabfile']
             tabfile=TabFile(File=filetosave,Tab=newtab,filename=filetosave['filename'],title=filetitle)
             tabfile.save()
-    return render_to_response('events/edittabs.html', locals(), context_instance= global_context(request))    
+    else:
+        form = forms.EditTabForm()
+    return render_to_response('event/add_tab.html', locals(), context_instance= global_context(request))    
         
             
 def remove_quick_tab(request):
-
+    userprof=request.user.get_profile()
+    event_name = userprof.coord_event.self()
     if request.method=='POST'
         tabs_id=request.session["tab_id"]
         tab_to_delete=models.QuickTab.objects.filter(id=tabs_id)
