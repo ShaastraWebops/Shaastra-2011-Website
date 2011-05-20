@@ -1,0 +1,43 @@
+{% extends "index.html" %}
+
+{% block body %}
+
+
+
+<!-- coord can add tab by clicking on this -->
+<a href="/add_tab/"> Add tab </a> 
+
+
+<!-- coord can edit the existing tabs -->
+<table>
+{% for row in tab_list %}
+    <tr>
+    
+        <td>
+            {{row.id}}
+        </td>
+        
+        <td>
+            {{row.title}}
+        </td>
+        
+        <td>
+            {{row.pref}}
+        </td>
+        
+        <td>
+            Edit
+            <form action="/edit_tab/"><input type="hidden" value="{{row.id}}"></form>
+        </td>
+        
+        <td>
+            Delete
+            <form action="/delete_tab/"><input type="hidden" value="{{row.id}}"></form>
+        </td>
+        
+        
+    </tr>
+{% endfor %} 
+</table>
+
+
