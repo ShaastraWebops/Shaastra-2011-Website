@@ -20,9 +20,9 @@ urlpatterns = patterns('',
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
-     url(r'^/admin/', include('admin.site.urls')),
-     url(r'^/events/', include ('main_test.events.urls')),  
-     url(r'^/', include ('main_test.users.urls')),	
+     url(r'^admin/', include('admin.site.urls')),
+     url(r'^events/', include ('main_test.events.urls')),  
+     url(r'^', include ('main_test.users.urls')),	
 )
 
 #Check
