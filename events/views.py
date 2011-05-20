@@ -1,17 +1,13 @@
 from django.shortcuts import render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
-from django.core.exceptions import ObjectDoesNotExist
 from django.contrib import auth
 from django.template.loader import get_template
 from django.template.context import Context, RequestContext
-from django.forms import *
+from django import forms
 
 from main_test.misc.util import *               #Importing everything - just in case
 from main_test.settings import *
-from main_test.users.models import User
-from main_test.events.models import *
-from main_test.events.forms import *
-
+import models,forms
 
 import datetime
 
@@ -21,7 +17,7 @@ import os
 
 #We can check if coords are logged in using the request.session['logged_in'] variable and then allow them to edit the corresponding event page after verifying this.
 def coordslogin (request):
-    form=forms.CoordLoginForm()
+    form=forms.CoordsLoginForm()
     if request.method == 'POST':
         data = request.POST.copy()
         form = forms.CoordLoginForm(data)
@@ -43,14 +39,14 @@ def coordslogin (request):
                 return response
         else:                       
             invalid_login = session_get(request, "invalid_login")
-            form = forms.UserLoginForm () 
-    return render_to_response('events/coordlogin.html', locals(), context_instance= global_context(request))
+            form = forms.CoordsLoginForm () 
+    return render_to_response('event/coordlogin.html', locals(), context_instance= global_context(request))
     #This URL can be changed as required later
                    
 #I m _not_ writing templates write now. Just creating empty html files.
 #Handler for displaying /2011/event/eventname page 
 def show_quick_tab(request,event_name=None):
-    tab_list=models.QuickTab.objects.filter(event__name = event_name)
+    tab_list=models.QuickTabs.objects.filter(event__name = event_name)
     for t in tab_list:
         self.file_list=unicode(models.TabFile.objects.filter(Tab = self ))
     #So each object in tab_list will have a file_list which is a list of urls to be displayed for the correspdong tab    
@@ -60,7 +56,7 @@ def show_quick_tab(request,event_name=None):
         userprof=user.get_profile()
         if userprof.is_coord == True and userprof.coord_event.name == event_name:
             display_edit=True  
-    return render_to_response('events/QuickTabs.html', locals(), context_instance= global_context(request)) 
+    return render_to_response('event/QuickTabs.html', locals(), context_instance= global_context(request)) 
     
 def dashboard(request):
     userprof=request.user.get_profile()
@@ -91,7 +87,7 @@ def edit_tab_content(request):
         form = forms.EditTabForm(data,filedata,initial={'title': tab_to_edit.title,'text': tab_to_edit.text})
         if form.cleaned_data['title']=="":
             form = forms.EditTabForm()
-            return render_to_response('events/edit_tab.html', locals(), context_instance= global_context(request))
+            return render_to_response('event/edit_tab.html', locals(), context_instance= global_context(request))
         if form.is_valid():
             tab_to_edit.title= form.cleaned_data['title']
             tab_to_edit.text = form.cleaned_data['text']
@@ -117,7 +113,7 @@ def add_quick_tab(request):
         fileurllist=[]
         if form.cleaned_data['title']=="":
             form = forms.EditTabForm()
-            return render_to_response('events/edit_tab.html', locals(), context_instance= global_context(request))
+            return render_to_response('event/edit_tab.html', locals(), context_instance= global_context(request))
         elif form.is_valid():
             newtab.title= form.cleaned_data['title']
             newtab.text = form.cleaned_data['text']
