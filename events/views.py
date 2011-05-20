@@ -33,14 +33,14 @@ def coordslogin (request):
             else:
                 request.session['invalid_login'] = True
                 request.session['logged_in'] = False
-                url="%s/coordlogin"%settings.SITE_URL
+                url="%s/login"%settings.SITE_URL
                 #This URL can be changed as required later
                 response= HttpResponseRedirect (url)
                 return response
         else:                       
             invalid_login = session_get(request, "invalid_login")
             form = forms.CoordsLoginForm () 
-    return render_to_response('event/coordlogin.html', locals(), context_instance= global_context(request))
+    return render_to_response('event/login.html', locals(), context_instance= global_context(request))
     #This URL can be changed as required later
                    
 #I m _not_ writing templates write now. Just creating empty html files.
