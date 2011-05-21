@@ -81,8 +81,7 @@ class QuickTabs(models.Model):
     class Admin:
         pass
 
-<<<<<<< HEAD:events/models.py
-=======
+
 class TabFile(models.Model):
     
     file_id = models.AutoField(unique=True, primary_key=True)
@@ -97,7 +96,6 @@ class TabFile(models.Model):
         return ('%sTabFile/'%(FILE_DIR) + self.filename )
     class Admin:
         pass
->>>>>>> bd724c72d677ebf55ca7cbb653fcb1c19e70f528:events/models.py
 
 class TabImage(models.Model):
     # TASK: Each tab can have more than one image. Each tab can be associated with more than one TabImage object(s)
@@ -114,8 +112,7 @@ class TabImage(models.Model):
         return str(self.image_id)
     class Admin:
         pass
-<<<<<<< HEAD:events/models.py
-    
+
 class TabForumReply(models.Model):
     reply_by = models.ForeignKey(User,blank=True, null=True, related_name='reply_by')
     #We could display some profile details of the poster. Like in launchpad or bugzilla
@@ -178,8 +175,7 @@ class Tabs(models.Model):
         pass
 
 
-=======
->>>>>>> bd724c72d677ebf55ca7cbb653fcb1c19e70f528:events/models.py
+
 
 #Team event will be derived from the Event class
 #Author: Swaroop Ramaswamy - Inital model 
