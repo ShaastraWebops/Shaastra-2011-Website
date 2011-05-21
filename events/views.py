@@ -18,6 +18,7 @@ import os
 #We can check if coords are logged in using the request.session['logged_in'] variable and then allow them to edit the corresponding event page after verifying this.
 IMAGE_DIR = '2011/media/main/images/'
 FILE_DIR = '2011/media/main/files/'
+
 def coordslogin (request):
     form=forms.CoordsLoginForm()
     if request.method == 'POST':
@@ -87,7 +88,7 @@ def edit_tab_content(request):
         #Display the tab_file_list as a list in after text area
             form = forms.EditTabForm(data,filedata,initial={'title': tab_to_edit.title,'text': tab_to_edit.text})
         else :
-            form = forms.EditTabForm(initial={'title': tab_to_edit.title,'text': tab_to_edit.text})    
+            form = forms.EditTabForm(data,initial={'title': tab_to_edit.title,'text': tab_to_edit.text})    
         if form.cleaned_data['title']=="":
             form = forms.EditTabForm()
             return render_to_response('event/add_tab.html', locals(), context_instance= global_context(request))
