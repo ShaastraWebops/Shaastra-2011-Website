@@ -64,7 +64,7 @@ def show_quick_tab(request,event_name=None):
 @needs_authentication    
 def dashboard(request):
     #if request.method=='POST':
-        
+    
     userprof=request.user.get_profile()
     event_name = userprof.coord_event.name
     tab_list = models.QuickTabs.objects.filter(event__name = event_name)  
