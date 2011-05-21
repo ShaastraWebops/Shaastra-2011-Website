@@ -11,6 +11,7 @@ handler500 = "main_test.misc.util.server_error"
 
 #testing
 urlpatterns = patterns('',
+    
     # (r'^upload/$', 'upload_file'),
     # Examples:
     # url(r'^$', 'main_test.views.home', name='home'),
