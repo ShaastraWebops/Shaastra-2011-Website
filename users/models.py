@@ -1,9 +1,6 @@
 from django.db import models
-from django.contrib import admin
-from django import forms
-from main_test.events.models import *
-
-# Create your models here.
+from django.contrib.auth.models import User
+from main_test.events.models import Event
 
 GENDER_CHOICES = (
     ('M','Male'),
@@ -48,45 +45,59 @@ STATE_CHOICES = (
 	("Puducherry" , "Puducherry"),
 	("Outside India" , "Outside India"),
 )
-#Just copy pasted last year's code. Will work just fine I guess
-class College(models.Model):
-    name=models.CharField(max_length=255,help_text = 'The name of your college. Please refrain from using short forms.')
-    city=models.CharField(max_length=30,help_text = 'The name of the city where your college is located. Please refrain from using short forms.')
-    state=models.CharField(max_length=40,choices=STATE_CHOICES, help_text = 'The state where your college is located. Select from the drop down list')
 
-    def __str__(self):
+#Just copy pasted last year's code. Will work just fine I guess
+
+class College(models.Model):
+    name	=	models.CharField (	max_length = 255,
+    								help_text  = 'The name of your college. Please refrain from using short forms.' )
+    city	=	models.CharField (	max_length = 30,
+    								help_text  = 'The name of the city where your college is located. Please refrain from using short forms.' )
+    state	=	models.CharField (	max_length = 40,
+    								choices    = STATE_CHOICES, 
+    								help_text  = 'The state where your college is located. Select from the drop down list' )
+
+    def __unicode__(self):
         return "%s, %s, %s"%(self.name, self.city, self.state)
 
     class Admin:
         pass
         
-#User profile common to all users. Coord class can be dervied from this
+#User profile common to all users
 #Author: Swaroop Ramaswamy - inital model                
-class User(models.Model):
-    first_name = models.CharField(max_length=30)
-    last_name = models.CharField(max_length=30)
-    gender = models.CharField(max_length=1,choices=GENDER_CHOICES,default='M')
-    age = models.IntegerField(default=18,)
-    branch = models.CharField(max_length=50,default='Enter Branch Here',blank=True)
-    mobile_number = models.CharField(max_length=15)
-    college = models.ForeignKey(College)
-    college_roll = models.CharField(max_length=40,default='Enter College Id/Roll No.')
-    shaastra_id = models.CharField(max_length=20, default=False, unique = True)
-    activation_key = models.CharField(max_length=40)
-    key_expires = models.DateTimeField()
-    want_hospi = models.BooleanField(default = False)
-    
-    def __str__(self):
+class UserProfile(models.Model):
+    user 			= models.ForeignKey		(User, unique = True)
+    gender 			= models.CharField		(max_length = 1, choices = GENDER_CHOICES, default = 'F')   #Defaults to 'girl' ;-)
+    age 			= models.IntegerField 	(default = 18,)
+    branch 			= models.CharField		(max_length = 50, default = 'Enter Branch Here', blank = True)
+    mobile_number 	= models.CharField		(max_length = 15)
+    college 		= models.ForeignKey		(College)
+    college_roll 	= models.CharField		(max_length = 40, default = 'Enter College Id/Roll No.')
+    shaastra_id 	= models.CharField		(max_length = 20, unique = True)
+    activation_key 	= models.CharField		(max_length = 40)
+    key_expires 	= models.DateTimeField	()
+    want_hospi 		= models.BooleanField	(default = False)
+    is_coord        = models.BooleanField	(default = False)
+    coord_event     = models.ForeignKey     (Event,default = Null)
+
+	#In case a this user is a coord, which event is (s)he under?
+    event = models.ForeignKey(Event)	
+	    
+    def __unicode__(self):
         return self.user.username
 
     class Admin:
         pass
 
-class coord(User):
+# The "coord" model is being removed because when get_profile is called on a User instance, it will return only a UserProfile instance
+# It will be very hard to get a "coord" instance afterwards
+# Suggest using is_coord() to find out if a user is a coord
+'''
+class coord(UserProfile):
     event_name=models.ForeignKey(Event)
     department=models.CharField(max_length=80)
     # not sure if this is required
-    tdp= models.ManyToManyField(Question,blank=True,null=True)
+    #tdp= models.ManyToManyField(Question,blank=True,null=True)
      # not sure if a tdp field is required.
      # Can we handle it with just the question model??
     #Think about what else we need for a coord . We might need department etc
@@ -97,7 +108,10 @@ class coord(User):
     
     class Admin:
         pass    
-            
+'''
+
+# The whole Team models idea has been scrapped. Only working with "teams" in the submission model
+'''            
 #Author: Swaroop Ramaswamy - inital model        
 class Team(models.Model):
     name = models.CharField (max_length=255)
@@ -105,9 +119,9 @@ class Team(models.Model):
     #Do we really need a team password ? 
     leader = models.ForeignKey(User, related_name="team_leader")
     members = models.ManyToManyField (User, related_name="team members")
-    def __str__(self):
+    def __unicode__(self):
         return self.name
 
     class Admin:
         pass
-
+'''

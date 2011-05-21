@@ -1,0 +1,90 @@
+{% extends "base_default.html" %}
+
+
+
+{% block body %}
+<div class="register">
+ <h1>
+  Contingent List
+ </h1>
+ <p>
+  The contingents are displayed below:
+ </p>
+ <p>
+  Males : {{males}} Females : {{females}}
+ </p>
+</div>
+<div class="register">
+ <h3>
+  Teams
+ </h3>
+ {% for obj in tevent_based_list %}
+ <p>
+  <b>
+   Event : {{obj.0}}
+  </b>
+  , Contingents: {{obj.2}}, Males: {{obj.3}}, Females: {{obj.4}}
+  <ul>
+   {% for f in obj.1 %}
+   <li>
+    {{ f.0.name }}
+    <br />
+    Selected Events:
+       {% for e in f.0.qualified_events.all %}
+       {{ e.name }},  
+       {% endfor %}
+    <br />
+    Members:
+    <ul>
+     {% for u in f.1 %}
+     <li>
+      {% if u.1 %}
+      <font color="red">
+       {% endif %} {{u.0.get_profile.first_name}} {{u.0.get_profile.last_name}} , Gender : {{u.0.get_profile.gender}} , College : {{u.0.get_profile.college}}, Email: {{u.0.email}}, Phone : {{u.0.get_profile.mobile_number}} 
+
+       {% if u.1 %}
+      </font>
+      {% endif %}
+     </li>
+     {% endfor %}
+    </ul>
+   </li>
+   {% endfor %}
+  </ul>
+ </p>
+ {% endfor %}
+ <h3>
+  Individuals
+ </h3>
+ {% for obj in event_based_list %}
+ <p>
+  <b>
+   Event: {{obj.0}}
+  </b>
+  , Contingents: {{obj.2}}, Males: {{obj.3}} ,Females: {{obj.4}}
+  <ul>
+   {% for u in obj.1 %}
+   <li>
+    {% if u.1 %}
+    <font color="red">
+     {% endif %} {{u.0.get_profile.first_name}} {{u.0.get_profile.last_name}} , Gender : {{u.0.get_profile.gender}} , College : {{u.0.get_profile.college}} , Email: {{u.0.email}} , Phone : {{u.0.get_profile.mobile_number}} 
+
+
+       {% if u.1 %}
+    </font>
+    {% endif %}
+    <br />
+    Selected Events:
+       {% for e in u.0.qualified_events.all %}
+       {{ e.name }}, 
+       {% endfor %}
+    <br />
+   </li>
+   {% endfor %}
+  </ul>
+ </p>
+ {% endfor %}
+</div>
+{% endblock %}
+
+{{SITE_URL}}

@@ -1,0 +1,23 @@
+{% extends "base_default.html" %}
+
+{% block body %}
+<h1>
+ User Registration
+</h1>
+<p>
+ Please fill in the following details:
+</p>
+{% if registered_college %}
+<div class="register">
+ College successfully registered.
+</div>
+{% endif %}
+<form action="{{SITE_URL}}/register" method="POST">
+ <div class="register">
+  <table name="register">
+   {{ form.as_table }}
+  </table>
+  <input type="submit" value="Register" />
+ </div>
+</form>
+{% endblock %}

@@ -1,0 +1,80 @@
+{% extends "base_default.html" %}
+
+
+
+{% block body %}
+
+    {% if success %}
+<div class="register">
+ Preferences Saved. Please register for
+ <a href="{{SITE_URL}}/events/">
+  Individual Events
+ </a>
+ and
+ <a href="{{SITE_URL}}/teams/">
+  Team Events
+ </a>
+ now.
+</div>
+{% endif %}
+<div class="register">
+ <h1>
+  {{event.name}}
+ </h1>
+ <p>
+  Please pick the teams you want to grant accommodation to:
+ </p>
+</div>
+<div class="register">
+ <form action="{{SITE_URL}}/hospitality/team_events/{{e_id}}/" method="POST">
+  <table name="register">
+   {% for f in forms %}
+   <tr>
+    <th>
+     Team Name:
+    </th>
+    <td id="team_name">
+     {{f.4}}, Accommodation Size: {{ f.0 }}
+    </td>
+   </tr>
+   <tr>
+    <th>
+     Leader:
+    </th>
+    <td id="leader">
+     {{f.3.username}}
+    </td>
+   </tr>
+   <tr>
+    <th>
+     {{f.5}}
+    </th>
+    <td id="SubOption">
+    </td>
+   </tr>
+   <tr>
+    <th>
+     Details:
+    </th>
+    <td id="details">
+     <ul>
+      {% for u in f.2 %}
+      <li>
+       {% if u.want_hospi %}
+       <font color="red">
+        {%endif%}{{u.name}}:{{u.first_name}} {{u.last_name}},Gender: {{u.gender}},College: {{u.college}} {% if u.want_hospi %}
+       </font>
+       {%endif%}
+      </li>
+      {% endfor %}
+     </ul>
+    </td>
+   </tr>
+   {{ f.1.as_table }}
+
+        {% endfor %}
+  </table>
+  <input type="submit" value="Update" />
+ </form>
+</div>
+{% endblock %}

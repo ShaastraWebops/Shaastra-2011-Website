@@ -1,0 +1,86 @@
+{% extends "index.html" %}
+
+{% block body %}
+
+<!--made a simple login page. used the table layout same as last year -->
+<!--used the last years media path. have to change this later -->
+<script language="javascript" type="text/javascript" src="{{MEDIA_URL}}/js/wz_tooltip.js">
+  </script>
+
+
+
+<table cellspacing="30" rules="cols" cellpadding="10">
+<tr>
+<td width="40%">
+<div class="info">
+<form action="{{SITE_URL}}/events/login/" method="POST">
+<table name="login">
+<tr>
+<td><div id="coord_img">
+{% if form.username.errors %}
+<!-- the media path have to be changed later-->
+<img height=20 width=20 src="{{ MEDIA_URL }}/images/error.png">
+{% endif %}
+</div></td>
+<td>{{ form.username.label_tag }}</td>
+<td>{{ form.username }}
+<div id="Username_div" style="font-family:verdana;color:red;font-size:10px;line-height:1em;vertical-align:top">
+{% if form.username.errors %}
+{% for error in form.username.errors %}
+{{ error|escape }}
+{% endfor %}
+{% endif %}
+</div>
+</td>
+</tr>
+<tr />
+<tr />
+<tr />
+<tr />
+<tr />
+<tr />
+<tr>
+
+
+
+<td>{{ form.password.label_tag }}</td>
+<td>{{ form.password }}
+<div id="Password_div" style="font-family:verdana;color:red;font-size:10px;line-height:1em;vertical-align:top">
+{% if form.password.errors %}
+{% for error in form.password.errors %}
+{{ error|escape }}
+{% endfor %}
+{% endif %}
+</div>
+</td>
+
+
+</tr>
+<tr />
+<tr /><tr />
+<tr /><tr />
+<tr />
+
+  </table>
+  <input type="submit" value="Login" />
+  {% if invalid_login %}
+  <br />
+<div style="font-family:verdana;color:red;font-size:10px;line-height:1em;vertical-align:top">
+<br />
+ Invalid username or password. Please try again.
+</div>
+  {% endif %}
+ </form>
+ </div>
+
+</td>
+</tr>
+</table>
+
+
+{% endblock %}
+
+
+
+
+

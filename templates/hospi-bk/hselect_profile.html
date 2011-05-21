@@ -1,0 +1,25 @@
+{% extends "base_default.html" %}
+
+{% block body %}
+    {% if success %}
+<div class="register">
+ Profile Saved.
+</div>
+{% endif %}
+<div class="register">
+ <h1>
+  Hospitality : Edit Profiles
+ </h1>
+ <p>
+  Please enter the ID.It should be in the range of 12000 and 12500
+ </p>
+ <form action="{{SITE_URL}}/hospitality/hospi_profile/" method="POST">
+  <div class="register">
+   <table name="register">
+    {{ form.as_table }}
+   </table>
+   <input type="submit" value="Edit" />
+  </div>
+ </form>
+</div>
+{% endblock %}

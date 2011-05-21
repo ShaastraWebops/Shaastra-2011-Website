@@ -1,0 +1,107 @@
+{% extends "base_default.html" %}
+
+{% block body %}
+
+<style type="text/css">
+        table { margin: 1em; border-collapse: collapse; margin-right:5; width:auto;}
+        td, th { padding: .3em; border: 1px #000000 solid; background:#EAECF3;}
+        th { background: #BDE5F8; } 
+</style>
+<div class="answer">
+ <h3>The tables can be sorted by clicking on respective column-headings.</h3>
+</div>
+<table class="sortable">
+ <tr>
+  <th>Event Name</th>
+  <th>Number of<br/>registered users</th>
+  <th>Number of users<br/>with locked answers</th>
+  <th>Number of<br/>selected users</th>
+ </tr>
+ {% for event in event_stats%} 
+ <tr>
+  <td>{{event.0}}</td>
+  <td id="{{event.1}}" onClick="fillEvents('{{event.1}}')">Click here to get data</td>
+  <td>{{event.2}}</td>
+  <td>{{event.3}}</td>
+ </tr>
+ {% endfor %}
+</table>
+
+<table class="sortable">
+ <tr>
+  <th>Team Event Name</th>
+  <th>Number of<br/>registered teams</th>
+  <th>Number of teams<br/>with locked answers</th>
+  <th>Number of<br/>selected teams</th>
+ </tr>
+ {% for team_event in team_event_stats%} 
+ <tr>
+  <td>{{team_event.0}}</td>
+  <td id="{{team_event.1}}" onClick="fillTeamEvents('{{team_event.1}}')">Click here to get data</td>
+  <td>{{team_event.2}}</td>
+  <td>{{team_event.3}}</td>
+ </tr>
+ {% endfor %}
+</table>
+<script type="text/javascript">
+
+var events = ["{{event_stats.0.0}}"{% for event in event_stats %},"{{event.1}}"{% endfor %}];
+var team_events = ["{{team_event_stats.0.0}}"{% for team_event in team_event_stats %},"{{team_event.1}}"{% endfor %}];
+
+var id;
+
+function fillEvents(id){
+    if (window.XMLHttpRequest){// code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp=new XMLHttpRequest();
+    }
+    else{// code for IE6, IE5
+        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    document.getElementById("screen").style.display = "block";
+    elem = document.getElementById(id);
+    elem.innerHTML="<img src='{{MEDIA_URL}}/images/loading.gif'></img>"
+    xmlhttp.onreadystatechange = function(){
+        if (xmlhttp.readyState==4 && xmlhttp.status==200){
+            elem.innerHTML=xmlhttp.responseText;
+            document.getElementById("screen").style.display = "none";
+        }
+    }
+    url = "{{SITE_URL}}/events/get-event-stats/"+id;
+    xmlhttp.open("GET",url,true);
+    xmlhttp.send();
+}
+
+function fillTeamEvents(id){
+    if (window.XMLHttpRequest){// code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp=new XMLHttpRequest();
+    }
+    else{// code for IE6, IE5
+        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    document.getElementById("screen").style.display = "block";
+    elem = document.getElementById(id);
+    elem.innerHTML="<img src='{{MEDIA_URL}}/images/loading.gif'></img>"
+    xmlhttp.onreadystatechange = function(){
+        if (xmlhttp.readyState==4 && xmlhttp.status==200){
+            elem.innerHTML=xmlhttp.responseText;
+            document.getElementById("screen").style.display = "none";
+        }
+    }
+    url = "{{SITE_URL}}/events/get-team-event-stats/"+id;
+    xmlhttp.open("GET",url,true);
+    xmlhttp.send();
+}
+
+function get_data(){
+    var j = 1;
+    for (j = 1; j < team_events.length; j++) {
+        fillTeamEvents(team_events[j]);
+    }
+    for (j = 1; j < events.length; j++) {
+        fillEvents(events[j]);
+    }
+}
+
+</script>
+
+{% endblock %}

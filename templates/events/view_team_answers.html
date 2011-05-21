@@ -1,0 +1,67 @@
+{% extends "base_default.html" %}
+
+{% block body %}
+    <div class="register">
+    <a href="{{SITE_URL}}/events/view/answers/teams/"><h1>View Team Answers</h1></a>
+    </div>
+
+    <div class="register">
+    <form action="{{SITE_URL}}/events/view/teams/{{team.name}}/" method="POST">
+        {%if selected%}
+       <div class="register">
+       {%else%}
+       <div class="errors">
+       {%endif%}
+           <table class="team_info">
+               <tr>
+                   <th> Team Name: </th>
+                   <td> {{team.name}} </td>
+               </tr>
+               <tr>
+                   <th> Leader: </th>
+                   <td> <a href="{{SITE_URL}}/profile/view/{{team.leader}}/">{{team.leader}}</a></td>
+               </tr>
+               <tr>
+                   <th> Members: </th>
+                   <td> </td>
+               </tr>
+               {% for member in team_members %}
+               <tr>
+                   <th></th>
+                   <td>{{member}}</td>
+               </tr>
+               {% endfor %}
+               <tr>
+                   <th> Status: </th>
+                   <td> {%if selected%}Selected {%else%}Not Selected {%endif%} </td>
+               </tr>
+        </table>
+        </div>
+        <br />
+
+       <div class="register">
+        {% for q_a in answer_list %}
+        <div class="answer">
+        <h4> {{q_a.0}} </h4>
+             {{q_a.1}}
+        </div>
+        {% endfor %}
+
+        {% for q_a in file_answer_list %}
+        <div class="answer">
+        <h4> {{q_a.0}} </h4>
+            <a href="{{MEDIA_URL}}/{{q_a.1}}">Link to File</a>
+        </div>
+        {% endfor %}
+        <br /> <br />
+        {% if selected %}
+        <input type="submit" value="Unselect" />
+        {% else %}
+        <input type="submit" value="Select" />
+        {% endif %}
+        </div>
+    </form>
+</div>
+
+{% endblock %}
+

@@ -1,0 +1,27 @@
+{% extends "base_default.html" %}
+
+{% block body %}
+    {%if success %}
+<div class="register">
+ User added
+</div>
+{% endif %}
+    {%if failed %}
+<div class="error">
+ User Does not exist
+</div>
+{% endif %}
+<div class="register">
+ <h1>
+  Special User registration
+ </h1>
+ <form action="{{SITE_URL}}/hospitality/special/user/" method="POST">
+  <div class="register">
+   <table name="register">
+    {{ form.as_table }}
+   </table>
+   <input type="submit" value="Select" />
+  </div>
+ </form>
+</div>
+{% endblock %}

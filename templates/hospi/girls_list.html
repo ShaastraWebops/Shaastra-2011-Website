@@ -1,0 +1,110 @@
+{% extends "base_default.html" %}
+{% block body %}
+       <script language="javascript" type="text/javascript">
+        function showdiv(fld) {fld.style.display = 'block';}
+       </script> 
+       <style type="text/css">
+        table { margin: 1em; border-collapse: collapse; margin-right:5; width:auto;}
+        td, th { padding: .3em; border: 1px #000000 solid; background:#EAECF3;}
+        th { background: #BDE5F8; } 
+       </style>
+   <div class="register" width="100%">
+        <h1>Girls list</h1>
+        <div class = "answer">
+        Total number of girls : {{ n }}<br/>
+        <a href="{{ SITE_URL }}/hospitality/view/girls/{{ next_page_no }}/">Next page</a>
+        </div>
+       <form action="" method="post">
+       {% if all_girls %}
+           <table class="sortable" style="font-family: verdana; font-size: 10px;">
+            <tr>
+		<th>Username</th>
+		<th>Name</th>
+		<th>College</th>
+		<th>PIN</th>
+		<th>Status</th>
+                <th>Send mail?</th>
+	    </tr>
+            {% for g in data %} 
+           <tr>
+                <td>
+                   {{g.0.user.username }}
+                </td>
+		<td>
+                   <a href="{{SITE_URL}}/profile/view/{{g.0.user}}"> 
+                     {{g.0.first_name }} {{g.0.last_name}}
+                   </a>
+                </td>
+	        <td>
+                    <div style="font-family: verdana; font-size: 10px; line-height: 1em; vertical-align: top;">{{g.0.college}}</div>
+                </td>
+	        <td>{{g.0.user_id}}</td>
+<!--             <td> -->
+                {% ifequal g.1.given_accomodation 1 %}
+                     {% if not g.1.sentMail %} <td sorttable_customkey="2">
+                        <script language="javascript" type="text/javascript">
+                         function change_n_hide_mail_{{g.0.user}}(){
+                            document.getElementById("{{g.0.user}}_select-status").style.display="block";
+                            document.getElementById("{{g.0.user}}_mail_reminder_div").style.display="none";
+                         }
+                        </script>
+                        <input type="button" style="width:auto" onclick="change_n_hide_mail_{{g.0.user}}()" value="Change" />
+                     {% else %} <td sorttable_customkey="1">
+                     {% endif %}
+                    Accommodated
+                {% else %}
+                    {% ifequal g.1.given_accomodation 2 %} <td sorttable_customkey="4">
+                        Rejected
+			<input type="button" style="width:auto" onclick='javascript:document.getElementById("{{g.0.user}}_select-status").style.display="block"' value="Change" />
+                    {% else %} <td sorttable_customkey="3">
+			<input type="radio" name="{{g.0.user}}_selected" value=1 onClick="showdiv(document.getElementById('{{g.0.user}}_mail_div'))" />Accept<br />
+                        <input type="radio" name="{{g.0.user}}_selected" value=2 onClick="javascript:document.getElementById('{{g.0.user}}_mail_div').style.display='none'" />Reject
+                    {% endifequal %}
+                {% endifequal %}
+		<div id="{{g.0.user}}_select-status" style="display:none">
+                        <input type="radio" name="{{g.0.user}}_selected" value=1 onClick="showdiv(document.getElementById('{{g.0.user}}_mail_div'))" />Accept<br />
+                        <input type="radio" name="{{g.0.user}}_selected" value=2 onClick="javascript:document.getElementById('{{g.0.user}}_mail_div').style.display='none'" />Reject
+		      </div>
+	        </td>
+<!-- 	   <td> -->
+             {% if not g.1.sentMail %}
+               {% ifequal g.1.given_accomodation 1 %} <td sorttable_customkey="2">
+                   <div id="{{g.0.user}}_mail_reminder_div">
+	            <div style="font-family:verdana;color:red;font-size:10px;line-height:1em;vertical-align:top">This participant was not sent a mail. <br />Do you want to send it now?
+	            </div>
+                    <div>
+                     <input type="checkbox" name="{{g.0.user}}_mail" value=1 /> Yes
+                    </div>
+                  </div>
+               {% else %} <td sorttable_customkey="3">
+               {% endifequal %}
+             {% else %} <td sorttable_customkey="1">
+		<div style="font-family:verdana;color:green;font-size:14px;line-height:1em;vertical-align:top">Mail sent.</div>
+	     {% endif %}
+             <div id="{{g.0.user}}_mail_div" style="display:none">
+              <input type="checkbox" name="{{g.0.user}}_mail" value=1 />
+             </div>
+           </td>
+	 </tr>
+	    {% endfor %}
+              </table>
+            <div class="errors">
+              <h3>Important!</h3>
+	    Please select an option.<br />
+	  Note that if you select the first or third option, you <i>can</i> send mails to selected participants later too.
+            </div>
+            <div class="success">
+             <input type="radio" name="mail" value=2 >
+                Save the accomodation status without sending mails.<br />
+             <input type="radio" name="mail" value=1 Checked>
+                Mail ALL the participants who you accepted in THIS session.<br />
+             <input type="radio" name="mail" value=0 >
+                Mail the participants only with "ticked" send mail field.<br />
+             <input type="submit" value="Save Changes">
+             </div>
+            </form>
+	  <br/>
+        {% endif %}
+    </div>
+{% endblock %}
+

@@ -1,0 +1,254 @@
+{% extends "base_default.html" %}
+
+{% block body %}
+
+<div class="register">
+ <div align="center"><h1>
+  Registration HowTo
+ </h1>
+ <p>
+  There are two types of events you can register for, Inidividual events and Team events.
+  <br />
+  <br />
+ </p></div>
+<table cellpadding=10 rules="cols">
+<tr>
+<td width="20%" valign="top" cellpadding="10">
+<button type="button" id="indiv_event_btn" onclick="javascript:show_div('indiv_step1','indiv_step1_btn','header_1','indiv_event_btn')">Individual Events registration</button>
+<br />
+<br />
+<button type="button" id="indiv_step1_btn" onclick="javascript:show_div('indiv_step1','indiv_step1_btn','header_1','indiv_event_btn')">Starting the process</button>
+<button type="button" id="indiv_step2_btn" onclick="javascript:show_div('indiv_step2','indiv_step2_btn','header_1','indiv_event_btn')">Choosing an event</button>
+<button type="button" id="indiv_step3_btn" onclick="javascript:show_div('indiv_step3','indiv_step3_btn','header_1','indiv_event_btn')">Answering, saving, and locking.</button>
+<br />
+<hr />
+<br />
+<button type="button" id="team_event_btn" onclick="javascript:show_div('team_step1','team_step1_btn','header_2','team_event_btn')">Team Events registration</button>
+<br />
+<br />
+<button type="button" id="team_step1_btn" onclick="javascript:show_div('team_step1','team_step1_btn','header_2','team_event_btn')">Becoming a member of some team</button>
+<button type="button" id="team_step2_btn" onclick="javascript:show_div('team_step2','team_step2_btn','header_2','team_event_btn')">Managing teams - Who's a team leader?</button>
+<button type="button" id="team_step3_btn" onclick="javascript:show_div('team_step3','team_step3_btn','header_2','team_event_btn')">Choosing a team, and the rest</button>
+</td>
+<td valign="top">
+  <div id="default_disp" align="center" valign="middle">
+  Select the category you want help for.
+  </div>
+  
+  <div id="header_1">
+    <p align="center">
+    <b>
+    Individual Events
+    </b>
+    </p>
+    <br />
+  </div>
+  <div id="indiv_step1" align="center">
+    Click on <a href="{{SITE_URL}}/events/register/" onmouseover="javascript:highlight('solo_link')" onmouseout="javascript:revert('solo_link')" style="color:#85B2D8">Solo Event Registration</a> in the Events menu on the left.
+    <br />
+  </div>
+  <div id="indiv_step2" align="center">
+    Choose an event from the list.
+    <br />
+    <img border="1" src="{{MEDIA_URL}}/images/events_instructions/event_register.png" />
+    <br />
+    <!-- -->
+    <i>
+      If you do not need accomodation, there are still some events you have to pre-register for.
+    </i>
+    <br />
+  </div>
+  <div id="indiv_step3" align="left">
+    Answer the questions. Click on 'Save answers' to save your answers. You can come back and change them later.
+    <br />
+    <i>
+      Click on 'Lock Answers' to lock your answers and submit them. <br />Your answers will not be evaluated if you do not submit before the deadline(which is atleast 2 weeks away).<br />
+    </i>
+    <br />
+    <br />
+    <img border="1" src="{{MEDIA_URL}}/images/events_instructions/event_answers.png" />
+    <br />
+    <br />
+    <i>Further, note that once you've locked your answers, you cannot change them.</i>
+    <br />
+  </div>
+  <div id="header_2">
+    <p align="center">
+    <b>
+      Team Events
+    </b>
+    </p>
+  </div>
+  <div id="team_step1" align="center">
+    Click on <a href="{{SITE_URL}}/teams/" onmouseover="javascript:highlight('team_link')" onmouseout="javascript:revert('team_link')" style="color:#85B2D8">Team Event Registration</a> in the navigation menu.
+    <br />
+    <br />
+      <i>You need to be a member of team before you can register for a team event.</i> <br />There are two ways to achieve this:<br />
+	<div align="left"><ul>
+	  <li>You can form teams by clicking on the <a href="{{SITE_URL}}/teams/manage" onmouseover="javascript:highlight('manage_link')" onmouseout="javascript:revert('manage_link')" style="color:#85B2D8">Manage Teams</a> link. In this case, you will be made the team leader of the team you just formed, and hence, automatically, a member of the same.</li>
+	  <br />
+	  <li>Or, you can join an existing team. Ask the leader of the team (the person who created it) for the name of the team and the password. You will need
+      those two pieces of information to join the team.</li>
+	</ul></div>
+	<br />
+	<img border="1" src="{{ MEDIA_URL }}/images/events_instructions/team_1.png" width="100%"/>
+    <br />
+  </div>
+  <div id="team_step2" align="left">
+
+    A team leader is the person who creates the team.<br /> There are a few privileges the leader holds over the team:
+      <br />
+    <ul>
+      <li>He/she decides who stays in the team. That is to say, the team leader has the privilege to remove members from the team.</li>
+      <li>He/she is the only one who can change the team password.</li>
+    </ul>
+    <br />
+    Click on <a href="{{SITE_URL}}/teams/manage" onmouseover="javascript:highlight('manage_link')" onmouseout="javascript:revert('manage_link')" style="color:#85B2D8">Manage Teams</a> link in the navigation menu.
+    <br />
+    Now, if you are not a team leader of any team, you will see something like this:
+    <br />
+    <img border="1" width="100%" src="{{ MEDIA_URL }}/images/events_instructions/manage_1.png" />
+    <br />
+    <br />
+    If you are a team leader, you should see the respective teams in the box:
+    <br />
+    <img border="1" width="100%" src="{{ MEDIA_URL }}/images/events_instructions/manage_2.png" />
+    In the above example, the person is the leader of two teams - newteam and anotherteam.
+
+    <i>Note that you cannot remove yourself (the team leader) from the team.</i>
+    <br />
+  </div>
+  <div id="team_step3" align="left">
+    Once you have created a team or joined an existing team, when you click on 'Team Event Registration', you will be shown a list of teams you are part of, with which you can register for the event.
+    <br />
+      <img border="1" width="100%" src="{{ MEDIA_URL }}/images/events_instructions/choose_team.png" /><br />
+    <br />
+    <br />
+    Click on a team name.This will lead you to a page with the list of events for which you can register.
+    <br />
+    Note that you can register for any number of events with one team.
+    <br />
+    Also, there is no limit on the number of teams you can create or be part of.<br />
+    <br />
+      <img border="1" width="100%" src="{{ MEDIA_URL }}/images/events_instructions/choose_event.png" /><br />
+    Choose a team event from this list. Fill up the questionnaire. The rest of the details are the same as for solo event registration. That is to say, saving and locking the answers work the same way
+    as they do in Solo Event registration.
+    <br />
+  </div>
+</td>
+</tr>
+</table>
+</div>
+<a href="{{ SITE_URL }}/register/instructions/">
+<div align="right">
+ Back To Instructions Page</div>
+</a>
+<script type="text/javascript">
+
+function default_display()
+{
+//Individual
+  document.getElementById("default_disp").style.display="none";
+
+  document.getElementById("header_1").style.display="block";
+  document.getElementById("indiv_event_btn").style.color="blue";
+
+  document.getElementById("indiv_step1").style.display="block";
+  document.getElementById("indiv_step1_btn").style.color="#1C549B";
+
+  document.getElementById("indiv_step2").style.display="none";
+  document.getElementById("indiv_step2_btn").style.color="black";
+
+  document.getElementById("indiv_step3").style.display="none";
+  document.getElementById("indiv_step3_btn").style.color="black";
+
+//Team
+  document.getElementById("header_2").style.display="none";
+  document.getElementById("team_event_btn").style.color="black";
+
+  document.getElementById("team_step1").style.display="none";
+  document.getElementById("team_step1_btn").style.color="black";
+
+  document.getElementById("team_step2").style.display="none";
+  document.getElementById("team_step2_btn").style.color="black";
+
+  document.getElementById("team_step3").style.display="none";
+  document.getElementById("team_step3_btn").style.color="black";
+}
+
+function default_display1()
+{
+  default_display();
+  document.getElementById("default_disp").style.display="block";
+
+  document.getElementById("header_1").style.display="none";
+  document.getElementById("indiv_event_btn").style.color="black";
+
+  document.getElementById("indiv_step1").style.display="none";
+  document.getElementById("indiv_step1_btn").style.color="black";
+}
+function show_div(fld,btn,headfld,headfld_btn)
+{
+  default_display();
+//hide default stuff
+  document.getElementById("header_1").style.display="none";
+  document.getElementById("indiv_event_btn").style.color="black";
+
+  document.getElementById("indiv_step1").style.display="none";
+  document.getElementById("indiv_step1_btn").style.color="black";
+
+  if(headfld=='header_2'){	state2();}
+  else{	state1();}
+//show stuff
+  document.getElementById(headfld).style.display="block";
+  document.getElementById(headfld_btn).style.color="blue";
+
+  document.getElementById(fld).style.display="block";
+  document.getElementById(btn).style.color="#1C549B";
+}
+
+function state()
+{
+  document.getElementById("indiv_step1_btn").style.display="none";
+  document.getElementById("indiv_step2_btn").style.display="none";
+  document.getElementById("indiv_step3_btn").style.display="none";
+
+  document.getElementById("team_step1_btn").style.display="none";
+  document.getElementById("team_step2_btn").style.display="none";
+  document.getElementById("team_step3_btn").style.display="none";
+}
+
+function state2()
+{
+  document.getElementById("indiv_step1_btn").style.display="none";
+  document.getElementById("indiv_step2_btn").style.display="none";
+  document.getElementById("indiv_step3_btn").style.display="none";
+
+  document.getElementById("team_step1_btn").style.display="block";
+  document.getElementById("team_step2_btn").style.display="block";
+  document.getElementById("team_step3_btn").style.display="block";
+}
+
+function state1()
+{
+  document.getElementById("indiv_step1_btn").style.display="block";
+  document.getElementById("indiv_step2_btn").style.display="block";
+  document.getElementById("indiv_step3_btn").style.display="block";
+
+  document.getElementById("team_step1_btn").style.display="none";
+  document.getElementById("team_step2_btn").style.display="none";
+  document.getElementById("team_step3_btn").style.display="none";
+}
+
+function highlight(fld)
+{
+  document.getElementById(fld).style.color="red";
+}
+function revert(fld)
+{
+  document.getElementById(fld).style.color="#85B2D8";
+}
+default_display1();
+state();
+</script>
+{% endblock %}

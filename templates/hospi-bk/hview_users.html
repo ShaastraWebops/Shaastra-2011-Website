@@ -1,0 +1,28 @@
+{% extends "base_default.html" %}
+{% block body %}
+<div class="register">
+ <h1>
+  View Particpants
+ </h1>
+ <p>
+  Please choose a participant:
+ </p>
+ {% if chosen_users %}
+ <h4>
+  Selected Participants
+ </h4>
+ <ul>
+  {% for p in chosen_users %}
+  <li>
+   <a href="{{SITE_URL}}/hospitality/individual_events/{{event_id}}/{{p.id}}/">
+    {{p}}
+   </a>
+  </li>
+  {% endfor %}
+ </ul>
+ {% endif %}
+        
+        
+
+{% endblock %}
+</div>

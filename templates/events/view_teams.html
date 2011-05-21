@@ -1,0 +1,199 @@
+{% extends "base_default.html" %}
+
+{% block body %}
+    {% if invalid_user %}
+    <div class="errors">
+        <b>{{invalid_team}}</b>: Team does not exist or hasn't applied for event
+    </div>
+    {%endif%}
+
+    
+<!--- AJAX for viewing answers --->
+    
+    <script type ="text/javascript">
+  
+	  
+	  function display_answers(participant){
+	    
+	    var xmlhttp=getXmlHttpObj();
+	    xmlhttp.onreadystatechange=function()
+	    {
+	      if(xmlhttp.readyState==4)
+	      {	
+		
+		var resp = xmlhttp.responseText;
+		document.getElementById("ans_div").style.display="block";
+		document.getElementById("ans_div").innerHTML=resp;	      
+	      }
+	    }
+	    xmlhttp.open("GET","{{SITE_URL}}/events/view/answers/teams/"+participant,true);
+	    xmlhttp.send(null);
+	    window.navigate("#answers")
+	  }
+
+	  function post_selected(participant){
+	   var xmlhttp=getXmlHttpObj();
+	    xmlhttp.onreadystatechange=function()
+	    {
+	      if(xmlhttp.readyState==4)
+	      {	
+		
+		var resp = xmlhttp.responseText;
+		document.getElementById("ans_div").style.display="block";
+		document.getElementById("ans_div").innerHTML=resp;	
+		set_div_content("tophalf","{{SITE_URL}}/events/view/answers/teams/?ajax=True");
+	      }
+	    }
+	    param = "?interesting="+document.getElementById("id_interesting").checked+"&selected="+document.getElementById("id_selected").checked+"&read="+document.getElementById("id_read").checked;
+	    param += "&score=" +document.getElementById("id_score").value ;
+        param += "&rank=" +document.getElementById("id_rank").value ;
+	    xmlhttp.open("GET","{{SITE_URL}}/events/view/answers/teams/"+participant+param,true);
+	    
+	    xmlhttp.send(null);
+	  }
+	</script>
+{% if error_no_event %}
+    <div class="errors">
+        <b>No Event Assigned</b>: You have not been assigned an event for the userportal.
+             Please contact the <a href="mailto:webops@shaastra.org">webops team</a>.
+    </div>
+    {% else %}
+    
+    <div id='tophalf'>
+    <a name ="top"/>
+    <ul>
+        <li><a href="{{SITE_URL}}/mail/all">Send</a> a mail to all participants.</li>
+        <li><a href="{{SITE_URL}}/mail/selected/">Send</a> a mail to selected participants only.</li>
+        <li><a href="{{SITE_URL}}/hospitality/view/selectedTeams/{{e_name}}">List of participants accommodated.</a></li>
+        {%if file_answers_exist %}<li>
+        <a href="{{MEDIA_URL}}/files/{{event_name}}_all.zip">Download all File answers.</a>
+        </li>{% endif %}
+    </ul>
+   <div class="register">
+        <a href="{{SITE_URL}}/view"><h1>View Team Answers</h1></a>
+        <!---<p>Please choose a team: </p>
+       {% if chosen_teams %}
+           <h4> Selected Teams </h4>
+           <ul>
+           {% for team in chosen_teams %}
+           <li><a href="{{SITE_URL}}/events/view/answers/teams/{{team}}">{{team}}</a>
+            {% endfor %}
+        {% endif %}
+        </ul>--->
+    </div>
+
+    <div class = "answer" style="float:right;font-size:11px">
+        <img src="{{MEDIA_URL}}/images/system-lock-screen.png" /> Locked Answer <br/>
+	<img src="{{MEDIA_URL}}/images/emblem-default.png" /> Selected Answer <br/>
+	<img src="{{MEDIA_URL}}/images/emblem-new.png" /> Interesting Answer <br/>
+	<img src="{{MEDIA_URL}}/images/document-new.png" /> Unread Answer <br/>
+	<img src="{{MEDIA_URL}}/images/team.png" /> Team registered before 3rd sept. <br/>
+	<img src="{{MEDIA_URL}}/images/team_new.png" /> Team registered after 3rd sept. <br/>
+	<img src="{{MEDIA_URL}}/images/team_modified.png" /> Team registered before 3rd sept.<br/> who modified answers after 3rd sept. <br/>
+	
+	</div>
+   
+    <br />
+   
+<div class="register">
+       <h4> All Teams </h4>
+<style type="text/css">
+        table.sortable { margin: 1em; border-collapse: collapse; margin-right:5; width:auto;}
+        table.sortable td, table.sortable th { padding: .3em; border: 1px #000000 solid; background:#EAECF3;}
+        table.sortable th { background: #BDE5F8; } 
+</style>
+<table rules="rows" cellpadding="5" class="sortable" >
+<tr>
+    <th> Rank </th>
+    <th> Teamname </th>
+    <th> Score </th>
+    <th>.</th>
+    <th>.</th>
+    <th>.</th>
+    <th>.</th>
+    <th>.</th>
+</tr>
+{% for team in teams %}
+<tr>
+    <td
+      {% ifequal team.6 None %}
+        sorttable_customkey="9999" >
+      {% else %}
+        sorttable_customkey="{{ team.6 }}" >
+       {{ team.6 }}
+      {% endifequal %}
+    </td>
+    <td sorttable_customkey="{{team.0}}"> 
+      <a href="#answers" onclick = " display_answers('{{team.0}}'); return false;" style="{% if not team.2 %}font-weight:bold;font-size:1.3{% endif %}">
+       {{ team.0 }}
+      </a>
+    </td>
+    <td>
+      {% if team.5 %}
+       {{ team.5 }}
+      {% endif %}
+    </td>
+    <td
+      {% if team.7 %} 
+        sorttable_customkey="3" >
+        <img src="{{MEDIA_URL}}/images/team_new.png" />
+      {% else %}
+        {% if team.8 %} 
+          sorttable_customkey="2" >
+          <img src="{{MEDIA_URL}}/images/team_modified.png" />
+        {% else %}
+          sorttable_customkey="1" >
+          <img src="{{MEDIA_URL}}/images/team.png" /> 
+        {% endif %}
+      {% endif %}
+    </td>
+    <td 
+      {% if team.3 %} 
+       sorttable_customkey="1" >
+       <img src="{{MEDIA_URL}}/images/emblem-default.png"/>
+      {% else %} 
+        sorttable_customkey="2" >
+      {% endif %}
+    </td>
+    <td
+      {%if team.1 %}
+       sorttable_customkey="1" >
+       <img src="{{MEDIA_URL}}/images/system-lock-screen.png"/>
+      {% else %} 
+        sorttable_customkey="2" >
+      {% endif %}
+    </td>
+    <td
+      {% if not team.2 %} 
+       sorttable_customkey="1" >
+       <img src="{{MEDIA_URL}}/images/document-new.png"/>
+      {% else %} 
+        sorttable_customkey="2" >
+      {% endif %}
+    </td>
+    <td
+      {% if team.4 %}
+       sorttable_customkey="1" >
+       <img src="{{MEDIA_URL}}/images/emblem-new.png"/>
+      {% else %} 
+        sorttable_customkey="2" >
+      {% endif %}
+    </td>
+</tr>
+{% endfor %}
+  </table>
+ </div>
+</div>
+
+<br/><br/><br/>
+   
+
+	<a name="answers">
+	<div id = "ans_div" style="display:block">
+	
+	</div>
+	</a>
+  {% endif %}
+
+{% endblock %}
+

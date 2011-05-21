@@ -1,0 +1,27 @@
+{% extends "base_default.html" %}
+
+{% block body %}
+    {%if success %}
+<div class="register">
+ Coord Registration Successful
+</div>
+{% endif %}
+    {%if invalid_uname %}
+<div class="errors">
+ Coord Registration Failed.Invalid Username.
+</div>
+{% endif %}
+<div class="register">
+ <h1>
+  User to Coordinator : Registration
+ </h1>
+ <form action="{{SITE_URL}}/convert_coord/" method="POST">
+  <div class="register">
+   <table name="register">
+    {{ form.as_table }}
+   </table>
+   <input type="submit" value="Register" />
+  </div>
+ </form>
+</div>
+{% endblock %}

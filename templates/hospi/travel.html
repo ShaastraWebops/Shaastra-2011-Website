@@ -1,0 +1,40 @@
+{% extends "base_default.html" %}
+
+{% block body %}
+<table cellspacing="30" cellpadding="10" rules="cols">
+ <tbody>
+  <tr>
+   <td>
+    <div class="info">
+     <h4>You can enter the discount coupon codes shown on the right side -> <br/>just before payment.</h4>
+    </div>
+    <iframe frameborder = "0" src ="http://www.cleartrip.com/search_widget.shtml?logo=yes" width="100%" height="600">
+     <p>Your browser does not support iframes.</p>
+    </iframe>
+   </td>
+   <td width="50%" valign="top">
+     <div class="answer">
+      <h3>IITM2000</h3>
+      <p>For Rs.2000 cash back on a round trip or Rs.1000 off on a one-way trip on domestic flights to &amp; from Chennai valid on travel between 25th Sept &amp; 4th Oct including both days</p>
+     </div>
+     <div class="success">
+      <h3>IITM100</h3>
+      <p>For Rs.100 cash back on rail tickets from &amp; to Chennai for travel between 25th Sept &amp; 4th Oct including both days.</p>
+     </div>
+     <div class="warning">
+      <h3>IITM50</h3>
+      <p>For flat 50% or Rs.1500 cash back ( whichever is lower ) on Chennai hotels for stay  between 25th Sept &amp; 4th Oct including both days</p>
+     </div>
+     <div class="errors">
+     If any tickets or bookings are cancelled, the refund will exclude the discounted amount.
+     </div>
+   </td>
+  </tr>
+ </tbody>
+</table><!--
+<div class="success">
+    <h2>Participants who are shortlisted for registered events can avail attractive travel discounts from Cleartip.
+    </h2>
+</div>-->
+
+{% endblock %}

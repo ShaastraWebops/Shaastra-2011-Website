@@ -1,0 +1,159 @@
+{% extends "base_default.html" %}
+
+{% block body %}
+
+<div class="register" style="font-size:14px;">
+ <p>
+  <b>
+   User Registration help.
+   <br />
+  </b>
+  The UserPortal can be used only after
+  <b>
+   registration
+  </b>
+  .
+  <br />
+  Click on the <a href="{{SITE_URL}}/register/user/" onmouseover="highlight()" onmouseout="revert()" style="color:#85B2D8"><b>Register</b></a> link in the navigation menu to get started.
+  <br />
+  
+  <table cellpadding="10" rules="cols">
+  <tr>
+  <td width = "20%" valign="top" width="100%" cellpadding="10">
+<!--   Buttons for display. Default display is button 1 -->
+  <button type="button" onclick="default_display()" id="general_btn">Your first step- the username</button>
+  <br />
+  <br />
+  <button type="button" onclick="showdiv('branch_fill','branch_fill_btn')" id="branch_fill_btn">Entering your branch of study</button>
+  <br />
+  <br />
+  <button type="button" onclick="showdiv('college_fill','college_fill_btn')" id="college_fill_btn">Entering your college name</button>
+  <button type="button" onclick="showdiv('cannot_find_college','cannot_find_college_btn')" id="cannot_find_college_btn">Can't find your college name?</button>
+  <br />
+  <br />
+  <button type="button" onclick="showdiv('wanthospi1','wanthospi1_btn')" id="wanthospi1_btn">Your accommodation preferences</button>
+  <button type="button" onclick="showdiv('wanthospi2','wanthospi2_btn')" id="wanthospi2_btn">Checking for events with accommodation</button>
+  <br />
+  <br />
+  <button type="button" onclick="showdiv('finally','finally_btn')" id="finally_btn">The Final step! Register Me!</button>
+  <br />
+  <br />
+  <button type="button" onclick="showdiv('encounterederrors','encounterederrors_btn')" id="encounterederrors_btn">Encountered errors?</button>
+</td>
+  <td valign="top">
+  <br />
+  <div id="general">
+  Fill up the details corresponding to the fields.<br />
+  Note that the username cannot have any special characters other than '.' and '_', apart from alphabets and numbers.
+  <br />
+  <img src="{{ MEDIA_URL }}images/register_images/username.png" border="1" width="100%" />
+  <br />
+  </div>
+  <div id="branch_fill" width="100%" align="left">
+  Use the AutoSuggest box to fill up your Branch of study.
+  <br />
+  <img src="{{ MEDIA_URL }}images/register_images/Branch_fill.png" border="1" width="100%" />
+  <br />
+  </div>
+  <div id="college_fill">
+  Use the AutoSuggest Box to fill up the name of your College.
+  <br />
+  <br />
+  <img src="{{ MEDIA_URL }}images/register_images/college_fill.png" border="1" width="100%"/>
+  <br />
+  </div>
+  <div id="cannot_find_college">
+  If you do not find the name of your College in the Autosuggest Box, add it to our database by using the <i>Click here</i> link next to the "Can't find your college?" prompt.
+  <br />
+  <img src="{{ MEDIA_URL }}images/register_images/add_new_college.png" border="1" width="100%" />
+  <br />
+  <br />
+  Fill up your college details. It would be extremely helpful to us if you follow the guideline mentioned:
+  <br />
+  <img src="{{ MEDIA_URL }}images/register_images/register_new_college.png" border="1" width="100%"/>
+  <br />
+  </div>
+  <div id="wanthospi1">
+  Do not forget to let us know if you need accommodation. Note that accommodation is provided only to participants of certain events.
+  <br />
+  <img src="{{ MEDIA_URL }}images/register_images/want_hospi.png" border="1" width="100%">
+  <br />
+  </div>
+  <div id="wanthospi2">
+  To check if the event is listed, use the link to the right of the registration form.
+  <br />
+  <br />
+  <img src="{{ MEDIA_URL }}images/register_images/events_accommodation.png"  border="1" width="100%">
+  <br />
+  </div>
+  <div id="finally">
+  Finally, click on the "Register Me" button after making sure your details are accurate to complete the registration process.
+  <br />
+  <img src="{{ MEDIA_URL }}images/register_images/Register_me.png" border="1" width="100%">
+  <br />
+  </div>
+  <div id="encounterederrors">
+  If you miss out any field, or enter any invalid data, you will get errors next to the concerned field explaining what the problem is.
+  Please resolve all the errors to continue with the registration process.
+  <br />
+  <img src="{{ MEDIA_URL }}images/register_images/field_is_required.png" border="1" width="100%">
+  </div>
+ </p>
+  </td>
+
+</tr>
+</table>
+</div>
+<a href="{{ SITE_URL }}/register/instructions/">
+ <div align="right">
+  Back To Instructions Page
+ </div>
+</a>
+
+<script type="text/javascript">
+
+function highlight()
+{
+  {% if user.is_anonymous %}
+  document.getElementById("register_link").style.color="red";
+  {% endif %}
+}
+function revert()
+{
+  {% if user.is_anonymous %}
+  document.getElementById("register_link").style.color="#85B2D8";
+  {% endif %}
+}
+
+function default_display()	//hides all divisions except the first step
+{
+  document.getElementById("general").style.display="block";
+  document.getElementById("general_btn").style.color="#1C549B";
+  document.getElementById("branch_fill").style.display="none";
+  document.getElementById("branch_fill_btn").style.color="black";
+  document.getElementById("college_fill").style.display="none";
+  document.getElementById("college_fill_btn").style.color="black";
+  document.getElementById("cannot_find_college").style.display="none";
+document.getElementById("cannot_find_college_btn").style.color="black";
+  document.getElementById("wanthospi1").style.display="none";
+document.getElementById("wanthospi1_btn").style.color="black";
+  document.getElementById("wanthospi2").style.display="none";
+document.getElementById("wanthospi2_btn").style.color="black";
+  document.getElementById("finally").style.display="none";
+document.getElementById("finally_btn").style.color="black";
+  document.getElementById("encounterederrors").style.display="none";
+document.getElementById("encounterederrors_btn").style.color="black";
+}
+
+function showdiv(fld,fld2)
+{
+  default_display();
+  document.getElementById("general").style.display="none";
+  document.getElementById("general_btn").style.color="black";
+  document.getElementById(fld).style.display="block";
+  document.getElementById(fld2).style.color="#1C549B";
+}
+
+default_display();
+</script>
+{% endblock %}

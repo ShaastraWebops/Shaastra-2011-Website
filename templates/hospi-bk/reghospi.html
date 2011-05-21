@@ -1,0 +1,94 @@
+{% extends "base_default.html" %}
+
+{% block body %}
+    {% if flag %}
+<div class="errors">
+ <h1>
+  Warning:
+ </h1>
+ <p>
+  There are some users in the teams you lead whose profile has not been updated with the new details required for us to provide accommodation.
+  <ul>
+   {% for i in cup_users %}
+   <li>
+    {{i}}
+   </li>
+   {% endfor %}
+  </ul>
+  Please inform them and ask them to update their profiles.
+ </p>
+</div>
+{% endif %}
+    {% if show_events %}
+<div class="register">
+ <h1>
+  <a href="{{SITE_URL}}/hospitality/profile/">
+   Success:Preferences Successfully Saved
+  </a>
+ </h1>
+ <p>
+  Your preferences were saved.Please visit your
+  <a href="{{SITE_URL}}/hospitality/profile/">
+   Hospitality Profile
+  </a>
+  to provide us with the details, when available , needed to complete your request for accommodation.
+ </p>
+</div>
+<div class="register">
+ <h1>
+  Events Registration
+ </h1>
+ <h2>
+  <a href="{{SITE_URL}}/events/">
+   Individual Events
+  </a>
+ </h2>
+ <h2>
+  <a href="{{SITE_URL}}/teams/">
+   Teams Events
+  </a>
+ </h2>
+</div>
+{% endif %}
+<div class="register">
+ <h1>
+  Team Hospitality Registration
+ </h1>
+ <p>
+  You may choose to register/unregister for your team members by checking/unchecking the button in the form to requesr accmmodation .If you do not see any teams in the list box,that is because you are not the team leader of any team.Please create a team
+  <a href="{{SITE_URL}}/register/team/">
+   Here
+  </a>
+  .
+ </p>
+</div>
+<div class="register">
+ <h2>
+  Team Details
+ </h2>
+ <p>
+  You may choose to supply details for your team members by selecting the apprpriate team names in the next box.Here are the details of the teams of which you are the leader:
+  <ul>
+   {% for i in teammems %}
+   <li>
+    {{i.0}} :
+        {% for u in i.1 %} 
+            {{u.username}},
+        {% endfor %}
+   </li>
+   {% endfor %}
+  </ul>
+ </p>
+</div>
+<div class="register">
+ <form action="{{SITE_URL}}/hospitality/register/" method="POST">
+  <div class="register">
+   <table name="register">
+    {{ form2.as_table }}
+            {{ form1.as_table }}
+   </table>
+   <input type="submit" value="Save Preference" />
+  </div>
+ </form>
+</div>
+{% endblock %}

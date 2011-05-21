@@ -1,0 +1,26 @@
+{% extends "base_default.html" %}
+
+{% block body %}
+<div class="register">
+ <h1>
+  Team Registration
+ </h1>
+ <p>
+  Once you have made your team, you can register for team events. Once registered,
+    please give your team name and
+  <b>
+   team password
+  </b>
+  (not your own) to
+    your team mates.
+ </p>
+ <form action="{{SITE_URL}}/register/team/" method="POST">
+  <div class="info">
+   <table name="register">
+    {{ form.as_table }}
+   </table>
+   <input type="submit" value="Register" />
+  </div>
+ </form>
+</div>
+{% endblock %}

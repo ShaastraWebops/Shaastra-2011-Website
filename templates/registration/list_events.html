@@ -1,0 +1,61 @@
+{% extends "base_default.html" %}
+
+{% block body %}
+    {% if event_success %}
+<div class="info">
+ <b>
+  {{event_success}}
+ </b>
+ : Successfully Updated
+</div>
+{%endif%}
+
+    {% if invalid_event %}
+<div class="errors">
+ <b>
+  {{invalid_event}}
+ </b>
+ : Event does not exist. Check spelling.
+</div>
+{%endif%}
+<div class="register">
+ <h1>
+  Event Registration
+ </h1>
+ <p>
+  <b>
+   Note:
+  </b>
+  You only have to register for those events in which you wish to participate.
+ </p>
+</div>
+<div class="register">
+ For further instructions on Event Registration,
+ <a href="{{SITE_URL}}/register/instructions/event/">
+  click here
+ </a>
+ .
+</div>
+<br />
+<p> Legend:
+<table>
+<tr>
+<td><img src="{{MEDIA_URL}}/images/system-lock-screen.png" /></td><td>Locked event - You have locked your answers for this event, and are now regitered for it.</td>
+</tr>
+</table>
+</p>
+<br />
+Please choose an event:
+<div class="register">
+ {% for event in events %}
+ <div class="success">
+  {%if event.2%}
+  <img src="{{MEDIA_URL}}/images/system-lock-screen.png" />
+  {%endif%}
+  <a href="{{SITE_URL}}/events/register/{{event.0}}">
+   {{event.1}}
+  </a>
+ </div>
+ {% endfor %}
+</div>
+{% endblock %}
