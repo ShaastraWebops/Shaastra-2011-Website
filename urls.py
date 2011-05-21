@@ -1,6 +1,7 @@
 from django.conf.urls.defaults import *
 #from upload.views import upload_file
-
+from mash.views import upload_file1
+from django.contrib.auth.views import login, logout
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
@@ -19,9 +20,9 @@ urlpatterns = patterns('',
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
-     url(r'^main-test/admin/', include(admin.site.urls)),
-     url(r'^main-test/events/', include ('main_test.events.urls')),  
-     url(r'^main-test/', include ('main_test.users.urls')),	
+     url(r'^admin/', include('admin.site.urls')),
+     url(r'^events/', include ('main_test.events.urls')),  
+     url(r'^', include ('main_test.users.urls')),	
 )
 
 #Check

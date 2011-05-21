@@ -1,6 +1,3 @@
-# Inheritance is COMPLETELY screwed up. Need to fix ALL team events etc. 
-# Please see http://docs.djangoproject.com/en/dev/topics/db/models/ . Esp the last para.
-# NEEDS FIXING IMMEDIATELY
 
 
 from django.db import models
@@ -13,7 +10,7 @@ IMAGE_DIR = '2011/media/main/images/'
 FILE_DIR = '2011/media/main/files/'
 
 
-# Please note that __unicode__ is not recommended in django docs. Should we switch to unicode ?
+
 class Tag(models.Model):   
 #E.g.: aerofest, coding etc
     name=models.CharField(max_length=30)
@@ -31,8 +28,6 @@ class Event(models.Model):
     start_time = models.DateTimeField(null=True,blank=True)
     end_time = models.DateTimeField(null=True,blank=True)
     
-    #This is a huge cup!!! The foreign key should be in UserProfile, not here
-    #coords = models.ForeignKey(User)
 
     # Registration
     registrable = models.BooleanField(default=False)
@@ -59,14 +54,7 @@ class Event(models.Model):
         pass  
 
 
-class TabFile(models.Model):
-    
-    file_id = models.AutoField(unique=True, primary_key=True)
-    File = models.FileField(upload_to=('%sTabFile/%s'%(FILE_DIR,file_id)),blank=True, null=True)
-    def __unicode__(self):
-        return str(self.image_id)
-    class Admin:
-        pass
+
         
 
 class QuickTabs(models.Model): 
@@ -80,8 +68,6 @@ class QuickTabs(models.Model):
     # No more than 10 tabs per event.
     pref = models.IntegerField(max_length=2);
     
-    #files 
-    files =  models.ManyToManyField(TabFile, blank=True, null=True, related_name='files')
     
     # According to sudarshan, tab doesn't contain any images
     #images      = models.ManyToManyField(TabImage      , blank=True, null=True, related_name='questions')
@@ -95,7 +81,20 @@ class QuickTabs(models.Model):
     class Admin:
         pass
 
-
+class TabFile(models.Model):
+    
+    file_id = models.AutoField(unique=True, primary_key=True)
+    #File = models.FileField(upload_to=('%sTabFile/%s'%(FILE_DIR,file_id)),blank=True, null=True)
+    #Pack this file id funda. we ll just upload to file dir. We ll have to give a warning message if they upload a file and that overwrites the file in the directory. This way files wont be arbitrarily named
+    File = models.FileField(upload_to='%sTabFile/'%(FILE_DIR),blank=True, null=True)
+    Tab = models.ForeignKey(QuickTabs)
+    filename = models.CharField(max_length= 150)
+    title = models.CharField(max_length = 150)
+    
+    def __unicode__(self):
+        return ('%sTabFile/'%(FILE_DIR) + self.filename )
+    class Admin:
+        pass
 
 class TabImage(models.Model):
     # TASK: Each tab can have more than one image. Each tab can be associated with more than one TabImage object(s)
@@ -113,43 +112,10 @@ class TabImage(models.Model):
     class Admin:
         pass
 
-
-class TabForumReply(models.Model):
-    reply_by = models.ForeignKey(User,blank=True, null=True, related_name='reply_by')
-    #We could display some profile details of the poster. Like in launchpad or bugzilla
-    time_stamp = models.DateTimeField(auto_now=False, auto_now_add=False)
-    content = models.TextField()
-    # Using TextField to allow for long replies, also allows better form handling
-    # Id of the TabForumReply object to which the user replied to.
-    # Using this we can provide link to the post to which this was a reply. 
-    reply_to = models.IntegerField()
-    # Number of likes and dislikes for a post. 
-    likes = models.IntegerField()
-    dislikes = models.IntegerField()
-    # NOTE: Do we need edit history? I don't think it's worth implementing this feature.
-    def __unicode__(self):
-    	return self.content
-
-class TabForum(models.Model):
-    name = models.CharField( max_length = 30 )
-    content = models.TextField()    
-    #Name of the thread , could be decided by the author of the thread
-    tags = models.ManyToManyField(Tag, blank=True, null=True)
-    #Tags associated with the thread, similar to tags in blogspot/wordpress
-    started_by = models.ForeignKey(User,blank=True, null=True, related_name='started_by')
-    time_created = models.DateTimeField(auto_now=False, auto_now_add=False)
-    time_modified = models.DateTimeField(auto_now=False, auto_now_add=False)
-    replies = models.ManyToManyField(TabForumReply,blank=True,null=True,related_name='replies')
-    #Reply to each thread , will have user who replied, content and timestamp
-    def __unicode__(self):
-        return self.name
-    class Admin:
-        pass
-
-'''
 #Team event will be derived from the Event class
 #Author: Swaroop Ramaswamy - Inital model 
-#Using inheritance instead of foreign key. Seems cleaner       
+#Using inheritance instead of foreign key. Seems cleaner 
+'''      
 class TeamEvent(Event):
 
     teams = models.ManyToManyField(Team,  blank=True, null=True, related_name='Team_events')
@@ -179,6 +145,7 @@ class Update(models.Model):
 		
 	class Admin:
 		pass	
+
 
 
 

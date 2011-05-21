@@ -31,7 +31,7 @@ def global_context(request):
     context =  RequestContext (request,
             {'user':request.user,
             'SITE_URL':settings.SITE_URL,
-            'UNB_URL':settings.UNB_URL,
+            'UNB_URL':settings.SITE_URL,
             'MEDIA_URL':settings.MEDIA_URL,
             'is_coord':is_coord,
             'hospi_coord':hospi_coord,
