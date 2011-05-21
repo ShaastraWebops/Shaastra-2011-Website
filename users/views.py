@@ -13,7 +13,7 @@ from django.contrib.sessions.models import Session
 
 from main_test.misc.util import *
 from main_test.settings import *
-<<<<<<< HEAD
+
 
 
 #from main_test.registration.php_serialize.PHPSerialize import *
@@ -22,8 +22,8 @@ from main_test.users.models import UserProfile
 from main_test.users.models import UserProfile
 
 #from main_test.registration.php_serialize.PHPSerialize import *
-=======
->>>>>>> 42badaa363a82167fda822fdbab1ecf43cb0ff32
+
+
 from main_test.users.models import UserProfile
 from main_test.users.models import *
 import forms
