@@ -78,10 +78,8 @@ class UserProfile(models.Model):
     key_expires 	= models.DateTimeField	()
     want_hospi 		= models.BooleanField	(default = False)
     is_coord        = models.BooleanField	(default = False)
-    coord_event     = models.ForeignKey     (Event,default = Null)
-
-	#In case a this user is a coord, which event is (s)he under?
-    event = models.ForeignKey(Event)	
+    coord_event     = models.ForeignKey     (Event)
+	
 	    
     def __unicode__(self):
         return self.user.username
