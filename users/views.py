@@ -13,17 +13,6 @@ from django.contrib.sessions.models import Session
 
 from main_test.misc.util import *
 from main_test.settings import *
-
-
-
-#from main_test.registration.php_serialize.PHPSerialize import *
-from main_test.users.models import UserProfile
-
-from main_test.users.models import UserProfile
-
-#from main_test.registration.php_serialize.PHPSerialize import *
-
-
 from main_test.users.models import UserProfile
 from main_test.users.models import *
 import forms
