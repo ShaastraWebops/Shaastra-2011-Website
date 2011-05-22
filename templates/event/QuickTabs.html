@@ -11,7 +11,7 @@
 
 
 
-{%for {{title}} in tab_list%}
+<!--{%for {{title}} in tab_list%}
 <ul class="tabset_tabs">
    <li><a href="#go_here" class="active">{{title}}</a></li>
    {% if forloop.last and display_edit %}
@@ -19,7 +19,7 @@
    {%endif%}
 </ul>
 
-{%endfor%}
+{%endfor%}-->
 <div id="go_here" class="tabset_content">
 <div id="event_name" align="center" >
 <h1>{{event_name}}
@@ -32,22 +32,21 @@
         <td>
             {{row.id}}
         </td>
-        
+      </tr>  
+     <tr/>
+     <tr>
         <td>
             {{row.title}}
         </td>
-        
+        </tr>
+       <tr/>
+      <tr> 
+
         <td>
             {{row.pref}}
         </td>
         
-        <td>
-           This is just a sample template
-        </td>
-        
-        
-        
-        
+            
     </tr>
 {% endfor %} 
 </table>
