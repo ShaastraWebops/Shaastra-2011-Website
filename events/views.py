@@ -70,14 +70,14 @@ def dashboard(request):
     tab_list = models.QuickTabs.objects.filter(event__name = event_name)  
     return render_to_response('event/dashboard.html', locals(), context_instance= global_context(request))    
 
-@needs_authentication   
+   
 def edit_tab_content(request):
     userprof=request.user.get_profile()
     event_name = userprof.coord_event.name
     #just a check if the coord is viewing the right page...
     if request.method=='POST': 
         tabs_id=request.POST["tab_id"]
-        tab_to_edit=models.QuickTabs.objects.filter(id = tabs_id)
+        tab_to_edit=models.QuickTabs.objects.filter(id=tabs_id)
         data=request.POST.copy()
         if request.FILES:
             tab_file_list='%sTabFile/%s'%(FILE_DIR,tab_to_edit.files)
@@ -85,7 +85,8 @@ def edit_tab_content(request):
         #Display the tab_file_list as a list in after text area
             form = forms.EditTabForm(initial={'title':tab_to_edit__title,'text':tab_to_edit.text})
         else :  
-            form = forms.EditTabForm(initial={'title':'hello there'})  
+            title=tab_to_edit.title()
+            form = forms.EditTabForm(initial={'title' : tabs_id })   
         if form.is_valid():
             tab_to_edit.title= form.cleaned_data['title']
             tab_to_edit.text = form.cleaned_data['text']
