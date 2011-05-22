@@ -1,6 +1,6 @@
 
 
-
+{%extends "logout.html"%}
 
 
 <!-- coord can add tab by clicking on this -->
@@ -54,7 +54,7 @@
 {% endfor %} 
 </table>
 <form action="/events/dashboard/add_tab/" method = 'POST'>
-            <input type="hidden" value="{{row.id}}">
+            <input type="hidden" value="{{row.id}}" name = tab_id>
             <input type="submit" value="Add tab">
             </form>
 
