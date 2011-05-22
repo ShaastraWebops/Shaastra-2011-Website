@@ -1,14 +1,15 @@
-
+{% extends "index.html" %}
 {% block body %}
 
 
 
-
+{% block login %}
 <form action="" method="post">
 <table>
 {{ form.as_table }}
 </table>
 <input type="submit" value="Submit">
 </form>
+{% endblock %}
 
 {% endblock %}

@@ -47,12 +47,14 @@
     <div id="bosch">
      <img class="bosch" src="media/images/bosch.png" />
     </div>
+    {% block login %}
     <div id="login">
      <form name="login" action="" method="">
       <input type="text" class="logintext" name="login" size="40"value="Username" /><br /><br />
       <input type="password" class="logintext" name="pwd" size="40" maxlength="" value="Password" />
      </form>
     </div>
+    {% endblock %}
    </div>
   </div>
   <div id="footer">
