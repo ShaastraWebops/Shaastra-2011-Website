@@ -76,23 +76,18 @@ def edit_tab_content(request):
     event_name = userprof.coord_event.name
     #just a check if the coord is viewing the right page...
     if request.method=='POST': 
-        user=request.user
-        userprof=user.get_profile()
         tabs_id=request.POST["tab_id"]
         tab_to_edit=models.QuickTabs.objects.filter(id = tabs_id)
         data=request.POST.copy()
         if request.FILES:
-            filedata=request.FILES.copy()
             tab_file_list='%sTabFile/%s'%(FILE_DIR,tab_to_edit.files)
             fileurllist=[]
         #Display the tab_file_list as a list in after text area
-            form = forms.EditTabForm(data,filedata,initial={'title': tab_to_edit.title,'text': tab_to_edit.text})
+            form = forms.EditTabForm(initial={tab_to_edit__title,tab_to_edit.text})
         else :  
-            form = forms.EditTabForm(data,initial={'title': tab_to_edit.title,'text': tab_to_edit.text})    
+            form = forms.EditTabForm(initial={'title'='hello there'})   
 
-        if form.cleaned_data['title']=="":
-            form = forms.EditTabForm()
-            return render_to_response('event/add_tab.html', locals(), context_instance= global_context(request))
+
         if form.is_valid():
             tab_to_edit.title= form.cleaned_data['title']
             tab_to_edit.text = form.cleaned_data['text']
