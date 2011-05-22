@@ -13,11 +13,11 @@ from django.contrib.sessions.models import Session
 
 from main_test.misc.util import *
 from main_test.settings import *
-from main_test.users.models import UserProfile
+from main_test.users.models import UserProfile, College
 from main_test.users.models import *
 import forms
 import sha,random,datetime
-
+"""
 def home (request):
     redirected=session_get(request,"from_url")
     access_denied = session_get (request, "access_denied")
@@ -182,7 +182,7 @@ def check(request):
 
 def user_registration(request):
 
-<<<<<<< HEAD
+
     colls = models.College.objects.all()
     
 
@@ -244,8 +244,8 @@ def user_registration(request):
 	    #again have to change this later. dont know which html to use??	
             return render_to_response('users/register_user.html', locals(), context_instance= global_context(request))
    
-=======
->>>>>>> 42badaa363a82167fda822fdbab1ecf43cb0ff32
+
+
     colls = models.College.objects.all()
     if request.method=='POST':
         data = request.POST.copy()
@@ -344,11 +344,11 @@ def coord_registration(request):
                         college = models.College.objects.get (name="Indian Institute of Technology Madras"),
                         mobile_number = form.cleaned_data['mobile_number'],
                         event_name=form.cleaned_data['event_name'],
-<<<<<<< HEAD
+
 			department=form.cleaned_data['department'],
-=======
-						department=form.cleaned_data['department'],
->>>>>>> 42badaa363a82167fda822fdbab1ecf43cb0ff32
+
+
+
                     )
                     #i think we should automatically assign the department based on event name.
                     # we will look into this later
@@ -739,4 +739,4 @@ def view_teams (request, t_name = None):
                 events2.append ((camelize(event.name),event,len(event.teams.filter(name=team)) >0))
 
             return render_to_response('registration/list_team_events.html', locals(), context_instance= global_context(request))         
-
+"""
