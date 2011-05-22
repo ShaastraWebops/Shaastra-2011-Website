@@ -87,7 +87,7 @@ def edit_tab_content(request):
             fileurllist=[]
         #Display the tab_file_list as a list in after text area
             form = forms.EditTabForm(data,filedata,initial={'title': tab_to_edit.title,'text': tab_to_edit.text})
-        else :
+        else :  
             form = forms.EditTabForm(data,initial={'title': tab_to_edit.title,'text': tab_to_edit.text})    
 
         if form.cleaned_data['title']=="":
@@ -111,23 +111,24 @@ def add_quick_tab(request):
     userprof=request.user.get_profile()
     event_name = userprof.coord_event.name
     if request.method=='POST':
-        newtab=models.QuickTabs(title='', text='', pref=0 , event= userprof.coord_event )
+        
         data=request.POST.copy()
-        filedata = request.FILES.copy()
-        form = forms.EditTabForm(data,filedata)
+        if request.FILES:
+            form = forms.EditTabForm(data,request.FILES)
+        else :
+            form = forms.EditTabForm(data)    
         fileurllist=[]
-      #  if form.cleaned_data['title']=="":
+      #if form.cleaned_data['title']=="":
       #      form = forms.EditTabForm()
       #      return render_to_response('event/edit_tab.html', locals(), context_instance= global_context(request))
         if form.is_valid():
-            newtab.title= form.cleaned_data['title']
-            newtab.text = form.cleaned_data['text']
-            filetitle = form.cleaned_data['filetitle']
-            newtab.pref=form.cleaned_data['tab_pref']
+            newtab=models.QuickTabs(title=form.cleaned_data['title'], text=form.cleaned_data['text'], pref=form.cleaned_data['tab_pref'] , event= userprof.coord_event )
             newtab.save()
-            filetosave=request.FILES['tabfile']
-            tabfile=models.TabFile(File=filetosave,Tab=newtab,filename=filetosave.name,title=filetitle) #changed filetosave['filename'] to filetosave.name
-            tabfile.save()
+            if request.FILES:     
+                filetitle = form.cleaned_data['filetitle']
+                filetosave=request.FILES['tabfile']
+                tabfile=models.TabFile(File=filetosave,Tab=newtab,filename=filetosave.name,title=filetitle) #changed filetosave['filename'] to filetosave.name
+                tabfile.save()
             return HttpResponseRedirect ("%sevents/dashboard/"%settings.SITE_URL)
     else:
         form = forms.EditTabForm()
