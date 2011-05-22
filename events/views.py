@@ -75,29 +75,34 @@ def edit_tab_content(request):
     userprof=request.user.get_profile()
     event_name = userprof.coord_event.name
     #just a check if the coord is viewing the right page...
-    if request.method=='POST': 
-        tabs_id=request.POST["tab_id"]
-        tab_to_edit=models.QuickTabs.objects.filter(id=tabs_id)
-        data=request.POST.copy()
-        if request.FILES:
-            tab_file_list='%sTabFile/%s'%(FILE_DIR,tab_to_edit.files)
-            fileurllist=[]
+    if request.method=='POST':
+        try:
+            tabs_id=request.POST["tab_id"]
+            tab_to_edit=models.QuickTabs.objects.get(id=tabs_id)
+            form = forms.EditTabForm(initial={'title' : tab_to_edit.title , 'text' :tab_to_edit.text, 'tab_pref': tab_to_edit.pref })
+            request.session["tab_id"]=tabs_id
+        except:        
+            data=request.POST.copy()
+            if request.FILES:
+                tab_file_list='%sTabFile/%s'%(FILE_DIR,tab_to_edit.files)
         #Display the tab_file_list as a list in after text area
-            form = forms.EditTabForm(initial={tab_to_edit__title,tab_to_edit.text})
-        else :  
-            title=tab_to_edit.title()
-            form = forms.EditTabForm(initial={'title' : tabs_id })   
+                form = forms.EditTabForm(data,request.FILES)
+            else :  
+                form = forms.EditTabForm(data)
 
 
-        if form.is_valid():
-            tab_to_edit.title= form.cleaned_data['title']
-            tab_to_edit.text = form.cleaned_data['text']
-            filetitle = form.cleaned_data['filetitle']
-            tab_to_edit.save()
-            filetosave=request.FILES['tabfile']
-            tabfile=TabFile(File=filetosave,Tab=tab_to_edit,filename=filetosave['filename'],title=filetitle)
-            tabfile.save()
-            fileurllist=unicode(models.TabFile.objects.filter(Tab = tab_to_edit))            
+            if form.is_valid():
+                tab_to_edit=models.QuickTabs.objects.get(id=request.session["tab_id"])            
+                tab_to_edit.title= form.cleaned_data['title']
+                tab_to_edit.text = form.cleaned_data['text']
+                tab_to_edit.save()
+                if request.FILES:
+                    filetitle = form.cleaned_data['filetitle']
+                    filetosave=request.FILES['tabfile']
+                    tabfile=TabFile(File=filetosave,Tab=tab_to_edit,filename=filetosave['filename'],title=filetitle)
+                    tabfile.save()
+                fileurllist=unicode(models.TabFile.objects.filter(Tab = tab_to_edit))
+                return HttpResponseRedirect ("%sevents/dashboard/"%settings.SITE_URL)            
     #use fileurllist to display the urls of the files associated with each tab
     else:
         form = forms.EditTabForm()
