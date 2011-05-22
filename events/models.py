@@ -87,7 +87,8 @@ class TabFile(models.Model):
     file_id = models.AutoField(unique=True, primary_key=True)
     #File = models.FileField(upload_to=('%sTabFile/%s'%(FILE_DIR,file_id)),blank=True, null=True)
     #Pack this file id funda. we ll just upload to file dir. We ll have to give a warning message if they upload a file and that overwrites the file in the directory. This way files wont be arbitrarily named
-    File = models.FileField(upload_to='%sTabFile/'%(FILE_DIR),blank=True, null=True)
+    #File = models.FileField(upload_to='%sTabFile/'%(FILE_DIR),blank=True, null=True)
+    File = models.FileField(upload_to='tab/',blank=True,null=True)
     Tab = models.ForeignKey(QuickTabs)
     filename = models.CharField(max_length= 150)
     title = models.CharField(max_length = 150)
@@ -97,7 +98,8 @@ class TabFile(models.Model):
     class Admin:
         pass
 
-"""class TabImage(models.Model):
+'''
+class TabImage(models.Model):
     # TASK: Each tab can have more than one image. Each tab can be associated with more than one TabImage object(s)
     # Rename the image file to the id of the TabImage object. 
     # Ex: When a user wants to upload a image file, a TabImage object is created. Say it's id is 44. 
@@ -112,7 +114,7 @@ class TabFile(models.Model):
         return str(self.image_id)
     class Admin:
         pass
-"""
+
 class TabForumReply(models.Model):
     reply_by = models.ForeignKey(User,blank=True, null=True, related_name='reply_by')
     #We could display some profile details of the poster. Like in launchpad or bugzilla
@@ -127,7 +129,7 @@ class TabForumReply(models.Model):
     dislikes = models.IntegerField()
     # NOTE: Do we need edit history? I don't think it's worth implementing this feature.
     
-"""class TabForum(models.Model):
+class TabForum(models.Model):
     name = models.CharField( max_length = 30 )
     #Name of the thread , could be decided by the author of the thread
     tags = models.ManyToManyField(Tag, blank=True, null=True)
@@ -141,9 +143,6 @@ class TabForumReply(models.Model):
         return self.name
     class Admin:
         pass
-"""
-
-
 
 class QuickTabs(models.Model): 
     # NOTE: Will one text field per tab suffice?
@@ -158,7 +157,7 @@ class QuickTabs(models.Model):
         return self.text
     class Admin:
         pass
-
+'''
 
 
 
