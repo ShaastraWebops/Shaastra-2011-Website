@@ -88,7 +88,8 @@ def edit_tab_content(request):
         #Display the tab_file_list as a list in after text area
             form = forms.EditTabForm(data,filedata,initial={'title': tab_to_edit.title,'text': tab_to_edit.text})
         else :
-            form = forms.EditTabForm(data,initial={'title': tab_to_edit.title,'text': tab_to_edit.text})    
+            initial={'title': tab_to_edit.title,'text': tab_to_edit.text}
+            form = forms.EditTabForm(data,initial=initial)    
 
         if form.cleaned_data['title']=="":
             form = forms.EditTabForm()
@@ -99,7 +100,7 @@ def edit_tab_content(request):
             filetitle = form.cleaned_data['filetitle']
             tab_to_edit.save()
             filetosave=request.FILES['tabfile']
-            tabfile=TabFile(File=filetosave,Tab=tab_to_edit,filename=filetosave['filename'],title=filetitle)
+            tabfile=TabFile(File=filetosave,Tab=tab_to_edit,filename=filetosave.name,title=filetitle)
             tabfile.save()
             fileurllist=unicode(models.TabFile.objects.filter(Tab = tab_to_edit))            
     #use fileurllist to display the urls of the files associated with each tab
