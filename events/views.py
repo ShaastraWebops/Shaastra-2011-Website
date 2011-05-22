@@ -83,9 +83,9 @@ def edit_tab_content(request):
             tab_file_list='%sTabFile/%s'%(FILE_DIR,tab_to_edit.files)
             fileurllist=[]
         #Display the tab_file_list as a list in after text area
-            form = forms.EditTabForm(initial={tab_to_edit__title,tab_to_edit.text})
+            form = forms.EditTabForm(initial={'title':tab_to_edit__title,'text':tab_to_edit.text})
         else :  
-            form = forms.EditTabForm(initial={'title'='hello there'})  
+            form = forms.EditTabForm(initial={'title':'hello there'})  
         if form.is_valid():
             tab_to_edit.title= form.cleaned_data['title']
             tab_to_edit.text = form.cleaned_data['text']
