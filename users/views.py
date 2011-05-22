@@ -182,7 +182,6 @@ def check(request):
 
 def user_registration(request):
 
-
     colls = models.College.objects.all()
     
 
@@ -342,6 +341,7 @@ def coord_registration(request):
                         college = models.College.objects.get (name="Indian Institute of Technology Madras"),
                         mobile_number = form.cleaned_data['mobile_number'],
                         event_name=form.cleaned_data['event_name'],
+                		department=form.cleaned_data['department'],
 
 			department=form.cleaned_data['department'],
 
