@@ -62,7 +62,8 @@ class College(models.Model):
 
     class Admin:
         pass
-        
+
+
 #User profile common to all users
 #Author: Swaroop Ramaswamy - inital model                
 class UserProfile(models.Model):

@@ -1,14 +1,16 @@
+{%extends "logout.html"%}
+{%extends "index.html"%}
 
 
-
-
-<form action="" method="post" enctype="multipart/form-data">
+{%block body%}
+<form action="" method="POST" enctype="multipart/form-data">
 <table>
 {{ form.as_table }}
 </table>
 <input type="hidden" value="{{row.id}}">
 <input type="submit" value="Submit">
 </form>
+{%endblock body%}
 
 
 
