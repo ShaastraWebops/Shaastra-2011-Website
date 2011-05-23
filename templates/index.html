@@ -36,17 +36,22 @@
    <div id="menu">
     <img class="menubg" src="media/images/menu_bg.png" />
    </div>
+{%block body%}
+   {%block main%}
    <div id="sshow">
     <img class="main" src="media/images/main.png" />
    </div>
+{%endblock main%}
   </div>
   <div id="content">
    <div id="left">
    </div>
    <div id="right">
+  {%block sponsor%}
     <div id="bosch">
      <img class="bosch" src="media/images/bosch.png" />
     </div>
+{%endblock sponsor%}
     {% block login %}
     <div id="login">
      <form name="login" action="" method="">
@@ -54,9 +59,11 @@
       <input type="password" class="logintext" name="pwd" size="40" maxlength="" value="Password" />
      </form>
     </div>
-    {% endblock %}
+    {% endblock login%}
    </div>
   </div>
+{%block content%}{%endblock content%}
+{%endblock body%}
   <div id="footer">
    <div id="foot">
     <a href="#" class="footertext">About</a>&nbsp;&nbsp;&nbsp;<img src="media/images/dot.png" />&nbsp;&nbsp;&nbsp;

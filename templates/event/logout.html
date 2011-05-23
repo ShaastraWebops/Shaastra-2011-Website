@@ -1,7 +1,7 @@
 {%block body%}
 
 <div id="logout" align="right">
-{%if autenticated%}
+{%if user.is_authenticated%}
 <form action= "{{SITE_URL}}/events/logout" method="POST">
 <input type="submit" value="LOGOUT" />
 </form>
