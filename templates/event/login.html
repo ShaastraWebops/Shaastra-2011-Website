@@ -4,12 +4,13 @@
 
 
 {% block login %}
-<form action="" method="post">
-<table>
-{{ form.as_table }}
-</table>
-<input type="submit" value="Submit">
-</form>
+    {{errors}}
+    <form action="" method="post">
+        <table>
+            {{ form.as_table }}
+        </table>
+        <input type="submit" value="Submit">
+    </form>
 {% endblock %}
 
 {% endblock %}

@@ -29,17 +29,21 @@ def coordslogin (request):
             if user is not None and user.is_active == True:
                 auth.login (request, user)
                 request.session['logged_in'] = True
-                url="%sevents/dashboard/"%settings.SITE_URL
+                url="%smain-test/events/dashboard/"%settings.SITE_URL
                 #This URL can be changed as required later
                 response= HttpResponseRedirect (url)
                 return response
             else:
                 request.session['invalid_login'] = True
                 request.session['logged_in'] = False
-                url="%sevents/login"%settings.SITE_URL
+                errors=[]
+                errors.append("Incorrect username and password combination!")
+                return render_to_response('event/login.html', locals(), context_instance= global_context(request))
                 #This URL can be changed as required later
-                response= HttpResponseRedirect (url)
-                return response
+                #url="%smain-test/events/login"%settings.SITE_URL
+                #response= HttpResponseRedirect (url)
+                #return response
+                
         else:                       
             invalid_login = session_get(request, "invalid_login")
             form = forms.CoordsLoginForm () 
