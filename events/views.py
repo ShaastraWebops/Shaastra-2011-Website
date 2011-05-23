@@ -29,7 +29,7 @@ def coordslogin (request):
             if user is not None and user.is_active == True:
                 auth.login (request, user)
                 request.session['logged_in'] = True
-                url="%smain-test/events/dashboard/"%settings.SITE_URL
+                url="%sevents/dashboard/"%settings.SITE_URL
                 #This URL can be changed as required later
                 response= HttpResponseRedirect (url)
                 return response
