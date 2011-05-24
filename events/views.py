@@ -16,7 +16,6 @@ import os
 #Desired - Once a file is uploaded page should be refreshed and the uploaded file should be visible as a url link below the textarea
 
 #We can check if coords are logged in using the request.session['logged_in'] variable and then allow them to edit the corresponding event page after verifying this.
-IMAGE_DIR = '2011/media/main/images/'
 FILE_DIR = '2011/media/main/files/'
 
 def coordslogin (request):
