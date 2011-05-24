@@ -153,6 +153,30 @@ def logout(request):
         auth.logout (request)        
         return HttpResponseRedirect('%sevents/login/'%settings.SITE_URL)        
 
+def handle_uploaded_logo(f, event_id, type_id):
+    try:	
+    	event = models.Event.objects.get(id = event_id)
+    except:
+    	#Incomplete
+    if(type_id == 'logo'):
+    	destination = open('%sevent_logos/%s%s'%(FILE_DIR, %event.id), 'wb+')
+    else:
+    	destination = open('%sspons_logos/%s%s'%(FILE_DIR, %event.id), 'wb+')
+    for chunk in f.chunks():
+        destination.write(chunk)
+    destination.close()
+
+def edit_event(request):
+    if request.method == 'POST':
+        form = EventForm(request.POST, request.FILES)
+        if form.is_valid():
+            handle_uploaded_logo(request.FILES['logo'], request.POST['id'], 'logo')
+            form.save()
+            return HttpResponseRedirect('%sevents/dashboard/'%settings.SITE_URL)
+    else:
+        form = EventForm()
+    return render_to_response('edit_event.html', {'form': form})
+
 
 
 
