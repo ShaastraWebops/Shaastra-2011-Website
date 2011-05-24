@@ -175,7 +175,7 @@ def edit_event(request):
             return HttpResponseRedirect('%sevents/dashboard/'%settings.SITE_URL)
     else:
         form = EventForm()
-    return render_to_response('edit_event.html', {'form': form})
+    return render_to_response('edit_event.html', {'form': form}, locals(), context_instance=global_context(request))
 
 
 
