@@ -8,23 +8,23 @@
 
 
 <head>
-<script type="text/javascript" src="AddClassKillClass.js"></script>
-<script type="text/javascript" src="AttachEvent.js"></script>
-<script type="text/javascript" src="AddCSS.js"></script>
-<script type="text/javascript" src="tabtastic.js"></script>
+<script type="text/javascript" src="{{MEDIA_URL}}AddClassKillClass.js"></script>
+<script type="text/javascript" src="{{MEDIA_URL}}AttachEvent.js"></script>
+<script type="text/javascript" src="{{MEDIA_URL}}AddCSS.js"></script>
+<script type="text/javascript" src="{{MEDIA_URL}}tabtastic.js"></script>
 
 </head>
 
 
 <!--added the logout seperately -->
 
-<div id="logout" align="right">
+<!--<div id="logout" align="right">
 {%if user.is_authenticated%}
 <form action= "{{SITE_URL}}/events/logout" method="POST">
 <input type="submit" value="LOGOUT" />
 </form>
 {%endif%}
-</div>
+</div>-->
 
 
 
@@ -66,7 +66,7 @@
 
 </div>
 </div>
-<!--no redirect done on submit -->
+
 <div id="go_to_edit" class="tabset_content">
 <div align="center">
 <form action="" method="post">
