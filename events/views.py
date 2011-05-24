@@ -146,12 +146,12 @@ def remove_quick_tab(request):
     tabs_id=request.POST["tab_id"]
     tab_to_delete=models.QuickTabs.objects.filter(id=tabs_id)
     tab_to_delete.delete()
-    return HttpResponseRedirect('/events/dashboard/')
+    return HttpResponseRedirect('%sevents/dashboard/'%settings.SITE_URL)
 
 def logout(request):
     if request.user.is_authenticated():
         auth.logout (request)        
-    return HttpResponseRedirect('/events/login/')        
+        return HttpResponseRedirect('%sevents/login/'%settings.SITE_URL)        
 
 
 
