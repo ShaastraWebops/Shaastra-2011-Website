@@ -35,7 +35,7 @@
         
         <td>
             Delete
-            <form action="/events/dashboard/delete_tab/" method = 'POST'>
+            <form action="2011/main-test/events/dashboard/delete_tab/" method = 'POST'>
             <input type="hidden" value="{{row.id}}" name=tab_id>
             <input type="submit" value="Delete">
             </form>
@@ -45,7 +45,7 @@
     </tr>
 {% endfor %} 
 </table>
-<form action="/events/dashboard/add_tab/" method = 'POST'>
+<form action="2011/main-test/events/dashboard/add_tab/" method = 'POST'>
             <input type="hidden" value="{{row.id}}" name = tab_id>
             <input type="submit" value="Add tab">
             </form>
