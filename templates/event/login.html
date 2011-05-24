@@ -1,9 +1,11 @@
 {% extends "index.html" %}
-{% block body %}
+
 
 
 
 {% block login %}
+
+
     {% for error in errors %}
     <li> {{error}} </li>
     {% endfor %}
@@ -15,4 +17,4 @@
     </form>
 {% endblock %}
 
-{% endblock %}
+

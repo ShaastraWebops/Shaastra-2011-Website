@@ -1,16 +1,23 @@
-<!--finally a working model for tabs. javascript from tabastic -->
-{%extends "logout.html"%}
+
+
 {%extends "index.html"%}
 {%block body%}
 
 <head>
-<script type="text/javascript" src="AddClassKillClass.js"></script>
-<script type="text/javascript" src="AttachEvent.js"></script>
-<script type="text/javascript" src="AddCSS.js"></script>
-<script type="text/javascript" src="tabtastic.js"></script>
+<script type="text/javascript" src="{{MEDIA_URL}}/AddClassKillClass.js"></script>
+<script type="text/javascript" src="{{MEDIA_URL}}/AttachEvent.js"></script>
+<script type="text/javascript" src="{{MEDIA_URL}}/AddCSS.js"></script>
+<script type="text/javascript" src="{{MEDIA_URL}}/tabtastic.js"></script>
 
 </head>
-
+<!--added the logout seperately -->
+<div id="logout" align="right">
+{%if user.is_authenticated%}
+<form action= "{{SITE_URL}}/events/logout" method="POST">
+<input type="submit" value="LOGOUT" />
+</form>
+{%endif%}
+</div>
 
 
 <!--{%for {{title}} in tab_list%}
@@ -27,28 +34,19 @@
 <h1>{{event_name}}
 </h1>
 </div>
-<table>
+<table border="1">
+    <tr>
+        <td>tab-id</td>
+        <td>tab-title</td>
+        <td>tab-content</td>
+        <td>tab-pref</td>
+    </tr>
 {% for row in tab_list %}
     <tr>
-    
-        <td>
-            {{row.id}}
-        </td>
-      </tr>  
-     <tr/>
-     <tr>
-        <td>
-            {{row.title}}
-        </td>
-        </tr>
-       <tr/>
-      <tr> 
-
-        <td>
-            {{row.pref}}
-        </td>
-        
-            
+        <td>{{row.id}}</td>
+        <td>{{row.title}}</td>
+        <td>{{row.text}}</td>
+        <td>{{row.pref}}</td>
     </tr>
 {% endfor %} 
 </table>

@@ -1,19 +1,10 @@
 
 
-{%extends "logout.html"%}
-
 {%extends "index.html"%}
 {%block body%}
-<!-- coord can add tab by clicking on this -->
-<!--
-<a href="http://127.0.0.1:8000/events/{{event_name}}/edit/add_tab/"> Add tab </a> 
--->
 
-<!-- coord can edit the existing tabs -->
-
-
-<h1> you're a freaking genius if this works! </h1>
-{{event_name}}
+  
+<h1>{{event_name}}</h1>
 {{request.method}}
 
 <table>
@@ -36,7 +27,7 @@
         
         <td>
             Edit
-            <form action="/events/dashboard/edit_tab/" method = 'POST'>
+            <form action="edit_tab/" method = 'POST'>
             <input type="hidden" value="{{row.id}}" name=tab_id >
             <input type="submit" value="Edit">
             </form>
@@ -44,7 +35,7 @@
         
         <td>
             Delete
-            <form action="/events/dashboard/delete_tab/" method = 'POST'>
+            <form action="delete_tab/" method = 'POST'>
             <input type="hidden" value="{{row.id}}" name=tab_id>
             <input type="submit" value="Delete">
             </form>
@@ -54,7 +45,7 @@
     </tr>
 {% endfor %} 
 </table>
-<form action="/events/dashboard/add_tab/" method = 'POST'>
+<form action="add_tab/" method = 'POST'>
             <input type="hidden" value="{{row.id}}" name = tab_id>
             <input type="submit" value="Add tab">
             </form>

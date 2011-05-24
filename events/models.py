@@ -1,15 +1,15 @@
 
-
 from django.db import models
 from django.contrib import admin
 
 from django.contrib.auth.models import User, Group
 
 #Global - Directory where all the other image directories go
-IMAGE_DIR = '2011/media/main/images/'
-FILE_DIR = '2011/media/main/files/'
 
-
+#MEDIA_ROOT will be automatically prepended to these when they are used in File/Image Fields
+#Assumed MEDIA_ROOT points to /home/shaastra/public_html/2011/media/
+IMAGE_DIR = 'main/images/'
+FILE_DIR = 'main/files/'
 
 class Tag(models.Model):   
 #E.g.: aerofest, coding etc

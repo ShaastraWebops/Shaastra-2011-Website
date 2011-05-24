@@ -4,19 +4,18 @@ from django.contrib import auth
 from django.template.loader import get_template
 from django.template.context import Context, RequestContext
 from django import forms
-
-from main_test.misc.util import *               #Importing everything - just in case
+from main_test.misc.util import *               
 from main_test.settings import *
 import models,forms
 
 import datetime
 
 import os
+
 #Fileupload is not done perfectly. 
 #Desired - Once a file is uploaded page should be refreshed and the uploaded file should be visible as a url link below the textarea
 
 #We can check if coords are logged in using the request.session['logged_in'] variable and then allow them to edit the corresponding event page after verifying this.
-IMAGE_DIR = '2011/media/main/images/'
 FILE_DIR = '2011/media/main/files/'
 
 def coordslogin (request):
@@ -50,7 +49,7 @@ def coordslogin (request):
     return render_to_response('event/login.html', locals(), context_instance= global_context(request))
     #This URL can be changed as required later
                    
-#I m _not_ writing templates write now. Just creating empty html files.
+
 #Handler for displaying /2011/event/eventname page 
 def show_quick_tab(request,event_name=None):
     tab_list=models.QuickTabs.objects.filter(event__name = event_name)
@@ -133,7 +132,8 @@ def add_quick_tab(request):
             if request.FILES:     
                 filetitle = form.cleaned_data['filetitle']
                 filetosave=request.FILES['tabfile']
-                tabfile=models.TabFile(File=filetosave,Tab=newtab,filename=filetosave.name,title=filetitle) #changed filetosave['filename'] to filetosave.name
+                tabfile=models.TabFile(File=filetosave,Tab=newtab,filename=filetosave.name,title=filetitle)
+                #changed filetosave['filename'] to filetosave.name
                 tabfile.save()
             return HttpResponseRedirect ("%sevents/dashboard/"%settings.SITE_URL)
     else:
@@ -147,12 +147,12 @@ def remove_quick_tab(request):
     tabs_id=request.POST["tab_id"]
     tab_to_delete=models.QuickTabs.objects.filter(id=tabs_id)
     tab_to_delete.delete()
-    return HttpResponseRedirect('/events/dashboard/')
+    return HttpResponseRedirect('%sevents/dashboard/'%settings.SITE_URL)
 
 def logout(request):
     if request.user.is_authenticated():
         auth.logout (request)        
-    return HttpResponseRedirect('/events/login/')        
+        return HttpResponseRedirect('%sevents/login/'%settings.SITE_URL)        
 
 
 
