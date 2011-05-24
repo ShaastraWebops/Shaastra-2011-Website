@@ -34,28 +34,19 @@
 <h1>{{event_name}}
 </h1>
 </div>
-<table>
+<table border="1">
+    <tr>
+        <td>tab-id</td>
+        <td>tab-title</td>
+        <td>tab-content</td>
+        <td>tab-pref</td>
+    </tr>
 {% for row in tab_list %}
     <tr>
-    
-        <td>
-            {{row.id}}
-        </td>
-      </tr>  
-     <tr/>
-     <tr>
-        <td>
-            {{row.title}}
-        </td>
-        </tr>
-       <tr/>
-      <tr> 
-
-        <td>
-            {{row.pref}}
-        </td>
-        
-            
+        <td>{{row.id}}</td>
+        <td>{{row.title}}</td>
+        <td>{{row.text}}</td>
+        <td>{{row.pref}}</td>
     </tr>
 {% endfor %} 
 </table>
