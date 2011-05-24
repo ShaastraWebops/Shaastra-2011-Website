@@ -1,5 +1,5 @@
 {% extends "index.html" %}
-{%extends "logout.html"%}
+
 {% block body %}
 
 <head>
@@ -9,6 +9,17 @@
 <script type="text/javascript" src="tabtastic.js"></script>
 
 </head>
+<!--added the logout seperately -->
+<div id="logout" align="right">
+{%if user.is_authenticated%}
+<form action= "{{SITE_URL}}/events/logout" method="POST">
+<input type="submit" value="LOGOUT" />
+</form>
+{%endif%}
+</div>
+
+
+
 {%if display_edit%}
 <ul class="tabset_tabs">
    <li><a href="#go_here" class="active">delete tab</a></li>

@@ -2,7 +2,7 @@
 
 {% block login %}
 
-<!--made a simple login page. used the table layout same as last year -->
+
 <!--used the last years media path. have to change this later -->
 <script language="javascript" type="text/javascript" src="{{MEDIA_URL}}/js/wz_tooltip.js">
   </script>
@@ -18,6 +18,7 @@
 <tr>
 <td><div id="coord_img">
 {% if form.username.errors %}
+
 <!-- the media path have to be changed later-->
 <img height=20 width=20 src="{{ MEDIA_URL }}/images/error.png">
 {% endif %}

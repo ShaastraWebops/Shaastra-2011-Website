@@ -2,6 +2,17 @@
 
 
 {%block body%}
+
+<!--added the logout part seperately-->
+<div id="logout" align="right">
+{%if user.is_authenticated%}
+<form action= "{{SITE_URL}}/events/logout" method="POST">
+<input type="submit" value="LOGOUT" />
+</form>
+{%endif%}
+</div>
+
+<div id="form" align="center">
 <form action="" method="POST" enctype="multipart/form-data">
 <table>
 {{ form.as_table }}
@@ -9,6 +20,7 @@
 <input type="hidden" value="{{row.id}}">
 <input type="submit" value="Submit">
 </form>
+</div>
 {%endblock body%}
 
 

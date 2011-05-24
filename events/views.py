@@ -4,14 +4,14 @@ from django.contrib import auth
 from django.template.loader import get_template
 from django.template.context import Context, RequestContext
 from django import forms
-
-from main_test.misc.util import *               #Importing everything - just in case
+from main_test.misc.util import *               
 from main_test.settings import *
 import models,forms
 
 import datetime
 
 import os
+
 #Fileupload is not done perfectly. 
 #Desired - Once a file is uploaded page should be refreshed and the uploaded file should be visible as a url link below the textarea
 
@@ -50,7 +50,7 @@ def coordslogin (request):
     return render_to_response('event/login.html', locals(), context_instance= global_context(request))
     #This URL can be changed as required later
                    
-#I m _not_ writing templates write now. Just creating empty html files.
+
 #Handler for displaying /2011/event/eventname page 
 def show_quick_tab(request,event_name=None):
     tab_list=models.QuickTabs.objects.filter(event__name = event_name)
@@ -132,7 +132,8 @@ def add_quick_tab(request):
             if request.FILES:     
                 filetitle = form.cleaned_data['filetitle']
                 filetosave=request.FILES['tabfile']
-                tabfile=models.TabFile(File=filetosave,Tab=newtab,filename=filetosave.name,title=filetitle) #changed filetosave['filename'] to filetosave.name
+                tabfile=models.TabFile(File=filetosave,Tab=newtab,filename=filetosave.name,title=filetitle)
+                #changed filetosave['filename'] to filetosave.name
                 tabfile.save()
             return HttpResponseRedirect ("%sevents/dashboard/"%settings.SITE_URL)
     else:

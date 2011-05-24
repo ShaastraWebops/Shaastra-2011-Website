@@ -1,4 +1,4 @@
-{%extends "logout.html"%}
+
 {%extends "index.html"%}
 {%block body%}
 <div align="center">
@@ -16,8 +16,20 @@
 </head>
 
 
+<!--added the logout seperately -->
+
+<div id="logout" align="right">
+{%if user.is_authenticated%}
+<form action= "{{SITE_URL}}/events/logout" method="POST">
+<input type="submit" value="LOGOUT" />
+</form>
+{%endif%}
+</div>
+
+
+
 <ul class="tabset_tabs">
-<!--do i do the sorting here or done in viewss? -->
+
 {% for row in tab_list %}
     {%if {{row.pref}}==0%}
    <li><a href="#go_here" class="active">{{row.title}}</a></li>
