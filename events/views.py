@@ -153,7 +153,7 @@ def logout(request):
         auth.logout (request)        
         return HttpResponseRedirect('%sevents/login/'%settings.SITE_URL)        
 
-def handle_uploaded_logo(f, event_id, type_id):
+def handle_uploaded_logo(file_obj, event_id, type_id):
     try:	
     	event = models.Event.objects.get(id = event_id)
     except:
@@ -162,7 +162,7 @@ def handle_uploaded_logo(f, event_id, type_id):
     	destination = open('%sevent_logos/%s%s'%(FILE_DIR, %event.id), 'wb+')
     else:
     	destination = open('%sspons_logos/%s%s'%(FILE_DIR, %event.id), 'wb+')
-    for chunk in f.chunks():
+    for chunk in file_obj.chunks():
         destination.write(chunk)
     destination.close()
 
