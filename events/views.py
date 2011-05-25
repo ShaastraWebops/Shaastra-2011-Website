@@ -154,9 +154,9 @@ def logout(request):
         return HttpResponseRedirect('%sevents/login/'%settings.SITE_URL)        
 
 def handle_uploaded_logo(file_obj, event_id, type_id):
-    #try:	
-    	#event = models.Event.objects.get(id = event_id)
-    #except:
+    try:	
+    	event = models.Event.objects.get(id = event_id)
+    except:
     	#Incomplete
     if(type_id == 'logo'):
     	destination = open('%sevent_logos/%s%s'%(FILE_DIR, %event.id), 'wb+')
