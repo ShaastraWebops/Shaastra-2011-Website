@@ -45,7 +45,7 @@
     <tr>
         <td>{{row.id}}</td>
         <td>{{row.title}}</td>
-        <td>{{row.text}}</td>
+        <td>{{row.text|safe}}</td>
         <td>{{row.pref}}</td>
     </tr>
 {% endfor %} 
