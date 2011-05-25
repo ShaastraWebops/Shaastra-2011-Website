@@ -14,7 +14,7 @@
 <div align="center">
 <h1>{{event_name}}
 </h1>
-
+</div>
 
 
 
@@ -23,7 +23,7 @@
 
 <!--<div id="logout" align="right">
 
-<form action= "{{SITE_URL}}events/login" method="POST">
+<form action= "{{SITE_URL}}events/login/" method="POST">
 <input type="submit" value="LOGOUT" />
 </form>
 
@@ -44,13 +44,10 @@
 </ul>
 
 
-<div id="go_here{{row.id}}" class="tabset_content">
+<div id="go_here{{row.id}}" class="tabset_content" align="center">
 
 ROW ID : {{row.id}} <br/>
 ROW PREFERENCE : {{row.pref}} <br/>
-
-
-
 {{row.text}}
 
 
@@ -80,16 +77,16 @@ ROW PREFERENCE : {{row.pref}} <br/>
 
 </div>
 {%endfor%}
-<!--{%if display_edit%}-->
+
 <div id="addtab" align="center"> 
 
 <form action="add_tab/" method = 'POST'>
-            <input type="hidden" value="{{row.id}}" name = tab_id>
-            <input type="submit" value="Add tab">
-            </form>
+<input type="hidden" value="{{row.id}}" name = tab_id>
+<input type="submit" value="Add tab">
+</form>
 
 </div>
-<!--{%endif%}-->
-</div>
+
+
 </body>
 {%endblock%}
