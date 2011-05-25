@@ -1,32 +1,64 @@
 
-
 {%extends "index.html"%}
 {%block body%}
+<head>
+<!--<script type="text/javascript" src="{{MEDIA_URL}}AddClassKillClass.js"></script>
+<script type="text/javascript" src="{{MEDIA_URL}}AttachEvent.js"></script>
+<script type="text/javascript" src="{{MEDIA_URL}}AddCSS.js"></script>-->
+<script type="text/javascript" src="{{MEDIA_URL}}tabtastic.js"></script>
 
-<div id="content" align="center">  
-<h1>{{event_name}}</h1>
-<!--{{request.method}}-->
+</head>
+
+
+
+<div align="center">
+<h1>{{event_name}}
+</h1>
+
+
+
+
+
+<!--added the logout seperately -->
+
+<!--<div id="logout" align="right">
+
+<form action= "{{SITE_URL}}events/login" method="POST">
+<input type="submit" value="LOGOUT" />
+</form>
+
+</div>-->
+
+
+{% for row in tab_list %}
+<ul class="tabset_tabs">
+
+
+    {%if forloop.first%}
+   <li><a href="#go_here{{row.id}}" class="active">{{row.title}}</a></li>
+    {%else%}
+     <li><a href="#go_here{{row.id}}">{{row.title}}</a></li>
+     {%endif%}  
+   
+
+</ul>
+
+
+<div id="go_here{{row.id}}" class="tabset_content">
+
+ROW ID : {{row.id}} <br/>
+ROW PREFERENCE : {{row.pref}} <br/>
+
+
+<p>
+{{row.text}}</p>
+
+
 
 <table>
-{% for row in tab_list %}
-    <tr>
-    
-        <td>
-            {{row.id}}
-        </td>
-        
-        <td>
-            {{row.title}}
-        </td>
-         <td>
-            {{row.text|safe}}
-        </td>
-        <td>
-            {{row.pref}}
-        </td>
-        
-        <td>
-            Edit
+<tr>
+<td>
+            
             <form action="edit_tab/" method = 'POST'>
             <input type="hidden" value="{{row.id}}" name=tab_id >
             <input type="submit" value="Edit">
@@ -34,23 +66,30 @@
         </td>
         
         <td>
-            Delete
+            
             <form action="delete_tab/" method = 'POST'>
             <input type="hidden" value="{{row.id}}" name=tab_id>
             <input type="submit" value="Delete">
             </form>
         </td>
-        
-        
-    </tr>
-{% endfor %}
-</div>
-<div id="addtab" align="center"> 
+</tr>
 </table>
+
+
+
+
+</div>
+{%endfor%}
+<!--{%if display_edit%}-->
+<div id="addtab" align="center"> 
+
 <form action="add_tab/" method = 'POST'>
             <input type="hidden" value="{{row.id}}" name = tab_id>
             <input type="submit" value="Add tab">
             </form>
 
 </div>
-{%endblock body%}
+<!--{%endif%}-->
+</div>
+
+{%endblock%}
