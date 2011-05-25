@@ -75,29 +75,13 @@ def dashboard(request):
 
    
 def edit_tab_content(request):
-    userprof=request.user.get_profile()
-    event_name = userprof.coord_event.name
-    #just a check if the coord is viewing the right page...
-    if request.method=='POST':
-        try:
-            tabs_id=request.POST["tab_id"]
-            tab_to_edit=models.QuickTabs.objects.get(id=tabs_id)
-            form = forms.EditTabForm(initial={'title' : tab_to_edit.title , 'text' :tab_to_edit.text, 'tab_pref': tab_to_edit.pref })
-            request.session["tab_id"]=tabs_id
-            try:
-                tab_file_list='%sTabFile/%s'%(FILE_DIR,tab_to_edit.files)
-            except:
-                pass
-        except:        
+    if request.method=='POST':      
             data=request.POST.copy()
-            if request.FILES:
-
-        #Display the tab_file_list as a list in after text area
+            try:
                 form = forms.EditTabForm(data,request.FILES)
-            else :  
+            except :  
                 form = forms.EditTabForm(data)
-
-
+            
             if form.is_valid():
                 tab_to_edit=models.QuickTabs.objects.get(id=request.session["tab_id"])            
                 tab_to_edit.title= form.cleaned_data['title']
@@ -113,7 +97,9 @@ def edit_tab_content(request):
                 return HttpResponseRedirect ("%sevents/dashboard/"%settings.SITE_URL)            
     #use fileurllist to display the urls of the files associated with each tab
     else:
-        form = forms.EditTabForm()
+        tab_to_edit=models.QuickTabs.objects.get(id=request.GET["tab_id"])
+        request.session["tab_id"]=request.GET["tab_id"]
+        form = forms.EditTabForm(initial={'title' : tab_to_edit.title , 'text' :tab_to_edit.text, 'tab_pref': tab_to_edit.pref })
     return render_to_response('event/add_tab.html', locals(), context_instance= global_context(request))
         
 def add_quick_tab(request):
