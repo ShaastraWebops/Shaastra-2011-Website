@@ -29,27 +29,26 @@
 
 </div>-->
 
-<ul class="tabset_tabs">
-<table>
-{% for row in tab_list %}
 
+{% for row in tab_list %}
+<ul class="tabset_tabs">
 
 
     {%if forloop.first%}
    <li><a href="#go_here{{row.id}}" class="active">{{row.title}}</a></li>
     {%else%}
-   <li><a href="#go_here{{row.id}}">{{row.title}}</a></li>
+     <li><a href="#go_here{{row.id}}">{{row.title}}</a></li>
      {%endif%}  
    
 
-
+</ul>
 
 
 <div id="go_here{{row.id}}" class="tabset_content">
 
 
 
-
+<table>
 <tr>
 <td>
 
@@ -58,13 +57,13 @@ ROW PREFERENCE : {{row.pref}} <br/>
 
 
 
-{{row.text|safe}}
+{{row.text}}
 
 
 </td>
 <td>
             
-            <form action="edit_tab/" method = 'POST'>
+            <form action="edit_tab/" method = 'GET'>
             <input type="hidden" value="{{row.id}}" name=tab_id >
             <input type="submit" value="Edit">
             </form>
@@ -78,22 +77,19 @@ ROW PREFERENCE : {{row.pref}} <br/>
             </form>
         </td>
 </tr>
-
+</table>
 
 
 
 
 </div>
 {%endfor%}
-
-</ul>
-</table>
 <!--{%if display_edit%}-->
 <div id="addtab" align="center"> 
 
-<form action="add_tab/" method ="POST">
-            <input type="hidden" value="{{row.id}}" name="tab_id" />
-            <input type="submit" value="Add tab" />
+<form action="add_tab/" method = 'POST'>
+            <input type="hidden" value="{{row.id}}" name = tab_id>
+            <input type="submit" value="Add tab">
             </form>
 
 </div>
