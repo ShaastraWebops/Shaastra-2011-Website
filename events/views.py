@@ -19,14 +19,14 @@ import os
 FILE_DIR = '2011/media/main/files/'
 
 #Will change the model after this plan is confirmed
-def fileuploadhandler(f,eventname,tabid)
+def fileuploadhandler(f,eventname,tabid):
     savelocation = FILE_DIR + eventname + '/' + f.name()
     destination = open( savelocation , 'wb+')
     for chunk in f.chunks():
         destination.write(chunk)
     destination.close()
     tab_of_file = models.QuickTabs.objects.get(id=tabid)
-    tabfileobject = TabFile (Tab = tab_of_file, url= settings.MEDIA_URL + 'main/files/' + eventname + '/' +f.name())
+    tabfileobject = models.TabFile (Tab = tab_of_file, url= settings.MEDIA_URL + 'main/files/' + eventname + '/' +f.name())
     tabfileobject.save() 
 
 def coordslogin (request):
