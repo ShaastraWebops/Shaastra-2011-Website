@@ -1,72 +1,32 @@
 
+
 {%extends "index.html"%}
 {%block body%}
-<div align="center">
-<h1>{{event_name}}
-</h1>
 
+<div id="content" align="center">  
+<h1>{{event_name}}</h1>
+<!--{{request.method}}-->
 
-
-<head>
-<script type="text/javascript" src="{{MEDIA_URL}}AddClassKillClass.js"></script>
-<script type="text/javascript" src="{{MEDIA_URL}}AttachEvent.js"></script>
-<script type="text/javascript" src="{{MEDIA_URL}}AddCSS.js"></script>
-<script type="text/javascript" src="{{MEDIA_URL}}tabtastic.js"></script>
-
-</head>
-
-
-<!--added the logout seperately -->
-
-<!--<div id="logout" align="right">
-{%if user.is_authenticated%}
-<form action= "{{SITE_URL}}/events/logout" method="POST">
-<input type="submit" value="LOGOUT" />
-</form>
-{%endif%}
-</div>-->
-
-
-
-<ul class="tabset_tabs">
-
+<table>
 {% for row in tab_list %}
-    {%if forloop.first%}
-   <li><a href="#go_here" class="active">{{row.title}}</a></li>
-    {%else%}
-     <li><a href="#go_here">{{row.title}}</a></li>
-     {%endif%}  
-   
-
-</ul>
-
-
-<div id="go_here" class="tabset_content">
-<div id="event_name" align="center" >
-
-<p>
-ROW ID : {{row.id}} <br/>
-ROW PREFERENCE : {{row.pref}} <br/>
-
-{{row.text}}</p>
-
-<!--{%if display_edit%}-->
-<!--<ul class="tabset_tabs">
-<table>
-<tr>
+    <tr>
+    
         <td>
-            <li><a href="#go_to_edit1">EDIT</a></li>
+            {{row.id}}
         </td>
-        </tr>
         
-
-         
-</table>
-</ul>-->
-<table>
-<tr>
-<td>
-            
+        <td>
+            {{row.title}}
+        </td>
+         <td>
+            {{row.text}}
+        </td>
+        <td>
+            {{row.pref}}
+        </td>
+        
+        <td>
+            Edit
             <form action="edit_tab/" method = 'POST'>
             <input type="hidden" value="{{row.id}}" name=tab_id >
             <input type="submit" value="Edit">
@@ -74,55 +34,23 @@ ROW PREFERENCE : {{row.pref}} <br/>
         </td>
         
         <td>
-            
+            Delete
             <form action="delete_tab/" method = 'POST'>
             <input type="hidden" value="{{row.id}}" name=tab_id>
             <input type="submit" value="Delete">
             </form>
         </td>
-</tr>
-</table>
-<!--{%endif%}-->
-
-
+        
+        
+    </tr>
+{% endfor %}
 </div>
-</div>
-{%endfor%}
-<!--<div id="go_to_edit" class="tabset_content">
-<div align="center">
-<form action="" method="post">
-<table>
-{{ form.as_table }}
-</table>
-<input type="submit" value="Submit">
-</form>
-</div>
-</div>
-
-<div id="go_to_edit1" class="tabset_content">
-<div align="center">
-<form action="" method="post">
-<table>
-<tr>
-<td>{{ form.text.label_tag }}</td>
-<td>{{ form.text}}
-</td>
-</tr>
-
-</table>
-<input type="submit" value="Submit">
-</form>
-</div>
-</div>-->
-<!--{%if display_edit%}-->
 <div id="addtab" align="center"> 
 </table>
 <form action="add_tab/" method = 'POST'>
             <input type="hidden" value="{{row.id}}" name = tab_id>
-            <input type="submit" value="Add tab">exit
+            <input type="submit" value="Add tab">
             </form>
 
 </div>
-<!--{%endif%}-->
-
 {%endblock body%}
