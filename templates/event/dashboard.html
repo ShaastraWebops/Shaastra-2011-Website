@@ -4,7 +4,7 @@
 <div align="center">
 <h1>{{event_name}}
 </h1>
-
+</div>
 
 
 <head>
@@ -27,7 +27,7 @@
 </div>-->
 
 
-<!--{% for row in tab_list %}-->
+{% for row in tab_list %}
 <ul class="tabset_tabs">
 
 
@@ -42,11 +42,12 @@
 
 
 <div id="go_here" class="tabset_content">
-<div id="event_name" align="center" >
 
-<p>
 ROW ID : {{row.id}} <br/>
 ROW PREFERENCE : {{row.pref}} <br/>
+
+
+<p>
 
 {{row.text}}</p>
 
@@ -63,6 +64,8 @@ ROW PREFERENCE : {{row.pref}} <br/>
          
 </table>
 </ul>-->
+
+
 <table>
 <tr>
 <td>
@@ -85,9 +88,9 @@ ROW PREFERENCE : {{row.pref}} <br/>
 <!--{%endif%}-->
 
 
+
 </div>
-</div>
-<!--{%endfor%}-->
+{%endfor%}
 <!--<div id="go_to_edit" class="tabset_content">
 <div align="center">
 <form action="" method="post">
@@ -124,6 +127,6 @@ ROW PREFERENCE : {{row.pref}} <br/>
 
 </div>
 <!--{%endif%}-->
-</div>
+
 
 {%endblock body%}
