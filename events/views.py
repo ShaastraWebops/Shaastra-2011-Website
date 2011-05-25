@@ -153,29 +153,29 @@ def logout(request):
         auth.logout (request)        
         return HttpResponseRedirect('%sevents/login/'%settings.SITE_URL)        
 
-def handle_uploaded_logo(file_obj, event_id, type_id):
-    try:	
-    	event = models.Event.objects.get(id = event_id)
-    except:
+#def handle_uploaded_logo(file_obj, event_id, type_id):
+    #try:	
+    	#event = models.Event.objects.get(id = event_id)
+    #except:
     	#Incomplete
-    if(type_id == 'logo'):
-    	destination = open('%sevent_logos/%s%s'%(FILE_DIR, %event.id), 'wb+')
-    else:
-    	destination = open('%sspons_logos/%s%s'%(FILE_DIR, %event.id), 'wb+')
-    for chunk in file_obj.chunks():
-        destination.write(chunk)
-    destination.close()
+    #if(type_id == 'logo'):
+    	#destination = open('%sevent_logos/%s%s'%(FILE_DIR, %event.id), 'wb+')
+    #else:
+    	#destination = open('%sspons_logos/%s%s'%(FILE_DIR, %event.id), 'wb+')
+    #for chunk in file_obj.chunks():
+        #destination.write(chunk)
+    #destination.close()
 
-def edit_event(request):
-    if request.method == 'POST':
-        form = EventForm(request.POST, request.FILES)
-        if form.is_valid():
-            handle_uploaded_logo(request.FILES['logo'], request.POST['id'], 'logo')
-            form.save()
-            return HttpResponseRedirect('%sevents/dashboard/'%settings.SITE_URL)
-    else:
-        form = EventForm()
-    return render_to_response('edit_event.html', {'form': form}, locals(), context_instance=global_context(request))
+#def edit_event(request):
+    #if request.method == 'POST':
+        #form = EventForm(request.POST, request.FILES)
+        #if form.is_valid():
+            #handle_uploaded_logo(request.FILES['logo'], request.POST['id'], 'logo')
+            #form.save()
+            #return HttpResponseRedirect('%sevents/dashboard/'%settings.SITE_URL)
+    #else:
+        #form = EventForm()
+    #return render_to_response('edit_event.html', {'form': form}, locals(), context_instance=global_context(request))
 
 
 
