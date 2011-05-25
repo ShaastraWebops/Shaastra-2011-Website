@@ -199,7 +199,7 @@ AttachEvent(window,'load',function(){
 		if ((match=anchorMatch.exec(location.href)) && (a=everyTabThereIsById[match[1]])) SetTabActive(a);
 		
 		//Comment out the next line and include the file directly if you need IE5Mac or Opera7 support.
-		AddStyleSheet('{{MEDIA_URL}}tabtastic.css',0);
+		AddStyleSheet('tabtastic.css',0);
 	}
 	Init();
 },false);
