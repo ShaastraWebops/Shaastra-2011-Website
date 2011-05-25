@@ -84,10 +84,14 @@ def edit_tab_content(request):
             tab_to_edit=models.QuickTabs.objects.get(id=tabs_id)
             form = forms.EditTabForm(initial={'title' : tab_to_edit.title , 'text' :tab_to_edit.text, 'tab_pref': tab_to_edit.pref })
             request.session["tab_id"]=tabs_id
+            try:
+                tab_file_list='%sTabFile/%s'%(FILE_DIR,tab_to_edit.files)
+            except:
+                pass
         except:        
             data=request.POST.copy()
             if request.FILES:
-                tab_file_list='%sTabFile/%s'%(FILE_DIR,tab_to_edit.files)
+
         #Display the tab_file_list as a list in after text area
                 form = forms.EditTabForm(data,request.FILES)
             else :  
@@ -102,7 +106,8 @@ def edit_tab_content(request):
                 if request.FILES:
                     filetitle = form.cleaned_data['filetitle']
                     filetosave=request.FILES['tabfile']
-                    tabfile=TabFile(File=filetosave,Tab=tab_to_edit,filename=filetosave['filename'],title=filetitle)
+                    tabfile=models.TabFile(File=filetosave,Tab=tab_to_edit,filename=filetosave['filename'],title=filetitle)
+                    #Some problem here
                     tabfile.save()
                 fileurllist=unicode(models.TabFile.objects.filter(Tab = tab_to_edit))
                 return HttpResponseRedirect ("%sevents/dashboard/"%settings.SITE_URL)            
@@ -153,6 +158,30 @@ def logout(request):
     if request.user.is_authenticated():
         auth.logout (request)        
         return HttpResponseRedirect('%sevents/login/'%settings.SITE_URL)        
+
+#def handle_uploaded_logo(file_obj, event_id, type_id):
+    #try:	
+    	#event = models.Event.objects.get(id = event_id)
+    #except:
+    	#Incomplete
+    #if(type_id == 'logo'):
+    	#destination = open('%sevent_logos/%s%s'%(FILE_DIR, %event.id), 'wb+')
+    #else:
+    	#destination = open('%sspons_logos/%s%s'%(FILE_DIR, %event.id), 'wb+')
+    #for chunk in file_obj.chunks():
+        #destination.write(chunk)
+    #destination.close()
+
+#def edit_event(request):
+    #if request.method == 'POST':
+        #form = EventForm(request.POST, request.FILES)
+        #if form.is_valid():
+            #handle_uploaded_logo(request.FILES['logo'], request.POST['id'], 'logo')
+            #form.save()
+            #return HttpResponseRedirect('%sevents/dashboard/'%settings.SITE_URL)
+    #else:
+        #form = EventForm()
+    #return render_to_response('edit_event.html', {'form': form}, locals(), context_instance=global_context(request))
 
 
 

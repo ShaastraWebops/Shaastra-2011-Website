@@ -3,9 +3,9 @@
 {%extends "index.html"%}
 {%block body%}
 
-  
+<div id="content" align="center">  
 <h1>{{event_name}}</h1>
-{{request.method}}
+<!--{{request.method}}-->
 
 <table>
 {% for row in tab_list %}
@@ -19,7 +19,7 @@
             {{row.title}}
         </td>
          <td>
-            {{row.text}}
+            {{row.text|safe}}
         </td>
         <td>
             {{row.pref}}
@@ -43,12 +43,14 @@
         
         
     </tr>
-{% endfor %} 
+{% endfor %}
+</div>
+<div id="addtab" align="center"> 
 </table>
 <form action="add_tab/" method = 'POST'>
             <input type="hidden" value="{{row.id}}" name = tab_id>
             <input type="submit" value="Add tab">
             </form>
 
-
+</div>
 {%endblock body%}

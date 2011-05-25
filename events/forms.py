@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 from django import forms
+from django.forms import ModelForm, SplitDateTimeWidget, RadioSelect
+
 #from django.core.validators import alnum_re
 from django.contrib.auth.models import User
 from django.template import Template, Context
@@ -56,7 +58,13 @@ class EditTabForm(forms.Form):
     tabfile=forms.FileField(required=False)    
     tab_pref=forms.IntegerField(required=True,help_text='Order of the tab for displaying.')
 
-
-
+class EventForm(ModelForm):
+	class Meta:
+		model = Event
+		fields = ('name', 'start_time', 'end_time', 'registrable', 'accommodation', 'logo', 'sponslogo')
+		widgets = {
+			'start_time': SplitDateTimeWidget(),
+			'end_time': SplitDateTimeWidget(),
+		}
 
 
