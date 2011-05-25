@@ -18,27 +18,27 @@
 
 <!--added the logout seperately -->
 
-<!--<div id="logout" align="right">
-{%if user.is_authenticated%}
-<form action= "{{SITE_URL}}/events/logout" method="POST">
+<div id="logout" align="right">
+
+<form action= "{{SITE_URL}}events/login" method="POST">
 <input type="submit" value="LOGOUT" />
 </form>
-{%endif%}
-</div>-->
+
+</div>
 
 
 {% for row in tab_list %}
-<div class="tabset_tabs">
+<ul class="tabset_tabs">
 
 
     {%if forloop.first%}
-   <a href="#go_here" class="active">{{row.title}}</a>
+   <li><a href="#go_here" class="active">{{row.title}}</a></li>
     {%else%}
-     <a href="#go_here">{{row.title}}</a>
+     <li><a href="#go_here">{{row.title}}</a></li>
      {%endif%}  
    
 
-</div>
+</ul>
 
 
 <div id="go_here" class="tabset_content">
@@ -51,19 +51,6 @@ ROW PREFERENCE : {{row.pref}} <br/>
 
 {{row.text}}</p>
 
-<!--{%if display_edit%}-->
-<!--<ul class="tabset_tabs">
-<table>
-<tr>
-        <td>
-            <li><a href="#go_to_edit1">EDIT</a></li>
-        </td>
-        </tr>
-        
-
-         
-</table>
-</ul>-->
 
 
 <table>
@@ -85,38 +72,12 @@ ROW PREFERENCE : {{row.pref}} <br/>
         </td>
 </tr>
 </table>
-<!--{%endif%}-->
+
 
 
 
 </div>
 {%endfor%}
-<!--<div id="go_to_edit" class="tabset_content">
-<div align="center">
-<form action="" method="post">
-<table>
-{{ form.as_table }}
-</table>
-<input type="submit" value="Submit">
-</form>
-</div>
-</div>
-
-<div id="go_to_edit1" class="tabset_content">
-<div align="center">
-<form action="" method="post">
-<table>
-<tr>
-<td>{{ form.text.label_tag }}</td>
-<td>{{ form.text}}
-</td>
-</tr>
-
-</table>
-<input type="submit" value="Submit">
-</form>
-</div>
-</div>-->
 <!--{%if display_edit%}-->
 <div id="addtab" align="center"> 
 
