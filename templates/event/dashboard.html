@@ -49,8 +49,8 @@ ROW ID : {{row.id}} <br/>
 ROW PREFERENCE : {{row.pref}} <br/>
 
 {{row.text}}</p>
-{%endfor%}
-{%if display_edit%}
+
+<!--{%if display_edit%}-->
 <!--<ul class="tabset_tabs">
 <table>
 <tr>
@@ -82,12 +82,12 @@ ROW PREFERENCE : {{row.pref}} <br/>
         </td>
 </tr>
 </table>
-{%endif%}
+<!--{%endif%}-->
 
 
 </div>
 </div>
-
+{%endfor%}
 <!--<div id="go_to_edit" class="tabset_content">
 <div align="center">
 <form action="" method="post">
@@ -114,7 +114,7 @@ ROW PREFERENCE : {{row.pref}} <br/>
 </form>
 </div>
 </div>-->
-{%if display_edit%}
+<!--{%if display_edit%}-->
 <div id="addtab" align="center"> 
 </table>
 <form action="add_tab/" method = 'POST'>
@@ -123,6 +123,6 @@ ROW PREFERENCE : {{row.pref}} <br/>
             </form>
 
 </div>
-{%endif%}
+<!--{%endif%}-->
 
 {%endblock body%}
