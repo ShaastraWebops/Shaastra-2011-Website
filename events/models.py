@@ -6,7 +6,7 @@ from django.contrib.auth.models import User, Group
 
 from main_test.misc.util import camelize
 
-import os
+#import os
 
 #Global - Directory where all the other image directories go
 
@@ -85,8 +85,10 @@ class QuickTabs(models.Model):
     class Admin:
         pass
 
+'''
 def get_upload_path(instance, filename):
 	return os.path.join('events/', camelize(unicode(instance.Tab.event.name)), '/files/', filename)
+'''
 
 class TabFile(models.Model):
     
@@ -94,7 +96,8 @@ class TabFile(models.Model):
     #File = models.FileField(upload_to=('%sTabFile/%s'%(FILE_DIR,file_id)),blank=True, null=True)
     #Pack this file id funda. we ll just upload to file dir. We ll have to give a warning message if they upload a file and that overwrites the file in the directory. This way files wont be arbitrarily named
     #File = models.FileField(upload_to='%sTabFile/'%(FILE_DIR),blank=True, null=True)
-    File = models.FileField(upload_to=get_upload_path,blank=True,null=True)
+    File = models.FileField(upload_to='tab/',blank=True,null=True)
+    #File = models.FileField(upload_to=get_upload_path,blank=True,null=True)
     Tab = models.ForeignKey(QuickTabs)
     filename = models.CharField(max_length= 150)
     title = models.CharField(max_length = 150)
