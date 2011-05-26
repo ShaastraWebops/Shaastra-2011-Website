@@ -59,8 +59,8 @@ def coordslogin (request):
 #Handler for displaying /2011/event/eventname page 
 def show_quick_tab(request,event_name=None):
     tab_list=models.QuickTabs.objects.filter(event__name = event_name)
-    for t in tab_list:
-        self.file_list=unicode(models.TabFiles.objects.filter(Tab = self ))
+    #for t in tab_list:
+        #self.file_list=unicode(models.TabFiles.objects.filter(Tab = self ))
     #So each object in tab_list will have a file_list which is a list of urls to be displayed for the correspdong tab    
     display_edit = False
     if request.method=='POST': 
