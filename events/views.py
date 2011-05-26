@@ -19,15 +19,15 @@ import os
 FILE_DIR = '2011/media/main/files/'
 
 #Will change the model after this plan is confirmed
-#def fileuploadhandler(f,eventname,tabid):
-    #savelocation = FILE_DIR + eventname + '/' + f.name()
-    #destination = open( savelocation , 'wb+')
-    #for chunk in f.chunks():
-        #destination.write(chunk)
-    #destination.close()
-    #tab_of_file = models.QuickTabs.objects.get(id=tabid)
-    #tabfileobject = models.TabFile (Tab = tab_of_file, url= settings.MEDIA_URL + 'main/files/' + eventname + '/' +f.name())
-    #tabfileobject.save() 
+def fileuploadhandler(f,eventname,tabid):
+    savelocation = FILE_DIR + eventname + '/' + f.name()
+    destination = open( savelocation , 'wb+')
+    for chunk in f.chunks():
+        destination.write(chunk)
+    destination.close()
+    tab_of_file = models.QuickTabs.objects.get(id=tabid)
+    tabfileobject = models.TabFile (Tab = tab_of_file, url= settings.MEDIA_URL + 'main/files/' + eventname + '/' +f.name())
+    tabfileobject.save() 
 
 def coordslogin (request):
     form=forms.CoordsLoginForm()
@@ -85,32 +85,32 @@ def dashboard(request):
     return render_to_response('event/dashboard.html', locals(), context_instance= global_context(request))    
 
    
-#def edit_tab_content(request):
+def edit_tab_content(request):
 
-    #if request.method=='POST':      
-            #data=request.POST.copy()
-            #try:
-                #form = forms.EditTabForm(data,request.FILES)
-            #except :  
-                #form = forms.EditTabForm(data)
+    if request.method=='POST':      
+            data=request.POST.copy()
+            try:
+                form = forms.EditTabForm(data,request.FILES)
+            except :  
+                form = forms.EditTabForm(data)
             
-           # if form.is_valid():
-                #tab_to_edit=models.QuickTabs.objects.get(id=request.session["tab_id"])            
-                #tab_to_edit.title= form.cleaned_data['title']
-                #tab_to_edit.text = form.cleaned_data['text']
-                #tab_to_edit.save()
-                #if request.FILES:
-                    #userprof=request.user.get_profile()
-                    #event_name = userprof.coord_event.name
-                    #fileuploadhandler(request.FILES['tabfile'],event_name,request.session["tab_id"])
-                #fileurllist=unicode(models.TabFile.objects.filter(Tab = tab_to_edit))
-                #return HttpResponseRedirect ("%sevents/dashboard/"%settings.SITE_URL)            
+            if form.is_valid():
+                tab_to_edit=models.QuickTabs.objects.get(id=request.session["tab_id"])            
+                tab_to_edit.title= form.cleaned_data['title']
+                tab_to_edit.text = form.cleaned_data['text']
+                tab_to_edit.save()
+                if request.FILES:
+                    userprof=request.user.get_profile()
+                    event_name = userprof.coord_event.name
+                    fileuploadhandler(request.FILES['tabfile'],event_name,request.session["tab_id"])
+                fileurllist=unicode(models.TabFile.objects.filter(Tab = tab_to_edit))
+                return HttpResponseRedirect ("%sevents/dashboard/"%settings.SITE_URL)            
     #use fileurllist to display the urls of the files associated with each tab
-    #else:
-        #tab_to_edit=models.QuickTabs.objects.get(id=request.GET["tab_id"])
-        #request.session["tab_id"]=request.GET["tab_id"]
-        #form = forms.EditTabForm(initial={'title' : tab_to_edit.title , 'text' :tab_to_edit.text, 'tab_pref': tab_to_edit.pref })
-    #return render_to_response('event/add_tab.html', locals(), context_instance= global_context(request))
+    else:
+        tab_to_edit=models.QuickTabs.objects.get(id=request.GET["tab_id"])
+        request.session["tab_id"]=request.GET["tab_id"]
+        form = forms.EditTabForm(initial={'title' : tab_to_edit.title , 'text' :tab_to_edit.text, 'tab_pref': tab_to_edit.pref })
+    return render_to_response('event/add_tab.html', locals(), context_instance= global_context(request))
         
 def add_quick_tab(request):
     userprof=request.user.get_profile()
