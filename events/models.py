@@ -96,8 +96,8 @@ class TabFiles(models.Model):
 
     #File = models.FileField(upload_to=get_upload_path,blank=True,null=True)
     Tab = models.ForeignKey(QuickTabs)
-    url = models.URLField(max_length= 500, required = False)
-    title = models.CharField(max_length = 150. required = False )
+    url = models.URLField(max_length= 500, blank = True , null = True)
+    title = models.CharField(max_length = 150, blank = True , null = True )
 
     def __unicode__(self):
         return self.url
