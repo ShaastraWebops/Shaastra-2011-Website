@@ -20,13 +20,13 @@ FILE_DIR = '2011/media/main/files/'
 
 #Will change the model after this plan is confirmed
 def fileuploadhandler(f,eventname,tabid):
-    savelocation = FILE_DIR + eventname + '/' + f.name()
+    savelocation = FILE_DIR + eventname + '/' + f.name
     destination = open( savelocation , 'wb+')
     for chunk in f.chunks():
         destination.write(chunk)
     destination.close()
     tab_of_file = models.QuickTabs.objects.get(id=tabid)
-    tabfileobject = models.TabFile (Tab = tab_of_file, url= settings.MEDIA_URL + 'main/files/' + eventname + '/' +f.name())
+    tabfileobject = models.TabFiles (Tab = tab_of_file, url= settings.MEDIA_URL + 'main/files/' + eventname + '/' +f.name)
     tabfileobject.save() 
 
 def coordslogin (request):
@@ -49,10 +49,6 @@ def coordslogin (request):
                 errors=[]
                 errors.append("Incorrect username and password combination!")
                 return render_to_response('event/login.html', locals(), context_instance= global_context(request))
-                #This URL can be changed as required later
-                #url="%smain-test/events/login"%settings.SITE_URL
-                #response= HttpResponseRedirect (url)
-                #return response
                 
         else:                       
             invalid_login = session_get(request, "invalid_login")
@@ -64,8 +60,8 @@ def coordslogin (request):
 #Handler for displaying /2011/event/eventname page 
 def show_quick_tab(request,event_name=None):
     tab_list=models.QuickTabs.objects.filter(event__name = event_name)
-    #for t in tab_list:
-    #    self.file_list=unicode(models.TabFile.objects.filter(Tab = self ))
+    for t in tab_list:
+        self.file_list=unicode(models.TabFiles.objects.filter(Tab = self ))
     #So each object in tab_list will have a file_list which is a list of urls to be displayed for the correspdong tab    
     display_edit = False
     if request.method=='POST': 
@@ -99,17 +95,18 @@ def edit_tab_content(request):
                 tab_to_edit.title= form.cleaned_data['title']
                 tab_to_edit.text = form.cleaned_data['text']
                 tab_to_edit.save()
+                fileurllist=unicode(models.TabFiles.objects.filter(Tab = tab_to_edit))
                 if request.FILES:
                     userprof=request.user.get_profile()
                     event_name = userprof.coord_event.name
                     fileuploadhandler(request.FILES['tabfile'],event_name,request.session["tab_id"])
-                fileurllist=unicode(models.TabFile.objects.filter(Tab = tab_to_edit))
                 return HttpResponseRedirect ("%sevents/dashboard/"%settings.SITE_URL)            
     #use fileurllist to display the urls of the files associated with each tab
     else:
         tab_to_edit=models.QuickTabs.objects.get(id=request.GET["tab_id"])
         request.session["tab_id"]=request.GET["tab_id"]
         form = forms.EditTabForm(initial={'title' : tab_to_edit.title , 'text' :tab_to_edit.text, 'tab_pref': tab_to_edit.pref })
+        fileurllist=unicode(models.TabFiles.objects.filter(Tab = tab_to_edit))
     return render_to_response('event/add_tab.html', locals(), context_instance= global_context(request))
         
 def add_quick_tab(request):
@@ -130,11 +127,7 @@ def add_quick_tab(request):
             newtab=models.QuickTabs(title=form.cleaned_data['title'], text=form.cleaned_data['text'], pref=form.cleaned_data['tab_pref'] , event= userprof.coord_event )
             newtab.save()
             if request.FILES:     
-                filetitle = form.cleaned_data['filetitle']
-                filetosave=request.FILES['tabfile']
-                tabfile=models.TabFile(File=filetosave,Tab=newtab,filename=filetosave.name,title=filetitle)
-                #changed filetosave['filename'] to filetosave.name
-                tabfile.save()
+                fileuploadhandler(request.FILES["tabfile"],event_name,newtab.id)
             return HttpResponseRedirect ("%sevents/dashboard/"%settings.SITE_URL)
     else:
         form = forms.EditTabForm()
