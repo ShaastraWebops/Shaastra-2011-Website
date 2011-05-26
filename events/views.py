@@ -29,7 +29,7 @@ def fileuploadhandler(f,eventname,tabid):
     tabfileobject = models.TabFile (Tab = tab_of_file, url= settings.MEDIA_URL + 'main/files/' + eventname + '/' +f.name())
     tabfileobject.save() 
 
-def coordslogin (request):
+def coordslogin(request):
     form=forms.CoordsLoginForm()
     if request.method == 'POST':
         data = request.POST.copy()
@@ -39,7 +39,7 @@ def coordslogin (request):
             if user is not None and user.is_active == True:
                 auth.login (request, user)
                 request.session['logged_in'] = True
-                url="%sevents/dashboard/"%settings.SITE_URL
+                url="%smain-test/events/dashboard/"%settings.SITE_URL
                 #This URL can be changed as required later
                 response= HttpResponseRedirect (url)
                 return response
