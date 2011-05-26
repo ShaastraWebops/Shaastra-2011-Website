@@ -29,7 +29,7 @@ def fileuploadhandler(f,eventname,tabid):
     tabfileobject = models.TabFile (Tab = tab_of_file, url= settings.MEDIA_URL + 'main/files/' + eventname + '/' +f.name())
     tabfileobject.save() 
 
-def coordslogin(request):
+def coordslogin (request):
     form=forms.CoordsLoginForm()
     if request.method == 'POST':
         data = request.POST.copy()
