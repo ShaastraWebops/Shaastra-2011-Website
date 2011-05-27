@@ -1,56 +1,81 @@
 
-
 {%extends "index.html"%}
 {%block body%}
 
-<head>
-<script type="text/javascript" src="{{MEDIA_URL}}AddClassKillClass.js"></script>
+<!--<script type="text/javascript" src="{{MEDIA_URL}}AddClassKillClass.js"></script>
 <script type="text/javascript" src="{{MEDIA_URL}}AttachEvent.js"></script>
-<script type="text/javascript" src="{{MEDIA_URL}}AddCSS.js"></script>
-<script type="text/javascript" src="{{MEDIA_URL}}tabtastic.js"></script>
+<script type="text/javascript" src="{{MEDIA_URL}}AddCSS.js"></script>-->
+<script type="text/javascript" src="http://www.shaastra.org/2011/media/tabtastic.js"></script>
 
-</head>
+
+
+
+
+<div align="center">
+<h1>{{event_name}}
+</h1>
+
+
+
+
+
 <!--added the logout seperately -->
+
 <!--<div id="logout" align="right">
-{%if user.is_authenticated%}
-<form action= "{{SITE_URL}}/events/logout" method="POST">
+
+<form action= "{{SITE_URL}}events/login" method="POST">
 <input type="submit" value="LOGOUT" />
 </form>
-{%endif%}
+
 </div>-->
 
 
-<!--{%for {{title}} in tab_list%}
+
+
+
 <ul class="tabset_tabs">
-   <li><a href="#go_here" class="active">{{title}}</a></li>
-   {% if forloop.last and display_edit %}
-   <li><a href="#go_to_edit" class="active">EDIT</a></li>   
-   {%endif%}
+{% for row in tab_list %}
+    {%if forloop.first%}
+   <li><a href="#go_here{{row.id}}" class="active">{{row.title}}</a></li>
+    {%else%}
+   <li><a href="#go_here{{row.id}}">{{row.title}}</a></li>
+     {%endif%}  
+   
+
+{%endfor%}
 </ul>
 
-{%endfor%}-->
-<div id="go_here" class="tabset_content">
-<div id="event_name" align="center" >
-<h1>{{event_name}}
-</h1>
-</div>
-<table border="1">
-    <tr>
-        <td>tab-id</td>
-        <td>tab-title</td>
-        <td>tab-content</td>
-        <td>tab-pref</td>
-    </tr>
-{% for row in tab_list %}
-    <tr>
-        <td>{{row.id}}</td>
-        <td>{{row.title}}</td>
-        <td>{{row.text|safe}}</td>
-        <td>{{row.pref}}</td>
-    </tr>
-{% endfor %} 
-</table>
-</div>
+
+{%for row in tab_list%}
+<div id="go_here{{row.id}}" class="tabset_content">
 
 
-{%endblock body%}
+
+
+
+ROW ID : {{row.id}} <br/>
+ROW PREFERENCE : {{row.pref}} <br/>
+
+
+
+<p>{{row.text|safe}}</p>
+<br/><br/>
+
+
+        
+
+
+
+
+</div>
+{%endfor%}
+
+
+
+
+
+
+
+</div>
+
+{%endblock%}
