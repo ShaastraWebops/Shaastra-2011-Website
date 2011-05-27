@@ -55,9 +55,9 @@ class Event(models.Model):
     def __unicode__(self):
         return self.name
     
-    def __init__(self):
-        os.mkdir(settings.MEDIA_ROOT + "main/files/" + self.name)
-        os.mkdir(settings.MEDIA_ROOT + "main/submissions/" + self.name)    
+    #def __init__(self):
+        #os.mkdir(settings.MEDIA_ROOT + "main/files/" + self.name)
+        #os.mkdir(settings.MEDIA_ROOT + "main/submissions/" + self.name)    
 
     class Admin:
         pass  
