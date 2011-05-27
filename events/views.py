@@ -15,7 +15,7 @@ import os
 #Fileupload is not done perfectly. 
 #Desired - Once a file is uploaded page should be refreshed and the uploaded file should be visible as a url link below the textarea
 
-FILE_DIR = '2011/media/main/files/'
+FILE_DIR = settings.MEDIA_ROOT + 'main/files/'
 
 #Will change the model after this plan is confirmed
 def fileuploadhandler(f,eventname,tabid):
