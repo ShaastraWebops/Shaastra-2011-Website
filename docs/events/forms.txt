@@ -1,0 +1,6 @@
+This is the documentation for the events app-  forms documentation.
+---------------------------------------------------------------------------------------------
+1. ExtFileField - Definition for file field with a white list; also include memory check(max upload)
+2. CoordsLoginForm - Separate Coords Login Form..! Why? Remove help text, not good or change it for the better
+3. EditTabForm - Editting tabs, Use some validation, and standardization; i.e Once form is posted, check for title if the first one is caps, and make others lower case; and tab_pref should also be validated
+4. EventForm - uploading events details, seems like they have registration stuff too...! Remove them. start_time, end_time- why use splitdatetime widget, instead we can do away with time and just have a date input for the model.
