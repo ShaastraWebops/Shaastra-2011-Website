@@ -65,6 +65,7 @@ ROW PREFERENCE : {{row.pref}} <br/>
 
             
            <form action="edit_tab/" method = 'GET'>
+            {% csrf_token %}
             <input type="hidden" value="{{row.id}}" name=tab_id >
             <input type="submit" value="Edit">
             </form>
@@ -73,6 +74,7 @@ ROW PREFERENCE : {{row.pref}} <br/>
         
             
             <form action="delete_tab/" method = 'POST'>
+            {% csrf_token %}
             <input type="hidden" value="{{row.id}}" name=tab_id>
             <input type="submit" value="Delete">
             </form>
@@ -86,6 +88,7 @@ ROW PREFERENCE : {{row.pref}} <br/>
 <br/><br/>
 <div id="addtabs" align="center">
 <form action="add_tab/" method ="POST">
+{% csrf_token %}
 <input type="hidden" value="{{row.id}}" name="tab_id" />
 <input type="submit" value="Add tab" />
 </form>

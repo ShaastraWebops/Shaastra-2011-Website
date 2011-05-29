@@ -49,16 +49,24 @@ class Event(models.Model):
     #NOTE: Rename the uploaded image file to event name.
     #NOTE: Assumption: There's one logo and one spons logo for each event
     # Is this the correct path? CHECK THIS!
-    logo = models.ImageField(upload_to="%sevent_logos/"%IMAGE_DIR, blank=True, null=True)
-    sponslogo = models.ImageField(upload_to="%sspons_logos/"%IMAGE_DIR, blank=True, null=True)
+    logo = models.URLField(max_length= 500, blank = True , null = True)
+    sponslogo = models.URLField(max_length= 500, blank = True , null = True)
 
     def __unicode__(self):
         return self.name
     
-    #def __init__(self):
-        #os.mkdir(settings.MEDIA_ROOT + "main/files/" + self.name)
-        #os.mkdir(settings.MEDIA_ROOT + "main/submissions/" + self.name)    
-
+    #A directory should only be created when a new event is saved to the db
+    def save(self, *args, **kwargs):
+    	os.system("mkdir " + MEDIA_ROOT + "main/files/" + camelize(self.name) )
+    	os.system("mkdir " + MEDIA_ROOT + "main/submissions/" + camelize(self.name) )
+    	super(Event, self).save(*args, **kwargs) # Call the "real" save() method.
+    
+    #A directory should not be created every time a new variable is declared
+    #Moreover, this completely overrides all else that init is supposed to do
+    #def __init__(self, *args, **kwargs):
+    #    os.system("mkdir " + MEDIA_ROOT + "main/files/" + camelize(kwargs['name']) )
+    #    os.system("mkdir " + MEDIA_ROOT + "main/submissions/" + camelize(kwargs['name']) )
+	
     class Admin:
         pass  
 
