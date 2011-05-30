@@ -137,10 +137,8 @@ def remove_quick_tab(request):
 @needs_authentication
 def remove_file(request):
 	if request.method == 'GET':
-		tabfile_id = request.POST['tabfile_id']
+		tabfile_id = request.GET['tabfile_id']
 		file_to_remove = models.TabFiles.objects.get(id = tabfile_id)
-		eventname = file_to_remove.Tab.event.name
-		os.system('rm ' + file_to_remove.url)
 		file_to_remove.delete()
 	return HttpResponseRedirect("%sevents/dashboard/"%settings.SITE_URL)
 
