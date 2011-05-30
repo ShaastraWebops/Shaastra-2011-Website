@@ -1,6 +1,6 @@
 from django.conf.urls.defaults import *
 #from upload.views import upload_file
-from mash.views import upload_file1
+
 from django.contrib.auth.views import login, logout
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -24,7 +24,7 @@ urlpatterns = patterns('',
 
      url(r'^main-test/admin/', include(admin.site.urls)),
      url(r'^main-test/events/', include ('main_test.events.urls')),  
-     url(r'^main-test/techmash/', include ('main_test.techmashs.urls')),  
+     url(r'^main-test/techmash/', include ('main_test.techmash.urls')),  
      url(r'^main-test/', include ('main_test.users.urls')),	
 )
 
