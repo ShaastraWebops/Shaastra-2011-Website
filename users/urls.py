@@ -6,7 +6,8 @@ handler500 = "main_test.misc.util.server_error"
 
 urlpatterns = patterns('main_test.events.views',
       (r'^/$', 'coordslogin'),
-    """   
+)
+"""   
       (r'^login/$', 'login'),
       (r'^login/forgot/$', 'forgot_password'),
       (r'^login/forgot/(?P<u_name>[a-zA-Z0-9_.-]+)/(?P<new_pass>[\w]+)/?$', 'reset_password'),
@@ -39,6 +40,6 @@ urlpatterns = patterns('main_test.events.views',
       (r'^teams/manage/(?P<t_name>[a-zA-Z0-9_.-]*)/changepwd/?$', 'change_password'),
       (r'^teams/remove/(?P<t_name>[a-zA-Z0-9_.-]+)/(?P<u_name>[a-zA-Z0-9_.-]+)/?$', 'remove_team_member'),
     """
-)
+
 
 
