@@ -36,9 +36,9 @@
 <ul class="tabset_tabs">
 {% for row in tab_list %}
     {%if forloop.first%}
-   <li><a href="#go_here{{row.id}}" class="active">{{row.title}}</a></li>
+   <li><a href="#Tab{{row.pref}}" class="active">{{row.title}}</a></li>
     {%else%}
-   <li><a href="#go_here{{row.id}}">{{row.title}}</a></li>
+   <li><a href="#Tab{{row.pref}}">{{row.title}}</a></li>
      {%endif%}  
    
 
@@ -47,7 +47,7 @@
 
 
 {%for row in tab_list%}
-<div id="go_here{{row.id}}" class="tabset_content">
+<div id="Tab{{row.pref}}" class="tabset_content">
 
 
 
