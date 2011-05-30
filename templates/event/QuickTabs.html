@@ -60,6 +60,13 @@ ROW PREFERENCE : {{row.pref}} <br/>
 
 <p>{{row.text|safe}}</p>
 <br/><br/>
+CURRENTLY UPLOADED FILES
+<br>
+{%for file in row.file_list %}
+{{file.url|urlize}}<br/>
+
+<!--.url|urlize -->
+{%endfor%}
 
 
         

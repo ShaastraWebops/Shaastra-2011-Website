@@ -13,7 +13,7 @@ from django.contrib.sessions.models import Session
 
 from main_test.misc.util import *
 from main_test.settings import *
-from main_test.users.models import UserProfile, College
+#from main_test.users.models import UserProfile, College
 from main_test.users.models import *
 import forms
 import sha,random,datetime
@@ -235,7 +235,7 @@ def user_registration(request):
 							 'SITE_URL':settings.SITE_URL,
 							 'activationkey':user_profile.activation_key }))
                     send_mail('Shaastra 2011 Userportal account confirmation', body,'noreply@shaastra.org', [user.email,], fail_silently=False)
-                    return HttpResponseRedirect ("%s/home/registered/"%settings.SITE_URL)
+                    return HttpResponseRedirect ("%sregistered/"%settings.SITE_URL)
 
                 except:
                     user.delete();
@@ -251,7 +251,7 @@ def user_registration(request):
 
 
 
-
+    
     colls = models.College.objects.all()
     if request.method=='POST':
         data = request.POST.copy()
@@ -292,7 +292,7 @@ def user_registration(request):
                 mail_template=get_template('email/activate.html')
                 body = mail_template.render(Context({'username':user.username, 'SITE_URL':settings.SITE_URL, 'activationkey':user_profile.activation_key }))
                 send_mail('Shaastra 2011 Userportal account confirmation', body,'noreply@shaastra.org', [user.email,], fail_silently=False)
-                return HttpResponseRedirect ("%s/home/registered/"%settings.SITE_URL)
+                return HttpResponseRedirect ("%sregistered/"%settings.SITE_URL)
             except:
                 user.delete();
                 user_profile.delete();

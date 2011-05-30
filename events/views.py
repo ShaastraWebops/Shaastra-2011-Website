@@ -60,7 +60,7 @@ def coordslogin (request):
 def show_quick_tab(request,event_name=None):
     tab_list=models.QuickTabs.objects.filter(event__name = event_name)
     for t in tab_list:
-        t.file_list=unicode(models.TabFiles.objects.filter(Tab = t ))
+        t.file_list=models.TabFiles.objects.filter(Tab = t )
     #So each object in tab_list will have a file_list which is a list of urls to be displayed for the correspdong tab    
     display_edit = False
     if request.method=='POST': 
@@ -93,7 +93,7 @@ def edit_tab_content(request):
                 tab_to_edit.title= form.cleaned_data['title']
                 tab_to_edit.text = form.cleaned_data['text']
                 tab_to_edit.save()
-                fileurllist=unicode(models.TabFiles.objects.filter(Tab = tab_to_edit))
+                fileurllist=models.TabFiles.objects.filter(Tab = tab_to_edit)
                 if request.FILES:
                     userprof=request.user.get_profile()
                     event_name = userprof.coord_event.name
@@ -104,7 +104,7 @@ def edit_tab_content(request):
         tab_to_edit=models.QuickTabs.objects.get(id=request.GET["tab_id"])
         request.session["tab_id"]=request.GET["tab_id"]
         form = forms.EditTabForm(initial={'title' : tab_to_edit.title , 'text' :tab_to_edit.text, 'tab_pref': tab_to_edit.pref })
-        fileurllist=unicode(models.TabFiles.objects.filter(Tab = tab_to_edit))
+        fileurllist=models.TabFiles.objects.filter(Tab = tab_to_edit)
         #use fileurllist to display the urls of the files associated with each tab
     return render_to_response('event/add_tab.html', locals(), context_instance= global_context(request))
     

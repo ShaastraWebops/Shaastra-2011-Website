@@ -49,13 +49,9 @@ STATE_CHOICES = (
 #Just copy pasted last year's code. Will work just fine I guess
 
 class College(models.Model):
-    name	=	models.CharField (	max_length = 255,
-    								help_text  = 'The name of your college. Please refrain from using short forms.' )
-    city	=	models.CharField (	max_length = 30,
-    								help_text  = 'The name of the city where your college is located. Please refrain from using short forms.' )
-    state	=	models.CharField (	max_length = 40,
-    								choices    = STATE_CHOICES, 
-    								help_text  = 'The state where your college is located. Select from the drop down list' )
+    name=models.CharField (max_length = 255,help_text  = 'The name of your college. Please refrain from using short forms.')
+    city=models.CharField (max_length = 30,help_text  = 'The name of the city where your college is located. Please refrain from using short forms.' )
+    state=models.CharField (max_length = 40,choices    = STATE_CHOICES,help_text  = 'The state where your college is located. Select from the drop down list' )
 
     def __unicode__(self):
         return "%s, %s, %s"%(self.name, self.city, self.state)

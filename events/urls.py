@@ -5,6 +5,7 @@ handler404 = "main_test.misc.util.not_found"
 handler500 = "main_test.misc.util.server_error"
 
 urlpatterns = patterns('main_test.events.views',
+      (r'^/$', 'coordslogin'),
       (r'^login/$', 'coordslogin'),
       (r'^logout/$', 'logout'),
       (r'^dashboard/$', 'dashboard'),
