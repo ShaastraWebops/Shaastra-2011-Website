@@ -24,6 +24,7 @@ urlpatterns = patterns('',
 
      url(r'^main-test/admin/', include(admin.site.urls)),
      url(r'^main-test/events/', include ('main_test.events.urls')),  
+     url(r'^main-test/techmash/', include ('main_test.techmashs.urls')),  
      url(r'^main-test/', include ('main_test.users.urls')),	
 )
 
