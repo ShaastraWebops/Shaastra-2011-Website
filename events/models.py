@@ -95,6 +95,10 @@ class QuickTabs(models.Model):
 
     def __unicode__(self):
         return self.text
+    
+    class Meta:
+    	ordering = ['pref']
+    
     class Admin:
         pass
 
@@ -103,10 +107,8 @@ def get_upload_path(instance, filename):
 	return os.path.join('events/', camelize(unicode(instance.Tab.event.name)), '/files/', filename)
 '''
 
+
 class TabFiles(models.Model):
-    
-
-
     #File = models.FileField(upload_to=get_upload_path,blank=True,null=True)
     Tab = models.ForeignKey(QuickTabs)
     url = models.URLField(max_length= 500, blank = True , null = True)
@@ -116,6 +118,8 @@ class TabFiles(models.Model):
         return self.url
     class Admin:
         pass
+
+
 
 '''
 class TabImage(models.Model):
