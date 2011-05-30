@@ -114,9 +114,9 @@ class TabFiles(models.Model):
     url = models.URLField(max_length= 500, blank = True , null = True)
     title = models.CharField(max_length = 150, blank = True , null = True )
 
-	def delete(self, *args, **kwargs):
-		os.system('rm ' + file_to_remove.url)
-		super(TabFiles, self).delete(*args, **kwargs)
+    def delete(self, *args, **kwargs):
+        os.system('rm ' + file_to_remove.url)
+	super(TabFiles, self).delete(*args, **kwargs)
 	
     def __unicode__(self):
         return self.url
