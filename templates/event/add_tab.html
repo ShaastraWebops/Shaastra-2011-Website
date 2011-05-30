@@ -25,11 +25,11 @@
 CURRENTLY UPLOADED FILES : </div><br/>
 {%if fileurllist%}
 
+{%for file in fileurllist%}
 
 
-
-{{fileurllist}} <br/>
-
+{{file.url|urlize}} <br/>
+{%endfor%}
 
 {%else%}
 NO CURRENTLY UPLOADED FILES
