@@ -28,7 +28,16 @@ CURRENTLY UPLOADED FILES : </div><br/>
 {%for file in file_list%}
 
 
-{{file.url|urlize}} <br/>
+{{file.url|urlize}}
+<form action="{{SITE_URL}}events/dashboard/delete_file/" method = 'POST'>
+{% csrf_token %}
+<input type="hidden" value="{{file.id}}" name="tabfile_id"/ >
+<input type="submit" value="Delete"/>
+</form>
+
+
+
+ <br/>
 {%endfor%}
 
 {%else%}
