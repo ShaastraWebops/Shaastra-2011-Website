@@ -23,9 +23,9 @@
 <div id="fileurls" align="center">
 <div id="filetitle" style="color:red;font-weight:bold">
 CURRENTLY UPLOADED FILES : </div><br/>
-{%if fileurllist%}
+{%if file_list%}
 
-{%for file in fileurllist%}
+{%for file in file_list%}
 
 
 {{file.url|urlize}} <br/>
