@@ -19,21 +19,25 @@
 <table>
 {{ form.as_table }}
 </table>
+<br/><br/>
 <div id="fileurls" align="center">
-CURRENTLY UPLOADED FILES : <br/>
+<div id="filetitle" style="color:red;font-weight:bold">
+CURRENTLY UPLOADED FILES : </div><br/>
 {%if fileurllist%}
 
 {%for file in fileurllist%}
 
 
-{{file.url|urlize}}<br/>
+{{file.title}} : {{file.url|urlize}}<br/>
 
 {%endfor%}
 {%else%}
 NO CURRENTLY UPLOADED FILES
 <br/>
 </div>
+
 {%endif%}
+<br/><br/>
 <input type="hidden" value="{{row.id}}">
 <input type="submit" value="Submit">
 </form>

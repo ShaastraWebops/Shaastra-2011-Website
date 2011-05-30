@@ -4,23 +4,23 @@ from django.conf.urls.defaults import *
 handler404 = "main_test.misc.util.not_found"
 handler500 = "main_test.misc.util.server_error"
 
-urlpatterns = patterns('',
-      (r'^$', 'main_test.events.views.coordslogin'),
-       """
+urlpatterns = patterns('main_test.events.views',
+      (r'^$', 'coordslogin'),
+    """   
       (r'^login/$', 'login'),
       (r'^login/forgot/$', 'forgot_password'),
       (r'^login/forgot/(?P<u_name>[a-zA-Z0-9_.-]+)/(?P<new_pass>[\w]+)/?$', 'reset_password'),
       (r'^logout/$', 'logout'),
       (r'^check/$','check'),
       (r'^deadlines/$','deadlines'),
-       """
-      (r'^registered/$','main_test.users.views.registered'),
-        """   
+       
+      (r'^registered/$','registered'),
+           
       (r'^register/instructions/?$','register_instructions') ,
       (r'^register/instructions/([a-z]+)/?$','template_to_view'),
-       """
-      (r'^register/user/?$', 'main_test.users.views.user_registration'),
-       """
+       
+      (r'^register/user/?$', 'user_registration'),
+       
       (r'^register/team/?$', 'register_team'),
       (r'^register/coord/?$', 'register_coord'),
       (r'^register/college/?$', 'register_college'),
