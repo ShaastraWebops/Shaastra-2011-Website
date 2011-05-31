@@ -124,7 +124,7 @@ def add_quick_tab(request):
             newtab=models.QuickTabs(title=form.cleaned_data['title'], text=form.cleaned_data['text'], pref=form.cleaned_data['tab_pref'] , event= userprof.coord_event )
             newtab.save()
             if request.FILES:     
-                fileuploadhandler(request.FILES["tabfile"],event_name,newtab.id)
+                fileuploadhandler(request.FILES["tabfile"], event_name, newtab.id, form.cleaned_data['filetitle'])
             return HttpResponseRedirect ("%sevents/dashboard/"%settings.SITE_URL)
     else:
         form = forms.EditTabForm()
