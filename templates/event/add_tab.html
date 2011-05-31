@@ -33,7 +33,7 @@
 		<br/>
 		{%if file_list%}
 			{%for file in file_list%}
-				<a href={{file.url|urlize}}>{{file.title}}</a>
+				<a href={{file.url}}>{{file.title}}</a>
 				<form action="{{SITE_URL}}events/dashboard/delete_file/" method='POST'>
 					{% csrf_token %}
 					<input type="hidden" value="{{file.id}}" name="tabfile_id" />
