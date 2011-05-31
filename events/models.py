@@ -115,7 +115,7 @@ class TabFiles(models.Model):
     title = models.CharField(max_length = 150, blank = True , null = True )
     
     def delete(self, *args, **kwargs):
-		os.system('rm ' + file_to_remove.url)
+		os.system('rm ' + unicode(self.url).replace(MEDIA_URL, MEDIA_ROOT) )
 		super(TabFiles, self).delete(*args, **kwargs)
     
     def __unicode__(self):
