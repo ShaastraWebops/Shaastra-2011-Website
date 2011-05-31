@@ -119,7 +119,7 @@ class TabFiles(models.Model):
 		#os.system('rm ' + str(self.url).replace(MEDIA_URL, MEDIA_ROOT) )
 		filename = str(self.url).rsplit('/', 1)[1]   #Already camelized
 		eventname = self.Tab.event.name
-		os.system('rm ' + MEDIA_ROOT + 'main/files/' + camelize(eventname) + '/' + filename)
+		os.system("rm " + MEDIA_ROOT + "main/files/" + camelize(eventname) + "/" + filename)
 		super(TabFiles, self).delete(*args, **kwargs)
     
     def __unicode__(self):
