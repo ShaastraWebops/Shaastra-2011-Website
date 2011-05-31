@@ -22,6 +22,18 @@
 <br/><br/>
 <div id="fileurls" align="center">
 <div id="filetitle" style="color:red;font-weight:bold">
+
+{%else%}
+NO CURRENTLY UPLOADED FILES
+<br/>
+</div>
+
+{%endif%}
+<br/><br/>
+<input type="hidden" value="{{row.id}}">
+<input type="submit" value="Submit">
+</form>
+
 CURRENTLY UPLOADED FILES : </div><br/>
 {%if file_list%}
 
@@ -40,16 +52,6 @@ CURRENTLY UPLOADED FILES : </div><br/>
  <br/>
 {%endfor%}
 
-{%else%}
-NO CURRENTLY UPLOADED FILES
-<br/>
-</div>
-
-{%endif%}
-<br/><br/>
-<input type="hidden" value="{{row.id}}">
-<input type="submit" value="Submit">
-</form>
 </div>
 {%endblock body%}
 
