@@ -20,10 +20,11 @@
 			{{ form.as_table }}
 		</table>
 		<br /><br />
-		<br /><br />
 		<input type="hidden" value="{{row.id}}" />
 		<input type="submit" value="Submit" />
 	</form>
+
+	<br /><br />
 
 	<div id="fileurls" align="center">
 		<div id="filetitle" style="color:red;font-weight:bold">
@@ -32,8 +33,8 @@
 		<br/>
 		{%if file_list%}
 			{%for file in file_list%}
-				{{file.url|urlize}}
-				<form action="{{SITE_URL}}events/dashboard/delete_file/" method = 'POST'>
+				<a href="{{file.url|urlize}}">{{file.title}}</a>
+				<form action="{{SITE_URL}}events/dashboard/delete_file/" method='POST'>
 					{% csrf_token %}
 					<input type="hidden" value="{{file.id}}" name="tabfile_id" />
 					<input type="submit" value="Delete"/>

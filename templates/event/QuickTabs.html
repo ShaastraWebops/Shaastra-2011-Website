@@ -39,7 +39,7 @@
 			</div>
 			<br />
 			{%for file in row.file_list %}
-				{{file.url|urlize}}
+				<a href="{{file.url|urlize}}">{{file.title}}</a>
 				<br/>
 			{%endfor%}
 		</div>
