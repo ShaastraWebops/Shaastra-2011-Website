@@ -18,14 +18,17 @@ import os
 FILE_DIR = settings.MEDIA_ROOT + 'main/files/'
 
 #Will change the model after this plan is confirmed
-def fileuploadhandler(f,eventname,tabid):
-    savelocation = FILE_DIR + eventname + '/' + f.name
+def fileuploadhandler(f, eventname, tabid, file_title):
+    savelocation = FILE_DIR + camelize(eventname) + '/' + camelize(f.name)
     destination = open( savelocation , 'wb+')
     for chunk in f.chunks():
         destination.write(chunk)
     destination.close()
-    tab_of_file = models.QuickTabs.objects.get(id=tabid)
-    tabfileobject = models.TabFiles (Tab = tab_of_file, url= settings.MEDIA_URL + 'main/files/' + camelize(eventname) + '/' +f.name)
+    tab_of_file = models.QuickTabs.objects.get(id = tabid)
+    tabfileobject = models.TabFiles ( Tab = tab_of_file, 
+    								  url = settings.MEDIA_URL + 'main/files/' + camelize(eventname) + '/' + camelize(f.name),
+    								  title =  file_title
+    								)
     tabfileobject.save()
 
 def coordslogin (request):
@@ -97,7 +100,7 @@ def edit_tab_content(request):
                 if request.FILES:
                     userprof=request.user.get_profile()
                     event_name = userprof.coord_event.name
-                    fileuploadhandler(request.FILES['tabfile'],event_name,request.session["tab_id"])
+                    fileuploadhandler(request.FILES['tabfile'], event_name, request.session["tab_id"], form.cleaned_data['filetitle'])
                 return HttpResponseRedirect ("%sevents/dashboard/"%settings.SITE_URL)
     else:
         tab_to_edit = models.QuickTabs.objects.get(id=request.GET["tab_id"])
