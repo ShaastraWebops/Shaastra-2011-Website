@@ -78,7 +78,14 @@ ROW PREFERENCE : {{row.pref}} <br/>
             <input type="submit" value="Delete">
             </form>
         
-
+<br />
+<div id="file_display" style = "color:red;font-weight:bold">
+CURRENTLY UPLOADED FILES
+</div>
+<br>
+{%for file in row.file_list %}
+{{file.url|urlize}}<br/>
+{%endfor%}
 
 
 
