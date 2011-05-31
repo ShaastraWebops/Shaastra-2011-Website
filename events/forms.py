@@ -2,7 +2,6 @@
 from django import forms
 from django.forms import ModelForm, SplitDateTimeWidget, RadioSelect
 
-#from django.core.validators import alnum_re
 from django.contrib.auth.models import User
 from django.template import Template, Context
 
@@ -40,12 +39,17 @@ class ExtFileField(forms.FileField):
 
     def clean(self, *args, **kwargs):
         data = super(ExtFileField, self).clean(*args, **kwargs)
-        filename = data.name
-        ext = os.path.splitext(filename)[1]
-        ext = ext.lower()
-        if ext not in self.ext_whitelist:
-	    error_text = 'Not allowed filetype!'
-            raise forms.ValidationError(error_text)
+        if data is None:
+            if self.required:
+                raise ValidationError("This file is required")
+            else:
+                return
+        else:        
+            filename = data.name
+            ext = os.path.splitext(filename)[1]
+            ext = ext.lower()
+            if ext not in self.ext_whitelist:
+                raise forms.ValidationError("Not allowed filetype!")
 
 class CoordsLoginForm(forms.Form):
     username=forms.CharField(help_text='The coord username given to you')
