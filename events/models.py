@@ -115,7 +115,11 @@ class TabFiles(models.Model):
     title = models.CharField(max_length = 150, blank = True , null = True )
     
     def delete(self, *args, **kwargs):
-		os.system('rm ' + str(self.url).replace(MEDIA_URL, MEDIA_ROOT) )
+    	#This is what I would've liked to have done. Pity it doesn't work
+		#os.system('rm ' + str(self.url).replace(MEDIA_URL, MEDIA_ROOT) )
+		filename = str(self.url).rsplit('/', 1)[1]   #Already camelized
+		eventname = self.Tab.event.name
+		os.system('rm ' + MEDIA_ROOT + 'main/files/' + camelize(eventname) + '/' + filename)
 		super(TabFiles, self).delete(*args, **kwargs)
     
     def __unicode__(self):
