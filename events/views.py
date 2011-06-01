@@ -175,8 +175,9 @@ def remove_file(request):
 
 def logout(request):
     if request.user.is_authenticated():
-        auth.logout (request)        
-        return HttpResponseRedirect('%sevents/login/'%settings.SITE_URL)        
+        auth.logout (request)
+        return render_to_response('event/logout.html', locals(), context_instance= global_context(request))        
+    return HttpResponseRedirect('%sevents/login/'%settings.SITE_URL)        
 
 #def handle_uploaded_logo(file_obj, event_id, type_id):
     #try:	
