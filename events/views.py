@@ -81,7 +81,7 @@ def dashboard(request):
         for t in tab_list:
             t.file_list = models.TabFiles.objects.filter(Tab = t)
         return render_to_response('event/dashboard.html', locals(), context_instance= global_context(request))
-    else
+    else:
         return render_to_response('404.html')        
 
 @needs_authentication    
