@@ -75,11 +75,14 @@ def show_quick_tab(request,event_name=None):
 @needs_authentication    
 def dashboard(request):
     userprof = request.user.get_profile()
-    event_name = userprof.coord_event.name
-    tab_list = models.QuickTabs.objects.filter(event__name = event_name).order_by('pref')  
-    for t in tab_list:
-        t.file_list = models.TabFiles.objects.filter(Tab = t)
-    return render_to_response('event/dashboard.html', locals(), context_instance= global_context(request))    
+    if userprof.is_coord:
+        event_name = userprof.coord_event.name
+        tab_list = models.QuickTabs.objects.filter(event__name = event_name).order_by('pref')  
+        for t in tab_list:
+            t.file_list = models.TabFiles.objects.filter(Tab = t)
+        return render_to_response('event/dashboard.html', locals(), context_instance= global_context(request))
+    else
+        return render_to_response('404.html')        
 
 @needs_authentication    
 def edit_tab_content(request):
@@ -105,11 +108,14 @@ def edit_tab_content(request):
     else:
         tab_to_edit = models.QuickTabs.objects.get(id=request.GET["tab_id"])
         request.session["tab_id"]=request.GET["tab_id"]
-        form = forms.EditTabForm(initial={'title' : tab_to_edit.title , 'text' :tab_to_edit.text, 'tab_pref': tab_to_edit.pref })
-        file_list = models.TabFiles.objects.filter(Tab = tab_to_edit)
+        userprof = request.user.get_profile()
+        if tab_to_edit.event == userprof.coord_event and userprof.is_coord:
+            form = forms.EditTabForm(initial={'title' : tab_to_edit.title , 'text' :tab_to_edit.text, 'tab_pref': tab_to_edit.pref })
+            file_list = models.TabFiles.objects.filter(Tab = tab_to_edit)
         #use file_list to display the urls of the files associated with each tab
-    return render_to_response('event/add_tab.html', locals(), context_instance= global_context(request))
-
+            return render_to_response('event/add_tab.html', locals(), context_instance= global_context(request))
+        else:
+            return render_to_response('404.html')
 @needs_authentication
 def add_file(request):
     if request.method=='POST':      
