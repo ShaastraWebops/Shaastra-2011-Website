@@ -19,14 +19,14 @@ FILE_DIR = settings.MEDIA_ROOT + 'main/files/'
 
 #Will change the model after this plan is confirmed
 def fileuploadhandler(f, eventname, tabid, file_title):
-    savelocation = FILE_DIR + camelize(eventname) + '/' + camelize(f.name)
+    savelocation = settings.MEDIA_ROOT + 'events/' + camelize(eventname) + '/files/' + camelize(f.name)
     destination = open( savelocation , 'wb+')
     for chunk in f.chunks():
         destination.write(chunk)
     destination.close()
     tab_of_file = models.QuickTabs.objects.get(id = tabid)
     tabfileobject = models.TabFiles ( Tab = tab_of_file, 
-    								  url = settings.MEDIA_URL + 'main/files/' + camelize(eventname) + '/' + camelize(f.name),
+    								  url = settings.MEDIA_URL + 'main/events/' + camelize(eventname) + '/files/' + camelize(f.name),
     								  title =  file_title
     								)
     tabfileobject.save()
@@ -163,16 +163,18 @@ def logout(request):
         #destination.write(chunk)
     #destination.close()
 
-#def edit_event(request):
-    #if request.method == 'POST':
-        #form = EventForm(request.POST, request.FILES)
-        #if form.is_valid():
-            #handle_uploaded_logo(request.FILES['logo'], request.POST['id'], 'logo')
-            #form.save()
-            #return HttpResponseRedirect('%sevents/dashboard/'%settings.SITE_URL)
-    #else:
-        #form = EventForm()
-    #return render_to_response('edit_event.html', {'form': form}, locals(), context_instance=global_context(request))
+
+def edit_event(request):
+    if request.method == 'POST':
+        try:
+            form = forms.EventForm(request.POST, request.FILES)
+        except:
+            form = forms.EventForm(request.POST)
+        if form.is_valid():
+            form.save()
+    else:
+        form = forms.EventForm()
+    return render_to_response('edit_event.html', locals(), context_instance=global_context(request))
 
 
 

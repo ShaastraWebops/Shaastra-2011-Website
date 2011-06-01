@@ -13,8 +13,6 @@ import os
 
 #MEDIA_ROOT will be automatically prepended to these when they are used in File/Image Fields
 #Assumed MEDIA_ROOT points to /home/shaastra/public_html/2011/media/
-IMAGE_DIR = 'main/images/'
-FILE_DIR = 'main/files/'
 
 class Tag(models.Model):   
 #E.g.: aerofest, coding etc
@@ -23,6 +21,12 @@ class Tag(models.Model):
         return self.name
     class Admin:
         pass
+
+def get_eventlogo_path(instance, filename):
+	return MEDIA_ROOT + 'main/events/' + camelize(instance.name) + '/images/eventlogos/' + filename
+
+def get_sponslogo_path(instance, filename):
+	return MEDIA_ROOT + 'main/events/' + camelize(instance.name) + '/images/sponslogos/' + filename
 
 class Event(models.Model):
     name = models.CharField(max_length=80)
@@ -49,16 +53,26 @@ class Event(models.Model):
     #NOTE: Rename the uploaded image file to event name.
     #NOTE: Assumption: There's one logo and one spons logo for each event
     # Is this the correct path? CHECK THIS!
-    logo = models.URLField(max_length= 500, blank = True , null = True)
-    sponslogo = models.URLField(max_length= 500, blank = True , null = True)
+    logo = models.ImageField(upload_to = get_eventlogo_path, blank = True, null = True)
+    sponslogo = models.ImageField(upload_to = get_sponslogo_path, blank = True, null = True)
 
     def __unicode__(self):
         return self.name
     
     #A directory should only be created when a new event is saved to the db
     def save(self, *args, **kwargs):
-    	os.system("mkdir " + MEDIA_ROOT + "main/files/" + camelize(self.name) )
-    	os.system("mkdir " + MEDIA_ROOT + "main/submissions/" + camelize(self.name) )
+        try:
+            old_instance = Event.objects.get(id = self.id)	
+            if old_instance.name != self.name:              #Raises exception if old_instance does not exist 
+                os.system("mv " + MEDIA_ROOT + "main/events/" + camelize(old_instance.name) + " " + MEDIA_ROOT + "main/events/" + camelize(self.name) )
+            else:
+                pass
+        except:
+            os.system("mkdir " + MEDIA_ROOT + "main/events/" + camelize(self.name) + "files")
+            os.system("mkdir " + MEDIA_ROOT + "main/events/" + camelize(self.name) + "submissions")
+            os.system("mkdir " + MEDIA_ROOT + "main/events/" + camelize(self.name) + "images")
+            os.system("mkdir " + MEDIA_ROOT + "main/events/" + camelize(self.name) + "images/eventlogos")
+            os.system("mkdir " + MEDIA_ROOT + "main/events/" + camelize(self.name) + "images/sponslogos")
     	super(Event, self).save(*args, **kwargs) # Call the "real" save() method.
     
     #A directory should not be created every time a new variable is declared
@@ -119,7 +133,7 @@ class TabFiles(models.Model):
 		#os.system('rm ' + str(self.url).replace(MEDIA_URL, MEDIA_ROOT) )
 		filename = str(self.url).rsplit('/', 1)[1]   #Already camelized
 		eventname = self.Tab.event.name
-		os.system("rm " + MEDIA_ROOT + "main/files/" + camelize(eventname) + "/" + filename)
+		os.system("rm " + MEDIA_ROOT + "main/events/" + camelize(eventname) + "/files/" + filename)
 		super(TabFiles, self).delete(*args, **kwargs)
     
     def __unicode__(self):
