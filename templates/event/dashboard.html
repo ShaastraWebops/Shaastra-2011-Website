@@ -11,10 +11,12 @@
 	<h1>{{event_name}}</h1>
 
     <div id="logout" align="right">
-        <form action= "{{SITE_URL}}events/logout/" method="POST">
-            {% csrf_token %}
-            <input type="submit" value="LOGOUT" />
-        </form>
+        {%if user.is_authenticated%} 
+            <form action= "{{SITE_URL}}events/logout/" method="POST">
+                {% csrf_token %}
+                <input type="submit" value="LOGOUT" />
+            </form>
+        {%endif%}
     </div>
 
 	<ul class="tabset_tabs">

@@ -20,21 +20,32 @@
 		{%endfor%}
 	</ul>
 
-	{%for row in tab_list%}
-		<div id="{{row.title|slugify}}" class="tabset_content">
-			<p>{{row.text|safe}}</p>
-			<br />
-			<br />
-			<div id="file_display" style = "color:red;font-weight:bold">
-				CURRENTLY UPLOADED FILES
-			</div>
-			<br />
-			{%for file in row.file_list %}
-				<a href={{file.url}}>{{file.title}}</a>
-				<br/>
-			{%endfor%}
-		</div>
-	{%endfor%}
+    {%for row in tab_list%}
+        <div id="{{row.title|slugify}}" class="tabset_content">
+            <p>{{row.text|safe}}</p>
+            <br />
+            <br />
+            <div id="file_display" style = "color:red;font-weight:bold">
+                CURRENTLY UPLOADED FILES
+            </div>
+            <br />
+            {%for file in row.file_list %}
+                <a href={{file.url}}>{{file.title}}</a>
+                <br/>
+            {%endfor%}
+        </div>
+    {%endfor%}
+
+    <br/><br/>
+
+    <div id="edit" align="center">
+    {%if display_edit%}
+          <form action="{{SITE_URL}}events/dashboard/" method="GET">
+          {% csrf_token %}
+      <input type="submit" value="Edit Page"/>
+          </form>
+    {%endif%} 
+    </div>
 
 </div>
 
