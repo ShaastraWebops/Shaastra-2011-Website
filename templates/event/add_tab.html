@@ -44,6 +44,17 @@
 			NO CURRENTLY UPLOADED FILES
 			<br/>
 		{%endif%}
+
+
+                    <form action="{{SITE_URL}}events/dashboard/add_file/" method='GET' >
+	            {% csrf_token %}
+		         <input type="hidden" value="{{row.id}}" name="tabfile_id" />
+		         <input type="submit" value="Add File"/>
+                  </form>
+
+
+
+
 	</div>
 
 </div>
