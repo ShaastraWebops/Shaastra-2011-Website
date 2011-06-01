@@ -8,8 +8,8 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.conf import settings
-from techmash.models import Photo
-from techmash.models import UploadFileForm,selectaphoto
+from main_test.techmash.models import Photo
+from main_test.techmash.models import UploadFileForm,selectaphoto
 from django import forms
 import os
 import stat
@@ -17,7 +17,7 @@ import shutil
 from datetime import datetime
 from tempfile import NamedTemporaryFile, mkdtemp
 import Image
-from misc.util import *
+from main_test.misc.util import *
 from math import fabs
 def register(request):
     if request.method == 'POST':
