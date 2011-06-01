@@ -1,7 +1,7 @@
 from django.conf.urls.defaults import patterns, include, url
 from django.conf.urls.defaults import *
 #from techmash.views import hello, current_datetime,hours_ahead, register,profile,addphonebook,viewbook,upload_file1
-from techmash.views import register,profile,upload_file1,seephotos,selectimages,mashphotos
+from main_test.techmash.views import register,profile,upload_file1,seephotos,selectimages,mashphotos
 from django.contrib.auth.views import login, logout
 # Uncomment the next two lines to enable the admin:
 #from django.contrib import admin
