@@ -65,12 +65,8 @@ class AddFileForm(forms.Form):
     tabfile=ExtFileField(ext_whitelist=FILES_WHITELIST,required=False)
 
 class EventForm(ModelForm):
-	class Meta:
-		model = Event
-		fields = ('name', 'start_time', 'end_time', 'registrable', 'accommodation', 'logo', 'sponslogo')
-		widgets = {
-			'start_time': SplitDateTimeWidget(),
-			'end_time': SplitDateTimeWidget(),
-		}
+    class Meta:
+        model = Event
+        fields = ('name', 'registrable', 'accommodation', 'logo', 'sponslogo',)
 
 

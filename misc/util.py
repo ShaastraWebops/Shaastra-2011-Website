@@ -145,7 +145,7 @@ def needs_authentication (func):
         if not request.user.is_authenticated():
             # Return here after logging in
             request.session['from_url'] = request.path
-            return HttpResponseRedirect ("%s/events/login/"%settings.SITE_URL)
+            return HttpResponseRedirect ("%sevents/login/"%settings.SITE_URL)
         else:
             return func (*__args, **__kwargs)
     return wrapper

@@ -14,7 +14,9 @@ urlpatterns = patterns('main_test.events.views',
       (r'^dashboard/add_file/$', 'add_file'),
       (r'^dashboard/edit_tab/$', 'edit_tab_content'),
       (r'^dashboard/delete_tab/$', 'remove_quick_tab'),
-      (r'^(?P<event_name>.*)/$', 'show_quick_tab'),
       (r'^dashboard/edit_event/$', 'edit_event'),
+      #Add any more urls here
+      (r'^(?P<event_name>.*)/$', 'show_quick_tab')     #This must always be the last url pattern to search for!!
+      #!!End!!
 )
 

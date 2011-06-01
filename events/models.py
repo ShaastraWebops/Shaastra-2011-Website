@@ -1,4 +1,3 @@
-
 from django.db import models
 from django.contrib import admin
 
@@ -34,17 +33,16 @@ class Event(models.Model):
     tags=models.ManyToManyField(Tag, blank=True, null=True)
 
     # Registration start and end time
-    start_time = models.DateTimeField(null=True,blank=True)
-    end_time = models.DateTimeField(null=True,blank=True)
+    start_time = models.DateTimeField(null=True, blank=True, help_text="Start of registration: YYYY-MM-DD hh:mm")
+    end_time = models.DateTimeField(null=True, blank=True, help_text="End of registration: YYYY-MM-DD hh:mm")
     
-
     # Registration
-    registrable = models.BooleanField(default=False)
+    registrable = models.BooleanField(default=False, help_text="Can participants register online?")
     users = models.ManyToManyField(User,  blank=True, null=True, related_name='users_events')
     chosen_users = models.ManyToManyField(User, blank=True, null=True, related_name='qualified_events')
 
     # Hospitality
-    accommodation = models.BooleanField(default=False)
+    accommodation = models.BooleanField(default=False, help_text="Is accommodation compulsory?")
 
     # MyShaastra 
     flagged_by = models.ManyToManyField(User,  blank=True, null=True, related_name='flagged_events')
@@ -62,17 +60,24 @@ class Event(models.Model):
     #A directory should only be created when a new event is saved to the db
     def save(self, *args, **kwargs):
         try:
-            old_instance = Event.objects.get(id = self.id)	
-            if old_instance.name != self.name:              #Raises exception if old_instance does not exist 
+            print 'tried'
+            old_instance = Event.objects.get(id = self.id)
+            print 'get succeeded'
+            #This line raises an exception if old_instance does not exist 
+            if old_instance.name != self.name:
+                print 'entered the if block'
                 os.system("mv " + MEDIA_ROOT + "main/events/" + camelize(old_instance.name) + " " + MEDIA_ROOT + "main/events/" + camelize(self.name) )
             else:
+                print 'entered the else block'
                 pass
-        except:
-            os.system("mkdir " + MEDIA_ROOT + "main/events/" + camelize(self.name) + "files")
-            os.system("mkdir " + MEDIA_ROOT + "main/events/" + camelize(self.name) + "submissions")
-            os.system("mkdir " + MEDIA_ROOT + "main/events/" + camelize(self.name) + "images")
-            os.system("mkdir " + MEDIA_ROOT + "main/events/" + camelize(self.name) + "images/eventlogos")
-            os.system("mkdir " + MEDIA_ROOT + "main/events/" + camelize(self.name) + "images/sponslogos")
+        except Event.DoesNotExist:
+            print 'excepted'
+            os.system("mkdir " + MEDIA_ROOT + "main/events/" + camelize(self.name) )
+            os.system("mkdir " + MEDIA_ROOT + "main/events/" + camelize(self.name) + "/files")
+            os.system("mkdir " + MEDIA_ROOT + "main/events/" + camelize(self.name) + "/submissions")
+            os.system("mkdir " + MEDIA_ROOT + "main/events/" + camelize(self.name) + "/images")
+            os.system("mkdir " + MEDIA_ROOT + "main/events/" + camelize(self.name) + "/images/eventlogos")
+            os.system("mkdir " + MEDIA_ROOT + "main/events/" + camelize(self.name) + "/images/sponslogos")
     	super(Event, self).save(*args, **kwargs) # Call the "real" save() method.
     
     #A directory should not be created every time a new variable is declared

@@ -19,7 +19,7 @@ FILE_DIR = settings.MEDIA_ROOT + 'main/files/'
 
 #Will change the model after this plan is confirmed
 def fileuploadhandler(f, eventname, tabid, file_title):
-    savelocation = settings.MEDIA_ROOT + 'events/' + camelize(eventname) + '/files/' + camelize(f.name)
+    savelocation = settings.MEDIA_ROOT + 'main/events/' + camelize(eventname) + '/files/' + camelize(f.name)
     destination = open( savelocation , 'wb+')
     for chunk in f.chunks():
         destination.write(chunk)
@@ -41,10 +41,7 @@ def coordslogin (request):
             if user is not None and user.is_active == True:
                 auth.login (request, user)
                 request.session['logged_in'] = True
-                url="%sevents/dashboard/"%settings.SITE_URL
-                #This URL can be changed as required later
-                response= HttpResponseRedirect (url)
-                return response
+                return HttpResponseRedirect ("%sevents/dashboard/" % settings.SITE_URL)
             else:
                 request.session['invalid_login'] = True
                 request.session['logged_in'] = False
@@ -185,17 +182,21 @@ def logout(request):
         #destination.write(chunk)
     #destination.close()
 
-
+@needs_authentication
 def edit_event(request):
+    user = request.user
+    userprof = user.get_profile()
+    event = userprof.coord_event
     if request.method == 'POST':
         try:
-            form = forms.EventForm(request.POST, request.FILES)
+            form = forms.EventForm(request.POST, request.FILES, instance=event)
         except:
-            form = forms.EventForm(request.POST)
+            form = forms.EventForm(request.POST, instance=event)
         if form.is_valid():
             form.save()
+            return HttpResponseRedirect('%sevents/dashboard/'%settings.SITE_URL)
     else:
-        form = forms.EventForm()
+        form = forms.EventForm(instance = event)
     return render_to_response('edit_event.html', locals(), context_instance=global_context(request))
 
 
