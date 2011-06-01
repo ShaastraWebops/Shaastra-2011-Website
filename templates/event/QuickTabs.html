@@ -11,13 +11,13 @@
 	<h1>{{event_name}}</h1>
 
 	<!--added the logout seperately -->
-	<!--
 	<div id="logout" align="right">
-		<form action= "{{SITE_URL}}events/login" method="POST">
-			<input type="submit" value="LOGOUT" />
-		</form>
-	</div>
-	-->
+          
+              <form action= "{{SITE_URL}}events/logout/" method="POST">
+              <input type="submit" value="LOGOUT" />
+              </form>
+          
+       </div>
 
 	<ul class="tabset_tabs">
 		{% for row in tab_list %}
