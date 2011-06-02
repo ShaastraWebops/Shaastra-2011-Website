@@ -8,8 +8,8 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.conf import settings
-from main_test.techmash.models import Photo
-from main_test.techmash.models import UploadFileForm,selectaphoto
+from techmash.models import Photo
+from techmash.models import UploadFileForm,selectaphoto
 from django import forms
 import os
 import stat
@@ -17,14 +17,14 @@ import shutil
 from datetime import datetime
 from tempfile import NamedTemporaryFile, mkdtemp
 import Image
-from main_test.misc.util import *
+from misc.util import *
 from math import fabs
 def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
             new_user = form.save()
-            return HttpResponseRedirect("/accounts/login/")
+            return HttpResponseRedirect("/main-test/techmash/accounts/login/")
     else:
         form = UserCreationForm()
     return render_to_response("registration/register.html", {
@@ -58,7 +58,7 @@ def upload_file1(request):
             photo = Photo(image=photopath,title = uploaded_filename,rating=300,user=request.user.username,groupnum=1)
             # Save it -- the thumbnails etc. get created.
             photo.save()
-            return HttpResponseRedirect('/upload')
+            return HttpResponseRedirect('/main-test/techmash/upload/')
     else:
         form = UploadFileForm()
         return render_to_response('upload_file.html', {'form': form})
