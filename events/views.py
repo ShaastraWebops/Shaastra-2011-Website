@@ -166,17 +166,20 @@ def add_quick_tab(request):
 @needs_authentication            
 def remove_quick_tab(request):
     tabs_id=request.POST["tab_id"]
-    tab_to_delete=models.QuickTabs.objects.filter(id=tabs_id)
+    tab_to_delete = models.QuickTabs.objects.get(id = tabs_id)
+    tab_files_list = models.TabFiles.objects.filter(Tab = tab_to_delete)
+    for tab_file in tab_files_list:
+        tab_file.delete()
     tab_to_delete.delete()
     return HttpResponseRedirect('%sevents/dashboard/'%settings.SITE_URL)
 
 @needs_authentication
 def remove_file(request):
-	if request.method == 'POST':
-		tabfile_id = request.POST['tabfile_id']
-		file_to_remove = models.TabFiles.objects.filter(id = tabfile_id)
-		file_to_remove.delete()
-	return HttpResponseRedirect("%sevents/dashboard/"%settings.SITE_URL)
+    if request.method == 'POST':
+        tabfile_id = request.POST['tabfile_id']
+        file_to_remove = models.TabFiles.objects.get(id = tabfile_id)
+        file_to_remove.delete()
+    return HttpResponseRedirect("%sevents/dashboard/"%settings.SITE_URL)
 
 def logout(request):
     if request.user.is_authenticated():
