@@ -1,5 +1,6 @@
 from django.shortcuts import render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
+from django.http import Http404
 from django.contrib import auth
 from django.template.loader import get_template
 from django.template.context import Context, RequestContext
@@ -57,17 +58,21 @@ def coordslogin (request):
 
 #Handler for displaying /2011/event/eventname page 
 def show_quick_tab(request,event_name=None):
-    tab_list=models.QuickTabs.objects.filter(event__name = event_name).order_by('pref')
-    for t in tab_list:
-        t.file_list = models.TabFiles.objects.filter(Tab = t)
+    urlname=decamelize(event_name)
+    tab_list=models.QuickTabs.objects.filter(event__name = urlname).order_by('pref')
+    if tab_list.count():
+        for t in tab_list:
+            t.file_list = models.TabFiles.objects.filter(Tab = t)
     #So each object in tab_list will have a file_list which is a list of urls to be displayed for the correspdong tab    
-    display_edit = False
-    if request.method=='POST': 
-        user=request.user
-        userprof=user.get_profile()
-        if userprof.is_coord == True and userprof.coord_event.name == event_name:
-            display_edit=True  
-    return render_to_response('event/QuickTabs.html', locals(), context_instance= global_context(request)) 
+        display_edit = False
+        if request.method=='POST': 
+            user=request.user
+            userprof=user.get_profile()
+            if userprof.is_coord == True and userprof.coord_event.name == event_name:
+                display_edit=True  
+        return render_to_response('event/QuickTabs.html', locals(), context_instance= global_context(request))
+    else:
+        raise Http404    
 
 @needs_authentication    
 def dashboard(request):
@@ -79,7 +84,7 @@ def dashboard(request):
             t.file_list = models.TabFiles.objects.filter(Tab = t)
         return render_to_response('event/dashboard.html', locals(), context_instance= global_context(request))
     else:
-        return render_to_response('404.html')        
+        raise Http404        
 
 @needs_authentication    
 def edit_tab_content(request):
@@ -109,10 +114,11 @@ def edit_tab_content(request):
         if tab_to_edit.event == userprof.coord_event and userprof.is_coord:
             form = forms.EditTabForm(initial={'title' : tab_to_edit.title , 'text' :tab_to_edit.text, 'tab_pref': tab_to_edit.pref })
             file_list = models.TabFiles.objects.filter(Tab = tab_to_edit)
+            is_edit_tab=True
         #use file_list to display the urls of the files associated with each tab
             return render_to_response('event/add_tab.html', locals(), context_instance= global_context(request))
         else:
-            return render_to_response('404.html')
+            raise Http404
 
 @needs_authentication
 def add_file(request):
@@ -154,6 +160,7 @@ def add_quick_tab(request):
             return HttpResponseRedirect ("%sevents/dashboard/"%settings.SITE_URL)
     else:
         form = forms.EditTabForm()
+        is_edit_tab=False
     return render_to_response('event/add_tab.html', locals(), context_instance= global_context(request))    
 
 @needs_authentication            

@@ -44,11 +44,20 @@
 			NO CURRENTLY UPLOADED FILES
 			<br/>
 		{%endif%}
+        {%if is_edit_tab%}
         <form action="{{SITE_URL}}events/dashboard/add_file/" method='GET' >
             {% csrf_token %}
             <input type="hidden" value="{{row.id}}" name="tabfile_id" />
             <input type="submit" value="Add File"/>
         </form>
+        {%else%}
+         
+            <div id="filemessage" style="color:red;font-weight:bold">
+			PLEASE CREATE TAB BEFORE UPLOADING FILES!!! 
+		</div> 
+        {%endif%}
+
+
 	</div>
 
 </div>
