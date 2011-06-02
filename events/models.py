@@ -22,10 +22,10 @@ class Tag(models.Model):
         pass
 
 def get_eventlogo_path(instance, filename):
-	return MEDIA_ROOT + 'main/events/' + camelize(instance.name) + '/images/eventlogos/' + filename
+	return 'main/events/' + camelize(instance.name) + '/images/eventlogos/' + filename
 
 def get_sponslogo_path(instance, filename):
-	return MEDIA_ROOT + 'main/events/' + camelize(instance.name) + '/images/sponslogos/' + filename
+	return 'main/events/' + camelize(instance.name) + '/images/sponslogos/' + filename
 
 class Event(models.Model):
     name = models.CharField(max_length=80)
