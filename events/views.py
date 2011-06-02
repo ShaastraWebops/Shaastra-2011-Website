@@ -71,7 +71,7 @@ def show_quick_tab(request,event_name=None):
                 display_edit=True  
         return render_to_response('event/QuickTabs.html', locals(), context_instance= global_context(request))
     else:
-        return render_to_response('404.html')     
+        raise Http404    
 
 @needs_authentication    
 def dashboard(request):
@@ -83,7 +83,7 @@ def dashboard(request):
             t.file_list = models.TabFiles.objects.filter(Tab = t)
         return render_to_response('event/dashboard.html', locals(), context_instance= global_context(request))
     else:
-        return render_to_response('404.html')        
+        raise Http404        
 
 @needs_authentication    
 def edit_tab_content(request):
@@ -117,7 +117,7 @@ def edit_tab_content(request):
         #use file_list to display the urls of the files associated with each tab
             return render_to_response('event/add_tab.html', locals(), context_instance= global_context(request))
         else:
-            return render_to_response('404.html')
+            raise Http404
 @needs_authentication
 def add_file(request):
     if request.method=='POST':      
