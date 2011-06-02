@@ -10,6 +10,15 @@
 <div align="center">
 	<h1>{{event_name}}</h1>
 
+    <div id="edit_event" align="left">
+        {%if user.is_authenticated%} 
+            <form action= "{{SITE_URL}}events/dashboard/edit_event/" method="GET">
+                {% csrf_token %}
+                <input type="submit" value="Edit Event Details" />
+            </form>
+        {%endif%}
+    </div>
+
     <div id="logout" align="right">
         {%if user.is_authenticated%} 
             <form action= "{{SITE_URL}}events/logout/" method="POST">

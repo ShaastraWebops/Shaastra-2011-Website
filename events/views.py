@@ -208,6 +208,7 @@ def edit_event(request):
         except:
             form = forms.EventForm(request.POST, instance=event)
         if form.is_valid():
+            print 'form is valid'
             form.save()
             return HttpResponseRedirect('%sevents/dashboard/'%settings.SITE_URL)
     else:
