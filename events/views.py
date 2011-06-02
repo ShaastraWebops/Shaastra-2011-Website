@@ -113,6 +113,7 @@ def edit_tab_content(request):
             return render_to_response('event/add_tab.html', locals(), context_instance= global_context(request))
         else:
             return render_to_response('404.html')
+
 @needs_authentication
 def add_file(request):
     if request.method=='POST':      

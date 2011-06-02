@@ -51,8 +51,8 @@ class Event(models.Model):
     #NOTE: Rename the uploaded image file to event name.
     #NOTE: Assumption: There's one logo and one spons logo for each event
     # Is this the correct path? CHECK THIS!
-    logo = models.ImageField(upload_to = get_eventlogo_path, blank = True, null = True)
-    sponslogo = models.ImageField(upload_to = get_sponslogo_path, blank = True, null = True)
+    logo = models.ImageField(upload_to = get_eventlogo_path, max_length=200, blank = True, null = True)
+    sponslogo = models.ImageField(upload_to = get_sponslogo_path, max_length=200, blank = True, null = True)
 
     def __unicode__(self):
         return self.name
@@ -89,9 +89,6 @@ class Event(models.Model):
     class Admin:
         pass  
 
-
-
-        
 
 class QuickTabs(models.Model): 
 
