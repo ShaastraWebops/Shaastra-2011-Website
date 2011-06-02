@@ -57,17 +57,20 @@ def coordslogin (request):
 
 #Handler for displaying /2011/event/eventname page 
 def show_quick_tab(request,event_name=None):
-    tab_list=models.QuickTabs.objects.filter(event__name = event_name).order_by('pref')
-    for t in tab_list:
-        t.file_list = models.TabFiles.objects.filter(Tab = t)
+    tab_list=models.QuickTabs.objects.filter(camelize(event__name) = event_name).order_by('pref')
+    if tab_list.count():
+        for t in tab_list:
+            t.file_list = models.TabFiles.objects.filter(Tab = t)
     #So each object in tab_list will have a file_list which is a list of urls to be displayed for the correspdong tab    
-    display_edit = False
-    if request.method=='POST': 
-        user=request.user
-        userprof=user.get_profile()
-        if userprof.is_coord == True and userprof.coord_event.name == event_name:
-            display_edit=True  
-    return render_to_response('event/QuickTabs.html', locals(), context_instance= global_context(request)) 
+        display_edit = False
+        if request.method=='POST': 
+            user=request.user
+            userprof=user.get_profile()
+            if userprof.is_coord == True and userprof.coord_event.name == event_name:
+                display_edit=True  
+        return render_to_response('event/QuickTabs.html', locals(), context_instance= global_context(request))
+    else:
+        return render_to_response('404.html')     
 
 @needs_authentication    
 def dashboard(request):
