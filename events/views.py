@@ -1,5 +1,6 @@
 from django.shortcuts import render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
+from django.http import Http404
 from django.contrib import auth
 from django.template.loader import get_template
 from django.template.context import Context, RequestContext
@@ -15,8 +16,21 @@ import os
 #Fileupload is not done perfectly. 
 #Desired - Once a file is uploaded page should be refreshed and the uploaded file should be visible as a url link below the textarea
 
-#We can check if coords are logged in using the request.session['logged_in'] variable and then allow them to edit the corresponding event page after verifying this.
-FILE_DIR = '2011/media/main/files/'
+FILE_DIR = settings.MEDIA_ROOT + 'main/files/'
+
+#Will change the model after this plan is confirmed
+def fileuploadhandler(f, eventname, tabid, file_title):
+    savelocation = settings.MEDIA_ROOT + 'main/events/' + camelize(eventname) + '/files/' + camelize(f.name)
+    destination = open( savelocation , 'wb+')
+    for chunk in f.chunks():
+        destination.write(chunk)
+    destination.close()
+    tab_of_file = models.QuickTabs.objects.get(id = tabid)
+    tabfileobject = models.TabFiles ( Tab = tab_of_file, 
+    								  url = settings.MEDIA_URL + 'main/events/' + camelize(eventname) + '/files/' + camelize(f.name),
+    								  title =  file_title
+    								)
+    tabfileobject.save()
 
 def coordslogin (request):
     form=forms.CoordsLoginForm()
@@ -28,136 +42,149 @@ def coordslogin (request):
             if user is not None and user.is_active == True:
                 auth.login (request, user)
                 request.session['logged_in'] = True
-                url="%sevents/dashboard/"%settings.SITE_URL
-                #This URL can be changed as required later
-                response= HttpResponseRedirect (url)
-                return response
+                return HttpResponseRedirect ("%sevents/dashboard/" % settings.SITE_URL)
             else:
                 request.session['invalid_login'] = True
                 request.session['logged_in'] = False
                 errors=[]
                 errors.append("Incorrect username and password combination!")
                 return render_to_response('event/login.html', locals(), context_instance= global_context(request))
-                #This URL can be changed as required later
-                #url="%smain-test/events/login"%settings.SITE_URL
-                #response= HttpResponseRedirect (url)
-                #return response
                 
         else:                       
             invalid_login = session_get(request, "invalid_login")
             form = forms.CoordsLoginForm () 
     return render_to_response('event/login.html', locals(), context_instance= global_context(request))
     #This URL can be changed as required later
-                   
 
 #Handler for displaying /2011/event/eventname page 
 def show_quick_tab(request,event_name=None):
-    tab_list=models.QuickTabs.objects.filter(event__name = event_name)
-    #for t in tab_list:
-    #    self.file_list=unicode(models.TabFile.objects.filter(Tab = self ))
+    urlname=decamelize(event_name)
+    tab_list=models.QuickTabs.objects.filter(event__name = urlname).order_by('pref')
+    if tab_list.count():
+        for t in tab_list:
+            t.file_list = models.TabFiles.objects.filter(Tab = t)
     #So each object in tab_list will have a file_list which is a list of urls to be displayed for the correspdong tab    
-    display_edit = False
-    if request.method=='POST': 
-        user=request.user
-        userprof=user.get_profile()
-        if userprof.is_coord == True and userprof.coord_event.name == event_name:
-            display_edit=True  
-    return render_to_response('event/QuickTabs.html', locals(), context_instance= global_context(request)) 
+        display_edit = False
+        if request.method=='POST': 
+            user=request.user
+            userprof=user.get_profile()
+            if userprof.is_coord == True and userprof.coord_event.name == event_name:
+                display_edit=True  
+        return render_to_response('event/QuickTabs.html', locals(), context_instance= global_context(request))
+    else:
+        raise Http404    
 
 @needs_authentication    
 def dashboard(request):
-    #if request.method=='POST':
-    
-    userprof=request.user.get_profile()
-    event_name = userprof.coord_event.name
-    tab_list = models.QuickTabs.objects.filter(event__name = event_name)  
-    return render_to_response('event/dashboard.html', locals(), context_instance= global_context(request))    
+    userprof = request.user.get_profile()
+    if userprof.is_coord:
+        event_name = userprof.coord_event.name
+        tab_list = models.QuickTabs.objects.filter(event__name = event_name).order_by('pref')  
+        for t in tab_list:
+            t.file_list = models.TabFiles.objects.filter(Tab = t)
+        return render_to_response('event/dashboard.html', locals(), context_instance= global_context(request))
+    else:
+        raise Http404        
 
-   
+@needs_authentication    
 def edit_tab_content(request):
-    userprof=request.user.get_profile()
-    event_name = userprof.coord_event.name
-    #just a check if the coord is viewing the right page...
-    if request.method=='POST':
-        try:
-            tabs_id=request.POST["tab_id"]
-            tab_to_edit=models.QuickTabs.objects.get(id=tabs_id)
-            form = forms.EditTabForm(initial={'title' : tab_to_edit.title , 'text' :tab_to_edit.text, 'tab_pref': tab_to_edit.pref })
-            request.session["tab_id"]=tabs_id
-            try:
-                tab_file_list='%sTabFile/%s'%(FILE_DIR,tab_to_edit.files)
-            except:
-                pass
-        except:        
+    if request.method=='POST':      
             data=request.POST.copy()
-            if request.FILES:
-
-        #Display the tab_file_list as a list in after text area
+            try:
                 form = forms.EditTabForm(data,request.FILES)
-            else :  
+            except :  
                 form = forms.EditTabForm(data)
-
-
+            
             if form.is_valid():
                 tab_to_edit=models.QuickTabs.objects.get(id=request.session["tab_id"])            
                 tab_to_edit.title= form.cleaned_data['title']
                 tab_to_edit.text = form.cleaned_data['text']
+                tab_to_edit.pref = form.cleaned_data['tab_pref']
                 tab_to_edit.save()
-                if request.FILES:
-                    filetitle = form.cleaned_data['filetitle']
-                    filetosave=request.FILES['tabfile']
-                    tabfile=models.TabFile(File=filetosave,Tab=tab_to_edit,filename=filetosave['filename'],title=filetitle)
-                    #Some problem here
-                    tabfile.save()
-                fileurllist=unicode(models.TabFile.objects.filter(Tab = tab_to_edit))
-                return HttpResponseRedirect ("%sevents/dashboard/"%settings.SITE_URL)            
 
-    #use fileurllist to display the urls of the files associated with each tab
+                file_list = models.TabFiles.objects.filter(Tab = tab_to_edit)
+                #if request.FILES:
+                    #userprof=request.user.get_profile()
+                    #event_name = userprof.coord_event.name
+                    #fileuploadhandler(request.FILES['tabfile'], event_name, request.session["tab_id"], form.cleaned_data['filetitle'])
+                return HttpResponseRedirect ("%sevents/dashboard/"%settings.SITE_URL)
+
     else:
-        form = forms.EditTabForm()
-    return render_to_response('event/add_tab.html', locals(), context_instance= global_context(request))
-        
+        tab_to_edit = models.QuickTabs.objects.get(id=request.GET["tab_id"])
+        request.session["tab_id"]=request.GET["tab_id"]
+        userprof = request.user.get_profile()
+        if tab_to_edit.event == userprof.coord_event and userprof.is_coord:
+            form = forms.EditTabForm(initial={'title' : tab_to_edit.title , 'text' :tab_to_edit.text, 'tab_pref': tab_to_edit.pref })
+            file_list = models.TabFiles.objects.filter(Tab = tab_to_edit)
+            is_edit_tab=True
+        #use file_list to display the urls of the files associated with each tab
+            return render_to_response('event/add_tab.html', locals(), context_instance= global_context(request))
+        else:
+            raise Http404
+
+@needs_authentication
+def add_file(request):
+    if request.method=='POST':      
+            data=request.POST.copy()
+            try:
+                form = forms.AddFileForm(data,request.FILES)
+            except :  
+                form = forms.AddFileForm(data)
+            
+            if form.is_valid():
+                tab_to_edit=models.QuickTabs.objects.get(id=request.session["tab_id"])
+                file_list = models.TabFiles.objects.filter(Tab = tab_to_edit)
+                if request.FILES:
+                    userprof=request.user.get_profile()
+                    event_name = userprof.coord_event.name
+                    fileuploadhandler(request.FILES['tabfile'], event_name, request.session["tab_id"], form.cleaned_data['filetitle'])
+                return HttpResponseRedirect ("%sevents/dashboard/"%settings.SITE_URL)
+    else:  
+        form = forms.AddFileForm()
+    return render_to_response('event/add_file.html', locals(), context_instance= global_context(request))
+
+
+@needs_authentication         
 def add_quick_tab(request):
     userprof=request.user.get_profile()
     event_name = userprof.coord_event.name
     if request.method=='POST':
-        
         data=request.POST.copy()
         if request.FILES:
             form = forms.EditTabForm(data,request.FILES)
         else :
             form = forms.EditTabForm(data)    
-        fileurllist=[]
-      #if form.cleaned_data['title']=="":
-      #      form = forms.EditTabForm()
-      #      return render_to_response('event/edit_tab.html', locals(), context_instance= global_context(request))
         if form.is_valid():
-            newtab=models.QuickTabs(title=form.cleaned_data['title'], text=form.cleaned_data['text'], pref=form.cleaned_data['tab_pref'] , event= userprof.coord_event )
+            newtab=models.QuickTabs(title=form.cleaned_data['title'], text=form.cleaned_data['text'], pref=form.cleaned_data['tab_pref'],event= userprof.coord_event)
             newtab.save()
-            if request.FILES:     
-                filetitle = form.cleaned_data['filetitle']
-                filetosave=request.FILES['tabfile']
-                tabfile=models.TabFile(File=filetosave,Tab=newtab,filename=filetosave.name,title=filetitle)
-                #changed filetosave['filename'] to filetosave.name
-                tabfile.save()
+            #if request.FILES:     
+                #fileuploadhandler(request.FILES["tabfile"], event_name, newtab.id, form.cleaned_data['filetitle'])
             return HttpResponseRedirect ("%sevents/dashboard/"%settings.SITE_URL)
     else:
         form = forms.EditTabForm()
+        is_edit_tab=False
     return render_to_response('event/add_tab.html', locals(), context_instance= global_context(request))    
-        
-            
+
+@needs_authentication            
 def remove_quick_tab(request):
-    userprof=request.user.get_profile()
-    event_name = userprof.coord_event.name
     tabs_id=request.POST["tab_id"]
     tab_to_delete=models.QuickTabs.objects.filter(id=tabs_id)
     tab_to_delete.delete()
     return HttpResponseRedirect('%sevents/dashboard/'%settings.SITE_URL)
 
+@needs_authentication
+def remove_file(request):
+	if request.method == 'POST':
+		tabfile_id = request.POST['tabfile_id']
+		file_to_remove = models.TabFiles.objects.filter(id = tabfile_id)
+		file_to_remove.delete()
+	return HttpResponseRedirect("%sevents/dashboard/"%settings.SITE_URL)
+
 def logout(request):
     if request.user.is_authenticated():
-        auth.logout (request)        
-        return HttpResponseRedirect('%sevents/login/'%settings.SITE_URL)        
+        auth.logout (request)
+        return render_to_response('event/logout.html', locals(), context_instance= global_context(request))        
+    return HttpResponseRedirect('%sevents/login/'%settings.SITE_URL)        
 
 #def handle_uploaded_logo(file_obj, event_id, type_id):
     #try:	
@@ -172,16 +199,22 @@ def logout(request):
         #destination.write(chunk)
     #destination.close()
 
-#def edit_event(request):
-    #if request.method == 'POST':
-        #form = EventForm(request.POST, request.FILES)
-        #if form.is_valid():
-            #handle_uploaded_logo(request.FILES['logo'], request.POST['id'], 'logo')
-            #form.save()
-            #return HttpResponseRedirect('%sevents/dashboard/'%settings.SITE_URL)
-    #else:
-        #form = EventForm()
-    #return render_to_response('edit_event.html', {'form': form}, locals(), context_instance=global_context(request))
+@needs_authentication
+def edit_event(request):
+    user = request.user
+    userprof = user.get_profile()
+    event = userprof.coord_event
+    if request.method == 'POST':
+        try:
+            form = forms.EventForm(request.POST, request.FILES, instance=event)
+        except:
+            form = forms.EventForm(request.POST, instance=event)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('%sevents/dashboard/'%settings.SITE_URL)
+    else:
+        form = forms.EventForm(instance = event)
+    return render_to_response('edit_event.html', locals(), context_instance=global_context(request))
 
 
 

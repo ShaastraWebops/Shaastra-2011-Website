@@ -6,7 +6,7 @@ from django.template.loader import get_template
 from django.template.context import Context, RequestContext
 
 from main_test import settings
-from main_test.users import models
+#from main_test.users import models
 
 import MySQLdb
 import re, md5, time
@@ -145,7 +145,7 @@ def needs_authentication (func):
         if not request.user.is_authenticated():
             # Return here after logging in
             request.session['from_url'] = request.path
-            return HttpResponseRedirect ("%s/events/login/"%settings.SITE_URL)
+            return HttpResponseRedirect ("%sevents/login/"%settings.SITE_URL)
         else:
             return func (*__args, **__kwargs)
     return wrapper

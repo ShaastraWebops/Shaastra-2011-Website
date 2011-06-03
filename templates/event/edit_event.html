@@ -3,11 +3,19 @@
 
 {% block body %}
 
+<div id="logout" align="right">
+    <form action= "{{SITE_URL}}events/logout/" method="POST">
+        {% csrf_token %}
+        <input type="submit" value="LOGOUT" />
+    </form>          
+</div>
+
 <form action="" method="POST" enctype="multipart/form-data">
-<table>
-{{ form.as_table }}
-</table>
-<input type="submit" value="Submit">
+    {% csrf_token %}
+    <table>
+        {{ form.as_table }}
+    </table>
+    <input type="submit" value="Submit" />
 </form>
 
 {% endblock body %}

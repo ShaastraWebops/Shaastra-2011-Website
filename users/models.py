@@ -49,13 +49,9 @@ STATE_CHOICES = (
 #Just copy pasted last year's code. Will work just fine I guess
 
 class College(models.Model):
-    name	=	models.CharField (	max_length = 255,
-    								help_text  = 'The name of your college. Please refrain from using short forms.' )
-    city	=	models.CharField (	max_length = 30,
-    								help_text  = 'The name of the city where your college is located. Please refrain from using short forms.' )
-    state	=	models.CharField (	max_length = 40,
-    								choices    = STATE_CHOICES, 
-    								help_text  = 'The state where your college is located. Select from the drop down list' )
+    name=models.CharField (max_length = 255,help_text  = 'The name of your college. Please refrain from using short forms.')
+    city=models.CharField (max_length = 30,help_text  = 'The name of the city where your college is located. Please refrain from using short forms.' )
+    state=models.CharField (max_length = 40,choices    = STATE_CHOICES,help_text  = 'The state where your college is located. Select from the drop down list' )
 
     def __unicode__(self):
         return "%s, %s, %s"%(self.name, self.city, self.state)
@@ -69,14 +65,14 @@ class College(models.Model):
 class UserProfile(models.Model):
     user 			= models.ForeignKey		(User, unique = True)
     gender 			= models.CharField		(max_length = 1, choices = GENDER_CHOICES, default = 'F')   #Defaults to 'girl' ;-)
-    age 			= models.IntegerField 	(default = 18,)
-    branch 			= models.CharField		(max_length = 50, default = 'Enter Branch Here', blank = True)
-    mobile_number 	= models.CharField		(max_length = 15)
+    age 			= models.IntegerField 	(default = 18)
+    branch 			= models.CharField		(max_length = 50, default = 'Enter Branch Here', blank = True, null=True)
+    mobile_number 	= models.CharField		(max_length = 15, null=True)
     college 		= models.ForeignKey		(College)
-    college_roll 	= models.CharField		(max_length = 40, default = 'Enter College Id/Roll No.')
-    shaastra_id 	= models.CharField		(max_length = 20, unique = True)
-    activation_key 	= models.CharField		(max_length = 40)
-    key_expires 	= models.DateTimeField	()
+    college_roll 	= models.CharField		(max_length = 40, default = 'Enter College Id/Roll No.', null=True)
+    shaastra_id 	= models.CharField		(max_length = 20, unique = True, null=True)
+    activation_key 	= models.CharField		(max_length = 40, null=True)
+    key_expires 	= models.DateTimeField	(null=True)
     want_hospi 		= models.BooleanField	(default = False)
     is_coord        = models.BooleanField	(default = False)
     coord_event     = models.ForeignKey     (Event)

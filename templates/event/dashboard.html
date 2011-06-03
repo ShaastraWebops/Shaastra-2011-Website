@@ -1,56 +1,78 @@
-
-
 {%extends "index.html"%}
+
 {%block body%}
 
-<div id="content" align="center">  
-<h1>{{event_name}}</h1>
-<!--{{request.method}}-->
+<!--<script type="text/javascript" src="{{MEDIA_URL}}AddClassKillClass.js"></script>
+<script type="text/javascript" src="{{MEDIA_URL}}AttachEvent.js"></script>
+<script type="text/javascript" src="{{MEDIA_URL}}AddCSS.js"></script>-->
+<script type="text/javascript" src="http://www.shaastra.org/2011/media/tabtastic.js"></script>
 
-<table>
-{% for row in tab_list %}
-    <tr>
-    
-        <td>
-            {{row.id}}
-        </td>
-        
-        <td>
-            {{row.title}}
-        </td>
-         <td>
-            {{row.text|safe}}
-        </td>
-        <td>
-            {{row.pref}}
-        </td>
-        
-        <td>
-            Edit
-            <form action="edit_tab/" method = 'POST'>
-            <input type="hidden" value="{{row.id}}" name=tab_id >
-            <input type="submit" value="Edit">
+<div align="center">
+	<h1>{{event_name}}</h1>
+
+    <div id="logout" align="right">
+        {%if user.is_authenticated%} 
+            <form action= "{{SITE_URL}}events/logout/" method="POST">
+                {% csrf_token %}
+                <input type="submit" value="LOGOUT" />
             </form>
-        </td>
-        
-        <td>
-            Delete
+        {%endif%}
+    </div>
+
+	<ul class="tabset_tabs">
+		{% for row in tab_list %}
+    		{%if forloop.first%}
+			   <li><a href="#{{row.title|slugify}}" class="active">{{row.title}}</a></li>
+		    {%else%}
+			   <li><a href="#{{row.title|slugify}}">{{row.title}}</a></li>
+		    {%endif%}  
+		{%endfor%}
+	</ul>
+	
+	{%for row in tab_list%}
+		<div id="{{row.title|slugify}}" class="tabset_content">
+			ROW ID : {{row.id}} 
+			<br />
+			ROW PREFERENCE : {{row.pref}} 
+			<br />
+			<p>{{row.text|safe}}</p>
+			<br /><br />
+
+			<div id="file_display" style = "color:red;font-weight:bold">
+				CURRENTLY UPLOADED FILES
+			</div>
+			<br />
+			{%for file in row.file_list %}
+				<a href={{file.url}}>{{file.title}}</a>
+				<br/>
+			{%endfor%}
+			<br />
+
+            <form action="edit_tab/" method = 'GET'>
+            	{% csrf_token %}
+	            <input type="hidden" value="{{row.id}}" name=tab_id >
+	            <input type="submit" value="Edit Tab">
+            </form>
+
             <form action="delete_tab/" method = 'POST'>
-            <input type="hidden" value="{{row.id}}" name=tab_id>
-            <input type="submit" value="Delete">
-            </form>
-        </td>
-        
-        
-    </tr>
-{% endfor %}
-</div>
-<div id="addtab" align="center"> 
-</table>
-<form action="add_tab/" method = 'POST'>
-            <input type="hidden" value="{{row.id}}" name = tab_id>
-            <input type="submit" value="Add tab">
+		        {% csrf_token %}
+		        <input type="hidden" value="{{row.id}}" name=tab_id>
+		        <input type="submit" value="Delete Tab">
             </form>
 
+		</div>
+	{%endfor%}
+
+	<br /><br />
+
+	<div id="addtabs" align="center">
+		<form action="add_tab/" method ="POST">
+			{% csrf_token %}
+			<input type="hidden" value="{{row.id}}" name="tab_id" />
+			<input type="submit" value="Add Tab" />
+		</form>
+	</div>  
+
 </div>
-{%endblock body%}
+
+{%endblock%}

@@ -1,15 +1,17 @@
-
 from django.db import models
 from django.contrib import admin
 
 from django.contrib.auth.models import User, Group
 
+from main_test.misc.util import camelize
+from main_test.settings import *
+
+import os
+
 #Global - Directory where all the other image directories go
 
 #MEDIA_ROOT will be automatically prepended to these when they are used in File/Image Fields
 #Assumed MEDIA_ROOT points to /home/shaastra/public_html/2011/media/
-IMAGE_DIR = 'main/images/'
-FILE_DIR = 'main/files/'
 
 class Tag(models.Model):   
 #E.g.: aerofest, coding etc
@@ -19,23 +21,28 @@ class Tag(models.Model):
     class Admin:
         pass
 
+def get_eventlogo_path(instance, filename):
+	return MEDIA_ROOT + 'main/events/' + camelize(instance.name) + '/images/eventlogos/' + filename
+
+def get_sponslogo_path(instance, filename):
+	return MEDIA_ROOT + 'main/events/' + camelize(instance.name) + '/images/sponslogos/' + filename
+
 class Event(models.Model):
     name = models.CharField(max_length=80)
     url = models.URLField(null=True,verify_exists=False, blank=True)
     tags=models.ManyToManyField(Tag, blank=True, null=True)
 
     # Registration start and end time
-    start_time = models.DateTimeField(null=True,blank=True)
-    end_time = models.DateTimeField(null=True,blank=True)
+    start_time = models.DateTimeField(null=True, blank=True, help_text="Start of registration: YYYY-MM-DD hh:mm")
+    end_time = models.DateTimeField(null=True, blank=True, help_text="End of registration: YYYY-MM-DD hh:mm")
     
-
     # Registration
-    registrable = models.BooleanField(default=False)
+    registrable = models.BooleanField(default=False, help_text="Can participants register online?")
     users = models.ManyToManyField(User,  blank=True, null=True, related_name='users_events')
     chosen_users = models.ManyToManyField(User, blank=True, null=True, related_name='qualified_events')
 
     # Hospitality
-    accommodation = models.BooleanField(default=False)
+    accommodation = models.BooleanField(default=False, help_text="Is accommodation compulsory?")
 
     # MyShaastra 
     flagged_by = models.ManyToManyField(User,  blank=True, null=True, related_name='flagged_events')
@@ -44,18 +51,44 @@ class Event(models.Model):
     #NOTE: Rename the uploaded image file to event name.
     #NOTE: Assumption: There's one logo and one spons logo for each event
     # Is this the correct path? CHECK THIS!
-    logo = models.ImageField(upload_to="%sevent_logos/"%IMAGE_DIR, blank=True, null=True)
-    sponslogo = models.ImageField(upload_to="%sspons_logos/"%IMAGE_DIR, blank=True, null=True)
+    logo = models.ImageField(upload_to = get_eventlogo_path, max_length=200, blank = True, null = True)
+    sponslogo = models.ImageField(upload_to = get_sponslogo_path, max_length=200, blank = True, null = True)
 
     def __unicode__(self):
         return self.name
-
+    
+    #A directory should only be created when a new event is saved to the db
+    def save(self, *args, **kwargs):
+        try:
+            print 'tried'
+            old_instance = Event.objects.get(id = self.id)
+            print 'get succeeded'
+            #This line raises an exception if old_instance does not exist 
+            if old_instance.name != self.name:
+                print 'entered the if block'
+                os.system("mv " + MEDIA_ROOT + "main/events/" + camelize(old_instance.name) + " " + MEDIA_ROOT + "main/events/" + camelize(self.name) )
+            else:
+                print 'entered the else block'
+                pass
+        except Event.DoesNotExist:
+            print 'excepted'
+            os.system("mkdir " + MEDIA_ROOT + "main/events/" + camelize(self.name) )
+            os.system("mkdir " + MEDIA_ROOT + "main/events/" + camelize(self.name) + "/files")
+            os.system("mkdir " + MEDIA_ROOT + "main/events/" + camelize(self.name) + "/submissions")
+            os.system("mkdir " + MEDIA_ROOT + "main/events/" + camelize(self.name) + "/images")
+            os.system("mkdir " + MEDIA_ROOT + "main/events/" + camelize(self.name) + "/images/eventlogos")
+            os.system("mkdir " + MEDIA_ROOT + "main/events/" + camelize(self.name) + "/images/sponslogos")
+    	super(Event, self).save(*args, **kwargs) # Call the "real" save() method.
+    
+    #A directory should not be created every time a new variable is declared
+    #Moreover, this completely overrides all else that init is supposed to do
+    #def __init__(self, *args, **kwargs):
+    #    os.system("mkdir " + MEDIA_ROOT + "main/files/" + camelize(kwargs['name']) )
+    #    os.system("mkdir " + MEDIA_ROOT + "main/submissions/" + camelize(kwargs['name']) )
+	
     class Admin:
         pass  
 
-
-
-        
 
 class QuickTabs(models.Model): 
 
@@ -78,25 +111,39 @@ class QuickTabs(models.Model):
 
     def __unicode__(self):
         return self.text
+    
+    class Meta:
+    	ordering = ['pref']
+    
     class Admin:
         pass
 
+'''
+def get_upload_path(instance, filename):
+	return os.path.join('events/', camelize(unicode(instance.Tab.event.name)), '/files/', filename)
+'''
 
-class TabFile(models.Model):
-    
-    file_id = models.AutoField(unique=True, primary_key=True)
-    #File = models.FileField(upload_to=('%sTabFile/%s'%(FILE_DIR,file_id)),blank=True, null=True)
-    #Pack this file id funda. we ll just upload to file dir. We ll have to give a warning message if they upload a file and that overwrites the file in the directory. This way files wont be arbitrarily named
-    #File = models.FileField(upload_to='%sTabFile/'%(FILE_DIR),blank=True, null=True)
-    File = models.FileField(upload_to='tab/',blank=True,null=True)
+
+class TabFiles(models.Model):
+    #File = models.FileField(upload_to=get_upload_path,blank=True,null=True)
     Tab = models.ForeignKey(QuickTabs)
-    filename = models.CharField(max_length= 150)
-    title = models.CharField(max_length = 150)
+    url = models.URLField(max_length= 500, blank = True , null = True)
+    title = models.CharField(max_length = 150, blank = True , null = True )
+    
+    def delete(self, *args, **kwargs):
+    	#This is what I would've liked to have done. Pity it doesn't work
+		#os.system('rm ' + str(self.url).replace(MEDIA_URL, MEDIA_ROOT) )
+		filename = str(self.url).rsplit('/', 1)[1]   #Already camelized
+		eventname = self.Tab.event.name
+		os.system("rm " + MEDIA_ROOT + "main/events/" + camelize(eventname) + "/files/" + filename)
+		super(TabFiles, self).delete(*args, **kwargs)
     
     def __unicode__(self):
-        return ('%sTabFile/'%(FILE_DIR) + self.filename )
+        return self.url
+    
     class Admin:
         pass
+
 
 '''
 class TabImage(models.Model):
