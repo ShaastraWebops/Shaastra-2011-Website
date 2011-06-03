@@ -26,7 +26,7 @@ def register(request):
             return HttpResponseRedirect("/main-test/techmash/accounts/login/")
     else:
         form = UserCreationForm()
-    return render_to_response("/techmash/registration/register.html", {
+    return render_to_response("/registration/register.html", {
         'form': form,
     })
 
