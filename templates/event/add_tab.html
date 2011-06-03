@@ -2,7 +2,7 @@
 
 {%block body%}
 
-<!--added the logout part seperately-->
+<!--logout button to the right-->
 <div id="logout" align="right">
     <form action= "{{SITE_URL}}events/logout/" method="POST">
         {% csrf_token %}
@@ -10,21 +10,34 @@
     </form>
 </div>
 
+<!--the js for the WYSIWYG editor-->
 <script src="{{MEDIA_URL}}niceditor/nicEdit.js" type="text/javascript"></script><script type="text/javascript">bkLib.onDomLoaded(nicEditors.allTextAreas);</script>
 						
 <div id="form" align="center">
+
+     <!-- the edit tab form -->
 	<form action="" method="POST" enctype="multipart/form-data">
 		{% csrf_token %}
 		<table>
 			{{ form.as_table }}
 		</table>
 		<br /><br />
+              <!--The Submit Button -->
 		<input type="hidden" value="{{row.id}}" />
 		<input type="submit" value="Submit" />
 	</form>
+        
+           <!--The Cancel Button -->
+          <form action="{{SITE_URL}}events/dashboard/" method="POST">
+            
+               <input type="submit" value="Cancel"/>
+
+           </form>
+      
 
 	<br /><br />
-
+         
+       <!--List displaying the currently uploaded files -->
 	<div id="fileurls" align="center">
 		<div id="filetitle" style="color:red;font-weight:bold">
 			CURRENTLY UPLOADED FILES : 
@@ -44,15 +57,25 @@
 			NO CURRENTLY UPLOADED FILES
 			<br/>
 		{%endif%}
+
+                <br/><br/>
+             
+        <!--The add file form -->
         {%if is_edit_tab%}
-        <form action="{{SITE_URL}}events/dashboard/add_file/" method='GET' >
-            {% csrf_token %}
-            <input type="hidden" value="{{row.id}}" name="tabfile_id" />
-            <input type="submit" value="Add File"/>
-        </form>
-        {%else%}
+ 
+             <div id="add_file_form" align="center">           
+                 <form action="{{SITE_URL}}events/dashboard/add_file/" method='POST' enctype="multipart/form-data" >
+                 {% csrf_token %}
+                                {{formadd.as_table}}  
+                     <input type="hidden" value="{{row.id}}" name="tabfile_id" />
+                     <input type="submit" value="Add File"/>
+                 </form>
          
-            <div id="filemessage" style="color:red;font-weight:bold">
+            </div>
+  
+       {%else%}
+         
+                <div id="filemessage" style="color:red;font-weight:bold">
 			PLEASE CREATE TAB BEFORE UPLOADING FILES!!! 
 		</div> 
         {%endif%}
