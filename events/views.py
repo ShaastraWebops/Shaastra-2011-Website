@@ -16,11 +16,11 @@ import os
 #Fileupload is not done perfectly. 
 #Desired - Once a file is uploaded page should be refreshed and the uploaded file should be visible as a url link below the textarea
 
-FILE_DIR = settings.MEDIA_ROOT + 'main/files/'
+FILE_DIR = settings.MEDIA_ROOT + 'main1/files/'
 
 #Will change the model after this plan is confirmed
 def fileuploadhandler(f, eventname, tabid, file_title):
-    savelocation = settings.MEDIA_ROOT + 'main/events/' + camelize(eventname) + '/files/' + camelize(f.name)
+    savelocation = settings.MEDIA_ROOT + 'main1/events/' + camelize(eventname) + '/files/' + camelize(f.name)
     destination = open( savelocation , 'wb+')
     #destination.write(f.read())
     for chunk in f.chunks():
@@ -146,8 +146,8 @@ def add_file(request):
                     event_name = userprof.coord_event.name
                     fileuploadhandler(request.FILES['tabfile'], event_name, request.session["tab_id"], formadd.cleaned_data['filetitle'])
                 #return HttpResponseRedirect ("%sevents/dashboard/edit_tab/?tab_id=%d"%settings.SITE_URL%drequest.session["tab_id"])
-                is_edit_tab=True  
-                return render_to_response('event/add_tab.html', locals(), context_instance= global_context(request))
+                    is_edit_tab=True  
+                    return render_to_response('event/add_tab.html', locals(), context_instance= global_context(request))
     #else:
             tab_to_edit=models.QuickTabs.objects.get(id=request.session["tab_id"])
             file_list = models.TabFiles.objects.filter(Tab = tab_to_edit)
