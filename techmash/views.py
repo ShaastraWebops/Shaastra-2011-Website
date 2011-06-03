@@ -16,7 +16,7 @@ import shutil
 from datetime import datetime
 from tempfile import NamedTemporaryFile, mkdtemp
 import Image
-from main_site.misc.util import *
+from main_test.misc.util import *
 from math import fabs
 def register(request):
     if request.method == 'POST':
