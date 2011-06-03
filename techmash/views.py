@@ -23,7 +23,7 @@ def register(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             new_user = form.save()
-            return HttpResponseRedirect("/main-test/techmash/accounts/login/")
+            return HttpResponseRedirect("%stechmash/accounts/login/" % settings.SITE_URL)
     else:
         form = UserCreationForm()
     return render_to_response("registration/register.html", {
@@ -57,7 +57,7 @@ def upload_file1(request):
             photo = Photo(image=photopath,title = uploaded_filename,rating=300,user=request.user.username,groupnum=1)
             # Save it -- the thumbnails etc. get created.
             photo.save()
-            return HttpResponseRedirect('/main-test/techmash/upload/')
+            return HttpResponseRedirect(("%stechmash/upload/" % settings.SITE_URL))
     else:
         form = UploadFileForm()
         return render_to_response('techmash/upload_file.html', {'form': form})

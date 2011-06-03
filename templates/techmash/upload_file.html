@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<form enctype="multipart/form-data" method="post" action="/main-test/techmash/upload_file1/">
+<form enctype="multipart/form-data" method="post" action="{{SITE_URL}}techmash/upload_file1/">
 <table>
 <tr><td>
 <b> {{ form.file.label_tag }}</b>  {{ form.file}}
@@ -11,7 +11,7 @@
 <input type="submit" value="Save" id="Save"/>
 </td></tr>
 </table>
-<p><a href=/main-test/techmash/accounts/profile/>Go to mainpage</a></p>
+<p><a href={{SITE_URL}}techmash/accounts/profile/>Go to mainpage</a></p>
 </form>
 
 
