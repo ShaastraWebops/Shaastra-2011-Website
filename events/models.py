@@ -22,10 +22,10 @@ class Tag(models.Model):
         pass
 
 def get_eventlogo_path(instance, filename):
-	return MEDIA_ROOT + 'main/events/' + camelize(instance.name) + '/images/eventlogos/' + filename
+	return 'main/events/' + camelize(instance.name) + '/images/eventlogos/' + filename
 
 def get_sponslogo_path(instance, filename):
-	return MEDIA_ROOT + 'main/events/' + camelize(instance.name) + '/images/sponslogos/' + filename
+	return 'main/events/' + camelize(instance.name) + '/images/sponslogos/' + filename
 
 class Event(models.Model):
     name = models.CharField(max_length=80)
@@ -131,12 +131,12 @@ class TabFiles(models.Model):
     title = models.CharField(max_length = 150, blank = True , null = True )
     
     def delete(self, *args, **kwargs):
-    	#This is what I would've liked to have done. Pity it doesn't work
-		#os.system('rm ' + str(self.url).replace(MEDIA_URL, MEDIA_ROOT) )
-		filename = str(self.url).rsplit('/', 1)[1]   #Already camelized
-		eventname = self.Tab.event.name
-		os.system("rm " + MEDIA_ROOT + "main/events/" + camelize(eventname) + "/files/" + filename)
-		super(TabFiles, self).delete(*args, **kwargs)
+        print 'entered the tabfile delete method'
+        os.system('rm ' + str(self.url).replace(MEDIA_URL, MEDIA_ROOT) )
+        #filename = str(self.url).rsplit('/', 1)[1]   #Already camelized
+        #eventname = self.Tab.event.name
+        #os.system("rm " + MEDIA_ROOT + "main/events/" + camelize(eventname) + "/files/" + filename)
+        super(TabFiles, self).delete(*args, **kwargs)
     
     def __unicode__(self):
         return self.url

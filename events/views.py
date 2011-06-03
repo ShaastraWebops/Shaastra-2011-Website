@@ -22,14 +22,12 @@ FILE_DIR = settings.MEDIA_ROOT + 'main/files/'
 def fileuploadhandler(f, eventname, tabid, file_title):
     savelocation = settings.MEDIA_ROOT + 'main/events/' + camelize(eventname) + '/files/' + camelize(f.name)
     destination = open( savelocation , 'wb+')
+    #destination.write(f.read())
     for chunk in f.chunks():
         destination.write(chunk)
     destination.close()
     tab_of_file = models.QuickTabs.objects.get(id = tabid)
-    tabfileobject = models.TabFiles ( Tab = tab_of_file, 
-    								  url = settings.MEDIA_URL + 'main/events/' + camelize(eventname) + '/files/' + camelize(f.name),
-    								  title =  file_title
-    								)
+    tabfileobject = models.TabFiles ( Tab = tab_of_file,url = settings.MEDIA_URL + 'main/events/' + camelize(eventname) + '/files/' + camelize(f.name), title =  file_title)
     tabfileobject.save()
 
 def coordslogin (request):
@@ -108,6 +106,13 @@ def edit_tab_content(request):
                     #event_name = userprof.coord_event.name
                     #fileuploadhandler(request.FILES['tabfile'], event_name, request.session["tab_id"], form.cleaned_data['filetitle'])
                 return HttpResponseRedirect ("%sevents/dashboard/"%settings.SITE_URL)
+            else: 
+                is_edit_tab=True
+                formadd = forms.AddFileForm()
+                tab_to_edit=models.QuickTabs.objects.get(id=request.session["tab_id"])
+                file_list = models.TabFiles.objects.filter(Tab = tab_to_edit)  
+            return render_to_response('event/add_tab.html', locals(), context_instance= global_context(request))
+
 
     else:
         tab_to_edit = models.QuickTabs.objects.get(id=request.GET["tab_id"])
@@ -116,6 +121,7 @@ def edit_tab_content(request):
         if tab_to_edit.event == userprof.coord_event and userprof.is_coord:
             form = forms.EditTabForm(initial={'title' : tab_to_edit.title , 'text' :tab_to_edit.text, 'tab_pref': tab_to_edit.pref })
             file_list = models.TabFiles.objects.filter(Tab = tab_to_edit)
+            formadd = forms.AddFileForm()
             is_edit_tab=True
         #use file_list to display the urls of the files associated with each tab
             return render_to_response('event/add_tab.html', locals(), context_instance= global_context(request))
@@ -127,21 +133,28 @@ def add_file(request):
     if request.method=='POST':      
             data=request.POST.copy()
             try:
-                form = forms.AddFileForm(data,request.FILES)
+                formadd = forms.AddFileForm(data,request.FILES)
             except :  
-                form = forms.AddFileForm(data)
+                formadd = forms.AddFileForm(data)
             
-            if form.is_valid():
+            if formadd.is_valid():
                 tab_to_edit=models.QuickTabs.objects.get(id=request.session["tab_id"])
                 file_list = models.TabFiles.objects.filter(Tab = tab_to_edit)
+                form = forms.EditTabForm(initial={'title' : tab_to_edit.title , 'text' :tab_to_edit.text, 'tab_pref': tab_to_edit.pref })
                 if request.FILES:
                     userprof=request.user.get_profile()
                     event_name = userprof.coord_event.name
-                    fileuploadhandler(request.FILES['tabfile'], event_name, request.session["tab_id"], form.cleaned_data['filetitle'])
-                return HttpResponseRedirect ("%sevents/dashboard/"%settings.SITE_URL)
-    else:  
-        form = forms.AddFileForm()
-    return render_to_response('event/add_file.html', locals(), context_instance= global_context(request))
+                    fileuploadhandler(request.FILES['tabfile'], event_name, request.session["tab_id"], formadd.cleaned_data['filetitle'])
+                #return HttpResponseRedirect ("%sevents/dashboard/edit_tab/?tab_id=%d"%settings.SITE_URL%drequest.session["tab_id"])
+                is_edit_tab=True  
+                return render_to_response('event/add_tab.html', locals(), context_instance= global_context(request))
+    #else:
+            tab_to_edit=models.QuickTabs.objects.get(id=request.session["tab_id"])
+            file_list = models.TabFiles.objects.filter(Tab = tab_to_edit)
+            form = forms.EditTabForm(initial={'title' : tab_to_edit.title , 'text' :tab_to_edit.text, 'tab_pref': tab_to_edit.pref }) 
+            is_edit_tab=True  
+            #formadd = forms.AddFileForm()
+            return render_to_response('event/add_tab.html', locals(), context_instance= global_context(request))
 
 
 @needs_authentication         
@@ -168,17 +181,34 @@ def add_quick_tab(request):
 @needs_authentication            
 def remove_quick_tab(request):
     tabs_id=request.POST["tab_id"]
-    tab_to_delete=models.QuickTabs.objects.filter(id=tabs_id)
+    tab_to_delete = models.QuickTabs.objects.get(id = tabs_id)
+    tab_files_list = models.TabFiles.objects.filter(Tab = tab_to_delete)
+    for tab_file in tab_files_list:
+        tab_file.delete()
     tab_to_delete.delete()
     return HttpResponseRedirect('%sevents/dashboard/'%settings.SITE_URL)
 
 @needs_authentication
 def remove_file(request):
-	if request.method == 'POST':
-		tabfile_id = request.POST['tabfile_id']
-		file_to_remove = models.TabFiles.objects.filter(id = tabfile_id)
-		file_to_remove.delete()
-	return HttpResponseRedirect("%sevents/dashboard/"%settings.SITE_URL)
+    if request.method == 'POST':
+        tabfile_id = request.POST['tabfile_id']
+        file_to_remove = models.TabFiles.objects.get(id = tabfile_id)
+        file_to_remove.delete()
+    #return HttpResponseRedirect("%sevents/dashboard/"%settings.SITE_URL)
+    tab_to_edit=models.QuickTabs.objects.get(id=request.session["tab_id"])
+    file_list = models.TabFiles.objects.filter(Tab = tab_to_edit)
+    form = forms.EditTabForm(initial={'title' : tab_to_edit.title , 'text' :tab_to_edit.text, 'tab_pref': tab_to_edit.pref }) 
+    formadd = forms.AddFileForm()
+    is_edit_tab=True  
+    return render_to_response('event/add_tab.html', locals(), context_instance= global_context(request))    
+
+
+
+
+
+
+
+
 
 def logout(request):
     if request.user.is_authenticated():
@@ -210,6 +240,7 @@ def edit_event(request):
         except:
             form = forms.EventForm(request.POST, instance=event)
         if form.is_valid():
+            print 'form is valid'
             form.save()
             return HttpResponseRedirect('%sevents/dashboard/'%settings.SITE_URL)
     else:
