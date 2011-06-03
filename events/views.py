@@ -135,11 +135,14 @@ def add_file(request):
             if formadd.is_valid():
                 tab_to_edit=models.QuickTabs.objects.get(id=request.session["tab_id"])
                 file_list = models.TabFiles.objects.filter(Tab = tab_to_edit)
+                form = forms.EditTabForm(initial={'title' : tab_to_edit.title , 'text' :tab_to_edit.text, 'tab_pref': tab_to_edit.pref })
                 if request.FILES:
                     userprof=request.user.get_profile()
                     event_name = userprof.coord_event.name
                     fileuploadhandler(request.FILES['tabfile'], event_name, request.session["tab_id"], formadd.cleaned_data['filetitle'])
-                return HttpResponseRedirect ("%sevents/dashboard/"%settings.SITE_URL)
+                #return HttpResponseRedirect ("%sevents/dashboard/edit_tab/?tab_id=%d"%settings.SITE_URL%drequest.session["tab_id"])
+                is_edit_tab=True  
+                return render_to_response('event/add_tab.html', locals(), context_instance= global_context(request))
     #else:
             tab_to_edit=models.QuickTabs.objects.get(id=request.session["tab_id"])
             file_list = models.TabFiles.objects.filter(Tab = tab_to_edit)
@@ -186,7 +189,21 @@ def remove_file(request):
         tabfile_id = request.POST['tabfile_id']
         file_to_remove = models.TabFiles.objects.get(id = tabfile_id)
         file_to_remove.delete()
-    return HttpResponseRedirect("%sevents/dashboard/"%settings.SITE_URL)
+    #return HttpResponseRedirect("%sevents/dashboard/"%settings.SITE_URL)
+    tab_to_edit=models.QuickTabs.objects.get(id=request.session["tab_id"])
+    file_list = models.TabFiles.objects.filter(Tab = tab_to_edit)
+    form = forms.EditTabForm(initial={'title' : tab_to_edit.title , 'text' :tab_to_edit.text, 'tab_pref': tab_to_edit.pref }) 
+    formadd = forms.AddFileForm()
+    is_edit_tab=True  
+    return render_to_response('event/add_tab.html', locals(), context_instance= global_context(request))    
+
+
+
+
+
+
+
+
 
 def logout(request):
     if request.user.is_authenticated():
