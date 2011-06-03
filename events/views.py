@@ -99,14 +99,17 @@ def edit_tab_content(request):
                 tab_to_edit.text = form.cleaned_data['text']
                 tab_to_edit.pref = form.cleaned_data['tab_pref']
                 tab_to_edit.save()
-                #file_list = models.TabFiles.objects.filter(Tab = tab_to_edit)
+                file_list = models.TabFiles.objects.filter(Tab = tab_to_edit)
                 #if request.FILES:
                     #userprof=request.user.get_profile()
                     #event_name = userprof.coord_event.name
                     #fileuploadhandler(request.FILES['tabfile'], event_name, request.session["tab_id"], form.cleaned_data['filetitle'])
                 return HttpResponseRedirect ("%sevents/dashboard/"%settings.SITE_URL)
-            is_edit_tab=True
-            formadd = forms.AddFileForm()  
+            else: 
+                is_edit_tab=True
+                formadd = forms.AddFileForm()
+                tab_to_edit=models.QuickTabs.objects.get(id=request.session["tab_id"])
+                file_list = models.TabFiles.objects.filter(Tab = tab_to_edit)  
             return render_to_response('event/add_tab.html', locals(), context_instance= global_context(request))
 
     else:
