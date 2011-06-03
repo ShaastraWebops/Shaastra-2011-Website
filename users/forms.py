@@ -115,21 +115,14 @@ class AddTeamForm(forms.Form):
         else:
             return self.data[field_name1]
     
-class AddUserForm(forms.Form):
-    username=forms.CharField(max_length=30,help_text='Enter a username. eg, siddharth_s')
-    first_name=forms.CharField(max_length=30,help_text='Enter your first name. eg, Siddharth')
-    last_name=forms.CharField(max_length=30,help_text='Enter your last name. eg, Swaminathan')
-    gender=forms.ChoiceField(choices=GENDER_CHOICES,help_text='Select Male or Female')
-    age=forms.IntegerField(min_value=1,help_text='Enter your age. eg, 18')
-    branch=forms.CharField(max_length=50,help_text='Select your branch from the list. If it does not show up, please select the "Other" option.')
-    email=forms.EmailField(help_text='Enter your e-mail address. eg, someone@gmail.com')
-    password=forms.CharField(min_length=6, max_length=30, widget=forms.PasswordInput,help_text='Enter a password that you can remember')
+class AddUserForm(ModelForm):
+
     password_again=forms.CharField(max_length=30, widget=forms.PasswordInput,help_text='Enter the same password that you entered above')
-    mobile_number=forms.CharField(max_length=15,help_text='Enter your mobile number. eg, 9884098840')
-    college_roll=forms.CharField(label="College Id/Roll Number",max_length=40,help_text='Your college roll number. eg, ME09B053')
-    college = forms.CharField(max_length=120,widget=forms.TextInput(attrs={'id':'coll_input'}),help_text='Select your college from the list. If it is not there, use the link below')
-    #recaptcha = recaptcha_fields.ReCaptchaField(label='Show us that you are not a bot!',help_text='Enter the words shown in the space provided')
-    want_hospi = forms.CharField(label='Want to be considered for accommodation ?',required=True,widget=forms.RadioSelect(renderer=HorizRadioRenderer,choices=HOSPI_CHOICES), help_text='In case you want accomodation. Please check the list of events for which accomodation will be provided before applying.')
+    recaptcha = recaptcha_fields.ReCaptchaField(label='Show us that you are not a bot!',help_text='Enter the words shown in the space provided')
+    class Meta:
+        model=models.UserProfile
+        fields=('username','first_name','last_name','gender','age','branch','email','password','password_again','mobile_number','college','college_roll','want_hospi','recaptcha')
+                 
     
     
     def clean_username(self):
