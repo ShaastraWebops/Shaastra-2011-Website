@@ -26,12 +26,12 @@ def register(request):
             return HttpResponseRedirect("/main-test/techmash/accounts/login/")
     else:
         form = UserCreationForm()
-    return render_to_response("techmash/registration/register.html", {
+    return render_to_response("/techmash/registration/register.html", {
         'form': form,
     })
 
 def profile(request):
-    t = get_template('profile.html')
+    t = get_template('/techmash/profile.html')
     html = t.render(Context({'username': request.user.username}))
     return HttpResponse(html)
 
@@ -60,7 +60,7 @@ def upload_file1(request):
             return HttpResponseRedirect('/main-test/techmash/upload/')
     else:
         form = UploadFileForm()
-        return render_to_response('techmash/upload_file.html', {'form': form})
+        return render_to_response('/techmash/upload_file.html', {'form': form})
 
 def mashphotos(request):
     if request.method == 'POST':
@@ -90,15 +90,15 @@ def mashphotos(request):
             photo1,photo2=selectimages(request)
             print rphoto3.rating
             rphoto3.save()
-            return render_to_response("techmash/select.html", locals(),context_instance= global_context(request))
+            return render_to_response("/techmash/select.html", locals(),context_instance= global_context(request))
         else:
             photo1,photo2=selectimages(request)
             print "here i am2"
-            return render_to_response("techmash/select.html", locals(),context_instance= global_context(request))    
+            return render_to_response("/techmash/select.html", locals(),context_instance= global_context(request))    
     else:
         photo1,photo2=selectimages(request)
         print "here i am2"
-        return render_to_response("techmash/select.html", locals(),context_instance= global_context(request))
+        return render_to_response("/techmash/select.html", locals(),context_instance= global_context(request))
 
 
 
@@ -134,4 +134,4 @@ def selectimages(request):
 
 def seephotos(request):   
     photo_list=Photo.objects.all()
-    return render_to_response("techmash/mash.html", locals(),context_instance= global_context(request))
+    return render_to_response("/techmash/mash.html", locals(),context_instance= global_context(request))
