@@ -9,23 +9,16 @@ from django.template import Template, Context
 from django.utils.safestring import mark_safe
 from main_test.users.models import *
 
-#from userportal.recaptcha import fields as recaptcha_fields
-
-
-#from userportal.misc import util
-from main_test.misc import util
-#from userportal import settings
-from main_test import settings
-
-#from userportal.registration import models
-#from userportal.events import models
+from main_test.recaptcha import fields as recaptcha_fields
 
 
 from main_test.misc import util
+
 from main_test import settings
 
-from main_test.users import models
-from main_test.events import models
+
+
+
 
 alnum_re = re.compile(r'^[\w.-]+$') # regexp. from jamesodo in #django  [a-zA-Z0-9_.]
 alphanumric = re.compile(r"[a-zA-Z0-9]+$")
@@ -53,68 +46,6 @@ class AddCollegeForm (forms.ModelForm):
     class Meta:
         model = models.College
 
-class ConvertCoordForm(forms.Form):
-    username=forms.CharField(max_length=30)
-    event=forms.ModelChoiceField(queryset=models.Event.objects.all(), required = False)
-    team_event=forms.ModelChoiceField(queryset=models.TeamEvent.objects.all(), required = False)
-
-class AddCoordForm(forms.Form):
-    username=forms.CharField(max_length=30)
-    first_name=forms.CharField(max_length=30)
-    last_name=forms.CharField(max_length=30)
-    email=forms.EmailField()
-    password=forms.CharField(max_length=30, widget=forms.PasswordInput)
-    password_again=forms.CharField(max_length=30, widget=forms.PasswordInput)
-    mobile_number=forms.CharField(max_length=15,required=False)
-    event=forms.ModelChoiceField(queryset=models.Event.objects.all(), required = False)
-    team_event=forms.ModelChoiceField(queryset=models.TeamEvent.objects.all(), required = False)
-
-    def clean_password(self):
-        if self.prefix:
-            field_name1 = '%s-password'%self.prefix
-            field_name2 = '%s-password_again'%self.prefix
-        else:
-            field_name1 = 'password'
-            field_name2 = 'password_again'
-            
-        if self.data[field_name1] != '' and self.data[field_name1] != self.data[field_name2]:
-            raise forms.ValidationError ("The entered passwords do not match.")
-        else:
-            return self.data[field_name1]
-
-class JoinTeamForm(forms.Form):
-    teamname=forms.CharField(max_length=30,help_text='The name of the team which you want to join. Your team leader can supply this information.')
-    password=forms.CharField(max_length=30, widget=forms.PasswordInput, help_text='The password as given by your team leader.')
-
-class MassRegisterForm (forms.Form):
-    extra_users=forms.IntegerField(min_value=1)
-
-class AddTeamForm(forms.Form):
-    teamname=forms.CharField(max_length=30)
-    password=forms.CharField(max_length=30, widget=forms.PasswordInput)
-    password_again=forms.CharField(max_length=30, widget=forms.PasswordInput)
-    
-    def clean_teamname(self):
-        if not alnum_re.search(self.cleaned_data['teamname']):
-            raise forms.ValidationError(u'Team names can only contain letters, numbers and underscores')
-        if models.Team.objects.filter(name=self.cleaned_data['teamname']):
-            raise forms.ValidationError('This team name is already taken. Please choose another.')
-        else:
-            return self.cleaned_data['teamname']
-
-    def clean_password(self):
-        if self.prefix:
-            field_name1 = '%s-password'%self.prefix
-            field_name2 = '%s-password_again'%self.prefix
-        else:
-            field_name1 = 'password'
-            field_name2 = 'password_again'
-            
-        if self.data[field_name1] != '' and self.data[field_name1] != self.data[field_name2]:
-            raise forms.ValidationError ("The entered passwords do not match.")
-        else:
-            return self.data[field_name1]
-    
 class AddUserForm(ModelForm):
 
     password_again=forms.CharField(max_length=30, widget=forms.PasswordInput,help_text='Enter the same password that you entered above')
@@ -195,45 +126,4 @@ class AddUserForm(ModelForm):
            raise forms.ValidationError(u'Enter a valid roll number.')
         else:
            return self.cleaned_data['college_roll']
-    
-class ModifyUserForm(forms.ModelForm):
-    password1=forms.CharField(max_length=30,required=False,label="Password", widget=forms.PasswordInput)
-    password2=forms.CharField(max_length=30, required=False,label="Verfiy Password", widget=forms.PasswordInput)
-    class Meta:
-        model = models.User 
-        fields = ('email',)
-    def clean_password1(self):
-        if self.prefix:
-            field_name1 = '%s-password1'%self.prefix
-            field_name2 = '%s-password2'%self.prefix
-        else:
-            field_name1 = 'password'
-            field_name2 = 'password_again'
-            
-        if self.data[field_name1] != '' and self.data[field_name1] != self.data[field_name2]:
-            raise forms.ValidationError ("The entered passwords do not match.")
-        else:
-            return self.data[field_name1]
-
-class ModifyUserProfileForm(forms.ModelForm):
-    want_hospi=forms.BooleanField(label='Would you like to register for accomodation?', required=False)
-    want_newsletter=forms.BooleanField(label="Would you like to receive Shaastra updates?", required=False)
-    college_roll=forms.CharField(max_length=40,label="College Id / Roll Number")
-        
-    class Meta:
-        model = models.UserProfile
-#        fields = ('want_hospi','gender','age','branch','mobile_number','college_roll','want_newsletter',)
-        fields = ('gender','age','branch','mobile_number','college_roll','want_newsletter','want_hospi')
-#Uncomment the want_hospi and the fields and comment the second fields to get the hospi accomodation field in profile page.
-
-class ModifyCompleteUserProfileForm(forms.ModelForm):
-    class Meta:
-        model = models.UserProfile
-        fields = ('first_name', 'last_name', 'gender', 'age', 'branch', 'mobile_number', 'college', 'college_roll','id_type')
-
-class UserLoginForm(forms.Form):
-    username=forms.CharField(help_text='Your username as registered with the Shaastra Userportal')
-    password=forms.CharField(widget=forms.PasswordInput, help_text='Your password. If you do not remember this, please use the link below')
-
-class ForgotPasswordForm(forms.Form):
-    email = forms.EmailField()        
+     
