@@ -5,7 +5,7 @@
     <p class="error">Sorry, that's not a valid username or password</p>
   {% endif %}
 
-  <form action="/main-test/techmash/accounts/profile/" method="post">
+  <form action="{{SITE_URL}}techmash/accounts/profile/" method="post">
   {% csrf_token %}
     <label for="username">User name:</label>
     <input type="text" name="username" value="" id="username">
@@ -16,5 +16,5 @@
     <input type="hidden" name="next" value="{{ next|escape }}" />
     
  </form>
-<p><a href="/main-test/techmash/accounts/register/">New user?Register</a></p>
+<p><a href="{{SITE_URL}}techmash/accounts/register/">New user?Register</a></p>
 {% endblock %}

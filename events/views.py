@@ -69,7 +69,8 @@ def show_quick_tab(request,event_name=None):
         if request.method=='POST': 
             user=request.user
             userprof=user.get_profile()
-            if userprof.is_coord == True and userprof.coord_event.name == event_name:
+            event = userprof.coord_event            #this event variable is used in the template
+            if userprof.is_coord == True and event.name == event_name:
                 display_edit=True  
         return render_to_response('event/QuickTabs.html', locals(), context_instance= global_context(request))
     else:
@@ -205,32 +206,11 @@ def remove_file(request):
     is_edit_tab=True  
     return render_to_response('event/add_tab.html', locals(), context_instance= global_context(request))    
 
-
-
-
-
-
-
-
-
 def logout(request):
     if request.user.is_authenticated():
         auth.logout (request)
         return render_to_response('event/logout.html', locals(), context_instance= global_context(request))        
     return HttpResponseRedirect('%sevents/login/'%settings.SITE_URL)        
-
-#def handle_uploaded_logo(file_obj, event_id, type_id):
-    #try:	
-    	#event = models.Event.objects.get(id = event_id)
-    #except:
-    	#Incomplete
-    #if(type_id == 'logo'):
-    	#destination = open('%sevent_logos/%s%s'%(FILE_DIR, %event.id), 'wb+')
-    #else:
-    	#destination = open('%sspons_logos/%s%s'%(FILE_DIR, %event.id), 'wb+')
-    #for chunk in file_obj.chunks():
-        #destination.write(chunk)
-    #destination.close()
 
 @needs_authentication
 def edit_event(request):
@@ -249,5 +229,12 @@ def edit_event(request):
     else:
         form = forms.EventForm(instance = event)
     return render_to_response('edit_event.html', locals(), context_instance=global_context(request))
-    
-   
+
+@needs_authentication
+def register(request):
+    user = request.uesr
+    userprof = user.get_profile()
+    event = Event.objects.get(id = event_id)
+    userprof.registered.add(event)
+    return render_to_response('%users/myshaastra/'%settings.SITE_URL)
+
