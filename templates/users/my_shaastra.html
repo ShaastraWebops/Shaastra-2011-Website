@@ -1,0 +1,12 @@
+{% extends "index.html" %}
+
+<div id="body">
+    <h3>List of events:</h3>
+    <ul>
+        {% for event in events_list %}
+            <li>
+                <a href="{{event.url}}">{{event.name}}</a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
