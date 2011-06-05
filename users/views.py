@@ -99,3 +99,10 @@ def college_registration (request):
         else:
             return HttpResponse("failed")
 
+@needs_authentication
+def myshaastra(request):
+    user = request.user
+    userprof = user.get_profile()
+    events_list = userprof.registered
+    return render_to_response('my_shaastra.html', locals(), context_instance = global_context(request))
+
