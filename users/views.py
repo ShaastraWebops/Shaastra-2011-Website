@@ -14,7 +14,7 @@ from django.contrib.sessions.models import Session
 from main_test.misc.util import *
 from main_test.settings import *
 #from main_test.users.models import UserProfile, College
-from main_test.users.models import *
+from main_test.users import models
 
 import sha,random,datetime
 
