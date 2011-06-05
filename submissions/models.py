@@ -3,15 +3,7 @@ from django.contrib import admin
 from django.contrib.auth.models import User, Group
 from main_test.events.models import *
 
-#Author: Praveen Venkatesh
-QUESTION_TYPE = ((1, 'Text'),
-                 (2, 'File'),
-                 (3, 'MCQ'),)
-#Author: Praveen Venkatesh - Created inital model
-
-#Author: Praveen Venkatesh - Created inital model
-#Try to use ModelForms in order to render this model - appears to make things easy		
-#Instead of derived classes, now using abstract class
+'''
 class Question_base(models.Model):
 
     #Question specifics
@@ -55,33 +47,120 @@ class Question(Question_base):
     #Event specifics
     event = models.ForeignKey(Event)
 
-'''
 class TeamQuestion(Question_base):
     event=models.ForeignKey(TeamEvent)
 '''
 
-class MCQOption(models.Model):
+class Question(models.Model):
+    
+    event = models.ForeignKey(Event)
+    
+    question_number = models.IntegerField (blank = False, null = False, verbose_name = 'Number displayed in the button for this question.',) 
+    instructions = models.TextField(blank = True, null = True)
+    
+    def __unicode__(self):
+        return self.instructions
+    
+    class Admin:
+        pass
+    
+    class Meta:
+        ordering = ['question_number']
 
-    #Question specifics
-    question_id = models.ForeignKey(Question)
+class Answer(models.Model):
 
-    #Choice specifics
-    choice_text = models.TextField(max_length = 1000)
+    question = models.ForeignKey(Question)
+    submission = models.ForeignKey(Submission)
+    
+    def render(self):
+        pass
+    
+    class Admin:
+        pass
+    
+    class Meta:
+        ordering = ['question.question_number', 'id',]
+
+class Answer_text(Answer):
+    
+    text = models.TextField(blank = True, null = True)
+    
+    def render(self):
+        return unicode(self)
+        
+    def __unicode__(self):
+        return self.text
+        
+    class Admin:
+        pass
+
+class Answer_MCQ(Answer):
+
+    choice = models.ForeignKey(MCQ_option, Blank = True, null = True)
+    
+    def render(self):
+        return choice.option + " " + choice.text
 
     def __unicode__(self):
-        return self.choice_text
+        return choice.text
+    
+    class Admin:
+        pass
+
+def get_upload_path(instance, filename):
+    event = instance.question.event
+    return "main/events/" + camelize(event.name) + "/submissions/" + filename
+
+class Answer_file(Answer):
+    
+    File = models.FileField(upload_to = get_upload_path, max_length = 200, blank = True, null = True)
+    
+    def render(self):
+        return self.File.name
+    
+    def __unicode__(self):
+        return self.File.url
+    
+    class Admin:
+        pass
+
+class Submission(models.Model):
+
+    participant = models.ForeignKey(User)
+    team = models.ManyToManyField(User, null=True, blank = True)
+    
+    interesting = models.BooleanField(default=False,blank = True)
+    sub_read = models.BooleanField(default=False,blank = True)
+    selected = models.BooleanField(default=False,blank = True)
+    score = models.FloatField(null=True, blank=True)
+    rank = models.IntegerField(null=True,blank=True)
+    is_new = models.BooleanField(default=True, blank=True)
+    modified = models.BooleanField(default=False, blank=True)
+
+class MCQ_option(models.Model):
+
+    #Question specifics
+    question = models.ForeignKey(Question)
+    
+    #Choice specifics
+    option = models.CharField(max_length = 10)
+    text = models.TextField(max_length = 1000)
+
+    def __unicode__(self):
+        return self.text
 
     class Admin:
         pass
 
     class Meta:
-        ordering = ['id',]
+        ordering = ['option',]
 
 '''
 class TeamMCQOption(MCQOption):
     #question_id = models.ForeignKey(TeamQuestion)
     pass		 
-'''
+
+
 
 #Author: Sivaramakrishnan, created the initial model
 #This is has been changed using abstract classes.
@@ -96,15 +175,15 @@ class Submission_base(models.Model):
     is_new = models.BooleanField(default=True, blank=True)
     modified = models.BooleanField(default=False, blank=True)
 
-    class meta:
+    class Meta:
         abstract = True
 
-'''
+
 class TeamSubmission(Submission_base):
 
     team = models.ManyToManyField(Team)
     event = models.ManyToManyField(TeamEvent)
-'''
+
 
 class Submission(Submission_base):
 
@@ -127,11 +206,11 @@ class MCQAnswer(MCQAnswer_base):
     question = models.ForeignKey(Question, editable=False)	
     answered_by = models.ForeignKey(User)
 
-'''
+
 class TeamMCQAnswer (MCQAnswer_base):
     question = models.ForeignKey(TeamQuestion, editable=False)
     answered_by = models.ForeignKey(Team)
-'''
+
 
 class FileAnswer_base(models.Model):
 
@@ -150,7 +229,7 @@ class FileAnswer(FileAnswer_base):
     question = models.ForeignKey(Question, editable=False)      
     answered_by = models.ForeignKey(User)
 
-'''
+
 class TeamFileAnswer(FileAnswer_base):
     question = models.ForeignKey(TeamQuestion, editable=False)    
     answered_by = models.ForeignKey(Team)

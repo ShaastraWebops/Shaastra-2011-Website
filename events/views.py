@@ -233,5 +233,3 @@ def register(request):
     userprof.registered.add(event)
     return render_to_response('%users/myshaastra/'%settings.SITE_URL)
 
-
-
