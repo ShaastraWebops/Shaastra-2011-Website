@@ -19,7 +19,7 @@ from main_test.users import models
 import sha,random,datetime
 
 def user_registration(request):
-    colls = models.College.objects.all()
+    #colls = models.College.objects.all()
     if request.method=='POST':
 	data = request.POST.copy()
         form = forms.AddUserForm (data)
