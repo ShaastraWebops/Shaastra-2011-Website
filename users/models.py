@@ -76,8 +76,9 @@ class UserProfile(models.Model):
     want_hospi 		= models.BooleanField	(default = False)
     is_coord        = models.BooleanField	(default = False)
     coord_event     = models.ForeignKey     (Event)
-	
-	    
+    registered      = models.ManyToManyField(Event, null=True)                  #Events which this user has registered for
+    selected        = models.ManyToManyField(Event, null=True)                  #Events which this user has been selected for
+    
     def __unicode__(self):
         return self.user.username
 

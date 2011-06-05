@@ -38,8 +38,8 @@ class Event(models.Model):
     
     # Registration
     registrable = models.BooleanField(default=False, help_text="Can participants register online?")
-    users = models.ManyToManyField(User,  blank=True, null=True, related_name='users_events')
-    chosen_users = models.ManyToManyField(User, blank=True, null=True, related_name='qualified_events')
+    users = models.ManyToManyField(User,  blank=True, null=True, related_name='users_events')                  #may not be required
+    chosen_users = models.ManyToManyField(User, blank=True, null=True, related_name='qualified_events')        #may not be required
 
     # Hospitality
     accommodation = models.BooleanField(default=False, help_text="Is accommodation compulsory?")
