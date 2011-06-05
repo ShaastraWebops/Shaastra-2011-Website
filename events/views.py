@@ -8,8 +8,11 @@ from django import forms
 from main_test.misc.util import *               
 from main_test.settings import *
 import models,forms
-
+import sha, random
 import datetime
+from main_test.users import models
+from main_test.events import models
+from main_test.users import models
 
 import os
 
@@ -246,7 +249,5 @@ def edit_event(request):
     else:
         form = forms.EventForm(instance = event)
     return render_to_response('edit_event.html', locals(), context_instance=global_context(request))
-
-
-
-
+    
+   
