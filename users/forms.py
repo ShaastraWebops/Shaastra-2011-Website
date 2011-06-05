@@ -2,12 +2,13 @@
 #We can use the same forms as last time for registation. We are not really changing anything here so.
 #If we have to change anything it shouldn't be much of a problem
 from django import forms
+from django.forms import ModelForm
 from django.db import models as d_models
 import re 
 from django.contrib.auth.models import User
 from django.template import Template, Context
 from django.utils.safestring import mark_safe
-from main_test.users.models import *
+from main_test.users import models
 
 from main_test.recaptcha import fields as recaptcha_fields
 
@@ -42,17 +43,17 @@ class HorizRadioRenderer(forms.RadioSelect.renderer):
             #Outputs radios
             return mark_safe(u'\n'.join([u'%s\n' % w for w in self]))
 
-class AddCollegeForm (forms.ModelForm):
+class AddCollegeForm (ModelForm):
     class Meta:
         model = models.College
 
 class AddUserForm(ModelForm):
 
     password_again=forms.CharField(max_length=30, widget=forms.PasswordInput,help_text='Enter the same password that you entered above')
-    recaptcha = recaptcha_fields.ReCaptchaField(label='Show us that you are not a bot!',help_text='Enter the words shown in the space provided')
+    #recaptcha = recaptcha_fields.ReCaptchaField(label='Show us that you are not a bot!',help_text='Enter the words shown in the space provided')
     class Meta:
         model=models.UserProfile
-        fields=('username','first_name','last_name','gender','age','branch','email','password','password_again','mobile_number','college','college_roll','want_hospi','recaptcha')
+        fields=('username','first_name','last_name','gender','age','branch','email','password','password_again','mobile_number','college','college_roll','want_hospi')
                  
     
     

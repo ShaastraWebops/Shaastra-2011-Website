@@ -13,8 +13,9 @@ from django.contrib.sessions.models import Session
 
 from main_test.misc.util import *
 from main_test.settings import *
-#from main_test.users.models import UserProfile, College
-from main_test.users import models
+from main_test.users.models import UserProfile, College
+#from main_test.users import models
+from main_test.users import forms
 
 import sha,random,datetime
 
@@ -77,6 +78,10 @@ def user_registration(request):
             coll_form = forms.AddCollegeForm(prefix="id2")
 	    #again have to change this later. dont know which html to use??	
             return render_to_response('users/register_user.html', locals(), context_instance= global_context(request))
+    else:
+        form = forms.AddUserForm ()
+        coll_form = forms.AddCollegeForm(prefix="id2")
+        return render_to_response('users/register_user.html', locals(), context_instance= global_context(request))            
 
 def college_registration (request):
     if request.method == 'GET':
