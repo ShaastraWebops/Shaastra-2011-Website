@@ -49,12 +49,15 @@ class AddCollegeForm (ModelForm):
 
 class AddUserForm(ModelForm):
 
+    username = forms.CharField(max_length=30,help_text='30 characters or fewer. Letters, numbers and @/./+/-/_ characters')
+    email = forms.EmailField(help_text='Enter your e-mail address. eg, someone@gmail.com')
+    password=forms.CharField(min_length=6, max_length=30, widget=forms.PasswordInput,help_text='Enter a password that you can remember')
     password_again=forms.CharField(max_length=30, widget=forms.PasswordInput,help_text='Enter the same password that you entered above')
     #recaptcha = recaptcha_fields.ReCaptchaField(label='Show us that you are not a bot!',help_text='Enter the words shown in the space provided')
     class Meta:
-        model=models.UserProfile
-        fields=('username','first_name','last_name','gender','age','branch','email','password','password_again','mobile_number','college','college_roll','want_hospi')
-                 
+        model = models.UserProfile
+        fields=('username','email','age','gender','college','college_roll','mobile_number','password','password_again','want_hospi',)
+        #except = ('is_coord','coord_event')        
     
     
     def clean_username(self):
@@ -72,11 +75,11 @@ class AddUserForm(ModelForm):
 	else:
 	    return self.cleaned_data['age']
 	    
-    def clean_mobile_number(self):
+    """def clean_mobile_number(self):
 	if (len(self.cleaned_data['mobile_number'])!=10 or (self.cleaned_data['mobile_number'][0]!='7' and self.cleaned_data['mobile_number'][0]!='8' and self.cleaned_data['mobile_number'][0]!='9') or (not self.cleaned_data['mobile_number'].isdigit())):
 	    raise forms.ValidationError(u'Enter a valid mobile number')
 	else:
-	  return self.cleaned_data['mobile_number']
+	  return self.cleaned_data['mobile_number']"""
 	  
     def clean_first_name(self):
 	if not self.cleaned_data['first_name'].replace(' ','').isalpha():
@@ -109,8 +112,8 @@ class AddUserForm(ModelForm):
             raise forms.ValidationError ("The entered passwords do not match.")
         else:
             return self.data[field_name1]
-	    
-    def clean_college(self):
+    
+    """def clean_college(self):
         coll_input = self.cleaned_data['college']
         try:
             coll_name, coll_city = coll_input.rsplit(',',1)
@@ -120,8 +123,8 @@ class AddUserForm(ModelForm):
         if(collchk):
             return collchk
         else :
-            raise forms.ValidationError ("The College that you entered Does not exist or was Not Right")
-    
+            raise forms.ValidationError ("The College that you entered Does not exist or was Not Right")"""
+               
     def clean_college_roll(self):
         if (not alphanumric.search(self.cleaned_data['college_roll'])) or self.cleaned_data['college_roll'].isalpha():
            raise forms.ValidationError(u'Enter a valid roll number.')

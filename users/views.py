@@ -5,6 +5,7 @@ from django.shortcuts import render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib import auth
+from django.contrib.auth.models import User, Group
 from django.template.loader import get_template
 from django.template.context import Context, RequestContext
 from django.utils.translation import ugettext as _
@@ -20,69 +21,46 @@ from main_test.users import forms
 import sha,random,datetime
 
 def user_registration(request):
-    #colls = models.College.objects.all()
+
     if request.method=='POST':
-	data = request.POST.copy()
-        form = forms.AddUserForm (data)
-        
+        data = request.POST.copy()
+        form = forms.AddUserForm(data)
+  
         if form.is_valid():
-            if form.cleaned_data["password"] == form.cleaned_data["password_again"]:
-                user = models.User.objects.create_user(
-                    username = form.cleaned_data['username'],
-                    email = form.cleaned_data['email'],
-                    password = form.cleaned_data['password']
-                    )
-                college=form.cleaned_data['college']
-
-		user.is_active = False
-
-		salt = sha.new(str(random.random())).hexdigest()[:5]
-                activation_key = sha.new(salt+user.username).hexdigest()
-                key_expires=datetime.datetime.today() + datetime.timedelta(2)
-
-		user_profile = models.UserProfile(
-                        user = user,
-                        first_name = form.cleaned_data['first_name'].lower(),
-                        last_name = form.cleaned_data['last_name'].lower(),
-                        college = college,
-                        mobile_number = form.cleaned_data['mobile_number'],
-                        gender = form.cleaned_data['gender'],
-                        age = form.cleaned_data['age'],
-                        branch = clean_string(form.cleaned_data['branch']),
-                        college_roll=form.cleaned_data['college_roll'],
-                        want_hospi = form.cleaned_data['want_hospi'],
-                        activation_key = activation_key,
-                        key_expires = key_expires,
-                    )
-                user.save()
-
-
-                try:
-		    user_profile.save()
+  
+            user = User.objects.create_user(username = form.cleaned_data['username'], email = form.cleaned_data['email'],password = form.cleaned_data['password'],)
+            user.is_active = False;
+            
+            salt = sha.new(str(random.random())).hexdigest()[:5]
+            activation_key = sha.new(salt+user.username).hexdigest()
+            key_expires=datetime.datetime.today() + datetime.timedelta(2)
+            try:
+                userprofile = models.UserProfile(
+                    user = user,
+                    first_name = form.cleaned_data['first_name'],
+                    last_name  = form.cleaned_data['last_name'],
+                    gender     = form.cleaned_data['gender'],
+                    age = form.cleaned_data['age'],
+                    branch = form.cleaned_data['branch'],
+                    mobile_number = form.cleaned_data['mobile_number'],
+                    college =form.cleaned_data['college'],
+                    college_roll = form.cleaned_data['college_roll'],
+                    shaastra_id  = user.id , # is this right
+                    activation_key = activation_key,
+                    key_expires  = key_expires,
+                    want_hospi   = form.cleaned_data['want_hospi'],
                     
-                    print "*************************                  ", activation_key
-                   #dont know where to get templates from. have to change this later
-		    mail_template=get_template('email/activate.html')
-                    body = mail_template.render(Context({'username':user.username,
-							 'SITE_URL':settings.SITE_URL,
-							 'activationkey':user_profile.activation_key }))
-                    send_mail('Shaastra 2011 Userportal account confirmation', body,'noreply@shaastra.org', [user.email,], fail_silently=False)
-                    return HttpResponseRedirect ("%sregistered/"%settings.SITE_URL)
-
+                )
+                try:
+                    userprofile.save()
                 except:
-                    user.delete();
-                    user_profile.delete();
-                    raise
-        else: 
-            form = forms.AddUserForm ()
-            coll_form = forms.AddCollegeForm(prefix="id2")
-	    #again have to change this later. dont know which html to use??	
-            return render_to_response('users/register_user.html', locals(), context_instance= global_context(request))
+                    print "error_ 2"                
+            except:
+                print "error_1"
     else:
-        form = forms.AddUserForm ()
-        coll_form = forms.AddCollegeForm(prefix="id2")
-        return render_to_response('users/register_user.html', locals(), context_instance= global_context(request))            
-
+        form = forms.AddUserForm()
+    return render_to_response('users/register_user.html', locals(), context_instance= global_context(request))    
+                            
 def college_registration (request):
     if request.method == 'GET':
         data = request.GET.copy()
@@ -103,4 +81,11 @@ def college_registration (request):
                 return HttpResponse("exists")
         else:
             return HttpResponse("failed")
+
+@needs_authentication
+def myshaastra(request):
+    user = request.user
+    userprof = user.get_profile()
+    events_list = userprof.registered
+    return render_to_response('my_shaastra.html', locals(), context_instance = global_context(request))
 

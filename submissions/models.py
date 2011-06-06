@@ -67,6 +67,36 @@ class Question(models.Model):
     class Meta:
         ordering = ['question_number']
 
+class MCQ_option(models.Model):
+
+    #Question specifics
+    question = models.ForeignKey(Question)
+    
+    #Choice specifics
+    option = models.CharField(max_length = 10)
+    text = models.TextField(max_length = 1000)
+
+    def __unicode__(self):
+        return self.text
+
+    class Admin:
+        pass
+
+    class Meta:
+        ordering = ['option',]
+
+class Submission(models.Model):
+    participant = models.ForeignKey(User, related_name='team_leaders')
+    team = models.ManyToManyField(User, null=True, blank = True, related_name='team_members')
+    
+    interesting = models.BooleanField(default=False,blank = True)
+    sub_read = models.BooleanField(default=False,blank = True)
+    selected = models.BooleanField(default=False,blank = True)
+    score = models.FloatField(null=True, blank=True)
+    rank = models.IntegerField(null=True,blank=True)
+    is_new = models.BooleanField(default=True, blank=True)
+    modified = models.BooleanField(default=False, blank=True)
+
 class Answer(models.Model):
 
     question = models.ForeignKey(Question)
@@ -79,7 +109,7 @@ class Answer(models.Model):
         pass
     
     class Meta:
-        ordering = ['question.question_number', 'id',]
+        ordering = ['id',]
 
 class Answer_text(Answer):
     
@@ -96,7 +126,7 @@ class Answer_text(Answer):
 
 class Answer_MCQ(Answer):
 
-    choice = models.ForeignKey(MCQ_option, Blank = True, null = True)
+    choice = models.ForeignKey(MCQ_option, blank = True, null = True)
     
     def render(self):
         return choice.option + " " + choice.text
@@ -123,37 +153,6 @@ class Answer_file(Answer):
     
     class Admin:
         pass
-
-class Submission(models.Model):
-
-    participant = models.ForeignKey(User)
-    team = models.ManyToManyField(User, null=True, blank = True)
-    
-    interesting = models.BooleanField(default=False,blank = True)
-    sub_read = models.BooleanField(default=False,blank = True)
-    selected = models.BooleanField(default=False,blank = True)
-    score = models.FloatField(null=True, blank=True)
-    rank = models.IntegerField(null=True,blank=True)
-    is_new = models.BooleanField(default=True, blank=True)
-    modified = models.BooleanField(default=False, blank=True)
-
-class MCQ_option(models.Model):
-
-    #Question specifics
-    question = models.ForeignKey(Question)
-    
-    #Choice specifics
-    option = models.CharField(max_length = 10)
-    text = models.TextField(max_length = 1000)
-
-    def __unicode__(self):
-        return self.text
-
-    class Admin:
-        pass
-
-    class Meta:
-        ordering = ['option',]
 
 '''
 class TeamMCQOption(MCQOption):

@@ -242,12 +242,3 @@ class Update(models.Model):
 	class Admin:
 		pass	
 
-class Registration(models.Model):
-    text = models.TextField(blank = True, null = True)
-    event = models.ForeignKey(Event)
-    
-
-
-
-
-

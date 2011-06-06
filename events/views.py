@@ -77,6 +77,7 @@ def show_quick_tab(request,event_name=None):
         raise Http404    
 
 @needs_authentication    
+@coords_only
 def dashboard(request):
     userprof = request.user.get_profile()
     if userprof.is_coord:
@@ -89,6 +90,7 @@ def dashboard(request):
         raise Http404        
 
 @needs_authentication    
+@coords_only
 def edit_tab_content(request):
     if request.method=='POST':      
             data=request.POST.copy()
@@ -133,6 +135,7 @@ def edit_tab_content(request):
             raise Http404
 
 @needs_authentication
+@coords_only
 def add_file(request):
     if request.method=='POST':      
             data=request.POST.copy()
@@ -162,6 +165,7 @@ def add_file(request):
 
 
 @needs_authentication         
+@coords_only
 def add_quick_tab(request):
     userprof=request.user.get_profile()
     event_name = userprof.coord_event.name
@@ -183,6 +187,7 @@ def add_quick_tab(request):
     return render_to_response('event/add_tab.html', locals(), context_instance= global_context(request))    
 
 @needs_authentication            
+@coords_only
 def remove_quick_tab(request):
     tabs_id=request.POST["tab_id"]
     tab_to_delete = models.QuickTabs.objects.get(id = tabs_id)
@@ -193,6 +198,7 @@ def remove_quick_tab(request):
     return HttpResponseRedirect('%sevents/dashboard/'%settings.SITE_URL)
 
 @needs_authentication
+@coords_only
 def remove_file(request):
     if request.method == 'POST':
         tabfile_id = request.POST['tabfile_id']
@@ -213,6 +219,7 @@ def logout(request):
     return HttpResponseRedirect('%sevents/login/'%settings.SITE_URL)        
 
 @needs_authentication
+@coords_only
 def edit_event(request):
     user = request.user
     userprof = user.get_profile()
@@ -234,7 +241,19 @@ def edit_event(request):
 def register(request):
     user = request.uesr
     userprof = user.get_profile()
+    event_id = request.GET['event_id']
     event = Event.objects.get(id = event_id)
     userprof.registered.add(event)
-    return render_to_response('%users/myshaastra/'%settings.SITE_URL)
+    return HttpResponseRedirect('%myshaastra/'%settings.SITE_URL)
+
+@needs_authentication
+@coords_only
+def show_registered_users(request):
+    if request.method == 'GET':
+        event_id = request.GET['event_id']
+        event = Event.objects.get(id = event_id)
+        users_list = event.userprofile_set
+        return render_to_response('show_registered_users.html', locals(), context_instance = global_context(request))
+    else:
+        return HttpResponseRedirect('%sevents/dashboard' % settings.SITE_URL)
 
