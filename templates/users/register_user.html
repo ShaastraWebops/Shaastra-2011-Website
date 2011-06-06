@@ -1,12 +1,12 @@
 <body>
-         <div id="form"> 
-	  <form action="" method="POST" enctype="multipart/form-data">
+
+    	  <form action="" method="POST" enctype="multipart/form-data">
 		{% csrf_token %}
-		<table>
+
+	    <table>
 			{{ form.as_table }}
 		</table>	
 		<br /><br />
 
 		<input type="submit" value="Submit" />
-	  </form>
-    </div>   
+	  </form> 

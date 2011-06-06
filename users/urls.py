@@ -7,6 +7,7 @@ handler500 = "main_test.misc.util.server_error"
 urlpatterns = patterns('main_test.users.views',  
 
       (r'^register/user/?$', 'user_registration'),
+      (r'^register/college/?$', 'college_registration'),
       (r'^myshaastra/$', 'myshaastra'),
 
 )   
