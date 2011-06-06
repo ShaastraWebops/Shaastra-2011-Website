@@ -30,15 +30,11 @@ def user_registration(request):
   
             user = User.objects.create_user(username = form.cleaned_data['username'], email = form.cleaned_data['email'],password = form.cleaned_data['password'],)
             user.is_active = False;
-            
             salt = sha.new(str(random.random())).hexdigest()[:5]
             activation_key = sha.new(salt+user.username).hexdigest()
             key_expires=datetime.datetime.today() + datetime.timedelta(2)
-            try:
-                userprofile = models.UserProfile(
+            userprofile = UserProfile(
                     user = user,
-                    first_name = form.cleaned_data['first_name'],
-                    last_name  = form.cleaned_data['last_name'],
                     gender     = form.cleaned_data['gender'],
                     age = form.cleaned_data['age'],
                     branch = form.cleaned_data['branch'],
@@ -51,12 +47,8 @@ def user_registration(request):
                     want_hospi   = form.cleaned_data['want_hospi'],
                     
                 )
-                try:
-                    userprofile.save()
-                except:
-                    print "error_ 2"                
-            except:
-                print "error_1"
+            userprofile.save()
+
     else:
         form = forms.AddUserForm()
     return render_to_response('users/register_user.html', locals(), context_instance= global_context(request))    
