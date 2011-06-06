@@ -30,30 +30,29 @@ def user_registration(request):
   
             user = User.objects.create_user(username = form.cleaned_data['username'], email = form.cleaned_data['email'],password = form.cleaned_data['password'],)
             user.is_active = False;
-            try:
-                user.save()
-                salt = sha.new(str(random.random())).hexdigest()[:5]
-                activation_key = sha.new(salt+user.username).hexdigest()
-                key_expires=datetime.datetime.today() + datetime.timedelta(2)
             
-                user_profile = models.UserProfile (
-                        user = user,
-                        first_name = form.cleaned_data['first_name'].lower(),
-                        last_name = form.cleaned_data['last_name'].lower(),
-                        college = college,
-                        mobile_number = form.cleaned_data['mobile_number'],
-                        gender = form.cleaned_data['gender'],
-                        age = form.cleaned_data['age'],
-                        email_id = form.cleaned_data['email'],
-                        branch = clean_string(form.cleaned_data['branch']),
-                        college_roll=form.cleaned_data['college_roll'],
-                        want_hospi = form.cleaned_data['want_hospi'],
-                        activation_key = activation_key,
-                        key_expires = key_expires,
-                        is_coord = False,
-                    )
+            salt = sha.new(str(random.random())).hexdigest()[:5]
+            activation_key = sha.new(salt+user.username).hexdigest()
+            key_expires=datetime.datetime.today() + datetime.timedelta(2)
+            try:
+                userprofile = models.UserProfile(
+                    user = user,
+                    first_name = form.cleaned_data['first_name'],
+                    last_name  = form.cleaned_data['last_name'],
+                    gender     = form.cleaned_data['gender'],
+                    age = form.cleaned_data['age'],
+                    branch = form.cleaned_data['branch'],
+                    mobile_number = form.cleaned_data['mobile_number'],
+                    college =form.cleaned_data['college'],
+                    college_roll = form.cleaned_data['college_roll'],
+                    shaastra_id  = user.id , # is this right
+                    activation_key = activation_key,
+                    key_expires  = key_expires,
+                    want_hospi   = form.cleaned_data['want_hospi'],
+                    
+                )
                 try:
-                    user_profile.save()
+                    userprofile.save()
                 except:
                     print "error_ 2"                
             except:
