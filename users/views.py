@@ -48,6 +48,11 @@ def user_registration(request):
                     
                 )
             userprofile.save()
+            mail_template=get_template('email/activate.html')
+            body = mail_template.render(Context({'username':user.username,
+							 'SITE_URL':settings.SITE_URL,
+							 'activationkey':user_profile.activation_key }))
+            send_mail('Your new Shaastra2011 account confirmation', body,'noreply@shaastra.org', [user.email,], fail_silently=False)
 
     else:
         form = forms.AddUserForm()
@@ -73,6 +78,41 @@ def college_registration (request):
                 return HttpResponse("exists")
         else:
             return HttpResponse("failed")
+            
+def activate (request, a_key = None ):
+    SITE_URL = settings.SITE_URL
+    if (a_key == '' or a_key==None):
+	    key_dne = True
+	    return render_to_response('registration/activated.html',locals(), context_instance= global_context(request))
+    else:
+        try:
+	        user_profile = models.UserProfile.objects.get(activation_key = a_key)
+        except ObjectDoesNotExist:
+	        prof_dne = True
+	    return render_to_response('registration/activated.html',locals(), context_instance= global_context(request))
+      
+      #Cleanup operation
+    if user_profile.key_expires < datetime.datetime.today():
+	    expired = True
+	    user = user_profile.user
+	    user.delete()
+	    user_profile.delete()
+	    return render_to_response('registration/activated.html',locals(), context_instance= global_context(request))
+	
+    else:
+	    user = user_profile.user
+	    user.is_active = True
+	    user.save()
+	    request.session["registered"]=True
+	
+	#send another mail
+	    mail_template=get_template('email/thankyou.html')
+        body = mail_template.render(Context({'username':user.username}))
+        send_mail('Account activated', body, 'noreply@shaastra.org', [user.email,], fail_silently=False)
+        
+	#print "IS AUTHENTICATED",user.is_authenticated()
+	    activated = True
+	    return render_to_response('registration/activated.html',locals(), context_instance= global_context(request))
 
 @needs_authentication
 def myshaastra(request):
