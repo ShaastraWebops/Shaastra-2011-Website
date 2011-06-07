@@ -1,0 +1,16 @@
+{%extends "index.html"%}
+
+{%block body%}
+
+<div id="confirm_answer">
+
+     <form action= "" method="POST">
+         {% csrf_token %}
+         <h1>Are You Sure You Want To Confirm? You <b>CANNOT</b> Change your Answers After This.</h1><br/><br/>  
+     <input type="submit" value="LOGIN AGAIN" />
+     </form>
+
+</div>
+
+
+{%endblock%}

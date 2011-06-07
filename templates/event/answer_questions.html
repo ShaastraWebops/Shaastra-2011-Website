@@ -1,0 +1,59 @@
+{%extends "index.html"%}
+
+{%block body%}
+
+<!--logout button-->
+
+<div id="logout">
+    <form action= "{{SITE_URL}}events/logout/" method="POST">
+        {% csrf_token %}
+        <input type="submit" value="LOGOUT" />
+    </form>
+</div>
+
+						
+<div id="body">
+    <!-- the answer question form -->
+
+     <div id="form"> 
+	  <form action="" method="POST" enctype="multipart/form-data">
+		{% csrf_token %}
+		<table>
+			{{ form.as_table }}
+		</table>
+		<br /><br />
+
+                  <!--The Submit Button -->
+
+		<input type="hidden" value="{{ques.id}}" />
+		<input type="submit" value="Submit" />
+	  </form>
+    </div>    
+          
+      
+
+	<br /><br />
+         
+       
+
+                <!--The Back To Questions Button -->
+
+                    <div id="cancel">
+                            <form action="{{SITE_URL}}events/dashboard/" method="POST">
+                            <input type="submit" value="Back To Questions"/>
+                            </form>
+                    </div>
+
+
+
+        </div>
+
+
+</div>
+
+{%endblock body%}
+
+
+
+
+
