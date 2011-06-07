@@ -101,6 +101,8 @@ class QuickTabs(models.Model):
     
     # No more than 10 tabs per event.
     pref = models.IntegerField(max_length=2);
+    question_tab = models.BooleanField(default=False)
+    
     
     
     # According to sudarshan, tab doesn't contain any images
