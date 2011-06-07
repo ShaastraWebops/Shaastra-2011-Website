@@ -54,7 +54,6 @@ class TeamQuestion(Question_base):
 class Question(models.Model):
     
     event = models.ForeignKey(Event)
-    
     question_number = models.IntegerField (blank = False, null = False, verbose_name = 'Number displayed in the button for this question.',) 
     instructions = models.TextField(blank = True, null = True)
     

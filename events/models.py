@@ -38,6 +38,7 @@ class Event(models.Model):
     
     # Registration
     registrable = models.BooleanField(default=False, help_text="Can participants register online?")
+    questions = models.BooleanField(default=False, help_text="Will the participant have to answer a questionnaire?")
     users = models.ManyToManyField(User,  blank=True, null=True, related_name='users_events')                  #may not be required
     chosen_users = models.ManyToManyField(User, blank=True, null=True, related_name='qualified_events')        #may not be required
 
