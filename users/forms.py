@@ -56,7 +56,7 @@ class AddUserForm(ModelForm):
     #recaptcha = recaptcha_fields.ReCaptchaField(label='Show us that you are not a bot!',help_text='Enter the words shown in the space provided')
     class Meta:
         model = models.UserProfile
-        fields=('username','email','age','gender','college','college_roll','mobile_number','password','password_again','want_hospi',)
+        fields=('username','email','age','gender','college','branch','college_roll','mobile_number','password','password_again','want_hospi',)
         #except = ('is_coord','coord_event')        
     
     

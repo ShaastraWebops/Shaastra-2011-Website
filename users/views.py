@@ -34,29 +34,27 @@ def user_registration(request):
             salt = sha.new(str(random.random())).hexdigest()[:5]
             activation_key = sha.new(salt+user.username).hexdigest()
             key_expires=datetime.datetime.today() + datetime.timedelta(2)
-            try:
-                userprofile = models.UserProfile(
-                    user = user,
-                    first_name = form.cleaned_data['first_name'],
-                    last_name  = form.cleaned_data['last_name'],
-                    gender     = form.cleaned_data['gender'],
-                    age = form.cleaned_data['age'],
-                    branch = form.cleaned_data['branch'],
-                    mobile_number = form.cleaned_data['mobile_number'],
-                    college =form.cleaned_data['college'],
-                    college_roll = form.cleaned_data['college_roll'],
-                    shaastra_id  = user.id , # is this right
-                    activation_key = activation_key,
-                    key_expires  = key_expires,
-                    want_hospi   = form.cleaned_data['want_hospi'],
+            #try:
+            userprofile = UserProfile(
+                user = user,
+                gender = form.cleaned_data['gender'],
+                age = form.cleaned_data['age'],
+                branch = form.cleaned_data['branch'],
+                mobile_number = form.cleaned_data['mobile_number'],
+                college =form.cleaned_data['college'],
+                college_roll = form.cleaned_data['college_roll'],
+                shaastra_id  = user.id , # is this right
+                activation_key = activation_key,
+                key_expires  = key_expires,
+                want_hospi   = form.cleaned_data['want_hospi'],
                     
-                )
-                try:
-                    userprofile.save()
-                except:
-                    print "error_ 2"                
-            except:
-                print "error_1"
+            )
+            #try:
+            userprofile.save()
+            #except:
+            #print "error_ 2"                
+            #except:
+            #    print "error_1"
     else:
         form = forms.AddUserForm()
     return render_to_response('users/register_user.html', locals(), context_instance= global_context(request))    
