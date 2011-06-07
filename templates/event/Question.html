@@ -1,86 +1,103 @@
 {%extends "index.html"%}
 
 {%block body%}
-<!--The tabtastic js -->
 
-<script type="text/javascript" src="http://www.shaastra.org/2011/media/tabtastic.js"></script>
+<!-- the jquery for slide toggle -->
+
+<script src="http://code.jquery.com/jquery-latest.js"></script>
 
   <div id="body">
 	     <h1>{{event_name}}</h1>
                    
               
-           <!-- Logout button -->
+           
+         <!--list of questions -->
 
-           <div id="logout">
-               {%if user.is_authenticated%} 
-                    <form action= "{{SITE_URL}}events/logout/" method="POST">
-                      {% csrf_token %}
-                    <input type="submit" value="LOGOUT" />
-                    </form>
-              {%endif%}
-           </div>
-              <br/><br/>
-
-         <!-- displaying the titles of tabs -->
-
-	<ul class="tabset_tabs">
-             {% for ques in ques_list %}
-    		{%if forloop.first%}
-	           <li><a href="#{{row.title|slugify}}" class="active">{{ques.title}}</a></li>
-		{%else%}
-		   <li><a href="#{{row.title|slugify}}">{{ques.title}}</a></li>
-		{%endif%}  
-	     {%endfor%}
-	</ul>
+        {% for ques in ques_list %}
 	
-
-        <!-- displaying the contents of tabs -->
-
-	{%for ques in ques_list%}
-	    <div id="{{row.title|slugify}}" class="tabset_content">
-			QUESTION ID : {{ques.id}} 
-			<br />
-			<p>{{ques.text|safe}}</p>
-			<br /><br />
-
-                        
-
-               <!-- The answer Button -->
-               
-               <div id="answer">
-                    <form action="answer/" method = 'GET'>
-            	       {% csrf_token %}
-	            <input type="hidden" value="{{ques.id}}" name=ques_id >
-	            <input type="submit" value="Answer">
-                    </form>
-               </div>
-
-                 
- 
-	  </div>
+        
+         <!-- for now the whole question is the href. later we can get an image of + sign before the question and make only that href -->
+     
+    	 <a href="#Question-{{ques.id}}">{{ques.content}}</a>
+		  
+	     
+	
 	{%endfor%}
 
-	<br/><br/>
+        
+
+	{%for ques in ques_list%}
+	   <div id="Question-{{ques.id}}">
+			
+                                 
+
+                  <!-- The answer Form -->
+               
+                  <div id="form">
+                        <form action="" method="POST" enctype="multipart/form-data">
+		            {% csrf_token %}
+		        <table>
+			    {{ form.as_table }}
+		        </table>
+		      
+                              <br /><br />
+
+                                <!--The Submit Button -->
+
+		               <input type="hidden" value="{{ques.id}}" />
+		               <input type="submit" value="Submit" />
+	                 </form>
+    
+                  </div> 
+          
+              
+
+                             
+       
+         
+	</div>  
+	{%endfor%}
+        
+
+
+
+                   <!-- the js for toggle -->
+
+                 <script>
+                     $("a").click(function () {
+                     $("#form").slideToggle("slow");
+                       });
+                 </script>
+
+         	<br/><br/>
+
+
+     
+
 
         <!-- the SAVE ANSWERS button -->
         <!-- once clicked will be redirected to the testevent page-->
+
 	<div id="save_answers">
            <form action="" method ="POST">
 	      {% csrf_token %}
-           <!--<input type="hidden" value="{{row.id}}" name="tab_id" />-->
+           
 	   <input type="submit" value="Save Answers" />
 	   </form>
 	</div>
 
 
+        <!-- the freeze answers button -->
+
         <div id="freeze_answers">
-           <form action="freeze_answers/" method ="POST">
+              <form action="freeze_answers/" method ="POST">
 	      {% csrf_token %}
-           <!--<input type="hidden" value="{{row.id}}" name="tab_id" />-->
-	   <input type="submit" value="Freeze Answers" />
-	   </form>
+             
+	      <input type="submit" value="Freeze Answers" />
+	      </form>
 	</div>  
 
 </div>
+
 
 {%endblock%}
