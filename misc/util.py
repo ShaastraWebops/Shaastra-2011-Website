@@ -154,7 +154,8 @@ def needs_authentication (func):
 def coords_only (func):
     def wrapper (*__args, **__kwargs):
         request = __args[0]
-        if request.user.groups.filter(name="Coords") or request.user.groups.filter(name="HospiCoords"):
+        userprofile= request.user.get_profile()
+        if userprofile.is_coord == True:
             return func (*__args, **__kwargs)
         else:
             request.session['access_denied'] = True
