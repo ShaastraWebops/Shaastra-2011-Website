@@ -30,31 +30,32 @@ def user_registration(request):
   
             user = User.objects.create_user(username = form.cleaned_data['username'], email = form.cleaned_data['email'],password = form.cleaned_data['password'],)
             user.is_active = False;
-            
             salt = sha.new(str(random.random())).hexdigest()[:5]
             activation_key = sha.new(salt+user.username).hexdigest()
             key_expires=datetime.datetime.today() + datetime.timedelta(2)
-            #try:
+
             userprofile = UserProfile(
-                user = user,
-                gender = form.cleaned_data['gender'],
-                age = form.cleaned_data['age'],
-                branch = form.cleaned_data['branch'],
-                mobile_number = form.cleaned_data['mobile_number'],
-                college =form.cleaned_data['college'],
-                college_roll = form.cleaned_data['college_roll'],
-                shaastra_id  = user.id , # is this right
-                activation_key = activation_key,
-                key_expires  = key_expires,
-                want_hospi   = form.cleaned_data['want_hospi'],
+                    user = user,
+                    gender     = form.cleaned_data['gender'],
+                    age = form.cleaned_data['age'],
+                    branch = form.cleaned_data['branch'],
+                    mobile_number = form.cleaned_data['mobile_number'],
+                    college =form.cleaned_data['college'],
+                    college_roll = form.cleaned_data['college_roll'],
+                    shaastra_id  = user.id , # is this right
+                    activation_key = activation_key,
+                    key_expires  = key_expires,
+                    want_hospi   = form.cleaned_data['want_hospi'],
                     
-            )
-            #try:
+                )
             userprofile.save()
-            #except:
-            #print "error_ 2"                
-            #except:
-            #    print "error_1"
+            mail_template=get_template('email/activate.html')
+            body = mail_template.render(Context({'username':user.username,
+							 'SITE_URL':settings.SITE_URL,
+							 'activationkey':user_profile.activation_key }))
+            #send_mail('Your new Shaastra2011 account confirmation', body,'noreply@shaastra.org', [user.email,], fail_silently=False)
+
+
     else:
         form = forms.AddUserForm()
     return render_to_response('users/register_user.html', locals(), context_instance= global_context(request))    
@@ -79,6 +80,41 @@ def college_registration (request):
                 return HttpResponse("exists")
         else:
             return HttpResponse("failed")
+            
+def activate (request, a_key = None ):
+    SITE_URL = settings.SITE_URL
+    if (a_key == '' or a_key==None):
+	    key_dne = True
+	    return render_to_response('registration/activated.html',locals(), context_instance= global_context(request))
+    else:
+        try:
+	        user_profile = models.UserProfile.objects.get(activation_key = a_key)
+        except ObjectDoesNotExist:
+	        prof_dne = True
+	    return render_to_response('registration/activated.html',locals(), context_instance= global_context(request))
+      
+      #Cleanup operation
+    if user_profile.key_expires < datetime.datetime.today():
+	    expired = True
+	    user = user_profile.user
+	    user.delete()
+	    user_profile.delete()
+	    return render_to_response('registration/activated.html',locals(), context_instance= global_context(request))
+	
+    else:
+	    user = user_profile.user
+	    user.is_active = True
+	    user.save()
+	    request.session["registered"]=True
+	
+	#send another mail
+	    mail_template=get_template('email/thankyou.html')
+        body = mail_template.render(Context({'username':user.username}))
+        send_mail('Account activated', body, 'noreply@shaastra.org', [user.email,], fail_silently=False)
+        
+	#print "IS AUTHENTICATED",user.is_authenticated()
+	    activated = True
+	    return render_to_response('registration/activated.html',locals(), context_instance= global_context(request))
 
 @needs_authentication
 def myshaastra(request):

@@ -1,0 +1,103 @@
+{%extends "index.html"%}
+
+{%block body%}
+
+<!-- the jquery for slide toggle -->
+
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+
+  <div id="body">
+	     <h1>{{event_name}}</h1>
+                   
+              
+           
+         <!--list of questions -->
+
+        {% for ques in ques_list %}
+	
+        
+         <!-- for now the whole question is the href. later we can get an image of + sign before the question and make only that href -->
+     
+    	 <a href="#Question-{{ques.id}}">{{ques.content}}</a>
+		  
+	     
+	
+	{%endfor%}
+
+        
+
+	{%for ques in ques_list%}
+	   <div id="Question-{{ques.id}}">
+			
+                                 
+
+                  <!-- The answer Form -->
+               
+                  <div id="form">
+                        <form action="" method="POST" enctype="multipart/form-data">
+		            {% csrf_token %}
+		        <table>
+			    {{ form.as_table }}
+		        </table>
+		      
+                              <br /><br />
+
+                                <!--The Submit Button -->
+
+		               <input type="hidden" value="{{ques.id}}" />
+		               <input type="submit" value="Submit" />
+	                 </form>
+    
+                  </div> 
+          
+              
+
+                             
+       
+         
+	</div>  
+	{%endfor%}
+        
+
+
+
+                   <!-- the js for toggle -->
+
+                 <script>
+                     $("a").click(function () {
+                     $("#form").slideToggle("slow");
+                       });
+                 </script>
+
+         	<br/><br/>
+
+
+     
+
+
+        <!-- the SAVE ANSWERS button -->
+        <!-- once clicked will be redirected to the testevent page-->
+
+	<div id="save_answers">
+           <form action="" method ="POST">
+	      {% csrf_token %}
+           
+	   <input type="submit" value="Save Answers" />
+	   </form>
+	</div>
+
+
+        <!-- the freeze answers button -->
+
+        <div id="freeze_answers">
+              <form action="freeze_answers/" method ="POST">
+	      {% csrf_token %}
+             
+	      <input type="submit" value="Freeze Answers" />
+	      </form>
+	</div>  
+
+</div>
+
+
+{%endblock%}
