@@ -70,7 +70,6 @@ class UserProfile(models.Model):
     mobile_number 	= models.CharField		(max_length = 15, null=True , help_text='Please enter your current mobile number')
     college 		= models.ForeignKey		(College)
     college_roll 	= models.CharField		(max_length = 40, default = 'Enter College Id/Roll No.', null=True)
-    email_id        = models.EmailField     (null = True, blank = True)
     shaastra_id 	= models.CharField		(max_length = 20, unique = True, null=True)
     activation_key 	= models.CharField		(max_length = 40, null=True)
     key_expires 	= models.DateTimeField	(null=True)
