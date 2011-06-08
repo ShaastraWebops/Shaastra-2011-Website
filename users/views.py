@@ -51,12 +51,12 @@ def user_registration(request):
             mail_template=get_template('email/activate.html')
             body = mail_template.render(Context({'username':user.username,
 							 'SITE_URL':settings.SITE_URL,
-							 'activationkey':user_profile.activation_key }))
+							 'activationkey':userprofile.activation_key }))
             send_mail('Your new Shaastra2011 account confirmation', body,'noreply@shaastra.org', [user.email,], fail_silently=False)
 
     else:
         form = forms.AddUserForm()
-    return render_to_response('users/register_user.html', locals(), context_instance= global_context(request))    
+    return render_to_response('users/register_user_raw.html', locals(), context_instance= global_context(request))    
                             
 def college_registration (request):
     if request.method == 'GET':
