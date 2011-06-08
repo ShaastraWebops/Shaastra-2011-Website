@@ -44,8 +44,7 @@ def user_registration(request):
                     shaastra_id  = user.id , # is this right
                     activation_key = activation_key,
                     key_expires  = key_expires,
-                    
-                )
+                    )
             userprofile.save()
             mail_template=get_template('email/activate.html')
             body = mail_template.render(Context({'username':user.username,
@@ -85,31 +84,26 @@ def activate (request, a_key = None ):
     SITE_URL = settings.SITE_URL
     if (a_key == '' or a_key==None):
 	    key_dne = True
-	    return render_to_response('registration/activated.html',locals(), context_instance= global_context(request))
+	    
     else:
         try:
 	        user_profile = UserProfile.objects.get(activation_key = a_key)
         except ObjectDoesNotExist:
             prof_dne = True
-            return render_to_response('registration/activated.html',locals(), context_instance= global_context(request))
         if user_profile.key_expires < datetime.datetime.today():
 	        expired = True
 	        user = user_profile.user
 	        user.delete()
 	        user_profile.delete()
-	        return render_to_response('registration/activated.html',locals(), context_instance= global_context(request))
 	
         else:
             user = user_profile.user
             user.is_active = True
             user.save()
             request.session["registered"]=True
-            mail_template=get_template('email/thankyou.html')
-            body = mail_template.render(Context({'username':user.username}))
-            send_mail('Account activated', body, 'noreply@shaastra.org', [user.email,], fail_silently=False)
             activated = True
-            return render_to_response('registration/activated.html',locals(), context_instance= global_context(request))
-
+    return render_to_response('registration/activated.html',locals(), context_instance= global_context(request))
+    
 @needs_authentication
 def myshaastra(request):
     user = request.user
