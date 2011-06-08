@@ -91,15 +91,7 @@
                     </form>
                </div>
 
-                 <!--the delete tab button --> 
-                  
-                   <div id="delete_tab">
-                      <form action="delete_tab/" method = 'POST'>
-		        {% csrf_token %}
-		      <input type="hidden" value="{{row.id}}" name=tab_id>
-		      <input type="submit" value="Delete Tab">
-                      </form>
-                   </div>
+                 
  
            {%else%}
 
@@ -122,15 +114,35 @@
                                     <form action="" method="POST" enctype="multipart/form-data">
 		                     {% csrf_token %}
 		                     <table>
-			            checking {{ques.Q_Number}}
+			            {{ques.title|safe}}
 		                    </table>
 		      
                               <br /><br />
+                                
+                                 <!-- the delete question button -->
+   
+                                <div id="delete_question">
+                                 <form action="{{SITE_URL}}events/dashboard/delete_question/" method = 'POST'>
+		                     {% csrf_token %}
+		                 <input type="hidden" value="{{ques.id}}" name=ques_id>
+		                 <input type="submit" value="Delete Question">
+                                   </form>
+                                 </div>
 
-                                <!--The Submit Button -->
+                                 <!-- the edit question button -->
 
-		               <input type="hidden" value="{{ques.Q_Number}}" />
-		               <input type="submit" value="Submit" />
+                                   <div id="edit_question">
+                                   <form action="edit_question/" method = 'GET'>
+            	                        {% csrf_token %}
+	                            <input type="hidden" value="{{ques.id}}" name=ques_id >
+	                            <input type="submit" value="Edit Question">
+                                  </form>
+                                  </div>
+
+
+
+
+
 	                        </form>
                               </div>   
                          </div> 
@@ -160,24 +172,24 @@
         <!-- the SAVE ANSWERS button -->
         <!-- once clicked will be redirected to the testevent page-->
 
-	<div id="save_answers">
+	<!--<div id="save_answers">
            <form action="" method ="POST">
 	      {% csrf_token %}
            
 	   <input type="submit" value="Save Answers" />
 	   </form>
-	</div>
+	</div>-->
 
 
         <!-- the freeze answers button -->
 
-        <div id="freeze_answers">
+       <!-- <div id="freeze_answers">
               <form action="freeze_answers/" method ="POST">
 	      {% csrf_token %}
              
 	      <input type="submit" value="Freeze Answers" />
 	      </form>
-	</div>  
+	</div>-->  
 
 
 
@@ -195,6 +207,18 @@
 
    
            {%endif%}
+
+
+
+               <!--the delete tab button --> 
+                  
+                   <div id="delete_tab">
+                      <form action="delete_tab/" method = 'POST'>
+		        {% csrf_token %}
+		      <input type="hidden" value="{{row.id}}" name=tab_id>
+		      <input type="submit" value="Delete Tab">
+                      </form>
+                   </div>
     
 	  </div>
 	{%endfor%}

@@ -163,40 +163,40 @@ def edit_tab_content(request):
 
 @needs_authentication    
 @coords_only
-def edit_questions_tab_content(request):  
+def edit_questions(request):  
     print "hello"
     if request.method=='POST':      
             data=request.POST.copy()
-            try:
-                form = forms.EditTabForm(data,request.FILES)
-            except :  
-                form = forms.EditTabForm(data)
+            #try:
+               # form = forms.EditTabForm(data,request.FILES)
+            #except :  
+            form = forms.EditQuestionForm(data)
             
             if form.is_valid():
-                tab_to_edit=models.QuickTabs.objects.get(id=request.session["tab_id"])            
-                tab_to_edit.title= form.cleaned_data['title']
-                tab_to_edit.text = form.cleaned_data['text']
-                tab_to_edit.pref = form.cleaned_data['tab_pref']
-                tab_to_edit.save()
-                file_list = models.TabFiles.objects.filter(Tab = tab_to_edit)
+                ques_to_edit=models.Question.objects.get(id=request.session["ques_id"])            
+                ques_to_edit.title= form.cleaned_data['title']
+                #tab_to_edit.text = form.cleaned_data['text']
+                ques_to_edit.Q_Number = form.cleaned_data['Q_Number']
+                ques_to_edit.save()
+                #file_list = models.TabFiles.objects.filter(Tab = tab_to_edit)
                 return HttpResponseRedirect ("%sevents/dashboard/"%settings.SITE_URL)
             else: 
                 is_edit_tab=True
-                formadd = forms.AddFileForm()
-                tab_to_edit=models.QuickTabs.objects.get(id=request.session["tab_id"])
-                file_list = models.TabFiles.objects.filter(Tab = tab_to_edit)  
-            return render_to_response('event/add_tab.html', locals(), context_instance= global_context(request))
+                #formadd = forms.AddFileForm()
+                ques_to_edit=models.Question.objects.get(id=request.session["ques_id"])
+                #file_list = models.TabFiles.objects.filter(Tab = tab_to_edit)  
+            return render_to_response('event/add_questions.html', locals(), context_instance= global_context(request))
 
     else:
-        tab_to_edit = models.QuickTabs.objects.get(id=request.GET["tab_id"])
-        request.session["tab_id"]=request.GET["tab_id"]
+        ques_to_edit = models.Question.objects.get(id=request.GET["ques_id"])
+        request.session["ques_id"]=request.GET["ques_id"]
         userprof = request.user.get_profile()
-        if tab_to_edit.event == userprof.coord_event and userprof.is_coord:
-            form = forms.EditTabForm(initial={'title' : tab_to_edit.title , 'text' :tab_to_edit.text, 'tab_pref': tab_to_edit.pref })
-            file_list = models.TabFiles.objects.filter(Tab = tab_to_edit)
-            formadd = forms.AddFileForm()
+        if ques_to_edit.event == userprof.coord_event and userprof.is_coord:
+            form = forms.EditQuestionForm(initial={'title' : ques_to_edit.title ,'Q_Number': ques_to_edit.Q_Number })
+            #file_list = models.TabFiles.objects.filter(Tab = tab_to_edit)
+            #formadd = forms.AddFileForm()
             is_edit_tab=True
-            return render_to_response('event/add_tab.html', locals(), context_instance= global_context(request))
+            return render_to_response('event/add_questions.html', locals(), context_instance= global_context(request))
         else:
             raise Http404
         
@@ -310,6 +310,21 @@ def remove_quick_tab(request):
         tab_file.delete()
     tab_to_delete.delete()
     return HttpResponseRedirect('%sevents/dashboard/'%settings.SITE_URL)
+
+
+@needs_authentication            
+@coords_only
+def remove_question(request):
+    ques_id=request.POST["ques_id"]
+    ques_to_delete = models.Question.objects.get(id = ques_id)
+    #ques_list = models.Question.objects.filter(Tab = tab_to_delete)
+    #for tab_file in tab_files_list:
+        #tab_file.delete()
+    ques_to_delete.delete()
+    return HttpResponseRedirect('%sevents/dashboard/'%settings.SITE_URL)
+
+
+
 
 @needs_authentication
 @coords_only
