@@ -84,10 +84,33 @@ def dashboard(request):
             t.file_list = models.TabFiles.objects.filter(Tab = t)
             if(t.question_tab):
                 questions_added = True
+                ques_list = models.Question.objects.filter(event__name = event_name).order_by('Q_Number')
         print questions_added
         return render_to_response('event/dashboard.html', locals(), context_instance= global_context(request))
     else:
         raise Http404        
+
+
+@needs_authentication    
+@coords_only
+def Question_Tab(request):
+    userprof = request.user.get_profile()
+    if userprof.is_coord:
+        event_name = userprof.coord_event.name
+        ques_list = models.Question.objects.filter(event__name = event_name).order_by('Q_Number')  
+        
+        #for t in tab_list:
+            #t.file_list = models.TabFiles.objects.filter(Tab = t)
+            #if(t.question_tab):
+                #questions_added = True
+        print questions_added
+        return render_to_response('event/Question.html', locals(), context_instance= global_context(request))
+    else:
+        raise Http404        
+
+
+
+
 
 @needs_authentication    
 @coords_only
@@ -250,6 +273,32 @@ def add_questions_tab(request):
         form = forms.EditTabForm()
         is_edit_tab=False
     return render_to_response('event/add_tab.html', locals(), context_instance= global_context(request))    
+
+@needs_authentication
+@coords_only
+def add_question(request):
+    userprof=request.user.get_profile()
+    event_name = userprof.coord_event.name
+    
+    if request.method=='POST':
+        data=request.POST.copy()
+        #request.session["tab_id"]=request.GET["tab_id"]    
+        #if request.FILES:
+            #form = forms.EditQuestionForm(data,request.FILES)
+        #else :
+        form = forms.EditQuestionForm(data)    
+        if form.is_valid():
+           newquestion=models.Question(Q_Number=form.cleaned_data['Q_Number'], title=form.cleaned_data['title'],event= userprof.coord_event)
+           newquestion.save()
+            #if request.FILES:     
+                #fileuploadhandler(request.FILES["tabfile"], event_name, newtab.id, form.cleaned_data['filetitle'])
+           return HttpResponseRedirect ("%sevents/dashboard/"%settings.SITE_URL)
+    else:
+        form = forms.EditQuestionForm()
+        is_edit_tab=False
+    return render_to_response('event/add_tab.html', locals(), context_instance= global_context(request))    
+ 
+
 
 @needs_authentication            
 @coords_only

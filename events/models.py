@@ -148,6 +148,22 @@ class TabFiles(models.Model):
         pass
 
 
+class Question(models.Model):
+    #Tab=models.ForeignKey(QuickTabs)
+    Q_Number = models.IntegerField(max_length=2) 
+    title=models.CharField(max_length=150 , blank = True , null = True )
+    event= models.ForeignKey(Event)
+    
+
+    def __unicode__(self):
+        return self.title
+    
+    class Meta:
+    	ordering = ['Q_Number']
+    
+    class Admin:
+        pass
+    
 '''
 class TabImage(models.Model):
     # TASK: Each tab can have more than one image. Each tab can be associated with more than one TabImage object(s)
