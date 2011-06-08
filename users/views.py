@@ -55,7 +55,7 @@ def user_registration(request):
 
     else:
         form = forms.AddUserForm()
-    return render_to_response('users/register_user_raw.html', locals(), context_instance= global_context(request))    
+    return render_to_response('users/register_user.html', locals(), context_instance= global_context(request))    
                             
 def college_registration (request):
     if request.method == 'POST':

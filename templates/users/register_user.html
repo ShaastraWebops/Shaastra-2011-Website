@@ -24,19 +24,12 @@
   You have already registered, and are logged in.
 </div>
 {% endif %}
-<div class = "warning">
- For instructions,
- <a href="{{SITE_URL}}/register/instructions/user/">
-  click here
- </a>
- .
-</div>
  <p>
   For quick help and format, use the help icons <a onmouseover="Tip('Yep, ones that look like these.')" onmouseout="UnTip()"><img height=20 width=20 src="{{ MEDIA_URL }}/images/help_icon.png"></a> near each field.
   </p>
  <p>
   If you have already registered, click
-  <a href="{{SITE_URL}}/home/login/">
+  <a href="{{SITE_URL}}events/login/">
    here
   </a>
   to login. Otherwise, please fill in the following details to register:
@@ -48,7 +41,7 @@
 <td width = "50%" valign = "top">
 
   <div class="info">
- <form id="reg_form" action="{{SITE_URL}}/register/user/" method="POST" onload="onblurAttribute()">
+ <form id="reg_form" action="{{SITE_URL}}register/user/" method="POST" onload="onblurAttribute()">
 
 <table name="register" >
   {% for field in  form  %}
@@ -71,7 +64,7 @@
 
 
 <script type="text/javascript">
-img = '<img height=20 width=20 src="{{ MEDIA_URL }}/images/error.png">';
+//img = '<img height=20 width=20 src="{{ MEDIA_URL }}/images/error.png">';
 function validateUsername(fld) {   //done
     var error = "";
     var illegalChars = /[^A-Za-z0-9_.]/; // allow letters, numbers, and underscores
@@ -121,35 +114,6 @@ function isInteger(s) {
   return (s.toString().search(/^-?[0-9]+$/) == 0);
 }
  
-function validateName(fld) {   //done
-    var error = "";
-    fld.value = fld.value.toLowerCase();
-    if (fld.value == "") error = "This field is required.";
-    else if (! isAlpha(fld.value)) error = "Names cannot contain anything other than alphabets.";
-    if (error!="") {
-        document.getElementById('First name_div').innerHTML= error;
-	document.getElementById('First name_img').innerHTML= img;
-	return 1;
-    } 
-    document.getElementById('First name_img').innerHTML= "";
-    document.getElementById('First name_div').innerHTML="";
-    return 0;
-}
-
-function validateLastName(fld) {   //done
-    var error = "";
-    fld.value = fld.value.toLowerCase();
-    if (fld.value == "") error = "This field is required.";
-    else if (! isAlpha(fld.value)) error = "Names cannot contain anything other than alphabets.";
-    if (error!="") {
-        document.getElementById('Last name_div').innerHTML= error;
-	document.getElementById('Last name_img').innerHTML= img;
-	return 1;
-    }
-    document.getElementById('Last name_img').innerHTML= "";
-    document.getElementById('Last name_div').innerHTML="";
-    return 0;
-}
 
 function validateAge(fld) {   //done
     var error = "";
@@ -214,27 +178,16 @@ function validateRollNumber(fld) {   //done
     if (fld.value == "") error = "This field is required.";
     else if (!isAlphaNumeric(fld.value) || isAlpha(fld.value)) error = "Enter a valid roll number."
     if (error!="") {
-        document.getElementById('College Id/Roll Number_div').innerHTML= error;
-	document.getElementById('College Id/Roll Number_img').innerHTML= img;
+        document.getElementById('College roll_div').innerHTML= error;
+	document.getElementById('College roll_img').innerHTML= img;
 	return 1;
     }
-    document.getElementById('College Id/Roll Number_img').innerHTML= "";
-    document.getElementById('College Id/Roll Number_div').innerHTML="";
+    document.getElementById('College roll_img').innerHTML= "";
+    document.getElementById('College roll_div').innerHTML="";
     return 0;
 }
 
-function validateCollege(fld) {
-    var error = "";
-    if (fld.value == "") error = "This field is required.";
-    if (error!="") {
-        document.getElementById('College_div').innerHTML= error;
-	document.getElementById('College_img').innerHTML= img;
-	return 1;
-    }
-    document.getElementById('College_img').innerHTML= "";
-    document.getElementById('College_div').innerHTML="";
-    return 0;
-}
+
 
 function validateCaptcha(fld) {   //done
     var error = "";
@@ -249,49 +202,37 @@ function validateCaptcha(fld) {   //done
     return 0;
 }
 
-function validateHospi(fld,fld2) {   //done
-    var error = "";
-    if (!(fld.checked || fld2.checked)) error = "This field is required.";
-    if (error!="") {
-        document.getElementById('Want to be considered for accommodation ?_div').innerHTML= error;
-	document.getElementById('Want to be considered for accommodation ?_img').innerHTML= img;
-	return 1;
-    } 
-    document.getElementById('Want to be considered for accommodation ?_img').innerHTML= "";
-    document.getElementById('Want to be considered for accommodation ?_div').innerHTML="";
-    return 0;
-}
 
 function validateForm() {
+
     if (
 	 validateUsername    (document.getElementById ("id_username")  )
-	+validateName        (document.getElementById ("id_first_name")  )
-	+validateLastName    (document.getElementById ("id_last_name")  )
-	+validateAge	     (document.getElementById ("id_age")  )
+    +validateAge	     (document.getElementById ("id_age")  )
 	+validateBranch      (document.getElementById ("id_branch")  )
 	+validateEmail	     (document.getElementById ("id_email")  )
 	+validatePassword    (document.getElementById ("id_password"), document.getElementById ("id_password_again")  )
 	+validateMobileNumber(document.getElementById ("id_mobile_number")  )
 	+validateRollNumber  (document.getElementById ("id_college_roll")  )
-	+validateCollege     (document.getElementById ("coll_input")  )
  	+validateCaptcha     (document.getElementById ("recaptcha_response_field")  )
-	+validateHospi       (document.getElementById ("id_want_hospi_0"), document.getElementById ("id_want_hospi_1")   )
-	== 0  ){ document.forms[0].submit();}
-    else window.location.href = '#reg_form';
+	== 0  ){ 
+	document.forms["reg_form"].submit();
+	    }
+    else {
+    window.location.href = '#reg_form';
+    
+    }
 }
 
 function onblurAttribute() {
    document.getElementById ("id_username").setAttribute('onblur' , 'validateUsername(document.getElementById ("id_username"))');
-   document.getElementById ("id_first_name").setAttribute('onblur' , 'validateName(document.getElementById ("id_first_name"))');
-   document.getElementById ("id_last_name").setAttribute('onblur' , 'validateLastName(document.getElementById ("id_last_name"))');
    document.getElementById ("id_age").setAttribute('onblur' , 'validateAge(document.getElementById ("id_age"))');
    document.getElementById ("id_branch").setAttribute('onblur' , 'validateBranch(document.getElementById ("id_branch"))');
    document.getElementById ("id_email").setAttribute('onblur' , 'validateEmail(document.getElementById ("id_email"))');
    document.getElementById ("id_mobile_number").setAttribute('onblur' , 'validateMobileNumber(document.getElementById ("id_mobile_number"))');
    document.getElementById ("id_college_roll").setAttribute('onblur' , 'validateRollNumber(document.getElementById ("id_college_roll"))');
-   document.getElementById ("coll_input").setAttribute('onblur' , 'validateCollege(document.getElementById ("coll_input"))');
-   document.getElementById ("recaptcha_response_field").setAttribute('onblur' , 'validateCaptcha(document.getElementById ("recaptcha_response_field"))');
    document.getElementById ("id_password_again").setAttribute('onblur' , 'validatePassword(document.getElementById ("id_password"), document.getElementById ("id_password_again"))');
+   document.getElementById ("recaptcha_response_field").setAttribute('onblur' , 'validateCaptcha(document.getElementById ("recaptcha_response_field"))');
+
 }
 onblurAttribute();
 // var branches=new Array("Arts","Accounting","Applied Mechanics / Mechatronics",
@@ -330,12 +271,7 @@ onblurAttribute();
 <td valign = "top">
 
 <div class = "info">
-<a href="javascript:show_events()">
-    Click here
-   </a>
-   to check for events with accommodation
-   <br />
-   <i>
+    <i>
     Can't find your college?
     <a href="#reg_coll" onclick="showNewCollegeDiv()">
      Click Here
@@ -388,12 +324,12 @@ if(xmlhttp.readyState==4)
 function create_coll(){
 
   var url;
-  url ="{{SITE_URL}}/register/user/college/?";
+  url ="{{SITE_URL}}register/college/?";
   url=url+"id2-name="+escape(document.getElementById("id_id2-name").value);
   url=url+"&id2-state="+escape(document.getElementById("id_id2-state").value);
   url=url+"&id2-city="+escape(document.getElementById("id_id2-city").value);
 
-  xmlhttp.open("GET",url,true);
+  xmlhttp.open("POST",url,true);
   xmlhttp.send(null);
 }
 
@@ -432,7 +368,7 @@ function close_evHospi(){
     </p>
    </div><!-- closes div register -->
    <div class="register">
-    <form action="#" onsubmit="create_coll(); return false;">
+    <form action="{{SITE_URL}}register/college/" >
      <div class="info">
       <p>
        Please fill in the following details:
