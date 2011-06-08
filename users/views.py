@@ -88,7 +88,7 @@ def activate (request, a_key = None ):
 	    return render_to_response('registration/activated.html',locals(), context_instance= global_context(request))
     else:
         try:
-	        user_profile = models.UserProfile.objects.get(activation_key = a_key)
+	        user_profile = UserProfile.objects.get(activation_key = a_key)
         except ObjectDoesNotExist:
             prof_dne = True
             return render_to_response('registration/activated.html',locals(), context_instance= global_context(request))
