@@ -7,6 +7,7 @@ from django.template.context import Context, RequestContext
 from django import forms
 from main_test.misc.util import *               
 from main_test.settings import *
+from submissions import *
 import models,forms
 import datetime
 
@@ -115,9 +116,9 @@ def Question_Tab(request):
 @needs_authentication    
 @coords_only
 def edit_tab_content(request):
-    tab_to_edit=models.QuickTabs.objects.get(id=request.session["tab_id"])            
-    if(tab_to_edit.question_tab):
-        return edit_questions_tab_content(request)
+    #tab_to_edit=models.QuickTabs.objects.get(id=request.session["tab_id"])            
+    #if(tab_to_edit.question_tab):
+        #return edit_questions_tab_content(request)
     print "don't come here"
     if request.method=='POST':      
             data=request.POST.copy()
