@@ -44,7 +44,6 @@ def user_registration(request):
                     shaastra_id  = user.id , # is this right
                     activation_key = activation_key,
                     key_expires  = key_expires,
-                    want_hospi   = form.cleaned_data['want_hospi'],
                     
                 )
             userprofile.save()
