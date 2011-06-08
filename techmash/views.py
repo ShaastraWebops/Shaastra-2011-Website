@@ -27,7 +27,7 @@ def register(request):
             return HttpResponseRedirect("%stechmash/accounts/login/" % settings.SITE_URL)
     else:
         form = UserCreationForm()
-        c={'form':form)
+        c={'form':form}
     return render_to_response("registration/register.html",locals(),context_instance= global_context(request))
 
 def profile(request):
