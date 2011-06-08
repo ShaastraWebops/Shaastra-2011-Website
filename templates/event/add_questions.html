@@ -38,58 +38,9 @@
           
           
 
-	<br /><br />
+	
          
-       <!--List displaying the currently uploaded files -->
-
-        <div id="fileupload">
-		<div id="filetitle">
-			CURRENTLY UPLOADED FILES : 
-		</div>
-
-		<br/>
-             <div id="filelist"> 
-		{%if file_list%}
-			{%for file in file_list%}
-				<a href={{file.url}}>{{file.title}}</a>
-				<form action="{{SITE_URL}}events/dashboard/delete_file/" method='POST'>
-					{% csrf_token %}
-					<input type="hidden" value="{{file.id}}" name="tabfile_id" />
-					<input type="submit" value="Delete"/>
-				</form>
-				<br/>
-			{%endfor%}
-		{%else%}
-			NO CURRENTLY UPLOADED FILES
-			<br/>
-		{%endif%}
-            </div>
-
-                <br/><br/>
-               
-              <!--The add file form -->
-
-                <div id="file_form">
-                      {%if is_edit_tab%}
- 
-                            <form action="{{SITE_URL}}events/dashboard/add_file/" method='POST' enctype="multipart/form-data" >
-                                {% csrf_token %}
-                                   {{formadd.as_table}}  
-                           <input type="hidden" value="{{row.id}}" name="tabfile_id" />
-                           <input type="submit" value="Add File"/>
-                          </form>
-         
-         
-  
-                    {%else%}
-                       PLEASE CREATE TAB BEFORE UPLOADING FILES!!! 
-		        
-                    {%endif%}
-
-
-	        </div>
-         
-
+       
                  <br/><br/>
 
 

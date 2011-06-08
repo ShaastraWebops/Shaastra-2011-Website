@@ -41,6 +41,7 @@
 	<br /><br />
          
        <!--List displaying the currently uploaded files -->
+        {%if not is_question%}
 
         <div id="fileupload">
 		<div id="filetitle">
@@ -88,10 +89,12 @@
 
 
 	        </div>
-         
+            </div> 
+          {%endif%}
+
 
                  <br/><br/>
-
+                
 
                     <!--The Back To DashBoard Button -->
 
@@ -103,7 +106,7 @@
 
 
 
-        </div>
+        
 
 
 </div>

@@ -119,7 +119,7 @@ def edit_tab_content(request):
     #tab_to_edit=models.QuickTabs.objects.get(id=request.session["tab_id"])            
     #if(tab_to_edit.question_tab):
         #return edit_questions_tab_content(request)
-    print "don't come here"
+    #print "don't come here"
     if request.method=='POST':      
             data=request.POST.copy()
             try:
@@ -141,6 +141,7 @@ def edit_tab_content(request):
                 return HttpResponseRedirect ("%sevents/dashboard/"%settings.SITE_URL)
             else: 
                 is_edit_tab=True
+                is_question=False
                 formadd = forms.AddFileForm()
                 tab_to_edit=models.QuickTabs.objects.get(id=request.session["tab_id"])
                 file_list = models.TabFiles.objects.filter(Tab = tab_to_edit)  
@@ -155,6 +156,7 @@ def edit_tab_content(request):
             file_list = models.TabFiles.objects.filter(Tab = tab_to_edit)
             formadd = forms.AddFileForm()
             is_edit_tab=True
+            is_question=False
         #use file_list to display the urls of the files associated with each tab
             return render_to_response('event/add_tab.html', locals(), context_instance= global_context(request))
         else:
@@ -183,6 +185,7 @@ def edit_questions(request):
                 return HttpResponseRedirect ("%sevents/dashboard/"%settings.SITE_URL)
             else: 
                 is_edit_tab=True
+                is_question=True
                 #formadd = forms.AddFileForm()
                 ques_to_edit=models.Question.objects.get(id=request.session["ques_id"])
                 #file_list = models.TabFiles.objects.filter(Tab = tab_to_edit)  
@@ -197,6 +200,7 @@ def edit_questions(request):
             #file_list = models.TabFiles.objects.filter(Tab = tab_to_edit)
             #formadd = forms.AddFileForm()
             is_edit_tab=True
+            is_question=True
             return render_to_response('event/add_questions.html', locals(), context_instance= global_context(request))
         else:
             raise Http404
@@ -220,13 +224,15 @@ def add_file(request):
                     event_name = userprof.coord_event.name
                     fileuploadhandler(request.FILES['tabfile'], event_name, request.session["tab_id"], formadd.cleaned_data['filetitle'])
                 #return HttpResponseRedirect ("%sevents/dashboard/edit_tab/?tab_id=%d"%settings.SITE_URL%drequest.session["tab_id"])
-                is_edit_tab=True  
+                is_edit_tab=True 
+                is_question=False  
                 return render_to_response('event/add_tab.html', locals(), context_instance= global_context(request))
     #else:
             tab_to_edit=models.QuickTabs.objects.get(id=request.session["tab_id"])
             file_list = models.TabFiles.objects.filter(Tab = tab_to_edit)
             form = forms.EditTabForm(initial={'title' : tab_to_edit.title , 'text' :tab_to_edit.text, 'tab_pref': tab_to_edit.pref }) 
-            is_edit_tab=True  
+            is_edit_tab=True
+            is_question=False  
             #formadd = forms.AddFileForm()
             return render_to_response('event/add_tab.html', locals(), context_instance= global_context(request))
 
@@ -251,6 +257,7 @@ def add_quick_tab(request):
     else:
         form = forms.EditTabForm()
         is_edit_tab=False
+        is_question=False 
     return render_to_response('event/add_tab.html', locals(), context_instance= global_context(request))    
 
 
@@ -273,6 +280,7 @@ def add_questions_tab(request):
     else:
         form = forms.EditTabForm()
         is_edit_tab=False
+        is_question=True
     return render_to_response('event/add_tab.html', locals(), context_instance= global_context(request))    
 
 @needs_authentication
@@ -297,7 +305,8 @@ def add_question(request):
     else:
         form = forms.EditQuestionForm()
         is_edit_tab=False
-    return render_to_response('event/add_tab.html', locals(), context_instance= global_context(request))    
+        is_question=True
+    return render_to_response('event/add_questions.html', locals(), context_instance= global_context(request))    
  
 
 
