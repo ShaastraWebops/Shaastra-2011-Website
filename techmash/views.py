@@ -27,13 +27,10 @@ def register(request):
             return HttpResponseRedirect("%stechmash/accounts/login/" % settings.SITE_URL)
     else:
         form = UserCreationForm()
-    return render_to_response("registration/register.html", Context({'form': form,}), locals(),context_instance= global_context(request))
+    return render_to_response("registration/register.html",  Context({'form': form}), locals(),context_instance= global_context(request))
 
 def profile(request):
-    t = get_template('techmash/profile.html')
-    html = t.render(Context({'username': request.user.username}))
-    return HttpResponse(html, locals(),context_instance= global_context(request))
-	return render_to_response("/register.html", {'form': form,}, locals(),context_instance= global_context(request))
+ 	return render_to_response("techmash/profile.html", Context({'usename': request.user.username}), locals(),context_instance= global_context(request))
 
 def upload_file1(request):
     if request.method == 'POST':
@@ -60,7 +57,7 @@ def upload_file1(request):
             return HttpResponseRedirect(("%stechmash/upload/" % settings.SITE_URL))
     else:
         form = UploadFileForm()
-        return render_to_response('techmash/upload_file.html', {'form': form}, locals(),context_instance= global_context(request))
+        return render_to_response('techmash/upload_file.html', Context({'form': form}), locals(),context_instance= global_context(request))
 
 def mashphotos(request):
     if request.method == 'POST':
