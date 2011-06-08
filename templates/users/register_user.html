@@ -121,35 +121,6 @@ function isInteger(s) {
   return (s.toString().search(/^-?[0-9]+$/) == 0);
 }
  
-function validateName(fld) {   //done
-    var error = "";
-    fld.value = fld.value.toLowerCase();
-    if (fld.value == "") error = "This field is required.";
-    else if (! isAlpha(fld.value)) error = "Names cannot contain anything other than alphabets.";
-    if (error!="") {
-        document.getElementById('First name_div').innerHTML= error;
-	document.getElementById('First name_img').innerHTML= img;
-	return 1;
-    } 
-    document.getElementById('First name_img').innerHTML= "";
-    document.getElementById('First name_div').innerHTML="";
-    return 0;
-}
-
-function validateLastName(fld) {   //done
-    var error = "";
-    fld.value = fld.value.toLowerCase();
-    if (fld.value == "") error = "This field is required.";
-    else if (! isAlpha(fld.value)) error = "Names cannot contain anything other than alphabets.";
-    if (error!="") {
-        document.getElementById('Last name_div').innerHTML= error;
-	document.getElementById('Last name_img').innerHTML= img;
-	return 1;
-    }
-    document.getElementById('Last name_img').innerHTML= "";
-    document.getElementById('Last name_div').innerHTML="";
-    return 0;
-}
 
 function validateAge(fld) {   //done
     var error = "";
@@ -223,18 +194,7 @@ function validateRollNumber(fld) {   //done
     return 0;
 }
 
-function validateCollege(fld) {
-    var error = "";
-    if (fld.value == "") error = "This field is required.";
-    if (error!="") {
-        document.getElementById('College_div').innerHTML= error;
-	document.getElementById('College_img').innerHTML= img;
-	return 1;
-    }
-    document.getElementById('College_img').innerHTML= "";
-    document.getElementById('College_div').innerHTML="";
-    return 0;
-}
+
 
 function validateCaptcha(fld) {   //done
     var error = "";
@@ -263,35 +223,35 @@ function validateHospi(fld,fld2) {   //done
 }
 
 function validateForm() {
+
     if (
 	 validateUsername    (document.getElementById ("id_username")  )
-	+validateName        (document.getElementById ("id_first_name")  )
-	+validateLastName    (document.getElementById ("id_last_name")  )
 	+validateAge	     (document.getElementById ("id_age")  )
 	+validateBranch      (document.getElementById ("id_branch")  )
 	+validateEmail	     (document.getElementById ("id_email")  )
 	+validatePassword    (document.getElementById ("id_password"), document.getElementById ("id_password_again")  )
 	+validateMobileNumber(document.getElementById ("id_mobile_number")  )
 	+validateRollNumber  (document.getElementById ("id_college_roll")  )
-	+validateCollege     (document.getElementById ("coll_input")  )
  	+validateCaptcha     (document.getElementById ("recaptcha_response_field")  )
 	+validateHospi       (document.getElementById ("id_want_hospi_0"), document.getElementById ("id_want_hospi_1")   )
-	== 0  ){ document.forms[0].submit();}
+	== 0  ){ document.forms["reg_form"].submit();
+	    }
     else window.location.href = '#reg_form';
 }
 
 function onblurAttribute() {
    document.getElementById ("id_username").setAttribute('onblur' , 'validateUsername(document.getElementById ("id_username"))');
-   document.getElementById ("id_first_name").setAttribute('onblur' , 'validateName(document.getElementById ("id_first_name"))');
-   document.getElementById ("id_last_name").setAttribute('onblur' , 'validateLastName(document.getElementById ("id_last_name"))');
+   //document.getElementById ("id_first_name").setAttribute('onblur' , 'validateName(document.getElementById ("id_first_name"))');
+   //document.getElementById ("id_last_name").setAttribute('onblur' , 'validateLastName(document.getElementById ("id_last_name"))');
    document.getElementById ("id_age").setAttribute('onblur' , 'validateAge(document.getElementById ("id_age"))');
    document.getElementById ("id_branch").setAttribute('onblur' , 'validateBranch(document.getElementById ("id_branch"))');
    document.getElementById ("id_email").setAttribute('onblur' , 'validateEmail(document.getElementById ("id_email"))');
    document.getElementById ("id_mobile_number").setAttribute('onblur' , 'validateMobileNumber(document.getElementById ("id_mobile_number"))');
    document.getElementById ("id_college_roll").setAttribute('onblur' , 'validateRollNumber(document.getElementById ("id_college_roll"))');
-   document.getElementById ("coll_input").setAttribute('onblur' , 'validateCollege(document.getElementById ("coll_input"))');
-   document.getElementById ("recaptcha_response_field").setAttribute('onblur' , 'validateCaptcha(document.getElementById ("recaptcha_response_field"))');
+   //document.getElementById ("coll_input").setAttribute('onblur' , 'validateCollege(document.getElementById ("coll_input"))');
    document.getElementById ("id_password_again").setAttribute('onblur' , 'validatePassword(document.getElementById ("id_password"), document.getElementById ("id_password_again"))');
+   document.getElementById ("recaptcha_response_field").setAttribute('onblur' , 'validateCaptcha(document.getElementById ("recaptcha_response_field"))');
+
 }
 onblurAttribute();
 // var branches=new Array("Arts","Accounting","Applied Mechanics / Mechatronics",

@@ -91,7 +91,7 @@ def activate (request, a_key = None ):
 	        user_profile = models.UserProfile.objects.get(activation_key = a_key)
         except ObjectDoesNotExist:
 	        prof_dne = True
-	    return render_to_response('registration/activated.html',locals(), context_instance= global_context(request))
+	        return render_to_response('registration/activated.html',locals(), context_instance= global_context(request))
       
       #Cleanup operation
     if user_profile.key_expires < datetime.datetime.today():
@@ -106,15 +106,15 @@ def activate (request, a_key = None ):
 	    user.is_active = True
 	    user.save()
 	    request.session["registered"]=True
-	
+	    
 	#send another mail
-	    mail_template=get_template('email/thankyou.html')
-        body = mail_template.render(Context({'username':user.username}))
-        send_mail('Account activated', body, 'noreply@shaastra.org', [user.email,], fail_silently=False)
-        
-	#print "IS AUTHENTICATED",user.is_authenticated()
-	    activated = True
-	    return render_to_response('registration/activated.html',locals(), context_instance= global_context(request))
+    mail_template=get_template('email/thankyou.html')
+    body = mail_template.render(Context({'username':user.username}))
+    send_mail('Account activated', body, 'noreply@shaastra.org', [user.email,], fail_silently=False)
+    
+    #print "IS AUTHENTICATED",user.is_authenticated()
+    activated = True
+    return render_to_response('registration/activated.html',locals(), context_instance= global_context(request))
 
 @needs_authentication
 def myshaastra(request):
