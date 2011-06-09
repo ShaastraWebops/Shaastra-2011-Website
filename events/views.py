@@ -61,6 +61,9 @@ def show_quick_tab(request,event_name=None):
     if tab_list.count():
         for t in tab_list:
             t.file_list = models.TabFiles.objects.filter(Tab = t)
+            if(t.question_tab):
+                    questions_added = True
+                    ques_list = models.Question.objects.filter(event__name = event_name).order_by('Q_Number')
     #So each object in tab_list will have a file_list which is a list of urls to be displayed for the correspdong tab    
         display_edit = False
         if request.method=='POST': 

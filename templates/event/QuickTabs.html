@@ -26,10 +26,14 @@
      <!-- The tab content -->
 
     {%for row in tab_list%}
+
+      
         <div id="{{row.title|slugify}}" class="tabset_content">
-            <p>{{row.text|safe}}</p>
-            <br />
-            <br />
+            
+              {%if not row.question_tab%} 
+                 <p>{{row.text|safe}}</p>
+                    <br />
+                    <br />
 
               <!-- displaying file list -->
 
@@ -49,8 +53,98 @@
 
                </div>
             </div>
-        </div>
-    {%endfor%}
+
+
+            {%else%}
+
+                 {% for ques in ques_list %}
+	              <!-- for now the whole question is the href. later we can get an image of + sign before the question and make only that href -->
+                            <div id="Ques{{ques.Q_Number}}">
+                            <a href="#Question{{ques.Q_Number}}">{{ques.Q_Number}}</a><br/>
+                            </div>         
+                     
+
+        
+                   
+	             
+	                  <div id="Question{{ques.Q_Number}}">
+			                               
+
+                                 <!-- The answer Form -->
+               
+                                 <div id="form{{ques.Q_Number}}">
+                                    <form action="" method="POST" enctype="multipart/form-data">
+		                     {% csrf_token %}
+		                     <table>
+			            {{ques.title|safe}}
+		                    </table>
+		      
+                              <br /><br />
+                                
+                                    
+                                       
+	                                  
+                                <!-- as of now a html text area. once views are written will be made proper --> 
+                                      <!--<input type="textarea" name="Answer" size="400"value="Answer" />-->
+                                      <textarea name="answers" row=100 column=100></textarea><br />
+                                      <input type="submit" value="Submit" />
+	                             
+
+
+                 
+
+	                        </form>
+                              </div>   
+                         </div> 
+                       <br />
+
+
+                      
+                      
+                    
+                 
+                      
+
+                  <script>
+                     $("#Question{{ques.Q_Number}}").hide();
+                     $("#Ques{{ques.Q_Number}}").click(function () {
+                     $("#Question{{ques.Q_Number}}").toggleClass("inactive").slideToggle("slow");
+                       });
+                 </script>
+
+                  {%endfor%}
+         	<br/><br/>
+
+
+     
+
+
+        <!-- the SAVE ANSWERS button -->
+        <!-- once clicked will be redirected to the testevent page-->
+
+	<div id="save_answers">
+           <form action="" method ="POST">
+	      {% csrf_token %}
+           
+	   <input type="submit" value="Save Answers" />
+	   </form>
+	</div>
+
+
+        <!-- the freeze answers button -->
+
+        <div id="freeze_answers">
+              <form action="freeze_answers/" method ="POST">
+	      {% csrf_token %}
+             
+	      <input type="submit" value="Freeze Answers" />
+	      </form>
+	</div>  
+
+   {%endif%}
+
+     </div>
+{%endfor%}
 
     <br/><br/>
 
