@@ -7,7 +7,7 @@ from django.template.context import Context, RequestContext
 from django import forms
 from main_test.misc.util import *               
 from main_test.settings import *
-from submissions import *
+#from submissions import *
 import models,forms
 import datetime
 
