@@ -54,7 +54,6 @@ class AddUserForm(ModelForm):
     password=forms.CharField(min_length=6, max_length=30, widget=forms.PasswordInput,help_text='Enter a password that you can remember')
     password_again=forms.CharField(max_length=30, widget=forms.PasswordInput,help_text='Enter the same password that you entered above')
     recaptcha = recaptcha_fields.ReCaptchaField(label='Show us that you are not a bot!',help_text='Enter the words shown in the space provided')
-    college = forms.CharField(choices=models.College.objects.all())
     class Meta:
         model = models.UserProfile
         fields=('username','password','password_again','email','age','gender','college','college_roll','branch','mobile_number')
