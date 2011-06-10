@@ -1,17 +1,67 @@
 {%extends "index.html"%}
 
+{%block media_location%}
+   
+                <link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}media1/style/css/main.css" />  
+		<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}media1/style/css/events-tab.css" />   
+		<script type="text/javascript" src="{{MEDIA}}media1/scripts/js/jquery-1.5.2-min.js"></script>
+		<script type="text/javascript" src="{{MEDIA_URL}}media1/scripts/js/jquery.jscrollpane.min.js"></script>
+		<script type="text/javascript" src="{{MEDIA_URL}}media1/scripts/js/jquery.mousewheel.js"></script>
+		
+                <script type="text/javascript">
+			var elem=['intro','pstmnt','rules','faq','contact','extraTabs'];
+                        {%for row in tab_list%}
+                             elem[{{forloop.counter0}}]='{{row.title|slugify}}';
+                         {%endfor%}
+                       
+			var tabHeights=['420px','500px','600px','700px','800px','2000px'];
+			//var i_=0,p=0,r=0,f=0,c=0,e=0;
+			
+			$(function(){
+				$('#event-details').jScrollPane({showArrows: true});
+			});
+			window.onload=function(){		
+				document.getElementById('page').style.display="block";
+				setVisible(elem[0]);
+				setBgGreen(elem[0]);
+			}
+
+			$(document).ready(function() {
+				$("#tabs").click(function(e) {
+					var id=e.target.id;
+					setBgGreen(id);
+					setVisible(id);							
+				});	
+			
+			});
+			
+			function setVisible(e){
+				document.getElementById(e+'_').style.visibility="visible";
+				
+				for(i=0;i<2;i++)	if(elem[i]==e)	document.getElementById('jspPane').style.height=tabHeights[i];
+				for(i=0;i<2;i++)	if(elem[i]!=e)	document.getElementById(elem[i]+'_').style.visibility="hidden";
+				for(i=0;i<2;i++)	if(elem[i]!=e)	document.getElementById(elem[i]+'_').style.height="0px"; 
+				
+				$(function(){$('#event-details').jScrollPane({showArrows: true});});
+			}
+			
+			function setBgGreen(e){
+				document.getElementById(e).style.backgroundColor="#93C66E";
+				for(i=0;i<2;i++)	if(elem[i]!=e)	document.getElementById(elem[i]).style.backgroundColor="#5185BE";
+			}
+		</script>
+  
+               
+
+<!--<script src="http://code.jquery.com/jquery-latest.js"></script>-->
+
+
+{%endblock%}
+
+
+
 {%block body%}
-<!--The tabtastic js -->
-
-<script type="text/javascript" src="http://www.shaastra.org/2011/media/tabtastic.js"></script>
-
-<!-- the jquery for slide toggle -->
-
-<script src="http://code.jquery.com/jquery-latest.js"></script>
-
-
-  <div id="body">
-	     <h1>{{event_name}}</h1>
+<h1>{{event_name}}</h1>
          <!--The Edit Event button -->
    
           <div id="edit_event">
@@ -36,25 +86,26 @@
               {%endif%}
            </div>
               <br/><br/>
-         <!-- displaying the titles of tabs -->
+     
+<div id="page" style="display:none;">
+            {{event_name}}
+		<div id="eventsTab">
+			<div id="tabs">
 
-	<ul class="tabset_tabs">
-             {% for row in tab_list %}
-    		{%if forloop.first%}
-	           <li><a href="#{{row.title|slugify}}" class="active">{{row.title}}</a></li>
-		{%else%}
-		   <li><a href="#{{row.title|slugify}}">{{row.title}}</a></li>
-		{%endif%}  
-	     {%endfor%}
-	</ul>
-	
-
-        <!-- displaying the contents of tabs -->
-
-	{%for row in tab_list%}
-	    <div id="{{row.title|slugify}}" class="tabset_content">
-
-                 {%if not row.question_tab%}
+                             {% for row in tab_list%}
+				<div id="{{row.title|slugify }}">{{row.title}}</div>
+			    <!--<div id="pstmnt">Problem Statement</div>
+				<div id="rules">Rules</div>
+				<div id="faq">FAQ</div>
+				<div id="contact">Contact</div>	
+			    	<div id="extraTabs">More Tabs Here</div>-->
+                            {%endfor%}				
+			</div>
+                        
+			<div id="event-details">
+                              {%for row in tab_list %}
+				<div id="{{row.title|slugify }}_">
+                                       {%if not row.question_tab%}
 			ROW ID : {{row.id}} 
 			<br />
 			ROW PREFERENCE : {{row.pref}} 
@@ -220,10 +271,13 @@
                       </form>
                    </div>
     
-	  </div>
-	{%endfor%}
-
-	<br/><br/>
+				</div>
+                              {%endfor%}
+					</div>
+		</div>
+		
+	          
+             <br/><br/>
 
     <!-- the add tab button -->
 	<div id="add_tab">
@@ -243,6 +297,14 @@
        </form>
     </div>  
 	{% endif %}
+		
+	<!--<div id="preload" style="visibility:hidden; height:0px;">
+		<img src="intro_.png" />
+		<img src="pstmnt_.png" />
+		<img src="rules_.png" />
+		<img src="faq_.png" />
+		<img src="contact_.png" />
+	</div>-->
 
 </div>
 
