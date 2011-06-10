@@ -1,82 +1,82 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
 
- <head>
-  <link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}tabtastic.css" />
-  <link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}style/style/css/main.css" />
-  <title>SHAASTRA 2011 Main Site Beta</title>
- <head>
-  <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/jquery-1.5.2-min.js"></script>
-  <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/jquery.resizeOnApproach.1.0.js"></script>
-  <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/script.js"></script>
-  <link rel="shortcut icon" href="" />
- <body>
-  <div id="header">
-   <div id="logo">
-    <img class="logo" src="{{MEDIA_URL}}media/images/logo.png" />
-   </div>
-   <div id="social">
-    <div id="share" class="share" >
-     <div class="dock">
-       <a  href="#"><img class="icon" src="{{MEDIA_URL}}media/images/twitter.png" alt=""></a>
-       <a  href="#"><img  class="icon" src="{{MEDIA_URL}}media/images/facebook.png" alt=""></a> 
-       <a  href="#"><img class="icon" src="{{MEDIA_URL}}media/images/blogger.png" alt=""></a> 
-       <a  href="#"><img class="icon" src="{{MEDIA_URL}}media/images/youtube.png" alt=""></a> 
-     </div>   
-      <div id="search">
-       <div id="searchwrapper">
-        <form name="searchform" action="" method="">
-         <input class="searchtext" type="text" name="search" length="20" value="Search"/>
-         <input class="mglass" type="image" src="{{MEDIA_URL}}media/images/search.png" name="search" alt="Search" />
-        </form>
-       </div> 
-      </div>
-     </div>
-   </div>
-  </div>
-  <div id="container">
-   <div id="menu">
-    <img class="menubg" src="{{MEDIA_URL}}media/images/menu_bg.png" />
-   </div>
-{%block body%}
-   {%block main%}
-   <div id="sshow">
-    <img class="main" src="{{MEDIA_URL}}media/images/main.png" />
-   </div>
-{%endblock main%}
-  </div>
-  <div id="content">
-   <div id="left">
-   </div>
-   <div id="right">
-  {%block sponsor%}
-    <div id="bosch">
-     <img class="bosch" src="{{MEDIA_URL}}media/images/bosch.png" />
-    </div>
-{%endblock sponsor%}
-    {% block login %}
-    <div id="login">
-     <form name="login" action="" method="">
-      <input type="text" class="logintext" name="login" size="40"value="Username" /><br /><br />
-      <input type="password" class="logintext" name="pwd" size="40" maxlength="" value="Password" />
-     </form>
-    </div>
-    {% endblock login%}
-   </div>
-  </div>
-{%block content%}{%endblock content%}
-{%endblock body%}
-  <div id="footer">
-   <div id="foot">
-    <a href="#" class="footertext">About</a>&nbsp;&nbsp;&nbsp;<img src="{{MEDIA_URL}}media/images/dot.png" />&nbsp;&nbsp;&nbsp;
-    <a href="#" class="footertext">Help</a>&nbsp;&nbsp;&nbsp;<img src="{{MEDIA_URL}}media/images/dot.png" />&nbsp;&nbsp;&nbsp;
-    <a href="#" class="footertext">Blog</a>&nbsp;&nbsp;&nbsp;<img src="{{MEDIA_URL}}media/images/dot.png" />&nbsp;&nbsp;&nbsp;
-    <a href="#" class="footertext">Mobile</a>&nbsp;&nbsp;&nbsp;<img src="{{MEDIA_URL}}media/images/dot.png" />&nbsp;&nbsp;&nbsp;
-    <a href="#" class="footertext">Sponsors</a>&nbsp;&nbsp;&nbsp;<img src="{{MEDIA_URL}}media/images/dot.png" />&nbsp;&nbsp;&nbsp;
-    <a href="#" class="footertext">Developers</a>&nbsp;&nbsp;&nbsp;<img src="{{MEDIA_URL}}media/images/dot.png" />&nbsp;&nbsp;&nbsp;
-    <a href="#" class="footertext">Resources</a>&nbsp;&nbsp;&nbsp;<img src="{{MEDIA_URL}}media/images/dot.png" />&nbsp;&nbsp;&nbsp;
-    <a href="#" class="footertext">Shaastra
-   </div>
-  </div>
- </body>
-</html>
+  <head>
+  
+       <title>Shaastra 2011</title>
+       <link rel="stylesheet" href="{{MEDIA_URL}}css/main.css" type="text/css"/>
+       <link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}css/template_2.css" />
+       <script type="text/javascript" src="{{MEDIA_URL}}js1/jquery.js"></script>
+       <script type="text/javascript" src="{{MEDIA_URL}}js1/main.js"></script>
+       <link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}media1/style/css/main.css" />
+  {%block media_location %}  
+  {%endblock%}
+  </head>
+
+
+
+
+<body>
+<div id="main" align="center">
+{%block header%}
+<div id="header">
+<div id="logo"><img src="{{MEDIA_URL}}img/logo.png"/></div>
+{%block sponsor %}
+<div id="spons_area"></div>
+{%endblock%}
+<div id="logos">
+  <div id="fblogo"></div>
+  <div id="bloggerlogo"></div>
+  <div id="youtubelogo"></div>
+  <div id="twitterlogo"></div>
+</div>
+{%block updates%}
+<div id="updates_container" align="left">
+<div id="updates_bar"></div></div>
+
+{%endblock%}
+
+{%block top_navigation%}
+<div id="navbar"><ul>
+  <li class="navItem"><a href="#">Home</a></li>
+  <li class="navItem"><a href="#">Events</a></li>
+  <li class="navItem"><a href="#">Hospitality</a></li>
+  <li class="navItem"><a href="#">Sponsership</a></li>
+  <li class="navItem"><a href="#">Gallery</a></li>
+</ul></div>
+
+{%endblock%}
+
+</div>
+
+
+{%block my_shaastra%}
+
+<div id = "bottomrighttext">
+                        My Shaastra stuff
+						<img src="{{MEDIA_URL}}img/arbit.png" id="arbit" \>
+                    </div>
+{%endblock%}
+ 
+                </div>
+
+{%endblock header%}
+{%block body%}{%endblock body%}
+
+
+
+
+{%block footer%}
+                <div id = "footer">
+                    <div id = "focontent">
+                   <a href = "#footer"> <img src = "{{MEDIA_URL}}img/contact.png" id = "c" \></a>
+                        <a href = "#footer"> <img src = "{{MEDIA_URL}}img/pp.png" id = "pp" \></a>
+                            <a href = "#footer"> <img src = "{{MEDIA_URL}}img/blog.png" id = "b"\></a>
+							   <a href = "#footer"> <img src = "{{MEDIA_URL}}img/events.png" id = "e"\></a>
+                                <a href = "#footer"> <img src = "{{MEDIA_URL}}img/media.png" id = "m"\></a>
+                                    <a href = "#footer"> <img src = "{{MEDIA_URL}}img/myshaastra.png" id = "ms" \></a>
+                                        <a href = "#footer"> <img src = "{{MEDIA_URL}}img/credits.png" id = "cr"\></a>
+                </div>
+                </div>
+{%endblock%}
+</div>
+</body>
+
