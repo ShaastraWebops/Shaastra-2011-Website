@@ -174,27 +174,30 @@
 											<table border="1">
 											{%for options in options_list %}
                                                 {%if options.question == ques %}
-                                                <tr><td>{{options.option}}</td><td><input type="radio" name="option_{{options.id}}" value="{{options.option}}"/></td><td>{{options.text}}</td>
-                                                <!-- Delete Option-->
-                                                <div id="delete_option">
-                                                {%if is_coord %}
-                                                <td>
-                                                    <form action="{{SITE_URL}}events/dashboard/delete_option/" method = 'POST'>
-                                                    {% csrf_token %}
-                                                    <input type="hidden" value="{{options.id}}" name=option_id>
-                                                    <input type="submit" value="Delete Choice">
-                                                    </form>
-                                                </td>
-                                                {%endif%}
-                                                </div>
-                                                </tr>
+                                                <tr><td>{{options.option}}</td><td><input type="radio" name="options_{{forloop.counter}}" value="{{options.option}}"/></td><td>{{options.text}}</td></tr>
                                                 {%endif%}
 											{%endfor%}
-											<table>
-											<input type="submit" value="Submit">
+											</table>
 											</form>
-											 
-			          					 
+											{%if not is_coord%}<input type="submit" value="Submit">{%endif%}
+											<!-- Delete Option-->
+											<table>
+											{%for options in options_list %}
+                                                {%if options.question == ques %}
+                                                    {%if is_coord %}
+                                                        <div id="delete_option">
+                                                        <tr><td>
+                                                        <form action="{{SITE_URL}}events/dashboard/delete_option/" method = 'POST'>
+                                                        {% csrf_token %}
+                                                        <input type="hidden" value="{{options.id}}" name=option_id>
+                                                        <input type="submit" value="Delete Choice -- ({{options.option}},{{options.text}})">
+                                                        </form>
+                                                        </td></tr>
+                                                        </div>
+                                                    {%endif%}
+                                                {%endif%}
+											{%endfor%}
+											</table>
                                 <div id="add_choices">
                                     <form action="add_choices/" method = 'GET'>
                                     {% csrf_token %}

@@ -263,6 +263,8 @@ def add_quick_tab(request):
         is_question=False 
     return render_to_response('event/add_tab.html', locals(), context_instance= global_context(request))    
     
+@needs_authentication            
+@coords_only
 def add_choices(request):
     userprof=request.user.get_profile()
     event_name = userprof.coord_event.name
@@ -351,7 +353,16 @@ def remove_question(request):
         #tab_file.delete()
     ques_to_delete.delete()
     return HttpResponseRedirect('%sevents/dashboard/'%settings.SITE_URL)
-
+    
+@needs_authentication            
+@coords_only
+def delete_option(request):
+    option_id=request.POST["option_id"]
+    print option_id
+    option_to_delete = models.MCQ_option.objects.get(id = option_id)
+    print option_to_delete.text
+    option_to_delete.delete()
+    return HttpResponseRedirect('%sevents/dashboard/'%settings.SITE_URL)
 
 
 
