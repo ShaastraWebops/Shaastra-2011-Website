@@ -22,6 +22,7 @@ import sha,random,datetime
 
 def user_registration(request):
     colls = College.objects.all()
+    blue = "HAHAHAHAHA"
     if request.method=='POST':
         data = request.POST.copy()
         form = forms.AddUserForm(data)
