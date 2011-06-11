@@ -128,9 +128,9 @@
             <table border="1">
             <form>
             {%for options in options_list %}
-            {%if options.question == ques %}
-            <tr><td>{{options.option}}</td><td><input type="radio" name="answer_chosen" value="{{options.option}}"/></td><td>{{options.text}}</td></tr>
-            {%endif%}
+                {%if options.question == ques %}
+                    <tr><td>{{options.option}}</td><td><input type="radio" name="answer_chosen" value="{{options.option}}"/></td><td>{{options.text}}</td></tr>
+                {%endif%}
             {%endfor%}
             </form>
             </table>
