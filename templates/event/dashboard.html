@@ -169,15 +169,13 @@
                                 {% if ques.question_type == "MCQ" %}
                                 <p>This is a multiple choice question. Please select your choice and click on "Submit".</p>
                                 <p> This will be functional soon.</p>
+                                <!--
 											<div id="mcq_question">
-                                <!-- Add MCQ choices. -->
-										<!--			
 											 {%for options in options_list %}
 											 	{%if options.question == ques %}
 											 		{{options.option}} -> {{options.text}}
 											 	{%endif%}		
 			          					 {%endfor%}
-											-->
                                 <div id="add_choices">
                                     <form action="add_choices/" method = 'GET'>
                                     {% csrf_token %}
@@ -186,6 +184,7 @@
                                     </form>
                                 </div>
 											</div>
+											-->
                                 {% else %}
                                 <p> Choose the file you want to upload and click on "Upload".</p>
                                 <p> This will be functional soon.</p>
