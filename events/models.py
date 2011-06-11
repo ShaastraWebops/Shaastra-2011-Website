@@ -153,7 +153,7 @@ class Question(models.Model):
     Q_Number = models.IntegerField(max_length=2) 
     title=models.CharField(max_length=1500, blank = True , null = True )
     event= models.ForeignKey(Event)
-    question_type = models.CharField(max_length=15 , blank = True , null = True )
+    question_type = models.CharField(max_length=1500, blank = True , null = True )
 
     def __unicode__(self):
         return self.title
