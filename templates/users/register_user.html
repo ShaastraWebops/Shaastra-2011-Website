@@ -1,9 +1,9 @@
 {% extends "index.html" %}
 
 {% block body %}
-<script language="javascript" type="text/javascript" src="{{MEDIA_URL}}/js/wz_tooltip.js">
+<script language="javascript" type="text/javascript" src="http://www.shaastra.org/includes/2009/userportal/js/wz_tooltip.js">
   </script>
-<script language="javascript" type="text/javascript" src="{{MEDIA_URL}}js/js/script/actb.js"></script>
+<script language="javascript" type="text/javascript" src="http://www.shaastra.org/includes/2009/userportal/js/actb.js"></script>
     {% if registered_college %}
 <div class="register">
  College successfully registered.
@@ -25,7 +25,7 @@
 </div>
 {% endif %}
  <p>
-  For quick help and format, use the help icons <a onmouseover="Tip('Yep, ones that look like these.')" onmouseout="UnTip()"><img height=20 width=20 src="{{ MEDIA_URL }}/images/help_icon.png"></a> near each field.
+  For quick help and format, use the help icons <a onmouseover="Tip('Yep, ones that look like these.')" onmouseout="UnTip()"><img height=20 width=20 src="{{ MEDIA_URL }}img/help_icon.png"></a> near each field.
   </p>
  <p>
   If you have already registered, click
@@ -47,7 +47,7 @@
   {% for field in  form  %}
 <tr>
 	<td id="{{ field.label }}_img">{% if field.errors %}
-	<img height=20 width=20 src="{{ MEDIA_URL }}/images/error.png">
+	<img height=20 width=20 src="{{ MEDIA_URL }}img/error.png">
 	    {% endif %}
 	</td>
 	<th>{{ field.label_tag }}</th>
@@ -56,7 +56,7 @@
 	{% if field.errors %}{% for error in field.errors %} {{ error|escape }} </br> {% endfor %}{% endif %}
 	</div>
 	</td>
-	<td><a onmouseover="Tip('{{ field.help_text }}')" onmouseout="UnTip()"><img height=20 width=20 src="{{ MEDIA_URL }}/images/help_icon.png"></a></td>
+	<td><a onmouseover="Tip('{{ field.help_text }}')" onmouseout="UnTip()"><img height=20 width=20 src="{{ MEDIA_URL }}img/help_icon.png"></a></td>
 </tr><tr></tr><tr></tr><tr></tr><tr></tr>
   {% endfor %}
 </table>
@@ -68,7 +68,7 @@
 
 
 <script type="text/javascript">
-//img = '<img height=20 width=20 src="{{ MEDIA_URL }}/images/error.png">';
+img = '<img height=20 width=20 src="{{ MEDIA_URL }}img/error.png">';
 function validateUsername(fld) {   //done
     var error = "";
     var illegalChars = /[^A-Za-z0-9_.]/; // allow letters, numbers, and underscores
@@ -118,6 +118,19 @@ function isInteger(s) {
   return (s.toString().search(/^-?[0-9]+$/) == 0);
 }
  
+function validateCollege(fld) {
+    var error = "";
+    if (fld.value == "") error = "This field is required.";
+    if (error!="") {
+        document.getElementById('College_div').innerHTML= error;
+	document.getElementById('College_img').innerHTML= img;
+	return 1;
+    }
+    document.getElementById('College_img').innerHTML= "";
+    document.getElementById('College_div').innerHTML="";
+    return 0;
+}
+
 
 function validateAge(fld) {   //done
     var error = "";
@@ -218,6 +231,7 @@ function validateForm() {
 	+validateMobileNumber(document.getElementById ("id_mobile_number")  )
 	+validateRollNumber  (document.getElementById ("id_college_roll")  )
  	+validateCaptcha     (document.getElementById ("recaptcha_response_field")  )
+ 	+validateCollege     (document.getElementById ("coll_input")  )
 	== 0  ){ 
 	document.forms["reg_form"].submit();
 	    }
@@ -235,6 +249,7 @@ function onblurAttribute() {
    document.getElementById ("id_mobile_number").setAttribute('onblur' , 'validateMobileNumber(document.getElementById ("id_mobile_number"))');
    document.getElementById ("id_college_roll").setAttribute('onblur' , 'validateRollNumber(document.getElementById ("id_college_roll"))');
    document.getElementById ("id_password_again").setAttribute('onblur' , 'validatePassword(document.getElementById ("id_password"), document.getElementById ("id_password_again"))');
+   document.getElementById ("coll_input").setAttribute('onblur' , 'validateCollege(document.getElementById ("coll_input"))');
    document.getElementById ("recaptcha_response_field").setAttribute('onblur' , 'validateCaptcha(document.getElementById ("recaptcha_response_field"))');
 
 }
@@ -381,7 +396,7 @@ function close_evHospi(){
       {% for field in coll_form %}
 <tr>
   <td>{{ field.label_tag }}</td><td align="left">{{ field }}</td>
-<td><a onmouseover="Tip('{{ field.help_text }}')" onmouseout="UnTip()"><img height=20 width=20 src="{{ MEDIA_URL }}/images/help_icon.png"></a></td>
+<td><a onmouseover="Tip('{{ field.help_text }}')" onmouseout="UnTip()"><img height=20 width=20 src="{{ MEDIA_URL }}img/help_icon.png"></a></td>
     </tr>
       {% endfor %}
       </table>
