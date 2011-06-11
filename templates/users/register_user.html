@@ -1,6 +1,18 @@
 {% extends "index.html" %}
 
 {% block body %}
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
+  <link rel="stylesheet" href="http://dev.jquery.com/view/trunk/plugins/autocomplete/demo/main.css" type="text/css" />
+  <link rel="stylesheet" href="http://dev.jquery.com/view/trunk/plugins/autocomplete/jquery.autocomplete.css" type="text/css" />
+  <script type="text/javascript" src="http://dev.jquery.com/view/trunk/plugins/autocomplete/lib/jquery.bgiframe.min.js"></script>
+  <script type="text/javascript" src="http://dev.jquery.com/view/trunk/plugins/autocomplete/lib/jquery.dimensions.js"></script>
+  <script type="text/javascript" src="http://dev.jquery.com/view/trunk/plugins/autocomplete/jquery.autocomplete.js"></script>
+  <script>
+   $(document).ready(function(){
+    var data = "Core Selectors Attributes Traversing Manipulation CSS Events Effects Ajax Utilities".split(" ");
+$("#coll_input").autocomplete(data);
+  });
+  </script>
 <script language="javascript" type="text/javascript" src="http://www.shaastra.org/includes/2009/userportal/js/wz_tooltip.js">
   </script>
 <script language="javascript" type="text/javascript" src="http://www.shaastra.org/includes/2009/userportal/js/actb.js"></script>
@@ -413,7 +425,7 @@ function close_evHospi(){
 </table>
 
 <script>
- var nam = new Array({%for coll in colls%}"{{ coll.name }},{{ coll.city }}",{%endfor%}"");
+ var nam = new Array("{%for coll in colls%}{{ coll.name }},{{ coll.city }},{%endfor%}");
       var obj2 = actb(document.getElementById('coll_input'),nam);
  actb(document.getElementById('coll_input'),nam);
       function actb_add(name){
