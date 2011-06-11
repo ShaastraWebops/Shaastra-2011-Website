@@ -9,7 +9,7 @@
   <script type="text/javascript" src="http://dev.jquery.com/view/trunk/plugins/autocomplete/jquery.autocomplete.js"></script>
   <script>
    $(document).ready(function(){
-    var data = "Core Selectors Attributes Traversing Manipulation CSS Events Effects Ajax Utilities".split(" ");
+    var data = new array("{%for coll in colls%}{{ coll.name }},{{ coll.city }},{%endfor%}");
 $("#coll_input").autocomplete(data);
   });
   </script>
