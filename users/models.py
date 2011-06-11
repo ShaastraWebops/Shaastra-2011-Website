@@ -64,8 +64,6 @@ class College(models.Model):
 #Author: Swaroop Ramaswamy - inital model                
 class UserProfile(models.Model):
     user 			= models.ForeignKey		(User, unique = True)
-    first_name      = models.CharField(max_length=30)
-    last_name       = models.CharField(max_length=30)
     gender 			= models.CharField		(max_length = 1, choices = GENDER_CHOICES, default = 'F')   #Defaults to 'girl' ;-)
     age 			= models.IntegerField 	(default = 18 , help_text = 'You need to be over 12 and under 80 years of age to participate')
     branch 			= models.CharField		(max_length = 50, default = 'Enter Branch Here', blank = True, null=True, help_text = 'Your branch of study')
