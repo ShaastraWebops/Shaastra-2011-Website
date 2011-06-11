@@ -159,14 +159,6 @@
                    
 	             
 	                  <div id="Question{{ques.Q_Number}}">
-			                               
-
-                                 <!-- The answer Form -->
-               
-                                 <div id="form{{ques.Q_Number}}">
-                                    <form action="" method="POST" enctype="multipart/form-data">
-		                     {% csrf_token %}
-		                     <table>
 		                     {% if ques.question_type == "NORMAL" %}
                                 <p>Type your answer in the textarea and hit the "Submit" button.</p>
                                 <textarea rows="6" cols="40" >This is not fully functional right now. Clicking on submit does nothing.</textarea><br/>
@@ -175,6 +167,15 @@
                                 {% if ques.question_type == "MCQ" %}
                                 <p>This is a multiple choice question. Please select your choice and click on "Submit".</p>
                                 <p> This will be functional soon.</p>
+
+                                <!-- Add MCQ choices.-->
+                                <div id="add_choices">
+                                    <form action="{{SITE_URL}}events/dashboard/add_choices/" method = 'POST'>
+                                    {% csrf_token %}
+                                    <input type="hidden" value="{{ques.id}}" name=ques_id>
+                                    <input type="submit" value="Add More Choices">
+                                    </form>
+                                </div>
                                 {% else %}
                                 <p> Choose the file you want to upload and click on "Upload".</p>
                                 <p> This will be functional soon.</p>
@@ -182,11 +183,7 @@
                                     <input type="file" name="blah" size="30"><br/>
                                     <input type="submit" value="Upload">
                                 {% endif %}
-		                     {% endif %}
-		                    </table>
-		      
-                              <br /><br />
-                                
+		                     {% endif %}                            
                                  <!-- the delete question button -->
    
                                 <div id="delete_question">
@@ -290,7 +287,7 @@
                       <form action="delete_tab/" method = 'POST'>
 		        {% csrf_token %}
 		      <input type="hidden" value="{{row.id}}" name=tab_id>
-		      <input type="submit" value="Delete Tab">
+		      <input type="submit" value="Delete {{row.name}} Tab">
                       </form>
                    </div>
     

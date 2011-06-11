@@ -172,7 +172,6 @@ def edit_tab_content(request):
 @needs_authentication    
 @coords_only
 def edit_questions(request):  
-    print "hello"
     if request.method=='POST':      
             data=request.POST.copy()
             #try:
@@ -260,7 +259,25 @@ def add_quick_tab(request):
         is_edit_tab=False
         is_question=False 
     return render_to_response('event/add_tab.html', locals(), context_instance= global_context(request))    
-
+    
+def add_choices(request):
+    userprof=request.user.get_profile()
+    event_name = userprof.coord_event.name
+    if request.method=='POST':
+        data=request.POST.copy()
+        if request.FILES:
+            form = forms.EditTabForm(data,request.FILES)
+        else :
+            form = forms.EditTabForm(data)    
+        if form.is_valid():
+            newtab=models.QuickTabs(title=form.cleaned_data['title'], text=form.cleaned_data['text'], pref=form.cleaned_data['tab_pref'],event= userprof.coord_event , question_tab = False)
+            newtab.save()
+            return HttpResponseRedirect ("%sevents/dashboard/"%settings.SITE_URL)
+    else:
+        form = forms.EditTabForm()
+        is_edit_tab=False
+        is_question=False 
+    return render_to_response('event/add_choices.html', locals(), context_instance= global_context(request))
 
 @needs_authentication         
 @coords_only
