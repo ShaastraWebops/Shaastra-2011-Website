@@ -154,16 +154,29 @@ class Question(models.Model):
     title=models.CharField(max_length=1500, blank = True , null = True )
     event= models.ForeignKey(Event)
     question_type = models.CharField(max_length=1500, blank = True , null = True )
-
     def __unicode__(self):
         return self.title
-    
     class Meta:
-    	ordering = ['Q_Number']
-    
+        ordering = ['Q_Number']
     class Admin:
         pass
     
+class MCQ_option(models.Model):
+    #Question specifics
+    question = models.ForeignKey(Question)
+    
+    #Choice specifics
+    option = models.CharField(max_length = 10)
+    text = models.TextField(max_length = 1000)
+    
+    def __unicode__(self):
+        return self.text
+        
+    class Admin:
+        pass
+    
+    class Meta:
+        ordering = ['option']
 '''
 class TabImage(models.Model):
     # TASK: Each tab can have more than one image. Each tab can be associated with more than one TabImage object(s)
@@ -223,14 +236,12 @@ class QuickTabs(models.Model):
         return self.text
     class Admin:
         pass
-'''
 
 
 
 #Team event will be derived from the Event class
 #Author: Swaroop Ramaswamy - Inital model 
 #Using inheritance instead of foreign key. Seems cleaner 
-'''      
 class TeamEvent(Event):
 
     teams = models.ManyToManyField(Team,  blank=True, null=True, related_name='Team_events')

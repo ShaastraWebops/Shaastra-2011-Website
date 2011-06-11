@@ -72,24 +72,8 @@ class Question(models.Model):
     
     class Meta:
         ordering = ['question_number']
-   '''     
-class MCQ_option(models.Model):
-    #Question specifics
-    question = models.ForeignKey(Question)
-    #Choice specifics
-    option = models.CharField(max_length = 10)
-    text = models.TextField(max_length = 1000)
-    
-    def __unicode__(self):
-        return self.text
+ 
         
-    class Admin:
-        pass
-    
-    class Meta:
-        ordering = ['option',]
-        
-'''
 
 class Submission(models.Model):
     participant = models.ForeignKey(User, related_name='team_leaders')
@@ -163,8 +147,6 @@ class Answer_file(Answer):
 class TeamMCQOption(MCQOption):
     #question_id = models.ForeignKey(TeamQuestion)
     pass		 
-
-''
 
 #Author: Sivaramakrishnan, created the initial model
 #This is has been changed using abstract classes.

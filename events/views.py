@@ -173,13 +173,10 @@ def edit_tab_content(request):
 @coords_only
 def edit_questions(request):  
     if request.method=='POST':      
-            data=request.POST.copy()
-            #try:
-               # form = forms.EditTabForm(data,request.FILES)
-            #except :  
+            data=request.POST.copy()  
             form = forms.EditQuestionForm(data)
-            
             if form.is_valid():
+                print request.session["ques_id"]
                 ques_to_edit=models.Question.objects.get(id=request.session["ques_id"])            
                 ques_to_edit.title= form.cleaned_data['title']
                 ques_to_edit.Q_Number = form.cleaned_data['Q_Number']
@@ -265,16 +262,14 @@ def add_choices(request):
     event_name = userprof.coord_event.name
     if request.method=='POST':
         data=request.POST.copy()
-        if request.FILES:
-            form = forms.EditTabForm(data,request.FILES)
-        else :
-            form = forms.EditTabForm(data)    
+        form = forms.AddContactForm(data)    
         if form.is_valid():
-            newtab=models.QuickTabs(title=form.cleaned_data['title'], text=form.cleaned_data['text'], pref=form.cleaned_data['tab_pref'],event= userprof.coord_event , question_tab = False)
+            ques_to_edit=models.Question.objects.get(id=request.session["ques_id"])
+            newtab= models.MCQ_option(option=form.cleaned_data['option'], text=form.cleaned_data['text'], question = ques_to_edit)
             newtab.save()
             return HttpResponseRedirect ("%sevents/dashboard/"%settings.SITE_URL)
     else:
-        form = forms.EditTabForm()
+        form = forms.AddContactForm()
         is_edit_tab=False
         is_question=False 
     return render_to_response('event/add_choices.html', locals(), context_instance= global_context(request))

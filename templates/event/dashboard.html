@@ -160,22 +160,32 @@
 	             
 	                  <div id="Question{{ques.Q_Number}}">
 		                     {% if ques.question_type == "NORMAL" %}
+		                     	<div id="normal_question">
                                 <p>Type your answer in the textarea and hit the "Submit" button.</p>
                                 <textarea rows="6" cols="40" >This is not fully functional right now. Clicking on submit does nothing.</textarea><br/>
                                 <input type="submit" value="Submit">
+										</div>	
                              {% else %}
                                 {% if ques.question_type == "MCQ" %}
                                 <p>This is a multiple choice question. Please select your choice and click on "Submit".</p>
                                 <p> This will be functional soon.</p>
-
-                                <!-- Add MCQ choices.-->
+											<div id="mcq_question">
+                                <!-- Add MCQ choices. -->
+										<!--			
+											 {%for options in options_list %}
+											 	{%if options.question == ques %}
+											 		{{options.option}} -> {{options.text}}
+											 	{%endif%}		
+			          					 {%endfor%}
+											-->
                                 <div id="add_choices">
-                                    <form action="{{SITE_URL}}events/dashboard/add_choices/" method = 'POST'>
+                                    <form action="add_choices/" method = 'GET'>
                                     {% csrf_token %}
-                                    <input type="hidden" value="{{ques.id}}" name=ques_id>
+                                    <input type="hidden" value="{{ques.id}}" name="ques_to_add_choices_id">
                                     <input type="submit" value="Add More Choices">
                                     </form>
                                 </div>
+											</div>
                                 {% else %}
                                 <p> Choose the file you want to upload and click on "Upload".</p>
                                 <p> This will be functional soon.</p>
@@ -183,7 +193,7 @@
                                     <input type="file" name="blah" size="30"><br/>
                                     <input type="submit" value="Upload">
                                 {% endif %}
-		                     {% endif %}                            
+		                     {% endif %}
                                  <!-- the delete question button -->
    
                                 <div id="delete_question">
