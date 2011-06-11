@@ -7,6 +7,10 @@
 		<script type="text/javascript" src="{{MEDIA}}media1/scripts/js/jquery-1.5.2-min.js"></script>
 		<script type="text/javascript" src="{{MEDIA_URL}}media1/scripts/js/jquery.jscrollpane.min.js"></script>
 		<script type="text/javascript" src="{{MEDIA_URL}}media1/scripts/js/jquery.mousewheel.js"></script>
+
+
+                  
+
 		
                 <script type="text/javascript">
 			var elem=['intro','pstmnt','rules','faq','contact','extraTabs'];
@@ -89,7 +93,7 @@
                                             <input type="submit" value="Edit Event Details" />
                                             </form>
                                             {%endif%}
-                                            </div>
+                                        </div>
           
                                   <!-- Button to see users who have registered for this event -->
            
@@ -231,14 +235,20 @@
                                   </form>
                                   </div>
 
+                                <script>
+
+                   
+                     $("#Question{{ques.Q_Number}}").hide();
+                     $("#Ques{{ques.Q_Number}}").click(function () {
+                     $("#Question{{ques.Q_Number}}").toggleClass("inactive").slideToggle("slow");
+                       });
+                                    </script>
 
 
 
 
-	                        </form>
-                              </div>   
-                         </div> 
-                       <br />
+	                        
+              </div>                              
 
 
                       
@@ -247,13 +257,7 @@
                  
                       
 
-                  <script>
-                     $("#Question{{ques.Q_Number}}").hide();
-                     $("#Ques{{ques.Q_Number}}").click(function () {
-                     $("#Question{{ques.Q_Number}}").toggleClass("inactive").slideToggle("slow");
-                       });
-                 </script>
-
+                 
                   {%endfor%}
          	<br/><br/>
          	<div id="edit_tab">
@@ -345,14 +349,6 @@
     </div>  
 	{% endif %}
 		
-	<div id="preload" style="visibility:hidden; height:0px;">
-		<img src="intro_.png" />
-		<img src="pstmnt_.png" />
-		<img src="rules_.png" />
-		<img src="faq_.png" />
-		<img src="contact_.png" />
-	</div>
- 
-
+	
 </div>
 {%endblock%}
