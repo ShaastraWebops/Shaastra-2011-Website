@@ -75,9 +75,9 @@ class AddFileForm(forms.Form):
     tabfile=ExtFileField(ext_whitelist=FILES_WHITELIST,required=False)
 
 class EventForm(ModelForm):
-    #start_time = forms.DateTimeField(input_formats=('%d-%m-%y %H:%M',), widget=forms.DateTimeInput(format=('%d-%m-%y %H:%M')), required=False, help_text="Registration start time: DD-MM-YY hh:mm",)
-    #end_time = forms.DateTimeField(input_formats=('%d-%m-%y %H:%M',), widget=forms.DateTimeInput(format=('%d-%m-%y %H:%M')), required=False, help_text="Registration end time: DD-MM-YY hh:mm",)
+    start_time = forms.DateTimeField(input_formats=('%d-%m-%y %H:%M',), widget=forms.DateTimeInput(format=('%d-%m-%y %H:%M')), required=False, help_text="Registration start time: DD-MM-YY hh:mm",)
+    end_time = forms.DateTimeField(input_formats=('%d-%m-%y %H:%M',), widget=forms.DateTimeInput(format=('%d-%m-%y %H:%M')), required=False, help_text="Registration end time: DD-MM-YY hh:mm",)
     class Meta:
         model = Event
-        fields = ('registrable', 'questions' ,'start_time', 'end_time', 'accommodation', 'logo', 'sponslogo',)
+        fields = ('name', 'registrable', 'questions' ,'start_time', 'end_time', 'accommodation', 'logo', 'sponslogo',)
 
