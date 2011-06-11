@@ -119,17 +119,19 @@ def Question_Tab(request):
 @needs_authentication    
 @coords_only
 def edit_tab_content(request):
-    #tab_to_edit=models.QuickTabs.objects.get(id=request.session["tab_id"])            
-    #if(tab_to_edit.question_tab):
-        #return edit_questions_tab_content(request)
-    #print "don't come here"
+    tab_to_edit=models.QuickTabs.objects.get(id=request.session["tab_id"])            
     if request.method=='POST':      
             data=request.POST.copy()
             try:
-                form = forms.EditTabForm(data,request.FILES)
-            except :  
-                form = forms.EditTabForm(data)
-            
+                if(tab_to_edit.question_tab):
+                    forms.EditQuestionsTabForm(data,request.FILES)
+                else:
+                    form = forms.EditTabForm(data,request.FILES)
+            except: 
+                if(tab_to_edit.question_tab):
+                    forms.EditQuestionsTabForm(data)
+                else:
+                    form = forms.EditTabForm(data)
             if form.is_valid():
                 tab_to_edit=models.QuickTabs.objects.get(id=request.session["tab_id"])            
                 tab_to_edit.title= form.cleaned_data['title']
