@@ -94,6 +94,12 @@ def dashboard(request):
             if(t.question_tab):
                 questions_added = True
                 ques_list = models.Question.objects.filter(event__name = event_name).order_by('Q_Number')
+                options_list = []
+                for ques in ques_list:
+                    temp = models.MCQ_option.objects.filter(question=ques).order_by('option')
+                    for temps in temp:
+                        options_list.append(temps)
+                is_coord=userprof.is_coord
         return render_to_response('event/dashboard.html', locals(), context_instance= global_context(request))
     else:
         raise Http404        
@@ -270,7 +276,8 @@ def add_choices(request):
         data=request.POST.copy()
         form = forms.AddContactForm(data)    
         if form.is_valid():
-            ques_to_edit=models.Question.objects.get(id=request.session["ques_id"])
+            print request.GET["ques_to_add_choices_id"]
+            ques_to_edit=models.Question.objects.get(id=request.GET["ques_to_add_choices_id"])
             newtab= models.MCQ_option(option=form.cleaned_data['option'], text=form.cleaned_data['text'], question = ques_to_edit)
             newtab.save()
             return HttpResponseRedirect ("%sevents/dashboard/"%settings.SITE_URL)
@@ -307,7 +314,6 @@ def add_questions_tab(request):
 def add_question(request):
     userprof=request.user.get_profile()
     event_name = userprof.coord_event.name
-    
     if request.method=='POST':
         data=request.POST.copy()
         #request.session["tab_id"]=request.GET["tab_id"]    
