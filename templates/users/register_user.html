@@ -413,7 +413,7 @@ function close_evHospi(){
 </table>
 
 <script>
- var nam = new Array({%for coll in colls%}"{{ coll.name }},{{ coll.city }}",{%endfor%}"");
+ var nam = new Array("{%for coll in colls%}{{ coll.name }},{{ coll.city }},{%endfor%}");
       var obj2 = actb(document.getElementById('coll_input'),nam);
  actb(document.getElementById('coll_input'),nam);
       function actb_add(name){
