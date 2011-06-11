@@ -4,9 +4,9 @@
        <title>Shaastra 2011</title>
        <link rel="stylesheet" href="{{MEDIA_URL}}css/main.css" type="text/css"/>
        <link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}css/template_2.css" />
-       <script type="text/javascript" src="{{MEDIA_URL}}js1/jquery.js"></script>
-       <script type="text/javascript" src="{{MEDIA_URL}}js1/main.js"></script>
-       <link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}media1/style/css/main.css" />
+       <script type="text/javascript" src="{{MEDIA_URL}}js/jquery.js"></script>
+       <script type="text/javascript" src="{{MEDIA_URL}}js/main.js"></script>
+       <link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}media/style/css/main.css" />
   {%block media_location %}  
   {%endblock%}
   </head>
@@ -14,7 +14,7 @@
 
 
 
-<body>
+<body id="page">
 <div id="main" align="center">
 {%block header%}
 <div id="header">
@@ -22,12 +22,16 @@
 {%block sponsor %}
 <div id="spons_area"></div>
 {%endblock%}
+
+{%block social%}
 <div id="logos">
   <div id="fblogo"></div>
   <div id="bloggerlogo"></div>
   <div id="youtubelogo"></div>
   <div id="twitterlogo"></div>
 </div>
+{%endblock%}
+
 {%block updates%}
 <div id="updates_container" align="left">
 <div id="updates_bar"></div></div>
@@ -43,9 +47,23 @@
   <li class="navItem"><a href="#">Gallery</a></li>
 </ul></div>
 
-{%endblock%}
 
+{%endblock%}
 </div>
+
+<div id = "content">
+
+<div id="video">
+{%block body%}{%endblock%}
+</div>
+
+
+
+{%block event_spons%}
+<div id="spons">
+<img src="{{MEDIA_URL}}img/spons_text.png">
+</div>
+{%endblock%}
 
 
 {%block my_shaastra%}
@@ -59,7 +77,7 @@
                 </div>
 
 {%endblock header%}
-{%block body%}{%endblock body%}
+
 
 
 

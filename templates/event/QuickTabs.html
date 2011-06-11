@@ -9,14 +9,14 @@
 		<script type="text/javascript" src="{{MEDIA_URL}}media1/scripts/js/jquery.mousewheel.js"></script>
 		
                 <script type="text/javascript">
-			var elem=['intro','pstmnt','rules','faq','contact','extraTabs'];
+			var elem=['intro','pstmnt','rules','faq','contact','extraTabs','',''];
                         var tot=0;
                         {%for row in tab_list%}
                              elem[{{forloop.counter0}}]='{{row.title|slugify}}';
                              tot=tot+1;
                          {%endfor%}
                        
-			var tabHeights=['420px','500px','600px','700px','800px','2000px'];
+			var tabHeights=['420px','500px','600px','700px','800px','2000px','2200px','2500px'];
 			//var i_=0,p=0,r=0,f=0,c=0,e=0;
 			
 			$(function(){
@@ -65,7 +65,7 @@
 {%block body%}
 
      
-<div id="page" style="display:none;">
+
             {{event_name}}
 		<div id="eventsTab">
 			<div id="tabs">
@@ -204,14 +204,14 @@
 		</div>
 		
 			
-	<!--<div id="preload" style="visibility:hidden; height:0px;">
+	<div id="preload" style="visibility:hidden; height:0px;">
 		<img src="intro_.png" />
 		<img src="pstmnt_.png" />
 		<img src="rules_.png" />
 		<img src="faq_.png" />
 		<img src="contact_.png" />
-	</div>-->
+	</div>
 
-</div>
+
 
 {%endblock%}
