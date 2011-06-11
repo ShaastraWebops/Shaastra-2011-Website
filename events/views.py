@@ -394,7 +394,7 @@ def register(request):
     user = request.uesr
     userprof = user.get_profile()
     event_id = request.GET['event_id']
-    event = Event.objects.get(id = event_id)
+    event = models.Event.objects.get(id = event_id)
     userprof.registered.add(event)
     return HttpResponseRedirect('%myshaastra/'%settings.SITE_URL)
 
@@ -403,9 +403,27 @@ def register(request):
 def show_registered_users(request):
     if request.method == 'GET':
         event_id = request.GET['event_id']
-        event = Event.objects.get(id = event_id)
+        event = models.Event.objects.get(id = event_id)
         users_list = event.userprofile_set
         return render_to_response('show_registered_users.html', locals(), context_instance = global_context(request))
     else:
         return HttpResponseRedirect('%sevents/dashboard' % settings.SITE_URL)
+
+def show_event_categories(request):
+    menu_list = models.Menu.objects.filter(parent_menu = None)
+    return render_to_response('show_event_categories.html', locals(), context_instance = global_context(request))
+
+def show_menu_items(request):
+    if request.method == 'GET':
+        menu_id = request.GET['menu_id']
+        menu = models.Menu.objects.get(id = menu_id)
+        #Now to get all the children of this menu
+        menu_list = menu.menu_set
+        event_list = []
+        for menu_item in menu_list:
+            event_list.append(menu_item.event)
+        return render_to_response('show_menu_items.html', locals(), context_instance = global_context(request))
+    else:
+        return HttpResponseRedirect('%sevents/' % settings.SITE_URL)
+
 
