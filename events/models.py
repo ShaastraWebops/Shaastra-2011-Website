@@ -32,20 +32,21 @@ class Event(models.Model):
     url = models.URLField(null=True,verify_exists=False, blank=True)
     tags=models.ManyToManyField(Tag, blank=True, null=True)
 
-    # Registration start and end time
-    start_time = models.DateTimeField(null=True, blank=True, help_text="Start of registration: YYYY-MM-DD hh:mm")
-    end_time = models.DateTimeField(null=True, blank=True, help_text="End of registration: YYYY-MM-DD hh:mm")
+    # Registration start and end time of the event. 
+    start_time = models.DateTimeField(null=True, blank=True, help_text= "Start of registration: YYYY-MM-DD hh:mm" )
+    end_time = models.DateTimeField(null=True, blank=True, help_text= "End of registration: YYYY-MM-DD hh:mm" )
     
-    # Registration
-    registrable = models.BooleanField(default=False, help_text="Can participants register online?")
-    users = models.ManyToManyField(User,  blank=True, null=True, related_name='users_events')                  #may not be required
-    chosen_users = models.ManyToManyField(User, blank=True, null=True, related_name='qualified_events')        #may not be required
+    # Registration. 
+    registrable = models.BooleanField(default=False, help_text= "Can participants register online?")
+    questions = models.BooleanField(default=False, help_text= "Will the participant have to answer a questionnaire?")
+    users = models.ManyToManyField(User,  blank=True, null=True, related_name='users_events')
+    chosen_users = models.ManyToManyField(User, blank=True, null=True, related_name='qualified_events')
 
-    # Hospitality
-    accommodation = models.BooleanField(default=False, help_text="Is accommodation compulsory?")
+    # Hospitality.
+    accommodation = models.BooleanField(default=False, help_text= "Is accommodation compulsory?")
 
     # MyShaastra 
-    flagged_by = models.ManyToManyField(User,  blank=True, null=True, related_name='flagged_events')
+    flagged_by = models.ManyToManyField(User,  blank=True, null=True, related_name= 'flagged_events')
 
     # Logo and Sponsorship logos
     #NOTE: Rename the uploaded image file to event name.
@@ -100,6 +101,8 @@ class QuickTabs(models.Model):
     
     # No more than 10 tabs per event.
     pref = models.IntegerField(max_length=2);
+    question_tab = models.BooleanField(default=False)
+    
     
     
     # According to sudarshan, tab doesn't contain any images
@@ -145,6 +148,22 @@ class TabFiles(models.Model):
         pass
 
 
+class Question(models.Model):
+    #Tab=models.ForeignKey(QuickTabs)
+    Q_Number = models.IntegerField(max_length=2) 
+    title=models.CharField(max_length=150 , blank = True , null = True )
+    event= models.ForeignKey(Event)
+    
+
+    def __unicode__(self):
+        return self.title
+    
+    class Meta:
+    	ordering = ['Q_Number']
+    
+    class Admin:
+        pass
+    
 '''
 class TabImage(models.Model):
     # TASK: Each tab can have more than one image. Each tab can be associated with more than one TabImage object(s)

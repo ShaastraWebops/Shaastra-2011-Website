@@ -45,41 +45,42 @@ def user_registration(request):
                     shaastra_id  = user.id , # is this right
                     activation_key = activation_key,
                     key_expires  = key_expires,
-                    want_hospi   = form.cleaned_data['want_hospi'],
                     
                 )
             userprofile.save()
             mail_template=get_template('email/activate.html')
             body = mail_template.render(Context({'username':user.username,
 							 'SITE_URL':settings.SITE_URL,
-							 'activationkey':user_profile.activation_key }))
+							 'activationkey':userprofile.activation_key }))
             #send_mail('Your new Shaastra2011 account confirmation', body,'noreply@shaastra.org', [user.email,], fail_silently=False)
-
 
     else:
         form = forms.AddUserForm()
     return render_to_response('users/register_user.html', locals(), context_instance= global_context(request))    
                             
 def college_registration (request):
-    if request.method == 'GET':
-        data = request.GET.copy()
-        form = forms.AddCollegeForm(data, prefix="id2")
+    if request.method == 'POST':
+        data = request.POST.copy()
+        form = forms.AddCollegeForm(data)
 
         if form.is_valid():
             college=clean_string(form.cleaned_data['name'])
             if college.find('&')>=0:
                 college = college.replace('&','and')
-                city=clean_string(form.cleaned_data['city'])
-                state=clean_string(form.cleaned_data['state'])
+            city=clean_string(form.cleaned_data['city'])
+            state=clean_string(form.cleaned_data['state'])
 
-            if len (models.College.objects.filter(name=college, city=city, state=state))== 0 :
-                college=models.College (name = college, city = city, state = state)
+            if len (College.objects.filter(name=college, city=city, state=state))== 0 :
+                college=College (name = college, city = city, state = state)
                 college.save()
                 return HttpResponse("created")
             else:
                 return HttpResponse("exists")
         else:
             return HttpResponse("failed")
+    else:
+        form=forms.AddCollegeForm()        
+        return render_to_response('users/register_coll.html', locals(), context_instance= global_context(request))        
             
 def activate (request, a_key = None ):
     SITE_URL = settings.SITE_URL
@@ -90,31 +91,27 @@ def activate (request, a_key = None ):
         try:
 	        user_profile = models.UserProfile.objects.get(activation_key = a_key)
         except ObjectDoesNotExist:
-	        prof_dne = True
+
+            prof_dne = True
+            return render_to_response('registration/activated.html',locals(), context_instance= global_context(request))
+        if user_profile.key_expires < datetime.datetime.today():
+	        expired = True
+	        user = user_profile.user
+	        user.delete()
+	        user_profile.delete()
 	        return render_to_response('registration/activated.html',locals(), context_instance= global_context(request))
-      
-      #Cleanup operation
-    if user_profile.key_expires < datetime.datetime.today():
-	    expired = True
-	    user = user_profile.user
-	    user.delete()
-	    user_profile.delete()
-	    return render_to_response('registration/activated.html',locals(), context_instance= global_context(request))
 	
-    else:
-	    user = user_profile.user
-	    user.is_active = True
-	    user.save()
-	    request.session["registered"]=True
-	    
-	#send another mail
-    mail_template=get_template('email/thankyou.html')
-    body = mail_template.render(Context({'username':user.username}))
-    send_mail('Account activated', body, 'noreply@shaastra.org', [user.email,], fail_silently=False)
-    
-    #print "IS AUTHENTICATED",user.is_authenticated()
-    activated = True
-    return render_to_response('registration/activated.html',locals(), context_instance= global_context(request))
+        else:
+            user = user_profile.user
+            user.is_active = True
+            user.save()
+            request.session["registered"]=True
+            mail_template=get_template('email/thankyou.html')
+            body = mail_template.render(Context({'username':user.username}))
+            send_mail('Account activated', body, 'noreply@shaastra.org', [user.email,], fail_silently=False)
+            activated = True
+            return render_to_response('registration/activated.html',locals(), context_instance= global_context(request))
+            
 
 @needs_authentication
 def myshaastra(request):

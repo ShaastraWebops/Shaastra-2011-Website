@@ -53,10 +53,16 @@ class TeamQuestion(Question_base):
 
 class Question(models.Model):
     
-    event = models.ForeignKey(Event)
+    QUESTION_TYPE = (
+    (1, 'Normal'),
+    (2, 'File'),
+    (3, 'MCQ'),
+    )
     
+    event = models.ForeignKey(Event)
     question_number = models.IntegerField (blank = False, null = False, verbose_name = 'Number displayed in the button for this question.',) 
     instructions = models.TextField(blank = True, null = True)
+    question_type = models.IntegerField(choices = QUESTION_TYPE, blank = False, null = False)
     
     def __unicode__(self):
         return self.instructions
@@ -66,7 +72,7 @@ class Question(models.Model):
     
     class Meta:
         ordering = ['question_number']
-
+        
 class MCQ_option(models.Model):
 
     #Question specifics
@@ -84,6 +90,8 @@ class MCQ_option(models.Model):
 
     class Meta:
         ordering = ['option',]
+
+'''
 
 class Submission(models.Model):
     participant = models.ForeignKey(User, related_name='team_leaders')
@@ -154,12 +162,11 @@ class Answer_file(Answer):
     class Admin:
         pass
 
-'''
 class TeamMCQOption(MCQOption):
     #question_id = models.ForeignKey(TeamQuestion)
     pass		 
 
-
+''
 
 #Author: Sivaramakrishnan, created the initial model
 #This is has been changed using abstract classes.

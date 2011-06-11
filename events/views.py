@@ -83,15 +83,46 @@ def dashboard(request):
     if userprof.is_coord:
         event_name = userprof.coord_event.name
         tab_list = models.QuickTabs.objects.filter(event__name = event_name).order_by('pref')  
+        questions_added = False
         for t in tab_list:
             t.file_list = models.TabFiles.objects.filter(Tab = t)
+            if(t.question_tab):
+                questions_added = True
+                ques_list = models.Question.objects.filter(event__name = event_name).order_by('Q_Number')
+        print questions_added
         return render_to_response('event/dashboard.html', locals(), context_instance= global_context(request))
     else:
         raise Http404        
 
+
+@needs_authentication    
+@coords_only
+def Question_Tab(request):
+    userprof = request.user.get_profile()
+    if userprof.is_coord:
+        event_name = userprof.coord_event.name
+        ques_list = models.Question.objects.filter(event__name = event_name).order_by('Q_Number')  
+        
+        #for t in tab_list:
+            #t.file_list = models.TabFiles.objects.filter(Tab = t)
+            #if(t.question_tab):
+                #questions_added = True
+        print questions_added
+        return render_to_response('event/Question.html', locals(), context_instance= global_context(request))
+    else:
+        raise Http404        
+
+
+
+
+
 @needs_authentication    
 @coords_only
 def edit_tab_content(request):
+    tab_to_edit=models.QuickTabs.objects.get(id=request.session["tab_id"])            
+    if(tab_to_edit.question_tab):
+        return edit_questions_tab_content(request)
+    print "don't come here"
     if request.method=='POST':      
             data=request.POST.copy()
             try:
@@ -134,6 +165,47 @@ def edit_tab_content(request):
         else:
             raise Http404
 
+
+
+@needs_authentication    
+@coords_only
+def edit_questions(request):  
+    print "hello"
+    if request.method=='POST':      
+            data=request.POST.copy()
+            #try:
+               # form = forms.EditTabForm(data,request.FILES)
+            #except :  
+            form = forms.EditQuestionForm(data)
+            
+            if form.is_valid():
+                ques_to_edit=models.Question.objects.get(id=request.session["ques_id"])            
+                ques_to_edit.title= form.cleaned_data['title']
+                #tab_to_edit.text = form.cleaned_data['text']
+                ques_to_edit.Q_Number = form.cleaned_data['Q_Number']
+                ques_to_edit.save()
+                #file_list = models.TabFiles.objects.filter(Tab = tab_to_edit)
+                return HttpResponseRedirect ("%sevents/dashboard/"%settings.SITE_URL)
+            else: 
+                is_edit_tab=True
+                #formadd = forms.AddFileForm()
+                ques_to_edit=models.Question.objects.get(id=request.session["ques_id"])
+                #file_list = models.TabFiles.objects.filter(Tab = tab_to_edit)  
+            return render_to_response('event/add_questions.html', locals(), context_instance= global_context(request))
+
+    else:
+        ques_to_edit = models.Question.objects.get(id=request.GET["ques_id"])
+        request.session["ques_id"]=request.GET["ques_id"]
+        userprof = request.user.get_profile()
+        if ques_to_edit.event == userprof.coord_event and userprof.is_coord:
+            form = forms.EditQuestionForm(initial={'title' : ques_to_edit.title ,'Q_Number': ques_to_edit.Q_Number })
+            #file_list = models.TabFiles.objects.filter(Tab = tab_to_edit)
+            #formadd = forms.AddFileForm()
+            is_edit_tab=True
+            return render_to_response('event/add_questions.html', locals(), context_instance= global_context(request))
+        else:
+            raise Http404
+        
 @needs_authentication
 @coords_only
 def add_file(request):
@@ -176,7 +248,7 @@ def add_quick_tab(request):
         else :
             form = forms.EditTabForm(data)    
         if form.is_valid():
-            newtab=models.QuickTabs(title=form.cleaned_data['title'], text=form.cleaned_data['text'], pref=form.cleaned_data['tab_pref'],event= userprof.coord_event)
+            newtab=models.QuickTabs(title=form.cleaned_data['title'], text=form.cleaned_data['text'], pref=form.cleaned_data['tab_pref'],event= userprof.coord_event , question_tab = False)
             newtab.save()
             #if request.FILES:     
                 #fileuploadhandler(request.FILES["tabfile"], event_name, newtab.id, form.cleaned_data['filetitle'])
@@ -185,6 +257,54 @@ def add_quick_tab(request):
         form = forms.EditTabForm()
         is_edit_tab=False
     return render_to_response('event/add_tab.html', locals(), context_instance= global_context(request))    
+
+
+@needs_authentication         
+@coords_only
+def add_questions_tab(request):
+    userprof=request.user.get_profile()
+    event_name = userprof.coord_event.name
+    if request.method=='POST':
+        data=request.POST.copy()
+        if request.FILES:
+            form = forms.EditQuestionsTabForm(data,request.FILES)
+        else :
+            form = forms.EditQuestionsTabForm(data)    
+        if form.is_valid():
+            newtab=models.QuickTabs(title=form.cleaned_data['title'], text="" , pref=form.cleaned_data['tab_pref'],event= userprof.coord_event, question_tab= True)
+            print "blah"
+            newtab.save()
+            return HttpResponseRedirect ("%sevents/dashboard/"%settings.SITE_URL)
+    else:
+        form = forms.EditTabForm()
+        is_edit_tab=False
+    return render_to_response('event/add_tab.html', locals(), context_instance= global_context(request))    
+
+@needs_authentication
+@coords_only
+def add_question(request):
+    userprof=request.user.get_profile()
+    event_name = userprof.coord_event.name
+    
+    if request.method=='POST':
+        data=request.POST.copy()
+        #request.session["tab_id"]=request.GET["tab_id"]    
+        #if request.FILES:
+            #form = forms.EditQuestionForm(data,request.FILES)
+        #else :
+        form = forms.EditQuestionForm(data)    
+        if form.is_valid():
+           newquestion=models.Question(Q_Number=form.cleaned_data['Q_Number'], title=form.cleaned_data['title'],event= userprof.coord_event)
+           newquestion.save()
+            #if request.FILES:     
+                #fileuploadhandler(request.FILES["tabfile"], event_name, newtab.id, form.cleaned_data['filetitle'])
+           return HttpResponseRedirect ("%sevents/dashboard/"%settings.SITE_URL)
+    else:
+        form = forms.EditQuestionForm()
+        is_edit_tab=False
+    return render_to_response('event/add_tab.html', locals(), context_instance= global_context(request))    
+ 
+
 
 @needs_authentication            
 @coords_only
@@ -196,6 +316,21 @@ def remove_quick_tab(request):
         tab_file.delete()
     tab_to_delete.delete()
     return HttpResponseRedirect('%sevents/dashboard/'%settings.SITE_URL)
+
+
+@needs_authentication            
+@coords_only
+def remove_question(request):
+    ques_id=request.POST["ques_id"]
+    ques_to_delete = models.Question.objects.get(id = ques_id)
+    #ques_list = models.Question.objects.filter(Tab = tab_to_delete)
+    #for tab_file in tab_files_list:
+        #tab_file.delete()
+    ques_to_delete.delete()
+    return HttpResponseRedirect('%sevents/dashboard/'%settings.SITE_URL)
+
+
+
 
 @needs_authentication
 @coords_only
@@ -235,7 +370,7 @@ def edit_event(request):
             return HttpResponseRedirect('%sevents/dashboard/'%settings.SITE_URL)
     else:
         form = forms.EventForm(instance = event)
-    return render_to_response('edit_event.html', locals(), context_instance=global_context(request))
+    return render_to_response('event/edit_event.html', locals(), context_instance=global_context(request))
 
 @needs_authentication
 def register(request):
