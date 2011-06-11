@@ -7,6 +7,7 @@ from django.template.context import Context, RequestContext
 from django import forms
 from main_test.misc.util import *               
 from main_test.settings import *
+from main_test.submissions import *
 #from submissions import *
 import models,forms
 import datetime
@@ -181,17 +182,14 @@ def edit_questions(request):
             if form.is_valid():
                 ques_to_edit=models.Question.objects.get(id=request.session["ques_id"])            
                 ques_to_edit.title= form.cleaned_data['title']
-                #tab_to_edit.text = form.cleaned_data['text']
                 ques_to_edit.Q_Number = form.cleaned_data['Q_Number']
+                ques_to_edit.question_type = form.cleaned_data['question_type']
                 ques_to_edit.save()
-                #file_list = models.TabFiles.objects.filter(Tab = tab_to_edit)
                 return HttpResponseRedirect ("%sevents/dashboard/"%settings.SITE_URL)
             else: 
                 is_edit_tab=True
                 is_question=True
-                #formadd = forms.AddFileForm()
-                ques_to_edit=models.Question.objects.get(id=request.session["ques_id"])
-                #file_list = models.TabFiles.objects.filter(Tab = tab_to_edit)  
+                ques_to_edit=models.Question.objects.get(id=request.session["ques_id"])  
             return render_to_response('event/add_questions.html', locals(), context_instance= global_context(request))
 
     else:
@@ -199,8 +197,7 @@ def edit_questions(request):
         request.session["ques_id"]=request.GET["ques_id"]
         userprof = request.user.get_profile()
         if ques_to_edit.event == userprof.coord_event and userprof.is_coord:
-            form = forms.EditQuestionForm(initial={'title' : ques_to_edit.title ,'Q_Number': ques_to_edit.Q_Number })
-            #file_list = models.TabFiles.objects.filter(Tab = tab_to_edit)
+            form = forms.EditQuestionForm(initial={'title' : ques_to_edit.title ,'Q_Number': ques_to_edit.Q_Number , 'question_type':ques_to_edit.question_type})
             #formadd = forms.AddFileForm()
             is_edit_tab=True
             is_question=True
@@ -300,7 +297,7 @@ def add_question(request):
         #else :
         form = forms.EditQuestionForm(data)    
         if form.is_valid():
-           newquestion=models.Question(Q_Number=form.cleaned_data['Q_Number'], title=form.cleaned_data['title'],event= userprof.coord_event)
+           newquestion=models.Question(Q_Number=form.cleaned_data['Q_Number'], title=form.cleaned_data['title'],event= userprof.coord_event, question_type=form.cleaned_data['question_type'])
            newquestion.save()
             #if request.FILES:     
                 #fileuploadhandler(request.FILES["tabfile"], event_name, newtab.id, form.cleaned_data['filetitle'])
