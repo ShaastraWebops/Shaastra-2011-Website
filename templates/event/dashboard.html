@@ -169,7 +169,22 @@
                                     <form action="" method="POST" enctype="multipart/form-data">
 		                     {% csrf_token %}
 		                     <table>
-		                     This is where the content comes. 
+		                     {% if ques.question_type == "NORMAL" %}
+                                <p>Type your answer in the textarea and hit the "Submit" button.</p>
+                                <textarea rows="6" cols="40" >This is not fully functional right now. Clicking on submit does nothing.</textarea><br/>
+                                <input type="submit" value="Submit">
+                             {% else %}
+                                {% if ques.question_type == "MCQ" %}
+                                <p>This is a multiple choice question. Please select your choice and click on "Submit".</p>
+                                <p> This will be functional soon.</p>
+                                {% else %}
+                                <p> Choose the file you want to upload and click on "Upload".</p>
+                                <p> This will be functional soon.</p>
+                                    <br/>
+                                    <input type="file" name="blah" size="30"><br/>
+                                    <input type="submit" value="Upload">
+                                {% endif %}
+		                     {% endif %}
 		                    </table>
 		      
                               <br /><br />
