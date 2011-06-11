@@ -95,6 +95,7 @@ def dashboard(request):
                     temp = models.MCQ_option.objects.filter(question=ques).order_by('option')
                     for temps in temp:
                         options_list.append(temps)
+                is_coord=userprof.is_coord
         return render_to_response('event/dashboard.html', locals(), context_instance= global_context(request))
     else:
         raise Http404        
