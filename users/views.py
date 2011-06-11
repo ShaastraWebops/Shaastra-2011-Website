@@ -11,6 +11,7 @@ from django.template.context import Context, RequestContext
 from django.utils.translation import ugettext as _
 from django.core.mail import send_mail,EmailMessage,SMTPConnection
 from django.contrib.sessions.models import Session
+from django.utils import simplejson
 
 from main_test.misc.util import *
 from main_test.settings import *
@@ -22,6 +23,11 @@ import sha,random,datetime
 
 def user_registration(request):
     colls = College.objects.all()
+    collnames = list()
+    for coll in colls:
+        collnames.append(coll.name + "," + coll.city)
+    js_data = simplejson.dumps(collnames)
+    
     blue = "HAHAHAHAHA HIHIHIHI HUHUHUHU HEHEHEHE"
     if request.method=='POST':
         data = request.POST.copy()
