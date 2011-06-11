@@ -90,7 +90,6 @@ def dashboard(request):
             if(t.question_tab):
                 questions_added = True
                 ques_list = models.Question.objects.filter(event__name = event_name).order_by('Q_Number')
-        print questions_added
         return render_to_response('event/dashboard.html', locals(), context_instance= global_context(request))
     else:
         raise Http404        

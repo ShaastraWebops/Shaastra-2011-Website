@@ -6,7 +6,7 @@
        <link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}css/template_2.css" />
        <script type="text/javascript" src="{{MEDIA_URL}}js/jquery.js"></script>
        <script type="text/javascript" src="{{MEDIA_URL}}js/main.js"></script>
-       <link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}media/style/css/main.css" />
+       <link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}media1/style/css/main.css" />
   {%block media_location %}  
   {%endblock%}
   </head>
@@ -16,8 +16,9 @@
 
 <body id="page">
 <div id="main" align="center">
-{%block header%}
+
 <div id="header">
+
 <div id="logo"><img src="{{MEDIA_URL}}img/logo.png"/></div>
 {%block sponsor %}
 <div id="spons_area"></div>
@@ -53,17 +54,19 @@
 
 <div id = "content">
 
-<div id="video">
+
 {%block body%}{%endblock%}
-</div>
 
 
 
-{%block event_spons%}
+
+
 <div id="spons">
+{%block event_spons%}
 <img src="{{MEDIA_URL}}img/spons_text.png">
-</div>
 {%endblock%}
+</div>
+
 
 
 {%block my_shaastra%}
@@ -76,7 +79,7 @@
  
                 </div>
 
-{%endblock header%}
+
 
 
 

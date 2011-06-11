@@ -63,18 +63,16 @@
 
 
 {%block body%}
-
-{{event_name}}
+   
+<div id="video">
  <div id="eventsTab">
-			<div id="tabs">
+
+ <div id="eventtitle" style="position:relative;top:-15px">{{event_name}}</div>	
+                        <div id="tabs">
 
                              {% for row in tab_list%}
 				<div id="{{row.title|slugify }}">{{row.title}}</div>
-			    <!--<div id="pstmnt">Problem Statement</div>
-				<div id="rules">Rules</div>
-				<div id="faq">FAQ</div>
-				<div id="contact">Contact</div>	
-			    	<div id="extraTabs">More Tabs Here</div>-->
+			    
                             {%endfor%}				
 			</div>
                         
@@ -84,45 +82,45 @@
 
                                   <!--The Edit Event button -->
    
-          <div id="edit_event">
-              {%if user.is_authenticated%} 
-                    <form action= "{{SITE_URL}}events/dashboard/edit_event/" method="GET">
-                       {% csrf_token %}
-                    <input type="submit" value="Edit Event Details" />
-                    </form>
-             {%endif%}
-          </div>
+                                        <div id="edit_event">
+                                             {%if user.is_authenticated%} 
+                                            <form action= "{{SITE_URL}}events/dashboard/edit_event/" method="GET">
+                                                {% csrf_token %}
+                                            <input type="submit" value="Edit Event Details" />
+                                            </form>
+                                            {%endif%}
+                                            </div>
           
-          <!-- Button to see users who have registered for this event -->
+                                  <!-- Button to see users who have registered for this event -->
            
-           <!-- Logout button -->
+                                       <!-- Logout button -->
 
-           <div id="logout">
-               {%if user.is_authenticated%} 
-                    <form action= "{{SITE_URL}}events/logout/" method="POST">
-                      {% csrf_token %}
-                    <input type="submit" value="LOGOUT" />
-                    </form>
-              {%endif%}
-           </div>
+                                       <div id="logout">
+                                            {%if user.is_authenticated%} 
+                                               <form action= "{{SITE_URL}}events/logout/" method="POST">
+                                                     {% csrf_token %}
+                                                 <input type="submit" value="LOGOUT" />
+                                               </form>
+                                             {%endif%}
+                                        </div>
               
      
-
+                                        <br/><br/>
 
                                        {%if not row.question_tab%}
-			ROW ID : {{row.id}} 
-			<br />
-			ROW PREFERENCE : {{row.pref}} 
-			<br />
-			<p>{{row.text|safe}}</p>
-			<br /><br />
+			                            ROW ID : {{row.id}} 
+			                                  <br />
+			                            ROW PREFERENCE : {{row.pref}} 
+			                                 <br />
+			                              {{row.text|safe}}
+			                                <br /><br />
 
-                        <!-- displaying file list -->
+                                        <!-- displaying file list -->
  
-			<div id="file_display">
-                             <div id="file_header">
-			         CURRENTLY UPLOADED FILES:
-			      </div>
+			              <div id="file_display">
+                                              <div id="file_header">
+			                       CURRENTLY UPLOADED FILES:
+			                     </div>
                            
 			           <br/>
                               <!-- displaying the file urls -->
@@ -169,7 +167,22 @@
                                     <form action="" method="POST" enctype="multipart/form-data">
 		                     {% csrf_token %}
 		                     <table>
-		                     This is where the content comes. 
+		                     {% if ques.question_type == "NORMAL" %}
+                                <p>Type your answer in the textarea and hit the "Submit" button.</p>
+                                <textarea rows="6" cols="40" >This is not fully functional right now. Clicking on submit does nothing.</textarea><br/>
+                                <input type="submit" value="Submit">
+                             {% else %}
+                                {% if ques.question_type == "MCQ" %}
+                                <p>This is a multiple choice question. Please select your choice and click on "Submit".</p>
+                                <p> This will be functional soon.</p>
+                                {% else %}
+                                <p> Choose the file you want to upload and click on "Upload".</p>
+                                <p> This will be functional soon.</p>
+                                    <br/>
+                                    <input type="file" name="blah" size="30"><br/>
+                                    <input type="submit" value="Upload">
+                                {% endif %}
+		                     {% endif %}
 		                    </table>
 		      
                               <br /><br />
@@ -311,5 +324,5 @@
 	</div>
  
 
-
+</div>
 {%endblock%}
