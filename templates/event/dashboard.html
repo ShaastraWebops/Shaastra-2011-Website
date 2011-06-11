@@ -63,8 +63,26 @@
 
 
 {%block body%}
-<h1>{{event_name}}</h1>
-         <!--The Edit Event button -->
+
+{{event_name}}
+ <div id="eventsTab">
+			<div id="tabs">
+
+                             {% for row in tab_list%}
+				<div id="{{row.title|slugify }}">{{row.title}}</div>
+			    <!--<div id="pstmnt">Problem Statement</div>
+				<div id="rules">Rules</div>
+				<div id="faq">FAQ</div>
+				<div id="contact">Contact</div>	
+			    	<div id="extraTabs">More Tabs Here</div>-->
+                            {%endfor%}				
+			</div>
+                        
+			<div id="event-details">
+                              {%for row in tab_list %}
+				<div id="{{row.title|slugify }}_">
+
+                                  <!--The Edit Event button -->
    
           <div id="edit_event">
               {%if user.is_authenticated%} 
@@ -87,26 +105,10 @@
                     </form>
               {%endif%}
            </div>
-              <br/><br/>
+              
      
-<div id="page" style="display:none;">
-            {{event_name}}
-		<div id="eventsTab">
-			<div id="tabs">
 
-                             {% for row in tab_list%}
-				<div id="{{row.title|slugify }}">{{row.title}}</div>
-			    <!--<div id="pstmnt">Problem Statement</div>
-				<div id="rules">Rules</div>
-				<div id="faq">FAQ</div>
-				<div id="contact">Contact</div>	
-			    	<div id="extraTabs">More Tabs Here</div>-->
-                            {%endfor%}				
-			</div>
-                        
-			<div id="event-details">
-                              {%for row in tab_list %}
-				<div id="{{row.title|slugify }}_">
+
                                        {%if not row.question_tab%}
 			ROW ID : {{row.id}} 
 			<br />
@@ -307,7 +309,7 @@
 		<img src="faq_.png" />
 		<img src="contact_.png" />
 	</div>-->
+ 
 
-</div>
 
 {%endblock%}
