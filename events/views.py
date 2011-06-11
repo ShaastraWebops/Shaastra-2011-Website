@@ -12,9 +12,6 @@ from main_test.submissions import *
 import models,forms
 import sha, random
 import datetime
-from main_test.users import models
-from main_test.events import models
-from main_test.users import models
 
 import os
 
@@ -269,6 +266,8 @@ def add_quick_tab(request):
         is_question=False 
     return render_to_response('event/add_tab.html', locals(), context_instance= global_context(request))    
     
+@needs_authentication            
+@coords_only
 def add_choices(request):
     userprof=request.user.get_profile()
     event_name = userprof.coord_event.name
@@ -357,7 +356,16 @@ def remove_question(request):
         #tab_file.delete()
     ques_to_delete.delete()
     return HttpResponseRedirect('%sevents/dashboard/'%settings.SITE_URL)
-
+    
+@needs_authentication            
+@coords_only
+def delete_option(request):
+    option_id=request.POST["option_id"]
+    print option_id
+    option_to_delete = models.MCQ_option.objects.get(id = option_id)
+    print option_to_delete.text
+    option_to_delete.delete()
+    return HttpResponseRedirect('%sevents/dashboard/'%settings.SITE_URL)
 
 
 
@@ -406,7 +414,7 @@ def register(request):
     user = request.uesr
     userprof = user.get_profile()
     event_id = request.GET['event_id']
-    event = Event.objects.get(id = event_id)
+    event = models.Event.objects.get(id = event_id)
     userprof.registered.add(event)
     return HttpResponseRedirect('%myshaastra/'%settings.SITE_URL)
 
@@ -415,9 +423,27 @@ def register(request):
 def show_registered_users(request):
     if request.method == 'GET':
         event_id = request.GET['event_id']
-        event = Event.objects.get(id = event_id)
+        event = models.Event.objects.get(id = event_id)
         users_list = event.userprofile_set
         return render_to_response('show_registered_users.html', locals(), context_instance = global_context(request))
     else:
         return HttpResponseRedirect('%sevents/dashboard' % settings.SITE_URL)
+
+def show_event_categories(request):
+    menu_list = models.Menu.objects.filter(parent_menu = None)
+    return render_to_response('show_event_categories.html', locals(), context_instance = global_context(request))
+
+def show_menu_items(request):
+    if request.method == 'GET':
+        menu_id = request.GET['menu_id']
+        menu = models.Menu.objects.get(id = menu_id)
+        #Now to get all the children of this menu
+        menu_list = menu.menu_set
+        event_list = []
+        for menu_item in menu_list:
+            event_list.append(menu_item.event)
+        return render_to_response('show_menu_items.html', locals(), context_instance = global_context(request))
+    else:
+        return HttpResponseRedirect('%sevents/' % settings.SITE_URL)
+
 
