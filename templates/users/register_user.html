@@ -399,7 +399,8 @@ function close_evHospi(){
 </table>
 
 <script>
- var nam = new Array({%for coll in colls%}"{{ coll.name }},{{ coll.city }}",{%endfor%}"");
+ var nam = new Array('apple','pear','mango','pineapple', 
+         'orange','banana','durian', 'jackfruit','etc');
  actb(document.getElementById('coll_input'),nam);
       function actb_add(name){
         actb_keywords[actb_keywords.length] = name;
