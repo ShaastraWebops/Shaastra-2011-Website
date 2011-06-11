@@ -10,18 +10,22 @@ from main_test.settings import *
 from main_test.submissions import *
 #from submissions import *
 import models,forms
+import sha, random
 import datetime
+from main_test.users import models
+from main_test.events import models
+from main_test.users import models
 
 import os
 
 #Fileupload is not done perfectly. 
 #Desired - Once a file is uploaded page should be refreshed and the uploaded file should be visible as a url link below the textarea
 
-FILE_DIR = settings.MEDIA_ROOT + 'main/files/'
+FILE_DIR = settings.MEDIA_ROOT + 'main1/files/'
 
 #Will change the model after this plan is confirmed
 def fileuploadhandler(f, eventname, tabid, file_title):
-    savelocation = settings.MEDIA_ROOT + 'main/events/' + camelize(eventname) + '/files/' + camelize(f.name)
+    savelocation = settings.MEDIA_ROOT + 'main1/events/' + camelize(eventname) + '/files/' + camelize(f.name)
     destination = open( savelocation , 'wb+')
     #destination.write(f.read())
     for chunk in f.chunks():
@@ -90,6 +94,12 @@ def dashboard(request):
             if(t.question_tab):
                 questions_added = True
                 ques_list = models.Question.objects.filter(event__name = event_name).order_by('Q_Number')
+                options_list = []
+                for ques in ques_list:
+                    temp = models.MCQ_option.objects.filter(question=ques).order_by('option')
+                    for temps in temp:
+                        options_list.append(temps)
+                is_coord=userprof.is_coord
         return render_to_response('event/dashboard.html', locals(), context_instance= global_context(request))
     else:
         raise Http404        
@@ -138,6 +148,7 @@ def edit_tab_content(request):
                 tab_to_edit.text = form.cleaned_data['text']
                 tab_to_edit.pref = form.cleaned_data['tab_pref']
                 tab_to_edit.save()
+
                 file_list = models.TabFiles.objects.filter(Tab = tab_to_edit)
                 #if request.FILES:
                     #userprof=request.user.get_profile()
@@ -151,6 +162,7 @@ def edit_tab_content(request):
                 tab_to_edit=models.QuickTabs.objects.get(id=request.session["tab_id"])
                 file_list = models.TabFiles.objects.filter(Tab = tab_to_edit)  
             return render_to_response('event/add_tab.html', locals(), context_instance= global_context(request))
+
 
     else:
         tab_to_edit = models.QuickTabs.objects.get(id=request.GET["tab_id"])
@@ -257,6 +269,8 @@ def add_quick_tab(request):
         is_question=False 
     return render_to_response('event/add_tab.html', locals(), context_instance= global_context(request))    
     
+@needs_authentication            
+@coords_only
 def add_choices(request):
     userprof=request.user.get_profile()
     event_name = userprof.coord_event.name
@@ -264,7 +278,8 @@ def add_choices(request):
         data=request.POST.copy()
         form = forms.AddContactForm(data)    
         if form.is_valid():
-            ques_to_edit=models.Question.objects.get(id=request.session["ques_id"])
+            print request.GET["ques_to_add_choices_id"]
+            ques_to_edit=models.Question.objects.get(id=request.GET["ques_to_add_choices_id"])
             newtab= models.MCQ_option(option=form.cleaned_data['option'], text=form.cleaned_data['text'], question = ques_to_edit)
             newtab.save()
             return HttpResponseRedirect ("%sevents/dashboard/"%settings.SITE_URL)
@@ -301,7 +316,6 @@ def add_questions_tab(request):
 def add_question(request):
     userprof=request.user.get_profile()
     event_name = userprof.coord_event.name
-    
     if request.method=='POST':
         data=request.POST.copy()
         #request.session["tab_id"]=request.GET["tab_id"]    
@@ -345,7 +359,16 @@ def remove_question(request):
         #tab_file.delete()
     ques_to_delete.delete()
     return HttpResponseRedirect('%sevents/dashboard/'%settings.SITE_URL)
-
+    
+@needs_authentication            
+@coords_only
+def delete_option(request):
+    option_id=request.POST["option_id"]
+    print option_id
+    option_to_delete = models.MCQ_option.objects.get(id = option_id)
+    print option_to_delete.text
+    option_to_delete.delete()
+    return HttpResponseRedirect('%sevents/dashboard/'%settings.SITE_URL)
 
 
 
