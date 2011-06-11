@@ -50,7 +50,7 @@ class Question(Question_base):
 class TeamQuestion(Question_base):
     event=models.ForeignKey(TeamEvent)
 '''
-
+'''
 class Question(models.Model):
     
     QUESTION_TYPE = (
@@ -59,7 +59,7 @@ class Question(models.Model):
     (3, 'MCQ'),
     )
     
-    event = models.ForeignKey(Event)
+    which_event = models.ForeignKey(Event)
     question_number = models.IntegerField (blank = False, null = False, verbose_name = 'Number displayed in the button for this question.',) 
     instructions = models.TextField(blank = True, null = True)
     question_type = models.IntegerField(choices = QUESTION_TYPE, blank = False, null = False)
@@ -72,7 +72,7 @@ class Question(models.Model):
     
     class Meta:
         ordering = ['question_number']
-        
+   '''     
 class MCQ_option(models.Model):
 
     #Question specifics

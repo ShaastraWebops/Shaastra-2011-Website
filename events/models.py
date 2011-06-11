@@ -151,9 +151,9 @@ class TabFiles(models.Model):
 class Question(models.Model):
     #Tab=models.ForeignKey(QuickTabs)
     Q_Number = models.IntegerField(max_length=2) 
-    title=models.CharField(max_length=150 , blank = True , null = True )
+    title=models.CharField(max_length=1500, blank = True , null = True )
     event= models.ForeignKey(Event)
-    
+    question_type = models.CharField(max_length=15 , blank = True , null = True )
 
     def __unicode__(self):
         return self.title

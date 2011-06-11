@@ -151,7 +151,7 @@
                      {% for ques in ques_list %}
 	              <!-- for now the whole question is the href. later we can get an image of + sign before the question and make only that href -->
                             <div id="Ques{{ques.Q_Number}}">
-                            <a href="#Question{{ques.Q_Number}}">{{ques.Q_Number}}</a><br/>
+                            <a href="#Question{{ques.Q_Number}}">{{ques.Q_Number}}. {{ques.title|safe}}</a><br/>
                             </div>         
                      
 
@@ -167,7 +167,7 @@
                                     <form action="" method="POST" enctype="multipart/form-data">
 		                     {% csrf_token %}
 		                     <table>
-			            {{ques.title|safe}}
+		                     This is where the content comes. 
 		                    </table>
 		      
                               <br /><br />
