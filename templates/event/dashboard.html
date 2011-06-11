@@ -174,15 +174,15 @@
                                 <p>This is a multiple choice question. Please select your choice and click on "Submit".</p>
                                 <p> This will be functional soon.</p>
 											<div id="mcq_question">
-											<form>
 											<table border="1">
+											<form>
 											{%for options in options_list %}
                                                 {%if options.question == ques %}
-                                                <tr><td>{{options.option}}</td><td><input type="radio" name="options_{{forloop.counter}}" value="{{options.option}}"/></td><td>{{options.text}}</td></tr>
+                                                <tr><td>{{options.option}}</td><td><input type="radio" name="answer_chosen" value="{{options.option}}"/></td><td>{{options.text}}</td></tr>
                                                 {%endif%}
 											{%endfor%}
-											</table>
 											</form>
+											</table>
 											{%if not is_coord%}<input type="submit" value="Submit">{%endif%}
 											<!-- Delete Option-->
 											<table>
