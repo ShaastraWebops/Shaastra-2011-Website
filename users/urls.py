@@ -13,6 +13,7 @@ urlpatterns = patterns('main_test.users.views',
       (r'^register/user/?$', 'user_registration'),
       (r'^register/college/?$', 'college_registration'),
       (r'^myshaastra/$', 'myshaastra'),
+      (r'^register/activate/(?P<a_key>[\w]+)/?$', 'activate'),
 
 )   
 

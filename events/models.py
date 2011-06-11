@@ -13,14 +13,6 @@ import os
 #MEDIA_ROOT will be automatically prepended to these when they are used in File/Image Fields
 #Assumed MEDIA_ROOT points to /home/shaastra/public_html/2011/media/
 
-class Tag(models.Model):   
-#E.g.: aerofest, coding etc
-    name=models.CharField(max_length=30)
-    def __unicode__(self):
-        return self.name
-    class Admin:
-        pass
-
 def get_eventlogo_path(instance, filename):
 	return 'main/events/' + camelize(instance.name) + '/images/eventlogos/' + filename
 
@@ -30,7 +22,7 @@ def get_sponslogo_path(instance, filename):
 class Event(models.Model):
     name = models.CharField(max_length=80)
     url = models.URLField(null=True,verify_exists=False, blank=True)
-    tags=models.ManyToManyField(Tag, blank=True, null=True)
+    #tags=models.ManyToManyField(Tag, blank=True, null=True)
 
     # Registration start and end time of the event. 
     start_time = models.DateTimeField(null=True, blank=True, help_text= "Start of registration: YYYY-MM-DD hh:mm" )
@@ -39,8 +31,8 @@ class Event(models.Model):
     # Registration. 
     registrable = models.BooleanField(default=False, help_text= "Can participants register online?")
     questions = models.BooleanField(default=False, help_text= "Will the participant have to answer a questionnaire?")
-    users = models.ManyToManyField(User,  blank=True, null=True, related_name='users_events')
-    chosen_users = models.ManyToManyField(User, blank=True, null=True, related_name='qualified_events')
+    #users = models.ManyToManyField(User,  blank=True, null=True, related_name='users_events')
+    #chosen_users = models.ManyToManyField(User, blank=True, null=True, related_name='qualified_events')
 
     # Hospitality.
     accommodation = models.BooleanField(default=False, help_text= "Is accommodation compulsory?")
@@ -89,6 +81,15 @@ class Event(models.Model):
 	
     class Admin:
         pass  
+
+class Tag(models.Model):   
+#E.g.: aerofest, coding etc
+    name = models.CharField(max_length = 30)
+    events = models.ManyToManyField(Event)
+    def __unicode__(self):
+        return self.name
+    class Admin:
+        pass
 
 
 class QuickTabs(models.Model): 
@@ -151,19 +152,32 @@ class TabFiles(models.Model):
 class Question(models.Model):
     #Tab=models.ForeignKey(QuickTabs)
     Q_Number = models.IntegerField(max_length=2) 
-    title=models.CharField(max_length=150 , blank = True , null = True )
+    title=models.CharField(max_length=1500, blank = True , null = True )
     event= models.ForeignKey(Event)
-    
-
+    question_type = models.CharField(max_length=1500, blank = True , null = True )
     def __unicode__(self):
         return self.title
-    
     class Meta:
-    	ordering = ['Q_Number']
-    
+        ordering = ['Q_Number']
     class Admin:
         pass
     
+class MCQ_option(models.Model):
+    #Question specifics
+    question = models.ForeignKey(Question)
+    
+    #Choice specifics
+    option = models.CharField(max_length = 10)
+    text = models.TextField(max_length = 1000)
+    
+    def __unicode__(self):
+        return self.text
+        
+    class Admin:
+        pass
+    
+    class Meta:
+        ordering = ['option']
 '''
 class TabImage(models.Model):
     # TASK: Each tab can have more than one image. Each tab can be associated with more than one TabImage object(s)
@@ -223,14 +237,12 @@ class QuickTabs(models.Model):
         return self.text
     class Admin:
         pass
-'''
 
 
 
 #Team event will be derived from the Event class
 #Author: Swaroop Ramaswamy - Inital model 
 #Using inheritance instead of foreign key. Seems cleaner 
-'''      
 class TeamEvent(Event):
 
     teams = models.ManyToManyField(Team,  blank=True, null=True, related_name='Team_events')
@@ -260,4 +272,23 @@ class Update(models.Model):
 		
 	class Admin:
 		pass	
+
+def get_menu_thumbnail_path(instance, filename):
+    return 'main/events/images/menu_thumbnails/'
+
+class Menu(models.Model):
+    text = models.CharField(max_length = 30, blank = False, null = False)
+    order = models.IntegerField(blank = False, null = False)
+    parent_menu = models.ForeignKey('self', blank = True, null = True)
+    event = models.ForeignKey(Event, blank = True, null = True)
+    thumbnail = models.ImageField(upload_to = get_menu_thumbnail_path, blank = True, null = True)
+    
+    def __unicode__(self):
+        return self.text
+    
+    class Meta:
+        ordering = ['order', 'id',]
+    
+    class Admin:
+        pass
 

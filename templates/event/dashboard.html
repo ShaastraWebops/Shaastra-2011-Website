@@ -1,73 +1,126 @@
 {%extends "index.html"%}
 
-{%block body%}
-<!--The tabtastic js -->
-
-<script type="text/javascript" src="http://www.shaastra.org/2011/media/tabtastic.js"></script>
-
-<!-- the jquery for slide toggle -->
-
-<script src="http://code.jquery.com/jquery-latest.js"></script>
-
-
-  <div id="body">
-	     <h1>{{event_name}}</h1>
-         <!--The Edit Event button -->
+{%block media_location%}
    
-          <div id="edit_event">
-              {%if user.is_authenticated%} 
-                    <form action= "{{SITE_URL}}events/dashboard/edit_event/" method="GET">
-                       {% csrf_token %}
-                    <input type="submit" value="Edit Event Details" />
-                    </form>
-             {%endif%}
-          </div>
+                <link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}media1/style/css/main.css" />  
+		<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}media1/style/css/events-tab.css" />   
+		<script type="text/javascript" src="{{MEDIA}}media1/scripts/js/jquery-1.5.2-min.js"></script>
+		<script type="text/javascript" src="{{MEDIA_URL}}media1/scripts/js/jquery.jscrollpane.min.js"></script>
+		<script type="text/javascript" src="{{MEDIA_URL}}media1/scripts/js/jquery.mousewheel.js"></script>
+		
+                <script type="text/javascript">
+			var elem=['intro','pstmnt','rules','faq','contact','extraTabs'];
+                         var tot=0;
+                        {%for row in tab_list%}
+                             elem[{{forloop.counter0}}]='{{row.title|slugify}}';
+                             tot=tot+1; 
+                         {%endfor%}
+                       
+			var tabHeights=['420px','500px','600px','700px','800px','2000px'];
+			//var i_=0,p=0,r=0,f=0,c=0,e=0;
+			
+			$(function(){
+				$('#event-details').jScrollPane({showArrows: true});
+			});
+			window.onload=function(){		
+				document.getElementById('page').style.display="block";
+				setVisible(elem[0]);
+				setBgGreen(elem[0]);
+			}
+
+			$(document).ready(function() {
+				$("#tabs").click(function(e) {
+					var id=e.target.id;
+					setBgGreen(id);
+					setVisible(id);							
+				});	
+			
+			});
+			
+			function setVisible(e){
+				document.getElementById(e+'_').style.visibility="visible";
+				
+				for(i=0;i<tot;i++)	if(elem[i]==e)	document.getElementById('jspPane').style.height=tabHeights[i];
+				for(i=0;i<tot;i++)	if(elem[i]!=e)	document.getElementById(elem[i]+'_').style.visibility="hidden";
+				for(i=0;i<tot;i++)	if(elem[i]!=e)	document.getElementById(elem[i]+'_').style.height="0px"; 
+				
+				$(function(){$('#event-details').jScrollPane({showArrows: true});});
+			}
+			
+			function setBgGreen(e){
+				document.getElementById(e).style.backgroundColor="#93C66E";
+				for(i=0;i<tot;i++)	if(elem[i]!=e)	document.getElementById(elem[i]).style.backgroundColor="#5185BE";
+			}
+		</script>
+  
+               
+
+<!--<script src="http://code.jquery.com/jquery-latest.js"></script>-->
+
+
+{%endblock%}
+
+
+
+{%block body%}
+   
+<div id="video">
+ <div id="eventsTab">
+
+ <div id="eventtitle" style="position:relative;top:-15px">{{event_name}}</div>	
+                        <div id="tabs">
+
+                             {% for row in tab_list%}
+				<div id="{{row.title|slugify }}">{{row.title}}</div>
+			    
+                            {%endfor%}				
+			</div>
+                        
+			<div id="event-details">
+                              {%for row in tab_list %}
+				<div id="{{row.title|slugify }}_">
+
+                                  <!--The Edit Event button -->
+   
+                                        <div id="edit_event">
+                                             {%if user.is_authenticated%} 
+                                            <form action= "{{SITE_URL}}events/dashboard/edit_event/" method="GET">
+                                                {% csrf_token %}
+                                            <input type="submit" value="Edit Event Details" />
+                                            </form>
+                                            {%endif%}
+                                            </div>
           
-          <!-- Button to see users who have registered for this event -->
+                                  <!-- Button to see users who have registered for this event -->
            
-           <!-- Logout button -->
+                                       <!-- Logout button -->
 
-           <div id="logout">
-               {%if user.is_authenticated%} 
-                    <form action= "{{SITE_URL}}events/logout/" method="POST">
-                      {% csrf_token %}
-                    <input type="submit" value="LOGOUT" />
-                    </form>
-              {%endif%}
-           </div>
-              <br/><br/>
-         <!-- displaying the titles of tabs -->
+                                       <div id="logout">
+                                            {%if user.is_authenticated%} 
+                                               <form action= "{{SITE_URL}}events/logout/" method="POST">
+                                                     {% csrf_token %}
+                                                 <input type="submit" value="LOGOUT" />
+                                               </form>
+                                             {%endif%}
+                                        </div>
+              
+     
+                                        <br/><br/>
 
-	<ul class="tabset_tabs">
-             {% for row in tab_list %}
-    		{%if forloop.first%}
-	           <li><a href="#{{row.title|slugify}}" class="active">{{row.title}}</a></li>
-		{%else%}
-		   <li><a href="#{{row.title|slugify}}">{{row.title}}</a></li>
-		{%endif%}  
-	     {%endfor%}
-	</ul>
-	
+                                       {%if not row.question_tab%}
+			                            ROW ID : {{row.id}} 
+			                                  <br />
+			                            ROW PREFERENCE : {{row.pref}} 
+			                                 <br />
+			                              {{row.text|safe}}
+			                                <br /><br />
 
-        <!-- displaying the contents of tabs -->
-
-	{%for row in tab_list%}
-	    <div id="{{row.title|slugify}}" class="tabset_content">
-
-                 {%if not row.question_tab%}
-			ROW ID : {{row.id}} 
-			<br />
-			ROW PREFERENCE : {{row.pref}} 
-			<br />
-			<p>{{row.text|safe}}</p>
-			<br /><br />
-
-                        <!-- displaying file list -->
+                                        <!-- displaying file list -->
  
-			<div id="file_display">
-                             <div id="file_header">
-			         CURRENTLY UPLOADED FILES:
-			      </div>
+			              <div id="file_display">
+                                              <div id="file_header">
+			                       CURRENTLY UPLOADED FILES:
+			                     </div>
                            
 			           <br/>
                               <!-- displaying the file urls -->
@@ -87,7 +140,7 @@
                     <form action="edit_tab/" method = 'GET'>
             	       {% csrf_token %}
 	            <input type="hidden" value="{{row.id}}" name=tab_id >
-	            <input type="submit" value="Edit Tab">
+	            <input type="submit" value="Edit {{row.title}} Tab">
                     </form>
                </div>
 
@@ -98,7 +151,7 @@
                      {% for ques in ques_list %}
 	              <!-- for now the whole question is the href. later we can get an image of + sign before the question and make only that href -->
                             <div id="Ques{{ques.Q_Number}}">
-                            <a href="#Question{{ques.Q_Number}}">{{ques.Q_Number}}</a><br/>
+                            <a href="#Question{{ques.Q_Number}}">{{ques.Q_Number}}. {{ques.title|safe}}</a><br/>
                             </div>         
                      
 
@@ -106,19 +159,40 @@
                    
 	             
 	                  <div id="Question{{ques.Q_Number}}">
-			                               
-
-                                 <!-- The answer Form -->
-               
-                                 <div id="form{{ques.Q_Number}}">
-                                    <form action="" method="POST" enctype="multipart/form-data">
-		                     {% csrf_token %}
-		                     <table>
-			            {{ques.title|safe}}
-		                    </table>
-		      
-                              <br /><br />
-                                
+		                     {% if ques.question_type == "NORMAL" %}
+		                     	<div id="normal_question">
+                                <p>Type your answer in the textarea and hit the "Submit" button.</p>
+                                <textarea rows="6" cols="40" >This is not fully functional right now. Clicking on submit does nothing.</textarea><br/>
+                                <input type="submit" value="Submit">
+										</div>	
+                             {% else %}
+                                {% if ques.question_type == "MCQ" %}
+                                <p>This is a multiple choice question. Please select your choice and click on "Submit".</p>
+                                <p> This will be functional soon.</p>
+                                <!--
+											<div id="mcq_question">
+											 {%for options in options_list %}
+											 	{%if options.question == ques %}
+											 		{{options.option}} -> {{options.text}}
+											 	{%endif%}		
+			          					 {%endfor%}
+                                <div id="add_choices">
+                                    <form action="add_choices/" method = 'GET'>
+                                    {% csrf_token %}
+                                    <input type="hidden" value="{{ques.id}}" name="ques_to_add_choices_id">
+                                    <input type="submit" value="Add More Choices">
+                                    </form>
+                                </div>
+											</div>
+											-->
+                                {% else %}
+                                <p> Choose the file you want to upload and click on "Upload".</p>
+                                <p> This will be functional soon.</p>
+                                    <br/>
+                                    <input type="file" name="blah" size="30"><br/>
+                                    <input type="submit" value="Upload">
+                                {% endif %}
+		                     {% endif %}
                                  <!-- the delete question button -->
    
                                 <div id="delete_question">
@@ -164,7 +238,13 @@
 
                   {%endfor%}
          	<br/><br/>
-
+         	<div id="edit_tab">
+         	<form action="edit_tab/" method = 'GET'>
+         	{% csrf_token %}
+         	<input type="hidden" value="{{row.id}}" name=tab_id >
+         	<input type="submit" value="Edit Questions Tab">
+         	</form>
+         	</div>
 
      
 
@@ -216,14 +296,17 @@
                       <form action="delete_tab/" method = 'POST'>
 		        {% csrf_token %}
 		      <input type="hidden" value="{{row.id}}" name=tab_id>
-		      <input type="submit" value="Delete Tab">
+		      <input type="submit" value="Delete {{row.name}} Tab">
                       </form>
                    </div>
     
-	  </div>
-	{%endfor%}
-
-	<br/><br/>
+				</div>
+                              {%endfor%}
+					</div>
+		</div>
+		
+	          
+             <br/><br/>
 
     <!-- the add tab button -->
 	<div id="add_tab">
@@ -243,7 +326,15 @@
        </form>
     </div>  
 	{% endif %}
+		
+	<div id="preload" style="visibility:hidden; height:0px;">
+		<img src="intro_.png" />
+		<img src="pstmnt_.png" />
+		<img src="rules_.png" />
+		<img src="faq_.png" />
+		<img src="contact_.png" />
+	</div>
+ 
 
 </div>
-
 {%endblock%}

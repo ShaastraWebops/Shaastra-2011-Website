@@ -69,29 +69,34 @@ class CoordsLoginForm(forms.Form):
     username=forms.CharField(help_text='The coord username given to you')
     password=forms.CharField(widget=forms.PasswordInput, help_text='The coord password given to you')
 
+
+class AddContactForm(forms.Form):
+    option = forms.CharField(max_length=2,help_text='The option the participants will select. Ex: a, b, etc.')
+    text = forms.CharField(help_text='Description of the option.')
+    
 class EditTabForm(forms.Form):
     title=forms.CharField(help_text='Title of the tab')
     text=forms.CharField(widget=forms.Textarea, help_text='Text content of the tab')
     tab_pref=forms.IntegerField(required=True,help_text='Order of the tab for displaying.')
-
+    
 class EditQuestionForm(forms.Form):
+    QUESTION_TYPES = (
+    ('NORMAL', 'Normal'),
+    ('FILE', 'File'),
+    ('MCQ', 'MCQ'),
+    )
     Q_Number=forms.IntegerField(required=True,help_text='Question number')
     title=forms.CharField(widget=forms.Textarea, help_text='The description of the question.')
+    question_type = forms.CharField(max_length=6,widget=forms.Select(choices=QUESTION_TYPES))
     
-
-
-class EditQuestionsTabForm(forms.Form):
-    title=forms.CharField(help_text='Title of the tab')
-    tab_pref=forms.IntegerField(required=True,help_text='Order of the tab for displaying.')
-
 class AddFileForm(forms.Form):
     filetitle=forms.CharField(help_text='Title of the file',required = False)
     tabfile=ExtFileField(ext_whitelist=FILES_WHITELIST,required=False)
 
 class EventForm(ModelForm):
-    start_time = forms.DateTimeField(input_formats=('%d-%m-%y %H:%M',), widget=forms.DateTimeInput(format=('%d-%m-%y %H:%M')), required=False, help_text="Registration start time: DD-MM-YY hh:mm",)
-    end_time = forms.DateTimeField(input_formats=('%d-%m-%y %H:%M',), widget=forms.DateTimeInput(format=('%d-%m-%y %H:%M')), required=False, help_text="Registration end time: DD-MM-YY hh:mm",)
+    #start_time = forms.DateTimeField(input_formats=('%d-%m-%y %H:%M',), widget=forms.DateTimeInput(format=('%d-%m-%y %H:%M')), required=False, help_text="Registration start time: DD-MM-YY hh:mm",)
+    #end_time = forms.DateTimeField(input_formats=('%d-%m-%y %H:%M',), widget=forms.DateTimeInput(format=('%d-%m-%y %H:%M')), required=False, help_text="Registration end time: DD-MM-YY hh:mm",)
     class Meta:
         model = Event
-        fields = ('name', 'registrable', 'start_time', 'end_time', 'accommodation', 'logo', 'sponslogo',)
-
+        #fields = ('name', 'registrable', 'questions', 'start_time', 'end_time', 'accommodation', 'logo', 'sponslogo')
+        fields = ('name', 'logo', 'sponslogo')
