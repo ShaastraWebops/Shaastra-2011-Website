@@ -50,7 +50,7 @@ STATE_CHOICES = (
 
 class College(models.Model):
     name=models.CharField (max_length = 255,help_text  = 'The name of your college. Please refrain from using short forms.')
-    city=models.CharField (max_length = 30,help_text  = 'The name of the city where your college is located. Please refrain from using short forms.' )
+    city=models.CharField (max_length = 30,help_text  = 'The name of the city where youra college is located. Please refrain from using short forms.' )
     state=models.CharField (max_length = 40,choices    = STATE_CHOICES,help_text  = 'The state where your college is located. Select from the drop down list' )
 
     def __unicode__(self):
@@ -64,11 +64,13 @@ class College(models.Model):
 #Author: Swaroop Ramaswamy - inital model                
 class UserProfile(models.Model):
     user 			= models.ForeignKey		(User, unique = True)
+    first_name      = models.CharField(max_length=30)
+    last_name       = models.CharField(max_length=30)
     gender 			= models.CharField		(max_length = 1, choices = GENDER_CHOICES, default = 'F')   #Defaults to 'girl' ;-)
     age 			= models.IntegerField 	(default = 18 , help_text = 'You need to be over 12 and under 80 years of age to participate')
     branch 			= models.CharField		(max_length = 50, default = 'Enter Branch Here', blank = True, null=True, help_text = 'Your branch of study')
     mobile_number 	= models.CharField		(max_length = 15, null=True , help_text='Please enter your current mobile number')
-    college 		= models.ForeignKey		(College)
+    college 		= models.ForeignKey		(College,null=True,blank=True)
     college_roll 	= models.CharField		(max_length = 40, default = 'Enter College Id/Roll No.', null=True)
     shaastra_id 	= models.CharField		(max_length = 20, unique = True, null=True)
     activation_key 	= models.CharField		(max_length = 40, null=True)

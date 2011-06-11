@@ -10,18 +10,22 @@ from main_test.settings import *
 from main_test.submissions import *
 #from submissions import *
 import models,forms
+import sha, random
 import datetime
+from main_test.users import models
+from main_test.events import models
+from main_test.users import models
 
 import os
 
 #Fileupload is not done perfectly. 
 #Desired - Once a file is uploaded page should be refreshed and the uploaded file should be visible as a url link below the textarea
 
-FILE_DIR = settings.MEDIA_ROOT + 'main/files/'
+FILE_DIR = settings.MEDIA_ROOT + 'main1/files/'
 
 #Will change the model after this plan is confirmed
 def fileuploadhandler(f, eventname, tabid, file_title):
-    savelocation = settings.MEDIA_ROOT + 'main/events/' + camelize(eventname) + '/files/' + camelize(f.name)
+    savelocation = settings.MEDIA_ROOT + 'main1/events/' + camelize(eventname) + '/files/' + camelize(f.name)
     destination = open( savelocation , 'wb+')
     #destination.write(f.read())
     for chunk in f.chunks():
@@ -90,6 +94,12 @@ def dashboard(request):
             if(t.question_tab):
                 questions_added = True
                 ques_list = models.Question.objects.filter(event__name = event_name).order_by('Q_Number')
+                options_list = []
+                for ques in ques_list:
+                    temp = models.MCQ_option.objects.filter(question=ques).order_by('option')
+                    for temps in temp:
+                        options_list.append(temps)
+                is_coord=userprof.is_coord
         return render_to_response('event/dashboard.html', locals(), context_instance= global_context(request))
     else:
         raise Http404        
@@ -138,6 +148,7 @@ def edit_tab_content(request):
                 tab_to_edit.text = form.cleaned_data['text']
                 tab_to_edit.pref = form.cleaned_data['tab_pref']
                 tab_to_edit.save()
+
                 file_list = models.TabFiles.objects.filter(Tab = tab_to_edit)
                 #if request.FILES:
                     #userprof=request.user.get_profile()
@@ -151,6 +162,7 @@ def edit_tab_content(request):
                 tab_to_edit=models.QuickTabs.objects.get(id=request.session["tab_id"])
                 file_list = models.TabFiles.objects.filter(Tab = tab_to_edit)  
             return render_to_response('event/add_tab.html', locals(), context_instance= global_context(request))
+
 
     else:
         tab_to_edit = models.QuickTabs.objects.get(id=request.GET["tab_id"])
@@ -173,13 +185,10 @@ def edit_tab_content(request):
 @coords_only
 def edit_questions(request):  
     if request.method=='POST':      
-            data=request.POST.copy()
-            #try:
-               # form = forms.EditTabForm(data,request.FILES)
-            #except :  
+            data=request.POST.copy()  
             form = forms.EditQuestionForm(data)
-            
             if form.is_valid():
+                print request.session["ques_id"]
                 ques_to_edit=models.Question.objects.get(id=request.session["ques_id"])            
                 ques_to_edit.title= form.cleaned_data['title']
                 ques_to_edit.Q_Number = form.cleaned_data['Q_Number']
@@ -260,21 +269,22 @@ def add_quick_tab(request):
         is_question=False 
     return render_to_response('event/add_tab.html', locals(), context_instance= global_context(request))    
     
+@needs_authentication            
+@coords_only
 def add_choices(request):
     userprof=request.user.get_profile()
     event_name = userprof.coord_event.name
     if request.method=='POST':
         data=request.POST.copy()
-        if request.FILES:
-            form = forms.EditTabForm(data,request.FILES)
-        else :
-            form = forms.EditTabForm(data)    
+        form = forms.AddContactForm(data)    
         if form.is_valid():
-            newtab=models.QuickTabs(title=form.cleaned_data['title'], text=form.cleaned_data['text'], pref=form.cleaned_data['tab_pref'],event= userprof.coord_event , question_tab = False)
+            print request.GET["ques_to_add_choices_id"]
+            ques_to_edit=models.Question.objects.get(id=request.GET["ques_to_add_choices_id"])
+            newtab= models.MCQ_option(option=form.cleaned_data['option'], text=form.cleaned_data['text'], question = ques_to_edit)
             newtab.save()
             return HttpResponseRedirect ("%sevents/dashboard/"%settings.SITE_URL)
     else:
-        form = forms.EditTabForm()
+        form = forms.AddContactForm()
         is_edit_tab=False
         is_question=False 
     return render_to_response('event/add_choices.html', locals(), context_instance= global_context(request))
@@ -306,7 +316,6 @@ def add_questions_tab(request):
 def add_question(request):
     userprof=request.user.get_profile()
     event_name = userprof.coord_event.name
-    
     if request.method=='POST':
         data=request.POST.copy()
         #request.session["tab_id"]=request.GET["tab_id"]    
@@ -350,7 +359,16 @@ def remove_question(request):
         #tab_file.delete()
     ques_to_delete.delete()
     return HttpResponseRedirect('%sevents/dashboard/'%settings.SITE_URL)
-
+    
+@needs_authentication            
+@coords_only
+def delete_option(request):
+    option_id=request.POST["option_id"]
+    print option_id
+    option_to_delete = models.MCQ_option.objects.get(id = option_id)
+    print option_to_delete.text
+    option_to_delete.delete()
+    return HttpResponseRedirect('%sevents/dashboard/'%settings.SITE_URL)
 
 
 
@@ -399,7 +417,7 @@ def register(request):
     user = request.uesr
     userprof = user.get_profile()
     event_id = request.GET['event_id']
-    event = Event.objects.get(id = event_id)
+    event = models.Event.objects.get(id = event_id)
     userprof.registered.add(event)
     return HttpResponseRedirect('%myshaastra/'%settings.SITE_URL)
 
@@ -408,9 +426,27 @@ def register(request):
 def show_registered_users(request):
     if request.method == 'GET':
         event_id = request.GET['event_id']
-        event = Event.objects.get(id = event_id)
+        event = models.Event.objects.get(id = event_id)
         users_list = event.userprofile_set
         return render_to_response('show_registered_users.html', locals(), context_instance = global_context(request))
     else:
         return HttpResponseRedirect('%sevents/dashboard' % settings.SITE_URL)
+
+def show_event_categories(request):
+    menu_list = models.Menu.objects.filter(parent_menu = None)
+    return render_to_response('show_event_categories.html', locals(), context_instance = global_context(request))
+
+def show_menu_items(request):
+    if request.method == 'GET':
+        menu_id = request.GET['menu_id']
+        menu = models.Menu.objects.get(id = menu_id)
+        #Now to get all the children of this menu
+        menu_list = menu.menu_set
+        event_list = []
+        for menu_item in menu_list:
+            event_list.append(menu_item.event)
+        return render_to_response('show_menu_items.html', locals(), context_instance = global_context(request))
+    else:
+        return HttpResponseRedirect('%sevents/' % settings.SITE_URL)
+
 

@@ -33,6 +33,7 @@ def user_registration(request):
             salt = sha.new(str(random.random())).hexdigest()[:5]
             activation_key = sha.new(salt+user.username).hexdigest()
             key_expires=datetime.datetime.today() + datetime.timedelta(2)
+
             userprofile = UserProfile(
                     user = user,
                     gender     = form.cleaned_data['gender'],
@@ -50,7 +51,7 @@ def user_registration(request):
             body = mail_template.render(Context({'username':user.username,
 							 'SITE_URL':settings.SITE_URL,
 							 'activationkey':userprofile.activation_key }))
-            send_mail('Your new Shaastra2011 account confirmation', body,'noreply@shaastra.org', [user.email,], fail_silently=False)
+            #send_mail('Your new Shaastra2011 account confirmation', body,'noreply@shaastra.org', [user.email,], fail_silently=False)
 
     else:
         form = forms.AddUserForm()
@@ -78,7 +79,7 @@ def college_registration (request):
             return HttpResponse("failed")
     else:
         form=forms.AddCollegeForm()        
-        return render_to_response('users/register_user_raw.html', locals(), context_instance= global_context(request))        
+        return render_to_response('users/register_coll.html', locals(), context_instance= global_context(request))        
             
 def activate (request, a_key = None ):
     SITE_URL = settings.SITE_URL
@@ -89,6 +90,7 @@ def activate (request, a_key = None ):
         try:
 	        user_profile = UserProfile.objects.get(activation_key = a_key)
         except ObjectDoesNotExist:
+
             prof_dne = True
         if user_profile.key_expires < datetime.datetime.today():
 	        expired = True
@@ -102,8 +104,10 @@ def activate (request, a_key = None ):
             user.save()
             request.session["registered"]=True
             activated = True
+
     return render_to_response('registration/activated.html',locals(), context_instance= global_context(request))
     
+
 @needs_authentication
 def myshaastra(request):
     user = request.user
