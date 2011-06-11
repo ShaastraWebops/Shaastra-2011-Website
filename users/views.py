@@ -62,19 +62,20 @@ def user_registration(request):
 
     else:
         form = forms.AddUserForm()
+        coll_form = forms.AddCollegeForm(prefix="identifier")
     return render_to_response('users/register_user.html', locals(), context_instance= global_context(request))    
                             
 def college_registration (request):
-    if request.method == 'POST':
-        data = request.POST.copy()
-        form = forms.AddCollegeForm(data)
+    if request.method == 'GET':
+        data = request.GET.copy()
+        coll_form = forms.AddCollegeForm(data,prefix="identifier")
 
-        if form.is_valid():
-            college=clean_string(form.cleaned_data['name'])
+        if coll_form.is_valid():
+            college=clean_string(coll_form.cleaned_data['name'])
             if college.find('&')>=0:
                 college = college.replace('&','and')
-            city=clean_string(form.cleaned_data['city'])
-            state=clean_string(form.cleaned_data['state'])
+            city=clean_string(coll_form.cleaned_data['city'])
+            state=clean_string(coll_form.cleaned_data['state'])
 
             if len (College.objects.filter(name=college, city=city, state=state))== 0 :
                 college=College (name = college, city = city, state = state)
@@ -84,9 +85,10 @@ def college_registration (request):
                 return HttpResponse("exists")
         else:
             return HttpResponse("failed")
-    else:
-        form=forms.AddCollegeForm()        
-        return render_to_response('users/register_coll.html', locals(), context_instance= global_context(request))        
+    #redundant as registration done by ajax call....
+    #else:
+    #coll_form=forms.AddCollegeForm()        
+    #return render_to_response('users/register_user.html', locals(), context_instance= global_context(request))        
             
 def activate (request, a_key = None ):
     SITE_URL = settings.SITE_URL
