@@ -12,7 +12,6 @@ from main_test.submissions import *
 import models,forms
 import sha, random
 import datetime
-from main_test.users import models
 
 import os
 
@@ -60,7 +59,7 @@ def coordslogin (request):
 #Handler for displaying /2011/event/eventname page 
 def show_quick_tab(request,event_name=None):
     urlname=decamelize(event_name)
-    tab_list=events.models.QuickTabs.objects.filter(event__name = urlname).order_by('pref')
+    tab_list=models.QuickTabs.objects.filter(event__name = urlname).order_by('pref')
     if tab_list.count():
         for t in tab_list:
             t.file_list = models.TabFiles.objects.filter(Tab = t)
