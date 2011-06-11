@@ -254,17 +254,7 @@ function onblurAttribute() {
 
 }
 onblurAttribute();
-// var branches=new Array("Arts","Accounting","Applied Mechanics / Mechatronics",
-//       "Aerospace Engineering","Automobile Engineering","Biotech / Biochemical / Biomedical",
-//       "Biology","Ceramic Engineering","Chemical Engineering",
-//       "Chemistry","Design / Engineering Design","Civil Engineering","Computer Science and Engineering",
-//       "Electronics and Communications Engineering","Electrical and Electronics Engineering","Electrical Engineering",
-//       "Electronics and Instrumentation Engineering","Engineering Physics","Economics","Fashion Technology",
-//       "Humanities and Social Sciences","Industrial Production    / Production","Information Technology and Information Science(IT/IS)",
-//       "Management","Manufacturing","Mathematics","Metallurgy and Material Science","Mechanical Engineering",
-//       "Ocean Engineering and Naval Architecture","Physics","Telecom","Textile Engineering","Other");
 
-// var obj3 = actb2(document.getElementById('id_branch'),branches);
 </script>
 
    <script type="text/javascript">
@@ -325,18 +315,16 @@ xmlhttp.onreadystatechange=function()
 {
 if(xmlhttp.readyState==4)
   {
-  var resp = xmlhttp.responseText;
-  if(resp=="exists"){
+  var response = xmlhttp.responseText;
+  if(response=="exists"){
     document.getElementById("reg_fail").style.display="block";
-  }else if(resp=="created"){
+  }
+  else if(response=="created"){
     document.getElementById("reg_success").style.display="block";
     document.getElementById("newcollege").style.display="none";
     actb_add(document.getElementById("id_id2-name").value)
   }
-  else 
-  {
-    document.getElementById("events_hospi").innerHTML=xmlhttp.responseText;
-  }
+  
   }
 }
 
@@ -344,29 +332,30 @@ function create_coll(){
 
   var url;
   url ="{{SITE_URL}}register/college/?";
-  url=url+"id2-name="+escape(document.getElementById("id_id2-name").value);
-  url=url+"&id2-state="+escape(document.getElementById("id_id2-state").value);
-  url=url+"&id2-city="+escape(document.getElementById("id_id2-city").value);
+  url=url+"identifier-name="+escape(document.getElementById("id_identifier-name").value);
+  url=url+"&identifier-state="+escape(document.getElementById("id_identifier-state").value);
+  url=url+"&identifier-city="+escape(document.getElementById("id_identifier-city").value);
 
-  xmlhttp.open("POST",url,true);
+  xmlhttp.open("GET",url,true);
   xmlhttp.send(null);
+  
 }
 
 function hide_college(){
   document.getElementById("newcollege").style.display = "none";
 }
 
-function show_events(){
-    var url;
-    url = "{{SITE_URL}}/events/view/hospitality/";
-    xmlhttp.open("GET",url,true);
-    xmlhttp.send(null);
-    document.getElementById("events_hospi").style.display = "block";
-}
+//function show_events(){
+//    var url;
+//   url = "{{SITE_URL}}/events/view/hospitality/";
+//    xmlhttp.open("GET",url,true);
+//    xmlhttp.send(null);
+//    document.getElementById("events_hospi").style.display = "block";
+//}
 
-function close_evHospi(){
-    document.getElementById("events_hospi").style.display="none";
-}
+//function close_evHospi(){
+//    document.getElementById("events_hospi").style.display="none";
+//}
  </script>
  <div id="events_hospi" style="display:none;">
  </div>
@@ -387,7 +376,7 @@ function close_evHospi(){
     </p>
    </div><!-- closes div register -->
    <div class="register">
-    <form action="{{SITE_URL}}register/college/" >
+    <form id="reg_college" onsubmit="create_coll(); return false;" >
      <div class="info">
       <p>
        Please fill in the following details:
