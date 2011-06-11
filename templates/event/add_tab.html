@@ -1,5 +1,5 @@
 {%extends "index.html"%}
-
+{%block updates%}{%endblock%}
 {%block body%}
 
 <!--logout button-->
@@ -17,6 +17,7 @@
 
 						
 <div id="body">
+  <div id="video">	
     <!-- the edit tab form -->
 
      <div id="form"> 
@@ -39,7 +40,7 @@
           
 
 	<br /><br />
-         
+    <div id="files_everything" align="right">     
        <!--List displaying the currently uploaded files -->
         {%if not is_question%}
 
@@ -95,7 +96,7 @@
 
                  <br/><br/>
                 
-
+            </div>
                     <!--The Back To DashBoard Button -->
 
                     <div id="cancel">
@@ -110,7 +111,7 @@
 
 
 </div>
-
+</div>
 {%endblock body%}
 
 

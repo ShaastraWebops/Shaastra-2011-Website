@@ -2,7 +2,7 @@
 
 {%block media_location%}
    
-                <link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}media1/style/css/main.css" />  
+                  
 		<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}media1/style/css/events-tab.css" />   
 		<script type="text/javascript" src="{{MEDIA}}media1/scripts/js/jquery-1.5.2-min.js"></script>
 		<script type="text/javascript" src="{{MEDIA_URL}}media1/scripts/js/jquery.jscrollpane.min.js"></script>
@@ -65,8 +65,8 @@
 {%block body%}
 
      
-
-            {{event_name}}
+          <div id="video">
+       <div id="eventtitle" style="position:relative;top:-15px">{{event_name}}</div>	
 		<div id="eventsTab">
 			<div id="tabs">
 
@@ -213,5 +213,5 @@
 	</div>
 
 
-
+</div>
 {%endblock%}

@@ -63,18 +63,16 @@
 
 
 {%block body%}
-
-{{event_name}}
+   
+<div id="video">
  <div id="eventsTab">
-			<div id="tabs">
+
+ <div id="eventtitle" style="position:relative;top:-15px">{{event_name}}</div>	
+                        <div id="tabs">
 
                              {% for row in tab_list%}
 				<div id="{{row.title|slugify }}">{{row.title}}</div>
-			    <!--<div id="pstmnt">Problem Statement</div>
-				<div id="rules">Rules</div>
-				<div id="faq">FAQ</div>
-				<div id="contact">Contact</div>	
-			    	<div id="extraTabs">More Tabs Here</div>-->
+			    
                             {%endfor%}				
 			</div>
                         
@@ -84,45 +82,45 @@
 
                                   <!--The Edit Event button -->
    
-          <div id="edit_event">
-              {%if user.is_authenticated%} 
-                    <form action= "{{SITE_URL}}events/dashboard/edit_event/" method="GET">
-                       {% csrf_token %}
-                    <input type="submit" value="Edit Event Details" />
-                    </form>
-             {%endif%}
-          </div>
+                                        <div id="edit_event">
+                                             {%if user.is_authenticated%} 
+                                            <form action= "{{SITE_URL}}events/dashboard/edit_event/" method="GET">
+                                                {% csrf_token %}
+                                            <input type="submit" value="Edit Event Details" />
+                                            </form>
+                                            {%endif%}
+                                            </div>
           
-          <!-- Button to see users who have registered for this event -->
+                                  <!-- Button to see users who have registered for this event -->
            
-           <!-- Logout button -->
+                                       <!-- Logout button -->
 
-           <div id="logout">
-               {%if user.is_authenticated%} 
-                    <form action= "{{SITE_URL}}events/logout/" method="POST">
-                      {% csrf_token %}
-                    <input type="submit" value="LOGOUT" />
-                    </form>
-              {%endif%}
-           </div>
+                                       <div id="logout">
+                                            {%if user.is_authenticated%} 
+                                               <form action= "{{SITE_URL}}events/logout/" method="POST">
+                                                     {% csrf_token %}
+                                                 <input type="submit" value="LOGOUT" />
+                                               </form>
+                                             {%endif%}
+                                        </div>
               
      
-
+                                        <br/><br/>
 
                                        {%if not row.question_tab%}
-			ROW ID : {{row.id}} 
-			<br />
-			ROW PREFERENCE : {{row.pref}} 
-			<br />
-			<p>{{row.text|safe}}</p>
-			<br /><br />
+			                            ROW ID : {{row.id}} 
+			                                  <br />
+			                            ROW PREFERENCE : {{row.pref}} 
+			                                 <br />
+			                              {{row.text|safe}}
+			                                <br /><br />
 
-                        <!-- displaying file list -->
+                                        <!-- displaying file list -->
  
-			<div id="file_display">
-                             <div id="file_header">
-			         CURRENTLY UPLOADED FILES:
-			      </div>
+			              <div id="file_display">
+                                              <div id="file_header">
+			                       CURRENTLY UPLOADED FILES:
+			                     </div>
                            
 			           <br/>
                               <!-- displaying the file urls -->
@@ -311,5 +309,5 @@
 	</div>
  
 
-
+</div>
 {%endblock%}
