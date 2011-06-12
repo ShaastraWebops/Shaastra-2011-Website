@@ -9,7 +9,7 @@
   <script type="text/javascript" src="http://dev.jquery.com/view/trunk/plugins/autocomplete/jquery.autocomplete.js"></script>
   <script>
    $(document).ready(function(){
-    var data = {{js_data}};
+    var data = {{js_data|escapejs}};
 $("#coll_input").autocomplete(data);
   });
   </script>
