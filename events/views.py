@@ -442,7 +442,7 @@ def show_menu_items(request):
         menu_id = request.GET['menu_id']
         menu = models.Menu.objects.get(id = menu_id)
         #Now to get all the children of this menu
-        menu_list = menu.menu_set
+        menu_list = menu.menu_set.all()
         event_list = []
         for menu_item in menu_list:
             event_list.append(menu_item.event)
