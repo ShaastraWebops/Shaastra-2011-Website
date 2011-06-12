@@ -131,7 +131,7 @@ def Question_Tab(request):
 @needs_authentication    
 @coords_only
 def edit_tab_content(request):
-    tab_to_edit=models.QuickTabs.objects.get(id=request.GET["tab_id"])            
+    tab_to_edit=models.QuickTabs.objects.get(id=request.GET['tab_id'])            
     if request.method=='POST':      
             data=request.POST.copy()
             try:
