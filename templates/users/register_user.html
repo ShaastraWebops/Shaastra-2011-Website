@@ -27,7 +27,6 @@ $("#branch_input").autocomplete(bdata);
   </script>
 <script language="javascript" type="text/javascript" src="http://www.shaastra.org/includes/2009/userportal/js/wz_tooltip.js">
   </script>
-<script language="javascript" type="text/javascript" src="http://www.shaastra.org/includes/2009/userportal/js/actb.js"></script>
     {% if registered_college %}
 <div class="register">
  College successfully registered.
@@ -426,12 +425,6 @@ function hide_college(){
 </table>
 
 <script>
- var nam = new Array("{%for coll in colls%}{{ coll.name }},{{ coll.city }},{%endfor%}");
-      var obj2 = actb(document.getElementById('coll_input'),nam);
- actb(document.getElementById('coll_input'),nam);
-      function actb_add(name){
-        actb_keywords[actb_keywords.length] = name;
-      }
 
 var branches=new Array("Arts","Accounting","Applied Mechanics / Mechatronics",
       "Aerospace Engineering","Automobile Engineering","Biotech / Biochemical / Biomedical",
@@ -443,7 +436,6 @@ var branches=new Array("Arts","Accounting","Applied Mechanics / Mechatronics",
       "Management","Manufacturing","Mathematics","Metallurgy and Material Science","Mechanical Engineering",
       "Ocean Engineering and Naval Architecture","Physics","Telecom","Textile Engineering");
 
-var obj3 = actb2(document.getElementById('id_branch'),branches);
 
 </script>
 
