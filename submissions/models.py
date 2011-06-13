@@ -3,13 +3,12 @@ from django.contrib import admin
 from django.contrib.auth.models import User, Group
 from main_test.events.models import *
 
-        
 
 class Submission(models.Model):
     participant = models.ForeignKey(User)
     submitted = models.BooleanField()
     question = models.ForeignKey(Question)
-    
+'''    
 class TextAnswer(models.Model):
     text = models.TextField(blank = True, null = True)
     def render(self):
@@ -28,7 +27,6 @@ class Answer_MCQ(Answer):
     class Admin:
         pass
     
-    '''
 # Will this work? I'm not sure at all. It didn't work for events. 
 #def get_upload_path(instance, filename):
     #event = instance.question.event
