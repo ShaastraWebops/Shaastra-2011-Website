@@ -9,13 +9,24 @@
   <script type="text/javascript" src="http://dev.jquery.com/view/trunk/plugins/autocomplete/jquery.autocomplete.js"></script>
   <script>
    $(document).ready(function(){
-    var data = {{js_data}};
+    var data = {{js_data|safe}};
 $("#coll_input").autocomplete(data);
+  });
+  $(document).ready(function(){
+    var bdata = ["Arts","Accounting","Applied Mechanics / Mechatronics",
+      "Aerospace Engineering","Automobile Engineering","Biotech / Biochemical / Biomedical",
+      "Biology","Ceramic Engineering","Chemical Engineering",
+      "Chemistry","Design / Engineering Design","Civil Engineering","Computer Science and Engineering",
+      "Electronics and Communications Engineering","Electrical and Electronics Engineering","Electrical Engineering",
+      "Electronics and Instrumentation Engineering","Engineering Physics","Economics","Fashion Technology",
+      "Humanities and Social Sciences","Industrial Production    / Production","Information Technology and Information Science(IT/IS)",
+      "Management","Manufacturing","Mathematics","Metallurgy and Material Science","Mechanical Engineering",
+      "Ocean Engineering and Naval Architecture","Physics","Telecom","Textile Engineering"];
+$("#branch_input").autocomplete(bdata);
   });
   </script>
 <script language="javascript" type="text/javascript" src="http://www.shaastra.org/includes/2009/userportal/js/wz_tooltip.js">
   </script>
-<script language="javascript" type="text/javascript" src="http://www.shaastra.org/includes/2009/userportal/js/actb.js"></script>
     {% if registered_college %}
 <div class="register">
  College successfully registered.
@@ -414,12 +425,6 @@ function hide_college(){
 </table>
 
 <script>
- var nam = new Array("{%for coll in colls%}{{ coll.name }},{{ coll.city }},{%endfor%}");
-      var obj2 = actb(document.getElementById('coll_input'),nam);
- actb(document.getElementById('coll_input'),nam);
-      function actb_add(name){
-        actb_keywords[actb_keywords.length] = name;
-      }
 
 var branches=new Array("Arts","Accounting","Applied Mechanics / Mechatronics",
       "Aerospace Engineering","Automobile Engineering","Biotech / Biochemical / Biomedical",
@@ -431,7 +436,6 @@ var branches=new Array("Arts","Accounting","Applied Mechanics / Mechatronics",
       "Management","Manufacturing","Mathematics","Metallurgy and Material Science","Mechanical Engineering",
       "Ocean Engineering and Naval Architecture","Physics","Telecom","Textile Engineering");
 
-var obj3 = actb2(document.getElementById('id_branch'),branches);
 
 </script>
 
