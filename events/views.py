@@ -434,7 +434,17 @@ def show_registered_users(request):
         return HttpResponseRedirect('%sevents/dashboard' % settings.SITE_URL)
 
 def show_event_categories(request):
-    menu_list = models.Menu.objects.filter(parent_menu = None)
+    menu_list = models.Menu.objects.all()
+    categories = menu_list.filter(parent_menu = None)
+    for category in categories:
+        category.events = []
+        #menu_set is the reverse foreign key manager for the Menu object
+        event_menu_list = category.menu_set.all()
+        for event_menu in event_menu_list:
+            event = event_menu.event
+            event_name = camelize(event.name)
+            event.image_src = SITE_URL + "events/images/" + event_name + "/"
+            category.events.append(event)
     return render_to_response('show_event_categories.html', locals(), context_instance = global_context(request))
 
 def show_menu_items(request):
@@ -450,4 +460,7 @@ def show_menu_items(request):
     else:
         return HttpResponseRedirect('%sevents/' % settings.SITE_URL)
 
+def event_image(request, event_name=None):
+    image_src = MEDIA_URL + "main/events/" + event_name + "/images/" + event_name + ".jpg"
+    return render_to_response('event_image.html', locals(), context_instance = global_context(request))
 
