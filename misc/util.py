@@ -6,6 +6,7 @@ from django.template.loader import get_template
 from django.template.context import Context, RequestContext
 
 from main_test import settings
+import main_test
 #from main_test.users import models
 
 import MySQLdb
@@ -22,7 +23,7 @@ def generate_menu_dict(request):
     if 'menu_urls' in request.session:
         return
     #Otherwise, create it
-    menu_list = models.Menu.objects.select_related('event').all()
+    menu_list = main_test.events.models.Menu.objects.select_related('event').all()
     categories = menu_list.filter(parent_menu = None)
     for category in categories:
         category.events = []
@@ -31,9 +32,9 @@ def generate_menu_dict(request):
         for event_menu in event_menu_list:
             event = event_menu.event
             event_name = camelize(event.name)
-            event.image_src = SITE_URL + "events/images/" + event_name + "/"
+            event.image_src = settings.SITE_URL + "events/images/" + event_name + "/"
             category.events.append(event)
-    request.session['menu_urls'] = category
+    request.session['menu_urls'] = categories
     return
 
 # Generates a context with the most used variables
