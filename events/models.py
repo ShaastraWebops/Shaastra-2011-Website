@@ -14,10 +14,10 @@ import os
 #Assumed MEDIA_ROOT points to /home/shaastra/public_html/2011/media/
 
 def get_eventlogo_path(instance, filename):
-	return 'main/events/' + camelize(instance.name) + '/images/eventlogos/' + filename
+	return 'events/' + camelize(instance.name) + '/images/eventlogos/' + filename
 
 def get_sponslogo_path(instance, filename):
-	return 'main/events/' + camelize(instance.name) + '/images/sponslogos/' + filename
+	return 'events/' + camelize(instance.name) + '/images/sponslogos/' + filename
 
 class Event(models.Model):
     name = models.CharField(max_length=80)
@@ -59,26 +59,20 @@ class Event(models.Model):
             #This line raises an exception if old_instance does not exist 
             if old_instance.name != self.name:
                 print 'entered the if block'
-                os.system("mv -T " + MEDIA_ROOT + "main/events/" + camelize(old_instance.name) + " " + MEDIA_ROOT + "main/events/" + camelize(self.name) )
+                os.system("mv -T " + MEDIA_ROOT + "events/" + camelize(old_instance.name) + " " + MEDIA_ROOT + "events/" + camelize(self.name) )
             else:
                 print 'entered the else block'
                 pass
         except Event.DoesNotExist:
             print 'excepted'
-            os.system("mkdir " + MEDIA_ROOT + "main/events/" + camelize(self.name) )
-            os.system("mkdir " + MEDIA_ROOT + "main/events/" + camelize(self.name) + "/files")
-            os.system("mkdir " + MEDIA_ROOT + "main/events/" + camelize(self.name) + "/submissions")
-            os.system("mkdir " + MEDIA_ROOT + "main/events/" + camelize(self.name) + "/images")
-            os.system("mkdir " + MEDIA_ROOT + "main/events/" + camelize(self.name) + "/images/eventlogos")
-            os.system("mkdir " + MEDIA_ROOT + "main/events/" + camelize(self.name) + "/images/sponslogos")
+            os.system("mkdir " + MEDIA_ROOT + "events/" + camelize(self.name) )
+            os.system("mkdir " + MEDIA_ROOT + "events/" + camelize(self.name) + "/files")
+            os.system("mkdir " + MEDIA_ROOT + "events/" + camelize(self.name) + "/submissions")
+            os.system("mkdir " + MEDIA_ROOT + "events/" + camelize(self.name) + "/images")
+            os.system("mkdir " + MEDIA_ROOT + "events/" + camelize(self.name) + "/images/eventlogos")
+            os.system("mkdir " + MEDIA_ROOT + "events/" + camelize(self.name) + "/images/sponslogos")
     	super(Event, self).save(*args, **kwargs) # Call the "real" save() method.
-    
-    #A directory should not be created every time a new variable is declared
-    #Moreover, this completely overrides all else that init is supposed to do
-    #def __init__(self, *args, **kwargs):
-    #    os.system("mkdir " + MEDIA_ROOT + "main/files/" + camelize(kwargs['name']) )
-    #    os.system("mkdir " + MEDIA_ROOT + "main/submissions/" + camelize(kwargs['name']) )
-	
+    	
     class Admin:
         pass  
 
@@ -139,7 +133,7 @@ class TabFiles(models.Model):
         os.system('rm ' + str(self.url).replace(MEDIA_URL, MEDIA_ROOT) )
         #filename = str(self.url).rsplit('/', 1)[1]   #Already camelized
         #eventname = self.Tab.event.name
-        #os.system("rm " + MEDIA_ROOT + "main/events/" + camelize(eventname) + "/files/" + filename)
+        #os.system("rm " + MEDIA_ROOT + "events/" + camelize(eventname) + "/files/" + filename)
         super(TabFiles, self).delete(*args, **kwargs)
     
     def __unicode__(self):
@@ -274,7 +268,7 @@ class Update(models.Model):
 		pass	
 
 def get_menu_thumbnail_path(instance, filename):
-    return 'main/events/images/menu_thumbnails/'
+    return 'events/images/menu_thumbnails/'
 
 class Menu(models.Model):
     text = models.CharField(max_length = 30, blank = False, null = False)
