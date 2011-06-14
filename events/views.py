@@ -435,7 +435,7 @@ def show_registered_users(request):
 
 def show_event_categories(request):
     menu_list = models.Menu.objects.filter(parent_menu = None)
-    return render_to_response('show_event_categories.html', locals(), context_instance = global_context(request))
+    return render_to_response('event/show_event_categories.html', locals(), context_instance = global_context(request))
 
 def show_menu_items(request):
     if request.method == 'GET':
@@ -446,7 +446,7 @@ def show_menu_items(request):
         event_list = []
         for menu_item in menu_list:
             event_list.append(menu_item.event)
-        return render_to_response('show_menu_items.html', locals(), context_instance = global_context(request))
+        return render_to_response('event/show_menu_items.html', locals(), context_instance = global_context(request))
     else:
         return HttpResponseRedirect('%sevents/' % settings.SITE_URL)
 
