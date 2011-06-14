@@ -7,20 +7,21 @@
         </title>
 	
 		<link rel="stylesheet" href="css/main.css" type="text/css"/>
-		<link rel="stylesheet" type="text/css" href="css/template_2.css" />
-	        <link rel="stylesheet" type="text/css" href= "./style_copy.css">
-	        <link rel="stylesheet" type="text/css" href= "Media/css/ticker.css">
-		<link rel="stylesheet" type="text/css" href="media/style/css/events-tab.css" />
-	        <link rel="stylesheet" type="text/css" href= "./style_copy.css">
-                <link rel="stylesheet" type="text/css" href= "./events_scroll.css">
+		<link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}css/template_2.css" />
+	    <link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}css/style_copy.css">
+	    <link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}css/ticker.css">
+		<link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}css/events-tab.css" />
+	    <link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}css/style_copy.css">
+        <link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}css/events_scroll.css">
 		    
 		    
-	<script type="text/javascript" src="Media/js/ticker.js"></script>
-	<script type="text/javascript" src="Media/js/jquery.js"></script>
-	<script type="text/javascript" src="./jquery-ui-1.8.12.custom.min.js"></script>
-	<script type="text/javascript" src="media/scripts/js/jquery.jscrollpane.min.js"></script>
-	<script type="text/javascript" src="media/scripts/js/jquery.mousewheel.js"></script>
-	<script type="text/javascript" src="js/ticker.js"></script>
+	<script type="text/javascript" src="{{MEDIA_URL}}js/js/script/ticker.js"></script>
+	<script type="text/javascript" src="{{MEDIA_URL}}js/js/script/jquery.js"></script>
+	<script type="text/javascript" src="{{MEDIA_URL}}js/js/script/jquery-ui-1.8.12.custom.min.js"></script>
+    <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/jquery-1.5.2-min.js"></script>
+    <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/jquery.jscrollpane.min.js"></script>
+	<script type="text/javascript" src="{{MEDIA_URL}}js/js/script/jquery.mousewheel.js"></script>
+	<script type="text/javascript" src="{{MEDIA_URL}}js/js/script/ticker.js"></script>
         <!--[if IE 7]>
            <style type="text/css">
                 #eventsTab{ top:0%; }
@@ -155,7 +156,7 @@ $(document).ready(function () {
 });
 
 	</script>
-    <script src = "./script.js"></script>
+    <script src = "{{MEDIA_URL}}js/js/script/script.js"></script>
     </head>
         <body>
 
@@ -164,7 +165,7 @@ $(document).ready(function () {
             <div id = "header_top">
                 <div id = "logos_container">
                     <div id = "logos">
-                        <img src = "./Media/Images/all_logos.png" style = "width : 247px;height:115px">
+                        <img src = "{{MEDIA_URL}}img/all_logos.png" style = "width : 247px;height:115px">
                     </div>
                 </div>
                 <div id ="navbar_container">
@@ -177,15 +178,15 @@ $(document).ready(function () {
 
                     
                     <div id = "logandsearch">
-                        <img src = "./Media/Images/login.png" id = "login">
-                            <img src = "./Media/Images/sign_up.png" id = "sgnup">
-                                <span id ="srch"><img src = "./Media/Images/search.png" id = "srimg"><input type = "text" id = "search" name = "search"></span>
+                        <img src = "{{MEDIA_URL}}img/login.png" id = "login">
+                            <img src = "{{MEDIA_URL}}img/sign_up.png" id = "sgnup">
+                                <span id ="srch"><img src = "{{MEDIA_URL}}img/search.png" id = "srimg"><input type = "text" id = "search" name = "search"></span>
                     </div>            
                     </div>
                 </div>
                 <div id = "spons_container">
                     <div id = "spons">
-                        <img src = "./Media/Images/spons_box.png" style = "width : 176px;height:100%">
+                        <img src = "{{MEDIA_URL}}img/spons_box.png" style = "width : 176px;height:100%">
                     </div>
                 </div>
                 <div class = "clearfloat"></div>
@@ -343,7 +344,7 @@ $(document).ready(function () {
 			<div id="event-details">
 
 				<div id="intro_">
-					<img src="media/images/slide_1.png" style="width:550px;"/>
+					<img src="{{MEDIA_URL}}img/slide_1.png" style="width:550px;"/>
 
 					 Content Height:Dynamic; 
 					 {Notice the change in scrollbar height as you change tabs}
