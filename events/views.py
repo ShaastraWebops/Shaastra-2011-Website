@@ -447,6 +447,7 @@ def show_event_categories(request):
             category.events.append(event)
     return render_to_response('show_event_categories.html', locals(), context_instance = global_context(request))
 
+'''
 def show_menu_items(request):
     if request.method == 'GET':
         menu_id = request.GET['menu_id']
@@ -459,6 +460,7 @@ def show_menu_items(request):
         return render_to_response('show_menu_items.html', locals(), context_instance = global_context(request))
     else:
         return HttpResponseRedirect('%sevents/' % settings.SITE_URL)
+'''
 
 def event_image(request, event_name=None):
     image_src = MEDIA_URL + "main/events/" + event_name + "/images/" + event_name + ".jpg"
