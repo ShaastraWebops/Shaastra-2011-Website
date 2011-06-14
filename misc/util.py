@@ -6,6 +6,7 @@ from django.template.loader import get_template
 from django.template.context import Context, RequestContext
 
 from main_test import settings
+import main_test
 #from main_test.users import models
 
 import MySQLdb
@@ -16,6 +17,25 @@ NORMAL = 1
 FILE = 2
 MCQ = 3
 MESSAGE = 4
+
+def generate_menu_dict(request):
+    #check if the menu list already exists
+    if 'menu_urls' in request.session:
+        return
+    #Otherwise, create it
+    menu_list = main_test.events.models.Menu.objects.select_related('event').all()
+    categories = menu_list.filter(parent_menu = None)
+    for category in categories:
+        category.events = []
+        #menu_set is the reverse foreign key manager for the Menu object
+        event_menu_list = category.menu_set.select_related('event').all()
+        for event_menu in event_menu_list:
+            event = event_menu.event
+            event_name = camelize(event.name)
+            event.image_src = settings.SITE_URL + "events/images/" + event_name + "/"
+            category.events.append(event)
+    request.session['menu_urls'] = categories
+    return
 
 # Generates a context with the most used variables
 def global_context(request):
@@ -28,6 +48,7 @@ def global_context(request):
         hospi_coord=True
     if request.user.is_authenticated() and request.user.groups.filter(name="EventCores"):
         is_core=True
+    generate_menu_dict(request)
     context =  RequestContext (request,
             {'user':request.user,
             'SITE_URL':settings.SITE_URL,
@@ -36,6 +57,7 @@ def global_context(request):
             'is_coord':is_coord,
             'hospi_coord':hospi_coord,
             'is_core':is_core,
+            'menu_urls':request.session['menu_urls'],
             })
     return context
 

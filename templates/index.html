@@ -1,12 +1,26 @@
 
   <head>
   
-       <title>Shaastra 2011</title>
-       <link rel="stylesheet" href="{{MEDIA_URL}}css/main.css" type="text/css"/>
-       <link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}css/template_2.css" />
-       <script type="text/javascript" src="{{MEDIA_URL}}js/jquery.js"></script>
-       <script type="text/javascript" src="{{MEDIA_URL}}js/main.js"></script>
-       <link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}media1/style/css/main.css" />
+        <title>Shaastra 2011</title>
+        <link rel="stylesheet" href="{{MEDIA_URL}}css/main.css" type="text/css"/>
+        <link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}css/template_2.css" />
+        <script type="text/javascript" src="{{MEDIA_URL}}js/jquery.js"></script>
+        <script type="text/javascript" src="{{MEDIA_URL}}js/main.js"></script>
+        <link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}media1/style/css/main.css" />
+        
+        <script type="text/javascript">
+            var urls = new Array();
+            {% with categories=menu_urls %}
+                {% for category in categories %}
+                    var k = new Array();
+                    {% for event in category.events %}
+                        k.push("{{event.image_src}}|`{{event.url}}");
+                    {% endfor %}
+                    urls.push(k);
+                {% endfor %}    
+            {% endwith %}
+        </script>
+
   {%block media_location %}  
   {%endblock%}
   </head>
