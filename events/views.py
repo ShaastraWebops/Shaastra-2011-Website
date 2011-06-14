@@ -54,8 +54,7 @@ def coordslogin (request):
             invalid_login = session_get(request, "invalid_login")
             form = forms.CoordsLoginForm () 
     return render_to_response('event/login.html', locals(), context_instance= global_context(request))
-    #This URL can be changed as required later
-
+    
 #Handler for displaying /2011/event/eventname page 
 def show_quick_tab(request,event_name=None):
     urlname=decamelize(event_name)
