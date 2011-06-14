@@ -30,7 +30,7 @@ class Event(models.Model):
     
     # Registration. 
     registrable = models.BooleanField(default=False, help_text= "Can participants register online?")
-    questions = models.BooleanField(default=False, help_text= "Will the participant have to answer a questionnaire?")
+    #questions = models.BooleanField(default=False, help_text= "Will the participant have to answer a questionnaire?")
     #users = models.ManyToManyField(User,  blank=True, null=True, related_name='users_events')
     #chosen_users = models.ManyToManyField(User, blank=True, null=True, related_name='qualified_events')
 
@@ -59,7 +59,7 @@ class Event(models.Model):
             #This line raises an exception if old_instance does not exist 
             if old_instance.name != self.name:
                 print 'entered the if block'
-                os.system("mv " + MEDIA_ROOT + "main/events/" + camelize(old_instance.name) + " " + MEDIA_ROOT + "main/events/" + camelize(self.name) )
+                os.system("mv -T " + MEDIA_ROOT + "main/events/" + camelize(old_instance.name) + " " + MEDIA_ROOT + "main/events/" + camelize(self.name) )
             else:
                 print 'entered the else block'
                 pass
