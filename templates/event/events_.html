@@ -225,17 +225,22 @@ $(document).ready(function () {
 
                     <div id = "video"></div>
                     <div id = "verticlleft">
-		    <div id="events_heading" style="position:relative;  text-align: left; padding-left:10px; font-size:20px; font-weight:bold; color:#333; ">Event Name</div>
+		    <div id="events_heading" style="position:relative;  text-align: left; padding-left:10px; font-size:20px; font-weight:bold; color:#333; ">{{event_name}}</div>
                     
 		     
                         <div id="eventsTab"> 
 			<div id="tabs"> 
-				<div id="intro">Introduction</div> 
+			<!--
+			    <div id="intro">Introduction</div> 
 				<div id="pstmnt">Problem Statement</div> 
 				<div id="rules">Rules</div> 
 				<div id="faq">FAQ</div> 
 				<div id="contact">Contact</div> 
-				<div id="extraTabs">More Tabs Here</div> 
+				<div id="extraTabs">More Tabs Here</div>
+			-->
+			    {% for row in tab_list%}
+                <div id="{{row.title|slugify }}">{{row.title}}</div>
+                {%endfor%}	 
 			</div> 
 			<div id="event-details"> 
  
