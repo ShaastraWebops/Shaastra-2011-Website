@@ -224,14 +224,9 @@ $(document).ready(function () {
 
 
                     <div id = "video"></div>
-                    <div id = "verticlleft">
-
-		    <div id="events_heading" style="position:relative;  text-align: left; padding-left:10px; font-size:20px; font-weight:bold; color:#333; ">{{event_name}}</div>
-
-                    
-		     
+		<div id = "verticlleft">
                         <div id="eventsTab"> 
-			<div id="tabs"> 
+			    <div id="tabs"> 
 			<!--
 			    <div id="intro">Introduction</div> 
 				<div id="pstmnt">Problem Statement</div> 
@@ -241,63 +236,38 @@ $(document).ready(function () {
 				<div id="extraTabs">More Tabs Here</div>
 			-->
 			    {% for row in tab_list%}
-                <div id="{{row.title|slugify }}">{{row.title}}</div>
-                {%endfor%}	 
-			</div> 
-			<div id="event-details"> 
- 
-				<div id="intro_"> 
-					<img src="{{MEDIA_URL}}img/slide_1.png" style="width:550px;"/> 
- 
-					 Content Height:Dynamic; 
-					 {Notice the change in scrollbar height as you change tabs}
-				</div> 
-				<div id="pstmnt_"> No Content -> No Scroll !!!!
-				</div> 
-				<div id="rules_"> More Content<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /> 
-					3.) Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec in ligula id sem tristique ultrices
-					eget id neque. Duis enim turpis, tempus at accumsan vitae, lobortis id sapien. Pellentesque nec orci
-					mi, in pharetra ligula. Nulla facilisi. Nulla facilisi. Mauris convallis venenatis massa, quis
-					consectetur felis ornare quis. Sed aliquet nunc ac ante molestie ultricies. Nam pulvinar ultricies
-					bibendum. Vivamus diam leo, faucibus et vehicula eu, molestie sit amet dui. Proin nec orci et elit
-					semper ultrices. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus
-					mus. Sed quis urna mi, ac dignissim mauris. Quisque mollis ornare mauris, sed laoreet diam malesuada
-					quis. Proin vel elementum ante. Donec hendrerit arcu ac odio tincidunt posuere. Vestibulum nec risus
-					eu lacus semper viverra.
-				</div> 
-				<div id="faq_"> Uptill that height you get no scroll bars<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />Also the content is moved to your right by an amount equal to half of scrollbar width.
-				</div> 
- 
-			<div id="contact_"> Even More Content<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /> 
-					<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /> 
-					5.) Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec in ligula id sem tristique ultrices
-					eget id neque. Duis enim turpis, tempus at accumsan vitae, lobortis id sapien. Pellentesque nec orci
-					mi, in pharetra ligula. Nulla facilisi. Nulla facilisi. Mauris convallis venenatis massa, quis
-					consectetur felis ornare quis. Sed aliquet nunc ac ante molestie ultricies. Nam pulvinar ultricies
-					bibendum. Vivamus diam leo, faucibus et vehicula eu, molestie sit amet dui. Proin nec orci et elit
-					semper ultrices. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus
-					mus. Sed quis urna mi, ac dignissim mauris. Quisque mollis ornare mauris, sed laoreet diam malesuada
-					quis. Proin vel elementum ante. Donec hendrerit arcu ac odio tincidunt posuere. Vestibulum nec risus
-					eu lacus semper viverra.
-				</div> 
-			<div id="extraTabs_"><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /> 
-					5.) Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec in ligula id sem tristique ultrices
-					eget id neque. Duis enim turpis, tempus at accumsan vitae, lobortis id sapien. Pellentesque nec orci
-					mi, in pharetra ligula. Nulla facilisi. Nulla facilisi. Mauris convallis venenatis massa, quis
-					consectetur felis ornare quis. Sed aliquet nunc ac ante molestie ultricies. Nam pulvinar ultricies
-					bibendum. Vivamus diam leo, faucibus et vehicula eu, molestie sit amet dui. Proin nec orci et elit
-					semper ultrices. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus
-					mus. Sed quis urna mi, ac dignissim mauris. Quisque mollis ornare mauris, sed laoreet diam malesuada
-					quis. Proin vel elementum ante. Donec hendrerit arcu ac odio tincidunt posuere. Vestibulum nec risus
-					eu lacus semper viverra.
-				</div> 
+				<div id="{{row.title|slugify }}">
+				    {{row.title}}
+				</div>
+			    {%endfor%}	 
+			    </div> 
+				<div id="event-details"> 
+				{%for row in tab_list %}
+				    <div id="{{row.title|slugify }}_">
+				    {%if not row.question_tab%}
+			        <p>{{row.text|safe}}</p><br /><br />
+			        <!-- displaying file list -->
+				        <div id="file_display">
+				            <div id="file_header">
+			                    CURRENTLY UPLOADED FILES
+				            </div>
+			                <br/>
+				            <!-- displaying the file url -->
+				            <div id="file_content">
+				            {%for file in row.file_list %}    
+				            <a href={{file.url}}>{{file.title}}</a>
+				            <br/>
+				            {%endfor%}
+				            </div>
+				        </div>
+				     {%endif%}
+				    {%endfor%}                    
 			
+		    		</div>
+			    </div>
 			</div>
-			
 		    </div>
-			
-		</div>
-		                      
+	        </div>
  <!--               <div id="spons_">
 			<img src="media/imges/spons_text.png">
 		</div>
@@ -306,38 +276,47 @@ $(document).ready(function () {
                 	<img src="media/images/arbit.png" id="arbit" \>
                 </div>  -->
 		       
-<div id = "verticlright">
-    <div id="events_heading" style="position:relative;  text-align: left; padding-left:10px; font-size:28px; font-weight:bold; color:#333; ">{{event_name}}</div>
-			    <div id = "rtvtop">
-				<div>Sponsors Here</div>
-				<img src = "{{MEDIA_URL}}img/Nokia.png">
-			    </div>
-			    <div id = "rtvbottom">
-				MY SHAASTRA HERE
-			    </div>
-			</div>
+	<div id = "verticlright">
+	    <div id="events_heading" style="position:relative;  text-align: left; padding-left:10px; font-size:28px; font-weight:bold; color:#333;margin-left :auto;margin-right :auto; ">{{event_name}}</div>
+	    <div id = "rtvtop">
+		<div>
+		    Sponsors Here
+		</div>
+		<img src = "{{MEDIA_URL}}img/Nokia.png">
+	    </div>
+    	    <div id = "rtvbottom">
+	    MY SHAASTRA HERE
+	    </div>
+	</div>
 	    
         </div>                
                     
-		       <div id="ticker2" class="iefix" style = "position:relative;top:-35px;left:60px;">
-			 <div id="ticker-img-left2" class="iefix"></div>
-			 <div style="float:left;"><a id="ticker-link-updates2" style="font-size:18px;">&nbsp;Updates: </a></div>
-
-			 <div style="float:left;"><a id="ticker-link-text2">Shaastra 10 Updates Ticker!</a></div>
-			 <div id="ticker-img-right2" class="iefix"></div>
+		       <div id="ticker2" class="iefix" style = "position:relative;top:-55px;left:60px;">
+				 <div id="ticker-img-left2" class="iefix">
+				    
+				 </div>
+				<div style="float:left;">
+				    <a id="ticker-link-updates2" style="font-size:18px;">&nbsp;Updates: </a>
+				</div>
+				 <div style="float:left;">
+				    <a id="ticker-link-text2">Shaastra 10 Updates Ticker!</a>
+				 </div>
+				<div id="ticker-img-right2" class="iefix">
+				    
+				</div>
 		       </div>    
-<div id = "footer_container">
-                <div id = "footerlinks">
-                <a href = "#" class = "flinks" id = "con"></a>
-                <a href = "#" class = "flinks" id = "pp"></a>
-                <a href = "#footerlinks" class = "flinks" id = "blo"></a>
-		<a href = "#" class = "flinks" id = "eve"></a>
-                <a href = "#" class = "flinks" id = "med"></a>
-                <a href = "#" class = "flinks" id = "mys"></a>
-                <a href = "#" class = "flinks" id = "cre"></a>
-                
+		<div id = "footer_container">
+		    <div id = "footerlinks">
+			<a href = "#" class = "flinks" id = "con"></a>
+			<a href = "#" class = "flinks" id = "pp"></a>
+			<a href = "#footerlinks" class = "flinks" id = "blo"></a>
+			<a href = "#" class = "flinks" id = "eve"></a>
+			<a href = "#" class = "flinks" id = "med"></a>
+			<a href = "#" class = "flinks" id = "mys"></a>
+			<a href = "#" class = "flinks" id = "cre"></a>
+		    
+		    </div>
                 </div>
-            </div>
 
 		</div> 
 		       
