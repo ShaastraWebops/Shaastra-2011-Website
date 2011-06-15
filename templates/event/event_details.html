@@ -1,0 +1,88 @@
+<div id="event-details">
+                              {%for row in tab_list %}
+				<div id="{{row.title|slugify }}_">
+
+                                  <!--The Edit Event button -->
+   
+                                        <div id="edit_event">
+                                             {%if user.is_authenticated%} 
+                                            <form action= "{{SITE_URL}}events/dashboard/edit_event/" method="GET">
+                                                {% csrf_token %}
+                                            <input type="submit" value="Edit Event Details" />
+                                            </form>
+                                            {%endif%}
+                                        </div>
+          
+                                  <!-- Button to see users who have registered for this event -->
+           
+                                       <!-- Logout button -->
+
+                                       <div id="logout">
+                                            {%if user.is_authenticated%} 
+                                               <form action= "{{SITE_URL}}events/logout/" method="POST">
+                                                     {% csrf_token %}
+                                                 <input type="submit" value="LOGOUT" />
+                                               </form>
+                                             {%endif%}
+                                        </div>
+              
+     
+                                        <br/><br/>
+
+                                       {%if not row.question_tab%}
+			                            ROW ID : {{row.id}} 
+			                                  <br />
+			                            ROW PREFERENCE : {{row.pref}} 
+			                                 <br />
+			                              {{row.text|safe}}
+			                                <br /><br />
+
+                                        <!-- displaying file list -->
+ 
+			              <div id="file_display">
+                                              <div id="file_header">
+			                       CURRENTLY UPLOADED FILES:
+			                     </div>
+                           
+			           <br/>
+                              <!-- displaying the file urls -->
+
+                               <div id="file_content"> 
+			           {%for file in row.file_list %}
+			               <a href={{file.url}}>{{file.title}}</a>
+		                       <br/>
+			           {%endfor%}
+                               </div>
+			            <br/>
+                        </div>
+
+               <!-- The edit tab Button -->
+               
+               <div id="edit_tab">
+                    <form action="edit_tab/" method = 'GET'>
+            	       {% csrf_token %}
+	            <input type="hidden" value="{{row.id}}" name=tab_id >
+	            <input type="submit" value="Edit {{row.title}} Tab">
+                    </form>
+               </div>
+
+                 
+ 
+           {%else%}
+                {% include "display_questions_tab.html" %}
+           {%endif%}
+
+
+
+<!-- the delete tab button -->                   
+<div id="delete_tab">
+    <form action="delete_tab/" method = 'POST'>
+        {% csrf_token %}
+        <input type="hidden" value="{{row.id}}" name=tab_id>
+        <input type="submit" value="Delete {{row.name}} Tab">
+    </form>
+</div>
+    
+				</div>
+                              {%endfor%}
+					</div>

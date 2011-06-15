@@ -18,18 +18,18 @@ import os
 #Fileupload is not done perfectly. 
 #Desired - Once a file is uploaded page should be refreshed and the uploaded file should be visible as a url link below the textarea
 
-FILE_DIR = settings.MEDIA_ROOT + 'main1/files/'
+FILE_DIR = settings.MEDIA_ROOT + 'files/'
 
 #Will change the model after this plan is confirmed
 def fileuploadhandler(f, eventname, tabid, file_title):
-    savelocation = settings.MEDIA_ROOT + 'main1/events/' + camelize(eventname) + '/files/' + camelize(f.name)
+    savelocation = settings.MEDIA_ROOT + 'events/' + camelize(eventname) + '/files/' + camelize(f.name)
     destination = open( savelocation , 'wb+')
     #destination.write(f.read())
     for chunk in f.chunks():
         destination.write(chunk)
     destination.close()
     tab_of_file = models.QuickTabs.objects.get(id = tabid)
-    tabfileobject = models.TabFiles ( Tab = tab_of_file,url = settings.MEDIA_URL + 'main/events/' + camelize(eventname) + '/files/' + camelize(f.name), title =  file_title)
+    tabfileobject = models.TabFiles ( Tab = tab_of_file,url = settings.MEDIA_URL + 'events/' + camelize(eventname) + '/files/' + camelize(f.name), title =  file_title)
     tabfileobject.save()
 
 def coordslogin (request):
@@ -54,8 +54,7 @@ def coordslogin (request):
             invalid_login = session_get(request, "invalid_login")
             form = forms.CoordsLoginForm () 
     return render_to_response('event/login.html', locals(), context_instance= global_context(request))
-    #This URL can be changed as required later
-
+    
 #Handler for displaying /2011/event/eventname page 
 def show_quick_tab(request,event_name=None):
     urlname=decamelize(event_name)
@@ -79,7 +78,8 @@ def show_quick_tab(request,event_name=None):
             temp = models.MCQ_option.objects.filter(question=ques).order_by('option')
             for temps in temp:
                 options_list.append(temps)
-        return render_to_response('event/QuickTabs.html', locals(), context_instance= global_context(request))
+        #return render_to_response('event/QuickTabs.html', locals(), context_instance= global_context(request))
+        return render_to_response('event/events_.html', locals(), context_instance= global_context(request))
     else:
         raise Http404    
 
@@ -465,6 +465,6 @@ def show_menu_items(request):
 '''
 
 def event_image(request, event_name=None):
-    image_src = MEDIA_URL + "main/events/" + event_name + "/images/" + event_name + ".jpg"
+    image_src = MEDIA_URL + "events/" + event_name + "/images/" + event_name + ".jpg"
     return render_to_response('event_image.html', locals(), context_instance = global_context(request))
 
