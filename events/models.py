@@ -31,6 +31,8 @@ class Event(models.Model):
     # Registration. 
     registrable = models.BooleanField(default=False, help_text= "Can participants register online?")
     questions = models.BooleanField(default=False, help_text= "Will the participant have to answer a questionnaire?")
+    team_event = models.BooleanField(default=False, help_text= "Is this a team event?")
+    
     #users = models.ManyToManyField(User,  blank=True, null=True, related_name='users_events')
     #chosen_users = models.ManyToManyField(User, blank=True, null=True, related_name='qualified_events')
 
