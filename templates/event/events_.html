@@ -237,168 +237,168 @@
 		  <div id="extraTabs">More Tabs Here</div>
 		  -->
 	      {% for row in tab_list%}
-	        <div id="{{row.title|slugify }}">
-		        {{row.title}}
-	        </div>
+	      <div id="{{row.title|slugify }}">
+		{{row.title}}
+	      </div>
 	      {%endfor%}	 
 	    </div> 
 	    <div id="event-details"> 
-	        {%for row in tab_list %}
-	        <div id="{{row.title|slugify }}_">
-		        {%if not row.question_tab%}
-		            <p>{{row.text|safe}}</p><br /><br />
-		            <!-- displaying file list -->
-		    <div id="file_display">
-		        <div id="file_header">
-		            CURRENTLY UPLOADED FILES
-		        </div>
-		        <br/>
-		        <!-- displaying the file url -->
-		        <div id="file_content">
-		            {%for file in row.file_list %}    
-		                <a href={{file.url}}>{{file.title}}</a>
-		                <br/>
-		            {%endfor%}
-		        </div>
-		    </div>
-		        {%else%}
-		            {% for ques in ques_list %}
-		                <div id="Ques{{ques.Q_Number}}">
-                            <!--<a href="#Question{{ques.Q_Number}}">{{ques.Q_Number|safe}}. {{ques.title|safe}}</a><br/>-->
-	                        <br/>{{ques.Q_Number|safe}}. {{ques.title|safe}}<br/>
-                        </div>
-                        <div id="Question{{ques.Q_Number}}">
-                           {% if ques.question_type == "NORMAL" %}
-                                <div id="normal_question">
-                                    <p>Type your answer in the textarea and hit the "Submit" button.</p>
-                                    <textarea rows="6" cols="40" >This is not fully functional right now. Clicking on submit does nothing.</textarea><br/>
-                                    <input type="submit" value="Submit">
-                                </div>
-                           {% endif% }
-                           {% if ques.question_type == "MCQ" %}
-                                <p>This is a multiple choice question. Please select your choice and click on "Submit".</p>
-                                <p> This will be functional soon.</p>
-                                <div id="mcq_question">
-                                    <table border="1">
-                                    <form>
-                                        {%for options in options_list %}
-                                            {%if options.question == ques %}
-                                                <tr><td>{{options.option}}</td><td><input type="radio" name="answer_chosen" value="{{options.option}}"/></td><td>{{options.text}}</td></tr>
-                                            {%endif%}
-                                        {%endfor%}
-                                    </form>
-                                    </table>
-                                    {%if not is_coord%}<input type="submit" value="Submit">{%endif%}
-                                </div>            
-                           {% endif %}
-                           {% if ques.question_type == "FILE" %}
-                                <p> Choose the file you want to upload and click on "Upload".</p>
-                                <p> This will be functional soon.</p>
-                                <br/>
-                                <input type="file" name="blah" size="30"><br/>
-                                <input type="submit" value="Upload">
-                           {% endif %}               
-                {% endif %}
-                <script>
+	      {%for row in tab_list %}
+	      <div id="{{row.title|slugify }}_">
+		{%if not row.question_tab%}
+		<p>{{row.text|safe}}</p><br /><br />
+		<!-- displaying file list -->
+		<div id="file_display">
+		  <div id="file_header">
+		    CURRENTLY UPLOADED FILES
+		  </div>
+		  <br/>
+		  <!-- displaying the file url -->
+		  <div id="file_content">
+		    {%for file in row.file_list %}    
+		    <a href={{file.url}}>{{file.title}}</a>
+		    <br/>
+		    {%endfor%}
+		  </div>
+		</div>
+		{%else%}
+		{% for ques in ques_list %}
+		<div id="Ques{{ques.Q_Number}}">
+                  <!--<a href="#Question{{ques.Q_Number}}">{{ques.Q_Number|safe}}. {{ques.title|safe}}</a><br/>-->
+	          <br/>{{ques.Q_Number|safe}}. {{ques.title|safe}}<br/>
+                </div>
+                <div id="Question{{ques.Q_Number}}">
+                  {% if ques.question_type == "NORMAL" %}
+                  <div id="normal_question">
+                    <p>Type your answer in the textarea and hit the "Submit" button.</p>
+                    <textarea rows="6" cols="40" >This is not fully functional right now. Clicking on submit does nothing.</textarea><br/>
+                    <input type="submit" value="Submit">
+                  </div>
+                  {% endif% }
+                  {% if ques.question_type == "MCQ" %}
+                  <p>This is a multiple choice question. Please select your choice and click on "Submit".</p>
+                  <p> This will be functional soon.</p>
+                  <div id="mcq_question">
+                    <table border="1">
+                      <form>
+                        {%for options in options_list %}
+                        {%if options.question == ques %}
+                        <tr><td>{{options.option}}</td><td><input type="radio" name="answer_chosen" value="{{options.option}}"/></td><td>{{options.text}}</td></tr>
+                        {%endif%}
+                        {%endfor%}
+                      </form>
+                    </table>
+                    {%if not is_coord%}<input type="submit" value="Submit">{%endif%}
+                  </div>            
+                  {% endif %}
+                  {% if ques.question_type == "FILE" %}
+                  <p> Choose the file you want to upload and click on "Upload".</p>
+                  <p> This will be functional soon.</p>
+                  <br/>
+                  <input type="file" name="blah" size="30"><br/>
+                  <input type="submit" value="Upload">
+                  {% endif %}               
+                  {% endif %}
+                  <script>
                     $("#Question{{ques.Q_Number}}").hide();
                     $("#Ques{{ques.Q_Number}}").click(function () {
                     $("#Question{{ques.Q_Number}}").toggleClass("inactive").slideToggle("slow");
                     });
-                </script>
+                  </script>
                 </div>               
-		    {%endfor%}                    
-		  {% endif %}
-		  {%endfor%}  
+		{%endfor%}                    
+		{% endif %}
+		{%endfor%}  
 	      </div>
-                <div id = "bottomrighttext">
-                	My Shaastra Content Here !!
-                	<img src="media/images/arbit.png" id="arbit" \>
-                </div>  -->
-		       
-	<div id = "verticlright">
-	    <div id="events_heading" style="position:relative;  text-align: left; padding-left:10px; font-size:28px; font-weight:bold; color:#333;margin-left :auto;margin-right :auto; text-align :center;">{{event_name}}</div>
-	    <div id = "rtvtop">
-		<div>
-		    Sponsors Here
+              <div id = "bottomrighttext">
+                My Shaastra Content Here !!
+                <img src="media/images/arbit.png" id="arbit" \>
+              </div>  -->
+		  
+		  <div id = "verticlright">
+		    <div id="events_heading" style="position:relative;  text-align: left; padding-left:10px; font-size:28px; font-weight:bold; color:#333;margin-left :auto;margin-right :auto; text-align :center;">{{event_name}}</div>
+		    <div id = "rtvtop">
+		      <div>
+			Sponsors Here
+		      </div>
+		      <img src = "{{MEDIA_URL}}img/Nokia.png">
+		    </div>
+    		    <div id = "rtvbottom">
+		      MY SHAASTRA HERE
+		    </div>
+		  </div>
 		</div>
-		<img src = "{{MEDIA_URL}}img/Nokia.png">
+	      </div>
+	      <!--               <div id="spons_">
+				 <img src="media/imges/spons_text.png">
+	      </div>
+	      <div id = "bottomrighttext">
+		My Shaastra Content Here !!
+		<img src="media/images/arbit.png" id="arbit" \>
+	      </div>  -->
+	      
+	      <div id = "verticlright">
+		<div id="events_heading" style="position:relative;  text-align: left; padding-left:10px; font-size:28px; font-weight:bold; color:#333;margin-left :auto;margin-right :auto; ">{{event_name}}</div>
+		<div id = "rtvtop">
+		  <div>
+		    Sponsors Here
+		  </div>
+		  <img src = "{{MEDIA_URL}}img/Nokia.png">
+		</div>
+    		<div id = "rtvbottom">
+		  MY SHAASTRA HERE
+		</div>
+	      </div>
+	      
+	    </div>                
+	    
+	    <div id="ticker2" class="iefix" style = "position:relative;top:-55px;left:60px;">
+	      <div id="ticker-img-left2" class="iefix">
+		
+	      </div>
+	      <div style="float:left;">
+		<a id="ticker-link-updates2" style="font-size:18px;">&nbsp;Updates: </a>
+	      </div>
+	      <div style="float:left;">
+		<a id="ticker-link-text2">Shaastra 10 Updates Ticker!</a>
+	      </div>
+	      <div id="ticker-img-right2" class="iefix">
+		
+	      </div>
+	    </div>    
+	    <div id = "footer_container">
+	      <div id = "footerlinks">
+		<a href = "#" class = "flinks" id = "con"></a>
+		<a href = "#" class = "flinks" id = "pp"></a>
+		<a href = "#footerlinks" class = "flinks" id = "blo"></a>
+		<a href = "#" class = "flinks" id = "eve"></a>
+		<a href = "#" class = "flinks" id = "med"></a>
+		<a href = "#" class = "flinks" id = "mys"></a>
+		<a href = "#" class = "flinks" id = "cre"></a>
+		
+	      </div>
 	    </div>
-    	    <div id = "rtvbottom">
-	    MY SHAASTRA HERE
-	    </div>
-	  </div>
-	</div>
-      </div>
-      <!--               <div id="spons_">
-			 <img src="media/imges/spons_text.png">
-      </div>
-      <div id = "bottomrighttext">
-        My Shaastra Content Here !!
-        <img src="media/images/arbit.png" id="arbit" \>
-      </div>  -->
-      
-      <div id = "verticlright">
-	<div id="events_heading" style="position:relative;  text-align: left; padding-left:10px; font-size:28px; font-weight:bold; color:#333;margin-left :auto;margin-right :auto; ">{{event_name}}</div>
-	<div id = "rtvtop">
-	  <div>
-	    Sponsors Here
-	  </div>
-	  <img src = "{{MEDIA_URL}}img/Nokia.png">
-	</div>
-    	<div id = "rtvbottom">
-	  MY SHAASTRA HERE
-	</div>
-      </div>
-      
-    </div>                
-    
-    <div id="ticker2" class="iefix" style = "position:relative;top:-55px;left:60px;">
-      <div id="ticker-img-left2" class="iefix">
-	
-      </div>
-      <div style="float:left;">
-	<a id="ticker-link-updates2" style="font-size:18px;">&nbsp;Updates: </a>
-      </div>
-      <div style="float:left;">
-	<a id="ticker-link-text2">Shaastra 10 Updates Ticker!</a>
-      </div>
-      <div id="ticker-img-right2" class="iefix">
-	
-      </div>
-    </div>    
-    <div id = "footer_container">
-      <div id = "footerlinks">
-	<a href = "#" class = "flinks" id = "con"></a>
-	<a href = "#" class = "flinks" id = "pp"></a>
-	<a href = "#footerlinks" class = "flinks" id = "blo"></a>
-	<a href = "#" class = "flinks" id = "eve"></a>
-	<a href = "#" class = "flinks" id = "med"></a>
-	<a href = "#" class = "flinks" id = "mys"></a>
-	<a href = "#" class = "flinks" id = "cre"></a>
-	
-      </div>
-    </div>
 
-</div> 
+	  </div> 
 
 
 
 
-<script>
-  
-  if(window.innerHeight > 650)
-									{
-									var tp = window.innerHeight;
-									//alert(tp);
-									//alert(window.innerHeight);
-									var newtp = tp-46;
-									//alert(newtp);
-									document.getElementById("footer_container").style.position = "absolute";
-									//alert(document.getElementById("footer_container").style.position);
-									document.getElementById("footer_container").style.top = newtp+"px";
-									//alert(document.getElementById("footer_container").style.top);// = tp;
-									}
-									</script>
+	  <script>
+	    
+	    if(window.innerHeight > 650)
+						{
+						var tp = window.innerHeight;
+						//alert(tp);
+						//alert(window.innerHeight);
+						var newtp = tp-46;
+						//alert(newtp);
+						document.getElementById("footer_container").style.position = "absolute";
+						//alert(document.getElementById("footer_container").style.position);
+						document.getElementById("footer_container").style.top = newtp+"px";
+						//alert(document.getElementById("footer_container").style.top);// = tp;
+						}
+						</script>
     <div id = "scrollcontainer">
       <div id = "scroll">
         <div id = "1" class = "thumb"><div class = "thumbc"></div></div>
