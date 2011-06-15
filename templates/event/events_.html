@@ -1,11 +1,30 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 
-<html>
-    <head>
-        <title>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"> 
+ 
+<html> 
+    <head> 
+        <title> 
             Template Test
-        </title>
+        </title> 
 	
+<<<<<<< HEAD
+		<link rel="stylesheet" href="css/main.css" type="text/css"/> 
+		<link rel="stylesheet" type="text/css" href="css/template_2.css" /> 
+	        <link rel="stylesheet" type="text/css" href= "./style_copy.css"> 
+	        <link rel="stylesheet" type="text/css" href= "Media/css/ticker.css"> 
+		<link rel="stylesheet" type="text/css" href="media/style/css/events-tab.css" /> 
+	        <link rel="stylesheet" type="text/css" href= "./style_copy.css"> 
+                <link rel="stylesheet" type="text/css" href= "./events_scroll.css"> 
+		    <link rel="stylesheet" type="text/css" href= "./event.css"> 
+		    
+		    
+	<script type="text/javascript" src="Media/js/ticker.js"></script> 
+	<script type="text/javascript" src="Media/js/ticker2.js"></script> 
+	<script type="text/javascript" src="Media/js/jquery.js"></script> 
+	<script type="text/javascript" src="./jquery-ui-1.8.12.custom.min.js"></script> 
+	<script type="text/javascript" src="media/scripts/js/jquery.jscrollpane.min.js"></script> 
+	<script type="text/javascript" src="media/scripts/js/jquery.mousewheel.js"></script> 
+=======
 		<link rel="stylesheet" href="css/main.css" type="text/css"/>
 	    <link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}css/style_copy.css">
 	    <link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}css/ticker.css">
@@ -21,16 +40,17 @@
     <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/jquery.jscrollpane.min.js"></script>
 	<script type="text/javascript" src="{{MEDIA_URL}}js/js/script/jquery.mousewheel.js"></script>
 	<script type="text/javascript" src="{{MEDIA_URL}}js/js/script/ticker2.js"></script>
+>>>>>>> 9a8f6bfeb8f55a96f72bb416416cf87580fab5ec
         <!--[if lte IE 8]>
            <script type="text/javascript">
              width=78;
            </script>
-        <![endif]-->
+        <![endif]--> 
         <!--[if IE 7]>
            <style type="text/css">
                 #eventsTab{ position:relative; left:-24%; }
            </style>
-        <![endif]-->
+        <![endif]--> 
         <!--[if IE 6]>
            <style type="text/css">
                 #eventsTab{ top:0%; }
@@ -41,9 +61,9 @@
                 #blogger {}
                 #twitter {}
            </style>
-        <![endif]-->
-
-		<script type="text/javascript">
+        <![endif]--> 
+ 
+		<script type="text/javascript"> 
 			var elem=['intro','pstmnt','rules','faq','contact','extraTabs'];
 			var tabHeights=new Array();//['420px','500px','600px','700px','800px','2000px'];
 			var i_=0,p=0,r=0,f=0,c=0,e=0;
@@ -56,7 +76,7 @@
 				setVisible('intro');
 				setBgGreen('intro');	
 			}
-
+ 
 			$(document).ready(function() {
 				$("#tabs").click(function(e) {
 					var id=e.target.id;
@@ -98,12 +118,12 @@
 									//alert(document.getElementById(elem[i]+'_').offsetHeight);
 								}
 			}
-		</script>
-		<script>
+		</script> 
+		<script> 
 			$(document).ready(function() {
-
-
-
+ 
+ 
+ 
 	$('#ticker-img-right').click(function() {
 		clearTimeout(t);
 		untypeNext()
@@ -113,8 +133,8 @@
 		untypePrev()
 	});
 	getTickerData();
-
-
+ 
+ 
 			$(document).ready(function() {
 	$('#ticker-img-right2').click(function() {
 		clearTimeout(t2);
@@ -130,14 +150,14 @@
 	
 	});
 				
-		</script>
-
-
-
-
-            <script type="text/javascript">
+		</script> 
+ 
+ 
+ 
+ 
+            <script type="text/javascript"> 
 	
-
+ 
 $(document).ready(function () {
 	
 	
@@ -151,80 +171,80 @@ $(document).ready(function () {
 	});
 	getTickerData();
 });
-
-	</script>
-    <script src = "{{MEDIA_URL}}js/js/script/script.js"></script>
-    </head>
-        <body>
-
-        <div id = "container">
-            <div id = "header">
-            <div id = "header_top">
-                <div id = "logos_container">
-                    <div id = "logos">
-                        <img src = "{{MEDIA_URL}}img/all_logos.png" style = "width : 247px;height:115px">
-                    </div>
-                </div>
-                <div id ="navbar_container">
-                    <div id = "navbar">
-                    <a href = "#" class="navig" id = "home"><span class = "nclass">Home</span></a>
-		    <a href = "#" class="navig" id = "events"><span class = "nclass">Events</span></a>
-		    <a href = "#" class="navig" id = "hospi"><span class = "nclass">Hospitality</span></a>
-		    <a href = "#" class="navig" id = "sponsor"><span class = "nclass">Sponsorship</span></a>
-		    <a href = "#" class="navig" id = "gallery"><span class = "nclass">Gallery</span></a>
-
+ 
+	</script> 
+    <script src = "./script.js"></script> 
+    </head> 
+        <body> 
+ 
+        <div id = "container"> 
+            <div id = "header"> 
+            <div id = "header_top"> 
+                <div id = "logos_container"> 
+                    <div id = "logos"> 
+                        <img src = "./Media/Images/all_logos.png" style = "width : 247px;height:115px"> 
+                    </div> 
+                </div> 
+                <div id ="navbar_container"> 
+                    <div id = "navbar"> 
+                    <a href = "#" class="navig" id = "home"><span class = "nclass">Home</span></a> 
+		    <a href = "#" class="navig" id = "events"><span class = "nclass">Events</span></a> 
+		    <a href = "#" class="navig" id = "hospi"><span class = "nclass">Hospitality</span></a> 
+		    <a href = "#" class="navig" id = "sponsor"><span class = "nclass">Sponsorship</span></a> 
+		    <a href = "#" class="navig" id = "gallery"><span class = "nclass">Gallery</span></a> 
+ 
                     
-                <div id = "logandsearch">
-                        <img src = "{{MEDIA_URL}}img/login.png" id = "login">
-                            <img src = "{{MEDIA_URL}}img/sign_up.png" id = "sgnup">
-                                <span id ="srch"><img src = "{{MEDIA_URL}}img/search.png" id = "srimg"><input type = "text" id = "search" name = "search"></span>
+                    <div id = "logandsearch"> 
+                        <img src = "./Media/Images/login.png" id = "login"> 
+                            <img src = "./Media/Images/sign_up.png" id = "sgnup"> 
+                                <span id ="srch"><img src = "./Media/Images/search.png" id = "srimg"><input type = "text" id = "search" name = "search"></span> 
                     </div>            
-                    </div>
-                </div>
-                <div id = "spons_container">
-                    <div id = "spons">
-                        <img src = "{{MEDIA_URL}}img/spons_box.png" style = "width : 176px;height:100%">
-                    </div>
-                </div>
-                <div class = "clearfloat"></div>
-             </div>
-             <div id = "header_bottom">
-                <div id = "updates_container">
-
-		<div id="ticker" style="" class="iefix">
-			<div id="ticker-img-left" class="iefix"></div>
-			<a id="ticker-link-updates" style="font-size:18px;">Updates: </a>
-
-			<a id="ticker-link-text">Shaastra 10 Updates Ticker!</a>
-			<div id="ticker-img-right" class="iefix"></div>
-		</div>
-
-                </div>
-                <div id = "social_container">
-                    <div id = "social">
-                       <div id="fb"></div>
-					  <div id="youtube"></div>
-					  <div id="blogger"></div>
-					  <div id="twitter"></div>
-                    </div>
-                </div>
-                <div class = "clearfloat"></div>
-            </div>
-            </div>
-            <div id = "content" style = "overflow:hidden">
+                    </div> 
+                </div> 
+                <div id = "spons_container"> 
+                    <div id = "spons"> 
+                        <img src = "./Media/Images/spons_box.png" style = "width : 176px;height:100%"> 
+                    </div> 
+                </div> 
+                <div class = "clearfloat"></div> 
+             </div> 
+             <div id = "header_bottom"> 
+                <div id = "updates_container"> 
+ 
+		<div id="ticker" style="" class="iefix"> 
+			<div id="ticker-img-left" class="iefix"></div> 
+			<a id="ticker-link-updates" style="font-size:18px;">Updates: </a> 
+ 
+			<a id="ticker-link-text">Shaastra 10 Updates Ticker!</a> 
+			<div id="ticker-img-right" class="iefix"></div> 
+		</div> 
+ 
+                </div> 
+                <div id = "social_container"> 
+                    <div id = "social"> 
+                       <div id="fb"></div> 
+					  <div id="youtube"></div> 
+					  <div id="blogger"></div> 
+					  <div id="twitter"></div> 
+                    </div> 
+                </div> 
+                <div class = "clearfloat"></div> 
+            </div> 
+            </div> 
+            <div id = "content" style = "overflow:hidden"> 
            <!--         <div id = "textcontent">
                     <img src = "img/quote_open.png" id = "openq"\>
                         Lores ipsum
                         <img src = "img/quote_close.png" id = "closeq"\>
                     </div>
-                  -->
-
-
-
-
-                    <div id = "video"></div>
-                    <div id = "verticlleft">
-		    <div id="events_heading" style="position:relative;  text-align: left; padding-left:10px; font-size:28px; font-weight:bold; color:#333; ">Event Name</div>
+                  --> 
+ 
+ 
+ 
+ 
+                    <div id = "video"></div> 
+                    <div id = "verticlleft"> 
+		    <div id="events_heading" style="position:relative;  text-align: left; padding-left:10px; font-size:20px; font-weight:bold; color:#333; ">Event Name</div> 
                     
 		     
                         <div id="eventsTab"> 
@@ -239,7 +259,7 @@ $(document).ready(function () {
 			<div id="event-details"> 
  
 				<div id="intro_"> 
-					<img src="{{MEDIA_URL}}img/slide_1.png" style="width:550px;"/> 
+					<img src="media/images/slide_1.png" style="width:550px;"/> 
  
 					 Content Height:Dynamic; 
 					 {Notice the change in scrollbar height as you change tabs}
@@ -284,11 +304,11 @@ $(document).ready(function () {
 					eu lacus semper viverra.
 				</div> 
 			
-			</div>
+			</div> 
 			
-		    </div>
+		    </div> 
 			
-		</div>
+		</div> 
 		                      
  <!--               <div id="spons_">
 			<img src="media/imges/spons_text.png">
@@ -296,46 +316,42 @@ $(document).ready(function () {
                 <div id = "bottomrighttext">
                 	My Shaastra Content Here !!
                 	<img src="media/images/arbit.png" id="arbit" \>
-                </div>  -->
+                </div>  --> 
 		       
-<div id = "verticlright">
-			    <div id = "rtvtop">
-				<div>Sponsors Here</div>
-				<img src = "{{MEDIA_URL}}img/Nokia.png">
-			    </div>
-			    <div id = "rtvbottom">
-				MY SHAASTRA HERE
-			    </div>
-			</div>
+<div id = "verticlright"> 
+			    <div id = "rtvtop"> 
+			    </div> 
+			    <div id = "rtvbottom"> 
+			    </div> 
+			</div> 
 	    
         </div>                
                     
-		       <div id="ticker2" class="iefix" style = "position:relative;top:-35px;left:60px;">
-			 <div id="ticker-img-left2" class="iefix"></div>
-			 <div style="float:left;"><a id="ticker-link-updates2" style="font-size:18px;">&nbsp;Updates: </a></div>
-
-			 <div style="float:left;"><a id="ticker-link-text2">Shaastra 10 Updates Ticker!</a></div>
-			 <div id="ticker-img-right2" class="iefix"></div>
+		       <div id="ticker2" class="iefix" style = "position:relative;top:-35px;left:30px;"> 
+			 <div id="ticker-img-left2" class="iefix"></div> 
+			 <div style="float:left;"><a id="ticker-link-updates2" style="font-size:18px;">&nbsp;Updates: </a></div> 
+ 
+			 <div style="float:left;"><a id="ticker-link-text2">Shaastra 10 Updates Ticker!</a></div> 
+			 <div id="ticker-img-right2" class="iefix"></div> 
 		       </div>    
-<div id = "footer_container">
-                <div id = "footerlinks">
-                <a href = "#" class = "flinks" id = "con"></a>
-                <a href = "#" class = "flinks" id = "pp"></a>
-                <a href = "#footerlinks" class = "flinks" id = "blo"></a>
-		<a href = "#" class = "flinks" id = "eve"></a>
-                <a href = "#" class = "flinks" id = "med"></a>
-                <a href = "#" class = "flinks" id = "mys"></a>
-                <a href = "#" class = "flinks" id = "cre"></a>
-                
-                </div>
-            </div>
-
 		</div> 
 		       
                 
                 
-
-           <script>
+<div id = "footer_container"> 
+                <div id = "footerlinks"> 
+                <a href = "#" class = "flinks" id = "con"></a> 
+                <a href = "#" class = "flinks" id = "pp"></a> 
+                <a href = "#footerlinks" class = "flinks" id = "blo"></a> 
+		<a href = "#" class = "flinks" id = "eve"></a> 
+                <a href = "#" class = "flinks" id = "med"></a> 
+                <a href = "#" class = "flinks" id = "mys"></a> 
+                <a href = "#" class = "flinks" id = "cre"></a> 
+                
+                </div> 
+            </div> 
+ 
+           <script> 
            
            if(window.innerHeight > 650)
             {
@@ -349,26 +365,26 @@ $(document).ready(function () {
             document.getElementById("footer_container").style.top = newtp+"px";
             //alert(document.getElementById("footer_container").style.top);// = tp;
             }
-            </script>
-           <div id = "scrollcontainer">
-           <div id = "scroll">
-                            <div id = "1" class = "thumb"><div class = "thumbc"></div></div>
-                            <div id = "2" class = "thumb"><div class = "thumbc"></div></div>
-                            <div id = "3" class = "thumb"><div class = "thumbc"></div></div>
-                            <div id = "4" class = "thumb"><div class = "thumbc"></div></div>
-                            <div id = "5" class = "thumb"><div class = "thumbc"></div></div>
-                            <div id = "6" class = "thumb"><div class = "thumbc"></div></div>
-                            <div id = "7" class = "thumb"><div class = "thumbc"></div></div>
-                            <div id = "8" class = "thumb"><div class = "thumbc"></div></div>
-                            <div id = "9" class = "thumb"><div class = "thumbc"></div></div>
-                        </div>
-           </div>
-	   	   <div id = "eventscontainer">
+            </script> 
+           <div id = "scrollcontainer"> 
+           <div id = "scroll"> 
+                            <div id = "1" class = "thumb"><div class = "thumbc"></div></div> 
+                            <div id = "2" class = "thumb"><div class = "thumbc"></div></div> 
+                            <div id = "3" class = "thumb"><div class = "thumbc"></div></div> 
+                            <div id = "4" class = "thumb"><div class = "thumbc"></div></div> 
+                            <div id = "5" class = "thumb"><div class = "thumbc"></div></div> 
+                            <div id = "6" class = "thumb"><div class = "thumbc"></div></div> 
+                            <div id = "7" class = "thumb"><div class = "thumbc"></div></div> 
+                            <div id = "8" class = "thumb"><div class = "thumbc"></div></div> 
+                            <div id = "9" class = "thumb"><div class = "thumbc"></div></div> 
+                        </div> 
+           </div> 
+	   	   <div id = "eventscontainer"> 
 	    
-	    <div id = "escroll">
+	    <div id = "escroll"> 
 	    
-	    </div>
-	   </div>
-		   <div id = "temporary"></div>
-    </body>
+	    </div> 
+	   </div> 
+		   <div id = "temporary"></div> 
+    </body> 
 </html>
