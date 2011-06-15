@@ -225,12 +225,8 @@ $(document).ready(function () {
 
                     <div id = "video"></div>
                     <div id = "verticlleft">
-
-
-                    
-		     
                         <div id="eventsTab"> 
-			<div id="tabs"> 
+			    <div id="tabs"> 
 			<!--
 			    <div id="intro">Introduction</div> 
 				<div id="pstmnt">Problem Statement</div> 
@@ -240,37 +236,37 @@ $(document).ready(function () {
 				<div id="extraTabs">More Tabs Here</div>
 			-->
 			    {% for row in tab_list%}
-                <div id="{{row.title|slugify }}">{{row.title}}</div>
-                {%endfor%}	 
-			</div> 
-			<div id="event-details"> 
-                {%for row in tab_list %}
-                    <div id="{{row.title|slugify }}_">
-                        {%if not row.question_tab%}
-                            <p>{{row.text|safe}}</p><br /><br />
-                            <!-- displaying file list -->
-                            <div id="file_display">
-                                <div id="file_header">
-                                    CURRENTLY UPLOADED FILES
-                                </div>
-                                <br/>
-                                <!-- displaying the file url -->
-                                <div id="file_content">
-                                    {%for file in row.file_list %}    
-                                    <a href={{file.url}}>{{file.title}}</a>
-                                    <br/>
-                                    {%endfor%}
-                                </div>
-                            </div>
-                        {%endif%}
-                {%endfor%}                    
+				<div id="{{row.title|slugify }}">
+				    {{row.title}}
+				</div>
+			    {%endfor%}	 
+			    </div> 
+				<div id="event-details"> 
+				{%for row in tab_list %}
+				    <div id="{{row.title|slugify }}_">
+				    {%if not row.question_tab%}
+			        <p>{{row.text|safe}}</p><br /><br />
+			        <!-- displaying file list -->
+				        <div id="file_display">
+				            <div id="file_header">
+			                    CURRENTLY UPLOADED FILES
+				            </div>
+			                <br/>
+				            <!-- displaying the file url -->
+				            <div id="file_content">
+				            {%for file in row.file_list %}    
+				            <a href={{file.url}}>{{file.title}}</a>
+				            <br/>
+				            {%endfor%}
+				            </div>
+				        </div>
+				     {%endif%}
+				    {%endfor%}                    
 			
+		    		</div>
+			    </div>
 			</div>
-			
-		    </div>
-			</div>	
-		</div>
-		                      
+		    </div>              
  <!--               <div id="spons_">
 			<img src="media/imges/spons_text.png">
 		</div>
