@@ -245,52 +245,24 @@ $(document).ready(function () {
                 {%endfor%}	 
 			</div> 
 			<div id="event-details"> 
- 
-				<div id="intro_"> 
-					<img src="{{MEDIA_URL}}img/slide_1.png" style="width:550px;"/> 
- 
-					 Content Height:Dynamic; 
-					 {Notice the change in scrollbar height as you change tabs}
-				</div> 
-				<div id="pstmnt_"> No Content -> No Scroll !!!!
-				</div> 
-				<div id="rules_"> More Content<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /> 
-					3.) Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec in ligula id sem tristique ultrices
-					eget id neque. Duis enim turpis, tempus at accumsan vitae, lobortis id sapien. Pellentesque nec orci
-					mi, in pharetra ligula. Nulla facilisi. Nulla facilisi. Mauris convallis venenatis massa, quis
-					consectetur felis ornare quis. Sed aliquet nunc ac ante molestie ultricies. Nam pulvinar ultricies
-					bibendum. Vivamus diam leo, faucibus et vehicula eu, molestie sit amet dui. Proin nec orci et elit
-					semper ultrices. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus
-					mus. Sed quis urna mi, ac dignissim mauris. Quisque mollis ornare mauris, sed laoreet diam malesuada
-					quis. Proin vel elementum ante. Donec hendrerit arcu ac odio tincidunt posuere. Vestibulum nec risus
-					eu lacus semper viverra.
-				</div> 
-				<div id="faq_"> Uptill that height you get no scroll bars<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />Also the content is moved to your right by an amount equal to half of scrollbar width.
-				</div> 
- 
-			<div id="contact_"> Even More Content<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /> 
-					<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /> 
-					5.) Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec in ligula id sem tristique ultrices
-					eget id neque. Duis enim turpis, tempus at accumsan vitae, lobortis id sapien. Pellentesque nec orci
-					mi, in pharetra ligula. Nulla facilisi. Nulla facilisi. Mauris convallis venenatis massa, quis
-					consectetur felis ornare quis. Sed aliquet nunc ac ante molestie ultricies. Nam pulvinar ultricies
-					bibendum. Vivamus diam leo, faucibus et vehicula eu, molestie sit amet dui. Proin nec orci et elit
-					semper ultrices. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus
-					mus. Sed quis urna mi, ac dignissim mauris. Quisque mollis ornare mauris, sed laoreet diam malesuada
-					quis. Proin vel elementum ante. Donec hendrerit arcu ac odio tincidunt posuere. Vestibulum nec risus
-					eu lacus semper viverra.
-				</div> 
-			<div id="extraTabs_"><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /> 
-					5.) Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec in ligula id sem tristique ultrices
-					eget id neque. Duis enim turpis, tempus at accumsan vitae, lobortis id sapien. Pellentesque nec orci
-					mi, in pharetra ligula. Nulla facilisi. Nulla facilisi. Mauris convallis venenatis massa, quis
-					consectetur felis ornare quis. Sed aliquet nunc ac ante molestie ultricies. Nam pulvinar ultricies
-					bibendum. Vivamus diam leo, faucibus et vehicula eu, molestie sit amet dui. Proin nec orci et elit
-					semper ultrices. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus
-					mus. Sed quis urna mi, ac dignissim mauris. Quisque mollis ornare mauris, sed laoreet diam malesuada
-					quis. Proin vel elementum ante. Donec hendrerit arcu ac odio tincidunt posuere. Vestibulum nec risus
-					eu lacus semper viverra.
-				</div> 
+                {%for row in tab_list %}
+                    <div id="{{row.title|slugify }}_">
+                        {%if not row.question_tab%}
+                            <p>{{row.text|safe}}</p><br /><br />
+                            <!-- displaying file list -->
+                            <div id="file_display">
+                                <div id="file_header">
+                                    CURRENTLY UPLOADED FILES
+                                </div>
+                                <br/>
+                                <!-- displaying the file url -->
+                                <div id="file_content">
+                                    {%for file in row.file_list %}    
+                                    <a href={{file.url}}>{{file.title}}</a>
+                                    <br/>
+                                    {%endfor%}
+                                </div>
+                            </div>        
 			
 			</div>
 			
