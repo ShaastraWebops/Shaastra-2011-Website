@@ -46,8 +46,6 @@ STATE_CHOICES = (
 	("Outside India" , "Outside India"),
 )
 
-#Just copy pasted last year's code. Will work just fine I guess
-
 class College(models.Model):
     name=models.CharField (max_length = 255,help_text  = 'The name of your college. Please refrain from using short forms.')
     city=models.CharField (max_length = 30,help_text  = 'The name of the city where youra college is located. Please refrain from using short forms.' )
@@ -59,9 +57,7 @@ class College(models.Model):
     class Admin:
         pass
 
-
 #User profile common to all users
-#Author: Swaroop Ramaswamy - inital model                
 class UserProfile(models.Model):
     user 			= models.ForeignKey		(User, unique = True)
     gender 			= models.CharField		(max_length = 1, choices = GENDER_CHOICES, default = 'F')   #Defaults to 'girl' ;-)
@@ -84,39 +80,3 @@ class UserProfile(models.Model):
     class Admin:
         pass
 
-# The "coord" model is being removed because when get_profile is called on a User instance, it will return only a UserProfile instance
-# It will be very hard to get a "coord" instance afterwards
-# Suggest using is_coord() to find out if a user is a coord
-'''
-class coord(UserProfile):
-    event_name=models.ForeignKey(Event)
-    department=models.CharField(max_length=80)
-    # not sure if this is required
-    #tdp= models.ManyToManyField(Question,blank=True,null=True)
-     # not sure if a tdp field is required.
-     # Can we handle it with just the question model??
-    #Think about what else we need for a coord . We might need department etc
-    #Could set college to IIT Madras, not implementing it right now to avoid confusion
-    def set_coord():
-        want_hospi=False
-        pass
-    
-    class Admin:
-        pass    
-'''
-
-# The whole Team models idea has been scrapped. Only working with "teams" in the submission model
-'''            
-#Author: Swaroop Ramaswamy - inital model        
-class Team(models.Model):
-    name = models.CharField (max_length=255)
-    password = models.CharField (max_length=255)
-    #Do we really need a team password ? 
-    leader = models.ForeignKey(User, related_name="team_leader")
-    members = models.ManyToManyField (User, related_name="team members")
-    def __unicode__(self):
-        return self.name
-
-    class Admin:
-        pass
-'''
