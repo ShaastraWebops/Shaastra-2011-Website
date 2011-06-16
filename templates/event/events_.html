@@ -294,7 +294,7 @@
                     <textarea rows="6" cols="40" >This is not fully functional right now. Clicking on submit does nothing.</textarea><br/>
                     <input type="submit" value="Submit">
                   </div>
-                  {% endif% }
+                  {% endif %}
                   {% if ques.question_type == "MCQ" %}
                   <p>This is a multiple choice question. Please select your choice and click on "Submit".</p>
                   <p> This will be functional soon.</p>
@@ -316,8 +316,7 @@
                   <p> This will be functional soon.</p>
                   <br/>
                   <input type="file" name="blah" size="30"><br/>
-                  <input type="submit" value="Upload">
-                  {% endif %}               
+                  <input type="submit" value="Upload">               
                   {% endif %}
                   <script>
                     $("#Question{{ques.Q_Number}}").hide();
