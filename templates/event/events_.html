@@ -319,16 +319,16 @@
                   <p> This will be functional soon.</p>
                   <br/>
                   <input type="file" name="blah" size="30"><br/>
-                  <input type="submit" value="Upload">
-                  {% endif %}               
+                  <input type="submit" value="Upload">               
+                  {% endif %}
                   <script>
                     $("#Question{{ques.Q_Number}}").hide();
                     $("#Ques{{ques.Q_Number}}").click(function () {
                     $("#Question{{ques.Q_Number}}").toggleClass("inactive").slideToggle("slow");
                     });
                   </script>
-                </div>                                   
-		{% endif %}
+                </div>               
+		{%endfor%}                    
 		{% endif %}
 		{%endfor%}  
 	      </div>
