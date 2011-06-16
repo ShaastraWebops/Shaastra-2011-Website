@@ -36,6 +36,7 @@
 						document.getElementById("footer_container").style.top = newtp+"px";
 						//alert(document.getElementById("footer_container").style.top);// = tp;
 						}
+
 						</script>
     <!--[if lte IE 8]>
         <script type="text/javascript">
@@ -56,16 +57,11 @@
           #youtube { background-position-x:-37px; background-position-y:0px; }
           #blogger {}
           #twitter {}
-        </sty
+        </style>
         <![endif]-->
 
     <script type="text/javascript">
-      var elem=[];
-      var tot =0;
-      {%for row in tab_list%}
-        elem[{{forloop.counter0}}]='{{row.title|slugify}}';
-        tot=tot+1;
-      {%endfor%}
+      var elem=['intro','pstmnt','rules','faq','contact','extraTabs'];
       var tabHeights=new Array();//['420px','500px','600px','700px','800px','2000px'];
       var i_=0,p=0,r=0,f=0,c=0,e=0;
       
@@ -74,8 +70,8 @@
       });
       window.onload=function(){		
       setHeights();				
-      setVisible(elem[0]);
-      setBgGreen(elem[0]);	
+      setVisible('intro');
+      setBgGreen('intro');	
       }
 
       $(document).ready(function() {
@@ -90,9 +86,9 @@
       function setVisible(e){
       document.getElementById(e+'_').style.visibility="visible";
       
-      for(i=0;i<tot;i++)	if(elem[i]!=e)	document.getElementById(elem[i]+'_').style.visibility="hidden";
-			for(i=0;i<tot;i++)	if(elem[i]!=e)	document.getElementById(elem[i]+'_').style.height="0px"; 
-						for(i=0;i<tot;i++){
+      for(i=0;i<6;i++)	if(elem[i]!=e)	document.getElementById(elem[i]+'_').style.visibility="hidden";
+			for(i=0;i<6;i++)	if(elem[i]!=e)	document.getElementById(elem[i]+'_').style.height="0px"; 
+						for(i=0;i<6;i++){
 							    if(elem[i]==e){
 							    document.getElementById('jspPane').style.height=tabHeights[i]; 				
 							    if(parseInt(tabHeights[i])>320){
@@ -110,11 +106,11 @@
 						
 						function setBgGreen(e){
 						document.getElementById(e).style.backgroundColor="#93C66E";
-						for(i=0;i<tot;i++)	if(elem[i]!=e)	document.getElementById(elem[i]).style.backgroundColor="#5185BE";
+						for(i=0;i<6;i++)	if(elem[i]!=e)	document.getElementById(elem[i]).style.backgroundColor="#5185BE";
 									}
 									
 									function setHeights(){
-									for(i=0;i<tot;i++){
+									for(i=0;i<6;i++){
 										    tabHeights[i]=document.getElementById(elem[i]+'_').offsetHeight+'px';
 										    //alert(document.getElementById(elem[i]+'_').offsetHeight);
 										    }
@@ -246,6 +242,7 @@
         <div id = "video"></div>
         
 	<div id = "verticlleft">
+	    		<div id="events_heading" style="position:relative;  text-align: left; padding-left:10px; font-size:28px; font-weight:bold; color:#333;margin-left :auto;margin-right :auto; ">{{event_name}}</div>
           <div id="eventsTab"> 
 	    <div id="tabs"> 
 	      <!--
@@ -294,7 +291,7 @@
                     <textarea rows="6" cols="40" >This is not fully functional right now. Clicking on submit does nothing.</textarea><br/>
                     <input type="submit" value="Submit">
                   </div>
-                  {% endif %}
+                  {% endif% }
                   {% if ques.question_type == "MCQ" %}
                   <p>This is a multiple choice question. Please select your choice and click on "Submit".</p>
                   <p> This will be functional soon.</p>
@@ -316,7 +313,8 @@
                   <p> This will be functional soon.</p>
                   <br/>
                   <input type="file" name="blah" size="30"><br/>
-                  <input type="submit" value="Upload">               
+                  <input type="submit" value="Upload">
+                  {% endif %}               
                   {% endif %}
                   <script>
                     $("#Question{{ques.Q_Number}}").hide();
@@ -345,7 +343,7 @@
 	      </div>  -->
 	      
 	      <div id = "verticlright">
-		<div id="events_heading" style="position:relative;  text-align: left; padding-left:10px; font-size:28px; font-weight:bold; color:#333;margin-left :auto;margin-right :auto; ">{{event_name}}</div>
+
 		<div id = "rtvtop">
 		  <div>
 		    Sponsors Here
@@ -353,13 +351,13 @@
 		  <img src = "{{MEDIA_URL}}img/Nokia.png">
 		</div>
     		<div id = "rtvbottom">
-		  MY SHAASTRA HERE
+		  MY SHAASTSA HERE
 		</div>
 	      </div>
 	      
 	                    
 	    
-	    <div id="ticker2" class="iefix" style = "position:relative;top:-55px;left:50px;">
+	    <div id="ticker2" class="iefix">
 	      <div id="ticker-img-left2" class="iefix">
 		
 	      </div>
@@ -372,7 +370,6 @@
 	      <div id="ticker-img-right2" class="iefix">
 	      </div>
 	    </div>
-    </div>
 	    <div id = "footer_container">
 	      <div id = "footerlinks">
 		<a href = "#" class = "flinks" id = "con"></a>
@@ -384,6 +381,7 @@
 		<a href = "#" class = "flinks" id = "cre"></a>
 		
 	      </div>
+	    </div>
 	    </div>
 
 	
