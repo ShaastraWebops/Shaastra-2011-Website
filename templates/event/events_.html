@@ -22,6 +22,21 @@
     <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/jquery.jscrollpane.min.js"></script>
     <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/jquery.mousewheel.js"></script>
     <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/ticker2.js"></script>
+   <script>
+	    
+	    if(window.innerHeight > 650)
+						{
+						var tp = window.innerHeight;
+						//alert(tp);
+						//alert(window.innerHeight);
+						var newtp = tp-46;
+						//alert(newtp);
+						document.getElementById("footer_container").style.position = "absolute";
+						//alert(document.getElementById("footer_container").style.position);
+						document.getElementById("footer_container").style.top = newtp+"px";
+						//alert(document.getElementById("footer_container").style.top);// = tp;
+						}
+						</script>
     <!--[if lte IE 8]>
         <script type="text/javascript">
           width=78;
@@ -316,6 +331,7 @@
 		</div>
 	      </div>
 	    </div>
+      </div>
 	      <!--               <div id="spons_">
 				 <img src="media/imges/spons_text.png">
 	      </div>
@@ -371,21 +387,7 @@
 
 
 
-	  <script>
-	    
-	    if(window.innerHeight > 650)
-						{
-						var tp = window.innerHeight;
-						//alert(tp);
-						//alert(window.innerHeight);
-						var newtp = tp-46;
-						//alert(newtp);
-						document.getElementById("footer_container").style.position = "absolute";
-						//alert(document.getElementById("footer_container").style.position);
-						document.getElementById("footer_container").style.top = newtp+"px";
-						//alert(document.getElementById("footer_container").style.top);// = tp;
-						}
-						</script>
+	  
     <div id = "scrollcontainer">
       <div id = "scroll">
         <div id = "1" class = "thumb"><div class = "thumbc"></div></div>
