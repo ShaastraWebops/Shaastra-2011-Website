@@ -98,4 +98,19 @@
     </form>
     </div>  
     {% endif %}
+    <div id = "verticlright">
+        <div id = "rtvtop">
+            {% block event_spons%}
+            <div>
+            Sponsors Here
+            </div>
+            <img src = "{{MEDIA_URL}}img/Nokia.png">
+            {% endblock %} 
+        </div>
+        <div id = "rtvbottom">
+            {% block my_shaastra %}
+            MY SHAASTSA HERE
+            {% endblock %} 
+        </div>
+    </div>
 {%endblock%}
