@@ -211,31 +211,10 @@
 					}
 		</script>		 
 	    </div> 
-		<!-- the add tab button -->
-    <div id="add_tab">
-            <form action="add_tab/" method ="POST">
-            {% csrf_token %}
-            <input type="hidden" value="{{row.id}}" name="tab_id" />
-        <input type="submit" value="Add Tab" />
-        </form>
-    </div>  
-    <!-- the add questions tab button -->
-    {%if not questions_added %}
-    <div id="add_questions_tab">
-        <form action="add_questions_tab/" method ="POST">
-        {% csrf_token %}
-        <input type="hidden" value="{{row.id}}" name="tab_id" />
-    <input type="submit" value="Add Questions" />
-    </form>
-    </div>  
-    {% endif %}
-
 	    {% include "event_details.html" %}
 	      </div>
 	    </div>
-      </div>
-	      
-	      <div id = "verticlright">
+	    <div id = "verticlright">
 
 		<div id = "rtvtop">
 		  <div>
@@ -247,6 +226,9 @@
 		  MY SHAASTRA HERE
 		</div>
 	      </div>
+      </div>
+	      
+	      
     </div> 
 	                    
 		<div id="ticker2" class="iefix" >
