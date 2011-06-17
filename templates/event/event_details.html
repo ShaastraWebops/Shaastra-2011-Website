@@ -1,25 +1,8 @@
 <div id="event-details">
+
                               {%for row in tab_list %}
 				<div id="{{row.title|slugify }}_">
 
-<!-- the add tab button -->
-    <div id="add_tab">
-            <form action="add_tab/" method ="POST">
-            {% csrf_token %}
-            <input type="hidden" value="{{row.id}}" name="tab_id" />
-        <input type="submit" value="Add Tab" />
-        </form>
-    </div>  
-    <!-- the add questions tab button -->
-    {%if not questions_added %}
-    <div id="add_questions_tab">
-        <form action="add_questions_tab/" method ="POST">
-        {% csrf_token %}
-        <input type="hidden" value="{{row.id}}" name="tab_id" />
-    <input type="submit" value="Add Questions" />
-    </form>
-    </div>  
-    {% endif %}
 
                                   <!-- The Edit Event button -->
 <div id="edit_event">
@@ -115,6 +98,31 @@
                       </form>
                     </table>
                     {%if not is_coord%}<input type="submit" value="Submit">{%endif%}
+                    <!-- Delete Option-->
+                    <table>
+                    {%for options in options_list %}
+                        {%if options.question == ques %}
+                            {%if is_coord %}
+                                <div id="delete_option">
+                                <tr><td>
+                                <form action="{{SITE_URL}}events/dashboard/delete_option/" method = 'POST'>
+                                {% csrf_token %}
+                                <input type="hidden" value="{{options.id}}" name=option_id>
+                                <input type="submit" value="Delete Choice -- ({{options.option}},{{options.text}})">
+                                </form>
+                                </td></tr>
+                                </div>
+                            {%endif%}
+                        {%endif%}
+                    {%endfor%}
+                    </table>
+                    <div id="add_choices">
+                        <form action="add_choices/" method = 'GET'>
+                        {% csrf_token %}
+                        <input type="hidden" value="{{ques.id}}" name="ques_to_add_choices_id">
+                        <input type="submit" value="Add More Choices">
+                        </form>
+                    </div>
                   </div>            
                   {% endif %}
                   {% if ques.question_type == "FILE" %}
@@ -124,6 +132,26 @@
                   <input type="file" name="blah" size="30"><br/>
                   <input type="submit" value="Upload">               
                   {% endif %}
+                  <!-- the delete question button -->
+
+                        <div id="delete_question">
+                        <form action="{{SITE_URL}}events/dashboard/delete_question/" method = 'POST'>
+                        {% csrf_token %}
+                        <input type="hidden" value="{{ques.id}}" name=ques_id>
+                        <input type="submit" value="Delete Question">
+                        </form>
+                        </div>
+
+                        <!-- the edit question button -->
+
+                        <div id="edit_question">
+                        <form action="edit_question/" method = 'GET'>
+                        {% csrf_token %}
+                        <input type="hidden" value="{{ques.id}}" name=ques_id >
+                        <input type="submit" value="Edit Question">
+                        </form>
+                        </div>
+                  
                   <script>
                     $("#Question{{ques.Q_Number}}").hide();
                     $("#Ques{{ques.Q_Number}}").click(function () {
@@ -131,7 +159,23 @@
                     });
                   </script>
                 </div>                       
-		{%endfor%}                    
+		{%endfor%}      
+		
+		<div id="edit_tab">
+		<form action="edit_tab/" method = 'GET'>
+		{% csrf_token %}
+		<input type="hidden" value="{{row.id}}" name=tab_id >
+		<input type="submit" value="Edit Questions Tab">
+		</form>
+		</div>
+		
+		<div id="add_question">
+		<form action="add_question/" method ="POST">
+		{% csrf_token %}
+		<input type="hidden" value="{{row.id}}" name="tab_id" />
+		<input type="submit" value="Add Questions" />
+		</form>
+		</div>          
 		{% endif %}
 
 
