@@ -185,19 +185,21 @@
     </div>
             
     <div id = "verticlright">
+		  {% block event_spons%}
         <div id = "rtvtop">
-            {% block event_spons%}
+            
             <div>
             Sponsors Here
             </div>
             <img src = "{{MEDIA_URL}}img/Nokia.png">
-            {% endblock %} 
+             
         </div>
+        {% endblock %}
+			{% block my_shaastra %}
         <div id = "rtvbottom">
-            {% block my_shaastra %}
-            MY SHAASTSA HERE
-            {% endblock %} 
+            MY SHAASTSA HERE             
         </div>
+        {% endblock %}
 {%endblock%}
     </div>
 

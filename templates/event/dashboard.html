@@ -77,6 +77,7 @@
     </div>
     <!-- the add tab button -->
     <div id="add_tab">
+    blah blah blahblah blah blahblah blah blahblah blah blahblah blah blah
             <form action="add_tab/" method ="POST">
             {% csrf_token %}
             <input type="hidden" value="{{row.id}}" name="tab_id" />
@@ -94,11 +95,11 @@
     </div>  
     {% endif %}
     <div id = "verticlright">
+{% block my_shaastra %}
         <div id = "rtvbottom">
-            {% block my_shaastra %}
-            MY SHAASTSA HERE
-            {% endblock %} 
+            MY SHAASTSA HERE             
         </div>
+{% endblock %}
     </div>
 {%endblock%}
 <div id="ticker2" class="iefix" >
