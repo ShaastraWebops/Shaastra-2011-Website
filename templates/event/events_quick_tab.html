@@ -214,15 +214,8 @@
 	    <div id="event-details">
                               {%for row in tab_list %}
 				<div id="{{row.title|slugify }}_">
-  
-     
-                                        <br/><br/>
-
                                        {%if not row.question_tab%}
-			                            ROW ID : {{row.id}} 
-			                                  <br />
-			                            ROW PREFERENCE : {{row.pref}} 
-			                                 <br />
+			                            
 			                              {{row.text|safe}}
 			                                <br /><br />
 
