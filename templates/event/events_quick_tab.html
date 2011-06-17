@@ -245,6 +245,7 @@
                   <div id="mcq_question">
                     <table border="1">
                       <form>
+                        {% csrf_token %}
                         {%for options in options_list %}
                         {%if options.question == ques %}
                         <tr><td>{{options.option}}</td><td><input type="radio" name="answer_chosen" value="{{options.option}}"/></td><td>{{options.text}}</td></tr>

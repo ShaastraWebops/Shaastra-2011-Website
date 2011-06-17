@@ -49,6 +49,7 @@
 
                     <div id="cancel">
                             <form action="{{SITE_URL}}events/dashboard/" method="POST">
+                            {% csrf_token %}
                             <input type="submit" value="Back To Dashboard"/>
                             </form>
                     </div>
