@@ -62,7 +62,7 @@ class Event(models.Model):
             os.system("mkdir " + MEDIA_ROOT + "events/" + camelize(self.name) + "/images")
             os.system("mkdir " + MEDIA_ROOT + "events/" + camelize(self.name) + "/images/eventlogos")
             os.system("mkdir " + MEDIA_ROOT + "events/" + camelize(self.name) + "/images/sponslogos")
-    	super(Event, self).save(*args, **kwargs) # Call the "real" save() method.
+    	return super(Event, self).save(*args, **kwargs) # Call the "real" save() method.
     	
     class Admin:
         pass  
