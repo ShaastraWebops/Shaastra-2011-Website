@@ -34,16 +34,14 @@
 			 var elem=[];
 			 var tabNames=[];
 			 var tot=0;
+			 var noOfTabs=0
 			{%for row in tab_list%}
 				elem[{{forloop.counter0}}]='{{row.title|slugify}}';
-				tabNames[{{forloop.counter0}}]='{{row.title|slugify}}';
+				tabNames[{{forloop.counter0}}]='{{row.title}}';
 				tot=tot+1;
 			{%endfor%}
-			
-			elem[2]='extraTab';
-			tabNames[2]='Internet Explorer 5';
-			var noOfTabs=3;
-			
+            
+            noOfTabs=tot			
 	</script>
     <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/events-tab.js"></script>
    <script>
@@ -228,19 +226,7 @@
 		</script>		 
 	    </div> 
 		
-	    <div id="event-details"> 		
-					<div id="extraTab_"> By Microsoft !!<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-							<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-							5.) Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec in ligula id sem tristique ultrices
-							eget id neque. Duis enim turpis, tempus at accumsan vitae, lobortis id sapien. Pellentesque nec orci
-							mi, in pharetra ligula. Nulla facilisi. Nulla facilisi. Mauris convallis venenatis massa, quis
-							consectetur felis ornare quis. Sed aliquet nunc ac ante molestie ultricies. Nam pulvinar ultricies
-							bibendum. Vivamus diam leo, faucibus et vehicula eu, molestie sit amet dui. Proin nec orci et elit
-							semper ultrices. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus
-							mus. Sed quis urna mi, ac dignissim mauris. Quisque mollis ornare mauris, sed laoreet diam malesuada
-							quis. Proin vel elementum ante. Donec hendrerit arcu ac odio tincidunt posuere. Vestibulum nec risus
-							eu lacus semper viverra.
-					</div>		
+	    <div id="event-details"> 			
 		
 	      {%for row in tab_list %}
 	      <div id="{{row.title|slugify }}_">
