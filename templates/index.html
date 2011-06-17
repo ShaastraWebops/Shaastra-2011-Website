@@ -174,11 +174,12 @@
         </div>
       </div>   
       <!-- -----------------------------------HEADER ENDS -------------------------------------------- -->
+{%block body%}
     <div id = "content" style = "overflow:hidden">
         <div id = "video"></div>
         <div id = "verticlleft">
         <div id="events_heading" style="position:relative;  text-align: left; padding-left:20px;padding-bottom:20px; font-size:28px; font-weight:bold; color:#333;margin-left :auto;margin-right :auto; ">{{event_name}}</div>
-            {%block body%}{%endblock%}
+            
         </div>
     </div>
             
@@ -197,7 +198,7 @@
             {% endblock %} 
         </div>
     </div>
-    
+{%endblock%}
 </div> 
 	                    
 		<div id="ticker2" class="iefix" >
