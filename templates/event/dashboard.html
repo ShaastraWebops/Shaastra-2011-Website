@@ -62,7 +62,8 @@
 
 
 {%block body%}
-   
+   <div id = "verticlleft">
+	<div id="events_heading" style="position:relative;  text-align: left; padding-left:20px;padding-bottom:20px; font-size:28px; font-weight:bold; color:#333;margin-left :auto;margin-right :auto; ">{{event_name}}</div>
 <div id="video"> </div>
     <div id="eventsTab">
         <div id="eventtitle" style="position:relative;top:-15px">{{event_name}}</div>	
@@ -91,9 +92,10 @@
         {% csrf_token %}
         <input type="hidden" value="{{row.id}}" name="tab_id" />
     <input type="submit" value="Add Questions" />
-    </form>
+    	</form>
     </div>  
     {% endif %}
+    </div>
     <div id = "verticlright">
 {% block my_shaastra %}
         <div id = "rtvbottom">
