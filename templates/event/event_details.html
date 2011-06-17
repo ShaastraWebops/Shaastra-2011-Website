@@ -149,6 +149,26 @@
                   <input type="file" name="blah" size="30"><br/>
                   <input type="submit" value="Upload">               
                   {% endif %}
+                  <!-- the delete question button -->
+
+                        <div id="delete_question">
+                        <form action="{{SITE_URL}}events/dashboard/delete_question/" method = 'POST'>
+                        {% csrf_token %}
+                        <input type="hidden" value="{{ques.id}}" name=ques_id>
+                        <input type="submit" value="Delete Question">
+                        </form>
+                        </div>
+
+                        <!-- the edit question button -->
+
+                        <div id="edit_question">
+                        <form action="edit_question/" method = 'GET'>
+                        {% csrf_token %}
+                        <input type="hidden" value="{{ques.id}}" name=ques_id >
+                        <input type="submit" value="Edit Question">
+                        </form>
+                        </div>
+                  
                   <script>
                     $("#Question{{ques.Q_Number}}").hide();
                     $("#Ques{{ques.Q_Number}}").click(function () {
