@@ -79,7 +79,7 @@ def show_quick_tab(request,event_name=None):
             for temps in temp:
                 options_list.append(temps)
         #return render_to_response('event/QuickTabs.html', locals(), context_instance= global_context(request))
-        return render_to_response('event/events_.html', locals(), context_instance= global_context(request))
+        return render_to_response('event/events_quick_tab.html', locals(), context_instance= global_context(request))
     else:
         raise Http404    
 
