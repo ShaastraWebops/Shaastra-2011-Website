@@ -22,27 +22,6 @@
     <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/jquery.jscrollpane.min.js"></script>
     <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/jquery.mousewheel.js"></script>
     <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/ticker2.js"></script>
-	<script type="text/javascript">
-			/***********************************************************************************************************************************************
-			How to add a new tab -
-			1) Update the elem array with the id of the new tab.															e.g : newTab
-			2) Update the tabnames array with the name of the tab.															e.g : Problem Statement
-			3) Increase the no of tabs by one for each tab you add.
-			4) Insert content in index.html.  The id of this div should be the same as you had put in step 1 except that an underscore follows it.			eg : <div id="newTab_"> ........................... </div>
-			
-			************************************************************************************************************************************************/
-			 var elem=[];
-			 var tabNames=[];
-			 var tot=0;
-			 var noOfTabs=0
-			{%for row in tab_list%}
-				elem[{{forloop.counter0}}]='{{row.title|slugify}}';
-				tabNames[{{forloop.counter0}}]='{{row.title}}';
-				tot=tot+1;
-			{%endfor%}
-            
-            noOfTabs=tot			
-	</script>
     <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/events-tab.js"></script>
    <script>
 	    
