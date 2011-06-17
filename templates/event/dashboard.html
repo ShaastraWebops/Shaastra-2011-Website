@@ -137,6 +137,50 @@
       });
 
     </script>
+    <script type="text/javascript">
+			var elem=['intro','pstmnt','rules','faq','contact','extraTabs','',''];
+                        var tot=0;
+                        {%for row in tab_list%}
+                             elem[{{forloop.counter0}}]='{{row.title|slugify}}';
+                             tot=tot+1;
+                         {%endfor%}
+                       
+			var tabHeights=['420px','500px','600px','700px','800px','2000px','2200px','2500px'];
+			//var i_=0,p=0,r=0,f=0,c=0,e=0;
+			
+			$(function(){
+				$('#event-details').jScrollPane({showArrows: true});
+			});
+			window.onload=function(){		
+				document.getElementById('page').style.display="block";
+				setVisible(elem[0]);
+				setBgGreen(elem[0]);
+			}
+
+			$(document).ready(function() {
+				$("#tabs").click(function(e) {
+					var id=e.target.id;
+					setBgGreen(id);
+					setVisible(id);							
+				});	
+			
+			});
+			
+			function setVisible(e){
+				document.getElementById(e+'_').style.visibility="visible";
+				
+				for(i=0;i<tot;i++)	if(elem[i]==e)	document.getElementById('jspPane').style.height=tabHeights[i];
+				for(i=0;i<tot;i++)	if(elem[i]!=e)	document.getElementById(elem[i]+'_').style.visibility="hidden";
+				for(i=0;i<tot;i++)	if(elem[i]!=e)	document.getElementById(elem[i]+'_').style.height="0px"; 
+				
+				$(function(){$('#event-details').jScrollPane({showArrows: true});});
+			}
+			
+			function setBgGreen(e){
+				document.getElementById(e).style.backgroundColor="#93C66E";
+				for(i=0;i<tot;i++)	if(elem[i]!=e)	document.getElementById(elem[i]).style.backgroundColor="#5185BE";
+			}
+		</script>
     <script src = "{{MEDIA_URL}}js/js/script/script.js"></script>
   </head>
   <body>
