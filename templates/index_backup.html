@@ -1,0 +1,117 @@
+
+  <head>
+  
+        <title>Shaastra 2011</title>
+        <link rel="stylesheet" href="{{MEDIA_URL}}css/main.css" type="text/css"/>
+        <link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}css/template_2.css" />
+        <script type="text/javascript" src="{{MEDIA_URL}}js/jquery.js"></script>
+        <script type="text/javascript" src="{{MEDIA_URL}}js/main.js"></script>
+        <link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}media1/style/css/main.css" />
+        
+        <script type="text/javascript">
+            var urls = new Array();
+            {% with categories=menu_urls %}
+                {% for category in categories %}
+                    var k = new Array();
+                    {% for event in category.events %}
+                        k.push("{{event.image_src}}|`{{event.url}}");
+                    {% endfor %}
+                    urls.push(k);
+                {% endfor %}    
+            {% endwith %}
+        </script>
+
+  {%block media_location %}  
+  {%endblock%}
+  </head>
+
+
+
+
+<body id="page">
+<div id="main" align="center">
+
+<div id="header">
+
+<div id="logo"><img src="{{MEDIA_URL}}img/logo.png"/></div>
+{%block sponsor %}
+<div id="spons_area"></div>
+{%endblock%}
+
+{%block social%}
+<div id="logos">
+  <div id="fblogo"></div>
+  <div id="bloggerlogo"></div>
+  <div id="youtubelogo"></div>
+  <div id="twitterlogo"></div>
+</div>
+{%endblock%}
+
+{%block updates%}
+<div id="updates_container" align="left">
+<div id="updates_bar"></div></div>
+
+{%endblock%}
+
+{%block top_navigation%}
+<div id="navbar"><ul>
+  <li class="navItem"><a href="#">Home</a></li>
+  <li class="navItem"><a href="#">Events</a></li>
+  <li class="navItem"><a href="#">Hospitality</a></li>
+  <li class="navItem"><a href="#">Sponsership</a></li>
+  <li class="navItem"><a href="#">Gallery</a></li>
+</ul></div>
+
+
+{%endblock%}
+</div>
+
+<div id = "content">
+
+
+{%block body%}{%endblock%}
+
+
+
+
+
+<div id="spons">
+{%block event_spons%}
+<img src="{{MEDIA_URL}}img/spons_text.png">
+{%endblock%}
+</div>
+
+
+
+{%block my_shaastra%}
+
+<div id = "bottomrighttext">
+                        My Shaastra stuff
+						<img src="{{MEDIA_URL}}img/arbit.png" id="arbit" \>
+                    </div>
+{%endblock%}
+ 
+                </div>
+
+
+
+
+
+
+
+{%block footer%}
+                <div id = "footer">
+                    <div id = "focontent">
+                   <a href = "#footer"> <img src = "{{MEDIA_URL}}img/contact.png" id = "c" \></a>
+                        <a href = "#footer"> <img src = "{{MEDIA_URL}}img/pp.png" id = "pp" \></a>
+                            <a href = "#footer"> <img src = "{{MEDIA_URL}}img/blog.png" id = "b"\></a>
+							   <a href = "#footer"> <img src = "{{MEDIA_URL}}img/events.png" id = "e"\></a>
+                                <a href = "#footer"> <img src = "{{MEDIA_URL}}img/media.png" id = "m"\></a>
+                                    <a href = "#footer"> <img src = "{{MEDIA_URL}}img/myshaastra.png" id = "ms" \></a>
+                                        <a href = "#footer"> <img src = "{{MEDIA_URL}}img/credits.png" id = "cr"\></a>
+                </div>
+                </div>
+{%endblock%}
+</div>
+</body>
+
