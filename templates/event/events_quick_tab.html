@@ -3,7 +3,7 @@
 <html>
   <head>
     <title>
-    Shaastra 2011 - {{event_name}}
+      Shaastra 2011 - {{event_name}}
     </title>
     
     <link rel="stylesheet" href="css/main.css" type="text/css"/>
@@ -201,48 +201,34 @@
 
         <div id = "video"></div>
         
-	<div id = "verticlleft">
-	<div id="events_heading" style="position:relative;  text-align: left; padding-left:20px;padding-bottom:20px; font-size:28px; font-weight:bold; color:#333;margin-left :auto;margin-right :auto; ">{{event_name}}</div>
+	<div id = "verticlleft">	
           
 	  <div id="eventsTab"> 
-	    <div id="tabs"> 
-	      <!--
-		  <div id="intro">Introduction</div> 
-		  <div id="pstmnt">Problem Statement</div> 
-		  <div id="rules">Rules</div> 
-		  <div id="faq">FAQ</div> 
-		  <div id="contact">Contact</div> 
-		  <div id="extraTabs">More Tabs Here</div>
-		  -->
+	    <div id="tabs">
 		<script type="text/javascript">
 					for(var t=0;t<noOfTabs;t++){
 						document.write("<div id=\""+elem[t]+"\">"+tabNames[t]+"</div>");
 					}
 		</script>		 
 	    </div> 
-		
-	    <div id="event-details"> 			
-		
-	      {%for row in tab_list %}
-	      <div id="{{row.title|slugify }}_">
-		{%if not row.question_tab%}
-		<p>{{row.text|safe}}</p><br /><br />
-		<!-- displaying file list -->
-		<div id="file_display">
-		  <div id="file_header">
-		    CURRENTLY UPLOADED FILES
-		  </div>
-		  <br/>
-		  <!-- displaying the file url -->
-		  <div id="file_content">
-		    {%for file in row.file_list %}    
-		    <a href={{file.url}}>{{file.title}}</a>
-		    <br/>
-		    {%endfor%}
-		  </div>
-		</div>
-		{%else%}
-		{% for ques in ques_list %}
+	    <div id="event-details">
+                              {%for row in tab_list %}
+				<div id="{{row.title|slugify }}_">
+                                       {%if not row.question_tab%}
+			                            
+			                              {{row.text|safe}}
+			                                <br /><br />
+
+                                        <!-- displaying file list -->
+ 
+			              
+
+
+                 
+ 
+           {%else%}
+           
+{% for ques in ques_list %}
 		<div id="Ques{{ques.Q_Number}}">
                   <!--<a href="#Question{{ques.Q_Number}}">{{ques.Q_Number|safe}}. {{ques.title|safe}}</a><br/>-->
 	          <br/>{{ques.Q_Number|safe}}. {{ques.title|safe}}<br/>
@@ -287,18 +273,15 @@
                 </div>                       
 		{%endfor%}                    
 		{% endif %}
-		{%endfor%}  
-	      </div>
-                
-		  
-		  
-		</div>
+
+
+    
+				</div>
+                              {%endfor%}
+					</div>
 	      </div>
 	    </div>
-	    
-	  
-	  
-	      <div id = "verticlright">
+	    <div id = "verticlright">
 
 		<div id = "rtvtop">
 		  <div>
@@ -310,15 +293,9 @@
 		  MY SHAASTRA HERE
 		</div>
 	      </div>
-  
-	    
-	    
       </div>
 	      
-	  
-
-
-
+	      
     </div> 
 	                    
 		<div id="ticker2" class="iefix" >
