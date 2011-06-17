@@ -230,78 +230,30 @@
     </form>
     </div>  
     {% endif %}
-	    <div id="event-details"> 			
-		
-	      {%for row in tab_list %}
-	      <div id="{{row.title|slugify }}_">
-		{%if not row.question_tab%}
-		<p>{{row.text|safe}}</p><br /><br />
-		<!-- displaying file list -->
-		<div id="file_display">
-		  <div id="file_header">
-		    CURRENTLY UPLOADED FILES
-		  </div>
-		  <br/>
-		  <!-- displaying the file url -->
-		  <div id="file_content">
-		    {%for file in row.file_list %}    
-		    <a href={{file.url}}>{{file.title}}</a>
-		    <br/>
-		    {%endfor%}
-		  </div>
-		</div>
-		{%else%}
-		{% for ques in ques_list %}
-		<div id="Ques{{ques.Q_Number}}">
-                  <!--<a href="#Question{{ques.Q_Number}}">{{ques.Q_Number|safe}}. {{ques.title|safe}}</a><br/>-->
-	          <br/>{{ques.Q_Number|safe}}. {{ques.title|safe}}<br/>
-                </div>
-                <div id="Question{{ques.Q_Number}}">
-                  {% if ques.question_type == "NORMAL" %}
-                  <div id="normal_question">
-                    <p>Type your answer in the text area and hit the "Submit" button.</p>
-                    <textarea rows="6" cols="40" >This is not fully functional right now. Clicking on submit does nothing.</textarea><br/>
-                    <input type="submit" value="Submit">
-                  </div>
-                  {% endif %}
-                  {% if ques.question_type == "MCQ" %}
-                  <p>This is a multiple choice question. Please select your choice and click on "Submit".</p>
-                  <p> This will be functional soon.</p>
-                  <div id="mcq_question">
-                    <table border="1">
-                      <form>
-                        {%for options in options_list %}
-                        {%if options.question == ques %}
-                        <tr><td>{{options.option}}</td><td><input type="radio" name="answer_chosen" value="{{options.option}}"/></td><td>{{options.text}}</td></tr>
-                        {%endif%}
-                        {%endfor%}
-                      </form>
-                    </table>
-                    {%if not is_coord%}<input type="submit" value="Submit">{%endif%}
-                  </div>            
-                  {% endif %}
-                  {% if ques.question_type == "FILE" %}
-                  <p> Choose the file you want to upload and click on "Upload".</p>
-                  <p> This will be functional soon.</p>
-                  <br/>
-                  <input type="file" name="blah" size="30"><br/>
-                  <input type="submit" value="Upload">               
-                  {% endif %}
-                  <script>
-                    $("#Question{{ques.Q_Number}}").hide();
-                    $("#Ques{{ques.Q_Number}}").click(function () {
-                    $("#Question{{ques.Q_Number}}").toggleClass("inactive").slideToggle("slow");
-                    });
-                  </script>
-                </div>                       
-		{%endfor%}                    
-		{% endif %}
-		{%endfor%}  
-	      </div>
-                
-		  
-		  
-		</div>
+<!-- The Edit Event button -->
+
+<div id="edit_event">
+        {%if user.is_authenticated%} 
+    <form action= "{{SITE_URL}}events/dashboard/edit_event/" method="GET">
+        {% csrf_token %}
+    <input type="submit" value="Edit Event Details" />
+    </form>
+    {%endif%}
+</div>
+
+<!-- Button to see users who have registered for this event -->
+
+<!-- Logout button -->
+
+<div id="logout">
+    {%if user.is_authenticated%} 
+        <form action= "{{SITE_URL}}events/logout/" method="POST">
+                {% csrf_token %}
+            <input type="submit" value="LOGOUT" />
+        </form>
+        {%endif%}
+</div>
+	    {% include "event_details.html" %}
 	      </div>
 	    </div>
       </div>
