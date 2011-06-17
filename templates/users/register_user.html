@@ -1,12 +1,12 @@
 {% extends "index.html" %}
 
 {% block body %}
-  <script src="http://code.jquery.com/jquery-latest.js"></script>
-  <link rel="stylesheet" href="http://dev.jquery.com/view/trunk/plugins/autocomplete/demo/main.css" type="text/css" />
-  <link rel="stylesheet" href="http://dev.jquery.com/view/trunk/plugins/autocomplete/jquery.autocomplete.css" type="text/css" />
-  <script type="text/javascript" src="http://dev.jquery.com/view/trunk/plugins/autocomplete/lib/jquery.bgiframe.min.js"></script>
-  <script type="text/javascript" src="http://dev.jquery.com/view/trunk/plugins/autocomplete/lib/jquery.dimensions.js"></script>
-  <script type="text/javascript" src="http://dev.jquery.com/view/trunk/plugins/autocomplete/jquery.autocomplete.js"></script>
+  <script src="{{MEDIA_URL}}js/js/scriptjquery.js"></script>
+  <link rel="stylesheet" href="{{MEDIA_URL}}autocomplete/main.css" type="text/css" />
+  <link rel="stylesheet" href="{{MEDIA_URL}}autocomplete/jquery.autocomplete.css" type="text/css" />
+  <script type="text/javascript" src="{{MEDIA_URL}}autocomplete/jquery.bgiframe.min.js"></script>
+  <script type="text/javascript" src="{{MEDIA_URL}}autocomplete/jquery.dimensions.js"></script>
+  <script type="text/javascript" src="{{MEDIA_URL}}autocomplete/jquery.autocomplete.js"></script>
   <script>
    $(document).ready(function(){
     var data = {{js_data|safe}};
