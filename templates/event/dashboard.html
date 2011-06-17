@@ -3,7 +3,7 @@
 <html>
   <head>
     <title>
-      Template Test
+      Shaastra 2011 - {{event_name}}
     </title>
     
     <link rel="stylesheet" href="css/main.css" type="text/css"/>
@@ -201,8 +201,7 @@
 
         <div id = "video"></div>
         
-	<div id = "verticlleft">
-	<div id="events_heading" style="position:relative;  text-align: left; padding-left:20px;padding-bottom:20px; font-size:28px; font-weight:bold; color:#333;margin-left :auto;margin-right :auto; ">{{event_name}}</div>
+	<div id = "verticlleft">	
           
 	  <div id="eventsTab"> 
 	    <div id="tabs">
@@ -230,29 +229,7 @@
     </form>
     </div>  
     {% endif %}
-<!-- The Edit Event button -->
 
-<div id="edit_event">
-        {%if user.is_authenticated%} 
-    <form action= "{{SITE_URL}}events/dashboard/edit_event/" method="GET">
-        {% csrf_token %}
-    <input type="submit" value="Edit Event Details" />
-    </form>
-    {%endif%}
-</div>
-
-<!-- Button to see users who have registered for this event -->
-
-<!-- Logout button -->
-
-<div id="logout">
-    {%if user.is_authenticated%} 
-        <form action= "{{SITE_URL}}events/logout/" method="POST">
-                {% csrf_token %}
-            <input type="submit" value="LOGOUT" />
-        </form>
-        {%endif%}
-</div>
 	    {% include "event_details.html" %}
 	      </div>
 	    </div>
