@@ -67,6 +67,10 @@ def not_found (request):
 def server_error (request):
     return render_to_response('500.html', locals(), context_instance= global_context(request)) 
 
+def render_home(request):
+    return render_to_response('index.html', locals(), context_instance= global_context(request)) 
+
+
 #Change FOO   bAR to Foo Bar
 def clean_string(dirty_string):
     word_list=dirty_string.split(" ")
