@@ -88,6 +88,10 @@ class EditQuestionForm(forms.Form):
     Q_Number=forms.IntegerField(required=True,help_text='Question number')
     title=forms.CharField(widget=forms.Textarea, help_text='The description of the question.')
     question_type = forms.CharField(max_length=6,widget=forms.Select(choices=QUESTION_TYPES))
+
+class EditQuestionsTabForm(forms.Form):
+    title=forms.CharField(help_text='Title of the tab')
+    tab_pref=forms.IntegerField(required=True,help_text='Order of the tab for displaying.')
     
 class AddFileForm(forms.Form):
     filetitle=forms.CharField(help_text='Title of the file',required = False)
