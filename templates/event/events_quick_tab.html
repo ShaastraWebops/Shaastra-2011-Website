@@ -198,11 +198,10 @@
 
 
         <div id = "video"></div>
-        
-	<div id = "verticlleft">	
-      {{event_name}}    
+
+	<div id = "verticlleft">
+              <div id="events_heading" style="position:relative;  text-align: left; padding-left:10px; font-size:28px; font-weight:bold; color:#333; z-index:100;">{{event_name|capfirst}}</div>
 	  <div id="eventsTab"> 
-	    
 	    <div id="tabs">
 		<script type="text/javascript">
 					for(var t=0;t<noOfTabs;t++){
@@ -210,6 +209,7 @@
 					}
 		</script>		 
 	    </div> 
+	    <!-- I think I love you more than the japanese love tangle porn. -->
 	    <div id="event-details">
                               {%for row in tab_list %}
 				<div id="{{row.title|slugify }}_">
@@ -279,6 +279,14 @@
 				</div>
                               {%endfor%}
 					</div>
+					
+		<div id="ticker2" class="iefix" >
+			<div id="ticker-img-left2" class="iefix"></div>
+			<div style="float:left;"><a id="ticker-link-updates2" style="font-size:18px;">&nbsp;Updates: </a></div>
+			<div style="float:left;"><a id="ticker-link-text2">Shaastra 10 Updates Ticker!</a></div>
+			<div id="ticker-img-right2" class="iefix"></div>
+		</div>  
+		
 	      </div>
 	    </div>
 	    <div id = "verticlright">
@@ -287,7 +295,7 @@
 		  <div>
 		    Sponsors Here
 		  </div>
-		  <img src = "{{MEDIA_URL}}img/Nokia.png">
+		  <img src = {{event.sponslogo.url}}>
 		</div>
     		<div id = "rtvbottom">
 		  MY SHAASTRA HERE
@@ -298,12 +306,7 @@
 	      
     </div> 
 	                    
-		<div id="ticker2" class="iefix" >
-			<div id="ticker-img-left2" class="iefix"></div>
-			<div style="float:left;"><a id="ticker-link-updates2" style="font-size:18px;">&nbsp;Updates: </a></div>
-			<div style="float:left;"><a id="ticker-link-text2">Shaastra 10 Updates Ticker!</a></div>
-			<div id="ticker-img-right2" class="iefix"></div>
-		</div>  
+
 		
 	    <div id = "footer_container">
 	      <div id = "footerlinks">
