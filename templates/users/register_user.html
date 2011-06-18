@@ -346,6 +346,8 @@ if(xmlhttp.readyState==4)
   else if(response=="failed"){
   }
   else{
+  alert("works");
+    alert(response[0]);
     document.getElementById("reg_success").style.display="block";
     document.getElementById("newcollege").style.display="none";
     actb_add(document.getElementById("id_id2-name").value);
