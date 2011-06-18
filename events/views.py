@@ -88,10 +88,14 @@ def show_quick_tab(request,event_name=None):
 @coords_only
 def dashboard(request):
     userprof = request.user.get_profile()
+    event = userprof.coord_event
     if userprof.is_coord:
         event_name = userprof.coord_event.name
         tab_list = models.QuickTabs.objects.filter(event__name = event_name).order_by('pref')  
-        questions_added = False
+        if(event.questions):
+            questions_added = False
+        else:
+            questions_added = True
         for t in tab_list:
             t.file_list = models.TabFiles.objects.filter(Tab = t)
             if(t.question_tab):
