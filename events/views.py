@@ -59,6 +59,7 @@ def coordslogin (request):
 def show_quick_tab(request,event_name=None):
     urlname=decamelize(event_name)
     tab_list=models.QuickTabs.objects.filter(event__name = urlname).order_by('pref')
+    ques_list= list()
     if tab_list.count():
         for t in tab_list:
             t.file_list = models.TabFiles.objects.filter(Tab = t)
