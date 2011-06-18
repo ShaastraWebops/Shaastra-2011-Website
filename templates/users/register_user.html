@@ -88,6 +88,7 @@ $("#branch_input").autocomplete(bdata);
 <script type="text/javascript">
 img = '<img height=20 width=20 src="{{ MEDIA_URL }}img/error.png">';
 function validateUsername(fld) {   //done
+
     var error = "";
     var illegalChars = /[^A-Za-z0-9_.]/; // allow letters, numbers, and underscores
  
@@ -99,10 +100,12 @@ function validateUsername(fld) {   //done
 		    document.getElementById('Username_div').innerHTML= error; return 1;}
     document.getElementById('Username_img').innerHTML= "";
     document.getElementById('Username_div').innerHTML="";
+    
     return 0;
 }
 
 function validatePassword(fld,fld2) {   //done
+
     var error = "";
  
     if (fld.value != fld2.value) {error = "The entered passwords do not match.";}
@@ -181,18 +184,6 @@ function validateMobileNumber(fld) {   //done
     return 0;
 }
 
-function validateBranch(fld) {
-    var error = "";
-    if (fld.value == "") error = "This field is required.";
-    if (error!="") {
-        document.getElementById('Branch_div').innerHTML= error;
-	document.getElementById('Branch_img').innerHTML= img;
-	return 1;
-    }
-    document.getElementById('Branch_img').innerHTML= "";
-    document.getElementById('Branch_div').innerHTML="";
-    return 0;
-}
 
 function validateEmail(fld) {   //done
     var error = "";
@@ -222,7 +213,19 @@ function validateRollNumber(fld) {   //done
     return 0;
 }
 
-
+function validateBranch(fld) {
+    alert("called");
+    var error = "";
+    if (fld.value == "") error = "This field is required.";
+    if (error!="") {
+        document.getElementById('Branch_div').innerHTML= error;
+	document.getElementById('Branch_img').innerHTML= img;
+	return 1;
+    }
+    document.getElementById('Branch_img').innerHTML= "";
+    document.getElementById('Branch_div').innerHTML="";
+    return 0;
+}
 
 function validateCaptcha(fld) {   //done
     var error = "";
@@ -261,14 +264,17 @@ function validateForm() {
 
 function onblurAttribute() {
    document.getElementById ("id_username").setAttribute('onblur' , 'validateUsername(document.getElementById ("id_username"))');
-   document.getElementById ("id_age").setAttribute('onblur' , 'validateAge(document.getElementById ("id_age"))');
-   document.getElementById ("id_branch").setAttribute('onblur' , 'validateBranch(document.getElementById ("id_branch"))');
-   document.getElementById ("id_email").setAttribute('onblur' , 'validateEmail(document.getElementById ("id_email"))');
-   document.getElementById ("id_mobile_number").setAttribute('onblur' , 'validateMobileNumber(document.getElementById ("id_mobile_number"))');
-   document.getElementById ("id_college_roll").setAttribute('onblur' , 'validateRollNumber(document.getElementById ("id_college_roll"))');
    document.getElementById ("id_password_again").setAttribute('onblur' , 'validatePassword(document.getElementById ("id_password"), document.getElementById ("id_password_again"))');
+   document.getElementById ("id_email").setAttribute('onblur' , 'validateEmail(document.getElementById ("id_email"))');
+   document.getElementById ("id_age").setAttribute('onblur' , 'validateAge(document.getElementById ("id_age"))');
    document.getElementById ("coll_input").setAttribute('onblur' , 'validateCollege(document.getElementById ("coll_input"))');
+   document.getElementById ("id_college_roll").setAttribute('onblur' , 'validateRollNumber(document.getElementById ("id_college_roll"))');
+   
+
+   document.getElementById ("id_mobile_number").setAttribute('onblur' , 'validateMobileNumber(document.getElementById ("id_mobile_number"))');
    document.getElementById ("recaptcha_response_field").setAttribute('onblur' , 'validateCaptcha(document.getElementById ("recaptcha_response_field"))');
+   document.getElementById ("id_branch").setAttribute('onblur' , 'validateBranch(document.getElementById ("id_branch"))');
+   
 
 }
 onblurAttribute();
