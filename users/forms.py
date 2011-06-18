@@ -115,7 +115,7 @@ class AddUserForm(ModelForm):
         else:
             return self.data[field_name1]
     
-    """def clean_college(self):
+    def clean_college(self):
         coll_input = self.cleaned_data['college']
         try:
             coll_name, coll_city = coll_input.rsplit(',',1)
@@ -125,7 +125,7 @@ class AddUserForm(ModelForm):
         if(collchk):
             return collchk
         else :
-            raise forms.ValidationError ("The College that you entered Does not exist or was Not Right")"""
+            raise forms.ValidationError ("The College that you entered Does not exist or was Not Right")
                
     def clean_college_roll(self):
         if (not alphanumric.search(self.cleaned_data['college_roll'])) or self.cleaned_data['college_roll'].isalpha():
