@@ -68,7 +68,7 @@ def server_error (request):
     return render_to_response('500.html', locals(), context_instance= global_context(request)) 
 
 def render_home(request):
-    return render_to_response('home.html', locals(), context_instance= global_context(request)) 
+    return render_to_response('index.html', locals(), context_instance= global_context(request)) 
 
 
 #Change FOO   bAR to Foo Bar
