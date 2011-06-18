@@ -213,7 +213,21 @@
 	    </div> 
 	    
 	    <!-- the add tab button -->
-	    <div id="add_tab">
+	    
+	    {% include "event_details.html" %}
+	      </div>
+	    </div>
+	    <div id = "verticlright">
+
+		<div id = "rtvtop">
+		  <div>
+		    Sponsors Here
+		  </div>
+		  <img src = "{{MEDIA_URL}}img/Nokia.png">
+		</div>
+    		<div id = "rtvbottom">
+		  MY SHAASTRA HERE
+		  <div id="add_tab">
 	    <form action="add_tab/" method ="POST">
 	    {% csrf_token %}
 	    <input type="hidden" value="{{row.id}}" name="tab_id" />
@@ -230,19 +244,6 @@
 	    </form>
 	    </div>  
 	    {% endif %}
-	    {% include "event_details.html" %}
-	      </div>
-	    </div>
-	    <div id = "verticlright">
-
-		<div id = "rtvtop">
-		  <div>
-		    Sponsors Here
-		  </div>
-		  <img src = "{{MEDIA_URL}}img/Nokia.png">
-		</div>
-    		<div id = "rtvbottom">
-		  MY SHAASTRA HERE
 		</div>
 	      </div>
       </div>
