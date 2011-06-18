@@ -202,32 +202,8 @@
         <div id = "video"></div>
         
 	<div id = "verticlleft">	
-      <div id="events_heading" style="position:relative;  text-align: left; padding-left:10px; font-size:28px; font-weight:bold; color:#333; ">{{event_name}}</div>     
-	  <div id="eventsTab"> 
-	    <div id="tabs">
-		<script type="text/javascript">
-					for(var t=0;t<noOfTabs;t++){
-						document.write("<div id=\""+elem[t]+"\">"+tabNames[t]+"</div>");
-					}
-		</script>		 
-	    </div> 
-	    
-	    <!-- the add tab button -->
-	    
-	    {% include "event_details.html" %}
-	      </div>
-	    </div>
-	    <div id = "verticlright">
-
-		<div id = "rtvtop">
-		  <div>
-		    Sponsors Here
-		  </div>
-		  <img src = "{{MEDIA_URL}}img/Nokia.png">
-		</div>
-    		<div id = "rtvbottom">
-		  MY SHAASTRA HERE
-		  <div id="add_tab">
+		    <!-- the add tab button -->
+	    <div id="add_tab">
 	    <form action="add_tab/" method ="POST">
 	    {% csrf_token %}
 	    <input type="hidden" value="{{row.id}}" name="tab_id" />
@@ -244,6 +220,38 @@
 	    </form>
 	    </div>  
 	    {% endif %}
+		
+	<div id="events_heading" style="position:relative;  text-align: left; padding-left:20px;padding-bottom:20px; font-size:28px; font-weight:bold; color:#333;margin-left :auto;margin-right :auto; ">{{event_name}}</div>
+          
+	  <div id="eventsTab"> 
+	    <div id="tabs">
+		<script type="text/javascript">
+					for(var t=0;t<noOfTabs;t++){
+						document.write("<div id=\""+elem[t]+"\">"+tabNames[t]+"</div>");
+					}
+		</script>		 
+	    </div> 
+	    
+
+	    {% include "event_details.html" %}
+			<div id="ticker2" class="iefix" >
+			<div id="ticker-img-left2" class="iefix"></div>
+			<div style="float:left;"><a id="ticker-link-updates2" style="font-size:18px;">&nbsp;Updates: </a></div>
+			<div style="float:left;"><a id="ticker-link-text2">Shaastra 10 Updates Ticker!</a></div>
+			<div id="ticker-img-right2" class="iefix"></div>
+		</div>  
+	      </div>
+	    </div>
+	    <div id = "verticlright">
+
+		<div id = "rtvtop">
+		  <div>
+		    Sponsors Here
+		  </div>
+		  <img src = "{{MEDIA_URL}}img/Nokia.png">
+		</div>
+    		<div id = "rtvbottom">
+		  MY SHAASTRA HERE
 		</div>
 	      </div>
       </div>
@@ -251,12 +259,7 @@
 	      
     </div> 
 	                    
-		<div id="ticker2" class="iefix" >
-			<div id="ticker-img-left2" class="iefix"></div>
-			<div style="float:left;"><a id="ticker-link-updates2" style="font-size:18px;">&nbsp;Updates: </a></div>
-			<div style="float:left;"><a id="ticker-link-text2">Shaastra 10 Updates Ticker!</a></div>
-			<div id="ticker-img-right2" class="iefix"></div>
-		</div>  
+	
 		
 	    <div id = "footer_container">
 	      <div id = "footerlinks">
