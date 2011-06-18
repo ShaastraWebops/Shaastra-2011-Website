@@ -214,7 +214,7 @@ function validateRollNumber(fld) {   //done
 }
 
 function validateBranch(fld) {
-    alert("called");
+    
     var error = "";
     if (fld.value == "") error = "This field is required.";
     if (error!="") {
@@ -246,7 +246,7 @@ function validateForm() {
     if (
 	 validateUsername    (document.getElementById ("id_username")  )
     +validateAge	     (document.getElementById ("id_age")  )
-	+validateBranch      (document.getElementById ("id_branch")  )
+	+validateBranch      (document.getElementById ("branch_input")  )
 	+validateEmail	     (document.getElementById ("id_email")  )
 	+validatePassword    (document.getElementById ("id_password"), document.getElementById ("id_password_again")  )
 	+validateMobileNumber(document.getElementById ("id_mobile_number")  )
@@ -273,7 +273,7 @@ function onblurAttribute() {
 
    document.getElementById ("id_mobile_number").setAttribute('onblur' , 'validateMobileNumber(document.getElementById ("id_mobile_number"))');
    document.getElementById ("recaptcha_response_field").setAttribute('onblur' , 'validateCaptcha(document.getElementById ("recaptcha_response_field"))');
-   document.getElementById ("id_branch").setAttribute('onblur' , 'validateBranch(document.getElementById ("id_branch"))');
+   document.getElementById ("branch_input").setAttribute('onblur' , 'validateBranch(document.getElementById ("branch_input"))');
    
 
 }
