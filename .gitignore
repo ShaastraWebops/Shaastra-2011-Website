@@ -6,4 +6,6 @@
 
 #Ignore the settings file, which is different for all of us.
 settings.py
+#ignore the urls file, which has to be kept unique on the server
 urls.py
+
