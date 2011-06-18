@@ -138,7 +138,8 @@ def merge_colleges(sel_college,college_list):
 
 # Convert Foo Contest <-> FooContest
 def camelize (str):
-    return str.replace (' ','')
+    return str.replace(' ','').replace('!', '').replace('&', '').replace("'", '').replace('-', '')
+
 def decamelize (str):
     p = re.compile (r'([A-Z][a-z]*)')
     result = ''

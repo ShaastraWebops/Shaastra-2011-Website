@@ -50,7 +50,7 @@ class Event(models.Model):
             #This line raises an exception if old_instance does not exist 
             if old_instance.name != self.name:
                 print 'entered the if block'
-                os.system("mv -T " + MEDIA_ROOT + "events/" + camelize(old_instance.name) + " " + MEDIA_ROOT + "events/" + camelize(self.name) )
+                os.system("mv " + MEDIA_ROOT + "events/" + camelize(old_instance.name) + " " + MEDIA_ROOT + "events/" + camelize(self.name) )
             else:
                 print 'entered the else block'
                 pass
@@ -62,7 +62,7 @@ class Event(models.Model):
             os.system("mkdir " + MEDIA_ROOT + "events/" + camelize(self.name) + "/images")
             os.system("mkdir " + MEDIA_ROOT + "events/" + camelize(self.name) + "/images/eventlogos")
             os.system("mkdir " + MEDIA_ROOT + "events/" + camelize(self.name) + "/images/sponslogos")
-    	super(Event, self).save(*args, **kwargs) # Call the "real" save() method.
+    	return super(Event, self).save(*args, **kwargs) # Call the "real" save() method.
     	
     class Admin:
         pass  
