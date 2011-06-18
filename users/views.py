@@ -16,13 +16,13 @@ from django.utils import simplejson
 from main_test.misc.util import *
 from main_test.settings import *
 from main_test.users.models import UserProfile, College
-#from main_test.users import models
+from main_test.users import models
 from main_test.users import forms
 
 import sha,random,datetime
 
 def user_registration(request):
-    colls = College.objects.all()
+    colls = models.College.objects.all()
     collnames = list()
     for coll in colls:
         collnames.append(coll.name + "," + coll.city)
@@ -80,7 +80,13 @@ def college_registration (request):
             if len (College.objects.filter(name=college, city=city, state=state))== 0 :
                 college=College (name = college, city = city, state = state)
                 college.save()
-                return HttpResponse("created")
+                colls = models.College.objects.all()
+                collnames = list()
+                for coll in colls:
+                    collnames.append(coll.name + "," + coll.city)
+                js_data = simplejson.dumps(collnames)
+                return render_to_response('users/register_user.html', locals(), context_instance= global_context(request))    
+
             else:
                 return HttpResponse("exists")
         else:

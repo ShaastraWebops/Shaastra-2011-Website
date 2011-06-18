@@ -1,12 +1,12 @@
 {% extends "index.html" %}
 
 {% block body %}
-  <script src="{{MEDIA_URL}}js/js/scriptjquery.js"></script>
-  <link rel="stylesheet" href="{{MEDIA_URL}}autocomplete/main.css" type="text/css" />
-  <link rel="stylesheet" href="{{MEDIA_URL}}autocomplete/jquery.autocomplete.css" type="text/css" />
-  <script type="text/javascript" src="{{MEDIA_URL}}autocomplete/jquery.bgiframe.min.js"></script>
-  <script type="text/javascript" src="{{MEDIA_URL}}autocomplete/jquery.dimensions.js"></script>
-  <script type="text/javascript" src="{{MEDIA_URL}}autocomplete/jquery.autocomplete.js"></script>
+  <script src="http://www.shaastra.org/2011/media/main/js/js/scriptjquery.js"></script>
+  <link rel="stylesheet" href="http://www.shaastra.org/2011/media/main/autocomplete/main.css" type="text/css" />
+  <link rel="stylesheet" href="http://www.shaastra.org/2011/media/main/autocomplete/jquery.autocomplete.css" type="text/css" />
+  <script type="text/javascript" src="http://www.shaastra.org/2011/media/main/autocomplete/jquery.bgiframe.min.js"></script>
+  <script type="text/javascript" src="http://www.shaastra.org/2011/media/main/autocomplete/jquery.dimensions.js"></script>
+  <script type="text/javascript" src="http://www.shaastra.org/2011/media/main/autocomplete/jquery.autocomplete.js"></script>
   <script>
    $(document).ready(function(){
     var data = {{js_data|safe}};
@@ -251,7 +251,7 @@ function validateForm() {
 	+validatePassword    (document.getElementById ("id_password"), document.getElementById ("id_password_again")  )
 	+validateMobileNumber(document.getElementById ("id_mobile_number")  )
 	+validateRollNumber  (document.getElementById ("id_college_roll")  )
- 	+validateCaptcha     (document.getElementById ("recaptcha_response_field")  )
+ 	//+validateCaptcha     (document.getElementById ("recaptcha_response_field")  )
  	+validateCollege     (document.getElementById ("coll_input")  )
 	== 0  ){ 
 	document.forms["reg_form"].submit();
@@ -272,7 +272,7 @@ function onblurAttribute() {
    
 
    document.getElementById ("id_mobile_number").setAttribute('onblur' , 'validateMobileNumber(document.getElementById ("id_mobile_number"))');
-   document.getElementById ("recaptcha_response_field").setAttribute('onblur' , 'validateCaptcha(document.getElementById ("recaptcha_response_field"))');
+   //document.getElementById ("recaptcha_response_field").setAttribute('onblur' , 'validateCaptcha(document.getElementById ("recaptcha_response_field"))');
    document.getElementById ("branch_input").setAttribute('onblur' , 'validateBranch(document.getElementById ("branch_input"))');
    
 
@@ -343,10 +343,14 @@ if(xmlhttp.readyState==4)
   if(response=="exists"){
     document.getElementById("reg_fail").style.display="block";
   }
-  else if(response=="created"){
+  else if(response=="failed"){
+  }
+  else{
     document.getElementById("reg_success").style.display="block";
     document.getElementById("newcollege").style.display="none";
-    actb_add(document.getElementById("id_id2-name").value)
+    actb_add(document.getElementById("id_id2-name").value);
+    
+    
   }
   
   }
@@ -432,6 +436,7 @@ function hide_college(){
 
 <script>
 
+      
 var branches=new Array("Arts","Accounting","Applied Mechanics / Mechatronics",
       "Aerospace Engineering","Automobile Engineering","Biotech / Biochemical / Biomedical",
       "Biology","Ceramic Engineering","Chemical Engineering",
