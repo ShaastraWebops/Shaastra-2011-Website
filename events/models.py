@@ -8,6 +8,8 @@ from main_test.settings import *
 
 import os
 
+SHAASTRA_TEASER_URL = "YH-frgafQuU"
+
 def get_eventlogo_path(instance, filename):
 	return 'events/' + camelize(instance.name) + '/images/eventlogos/' + filename
 
@@ -37,7 +39,7 @@ class Event(models.Model):
     # Logo and Sponsorship logos
     logo = models.ImageField(upload_to = get_eventlogo_path, max_length=200, blank = True, null = True)
     sponslogo = models.ImageField(upload_to = get_sponslogo_path, max_length=200, blank = True, null = True)
-
+    video = models.URLField(null=True,verify_exists=False,default = SHAASTRA_TEASER_URL )
     def __unicode__(self):
         return self.name
     
