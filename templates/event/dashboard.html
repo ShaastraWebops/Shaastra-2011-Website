@@ -251,7 +251,9 @@
 		  <div>
 		    Sponsored By :
 		  </div>
-		  <img src = "{{MEDIA_URL}}img/Nokia.png">
+		  {% if event.sponslogo %}
+		  <img src = "{{event.sponslogo.url}}">
+		  {% endif %}
 		</div>
     		<div id = "rtvbottom">
 		    <iframe src="{{event.video}}"
