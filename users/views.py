@@ -85,7 +85,9 @@ def college_registration (request):
                 for coll in colls:
                     collnames.append(coll.name + "," + coll.city)
                 js_data = simplejson.dumps(collnames)
-                return render_to_response('users/register_user.html', locals(), context_instance= global_context(request))    
+                #return HttpResponse("created") 
+                return HttpResponse(js_data, mimetype="application/x-javascript")
+
 
             else:
                 return HttpResponse("exists")
