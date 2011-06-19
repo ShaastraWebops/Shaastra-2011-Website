@@ -88,7 +88,7 @@ def user_registration(request):
             body = mail_template.render(Context({'username':user.username,
 							 'SITE_URL':settings.SITE_URL,
 							 'activationkey':userprofile.activation_key }))
-            #send_mail('Your new Shaastra2011 account confirmation', body,'noreply@shaastra.org', [user.email,], fail_silently=False)
+            send_mail('Your new Shaastra2011 account confirmation', body,'noreply@shaastra.org', [user.email,], fail_silently=False)
 
     else:
         form = forms.AddUserForm()
