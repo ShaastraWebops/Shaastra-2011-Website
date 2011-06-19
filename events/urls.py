@@ -6,9 +6,7 @@ handler500 = "main_test.misc.util.server_error"
 
 urlpatterns = patterns('main_test.events.views',
       (r'^$', 'show_event_categories'),
-      (r'^login/$', 'coordslogin'),
       (r'^register/$','register_user'),
-      (r'^logout/$', 'logout'),
       (r'^dashboard/$', 'dashboard'),
       (r'^dashboard/add_tab/$', 'add_quick_tab'),
       (r'^dashboard/add_questions_tab/$', 'add_questions_tab'),
