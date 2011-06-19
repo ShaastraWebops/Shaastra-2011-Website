@@ -86,7 +86,7 @@ def college_registration (request):
                     collnames.append(coll.name + "," + coll.city)
                 js_data = simplejson.dumps(collnames)
                 #return HttpResponse("created") 
-                return HttpResponse(js_data, mimetype="application/x-javascript")
+                return HttpResponse(js_data, mimetype="application/json")
 
 
             else:

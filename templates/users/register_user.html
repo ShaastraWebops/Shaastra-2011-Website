@@ -10,6 +10,7 @@
   <script>
    $(document).ready(function(){
     var data = {{js_data|safe}};
+    //alert(data);
 $("#coll_input").autocomplete(data);
   });
   $(document).ready(function(){
@@ -349,10 +350,14 @@ if(xmlhttp.readyState==4)
   //alert("works");
     //alert(response);
     var data = response;
+    //var data = {{js_data|safe}};
+    //alert(data);
+    //data=data.replace(/[^a-zA-Z0-9_.,]+/g,"");
     //alert(data);
     document.getElementById("reg_success").style.display="block";
     document.getElementById("newcollege").style.display="none";
-    $("#coll_input").autocomplete(data);
+    //alert("works");
+    //$("#coll_input").autocomplete(data);
     //actb_add(document.getElementById("id_id2-name").value);
     //alert(data);
     
