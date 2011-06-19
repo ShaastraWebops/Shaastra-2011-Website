@@ -14,8 +14,8 @@ urlpatterns = patterns('main_test.users.views',
       (r'^register/college/?$', 'college_registration'),
       (r'^myshaastra/$', 'myshaastra'),
       (r'^register/activate/(?P<a_key>[\w]+)/?$', 'activate'),
-      (r'^/login/?$', 'login'),
-      (r'^/logout/?$', 'logout'),
+      (r'^login/?$', 'login'),
+      (r'^logout/?$', 'logout'),
 
 )   
 
