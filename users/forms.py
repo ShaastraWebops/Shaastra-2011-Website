@@ -59,6 +59,10 @@ class AddCollegeForm (ModelForm):
             raise forms.ValidationError(u'location cannot contain anything other than alphabets.')
         else:
             return self.cleaned_data['city']
+            
+class LoginForm(forms.Form):
+    username=forms.CharField(help_text='Your Shaastra 2011 username')
+    password=forms.CharField(widget=forms.PasswordInput, help_text='Your password')
     
 
 class AddUserForm(ModelForm):
