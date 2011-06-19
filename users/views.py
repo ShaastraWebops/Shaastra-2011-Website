@@ -21,7 +21,7 @@ from main_test.users import forms
 
 import sha,random,datetime
 def login (request):
-    form=forms.CoordsLoginForm()
+    form=forms.LoginForm()
     if 'logged_in' in request.session and request.session['logged_in'] == True:
         return HttpResponseRedirect("%sevents/dashboard/" % settings.SITE_URL)
     if request.method == 'POST':
