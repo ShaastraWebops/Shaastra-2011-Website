@@ -240,12 +240,12 @@
 
  <div id="logout" align="center">
 
-   {%if user.is_authenticated%} 
+    
         <form action= "{{SITE_URL}}logout/" method="POST">
                 {% csrf_token %}
             <input type="submit" value="LOGOUT" />
         </form>
-        {%endif%}
+        
 </div>
 
 
