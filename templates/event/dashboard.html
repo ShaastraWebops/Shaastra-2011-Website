@@ -249,12 +249,15 @@
 
 		<div id = "rtvtop">
 		  <div>
-		    Sponsors Here
+		    Sponsored By :
 		  </div>
-		  <img src = "{{MEDIA_URL}}img/Nokia.png">
+		  {% if event.sponslogo %}
+		  <img src = "{{event.sponslogo.url}}"width="320" height="200">
+		  {%endif%}
 		</div>
     		<div id = "rtvbottom">
-		  MY SHAASTRA HERE
+		    <iframe src="{{event.video}}"
+   width="320" height="200"></iframe>
 		</div>
 	      </div>
       </div>

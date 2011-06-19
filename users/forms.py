@@ -46,6 +46,20 @@ class HorizRadioRenderer(forms.RadioSelect.renderer):
 class AddCollegeForm (ModelForm):
     class Meta:
         model = models.College
+        fields=('name','city','state')
+        
+    def clean_name(self):
+        if not self.cleaned_data['name'].replace(' ','').isalpha():
+            raise forms.ValidationError(u'College Names cannot contain anything other than alphabets.')  
+        else:
+            return self.cleaned_data['name']
+	        
+    def clean_city(self):
+        if not self.cleaned_data['city'].replace(' ','').isalpha():
+            raise forms.ValidationError(u'location cannot contain anything other than alphabets.')
+        else:
+            return self.cleaned_data['city']
+    
 
 class AddUserForm(ModelForm):
 

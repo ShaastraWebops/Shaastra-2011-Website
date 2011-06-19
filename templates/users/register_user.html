@@ -10,6 +10,7 @@
   <script>
    $(document).ready(function(){
     var data = {{js_data|safe}};
+    //alert(data);
 $("#coll_input").autocomplete(data);
   });
   $(document).ready(function(){
@@ -348,6 +349,7 @@ if(xmlhttp.readyState==4)
   else{
   //alert("works");
     //alert(response);
+
     var coll_response = response;
     
     document.getElementById("reg_success").style.display="block";

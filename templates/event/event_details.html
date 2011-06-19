@@ -51,6 +51,8 @@
 			           {%for file in row.file_list %}
 			               <a href={{file.url}}>{{file.title}}</a>
 		                       <br/>
+		               {% empty %}
+		                   <p>Click on "Edit Tab" to upload a file</p>
 			           {%endfor%}
                                </div>
 			            <br/>
