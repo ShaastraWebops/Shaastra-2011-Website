@@ -50,15 +50,15 @@ class AddCollegeForm (ModelForm):
         
     def clean_name(self):
         if not self.cleaned_data['name'].replace(' ','').isalpha():
-	        raise forms.ValidationError('College Names cannot contain anything other than alphabets.')  
+            raise forms.ValidationError(u'College Names cannot contain anything other than alphabets.')  
         else:
-	        return self.cleaned_data['name']
+            return self.cleaned_data['name']
 	        
-	def clean_city(self):
-	    if not self.cleaned_data['city'].replace(' ','').isalpha():
-	        raise forms.ValidationError('location cannot contain anything other than alphabets.')
-	    else:
-	        return self.cleaned_data['city']
+    def clean_city(self):
+        if not self.cleaned_data['city'].replace(' ','').isalpha():
+            raise forms.ValidationError(u'location cannot contain anything other than alphabets.')
+        else:
+            return self.cleaned_data['city']
     
 
 class AddUserForm(ModelForm):
