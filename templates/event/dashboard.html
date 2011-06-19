@@ -229,14 +229,16 @@
 	<div id="events_heading">{{event_name|capfirst}}</div>	
 	</div>
 
-        <div id="edit_event__">
+        <div id="edit_event">
         {%if user.is_authenticated%} 
     <form action= "{{SITE_URL}}events/dashboard/edit_event/" method="GET">
         {% csrf_token %}
     <input type="submit" value="Edit Event Details" />
     </form>
     {%endif%}
+   </div>
 
+ <div id="logout">
 
    {%if user.is_authenticated%} 
         <form action= "{{SITE_URL}}logout/" method="POST">
