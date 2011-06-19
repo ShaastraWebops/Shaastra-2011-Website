@@ -59,6 +59,7 @@ def show_quick_tab(request,event_name=None):
             temp = models.MCQ_option.objects.filter(question=ques).order_by('option')
             for temps in temp:
                 options_list.append(temps)
+        event_name = event.display_name
         #return render_to_response('event/QuickTabs.html', locals(), context_instance= global_context(request))
         return render_to_response('event/events_quick_tab.html', locals(), context_instance= global_context(request))
     else:
@@ -87,6 +88,7 @@ def dashboard(request):
                     for temps in temp:
                         options_list.append(temps)
                 is_coord=userprof.is_coord
+        event_name = userprof.coord_event.display_name
         return render_to_response('event/dashboard.html', locals(), context_instance= global_context(request))
     else:
         raise Http404        
