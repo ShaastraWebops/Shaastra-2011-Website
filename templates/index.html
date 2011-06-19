@@ -138,8 +138,12 @@
 
               
               <div id = "logandsearch">
+                {% if user %}
+                <img src = "{{MEDIA_URL}}img/login.png" id = "login">
+                {% else %}
                 <img src = "{{MEDIA_URL}}img/login.png" id = "login">
                 <img src = "{{MEDIA_URL}}img/sign_up.png" id = "sgnup">
+                {% endif %}
                 <span id ="srch"><img src = "{{MEDIA_URL}}img/search.png" id = "srimg"><input type = "text" id = "search" name = "search"></span>
               </div>            
             </div>
