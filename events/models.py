@@ -37,7 +37,8 @@ class Event(models.Model):
     flagged_by = models.ManyToManyField(User,  blank=True, null=True, related_name= 'flagged_events')
 
     # Logo and Sponsorship logos
-    sponslogo = models.ImageField(upload_to = get_sponslogo_path, max_length=200, blank = True, null = True)
+    sponslogo = models.ImageField(upload_to = get_sponslogo_path, max_length=200, blank = True, null = True, help_text = "Sponsor's image displayed on event page")
+    eventlogo = models.ImageField(upload_to = get_eventlogo_path, max_length=200, blank = True, null = True, help_text = "Event's image displayed in the menu")
     video = models.URLField(null=True,verify_exists=False,default = SHAASTRA_TEASER_URL )
     def __unicode__(self):
         return self.name
