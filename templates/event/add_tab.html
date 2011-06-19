@@ -10,6 +10,17 @@
         <input type="submit" value="LOGOUT" />
     </form>
 </div>
+<!--The Back To DashBoard Button -->
+
+                    <div id="cancel">
+                            <form action="{{SITE_URL}}events/dashboard/" method="POST">
+                            {% csrf_token %}
+                            <input type="submit" value="Back To Dashboard"/>
+                            </form>
+                    </div>
+
+
+
 <button onclick="addArea2();">Add Editor to TEXTAREA</button> <button onclick="removeArea2();">Remove Editor from TEXTAREA</button>
   </div>
 <!--the js for the WYSIWYG editor-->
@@ -44,7 +55,11 @@
                   <!--The Submit Button -->
 
 		<input type="hidden" value="{{row.id}}" />
-		<input type="submit" value="Submit" />
+            {%if is_edit_tab%}
+		<input type="submit" value="Update Tab" />
+            {%else%}
+                 <input type="submit" value="Create Tab" />
+             {%endif%}
 	  </form>
     </div>    
           
@@ -113,17 +128,9 @@
                  <br/><br/>
                 
             </div>
-                    <!--The Back To DashBoard Button -->
+                    
 
-                    <div id="cancel">
-                            <form action="{{SITE_URL}}events/dashboard/" method="POST">
-                            {% csrf_token %}
-                            <input type="submit" value="Back To Dashboard"/>
-                            </form>
-                    </div>
-
-
-
+ <br/>
         
 
 
