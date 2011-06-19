@@ -66,18 +66,18 @@ class ExtFileField(forms.FileField):
                 raise forms.ValidationError("Not allowed filetype!")
 
 class CoordsLoginForm(forms.Form):
-    username=forms.CharField(help_text='The coord username given to you')
-    password=forms.CharField(widget=forms.PasswordInput, help_text='The coord password given to you')
+    username=forms.CharField(help_text='The coord username emailed to your group')
+    password=forms.CharField(widget=forms.PasswordInput, help_text='The coord password emailed to your group')
 
 
 class AddContactForm(forms.Form):
-    option = forms.CharField(max_length=2,help_text='The option the participants will select. Ex: a, b, etc.')
-    text = forms.CharField(help_text='Description of the option.')
+    option = forms.CharField(max_length=2,help_text='The option the participants will select. Ex: a, b, c, etc.')
+    text = forms.CharField(help_text='Type the text for the option here')
     
 class EditTabForm(forms.Form):
     title=forms.CharField(help_text='Title of the tab')
-    text=forms.CharField(widget=forms.Textarea(attrs={'id':'myArea2'}), help_text='Text content of the tab')
-    tab_pref=forms.IntegerField(required=True,help_text='Order of the tab for displaying.')
+    text=forms.CharField(widget=forms.Textarea(attrs={'id':'myArea2'}), help_text='Contents of the tab (html content is permitted - For this, first turn rich text formatting OFF)')
+    tab_pref=forms.IntegerField(required=True,help_text='A number to help you arrange your tabs. Tabs will be displayed in increasing order of this number')
     
 class EditQuestionForm(forms.Form):
     QUESTION_TYPES = (
@@ -85,16 +85,16 @@ class EditQuestionForm(forms.Form):
     ('FILE', 'File'),
     ('MCQ', 'MCQ'),
     )
-    Q_Number=forms.IntegerField(required=True,help_text='Question number')
-    title=forms.CharField(widget=forms.Textarea, help_text='The description of the question.')
+    Q_Number=forms.IntegerField(required=True,help_text='Question number - questions will be displayed in increasing order of question number')
+    title=forms.CharField(widget=forms.Textarea, help_text='Type the question here')
     question_type = forms.CharField(max_length=6,widget=forms.Select(choices=QUESTION_TYPES))
 
 class EditQuestionsTabForm(forms.Form):
-    title=forms.CharField(help_text='Title of the tab')
-    tab_pref=forms.IntegerField(required=True,help_text='Order of the tab for displaying.')
+    title=forms.CharField(help_text='Question tab\'s title (Questions are displayed in a separate tab)')
+    tab_pref=forms.IntegerField(required=True,help_text='Where should the question tab be displayed, relative to the other tabs?')
     
 class AddFileForm(forms.Form):
-    filetitle=forms.CharField(help_text='Title of the file',required = False)
+    filetitle=forms.CharField(help_text='Title of the file (to be displayed)',required = False)
     tabfile=ExtFileField(ext_whitelist=FILES_WHITELIST,required=False)
 
 class EventForm(ModelForm):
