@@ -80,13 +80,9 @@ def college_registration (request):
             if len (College.objects.filter(name=college, city=city, state=state))== 0 :
                 college=College (name = college, city = city, state = state)
                 college.save()
-                colls = models.College.objects.all()
-                collnames = list()
-                for coll in colls:
-                    collnames.append(coll.name + "," + coll.city)
-                js_data = simplejson.dumps(collnames)
+                data = college.name+","+college.city
                 #return HttpResponse("created") 
-                return HttpResponse(js_data, mimetype="application/json")
+                return HttpResponse(data, mimetype="text/plain")
 
 
             else:
