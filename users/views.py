@@ -26,7 +26,7 @@ def login (request):
         return HttpResponseRedirect("%sevents/dashboard/" % settings.SITE_URL)
     if request.method == 'POST':
         data = request.POST.copy()
-        form = forms.CoordsLoginForm(data)
+        form = forms.LoginForm(data)
         if form.is_valid():
             user = auth.authenticate(username=form.cleaned_data['username'], password=form.cleaned_data["password"])
             if user is not None and user.is_active == True:
@@ -42,7 +42,7 @@ def login (request):
                 
         else:                       
             invalid_login = session_get(request, "invalid_login")
-            form = forms.CoordsLoginForm () 
+            form = forms.LoginForm () 
     return render_to_response('event/login.html', locals(), context_instance= global_context(request))
     
 def logout(request):
