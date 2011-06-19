@@ -17,7 +17,9 @@ def get_sponslogo_path(instance, filename):
 	return 'events/' + camelize(instance.name) + '/images/sponslogos/' + filename
 
 class Event(models.Model):
-    name = models.CharField(max_length=80, help_text="Name of event - as it is to be displayed")
+    name = models.CharField(max_length=80, help_text="Shortened form of event name -- will be used in the URL. Lowercase alphabets and underscores only. This can't be changed later.")
+    
+    display_name = models.CharField(max_length=80, help_text="Name of event -- as it is to be displayed")
     url = models.URLField(null=True,verify_exists=False, blank=True)
     #tags=models.ManyToManyField(Tag, blank=True, null=True)
 
@@ -38,7 +40,7 @@ class Event(models.Model):
 
     # Logo and Sponsorship logos
     sponslogo = models.ImageField(upload_to = get_sponslogo_path, max_length=200, blank = True, null = True, help_text = "Sponsor's image displayed on event page")
-   
+    
     video = models.URLField(null=True,verify_exists=False,default = SHAASTRA_TEASER_URL )
     def __unicode__(self):
         return self.name
