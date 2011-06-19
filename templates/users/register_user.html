@@ -363,8 +363,8 @@ if(xmlhttp.readyState==4)
        data[data.length]=coll_response;
        alert(data);
        $('input#coll_input').flushCache();
-       $("#coll_input").autocomplete(coll_response);
-       alert("works");
+       $("#coll_input").autocomplete(data);
+
 
     }
     //actb_add(document.getElementById("id_id2-name").value);

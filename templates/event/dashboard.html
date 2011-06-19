@@ -202,6 +202,11 @@
 
         <div id = "video"></div>
         <div id="tabsTop">
+
+           <!-- The Edit Event button -->
+
+
+
 		    <!-- the add tab button -->
 	    <div id="add_tab">
 	    <form action="add_tab/" method ="POST">
@@ -223,6 +228,25 @@
 		
 	<div id="events_heading">{{event_name|capfirst}}</div>	
 	</div>
+
+        <div id="edit_event__">
+        {%if user.is_authenticated%} 
+    <form action= "{{SITE_URL}}events/dashboard/edit_event/" method="GET">
+        {% csrf_token %}
+    <input type="submit" value="Edit Event Details" />
+    </form>
+    {%endif%}
+
+
+   {%if user.is_authenticated%} 
+        <form action= "{{SITE_URL}}logout/" method="POST">
+                {% csrf_token %}
+            <input type="submit" value="LOGOUT" />
+        </form>
+        {%endif%}
+</div>
+
+
           
 	<div id = "verticlleft">
 
