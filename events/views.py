@@ -32,36 +32,13 @@ def fileuploadhandler(f, eventname, tabid, file_title):
     tabfileobject = models.TabFiles ( Tab = tab_of_file,url = settings.MEDIA_URL + 'events/' + camelize(eventname) + '/files/' + camelize(f.name), title =  file_title)
     tabfileobject.save()
 
-def coordslogin (request):
-    form=forms.CoordsLoginForm()
-    if 'logged_in' in request.session and request.session['logged_in'] == True:
-        return HttpResponseRedirect("%sevents/dashboard/" % settings.SITE_URL)
-    if request.method == 'POST':
-        data = request.POST.copy()
-        form = forms.CoordsLoginForm(data)
-        if form.is_valid():
-            user = auth.authenticate(username=form.cleaned_data['username'], password=form.cleaned_data["password"])
-            if user is not None and user.is_active == True:
-                auth.login (request, user)
-                request.session['logged_in'] = True
-                return HttpResponseRedirect ("%sevents/dashboard/" % settings.SITE_URL)
-            else:
-                request.session['invalid_login'] = True
-                request.session['logged_in'] = False
-                errors=[]
-                errors.append("Incorrect username and password combination!")
-                return render_to_response('event/login.html', locals(), context_instance= global_context(request))
-                
-        else:                       
-            invalid_login = session_get(request, "invalid_login")
-            form = forms.CoordsLoginForm () 
-    return render_to_response('event/login.html', locals(), context_instance= global_context(request))
+
     
 #Handler for displaying /2011/event/eventname page 
 def show_quick_tab(request,event_name=None):
     urlname=decamelize(event_name)
     tab_list=models.QuickTabs.objects.filter(event__name = urlname).order_by('pref')
-    event=models.Event.objects.filter(name = urlname)
+    event=models.Event.objects.get(name = urlname)
     ques_list= list()
     if tab_list.count():
         for t in tab_list:
@@ -396,11 +373,6 @@ def remove_file(request):
     is_edit_tab=True  
     return render_to_response('event/add_tab.html', locals(), context_instance= global_context(request))    
 
-def logout(request):
-    if request.user.is_authenticated():
-        auth.logout (request)
-        return render_to_response('event/logout.html', locals(), context_instance= global_context(request))        
-    return HttpResponseRedirect('%sevents/login/'%settings.SITE_URL)        
 
 @needs_authentication
 @coords_only

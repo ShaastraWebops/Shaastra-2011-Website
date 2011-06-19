@@ -20,7 +20,37 @@ from main_test.users import models
 from main_test.users import forms
 
 import sha,random,datetime
-
+def login (request):
+    form=forms.LoginForm()
+    if 'logged_in' in request.session and request.session['logged_in'] == True:
+        return HttpResponseRedirect("%sevents/dashboard/" % settings.SITE_URL)
+    if request.method == 'POST':
+        data = request.POST.copy()
+        form = forms.LoginForm(data)
+        if form.is_valid():
+            user = auth.authenticate(username=form.cleaned_data['username'], password=form.cleaned_data["password"])
+            if user is not None and user.is_active == True:
+                auth.login (request, user)
+                request.session['logged_in'] = True
+                return HttpResponseRedirect ("%sevents/dashboard/" % settings.SITE_URL)
+            else:
+                request.session['invalid_login'] = True
+                request.session['logged_in'] = False
+                errors=[]
+                errors.append("Incorrect username and password combination!")
+                return render_to_response('event/login.html', locals(), context_instance= global_context(request))
+                
+        else:                       
+            invalid_login = session_get(request, "invalid_login")
+            form = forms.LoginForm () 
+    return render_to_response('event/login.html', locals(), context_instance= global_context(request))
+    
+def logout(request):
+    if request.user.is_authenticated():
+        auth.logout (request)
+        return render_to_response('event/logout.html', locals(), context_instance= global_context(request))        
+    return HttpResponseRedirect('%sevents/login/'%settings.SITE_URL)        
+    
 def user_registration(request):
     colls = models.College.objects.all()
     collnames = list()
@@ -80,13 +110,9 @@ def college_registration (request):
             if len (College.objects.filter(name=college, city=city, state=state))== 0 :
                 college=College (name = college, city = city, state = state)
                 college.save()
-                colls = models.College.objects.all()
-                collnames = list()
-                for coll in colls:
-                    collnames.append(coll.name + "," + coll.city)
-                js_data = simplejson.dumps(collnames)
+                data = college.name+","+college.city
                 #return HttpResponse("created") 
-                return HttpResponse(js_data, mimetype="application/json")
+                return HttpResponse(data, mimetype="text/plain")
 
 
             else:
