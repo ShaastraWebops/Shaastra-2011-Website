@@ -348,11 +348,17 @@ if(xmlhttp.readyState==4)
   else{
   //alert("works");
     //alert(response);
-    var data = response;
-    //alert(data);
+    var coll_response = response;
+    
     document.getElementById("reg_success").style.display="block";
     document.getElementById("newcollege").style.display="none";
-    $("#coll_input").autocomplete(data);
+    if (coll_response != "exists" || coll_response != "failed")
+    {
+       data[data.length]=coll_response;
+       $('input#coll_input').flushCache();
+       $("#coll_input").autocomplete(coll_response);
+
+    }
     //actb_add(document.getElementById("id_id2-name").value);
     //alert(data);
     
