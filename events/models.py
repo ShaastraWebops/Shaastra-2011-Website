@@ -15,7 +15,7 @@ def get_sponslogo_path(instance, filename):
 	return 'events/' + camelize(instance.name) + '/images/sponslogos/' + filename
 
 class Event(models.Model):
-    name = models.CharField(max_length=80)
+    name = models.CharField(max_length=80, help_text="Name of event - as it is to be displayed")
     url = models.URLField(null=True,verify_exists=False, blank=True)
     #tags=models.ManyToManyField(Tag, blank=True, null=True)
 
