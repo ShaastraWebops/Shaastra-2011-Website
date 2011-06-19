@@ -21,11 +21,14 @@ urlpatterns = patterns('',
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
-
-     url(r'^main-test/admin/', include(admin.site.urls)),
-     url(r'^main-test/events/', include ('main_test.events.urls')),  
-     url(r'^main-test/techmash/', include ('main_test.techmash.urls')),  
-     url(r'^main-test/', include ('main_test.users.urls')),	
+     url(r'^home/', 'main_test.misc.util.render_home' ),
+     url(r'^admin/', include(admin.site.urls)),
+     url(r'^events/', include ('main_test.events.urls')),  
+     url(r'^techmash/', include ('main_test.techmash.urls')),  
+     url(r'^', include ('main_test.users.urls')),	
 )
 
-#Checking if this is reflected. Please work.
+urlpatterns += patterns('django.views.generic.simple',
+    url(r'^$', 'redirect_to', {'url':'home/'}),
+)
+#Checking if this is reflected.
