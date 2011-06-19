@@ -5,7 +5,7 @@
 <!--logout button-->
 
 <div id="logout">
-    <form action= "{{SITE_URL}}events/logout/" method="POST">
+    <form action= "{{SITE_URL}}logout/" method="POST">
         {% csrf_token %}
         <input type="submit" value="LOGOUT" />
     </form>

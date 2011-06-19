@@ -38,17 +38,17 @@ def login (request):
                 request.session['logged_in'] = False
                 errors=[]
                 errors.append("Incorrect username and password combination!")
-                return render_to_response('event/login.html', locals(), context_instance= global_context(request))
+                return render_to_response('users/login.html', locals(), context_instance= global_context(request))
                 
         else:                       
             invalid_login = session_get(request, "invalid_login")
             form = forms.LoginForm () 
-    return render_to_response('event/login.html', locals(), context_instance= global_context(request))
+    return render_to_response('users/login.html', locals(), context_instance= global_context(request))
     
 def logout(request):
     if request.user.is_authenticated():
         auth.logout (request)
-        return render_to_response('event/logout.html', locals(), context_instance= global_context(request))        
+        return render_to_response('users/logout.html', locals(), context_instance= global_context(request))        
     return HttpResponseRedirect('%sevents/login/'%settings.SITE_URL)        
     
 def user_registration(request):
