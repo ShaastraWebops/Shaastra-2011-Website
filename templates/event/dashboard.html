@@ -160,8 +160,8 @@
 
               
               <div id = "logandsearch">
-                <img src = "{{MEDIA_URL}}img/login.png" id = "login">
-                <img src = "{{MEDIA_URL}}img/sign_up.png" id = "sgnup">
+                <a href="{{SITE_URL}}login/"><img src = "{{MEDIA_URL}}img/login.png" id = "login"></a>
+                <a href="{{SITE_URL}}register/user"><img src = "{{MEDIA_URL}}img/sign_up.png" id = "sgnup"></a>
                 <span id ="srch"><img src = "{{MEDIA_URL}}img/search.png" id = "srimg"><input type = "text" id = "search" name = "search"></span>
               </div>            
             </div>
@@ -227,7 +227,7 @@
 	    {% endif %}
 		
 	<div id="events_heading">{{event_name|capfirst}}</div>	
-	</div>
+	
 
         <div id="edit_event">
         {%if user.is_authenticated%} 
@@ -238,17 +238,17 @@
     {%endif%}
    </div>
 
- <div id="logout">
+ <div id="logout_" align="right">
 
-   {%if user.is_authenticated%} 
+    
         <form action= "{{SITE_URL}}logout/" method="POST">
                 {% csrf_token %}
-            <input type="submit" value="LOGOUT" />
+            <input type="submit" value="" />
         </form>
-        {%endif%}
+        
 </div>
 
-
+</div>    <!---- end tabsTop -->
           
 	<div id = "verticlleft">
 
