@@ -159,7 +159,7 @@
 
               
               <div id = "logandsearch">
-                {% if user %}
+                {% if user.is_authenticated %}
                 <img src = "{{MEDIA_URL}}img/logout.png" id = "login">
                 {% else %}
                 <img src = "{{MEDIA_URL}}img/login.png" id = "login">
