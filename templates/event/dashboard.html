@@ -136,9 +136,6 @@
       getTickerData();
       });
 
-	 $(document).click(function(e){
-		alert(e.target.id);
-	}
     </script>
     <script src = "{{MEDIA_URL}}js/js/script/script.js"></script>
   </head>
@@ -211,7 +208,7 @@
 	    <form action="add_tab/" method ="POST">
 	    {% csrf_token %}
 	    <input type="hidden" value="{{row.id}}" name="tab_id" />
-	    <input type="button" value="Add Tab" onClick="this.submit();"/>
+	    <input type="submit" value="Add Tab" />
 	    </form>
 	    </div>  
 	    <!-- the add questions tab button -->
@@ -220,14 +217,17 @@
 	    <form action="add_questions_tab/" method ="POST">
 	    {% csrf_token %}
 	    <input type="hidden" value="{{row.id}}" name="tab_id" />
-	    <input type="button" value="Add Questions"onClick="this.submit();"/>
+	    <input type="submit" value="Add Questions" />
 	    </form>
 	    </div>  
 	    {% endif %}
 		
+		<form id="asd" action="add_tab" method="POST">
+		<input type="submit" value="submit">
+		</form>
+		
 		<div id="events_heading">{{event_name}}</div>
 		
-		</div>
           
 	<div id = "verticlleft">	 
 	  <div id="eventsTab"> 
