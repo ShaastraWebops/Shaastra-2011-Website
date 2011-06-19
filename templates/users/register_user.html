@@ -8,8 +8,9 @@
   <script type="text/javascript" src="{{ MEDIA_URL }}autocomplete/jquery.dimensions.js"></script>
   <script type="text/javascript" src="{{ MEDIA_URL }}autocomplete/jquery.autocomplete.js"></script>
   <script>
+   var data = {{js_data|safe}};
    $(document).ready(function(){
-    var data = {{js_data|safe}};
+  
     //alert(data);
 $("#coll_input").autocomplete(data);
   });
