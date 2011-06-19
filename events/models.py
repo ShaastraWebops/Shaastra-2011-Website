@@ -8,7 +8,7 @@ from main_test.settings import *
 
 import os
 
-SHAASTRA_TEASER_URL = "YH-frgafQuU"
+SHAASTRA_TEASER_URL = "http://www.youtube.com/v/YH-frgafQuU"
 
 def get_eventlogo_path(instance, filename):
 	return 'events/' + camelize(instance.name) + '/images/eventlogos/' + filename
