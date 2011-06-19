@@ -36,7 +36,7 @@ def generate_menu_dict(request):
             category.events.append(event)
     request.session['menu_urls'] = categories
     return
-
+    
 # Generates a context with the most used variables
 def global_context(request):
     is_coord=False

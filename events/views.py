@@ -445,6 +445,9 @@ def show_menu_items(request):
 '''
 
 def event_image(request, event_name=None):
-    image_src = MEDIA_URL + "events/" + event_name + "/images/" + event_name + ".jpg"
+    image_src = "" #Need a default image
+    if event_name is not None:
+        event = Event.objects.get(name = decamelize(event_name))
+        image_src = event.eventlogo.url
     return render_to_response('event_image.html', locals(), context_instance = global_context(request))
 

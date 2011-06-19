@@ -101,4 +101,4 @@ class EventForm(ModelForm):
     class Meta:
         model = Event
         #fields = ('name', 'registrable', 'questions', 'start_time', 'end_time', 'accommodation', 'logo', 'sponslogo')
-        fields = ('name', 'eventlogo', 'sponslogo','video',)
+        fields = ('display_name', 'eventlogo', 'sponslogo','video',)
