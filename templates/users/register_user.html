@@ -67,7 +67,7 @@ $("#branch_input").autocomplete(bdata);
 
   <div class="info">
  <form id="reg_form" action="{{SITE_URL}}register/user/" method="POST" onload="onblurAttribute()">
-
+{% csrf_token %}
 <table name="register" >
   {% for field in  form  %}
 <tr>
@@ -424,6 +424,7 @@ function hide_college(){
    </div><!-- closes div register -->
    <div class="register">
     <form id="reg_college" onsubmit="create_coll(); return false;" >
+    {% csrf_token %}
      <div class="info">
       <p>
        Please fill in the following details:
