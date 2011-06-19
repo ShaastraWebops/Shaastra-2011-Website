@@ -204,68 +204,68 @@
 
 
 
-        <div id = "video"></div>
-        <div id="tabsTop">
+<div id = "video"></div>
+<div id="tabsTop">
+	<div id="events_heading">{{event_name|capfirst}}</div>	
+	<div id="btnContainer">
+		
+				<!-- the add tab button -->
+		<div id="add_tab">
+			<div class="button">
+				<a href="#">
+					<form action="add_tab/" method ="POST">
+						{% csrf_token %}
+						<input type="hidden" value="{{row.id}}" name="tab_id" />
+						<input type="submit" value="ADD TAB" />
+					</form>
+				</a>
+				<span></span>
+			</div>
+		</div>
+			<!-- the add questions tab button -->
+		{%if not questions_added %}
+		<div id="add_questions_tab">
+			<div class="button">
+				<a href="#">
+					<form action="add_questions_tab/" method ="POST">
+						{% csrf_token %}
+						<input type="hidden" value="{{row.id}}" name="tab_id" />
+						<input type="submit" value="Add Questions" />
+					</form>
+				</a>
+				<span></span>
+			</div>  
+		</div>
+		{% endif %}
+		
+			 <!-- The Edit Event button -->
+		<div id="edit_event">
+			<div class="button">
+				<a href="#">
+					{%if user.is_authenticated%} 
+					<form action= "{{SITE_URL}}events/dashboard/edit_event/" method="GET">
+						{% csrf_token %}
+						<input type="submit" value="Edit Event Details" />
+					</form>
+					{%endif%}
+				</a>
+				<span></span>
+			</div>  
+		</div>
 
-		    <!-- the add tab button -->
-	<div id="add_tab">
-		<div class="button">
-			<a href="#">
-				<form action="add_tab/" method ="POST">
+
+		<div id="logout_" align="right">
+			<div class="button">
+				<a href="#">    
+					<form action= "{{SITE_URL}}logout/" method="POST">
 					{% csrf_token %}
-					<input type="hidden" value="{{row.id}}" name="tab_id" />
-					<input type="submit" value="ADD TAB" />
-				</form>
-			</a>
-			<span></span>
+					<input type="submit" value="LOGOUT" />
+					</form>
+				</a>
+				<span></span>
+			</div>
 		</div>
 	</div>
-	    <!-- the add questions tab button -->
-    {%if not questions_added %}
-	<div id="add_questions_tab">
-		<div class="button">
-			<a href="#">
-				<form action="add_questions_tab/" method ="POST">
-					{% csrf_token %}
-					<input type="hidden" value="{{row.id}}" name="tab_id" />
-					<input type="submit" value="Add Questions" />
-				</form>
-			</a>
-			<span></span>
-		</div>  
-	</div>
-	{% endif %}
-		
-	<div id="events_heading">{{event_name|capfirst}}</div>	
-	
-         <!-- The Edit Event button -->
-	<div id="edit_event">
-		<div class="button">
-			<a href="#">
-				{%if user.is_authenticated%} 
-				<form action= "{{SITE_URL}}events/dashboard/edit_event/" method="GET">
-					{% csrf_token %}
-					<input type="submit" value="Edit Event Details" />
-				</form>
-				{%endif%}
-			</a>
-			<span></span>
-		</div>  
-	</div>
-
-
-	<div id="logout_" align="right">
-		<div class="button">
-			<a href="#">    
-				<form action= "{{SITE_URL}}logout/" method="POST">
-                {% csrf_token %}
-				<input type="submit" value="LOGOUT" />
-				</form>
-			</a>
-			<span></span>
-        </div>
-	</div>
-
 </div>    <!---- end tabsTop -->
           
 	<div id = "verticlleft">

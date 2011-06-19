@@ -1,6 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 
 <html>
+<!--index.html -->
   <head>
     <title>
       Template Test
@@ -179,14 +180,17 @@
         </div>
       </div>   
       <!-- HEADER ENDS -->
-    <div id = "content" style = "overflow:hidden">
+    <div id = "content" style = "overflow:hidden; position:relative;">
 {%block body%}
-        <div id = "video"><iframe width="560" height="349" src="http://www.youtube.com/embed/YH-frgafQuU" frameborder="0" allowfullscreen></iframe></div>
+        <div id = "video" style="width:560px; position:absolute; top:20px; left:30px;">
+		<iframe width="560" height="349" src="http://www.youtube.com/embed/YH-frgafQuU" frameborder="0" allowfullscreen></iframe>
+		</div>
+		
         <div id = "verticlleft">
         <div id="events_heading" style="position:relative;  text-align: left; padding-left:20px;padding-bottom:20px; font-size:28px; font-weight:bold; color:#333;margin-left :auto;margin-right :auto; ">{{event_name}}</div>
             
         </div>
-    </div>
+    
             
     <div id = "verticlright">
 		  {% block event_spons%}
@@ -206,8 +210,8 @@
         {% endblock %}
 {%endblock%}
     </div>
+</div>
 
-</div> 
 		
 	    <div id = "footer_container">
 	      <div id = "footerlinks">
@@ -221,7 +225,7 @@
 		
 	      </div>
 	    </div>
-	  
+	 </div>  
 	
 
 

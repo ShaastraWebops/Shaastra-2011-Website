@@ -66,7 +66,8 @@ def user_registration(request):
         if form.is_valid():
   
             user = User.objects.create_user(username = form.cleaned_data['username'], email = form.cleaned_data['email'],password = form.cleaned_data['password'],)
-            user.is_active = False;
+            user.is_active = False
+            user.save()
             salt = sha.new(str(random.random())).hexdigest()[:5]
             activation_key = sha.new(salt+user.username).hexdigest()
             key_expires=datetime.datetime.today() + datetime.timedelta(2)
