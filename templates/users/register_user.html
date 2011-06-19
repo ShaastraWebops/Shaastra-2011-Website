@@ -351,12 +351,16 @@ if(xmlhttp.readyState==4)
     //alert(response);
 
     var coll_response = response;
+    alert(coll_response);
     
     document.getElementById("reg_success").style.display="block";
     document.getElementById("newcollege").style.display="none";
     if (coll_response != "exists" || coll_response != "failed")
     {
+        alert("works");
+        alert(data);
        data[data.length]=coll_response;
+       alert(data);
        $('input#coll_input').flushCache();
        $("#coll_input").autocomplete(coll_response);
 
