@@ -3,39 +3,12 @@
 				<div id="{{row.title|slugify }}_">
 
 
-                                  <!-- The Edit Event button -->
-<div id="edit_event">
-        {%if user.is_authenticated%} 
-    <form action= "{{SITE_URL}}events/dashboard/edit_event/" method="GET">
-        {% csrf_token %}
-    <input type="submit" value="Edit Event Details" />
-    </form>
-    {%endif%}
-</div>
-
-<!-- Button to see users who have registered for this event -->
-
-<!-- Logout button -->
-
-<div id="logout">
-    {%if user.is_authenticated%} 
-        <form action= "{{SITE_URL}}events/logout/" method="POST">
-                {% csrf_token %}
-            <input type="submit" value="LOGOUT" />
-        </form>
-        {%endif%}
-</div>
-
-<div id="preview">
-    <a href="{{event.url}}">Preview</a>
-</div>
+                                
+              
+     
                                         <br/><br/>
 
                                        {%if not row.question_tab%}
-			                            ROW ID : {{row.id}} 
-			                                  <br />
-			                            ROW PREFERENCE : {{row.pref}} 
-			                                 <br />
 			                              {{row.text|safe}}
 			                                <br /><br />
 

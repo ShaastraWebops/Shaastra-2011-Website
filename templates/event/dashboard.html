@@ -160,8 +160,12 @@
 
               
               <div id = "logandsearch">
-                <img src = "{{MEDIA_URL}}img/login.png" id = "login">
-                <img src = "{{MEDIA_URL}}img/sign_up.png" id = "sgnup">
+                {% if user.is_authenticated %}
+                <a href="{{SITE_URL}}logout/"><img src = "{{MEDIA_URL}}img/logout.png" id = "login"></a>
+                {% else %}
+                <a href="{{SITE_URL}}login/"><img src = "{{MEDIA_URL}}img/login.png" id = "login"></a>
+                <a href="{{SITE_URL}}register/user/"><img src = "{{MEDIA_URL}}img/sign_up.png" id = "sgnup"></a>
+                {% endif %}
                 <span id ="srch"><img src = "{{MEDIA_URL}}img/search.png" id = "srimg"><input type = "text" id = "search" name = "search"></span>
               </div>            
             </div>
@@ -202,13 +206,32 @@
 
         <div id = "video"></div>
         <div id="tabsTop">
+
+           <!-- The Edit Event button -->
+
+
+
 		    <!-- the add tab button -->
+	<div id="add_tab">
+		<div class="button">
+			<a href="#">
+				<form action="add_tab/" method ="POST">
+					{% csrf_token %}
+					<input type="hidden" value="{{row.id}}" name="tab_id" />
+					<input type="submit" value="ADD TAB" />
+				</form>
+			</a>
+			<span></span>
+		</div>
+	</div>
+			
+
 	    <div id="add_tab">
-	    <form action="add_tab/" method ="POST">
-	    {% csrf_token %}
-	    <input type="hidden" value="{{row.id}}" name="tab_id" />
-	    <input type="submit" value="" />
-	    </form>
+			<form action="add_tab/" method ="POST">
+				{% csrf_token %}
+				<input type="hidden" value="{{row.id}}" name="tab_id" />
+				<input type="submit" value="ADD TAB" />
+			</form>
 	    </div>  
 	    <!-- the add questions tab button -->
 	    {%if not questions_added %}
@@ -222,7 +245,28 @@
 	    {% endif %}
 		
 	<div id="events_heading">{{event_name|capfirst}}</div>	
-	</div>
+	
+
+        <div id="edit_event">
+        {%if user.is_authenticated%} 
+    <form action= "{{SITE_URL}}events/dashboard/edit_event/" method="GET">
+        {% csrf_token %}
+    <div id="button">	<div id="btnNleft"></div><input type="submit" value="Edit Event Details" /><div id="btnNRight"></div>	</div>
+    </form>
+    {%endif%}
+   </div>
+
+ <div id="logout_" align="right">
+
+    
+        <form action= "{{SITE_URL}}logout/" method="POST">
+                {% csrf_token %}
+        <div id="button">	<div id="btnNleft"></div><input type="submit" value="Add tab" /><div id="btnNRight"></div>	</div>
+        </form>
+        
+</div>
+
+</div>    <!---- end tabsTop -->
           
 	<div id = "verticlleft">
 

@@ -159,8 +159,12 @@
 
               
               <div id = "logandsearch">
-                <img src = "{{MEDIA_URL}}img/login.png" id = "login">
-                <img src = "{{MEDIA_URL}}img/sign_up.png" id = "sgnup">
+                {% if user.is_authenticated %}
+                <a href="{{SITE_URL}}logout/"><img src = "{{MEDIA_URL}}img/logout.png" id = "login"></a>
+                {% else %}
+                <a href="{{SITE_URL}}login/"><img src = "{{MEDIA_URL}}img/login.png" id = "login"></a>
+                <a href="{{SITE_URL}}register/user/"><img src = "{{MEDIA_URL}}img/sign_up.png" id = "sgnup"></a>
+                {% endif %}
                 <span id ="srch"><img src = "{{MEDIA_URL}}img/search.png" id = "srimg"><input type = "text" id = "search" name = "search"></span>
               </div>            
             </div>

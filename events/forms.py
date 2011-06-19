@@ -65,9 +65,6 @@ class ExtFileField(forms.FileField):
             if ext not in self.ext_whitelist:
                 raise forms.ValidationError("Not allowed filetype!")
 
-class CoordsLoginForm(forms.Form):
-    username=forms.CharField(help_text='The coord username emailed to your group')
-    password=forms.CharField(widget=forms.PasswordInput, help_text='The coord password emailed to your group')
 
 
 class AddContactForm(forms.Form):

@@ -38,17 +38,17 @@ def login (request):
                 request.session['logged_in'] = False
                 errors=[]
                 errors.append("Incorrect username and password combination!")
-                return render_to_response('event/login.html', locals(), context_instance= global_context(request))
+                return render_to_response('users/login.html', locals(), context_instance= global_context(request))
                 
         else:                       
             invalid_login = session_get(request, "invalid_login")
             form = forms.LoginForm () 
-    return render_to_response('event/login.html', locals(), context_instance= global_context(request))
+    return render_to_response('users/login.html', locals(), context_instance= global_context(request))
     
 def logout(request):
     if request.user.is_authenticated():
         auth.logout (request)
-        return render_to_response('event/logout.html', locals(), context_instance= global_context(request))        
+        return render_to_response('users/logout.html', locals(), context_instance= global_context(request))        
     return HttpResponseRedirect('%sevents/login/'%settings.SITE_URL)        
     
 def user_registration(request):
@@ -88,7 +88,7 @@ def user_registration(request):
             body = mail_template.render(Context({'username':user.username,
 							 'SITE_URL':settings.SITE_URL,
 							 'activationkey':userprofile.activation_key }))
-            #send_mail('Your new Shaastra2011 account confirmation', body,'noreply@shaastra.org', [user.email,], fail_silently=False)
+            send_mail('Your new Shaastra2011 account confirmation', body,'noreply@shaastra.org', [user.email,], fail_silently=False)
 
     else:
         form = forms.AddUserForm()
