@@ -34,6 +34,8 @@ def fileuploadhandler(f, eventname, tabid, file_title):
 
 def coordslogin (request):
     form=forms.CoordsLoginForm()
+    if 'logged_in' in request.session and request.session['logged_in'] == True:
+        return HttpResponseRedirect("%sevents/dashboard/" % settings.SITE_URL)
     if request.method == 'POST':
         data = request.POST.copy()
         form = forms.CoordsLoginForm(data)
