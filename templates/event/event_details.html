@@ -159,10 +159,10 @@
 
 
 <!-- the delete tab button -->                   
-<div id="delete_tab">
+<div id="delete_tab{{forloop.counter}}">
     <input type="submit" value=""> 
 </div>
-<div id ="delete_tab_confirmation" >
+<div id ="delete_tab_confirmation{{forloop.counter}}" >
     <form action="delete_tab/" method = 'POST'>
     {% csrf_token %}
     <input type="hidden" value="{{row.id}}" name=tab_id>
