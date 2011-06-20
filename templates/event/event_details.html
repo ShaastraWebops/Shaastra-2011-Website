@@ -160,13 +160,24 @@
 
 <!-- the delete tab button -->                   
 <div id="delete_tab">
+    <input type="submit" value=""> 
+</div>
+<div id ="delete_tab_confirmation" >
     <form action="delete_tab/" method = 'POST'>
-        {% csrf_token %}
-        <input type="hidden" value="{{row.id}}" name=tab_id>
-        <!-- <input type="submit" value="Delete {{row.name}} Tab"> -->
-		<input type="submit" value=""> 
+    {% csrf_token %}
+    <input type="hidden" value="{{row.id}}" name=tab_id>
+    <input type="submit" value="Yes, please delete this tab."> 
     </form>
 </div>
+
+
+
+<script>
+$("#delete_tab_confirmation").hide();
+$("#delete_tab").click(function () {
+    $("#Question{{ques.Q_Number}}").toggleClass("inactive").slideToggle("slow");
+    });
+</script>
     
 				</div>
                               {%endfor%}
