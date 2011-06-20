@@ -17,8 +17,8 @@ urlpatterns = patterns('',
       (r'^register/activate/(?P<a_key>[\w]+)/?$', 'main_test.users.views.activate'),
       (r'^login/?$', 'main_test.users.views.login'),
       (r'^logout/?$', 'main_test.users.views.logout'),
-      (r'^password_change/$', 'django.contrib.auth.views.password_change'),
-      (r'^password_change/done/$', 'django.contrib.auth.views.password_change_done'),
+      (r'^password_change/$', 'password_change'),
+      (r'^password_change/done/$', 'password_change_done'),
 
 )   
 
