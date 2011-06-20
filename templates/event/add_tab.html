@@ -1,5 +1,27 @@
 {%extends "index.html"%}
 {%block updates%}{%endblock%}
+
+{% block media_location %}
+    <style type="text/css">
+        /*<![CDATA[*/
+        #myInstance1 {
+                border: 2px dashed #0000ff;
+        }
+        .nicEdit-selected {
+                border: 2px solid #0000ff;
+        }
+         
+        .nicEdit-panel {
+                background-color: #fff;
+        }
+         
+        .nicEdit-button {
+                background-color: #fff;
+        }
+        /*]]>*/
+    </style>
+{% endblock %}
+
 {%block body%}	
 <center>
 <!--logout button-->
