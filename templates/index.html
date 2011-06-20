@@ -195,7 +195,55 @@
       </div>   
       <!-- HEADER ENDS -->
     <div id = "content" style = "overflow:hidden; position:relative;">
+
+ <!--  ==================================================================================================== -->                  
 {%block body%}
+      <div id = "content_top">
+                	<div class = "content_container">
+                    <div id = "lefttop">
+                        Top left content stays here. This is a brilliant piece of work.
+                    </div>
+
+                    </div>
+                    <div class = "content_container">
+                    <div id = "righttop">
+			<div id = "img_contaner">
+                        <img src = "{{MEDIA_URL}}js2/Media/Images/einstien.jpg" style = "padding-left : 5px;">
+			</div>
+			<div id = "righttopcontent">
+			    This is Random Content Here. Please respect THE MAN! And this is how long this will go. This is a test for the back end
+			    guys to figure out where each thing goes. thank you.
+			</div>
+
+                    </div>
+                    </div>
+                    <div class = "clearfloat"></div>
+                </div>
+                <div id = "content_bottom">
+                	<div class = "content_container_2">
+                    <div id = "leftbottom">
+                        <img src = "{{MEDIA_URL}}js2/Media/Images/video_box.png" style = "padding-left : 5px;">
+                    </div>
+
+                    </div>
+                    <div class = "content_container_2">
+                    <div id = "rightbottom">
+			<div id = "rightbottomcontent">
+                        RIGHT BOTTOM Content Lies here. Not nice to say the least. But this is a decent template, which the backend
+			guys can work with i hope :P
+			</div>
+                    </div>
+                    </div>
+                    <div class = "clearfloat"></div>
+
+                    
+                </div>
+
+
+{%endblock%}
+
+<!-- ==================================================================================================== -->
+<!--
         <div id = "video" style="width:560px; position:absolute; top:20px; left:30px;">
 		<iframe width="560" height="349" src="http://www.youtube.com/embed/YH-frgafQuU" frameborder="0" allowfullscreen></iframe>
 		</div>
@@ -222,7 +270,7 @@
             MY SHAASTRA HERE             
         </div>
         {% endblock %}
-{%endblock%}
+-->
     </div>
 </div>
 
