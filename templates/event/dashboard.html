@@ -258,7 +258,7 @@
 		<div id="logout_" align="right">
 			<div class="button">
 				<a href="#">    
-					<form action= "{{ event.url }}" method="POST">
+					<form action= "{{ event.url }}" method="POST" target="_blank">
 					{% csrf_token %}
 					<input type="submit" value="PREVIEW" />
 					</form>
