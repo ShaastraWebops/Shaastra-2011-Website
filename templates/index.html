@@ -127,12 +127,29 @@
       });
       getTickerData();
       });
-
+	  
+	  
+	  
+	  
+	  
+				var oht=document.getElementById('content').offsetHeight;
+				var ht;
+				$("#page").mouseover(function(){
+					ht=$(window).height();
+					if(ht>600||oht<420){
+						$("#content").css({'height':ht-205+'px'});
+						}
+					else{
+						$("#content").css({'height':oht+'px'});
+					}
+				});	
+				
+				
     </script>
     <script src = "{{MEDIA_URL}}js/js/script/script.js"></script>
 {% block media_location%}{%endblock%}
   </head>
-  <body>
+  <body id="page">
 
 <div id = "container">  
     <!-- HEADER BEGINS --> 
