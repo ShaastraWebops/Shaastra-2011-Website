@@ -134,14 +134,17 @@
 	  
 				var oht=document.getElementById('content').offsetHeight;
 				var ht;
-				$("#page").mouseover(function(){
-					ht=$(window).height();
-					if(ht>600||oht<420){
-						$("#content").css({'height':ht-205+'px'});
+				$(document).ready(function(){
+					alert(oht);
+					$("#page").mouseover(function(){
+						ht=$(window).height();
+						if(ht>600||oht<420){
+							$("#content").css({'height':ht-205+'px'});
+							}
+						else{
+							$("#content").css({'height':oht+'px'});
 						}
-					else{
-						$("#content").css({'height':oht+'px'});
-					}
+					});	
 				});	
 				
 				
