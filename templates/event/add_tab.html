@@ -81,10 +81,20 @@
 
 		<input type="hidden" value="{{row.id}}" />
             {%if is_edit_tab%}
-		<input type="submit" value="Update Tab" />
-            {%else%}
-                 <input type="submit" value="Create Tab" />
-             {%endif%}
+		<div class="button">
+			<a href="#">
+				<input type="submit" value="Update Tab" />
+			</a>
+			<span></span>
+		</div>
+				{%else%}
+		<div class="button">
+			<a href="#">				
+                <input type="submit" value="Create Tab" />
+				{%endif%}
+			</a>
+			<span></span>
+		</div>
 	  </form>
     </div>    
           
@@ -113,7 +123,12 @@
 				<form action="{{SITE_URL}}events/dashboard/delete_file/" method='POST'>
 					{% csrf_token %}
 					<input type="hidden" value="{{file.id}}" name="tabfile_id" />
-					<input type="submit" value="Delete"/>
+					<div class="button">
+						<a href="#">				
+								<input type="submit" value="Delete"/>
+						</a>
+						<span></span>
+					</div>
 				</form>
 				<br/>
 			{%endfor%}
@@ -134,7 +149,12 @@
                                 {% csrf_token %}
                                    {{formadd.as_table}}  
                            <input type="hidden" value="{{row.id}}" name="tabfile_id" />
-                           <input type="submit" value="Add File"/>
+						   <div class="button">
+								<a href="#">				
+									<input type="submit" value="Add File"/>
+								</a>
+								<span></span>
+							</div>
                           </form>
          
          
