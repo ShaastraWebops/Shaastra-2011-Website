@@ -1,5 +1,6 @@
 {%extends "index.html"%}
 {%block updates%}{%endblock%}
+
 {%block body%}	
 <center>
 <!--logout button-->
@@ -55,9 +56,11 @@
  <script type="text/javascript">
   var  area2;
  
-  area2 = new nicEditor().panelInstance('myArea2');   
+  bkLib.onDomLoaded(function() { new nicEditor({buttonList : ['fontSize','bold','italic','underline','strikeThrough','subscript','superscript','ul','ol']} ).panelInstance('myArea2');
+  });
+    
   function addArea2() {
-        area2 = new nicEditor().panelInstance('myArea2');
+        area2 = new nicEditor({buttonList : ['fontSize','bold','italic','underline','strikeThrough','subscript','superscript','ul','ol']} ).panelInstance('myArea2');
   }
   function removeArea2() {
         area2.removeInstance('myArea2');
@@ -114,7 +117,7 @@
 
         <div id="fileupload" align="center">
 		<div id="filetitle">
-			CURRENTLY UPLOADED FILES : 
+			Currently uploaded files : 
 		</div>
 
 		<br/>
@@ -135,7 +138,7 @@
 				<br/>
 			{%endfor%}
 		{%else%}
-			NO CURRENTLY UPLOADED FILES
+			No currently uploaded files
 			<br/>
 		{%endif%}
             </div>
@@ -162,7 +165,7 @@
          
   
                     {%else%}
-                       PLEASE CREATE TAB BEFORE UPLOADING FILES!!! 
+                       Please create tab before uploading files.
 		        
                     {%endif%}
 

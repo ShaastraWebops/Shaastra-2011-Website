@@ -57,7 +57,7 @@ def global_context(request):
             'is_coord':is_coord,
             'hospi_coord':hospi_coord,
             'is_core':is_core,
-            'menu_urls':request.session['menu_urls'],
+            'categories':request.session['menu_urls'],
             })
     return context
 

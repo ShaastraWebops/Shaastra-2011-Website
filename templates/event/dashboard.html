@@ -258,7 +258,7 @@
 		<div id="logout_" align="right">
 			<div class="button">
 				<a href="#">    
-					<form action= "{{ event.url }}" method="POST">
+					<form action= "{{ event.url}}" method="POST" target="_blank" >
 					{% csrf_token %}
 					<input type="submit" value="PREVIEW" />
 					</form>
@@ -274,6 +274,9 @@
 	  <div id="eventsTab"> 
 	    <div id="tabs">
 		<script type="text/javascript">
+		            if(noOfTabs == 0){
+		                document.write("<div id=\""+elem[t]+"\">"+"Tabs can be added using the ADD TAB button"+"</div>");
+		            }
 					for(var t=0;t<noOfTabs;t++){
 						document.write("<div id=\""+elem[t]+"\">"+tabNames[t]+"</div>");
 					}
