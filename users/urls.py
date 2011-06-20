@@ -8,7 +8,7 @@ admin.autodiscover()
 handler404 = "main_test.misc.util.not_found"
 handler500 = "main_test.misc.util.server_error"
 
-urlpatterns = patterns('django.contrib.auth.views'
+urlpatterns = patterns('django.contrib.auth.views',
 (r'^password_change/$', 'password_change'),
 (r'^password_change/done/$', 'password_change_done'),
 
