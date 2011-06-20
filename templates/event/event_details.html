@@ -176,12 +176,25 @@
     <form action="delete_tab/" method = 'POST'>
     {% csrf_token %}
     <input type="hidden" value="{{row.id}}" name=tab_id />
-    <!--<input type="submit" value="Yes please delete this tab" />-->
-   <button>Confirm Delete</button> 
-    </form>
+    <div class="button2">
+			<a href="#">
+				<input type="submit" value="Confirm Delete" />
+			</a>
+			<span></span>
+		</div>
+</form>
     
-    <div id="cancel{{row.id}}"> <button>Cancel</button></div>
+    <div id="cancel{{row.id}}"><div class="button2">
+			<a href="#">
+				<input type="submit" value="Cancel" />
+			</a>
+			<span></span>
+		</div>
+</div>
     
+
+
+
 
 
 </div>

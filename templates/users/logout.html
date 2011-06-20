@@ -7,7 +7,13 @@
      <form action= "{{SITE_URL}}login/" method="POST">
          {% csrf_token %}
          You Have Successfully Logged Out!!<br/><br/>  
-     <input type="submit" value="LOGIN AGAIN" />
+     <div class="button">
+			<a href="#">
+				<input type="submit" value="Login Again" />
+			</a>
+			<span></span>
+		</div>
+		
      </form>
      <br>
    </div>
