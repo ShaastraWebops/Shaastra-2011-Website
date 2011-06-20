@@ -84,122 +84,87 @@
 
 						
 <div id="adtabbody">
-  <div id="login" >	
-    <!-- the edit tab form -->
-
-     <div id="form" > 
-	  <form action="" method="POST" enctype="multipart/form-data">
-		{% csrf_token %}
-		<table>
-			{{ form.as_table }}
-		</table>
-		<br /><br />
-
-                  <!--The Submit Button -->
-
-		<input type="hidden" value="{{row.id}}" />
-            {%if is_edit_tab%}
-		<div class="button">
-			<a href="#">
-				<input type="submit" value="Update Tab" />
-			</a>
-			<span></span>
-		</div>
+	<div id="login" >	
+		<!-- the edit tab form -->
+		<div id="form" > 
+			<form action="" method="POST" enctype="multipart/form-data">
+				{% csrf_token %}
+				<table>
+					{{ form.as_table }}
+				</table>
+		<!--The Submit Button -->
+				<input type="hidden" value="{{row.id}}" />
+				{%if is_edit_tab%}
+				<div class="button">
+					<a href="#">
+						<input type="submit" value="Update Tab" />
+					</a>
+					<span></span>
+				</div>
 				{%else%}
-		<div id="create_tab">
-			<div class="button">
-				<a href="#">				
-					<input type="submit" value="Create Tab" />
-					{%endif%}
-				</a>
-				<span></span>
-			</div>
-		</div>
-	  </form>
-    </div>    
-          
-         
-          
-          
-
-	<br /><br />
-
-
-
-    <div id="files_everything" align="left">     
-       <!--List displaying the currently uploaded files -->
-        {%if not is_question%}
-
-        <div id="fileupload" align="center">
-		<div id="filetitle">
-			Currently uploaded files : 
-		</div>
-
-		<br/>
-             <div id="filelist"> 
-		{%if file_list%}
-			{%for file in file_list%}
-				<a href={{file.url}}>{{file.title}}</a>
-				<form action="{{SITE_URL}}events/dashboard/delete_file/" method='POST'>
-					{% csrf_token %}
-					<input type="hidden" value="{{file.id}}" name="tabfile_id" />
+				<div id="create_tab">
 					<div class="button">
 						<a href="#">				
-								<input type="submit" value="Delete"/>
+							<input type="submit" value="Create Tab" />
+							{%endif%}
 						</a>
 						<span></span>
 					</div>
-				</form>
-				<br/>
-			{%endfor%}
-		{%else%}
-			No currently uploaded files
-			<br/>
-		{%endif%}
-            </div>
+				</div>
+			</form>
+		</div>    
 
-                <br/><br/>
-               
-              <!--The add file form -->
+		<div id="files_everything" align="left">     
+		  <!--List displaying the currently uploaded files -->
+			{%if not is_question%}
+			<div id="fileupload" align="center">
+				<div id="filetitle">
+					Currently uploaded files : 
+				</div>
+				
+				<div id="filelist"> 
+					{%if file_list%}
+						{%for file in file_list%}
+							<a href={{file.url}}>{{file.title}}</a>
+							<form action="{{SITE_URL}}events/dashboard/delete_file/" method='POST'>
+								{% csrf_token %}
+								<input type="hidden" value="{{file.id}}" name="tabfile_id" />
+								<div class="button">
+									<a href="#">				
+											<input type="submit" value="Delete"/>
+									</a>
+									<span></span>
+								</div>
+							</form>
+						{%endfor%}
+					{%else%}
+					No currently uploaded files
+					{%endif%}
+				</div>
+				   
+				<!--The add file form -->
 
-                <div id="file_form">
-                      {%if is_edit_tab%}
- 
-                            <form action="{{SITE_URL}}events/dashboard/add_file/" method='POST' enctype="multipart/form-data" >
-                                {% csrf_token %}
-                                   {{formadd.as_table}}  
-                           <input type="hidden" value="{{row.id}}" name="tabfile_id" />
-						   <div class="button">
+				<div id="file_form">
+					{%if is_edit_tab%}
+						<form action="{{SITE_URL}}events/dashboard/add_file/" method='POST' enctype="multipart/form-data" >
+							{% csrf_token %}
+							{{formadd.as_table}}  
+							<input type="hidden" value="{{row.id}}" name="tabfile_id" />
+							<div class="button">
 								<a href="#">				
 									<input type="submit" value="Add File"/>
 								</a>
 								<span></span>
 							</div>
-                          </form>
-         
-         
-  
-                    {%else%}
-                       Please create tab before uploading files.
-		        
-                    {%endif%}
-
-
-	        </div>
-            </div> 
-          {%endif%}
-
-
-                 <br/><br/>
-                
-            </div>
-                    
-
- <br/>
-        
-
-
-</div>
+						</form>
+					{%else%}
+						 Please create tab before uploading files.
+					{%endif%}
+				</div>
+			</div> 
+			{%endif%}               
+		</div> 
+	</div>
 </div>
 </div>
 </center>
