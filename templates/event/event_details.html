@@ -159,22 +159,38 @@
 
 
 <!-- the delete tab button -->                   
-<div id="delete_tab{{forloop.counter}}">
-    Delete Tab<br/>
-</div>
-<div id ="delete_tab_confirmation{{forloop.counter}}" >
+<div id="deletetab{{row.id}}">
+  <button> Delete Tab </button>
+ </div>
+
+<div id ="deltabconf{{row.id}}" >
+      
+        
     <form action="delete_tab/" method = 'POST'>
     {% csrf_token %}
-    <input type="hidden" value="{{row.id}}" name=tab_id>
-    <input type="submit" value="Yes, please delete this tab."> 
+    <input type="hidden" value="{{row.id}}" name=tab_id />
+    <!--<input type="submit" value="Yes please delete this tab" />-->
+   <button>Confirm Delete</button> 
     </form>
-<script>
-$("#delete_tab_confirmation{{forloop.counter}}").hide();
-$("#delete_tab{{forloop.counter}}").click(function () {
-    $("#delete_tab_confirmation{{forloop.counter}}").toggleClass("inactive").slideToggle("slow");
-    });
-</script>
+    
+    <div id="cancel{{row.id}}"> <button>Cancel</button></div>
+    
+
+
 </div>
+
+<script>
+$("#deltabconf{{row.id}}").hide();
+$("#deletetab{{row.id}}").click(function () {
+$("#deltabconf{{row.id}}").show("slow");
+    });
+
+
+$("#cancel{{row.id}}").click(function () {
+      $("#deltabconf{{row.id}}").hide("slow");
+    })
+</script>
+
 
 
 
