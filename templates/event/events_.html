@@ -215,6 +215,9 @@
 		  <div id="extraTabs">More Tabs Here</div>
 		  -->
 		<script type="text/javascript">
+		            if(noOfTabs == 0){
+		                document.write("<div id=\""+elem[t]+"\">"+"Tabs can be added using the ADD TAB button"+"</div>");
+		            }
 					for(var t=0;t<noOfTabs;t++){
 						document.write("<div id=\""+elem[t]+"\">"+tabNames[t]+"</div>");
 					}
@@ -230,7 +233,7 @@
 		<!-- displaying file list -->
 		<div id="file_display">
 		  <div id="file_header">
-		    CURRENTLY UPLOADED FILES
+		    Currently Uploaded files:
 		  </div>
 		  <br/>
 		  <!-- displaying the file url -->
@@ -308,7 +311,7 @@
 		  <img src = "{{MEDIA_URL}}img/Nokia.png">
 		</div>
     		<div id = "rtvbottom">
-		  MY SHAASTRA HERE
+		  My Shaastra here
 		</div>
 	      </div>
   
