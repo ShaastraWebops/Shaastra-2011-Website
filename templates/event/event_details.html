@@ -159,13 +159,13 @@
 
 
 <!-- the delete tab button -->                   
+<div id="deletetab{{row.id}}">
+  <button> Delete Tab </button>
+ </div>
 
 <div id ="deltabconf{{row.id}}" >
       
-    <div id="deletetab{{row.id}}">
-  <button> Delete Tab </button>
- </div>
-    
+        
     <form action="delete_tab/" method = 'POST'>
     {% csrf_token %}
     <input type="hidden" value="{{row.id}}" name=tab_id />
