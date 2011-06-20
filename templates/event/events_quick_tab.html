@@ -299,17 +299,14 @@
 	      </div>
 	    </div>
 	    <div id = "verticlright">
-
-		<div id = "rtvtop">
-		  <div>
-
-		    Sponsored By:
-
-		  </div>
-		  {% if event.sponslogo %}
-		  <img src = "{{event.sponslogo.url}}"width="217" height="150">
-		  {%endif%}
-		</div>
+	    {% if event.sponslogo %}
+            <div id = "rtvtop">
+            <div>
+                Sponsored By:
+            </div>
+            <img src = "{{event.sponslogo.url}}"width="217" height="150">
+            </div>
+		{%endif%}
     		<div id = "rtvbottom">
 		    <iframe src="{{event.video}}"
    width="320" height="200"></iframe>
