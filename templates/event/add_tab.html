@@ -1,29 +1,55 @@
 {%extends "index.html"%}
 {%block updates%}{%endblock%}
-{%block body%}
+{%block body%}	
 <center>
 <!--logout button-->
-<div id="entire page">
- 
-<div id="logout" align="right">
-    <form action= "{{SITE_URL}}logout/" method="POST">
-        {% csrf_token %}
-        <input type="submit" value="LOGOUT" />
-    </form>
-</div>
-<!--The Back To DashBoard Button -->
+	<div id="entire_page">			 
+			<div id="logout" align="right">
+				<div class="button2">
+					<a href="#">
+						<form action= "{{SITE_URL}}logout/" method="POST">
+						{% csrf_token %}
+						<input type="submit" value="LOGOUT" />
+						</form>
+					</a>
+					<span></span>
+				</div>
+			</div>
+			<!--The Back To DashBoard Button -->
 
-                    <div id="cancel">
-                            <form action="{{SITE_URL}}events/dashboard/" method="POST">
-                            {% csrf_token %}
-                            <input type="submit" value="Back To Dashboard"/>
-                            </form>
-                    </div>
+			<div id="cancel">
+				<div class="button2">
+					<a href="#">
+						<form action="{{SITE_URL}}events/dashboard/" method="POST">
+						{% csrf_token %}
+						<input type="submit" value="Back To Dashboard"/>
+						</form>
+					</a>
+					<span></span>
+				</div>
+			</div>
 
-
-
-<button onclick="addArea2();">Add Editor to TEXTAREA</button> <button onclick="removeArea2();">Remove Editor from TEXTAREA</button>
-  </div>
+			<div id="AET">
+				<div class="button2">
+					<a href="#">
+						<input type="button" onclick="addArea2();" value="Add " title="Add Editor to Textarea"/>    
+						<image src="http://www.shaastra.org/2011/media/main/img/txtedtr.png" style="cursor:pointer;" onclick="addArea2();"  title="Add Editor to Textarea"/>
+					</a>
+					<span></span>
+				</div>
+			</div>
+			
+			<div id="RET">
+				<div class="button2">
+					<a href="#">
+						<input type="button" onclick="removeArea2();" value="Remove " title="Remove Editor from Textarea"/>     
+						<image src="http://www.shaastra.org/2011/media/main/img/txtedtr.png" style="cursor:pointer;" onclick="removeArea2();"  title="Remove Editor to Textarea"/>       
+					</a>
+					<span></span>
+				</div>
+			</div>
+	
+	</div>
 <!--the js for the WYSIWYG editor-->
 <script type="text/javascript" src="{{MEDIA_URL}}niceditor/nicEdit.js"></script>
  <script type="text/javascript">
@@ -43,7 +69,7 @@
   </script>
 
 						
-<div id="body" style="height:400px;overflow:auto">
+<div id="adtabbody">
   <div id="login" >	
     <!-- the edit tab form -->
 
@@ -59,10 +85,20 @@
 
 		<input type="hidden" value="{{row.id}}" />
             {%if is_edit_tab%}
-		<input type="submit" value="Update Tab" />
-            {%else%}
-                 <input type="submit" value="Create Tab" />
-             {%endif%}
+		<div class="button">
+			<a href="#">
+				<input type="submit" value="Update Tab" />
+			</a>
+			<span></span>
+		</div>
+				{%else%}
+		<div class="button">
+			<a href="#">				
+                <input type="submit" value="Create Tab" />
+				{%endif%}
+			</a>
+			<span></span>
+		</div>
 	  </form>
     </div>    
           
@@ -91,7 +127,12 @@
 				<form action="{{SITE_URL}}events/dashboard/delete_file/" method='POST'>
 					{% csrf_token %}
 					<input type="hidden" value="{{file.id}}" name="tabfile_id" />
-					<input type="submit" value="Delete"/>
+					<div class="button">
+						<a href="#">				
+								<input type="submit" value="Delete"/>
+						</a>
+						<span></span>
+					</div>
 				</form>
 				<br/>
 			{%endfor%}
@@ -112,7 +153,12 @@
                                 {% csrf_token %}
                                    {{formadd.as_table}}  
                            <input type="hidden" value="{{row.id}}" name="tabfile_id" />
-                           <input type="submit" value="Add File"/>
+						   <div class="button">
+								<a href="#">				
+									<input type="submit" value="Add File"/>
+								</a>
+								<span></span>
+							</div>
                           </form>
          
          

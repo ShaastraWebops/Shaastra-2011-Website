@@ -39,7 +39,8 @@
                     <form action="edit_tab/" method = 'GET'>
             	       {% csrf_token %}
 	            <input type="hidden" value="{{row.id}}" name=tab_id >
-	            <input type="submit" value="Edit {{row.title}} Tab">
+	           <!-- <input type="submit" value="Edit {{row.title}} Tab"> -->
+			    <input type="submit" value="">
                     </form>
                </div>
 
@@ -158,13 +159,25 @@
 
 
 <!-- the delete tab button -->                   
-<div id="delete_tab">
+<div id="delete_tab{{forloop.counter}}">
+    <bold>Delete Tab<bold><br/>
+</div>
+<div id ="delete_tab_confirmation{{forloop.counter}}" >
     <form action="delete_tab/" method = 'POST'>
-        {% csrf_token %}
-        <input type="hidden" value="{{row.id}}" name=tab_id>
-        <input type="submit" value="Delete {{row.name}} Tab">
+    {% csrf_token %}
+    <input type="hidden" value="{{row.id}}" name=tab_id>
+    <input type="submit" value="Yes, please delete this tab."> 
     </form>
 </div>
+
+
+
+<script>
+$("#delete_tab_confirmation{{forloop.counter}}").hide();
+$("#delete_tab{{forloop.counter}}").click(function () {
+    $("#delete_tab{{forloop.counter}}").toggleClass("inactive").slideToggle("slow");
+    });
+</script>
     
 				</div>
                               {%endfor%}

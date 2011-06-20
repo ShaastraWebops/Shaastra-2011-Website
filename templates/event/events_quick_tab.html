@@ -35,14 +35,14 @@
 			 var elem=[];
 			 var tabNames=[];
 			 var tot=0;
-			 var noOfTabs=0
+			 var noOfTabs=0;
 			{%for row in tab_list%}
 				elem[{{forloop.counter0}}]='{{row.title|slugify}}';
 				tabNames[{{forloop.counter0}}]='{{row.title}}';
 				tot=tot+1;
 			{%endfor%}
             
-            noOfTabs=tot			
+            noOfTabs=tot;		
 	</script>
     <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/events-tab.js"></script>
    <script>
@@ -299,17 +299,14 @@
 	      </div>
 	    </div>
 	    <div id = "verticlright">
-
-		<div id = "rtvtop">
-		  <div>
-
-		    Sponsored By:
-
-		  </div>
-		  {% if event.sponslogo %}
-		  <img src = "{{event.sponslogo.url}}"width="217" height="150">
-		  {%endif%}
-		</div>
+	    {% if event.sponslogo %}
+            <div id = "rtvtop">
+            <div>
+                Sponsored By:
+            </div>
+            <img src = "{{event.sponslogo.url}}"width="217" height="150">
+            </div>
+		{%endif%}
     		<div id = "rtvbottom">
 		    <iframe src="{{event.video}}"
    width="320" height="200"></iframe>
