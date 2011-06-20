@@ -46,8 +46,8 @@
 			<div id="AET">
 				<div class="button2">
 					<a href="#">
-						<input type="button" onclick="addArea2();" value="Add " title="Rich Text Mode"
-						<image src="http://www.shaastra.org/2011/media/main/img/txtedtr.png" style="cursor:pointer;" onclick="addArea2();"  title="Rich Text Mode"/>
+						<input type="button" onclick="addArea2();" value="Add " title="Add Editor to Textarea"/>    
+						<image src="http://www.shaastra.org/2011/media/main/img/txtedtr.png" style="cursor:pointer;" onclick="addArea2();"  title="Add Editor to Textarea"/>
 					</a>
 					<span></span>
 				</div>
@@ -56,8 +56,8 @@
 			<div id="RET">
 				<div class="button2">
 					<a href="#">
-						<input type="button" onclick="removeArea2();" value="Remove " title="HTML Mode"/>     
-						<image src="http://www.shaastra.org/2011/media/main/img/txtedtr.png" style="cursor:pointer;" onclick="removeArea2();"  title="HTML Mode"/>       
+						<input type="button" onclick="removeArea2();" value="Remove " title="Remove Editor from Textarea"/>     
+						<image src="http://www.shaastra.org/2011/media/main/img/txtedtr.png" style="cursor:pointer;" onclick="removeArea2();"  title="Remove Editor to Textarea"/>       
 					</a>
 					<span></span>
 				</div>
@@ -70,7 +70,8 @@
   var  area2;
  
   bkLib.onDomLoaded(function() { new nicEditor({buttonList : ['fontSize','bold','italic','underline','strikeThrough','subscript','superscript','left','center','right','justify','link']} ).panelInstance('myArea2');
- 
+  bkLib.onDomLoaded(function() { area2 = new nicEditor({buttonList : ['fontSize','bold','italic','underline','strikeThrough','subscript','superscript','ul','ol']} ).panelInstance('myArea2');
+
   });
     
   function addArea2() {
