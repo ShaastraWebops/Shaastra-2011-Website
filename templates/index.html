@@ -195,7 +195,55 @@
       </div>   
       <!-- HEADER ENDS -->
     <div id = "content" style = "overflow:hidden; position:relative;">
+
+ <!--  ==================================================================================================== -->                  
 {%block body%}
+      <div id = "content_top">
+                	<div class = "content_container">
+                    <div id = "lefttop">
+                        Top left content stays here. This is a brilliant piece of work.
+                    </div>
+
+                    </div>
+                    <div class = "content_container">
+                    <div id = "righttop">
+			<div id = "img_contaner">
+                        <img src = "{{MEDIA_URL}}js2/Media/Images/einstien.jpg" style = "padding-left : 5px;">
+			</div>
+			<div id = "righttopcontent">
+			    This is Random Content Here. Please respect THE MAN! And this is how long this will go. This is a test for the back end
+			    guys to figure out where each thing goes. thank you.
+			</div>
+
+                    </div>
+                    </div>
+                    <div class = "clearfloat"></div>
+                </div>
+                <div id = "content_bottom">
+                	<div class = "content_container_2">
+                    <div id = "leftbottom">
+                        <img src = "{{MEDIA_URL}}js2/Media/Images/video_box.png" style = "padding-left : 5px;">
+                    </div>
+
+                    </div>
+                    <div class = "content_container_2">
+                    <div id = "rightbottom">
+			<div id = "rightbottomcontent">
+                        RIGHT BOTTOM Content Lies here. Not nice to say the least. But this is a decent template, which the backend
+			guys can work with i hope :P
+			</div>
+                    </div>
+                    </div>
+                    <div class = "clearfloat"></div>
+
+                    
+                </div>
+
+
+{%endblock%}
+
+<!-- ==================================================================================================== -->
+<!--
         <div id = "video" style="width:560px; position:absolute; top:20px; left:30px;">
 		<iframe width="560" height="349" src="http://www.youtube.com/embed/YH-frgafQuU" frameborder="0" allowfullscreen></iframe>
 		</div>
@@ -222,7 +270,7 @@
             MY SHAASTRA HERE             
         </div>
         {% endblock %}
-{%endblock%}
+-->
     </div>
 </div>
 
@@ -280,68 +328,108 @@
   </div>
   <div id="popup_container" onclick="closePopUp()">
   <div id="close" style="position:absolute;color:#AAA; top:5px; right:10px;">X</div>
-  <div id="impact_contents" class="popup_contents">
-	<div id="image"><img src="{{MEDIA_URL}}js2/Media/img/impact_copy.jpg"/></div>
+    
+  <div>
+  {%for category in categories%}
+ {{category.title}}
+    <!--<div id="{{category.title}}_contents" class="popup_contents">
+	<div id="image"><img src="{{MEDIA_URL}}js2/Media/img/{{category.title}}_copy.jpg"/></div>
 	<div id="contents"></div>
 
+  </div>-->
+ 
+
+ 
+  <div id="impact_contents" class="popup_contents">
+	<div id="image"><img src="{{MEDIA_URL}}js2/Media/img/impact_copy.jpg"/></div>
+	{%if category.title|stringformat:"s" == "impact"%}<div id="contents"></div>{%endif%}
+
   </div>
+ 
+
+ 
   <div id="design_and_build_contents" class="popup_contents">
 	<div id="image"><img src="{{MEDIA_URL}}js2/Media/img/design_and_build_copy.jpg"/></div>
-	<div id="contents"></div>
+	{%if category.title|stringformat:"s" == "design and build"%}<div id="contents"></div>{%endif%}
   </div>
+
+ {%if category.title|stringformat:"s" == "coding"%}
   <div id="coding_contents" class="popup_contents">
 	<div id="image"><img src="{{MEDIA_URL}}js2/Media/img/coding_copy.jpg"/></div>
 	<div id="contents"></div>
   </div>
-
+{%endif%}
+ {%if category.title|stringformat:"s" == "invovle"%}
   <div id="involve_contents" class="popup_contents">
 	<div id="image"><img src="{{MEDIA_URL}}js2/Media/img/involve_copy.jpg"/></div>
 	<div id="contents"></div>
   </div>
+{%endif%}
+{%if category.title|stringformat:"s" == "online"%}
    <div id="online_contents" class="popup_contents">
 	<div id="image"><img src="{{MEDIA_URL}}js2/Media/img/online_copy.jpg"/></div>
 	<div id="contents"></div>
   </div>
+{%endif%}
+{%if category.title|stringformat:"s" == "spotlights"%}
    <div id="spotlights_contents" class="popup_contents">
 
 	<div id="image"><img src="{{MEDIA_URL}}js2/Media/img/spotlights_copy.jpg"/></div>
 	<div id="contents"></div>
   </div>
+{%endif%}
+{%if category.title|stringformat:"s" == "flagship"%}
    <div id="flagship_contents" class="popup_contents">
 	<div id="image"><img src="{{MEDIA_URL}}js2/Media/img/flagship_copy.jpg"/></div>
 	<div id="contents"></div>
   </div>
+{%endif%}
+{%if category.title|stringformat:"s" == "exhibition"%}
    <div id="exhibition_contents" class="popup_contents">
 	<div id="image"><img src="{{MEDIA_URL}}js2/Media/img/exhibition_copy.jpg"/></div>
 
 	<div id="contents"></div>
   </div>
+{%endif%}
+{%if category.title|stringformat:"s" == "quizzes"%}
    <div id="quizzes_contents" class="popup_contents">
 	<div id="image"><img src="{{MEDIA_URL}}js2/Media/img/quizzes_copy.jpg"/></div>
 	<div id="contents"></div>
   </div>
+{%endif%}
+{%if category.title|stringformat:"s" == "aerofest"%}
    <div id="aerofest_contents" class="popup_contents">
 	<div id="image"><img src="{{MEDIA_URL}}js2/Media/img/aerofest_copy.jpg"/></div>
 	<div id="contents"></div>
 
   </div>
+{%endif%}
+{%if category.title|stringformat:"s" == "workshops"%}
    <div id="workshops_contents" class="popup_contents">
 	<div id="image"><img src="{{MEDIA_URL}}js2/Media/img/workshops_copy.jpg"/></div>
 	<div id="contents"></div>
   </div>
+{%endif%}
+{%if category.title|stringformat:"s" == "copter"%}
    <div id="copter_contents" class="popup_contents">
 	<div id="image"><img src="{{MEDIA_URL}}js2/Media/img/copter_copy.jpg"/></div>
 	<div id="contents"></div>
   </div>
 
+{%endif%}  
+{%if category.title|stringformat:"s" == "gen robo"%}
    <div id="gen_robo_contents" class="popup_contents">
 	<div id="image"><img src="{{MEDIA_URL}}js2/Media/img/gen_robo_copy.jpg"/></div>
 	<div id="contents"></div>
   </div>
+{%endif%}
+{%if category.title|stringformat:"s" == "random robo"%}
    <div id="random_robo_contents" class="popup_contents">
 	<div id="image"><img src="{{MEDIA_URL}}js2/Media/img/random_robo_copy.jpg"/></div>
 	<div id="contents"></div>
   </div>
+{%endif%}
+{%endfor%}</div>
   </div>
 
 	</div>

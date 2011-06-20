@@ -1,6 +1,19 @@
 {%extends "index.html"%}
 {%block updates%}{%endblock%}
 
+{% block media_location %}
+    <style type="text/css">
+        /*<![CDATA[*/
+            .nicEdit-main
+            {
+               background-color: white;
+            }
+            textarea 
+            { margin: 0 auto 0 auto; } 
+        /*]]>*/
+    </style>
+{% endblock %}
+
 {%block body%}	
 <center>
 <!--logout button-->
@@ -56,7 +69,7 @@
  <script type="text/javascript">
   var  area2;
  
-  bkLib.onDomLoaded(function() { new nicEditor({buttonList : ['fontSize','bold','italic','underline','strikeThrough','subscript','superscript','ul','ol']} ).panelInstance('myArea2');
+  bkLib.onDomLoaded(function() { area2 = new nicEditor({buttonList : ['fontSize','bold','italic','underline','strikeThrough','subscript','superscript','ul','ol']} ).panelInstance('myArea2');
   });
     
   function addArea2() {

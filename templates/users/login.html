@@ -17,13 +17,20 @@
          {% csrf_token %}
          <table>
             {{ form.as_table }}
-         </table>
-
           <!-- submit button -->
       
-        <div id="submit">
-           <input type="submit" value="Login">
-        </div> 
+            <tr><td style="margin-left:200px;">
+            <div id="submit">
+               <div class="button2">
+                  <a href="#">
+                       <input type="submit" value="Login">
+                  </a>
+                  <span></span>
+               </div>
+            </div> 
+            </td></tr>
+         </table>
+
        </form>
 <br>
 </center>
