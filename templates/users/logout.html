@@ -1,5 +1,5 @@
 {%extends "index.html"%}
-
+{%block event_categories%}{%endblock%}
 {%block body%}
 
 <div id="login">
@@ -7,7 +7,18 @@
      <form action= "{{SITE_URL}}login/" method="POST">
          {% csrf_token %}
          You Have Successfully Logged Out!!<br/><br/>  
-     <input type="submit" value="LOGIN AGAIN" />
+     
+<table><tr><td style="margin-left:10px;" >
+        <div class="button2">
+			<a href="#">
+                             
+                       
+				<input type="submit" value="Login Again" />
+			     
+                     </a>
+			<span></span>
+		</div>
+		</td></tr></table>
      </form>
      <br>
    </div>

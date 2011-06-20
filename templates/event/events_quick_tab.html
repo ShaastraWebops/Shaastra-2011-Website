@@ -141,7 +141,7 @@
   </head>
   <body>
 
-    <div id = "container">
+    <div id = "container" style="min-height:580px;">
       <div id = "header">
         <div id = "header_top">
           <div id = "logos_container">
@@ -213,6 +213,9 @@
 	  <div id="eventsTab"> 
 	    <div id="tabs">
 		<script type="text/javascript">
+		            if(noOfTabs == 0){
+		                document.write("<div id=\""+elem[t]+"\">"+"Tabs can be added using the ADD TAB button"+"</div>");
+		            }
 					for(var t=0;t<noOfTabs;t++){
 						document.write("<div id=\""+elem[t]+"\">"+tabNames[t]+"</div>");
 					}

@@ -1,5 +1,19 @@
 {%extends "index.html"%}
 {%block updates%}{%endblock%}
+{%block event_categories%}{%endblock%}
+{% block media_location %}
+    <style type="text/css">
+        /*<![CDATA[*/
+            .nicEdit-main
+            {
+               background-color: white;
+            }
+            textarea 
+            { margin: 0 auto 0 auto; } 
+        /*]]>*/
+    </style>
+{% endblock %}
+
 {%block body%}	
 <center>
 <!--logout button-->
@@ -56,6 +70,7 @@
   var  area2;
  
   bkLib.onDomLoaded(function() { new nicEditor({buttonList : ['fontSize','bold','italic','underline','strikeThrough','subscript','superscript','left','center','right','justify','link']} ).panelInstance('myArea2');
+ 
   });
     
   function addArea2() {
@@ -116,7 +131,7 @@
 
         <div id="fileupload" align="center">
 		<div id="filetitle">
-			CURRENTLY UPLOADED FILES : 
+			Currently uploaded files : 
 		</div>
 
 		<br/>
@@ -137,7 +152,7 @@
 				<br/>
 			{%endfor%}
 		{%else%}
-			NO CURRENTLY UPLOADED FILES
+			No currently uploaded files
 			<br/>
 		{%endif%}
             </div>
@@ -164,7 +179,7 @@
          
   
                     {%else%}
-                       PLEASE CREATE TAB BEFORE UPLOADING FILES!!! 
+                       Please create tab before uploading files.
 		        
                     {%endif%}
 

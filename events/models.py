@@ -93,7 +93,7 @@ class QuickTabs(models.Model):
     text        = models.TextField()
     
     # No more than 10 tabs per event.
-    pref = models.IntegerField(max_length=2);
+    pref = models.IntegerField(max_length=2,default = 0, blank=False);
     question_tab = models.BooleanField(default=False)
 
     def __unicode__(self):
