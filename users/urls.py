@@ -9,7 +9,7 @@ handler404 = "main_test.misc.util.not_found"
 handler500 = "main_test.misc.util.server_error"
 
 
-urlpatterns = patterns(  
+urlpatterns = patterns('',  
         
       (r'^register/user/?$', 'main_test.users.views.user_registration'),
       (r'^register/college/?$', 'main_test.users.views.college_registration'),
