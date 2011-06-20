@@ -15,7 +15,6 @@
     <link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}css/events_scroll.css">
     <link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}css/event.css">
     
-    
     <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/ticker.js"></script>
     <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/jquery.js"></script>
     <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/jquery-ui-1.8.12.custom.min.js"></script>
@@ -23,7 +22,7 @@
     <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/jquery.jscrollpane.min.js"></script>
     <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/jquery.mousewheel.js"></script>
     <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/ticker2.js"></script>
-    <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/events-tab.js"></script>
+<!--    <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/events-tab.js"></script>    -->
    <script>
 	    
 	    if(window.innerHeight > 650)
@@ -180,14 +179,17 @@
         </div>
       </div>   
       <!-- HEADER ENDS -->
-    <div id = "content" style = "overflow:hidden">
+    <div id = "content" style = "overflow:hidden; position:relative;">
 {%block body%}
-        <div id = "video"><iframe width="560" height="349" src="http://www.youtube.com/embed/YH-frgafQuU" frameborder="0" allowfullscreen></iframe></div>
+        <div id = "video" style="width:560px; position:absolute; top:20px; left:30px;">
+		<iframe width="560" height="349" src="http://www.youtube.com/embed/YH-frgafQuU" frameborder="0" allowfullscreen></iframe>
+		</div>
+		
         <div id = "verticlleft">
         <div id="events_heading" style="position:relative;  text-align: left; padding-left:20px;padding-bottom:20px; font-size:28px; font-weight:bold; color:#333;margin-left :auto;margin-right :auto; ">{{event_name}}</div>
             
         </div>
-    </div>
+    
             
     <div id = "verticlright">
 		  {% block event_spons%}
@@ -207,7 +209,7 @@
         {% endblock %}
 {%endblock%}
     </div>
-
+</div>
 
 		
 	    <div id = "footer_container">

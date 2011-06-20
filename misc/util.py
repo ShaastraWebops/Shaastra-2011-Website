@@ -36,7 +36,7 @@ def generate_menu_dict(request):
             category.events.append(event)
     request.session['menu_urls'] = categories
     return
-
+    
 # Generates a context with the most used variables
 def global_context(request):
     is_coord=False
@@ -172,7 +172,7 @@ def needs_authentication (func):
         if not request.user.is_authenticated():
             # Return here after logging in
             request.session['from_url'] = request.path
-            return HttpResponseRedirect ("%sevents/login/"%settings.SITE_URL)
+            return HttpResponseRedirect ("%slogin/"%settings.SITE_URL)
         else:
             return func (*__args, **__kwargs)
     return wrapper

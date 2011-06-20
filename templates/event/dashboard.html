@@ -37,7 +37,7 @@
 			 var elem=[];
 			 var tabNames=[];
 			 var tot=0;
-			 var noOfTabs=0
+			 var noOfTabs=0;
 			{%for row in tab_list%}
 				elem[{{forloop.counter0}}]='{{row.title|slugify}}';
 				tabNames[{{forloop.counter0}}]='{{row.title}}';
@@ -221,6 +221,7 @@
 				</a>
 				<span></span>
 			</div>
+			<img id="pls" src="http://www.shaastra.org/2011/media/main/img/plus.png" />
 		</div>
 			<!-- the add questions tab button -->
 		{%if not questions_added %}
@@ -257,9 +258,9 @@
 		<div id="logout_" align="right">
 			<div class="button">
 				<a href="#">    
-					<form action= "{{SITE_URL}}logout/" method="POST">
+					<form action= "{{ event.url }}" method="POST">
 					{% csrf_token %}
-					<input type="submit" value="LOGOUT" />
+					<input type="submit" value="PREVIEW" />
 					</form>
 				</a>
 				<span></span>
@@ -279,7 +280,7 @@
 		</script>		 
 	    </div> 
 	    
-
+    
 	    {% include "event_details.html" %}
 			<div id="ticker2" class="iefix" >
 			<div id="ticker-img-left2" class="iefix"></div>
@@ -305,10 +306,7 @@
 		</div>
 	      </div>
       </div>
-	      
-	      
-    </div> 
-	                    
+	      	                    
 	
 		
 	    <div id = "footer_container">
@@ -323,6 +321,8 @@
 		
 	      </div>
 	    </div>
+	      
+    </div> 
 	  
 	
 
