@@ -5,7 +5,7 @@
 <!--logout button-->
 	<div id="entire_page">			 
 			<div id="logout" align="right">
-				<div class="button">
+				<div class="button2">
 					<a href="#">
 						<form action= "{{SITE_URL}}logout/" method="POST">
 						{% csrf_token %}
@@ -18,7 +18,7 @@
 			<!--The Back To DashBoard Button -->
 
 			<div id="cancel">
-				<div class="button">
+				<div class="button2">
 					<a href="#">
 						<form action="{{SITE_URL}}events/dashboard/" method="POST">
 						{% csrf_token %}
@@ -30,7 +30,7 @@
 			</div>
 
 			<div id="AET">
-				<div class="button">
+				<div class="button2">
 					<a href="#">
 						<input type="button" onclick="addArea2();" value="Add Editor to Textarea"/>            
 					</a>
@@ -39,7 +39,7 @@
 			</div>
 			
 			<div id="RET">
-				<div class="button">
+				<div class="button2">
 					<a href="#">
 						<input type="button" onclick="removeArea2();" value="Remove Editor from Textarea"/>            
 					</a>
