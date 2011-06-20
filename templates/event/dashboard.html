@@ -37,7 +37,7 @@
 			 var elem=[];
 			 var tabNames=[];
 			 var tot=0;
-			 var noOfTabs=0
+			 var noOfTabs=0;
 			{%for row in tab_list%}
 				elem[{{forloop.counter0}}]='{{row.title|slugify}}';
 				tabNames[{{forloop.counter0}}]='{{row.title}}';
