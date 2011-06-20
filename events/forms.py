@@ -73,7 +73,7 @@ class AddContactForm(forms.Form):
     
 class EditTabForm(forms.Form):
     title=forms.CharField(required = True, help_text='Title of the tab')
-    text=forms.CharField(widget=forms.Textarea(attrs={'id':'myArea2'}), help_text='Contents of the tab (html content is permitted - For this, first turn rich text formatting OFF)')
+    text=forms.CharField(widget=forms.Textarea(attrs={'id':'myArea2','rows':80,'cols':20}), help_text='Contents of the tab (html content is permitted - For this, first turn rich text formatting OFF)')
     tab_pref=forms.IntegerField(required=True,help_text='A number to help you arrange your tabs. Tabs will be displayed in increasing order of this number')
     
 class EditQuestionForm(forms.Form):
