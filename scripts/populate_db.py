@@ -1,8 +1,3 @@
-import sys, os
-print sys.path
-sys.path.remove("/home/shaastra/django-projects")
-sys.path.append("/home/shaastra/django-projects/test/")
-os.environ['DJANGO_SETTINGS_MODULE']='main_test.settings'
 from main_test.misc.util import camelize
 from main_test.events.models import Event
 from main_test.settings import SITE_URL
