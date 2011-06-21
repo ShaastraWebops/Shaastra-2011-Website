@@ -2,6 +2,7 @@
 from django.conf.urls.defaults import *
 
 from django.contrib import admin
+import django.contrib.auth.views
 admin.autodiscover()
 
 handler404 = "main_test.misc.util.not_found"
