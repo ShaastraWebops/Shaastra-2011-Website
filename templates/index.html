@@ -4,7 +4,9 @@
 <!--index.html -->
   <head>
     <title>
+     {%block title%}
       Template Test
+     {%endblock%}
     </title>
     
     <link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}css2/style_copy.css">
@@ -38,6 +40,8 @@
     <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/jquery.mousewheel.js"></script>
     <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/ticker2.js"></script>
     <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/action.js"></script>
+
+    
 <!--    <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/events-tab.js"></script>    -->
    <script>
 	    
@@ -156,7 +160,8 @@
   <body id="page">
 
 <div id = "container">  
-    <!-- HEADER BEGINS --> 
+    <!-- HEADER BEGINS -->
+  
     <div id = "header" style="overflow:hidden;">
         <div id = "header_top">
           <div id = "logos_container">
@@ -166,49 +171,57 @@
           </div>
           <div id ="navbar_container">
             <div id = "navbar">
+               {%block top_navigation%}
               <a href = "#" class="navig" id = "home"><span class = "nclass">Home</span></a>
 	      <a href = "#" class="navig" id = "events"><span class = "nclass">Events</span></a>
 	      <a href = "#" class="navig" id = "hospi"><span class = "nclass">Hospitality</span></a>
 	      <a href = "#" class="navig" id = "sponsor"><span class = "nclass">Sponsorship</span></a>
 	      <a href = "#" class="navig" id = "gallery"><span class = "nclass">Gallery</span></a>
-
+               {%endblock%}
               
               <div id = "logandsearch">
-                {% if user.is_authenticated %}
+              {%block log_and_search%}
+               {% if user.is_authenticated %}
                 <a href="{{SITE_URL}}logout/"><img src = "{{MEDIA_URL}}img/logout.png" id = "login"></a>
                 {% else %}
                 <a href="{{SITE_URL}}login/"><img src = "{{MEDIA_URL}}img/login.png" id = "login"></a>
                 <a href="{{SITE_URL}}register/user/"><img src = "{{MEDIA_URL}}img/sign_up.png" id = "sgnup"></a>
                 {% endif %}
                 <span id ="srch"><img src = "{{MEDIA_URL}}img/search.png" id = "srimg"><input type = "text" id = "search" name = "search"></span>
+             {%endblock%}
               </div>            
             </div>
           </div>
           <div id = "spons_container">
             <div id = "spons">
+           {%block main_sponsor%}
               <img src = "{{MEDIA_URL}}img/spons_box.png" style = "width : 176px;height:100%">
+           {%endblock%}
             </div>
           </div>
           <div class = "clearfloat"></div>
         </div>
         <div id = "header_bottom">
           <div id = "updates_container">
-
+          {%block updates%}
 	    <div id="ticker" style="" class="iefix">
 	      <div id="ticker-img-left" class="iefix"></div>
 	      <a id="ticker-link-updates" style="font-size:18px;">Updates: </a>
 
 	      <a id="ticker-link-text">Shaastra 10 Updates Ticker!</a>
 	      <div id="ticker-img-right" class="iefix"></div>
+          {%endblock%}
 	    </div>
 
           </div>
           <div id = "social_container">
             <div id = "social">
+           {%block social%}
               <div id="fb"></div>
 	      <div id="youtube"></div>
 	      <div id="blogger"></div>
 	      <div id="twitter"></div>
+          {%endblock%}
             </div>
           </div>
           <div class = "clearfloat"></div>
@@ -297,10 +310,11 @@
 -->
     </div>
 </div>
-
-		
+ 
+           {%block footer%}		
 	    <div id = "footer_container">
 	      <div id = "footerlinks">
+           
 		<a href = "#" class = "flinks" id = "con"></a>
 		<a href = "#" class = "flinks" id = "pp"></a>
 		<a href = "#footerlinks" class = "flinks" id = "blo"></a>
@@ -330,274 +344,11 @@
         <div id = "9" class = "thumb"><div class = "thumbc"></div></div>
       </div>
     </div>
- {%block event_categories%}
-     <div id="categories">
-	<div id="container1" style="display:none; position:absolute; left:1200px; top:176px; width:1035px;">
-	<div id="impact" onClick='openPopUp("impact",0,0)' onMouseOver='slide("impact",0,0)'></div>
-	<div id="design_and_build" onClick='openPopUp("design_and_build",0,100)' onMouseOver='slide("design_and_build",0,100)'></div>
-	<div id="coding" onClick='openPopUp("coding",0,150)' onMouseOver='slide("coding",0,150)'></div>
+ {%endblock%}
+   {%include "event_categories.html"%}
 
-	<div id="involve" onClick='openPopUp("involve",0,200)'  onMouseOver='slide("involve",0,200)'></div>
-	<div id="online" onClick='openPopUp("online",0,265)' onMouseOver='slide("online",0,265)'></div>
-	<div id="spotlights" onClick='openPopUp("spotlights",76,0)' onMouseOver='slide("spotlights",76,0)'></div>
-	<div id="flagship" onClick='openPopUp("flagship",76,25)' onMouseOver='slide("flagship",76,25)'></div>
-	<div id="exhibition" onClick='openPopUp("exhibition",50,100)' onMouseOver='slide("exhibition",50,100)'></div>
-	<div id="quizzes" onClick='openPopUp("quizzes",76,100)' onMouseOver='slide("quizzes",76,100)'></div>
-	<div id="copter" onClick='openPopUp("copter",50,150)' onMouseOver='slide("copter",50,150)'></div>
-	<div id="random_robo" onClick='openPopUp("random_robo",76,150)' onMouseOver='slide("random_robo",76,150)'></div>
-	<div id="aerofest" onClick='openPopUp("aerofest",76,200)' onMouseOver='slide("aerofest",76,200)'></div>
 
-	<div id="workshops" onClick='openPopUp("workshops",50,265)'  onMouseOver='slide("workshops",50,265)'></div>
-	<div id="gen_robo" onClick='openPopUp("gen_robo",76,265)'  onMouseOver='slide("gen_robo",76,265)'></div>
-  </div>
-  <div id="popup_container" onclick="closePopUp()">
-  <div id="close" style="position:absolute;color:#AAA; top:5px; right:10px;">X</div>
-    
-  <div>
-  {%for category in categories%}
- 
-<!--<div id="{{category.text}}_contents" class="popup_contents">
-	<div id="image"><img src="{{MEDIA_URL}}js2/Media/img/{{category.text}}_copy.jpg"/></div>
-	<div id="contents">
-         <ul>    {% for event in category.events%}
-           
-                <li>  {{event.name}} </li>
-             {%endfor%}
-        </ul>
-       </div>
-
-  </div>-->
- 
-
- 
-<div id="impact_contents" class="popup_contents">
-	<div id="image"><img src="{{MEDIA_URL}}js2/Media/img/impact_copy.jpg"/></div>
-	{%if category.text|stringformat:"s" == "impact"%}<div id="contents">
-          <ul>    {% for event in category.events%}
-           
-                <li>  {{event.name}} - {{category.text}}</li>
-             {%endfor%}
-        </ul>
-        </div>{%endif%}
-
-  </div>
- 
-
- 
-  <div id="design_and_build_contents" class="popup_contents">
-	<div id="image"><img src="{{MEDIA_URL}}js2/Media/img/design_and_build_copy.jpg"/></div>
-	{%if category.text|stringformat:"s" == "design and build"%}<div id="contents"> <ul>    {% for event in category.events%}
-           
-                <li>  {{event.name}} - {{category.text}}</li>
-             {%endfor%}
-        </ul>
-</div>{%endif%}
-  </div>
-
- 
-  <div id="coding_contents" class="popup_contents">
-	<div id="image"><img src="{{MEDIA_URL}}js2/Media/img/coding_copy.jpg"/></div>
-	{%if category.text|stringformat:"s" == "coding"%}<div id="contents">
-        <ul>    {% for event in category.events%}
-           
-                <li>  {{event.name}} - {{category.text}}</li>
-             {%endfor%}
-        </ul>
-
-      </div>{%endif%}
-  </div>
-
- 
-  <div id="involve_contents" class="popup_contents">
-	<div id="image"><img src="{{MEDIA_URL}}js2/Media/img/involve_copy.jpg"/></div>
-	{%if category.text|stringformat:"s" == "invovle"%}<div id="contents">
-           <ul>    {% for event in category.events%}
-           
-                <li>  {{event.name}} - {{category.text}}</li>
-             {%endfor%}
-        </ul>
-
-
-       </div>{%endif%}
-  </div>
-
-
-   <div id="online_contents" class="popup_contents">
-	<div id="image"><img src="{{MEDIA_URL}}js2/Media/img/online_copy.jpg"/></div>
-	{%if category.text|stringformat:"s" == "online"%}<div id="contents">
-            <ul>    {% for event in category.events%}
-           
-                <li>  {{event.name}} - {{category.text}}</li>
-             {%endfor%}
-        </ul>
-    
-
-
-
-      </div>{%endif%}
-  </div>
-
-
-   <div id="spotlights_contents" class="popup_contents">
-
-	<div id="image"><img src="{{MEDIA_URL}}js2/Media/img/spotlights_copy.jpg"/></div>
-	{%if category.text|stringformat:"s" == "spotlights"%}<div id="contents">
-
-           <ul>    {% for event in category.events%}
-           
-                <li>  {{event.name}} - {{category.text}}</li>
-             {%endfor%}
-        </ul>
-
-
-         </div>{%endif%}
-  </div>
-
-
-   <div id="flagship_contents" class="popup_contents">
-	<div id="image"><img src="{{MEDIA_URL}}js2/Media/img/flagship_copy.jpg"/></div>
-	{%if category.text|stringformat:"s" == "flagship"%}<div id="contents">
-          <ul>    {% for event in category.events%}
-           
-                <li>  {{event.name}} - {{category.text}}</li>
-             {%endfor%}
-        </ul>
-
-
-
-        </div>{%endif%}
-  </div>
-
-
-   <div id="exhibition_contents" class="popup_contents">
-	<div id="image"><img src="{{MEDIA_URL}}js2/Media/img/exhibition_copy.jpg"/></div>
-
-	{%if category.text|stringformat:"s" == "exhibition"%}<div id="contents">
-
-          <ul>    {% for event in category.events%}
-           
-                <li>  {{event.name}} - {{category.text}}</li>
-             {%endfor%}
-        </ul>
-
-
-       </div>{%endif%}
-  </div>
-
-
-   <div id="quizzes_contents" class="popup_contents">
-	<div id="image"><img src="{{MEDIA_URL}}js2/Media/img/quizzes_copy.jpg"/></div>
-	{%if category.text|stringformat:"s" == "quizzes"%}<div id="contents">
-
-           <ul>    {% for event in category.events%}
-           
-                <li>  {{event.name}} - {{category.text}}</li>
-             {%endfor%}
-        </ul>
-
-
-
-        </div>{%endif%}
-  </div>
-
-
-   <div id="aerofest_contents" class="popup_contents">
-	<div id="image"><img src="{{MEDIA_URL}}js2/Media/img/aerofest_copy.jpg"/></div>
-	{%if category.text|stringformat:"s" == "aerofest"%}<div id="contents">
-
-            <ul>    {% for event in category.events%}
-           
-                <li>  {{event.name}} - {{category.text}}</li>
-             {%endfor%}
-        </ul>
-
-
-
-         </div>{%endif%}
-
-  </div>
-
-
-   <div id="workshops_contents" class="popup_contents">
-	<div id="image"><img src="{{MEDIA_URL}}js2/Media/img/workshops_copy.jpg"/></div>
-	{%if category.text|stringformat:"s" == "workshops"%}<div id="contents">
-
-          <ul>    {% for event in category.events%}
-           
-                <li>  {{event.name}} - {{category.text}}</li>
-             {%endfor%}
-        </ul>
-
-
-
-       </div>{%endif%}
-  </div>
-
-
-   <div id="copter_contents" class="popup_contents">
-	<div id="image"><img src="{{MEDIA_URL}}js2/Media/img/copter_copy.jpg"/></div>
-	{%if category.text|stringformat:"s" == "copter"%}<div id="contents">
-             <ul>    {% for event in category.events%}
-           
-                <li>  {{event.name}} - {{category.text}}</li>
-             {%endfor%}
-        </ul>
-
-
-
-
-
-       </div>{%endif%}  
-  </div>
-
-
-
-   <div id="gen_robo_contents" class="popup_contents">
-	<div id="image"><img src="{{MEDIA_URL}}js2/Media/img/gen_robo_copy.jpg"/></div>
-	{%if category.text|stringformat:"s" == "gen robo"%}<div id="contents">
-         
-              <ul>    {% for event in category.events%}
-           
-                <li>  {{event.name}} - {{category.text}}</li>
-             {%endfor%}
-        </ul>
-
-
-
-
-         </div>{%endif%}
-  </div>
-
-<!-- as of now if event belongs to none of above catgory will be put here-->
-   <div id="random_robo_contents" class="popup_contents">
-	<div id="image"><img src="{{MEDIA_URL}}js2/Media/img/random_robo_copy.jpg"/></div>
-	<div id="contents">
-
-             <ul>    {% for event in category.events%}
-           
-                <li>  {{event.name}} - {{category.text}}</li>
-             {%endfor%}
-        </ul>
-            
-
-
-        </div>
-  </div>
-
-{%endfor%}</div>
-  </div>
-
-	</div>
-</div>
-<div id="right_arrow"  onclick="load_popup()"></div>
-<div id="left_arrow" onclick="close_popup()"></div>
-
-{%endblock%}
-
-
-
-
-
+ {%block menu_popup%}
     <div id = "eventscontainer">
       
       <div id = "escroll">
@@ -605,5 +356,6 @@
       </div>
     </div>
     <div id = "temporary"></div>
+ {%endblock%}
 </body>
 </html>
