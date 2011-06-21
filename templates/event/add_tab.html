@@ -106,11 +106,11 @@
 					<div class="button">
 						<a href="#">				
 							<input type="submit" value="Create Tab" />
-							{%endif%}
 						</a>
 						<span></span>
 					</div>
 				</div>
+				{%endif%}
 			</form>
 		</div>    
 
@@ -149,6 +149,7 @@
 					{%if is_edit_tab%}
 						<form action="{{SITE_URL}}events/dashboard/add_file/" method='POST' enctype="multipart/form-data" >
 							{% csrf_token %}
+							{{formadd.as_table}}  
 							<input type="hidden" value="{{row.id}}" name="tabfile_id" />
 							<div class="button">
 								<a href="#">				
