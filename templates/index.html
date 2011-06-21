@@ -42,8 +42,7 @@
     <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/action.js"></script>
 
     
-<!--    <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/events-tab.js"></script>    -->
-   <script>
+    <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/events-tab.js"></script>    <script>
 	    
 	    if(window.innerHeight > 650)
 						{
@@ -229,7 +228,7 @@
         </div>
       </div>   
       <!-- HEADER ENDS -->
-    <div id = "content" style = "overflow:hidden; position:relative;">
+    <div id = "content" style = "overflow:hidden; position:relative;height:433px;">
 
  <!--  ==================================================================================================== -->                  
 {%block body%}
@@ -346,8 +345,9 @@
       </div>
     </div>
  {%endblock%}
+{%block event_categories%}
    {%include "event_categories.html"%}
-
+{%endblock%}
 
  {%block menu_popup%}
     <div id = "eventscontainer">
