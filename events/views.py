@@ -428,7 +428,7 @@ def show_event_categories(request):
             event_name = camelize(event.name)
             event.image_src = SITE_URL + "events/images/" + event_name + "/"
             category.events.append(event)
-    return render_to_response('show_event_categories.html', locals(), context_instance = global_context(request))
+    return render_to_response('event/show_event_categories.html', locals(), context_instance = global_context(request))
 
 
 '''
@@ -451,5 +451,5 @@ def event_image(request, event_name=None):
     if event_name is not None:
         event = Event.objects.get(name = decamelize(event_name))
         image_src = event.menu_image.url
-    return render_to_response('event_image.html', locals(), context_instance = global_context(request))
+    return render_to_response('event/event_image.html', locals(), context_instance = global_context(request))
 

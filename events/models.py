@@ -11,10 +11,10 @@ import os
 SHAASTRA_TEASER_URL = "http://www.youtube.com/v/YH-frgafQuU"
 
 def get_eventlogo_path(instance, filename):
-	return 'events/' + camelize(instance.name) + '/images/eventlogos/' + filename
+	return EVENTS_PATH + camelize(instance.name) + '/images/eventlogos/' + filename
 
 def get_sponslogo_path(instance, filename):
-	return 'events/' + camelize(instance.name) + '/images/sponslogos/' + filename
+	return EVENTS_PATH + camelize(instance.name) + '/images/sponslogos/' + filename
 
 class Event(models.Model):
     #name used on the inside = display_name - special characters
@@ -57,18 +57,18 @@ class Event(models.Model):
             #This line raises an exception if old_instance does not exist 
             if old_instance.name != self.name:
                 print 'entered the if block'
-                os.system("mv " + MEDIA_ROOT + "events/" + camelize(old_instance.name) + " " + MEDIA_ROOT + "events/" + camelize(self.name) )
+                os.system("mv " + MEDIA_ROOT + EVENTS_PATH + camelize(old_instance.name) + " " + MEDIA_ROOT + EVENTS_PATH + camelize(self.name) )
             else:
                 print 'entered the else block'
                 pass
         except Event.DoesNotExist:
             print 'excepted'
-            os.system("mkdir " + MEDIA_ROOT + "events/" + camelize(self.name) )
-            os.system("mkdir " + MEDIA_ROOT + "events/" + camelize(self.name) + "/files")
-            os.system("mkdir " + MEDIA_ROOT + "events/" + camelize(self.name) + "/submissions")
-            os.system("mkdir " + MEDIA_ROOT + "events/" + camelize(self.name) + "/images")
-            os.system("mkdir " + MEDIA_ROOT + "events/" + camelize(self.name) + "/images/eventlogos")
-            os.system("mkdir " + MEDIA_ROOT + "events/" + camelize(self.name) + "/images/sponslogos")
+            os.system("mkdir " + MEDIA_ROOT + EVENTS_PATH + camelize(self.name) )
+            os.system("mkdir " + MEDIA_ROOT + EVENTS_PATH + camelize(self.name) + "/files")
+            os.system("mkdir " + MEDIA_ROOT + EVENTS_PATH + camelize(self.name) + "/submissions")
+            os.system("mkdir " + MEDIA_ROOT + EVENTS_PATH + camelize(self.name) + "/images")
+            os.system("mkdir " + MEDIA_ROOT + EVENTS_PATH + camelize(self.name) + "/images/eventlogos")
+            os.system("mkdir " + MEDIA_ROOT + EVENTS_PATH + camelize(self.name) + "/images/sponslogos")
     	return super(Event, self).save(*args, **kwargs) # Call the "real" save() method.
     	
     class Admin:
@@ -167,7 +167,7 @@ class Update(models.Model):
 		pass	
 
 def get_menu_thumbnail_path(instance, filename):
-    return 'events/images/menu_thumbnails/'
+    return EVENTS_PATH + 'images/menu_thumbnails/'
 
 class Menu(models.Model):
     text = models.CharField(max_length = 30, blank = False, null = False)
