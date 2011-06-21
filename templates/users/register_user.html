@@ -78,7 +78,7 @@ $("#branch_input").autocomplete(bdata);
 	</td>
 	<th>{{ field.label_tag }}</th>
 	<td>{{ field }}
-	<div style="font-family:verdana;color:red;font-size:10px;line-height:1em;vertical-align:top" id="{{ field.label }}_div">
+	<div id="{{ field.label }}_div">
 	{% if field.errors %}{% for error in field.errors %} {{ error|escape }} </br> {% endfor %}{% endif %}
 	</div>
 	</td>
