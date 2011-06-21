@@ -23,7 +23,7 @@ def insert(line):
     name = dname.replace('&', '').replace('!', '').replace('\'', '').replace('-', '').replace('  ', ' ')
     username = camelize(name).lower()
     password = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in range(N))
-    url = SITE_URL + "events/" + username + "/"
+    url = SITE_URL + "events/" + camelize(name) + "/"
     e = Event(name = name, display_name = dname, url = url)
     e.save()
     email = email.replace("\n", '')
