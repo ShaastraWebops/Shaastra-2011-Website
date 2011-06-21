@@ -50,27 +50,14 @@ class Event(models.Model):
     
     #A directory should only be created when a new event is saved to the db
     def save(self, *args, **kwargs):
-        try:
-            print 'tried'
-            old_instance = Event.objects.get(id = self.id)
-            print 'get succeeded'
-            #This line raises an exception if old_instance does not exist 
-            if old_instance.name != self.name:
-                print 'entered the if block'
-                os.system("mv " + MEDIA_ROOT + EVENTS_PATH + camelize(old_instance.name) + " " + MEDIA_ROOT + EVENTS_PATH + camelize(self.name) )
-            else:
-                print 'entered the else block'
-                pass
-        except Event.DoesNotExist:
-            print 'excepted'
-            os.system("mkdir " + MEDIA_ROOT + EVENTS_PATH + camelize(self.name) )
-            os.system("mkdir " + MEDIA_ROOT + EVENTS_PATH + camelize(self.name) + "/files")
-            os.system("mkdir " + MEDIA_ROOT + EVENTS_PATH + camelize(self.name) + "/submissions")
-            os.system("mkdir " + MEDIA_ROOT + EVENTS_PATH + camelize(self.name) + "/images")
-            os.system("mkdir " + MEDIA_ROOT + EVENTS_PATH + camelize(self.name) + "/images/eventlogos")
-            os.system("mkdir " + MEDIA_ROOT + EVENTS_PATH + camelize(self.name) + "/images/sponslogos")
-    	return super(Event, self).save(*args, **kwargs) # Call the "real" save() method.
-    	
+        os.system("mkdir " + MEDIA_ROOT + EVENTS_PATH + camelize(self.name) )
+        os.system("mkdir " + MEDIA_ROOT + EVENTS_PATH + camelize(self.name) + "/files")
+        os.system("mkdir " + MEDIA_ROOT + EVENTS_PATH + camelize(self.name) + "/submissions")
+        os.system("mkdir " + MEDIA_ROOT + EVENTS_PATH + camelize(self.name) + "/images")
+        os.system("mkdir " + MEDIA_ROOT + EVENTS_PATH + camelize(self.name) + "/images/eventlogos")
+        os.system("mkdir " + MEDIA_ROOT + EVENTS_PATH + camelize(self.name) + "/images/sponslogos")
+        return super(Event, self).save(*args, **kwargs) # Call the "real" save() method.
+    
     class Admin:
         pass  
 
