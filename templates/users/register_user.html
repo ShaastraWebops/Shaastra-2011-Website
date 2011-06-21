@@ -65,12 +65,12 @@ $("#branch_input").autocomplete(bdata);
 </div>
 
 <center>
-<table id = "maintable" cellpadding = "10" rules = "cols" onLoad="changeBg();">
+<table id = "maintable" cellpadding = "10" rules = "cols">
 <tr>
 <td id="maincol1">
 
   <div class="info">
- <form id="reg_form" action="{{SITE_URL}}register/user/" method="POST" onload="onblurAttribute()">
+ <form id="reg_form" action="{{SITE_URL}}register/user/" method="POST" onload="onblurAttribute();changeBg();">
 {% csrf_token %}
 <table name="register" >
   {% for field in  form  %}
@@ -426,7 +426,7 @@ function hide_college(){
     </p>
    </div><!-- closes div register -->
    <div class="register">
-    <form id="reg_college" onsubmit="create_coll(); return false;" >
+    <form id="reg_college" onsubmit="create_coll(); return false;"  onLoad="changeBg();">
     {% csrf_token %}
      <div class="info">
       <p>
