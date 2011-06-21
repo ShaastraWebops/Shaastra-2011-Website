@@ -181,7 +181,8 @@
               
               <div id = "logandsearch">
               {%block log_and_search%}
-               {% if user.is_authenticated %}
+               {% if user.is_authenticated %}			    
+                <div id="welcome" style="position:absolute; top:54px;">Welcome USER</div>
                 <a href="{{SITE_URL}}logout/"><img src = "{{MEDIA_URL}}img/logout.png" id = "login"></a>
                 {% else %}
                 <a href="{{SITE_URL}}login/"><img src = "{{MEDIA_URL}}img/login.png" id = "login"></a>
