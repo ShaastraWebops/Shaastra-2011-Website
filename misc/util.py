@@ -72,11 +72,13 @@ def render_home(request):
 
 
 #Change FOO   bAR to Foo Bar
+'''
 def clean_string(dirty_string):
     word_list=dirty_string.split(" ")
     word_list=(s.title().replace('\'S','\'s') for s in word_list)
     cleaned_string=" ".join(word_list)
     return cleaned_string
+'''
 def clean_state(dir_state):
     str=clean_string(dir_state)
     if str in ["Ap","A.p","A.p.","Andhrapradesh"]:
