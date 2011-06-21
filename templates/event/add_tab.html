@@ -149,7 +149,6 @@
 					{%if is_edit_tab%}
 						<form action="{{SITE_URL}}events/dashboard/add_file/" method='POST' enctype="multipart/form-data" >
 							{% csrf_token %}
-							{{formadd.as_table}}  
 							<input type="hidden" value="{{row.id}}" name="tabfile_id" />
 							<div class="button">
 								<a href="#">				
@@ -167,6 +166,7 @@
 		</div> 
 	</div>
 	<br><br><br><br><br><br><br>
+</div>
 </div>
 </center>
 {%endblock%}
