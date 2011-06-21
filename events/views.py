@@ -22,7 +22,7 @@ FILE_DIR = settings.MEDIA_ROOT + 'files/'
 
 #Will change the model after this plan is confirmed
 def fileuploadhandler(f, eventname, tabid, file_title):
-    savelocation = settings.MEDIA_ROOT + 'events/' + camelize(eventname) + '/files/' + camelize(f.name)
+    savelocation = settings.MEDIA_ROOT + settings.EVENTS_PATH + camelize(eventname) + '/files/' + camelize(f.name)
     destination = open( savelocation , 'wb+')
     #destination.write(f.read())
     for chunk in f.chunks():
