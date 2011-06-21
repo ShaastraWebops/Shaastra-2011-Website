@@ -29,7 +29,7 @@ def fileuploadhandler(f, eventname, tabid, file_title):
         destination.write(chunk)
     destination.close()
     tab_of_file = models.QuickTabs.objects.get(id = tabid)
-    tabfileobject = models.TabFiles ( Tab = tab_of_file,url = settings.MEDIA_URL + 'events/' + camelize(eventname) + '/files/' + camelize(f.name), title =  file_title)
+    tabfileobject = models.TabFiles ( Tab = tab_of_file,url = settings.MEDIA_URL + settings.EVENTS_PATH + camelize(eventname) + '/files/' + camelize(f.name), title =  file_title)
     tabfileobject.save()
 
 
