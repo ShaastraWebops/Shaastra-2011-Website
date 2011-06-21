@@ -18,7 +18,6 @@ msg = Template(mail.read())
 mail.close()
 f = open("/home/shaastra/test.csv")
 N = 6
-c = College.objects.get(name='testcollege')
 def insert(line):
     [dname, email] = line.split(',', 1)
     name = dname.replace('&', '').replace('!', '').replace('\'', '').replace('-', '').replace('  ', ' ')
@@ -30,7 +29,7 @@ def insert(line):
     email = email.replace("\n", '')
     u = User.objects.create_user(username = username, email = email, password = password)
     u.save()
-    UserProfile(user = u, is_coord = True, coord_event = e, college = c).save()              #All coords are implicitly female :P
+    UserProfile(user = u, is_coord = True, coord_event = e).save()              #All coords are implicitly female :P
     content = msg.render(Context({"username":username,"password":password}))
     subject = name + ": Your shaastra.org access data"
     send_mail(subject, content, sender, [email,])
