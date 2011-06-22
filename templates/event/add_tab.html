@@ -151,9 +151,7 @@
 			                {% csrf_token %}
 			                {{formadd.as_table}}  
 			                <input type="hidden" value="{{row.id}}" name="tabfile_id" />
-			                <div class="button">            
-                                <input type="submit" value="Add File"/>
-			                </div>
+                                <input type="submit" name="" value="Add File"/>
 		                </form>
 					{%else%}
 						 Please create tab before uploading files.
