@@ -153,7 +153,12 @@
 			                {{formadd.as_table}}  
 			                </table>
 			                <input type="hidden" value="{{row.id}}" name="tabfile_id" />
-                            <input type="submit" value="Add File"/>
+			                <div class="button">
+                                <a href="#">
+                                    <input type="submit" value="Add File" />
+                                </a>
+                                <span></span>
+			                </div>
 		                </form>
 					{%else%}
 						 Please create tab before uploading files.
