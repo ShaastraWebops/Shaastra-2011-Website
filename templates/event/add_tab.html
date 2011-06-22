@@ -149,7 +149,9 @@
 					{%if is_edit_tab%}
 		                <form action="{{SITE_URL}}events/dashboard/add_file/" method='POST' enctype="multipart/form-data" >
 			                {% csrf_token %}
+			                <table>
 			                {{formadd.as_table}}  
+			                </table>
 			                <input type="hidden" value="{{row.id}}" name="tabfile_id" />
 							<div class="add-file-button">
 							    <div class="button">
