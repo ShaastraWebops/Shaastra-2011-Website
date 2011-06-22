@@ -149,9 +149,11 @@
 					{%if is_edit_tab%}
 		                <form action="{{SITE_URL}}events/dashboard/add_file/" method='POST' enctype="multipart/form-data" >
 			                {% csrf_token %}
+			                <table>
 			                {{formadd.as_table}}  
+			                </table>
 			                <input type="hidden" value="{{row.id}}" name="tabfile_id" />
-                                <input type="submit" name="" value="Add File"/>
+                            <input type="submit" name="" value="Add File"/>
 		                </form>
 					{%else%}
 						 Please create tab before uploading files.
