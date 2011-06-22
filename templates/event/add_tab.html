@@ -147,19 +147,19 @@
 
 				<div id="file_form">
 					{%if is_edit_tab%}
+		                <form action="{{SITE_URL}}events/dashboard/add_file/" method='POST' enctype="multipart/form-data" >
+			                {% csrf_token %}
+			                {{formadd.as_table}}  
+			                <input type="hidden" value="{{row.id}}" name="tabfile_id" />
 							<div class="add-file-button">
 							    <div class="button">
 								    <a href="#">				
-						                <form action="{{SITE_URL}}events/dashboard/add_file/" method='POST' enctype="multipart/form-data" >
-							                {% csrf_token %}
-							                {{formadd.as_table}}  
-							                <input type="hidden" value="{{row.id}}" name="tabfile_id" />
 				                            <input type="submit" value="Add File"/>
-						                </form>
 								    </a>
 								    <span></span>
 							    </div>
 							</div>
+		                </form>
 					{%else%}
 						 Please create tab before uploading files.
 					{%endif%}
