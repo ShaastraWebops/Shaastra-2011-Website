@@ -145,13 +145,7 @@
 				   
 				<!--The add file form -->
 
-<div class="button">
-<a href="#">
-<input type="submit" value="Add File" />
-</a>
-<span></span>
-</div>
-				<div id="file_form">
+				<div>
 					{%if is_edit_tab%}
 		                <form action="{{SITE_URL}}events/dashboard/add_file/" method='POST' enctype="multipart/form-data" >
 			                {% csrf_token %}
