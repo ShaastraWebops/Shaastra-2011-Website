@@ -17,6 +17,7 @@ def insert(line):
     [dname, email_string] = line.split(',', 1)
     email_string = email_string.replace("\n", '')
     mailing_list = email_string.split(',')
+    mailing_list.append("praveenv253@gmail.com")
     name = dname.replace('&', '').replace('!', '').replace('\'', '').replace('-', '').replace('  ', ' ')
     username = camelize(name).lower()
     password = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in range(N))
