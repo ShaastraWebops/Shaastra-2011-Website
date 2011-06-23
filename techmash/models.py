@@ -55,3 +55,4 @@ class Photo(models.Model):
             pass
         # Deleting the original might be a bad thing.
         #os.unlink(self.fullpath())
+
