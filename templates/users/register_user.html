@@ -301,7 +301,7 @@ onblurAttribute();
 </script>
 
    <script type="text/javascript">
-		$('#content').css({'height':'375px'});
+		$('#content').css({'height':'375px','width':'98%'});
         var label = document.body.getElementsByTagName("label")[13];
         var string = label.innerHTML;
         label.innerHTML = "<div class='errors'>"+string+"<div style='font-family: verdana; color: black; font-size: 10px; line-height: 1em;'>We will be sending you a conformation mail after 3rd of September if you get shortlisted for accommodation!</div></div>";
@@ -452,21 +452,22 @@ function hide_college(){
       {% endfor %}
       </table>
 	  <div id="regcoll">
-		<div id="button2">
+		<div class="button2">
 			<a href="#">
 				<input type="submit" value="Register College" />
 			</a>
 			<span></span>
 		</div>
-	  </div>
-	  <div id="regcoll_">
-		<div class="button2">
-			<a href="#">
-				<input type="button" value = "Cancel" onclick="javascript:hide_college()" />
-			</a>
-			<span></span>
+		<div id="regcoll_" style="float:left; margin-left:30px;">
+			<div class="button2">
+				<a href="#">
+					<input type="button" value = "Cancel" onclick="javascript:hide_college()" />
+				</a>
+				<span></span>
+			</div>
 		</div>
 	  </div>
+
      </div>
     </form>
    </div> <!-- closes register -->
