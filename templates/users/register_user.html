@@ -44,9 +44,6 @@ $("#branch_input").autocomplete(bdata);
 </div>
 {% endif %}
 <div class="register">
- <h1 align = "center">
-  User Registration
- </h1>
 {% if user.is_authenticated %}
 <div class="errors">
   You have already registered, and are logged in.
@@ -65,6 +62,10 @@ $("#branch_input").autocomplete(bdata);
 </div>
 
 <center style="height:400px; overflow:scroll; margin-right:20px;">
+ <h1 align="center">
+  User Registration
+ </h1>
+ <br>
 <table id = "maintable" cellpadding = "10" rules = "cols">
 <tr>
 <td id="maincol1">
