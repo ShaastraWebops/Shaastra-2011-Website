@@ -35,7 +35,7 @@
 
                <!-- The edit tab Button -->
                
-                <div id="edit_tab" style="position:absolute; bottom:0px; left:-10px;">
+                <div id="edit_tab" style="position:absolute; bottom:-10px; left:5px;">
                     <form action="edit_tab/" method = 'GET' >
             	    {% csrf_token %}
 						<input type="hidden" value="{{row.id}}" name=tab_id >
@@ -173,7 +173,7 @@
     <form action="delete_tab/" method = 'POST'>
     {% csrf_token %}
     <input type="hidden" value="{{row.id}}" name=tab_id />
-	<div id="conf_del">
+	<div id="conf_del" style="position:absolute; bottom:-5px;">
 		<div class="button2">
 				<a href="#">
 					<input type="submit" value="Confirm Delete" />
@@ -184,7 +184,7 @@
 	</form>
     
 	
-<div id="cancel{{row.id}}">
+<div id="cancel{{row.id}}" style="position:absolute; bottom:-5px; left:133px;"> 
 	<div class="button2">
 		<a href="#">
 				<input type="submit" value="Cancel" />
@@ -203,14 +203,30 @@
 <script>
 
 
-$("#deltabconf{{row.id}}").hide();
+$("#deltabconf{{row.id}}").css('width','0px');
 $("#deletetab{{row.id}}").click(function () {
-$("#deltabconf{{row.id}}").show("slow");
+		$("#deletetab{{row.id}}").animate({
+					width:'0px',
+				},300);
+		$("#edit_tab{{row.id}}").animate({
+					width:'0px',
+				},300);
+		$("#deltabconf{{row.id}}").animate({
+					width:'250px',
+				},300);
     });
 
 
 $("#cancel{{row.id}}").click(function () {
-      $("#deltabconf{{row.id}}").hide("slow");
+		$("#deletetab{{row.id}}").animate({
+					width:'250px',
+				},300);
+		$("#edit_tab{{row.id}}").animate({
+					width:'110px',
+				},300);
+		$("#deltabconf{{row.id}}").animate({
+					width:'0px',
+				},300);
     })
 </script>
 
