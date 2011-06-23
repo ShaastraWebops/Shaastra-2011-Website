@@ -203,18 +203,38 @@
 <script>
 
 
-$("#deltabconf{{row.id}}").fadeOut(0);;
+//$("#deltabconf{{row.id}}").fadeOut(0);;
+
+		$("#conf_del").animate({
+			marginLeft:'-300px'
+		},300);
+		$("#cancel{{row.id}}").animate({
+			marginLeft:'-300px'
+		},1200);
+		
 $("#deletetab{{row.id}}").click(function () {
 		$("#deletetab{{row.id}}").fadeOut(300);
-		$("#edit_tab{{row.id}}").fadeOut(300);
-		$("#deltabconf{{row.id}}").fadeIn(300);
+		$("#edit_tab").fadeOut(300);
+		//$("#deltabconf{{row.id}}").fadeIn(300);		
+		$("#conf_del").animate({
+			marginLeft:'0px'
+		},300);
+		$("#cancel{{row.id}}").animate({
+			marginLeft:'0px'
+		},1200);
     });
 
 
 $("#cancel{{row.id}}").click(function () {
+		$("#conf_del").animate({
+			marginLeft:'-300px'
+		},300);
+		$("#cancel{{row.id}}").animate({
+			marginLeft:'-300px'
+		},1200);
 		$("#deletetab{{row.id}}").fadeIn(300);
-		$("#edit_tab{{row.id}}").fadeIn(300);
-		$("#deltabconf{{row.id}}").fadeOut(300);
+		$("#edit_tab").fadeIn(300);
+		//$("#deltabconf{{row.id}}").fadeOut(300);
     })
 </script>
    
