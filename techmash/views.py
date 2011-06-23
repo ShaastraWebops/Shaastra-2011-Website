@@ -58,7 +58,7 @@ def upload_file1(request):
             return HttpResponseRedirect(("%stechmash/upload/" % settings.SITE_URL))
     else:
         form = UploadFileForm()
-        return render_to_response('techmash/upload_file.html', Context({'form': form}), locals(),context_instance= global_context(request))
+        return render_to_response('techmash/upload_file.html', locals(),context_instance= global_context(request))
 
 def mashphotos(request):
     if request.method == 'POST':
