@@ -443,7 +443,7 @@ function hide_college(){
     {% csrf_token %}
      <div class="info">
       <table name="register">
-	  <tr><td colspan="2"><h2>College Registraion</h2></td></tr>
+	  <tr><td colspan="3"><h2>College Registraion</h2></td></tr>
       {% for field in coll_form %}
 <tr>
   <td>{{ field.label_tag }}</td><td align="left">{{ field }}</td>
@@ -460,7 +460,7 @@ function hide_college(){
 		</div>
 	  </div>
 	  <div id="regcoll_">
-		<div id="button2">
+		<div class="button2">
 			<a href="#">
 				<input type="button" value = "Cancel" onclick="javascript:hide_college()" />
 			</a>
