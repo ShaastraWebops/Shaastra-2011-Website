@@ -44,6 +44,17 @@ $("#branch_input").autocomplete(bdata);
 </div>
 {% endif %}
 <div class="register">
+ 
+ <div class = "showclgfrm">
+    <div>Can't find your college?</div>
+	<div class="button2">
+		<a href="#reg_coll" onclick="showNewCollegeDiv()">
+		 <input type="button" value="Click Here" />
+		</a>
+		<span></span>
+	</div>
+</div>
+
 {% if user.is_authenticated %}
 <div class="errors">
   You have already registered, and are logged in.
@@ -59,16 +70,6 @@ $("#branch_input").autocomplete(bdata);
   </a>
   to login. Otherwise, please fill in the following details to register:
  </p>
- 
- <div class = "showclgfrm">
-    Can't find your college?
-	<div class="button2">
-		<a href="#reg_coll" onclick="showNewCollegeDiv()">
-		 <input type="button" value="Click Here" />
-		</a>
-		<span></span>
-	</div>
-</div>
 
 </div>
 
