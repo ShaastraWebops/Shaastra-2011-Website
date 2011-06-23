@@ -94,12 +94,14 @@
 				</table>
 		<!--The Submit Button -->
 				<input type="hidden" value="{{row.id}}" />
-				{%if is_edit_tab%}
-				<div class="button">
-					<a href="#">
-						<input type="submit" value="Update Tab" />
-					</a>
-					<span></span>
+				{%if is_edit_tab
+				<div id="update_tab">
+					<div class="button">
+						<a href="#">
+							<input type="submit" value="Update Tab" />
+						</a>
+						<span></span>
+					</div>
 				</div>
 				{%else%}
 				<div id="create_tab">
@@ -130,11 +132,13 @@
 							<form action="{{SITE_URL}}events/dashboard/delete_file/" method='POST'>
 								{% csrf_token %}
 								<input type="hidden" value="{{file.id}}" name="tabfile_id" />
-								<div class="button">
-									<a href="#">				
-											<input type="submit" value="Delete"/>
-									</a>
-									<span></span>
+								<div id="delete_file">
+									<div class="button">
+										<a href="#">				
+												<input type="submit" value="Delete"/>
+										</a>
+										<span></span>
+									</div>
 								</div>
 							</form>
 						{%endfor%}
@@ -153,12 +157,14 @@
 			                {{formadd.as_table}}  
 			                </table>
 			                <input type="hidden" value="{{row.id}}" name="tabfile_id" />
-			                <div class="button">
-                                <a href="#">
-                                    <input type="submit" value="Add File" />
-                                </a>
-                                <span></span>
-			                </div>
+							<div id="add_file">
+								<div class="button">
+									<a href="#">
+										<input type="submit" value="Add File" />
+									</a>
+									<span></span>
+								</div>
+							</div>
 		                </form>
 					{%else%}
 						 Please create tab before uploading files.
