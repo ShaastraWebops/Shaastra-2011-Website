@@ -146,10 +146,12 @@
             <img src = "{{event.sponslogo.url}}"width="217" height="150">
             </div>
 		{%endif%}
+        {%if event.video%}
     		<div id = "rtvbottom">
 		    <iframe src="{{event.video}}"
    width="320" height="200"></iframe>
 		</div>
+    {%endif%}
 	      </div>
       </div>
 	 {%endblock%}     
