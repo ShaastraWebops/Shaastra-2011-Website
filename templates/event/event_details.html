@@ -35,14 +35,13 @@
 
                <!-- The edit tab Button -->
                
-               <div id="edit_tab">
+                <div id="edit_tab">
                     <form action="edit_tab/" method = 'GET'>
-            	       {% csrf_token %}
-	            <input type="hidden" value="{{row.id}}" name=tab_id >
-	           <!-- <input type="submit" value="Edit {{row.title}} Tab"> -->
-			    <input type="submit" value="">
+            	    {% csrf_token %}
+						<input type="hidden" value="{{row.id}}" name=tab_id >
+						<input type="submit" value="">
                     </form>
-               </div>
+                </div>
 
                  
  
@@ -159,11 +158,9 @@
 
 
 <!-- the delete tab button -->                   
-<div id="deletetab{{row.id}}">
-   <div id="delete_tab">
-   
-               <input type="submit" value="">
-   
+<div id="deletetab{{row.id}} style="float:left;">
+    <div id="delete_tab">
+    <input type="submit" value="">   
 </div>  
 
 
@@ -176,20 +173,24 @@
     <form action="delete_tab/" method = 'POST'>
     {% csrf_token %}
     <input type="hidden" value="{{row.id}}" name=tab_id />
-    <div class="button2">
-			<a href="#">
-				<input type="submit" value="Confirm Delete" />
-			</a>
-			<span></span>
+	<div id="conf_del">
+		<div class="button2">
+				<a href="#">
+					<input type="submit" value="Confirm Delete" />
+				</a>
+				<span></span>
 		</div>
-</form>
+	</div>
+	</form>
     
-    <div id="cancel{{row.id}}"><div class="button2">
-			<a href="#">
+	
+<div id="cancel{{row.id}}" style="float:left;">
+	<div class="button2">
+		<a href="#">
 				<input type="submit" value="Cancel" />
 			</a>
 			<span></span>
-		</div>
+	</div>
 </div>
     
 
