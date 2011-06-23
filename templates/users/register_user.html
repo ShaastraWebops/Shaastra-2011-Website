@@ -427,10 +427,8 @@ function hide_college(){
  <a name="reg_coll">
   <div id="newcollege" style="display:none">
    <div class="register">
-    <h1>
-     College Registration
-    </h1>
     <p>
+	 Please fill in the following details:<br />
      Please follow this guideline when registering:
      <br />
      Kindly use full names for the name of your
@@ -444,10 +442,8 @@ function hide_college(){
     <form id="reg_college" onsubmit="create_coll(); return false;"  onLoad="changeBg();">
     {% csrf_token %}
      <div class="info">
-      <p>
-       Please fill in the following details:
-      </p>
       <table name="register">
+	  <tr><td colspan="2"><h2>College Registraion</h2></td></tr>
       {% for field in coll_form %}
 <tr>
   <td>{{ field.label_tag }}</td><td align="left">{{ field }}</td>
