@@ -203,38 +203,21 @@
 <script>
 
 
-$("#deltabconf{{row.id}}").css('width','0px');
+$("#deltabconf{{row.id}}").fadeOut(0);;
 $("#deletetab{{row.id}}").click(function () {
-		$("#deletetab{{row.id}}").animate({
-					width:'0px',
-				},300);
-		$("#edit_tab{{row.id}}").animate({
-					width:'0px',
-				},300);
-		$("#deltabconf{{row.id}}").animate({
-					width:'250px',
-				},300);
+		$("#deletetab{{row.id}}").fadeOut(300);
+		$("#edit_tab{{row.id}}").fadeOut(300);
+		$("#deltabconf{{row.id}}").fadeIn(300);
     });
 
 
 $("#cancel{{row.id}}").click(function () {
-		$("#deletetab{{row.id}}").animate({
-					width:'250px',
-				},300);
-		$("#edit_tab{{row.id}}").animate({
-					width:'110px',
-				},300);
-		$("#deltabconf{{row.id}}").animate({
-					width:'0px',
-				},300);
+		$("#deletetab{{row.id}}").fadeIn(300);
+		$("#edit_tab{{row.id}}").fadeIn(300);
+		$("#deltabconf{{row.id}}").fadeOut(300);
     })
 </script>
-
-<br /><br /><br /><br /><br /><br /><br /><br />
-
-
-
-    
+   
 				</div>
                               {%endfor%}
 					</div>
