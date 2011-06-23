@@ -35,7 +35,7 @@
 
                <!-- The edit tab Button -->
                
-                <div id="edit_tab" style="position:absolute; bottom:-10px; left:5px;">
+                <div id="edit_tab{{row.id}}" style="position:absolute; bottom:-10px; left:10px;">
                     <form action="edit_tab/" method = 'GET' >
             	    {% csrf_token %}
 						<input type="hidden" value="{{row.id}}" name=tab_id >
@@ -158,7 +158,7 @@
 
 
 <!-- the delete tab button -->                   
-<div id="deletetab{{row.id}}" style="position:absolute; bottom:0px; left:110px;">
+<div id="deletetab{{row.id}}" style="position:absolute; bottom:0px; left:115px;">
     <div id="delete_tab">
     <input type="submit" value="">   
 </div>  
@@ -173,7 +173,7 @@
     <form action="delete_tab/" method = 'POST'>
     {% csrf_token %}
     <input type="hidden" value="{{row.id}}" name=tab_id />
-	<div id="conf_del" style="position:absolute; bottom:-5px;">
+	<div id="conf_del{{row.id}}" style="position:absolute; bottom:-5px; left:5px;">
 		<div class="button2">
 				<a href="#">
 					<input type="submit" value="Confirm Delete" />
@@ -184,7 +184,7 @@
 	</form>
     
 	
-<div id="cancel{{row.id}}" style="position:absolute; bottom:-5px; left:133px;"> 
+<div id="cancel{{row.id}}" style="position:absolute; bottom:-5px; left:138px;"> 
 	<div class="button2">
 		<a href="#">
 				<input type="submit" value="Cancel" />
@@ -216,7 +216,7 @@ $("#deletetab{{row.id}}").click(function () {
 		$("#deletetab{{row.id}}").fadeOut(300);
 		$("#edit_tab").fadeOut(300);
 		//$("#deltabconf{{row.id}}").fadeIn(300);		
-		$("#conf_del").animate({
+		$("#conf_del{{row.id}}").animate({
 			marginLeft:'0px'
 		},300);
 		$("#cancel{{row.id}}").animate({
@@ -226,12 +226,12 @@ $("#deletetab{{row.id}}").click(function () {
 
 
 $("#cancel{{row.id}}").click(function () {
-		$("#conf_del").animate({
-			marginLeft:'-300px'
-		},800);
-		$("#cancel{{row.id}}").animate({
+		$("#conf_del{{row.id}}").animate({
 			marginLeft:'-300px'
 		},300);
+		$("#cancel{{row.id}}").animate({
+			marginLeft:'-300px'
+		},800);
 		$("#deletetab{{row.id}}").fadeIn(900);
 		$("#edit_tab").fadeIn(900);
 		//$("#deltabconf{{row.id}}").fadeOut(300);
