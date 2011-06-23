@@ -36,9 +36,10 @@
                <!-- The edit tab Button -->
                
                 <div id="edit_tab{{row.id}}" style="position:absolute; bottom:-10px; left:10px;">
+				
                     <form action="edit_tab/" method = 'GET' >
             	    {% csrf_token %}
-						<input type="hidden" value="{{row.id}}" name=tab_id >
+						<input type="hidden" value="{{row.id}}" name=tab_id >						
 						<input type="submit" value="">
                     </form>
                 </div>
@@ -205,7 +206,7 @@
 
 //$("#deltabconf{{row.id}}").fadeOut(0);;
 
-		$("#conf_del").animate({
+		$("#conf_del{{row.id}}").animate({
 			marginLeft:'-300px'
 		},300);
 		$("#cancel{{row.id}}").animate({
@@ -214,7 +215,7 @@
 		
 $("#deletetab{{row.id}}").click(function () {
 		$("#deletetab{{row.id}}").fadeOut(300);
-		$("#edit_tab").fadeOut(300);
+		$("#edit_tab{{row.id}}").fadeOut(300);
 		//$("#deltabconf{{row.id}}").fadeIn(300);		
 		$("#conf_del{{row.id}}").animate({
 			marginLeft:'0px'
@@ -233,7 +234,7 @@ $("#cancel{{row.id}}").click(function () {
 			marginLeft:'-300px'
 		},800);
 		$("#deletetab{{row.id}}").fadeIn(900);
-		$("#edit_tab").fadeIn(900);
+		$("#edit_tab{{row.id}}").fadeIn(900);
 		//$("#deltabconf{{row.id}}").fadeOut(300);
     })
 </script>
