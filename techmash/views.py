@@ -1,5 +1,4 @@
-# Create your views here.
-# Create your views here.
+
 from django.template.loader import get_template
 from django.template import Context
 from django.http import HttpResponse, Http404, HttpResponseRedirect
@@ -55,6 +54,7 @@ def upload_file1(request):
             photo = Photo(image=photopath,title = uploaded_filename,rating=300,user=request.user.username,groupnum=1)
             # Save it -- the thumbnails etc. get created.
             photo.save()
+            hanle_uploaded_image(request.FILES['file'])
             return HttpResponseRedirect(("%stechmash/upload/" % settings.SITE_URL))
     else:
         form = UploadFileForm()
@@ -133,3 +133,30 @@ def selectimages(request):
 def seephotos(request):   
     photo_list=Photo.objects.all()
     return render_to_response("techmash/mash.html", locals(),context_instance= global_context(request))
+    
+def handle_uploaded_image(i):
+    # resize image
+    imagefile  = StringIO.StringIO(i.read())
+    imageImage = Image.open(imagefile)
+
+    (width, height) = imageImage.size
+    (width, height) = scale_dimensions(width, height, longest_side=240)
+
+    resizedImage = imageImage.resize((width, height))
+
+    imagefile = StringIO.StringIO()
+    resizedImage.save(imagefile,'JPEG')
+    filename = hashlib.md5(imagefile.getvalue()).hexdigest()+'.jpg'
+
+    # #save to disk
+    imagefile = open(os.path.join('/images',filename), 'w')
+    resizedImage.save(imagefile,'JPEG')
+    imagefile = open(os.path.join('/images',filename), 'r')
+    content = django.core.files.File(imagefile)
+    #photopath = os.path.join(destdir, os.path.basename(uploaded_filename))
+    #fout = open(photopath, 'wb+')
+    #f=request.FILES['file']
+    #for chunk in f.chunks():
+		#fout.write(chunk)
+    #fout.close()         
+      
