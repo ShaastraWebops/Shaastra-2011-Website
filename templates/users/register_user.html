@@ -69,7 +69,7 @@ $("#branch_input").autocomplete(bdata);
 <tr>
 <td id="maincol1">
 
-  <div class="info">
+  <div class="info" style = "overflow:auto">
  <form id="reg_form" action="{{SITE_URL}}register/user/" method="POST" onload="onblurAttribute();changeBg();">
 {% csrf_token %}
 <table name="register" >
