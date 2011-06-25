@@ -12,6 +12,7 @@ handler500 = "main_test.misc.util.server_error"
 urlpatterns = patterns('',  
         
       (r'^register/user/?$', 'main_test.users.views.user_registration'),
+      (r'^edit/user/?$', 'main_test.users.views.edit_profile'),
       (r'^register/college/?$', 'main_test.users.views.college_registration'),
       (r'^myshaastra/$', 'main_test.users.views.myshaastra'),
       (r'^register/activate/(?P<a_key>[\w]+)/?$', 'main_test.users.views.activate'),

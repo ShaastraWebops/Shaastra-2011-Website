@@ -158,4 +158,25 @@ def myshaastra(request):
     userprof = user.get_profile()
     events_list = userprof.registered
     return render_to_response('my_shaastra.html', locals(), context_instance = global_context(request))
+    
+@needs_authentication
+def edit_profile(request):
+    user = request.user
+    #userid = user.id
+    userprofile = user.get_profile()
+    if request.method=='POST':
+        data=request.POST.copy()
+        form=forms.EditUserForm(data)
+        if form.is_valid():
+            user.password=form.cleaned_data['password']
+            user.save()
+            userprofile.college_roll=form.cleaned_data['college_roll']
+            userprofile.mobile_number=form.cleaned_data['mobile_number']
+            userprofile.save()
+            return HttpResponseRedirect ("%slogin/"%settings.SITE_URL)
+    else:
+        form=forms.EditUserForm(initial={'password':user.password,'password_again':user.password,'college_roll':userprofile.college_roll,'mobile_number':userprofile.mobile_number})
+        return render_to_response('users/edit_user_raw.html', locals(), context_instance= global_context(request))
+    
+      
 

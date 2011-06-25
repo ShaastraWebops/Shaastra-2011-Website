@@ -151,3 +151,40 @@ class AddUserForm(ModelForm):
         else:
            return self.cleaned_data['college_roll']
      
+     
+class EditUserForm(ModelForm):
+
+    password=forms.CharField(min_length=6, max_length=30, widget=forms.PasswordInput,help_text='Enter a password that you can remember')
+    password_again=forms.CharField(max_length=30, widget=forms.PasswordInput,help_text='Enter the same password that you entered above')
+
+    class Meta:
+        model = models.UserProfile
+        fields=('password','password_again','college_roll','mobile_number')
+        #except = ('is_coord','coord_event')        
+    
+	    
+    def clean_mobile_number(self):
+	if (len(self.cleaned_data['mobile_number'])!=10 or (self.cleaned_data['mobile_number'][0]!='7' and self.cleaned_data['mobile_number'][0]!='8' and self.cleaned_data['mobile_number'][0]!='9') or (not self.cleaned_data['mobile_number'].isdigit())):
+	    raise forms.ValidationError(u'Enter a valid mobile number')
+	else:
+	  return self.cleaned_data['mobile_number']
+
+    def clean_password(self):
+        if self.prefix:
+            field_name1 = '%s-password'%self.prefix
+            field_name2 = '%s-password_again'%self.prefix
+        else:
+            field_name1 = 'password'
+            field_name2 = 'password_again'
+            
+        if self.data[field_name1] != '' and self.data[field_name1] != self.data[field_name2]:
+            raise forms.ValidationError ("The entered passwords do not match.")
+        else:
+            return self.data[field_name1]
+    
+    def clean_college_roll(self):
+        if (not alphanumric.search(self.cleaned_data['college_roll'])) or self.cleaned_data['college_roll'].isalpha():
+           raise forms.ValidationError(u'Enter a valid roll number.')
+        else:
+           return self.cleaned_data['college_roll']
+
