@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 
 <html>
-<!--index.html -->
+<!--__ index.html -->
   <head>
     <title>
      {%block title%}
@@ -40,8 +40,9 @@ annual technical festival of IIT Madras
     <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/jquery.jscrollpane.min.js"></script>
     <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/jquery.mousewheel.js"></script>
     <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/ticker2.js"></script>
-    <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/action.js"></script>       
-	  <script>  
+    <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/action.js"></script>  
+    <link rel="shortcut icon" href="http://www.shaastra.org/fav.ico" />     
+	<script>  
 	    if(window.innerHeight > 650)
 						{
 						var tp = window.innerHeight;
@@ -54,8 +55,8 @@ annual technical festival of IIT Madras
 						document.getElementById("footer_container").style.top = newtp+"px";
 						//alert(document.getElementById("footer_container").style.top);// = tp;
 						}
-
-						</script>
+  
+	</script>
     <!--[if lte IE 8]>
         <script type="text/javascript">
           width=78;
@@ -80,33 +81,33 @@ annual technical festival of IIT Madras
 
 		
     <script>
-      $(document).ready(function() {
+	$(document).ready(function() {
 
-      $('#ticker-img-right').click(function() {
-      clearTimeout(t);
-      untypeNext()
-      });
-      $('#ticker-img-left').click(function() {
-      clearTimeout(t);
-      untypePrev()
-      });
-      getTickerData();
+			  $('#ticker-img-right').click(function() {
+			  clearTimeout(t);
+			  untypeNext()
+			  });
+			  $('#ticker-img-left').click(function() {
+			  clearTimeout(t);
+			  untypePrev()
+			  });
+			  getTickerData();
 
 
-      $(document).ready(function() {
-      $('#ticker-img-right2').click(function() {
-      clearTimeout(t2);
-      untypeNext2()
-      });
-      $('#ticker-img-left2').click(function() {
-      clearTimeout(t2);
-      untypePrev2()
-      });
-      getTickerData2();
+			  $(document).ready(function() {
+			  $('#ticker-img-right2').click(function() {
+			  clearTimeout(t2);
+			  untypeNext2()
+			  });
+			  $('#ticker-img-left2').click(function() {
+			  clearTimeout(t2);
+			  untypePrev2()
+			  });
+			  getTickerData2();
+			  
+			  });
       
-      });
-      
-      });
+    });
       
     </script>
 
@@ -116,18 +117,16 @@ annual technical festival of IIT Madras
     <script type="text/javascript">
       
 
-      $(document).ready(function () {
-      
-      
-      $('#ticker-img-right').click(function() {
-      clearTimeout(t);		
-      untypeNext()
-      });
-      $('#ticker-img-left').click(function() { 
-      clearTimeout(t);
-      untypePrev()
-      });
-      getTickerData();
+      $(document).ready(function () {      
+			  $('#ticker-img-right').click(function() {
+			  clearTimeout(t);		
+			  untypeNext()
+			  });
+			  $('#ticker-img-left').click(function() { 
+			  clearTimeout(t);
+			  untypePrev()
+			  });
+			  getTickerData();
       });
 	  
 	  

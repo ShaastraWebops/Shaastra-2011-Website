@@ -2,8 +2,8 @@
 {%block event_categories%}{%endblock%}
 
  {%block media_location%}   
-    <script type="text/javascript">
-		    var IntExp=0;
+	<script type="text/javascript">
+			var IntExp=0;
 			/***********************************************************************************************************************************************
 			How to add a new tab -
 			1) Update the elem array with the id of the new tab.															e.g : newTab
@@ -15,14 +15,13 @@
 			 var elem=[];
 			 var tabNames=[];
 			 var tot=0;
-			 var noOfTabs=0;
+			 var noOfTabs=0
 			{%for row in tab_list%}
 				elem[{{forloop.counter0}}]='{{row.title|slugify}}';
 				tabNames[{{forloop.counter0}}]='{{row.title}}';
 				tot=tot+1;
 			{%endfor%}
-            
-            noOfTabs=tot;		
+            noOfTabs=tot;			
 	</script>
     <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/events-tab.js"></script>
 {%endblock%}   
