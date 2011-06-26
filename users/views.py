@@ -107,15 +107,13 @@ def college_registration (request):
                 college = college.replace('&','and')
             city=clean_string(coll_form.cleaned_data['city'])
             state=clean_string(coll_form.cleaned_data['state'])
-
+             
             if len (College.objects.filter(name=college, city=city, state=state))== 0 :
                 college=College (name = college, city = city, state = state)
                 college.save()
                 data = college.name+","+college.city
-                #return HttpResponse("created") 
-                return HttpResponse(data, mimetype="text/plain")
-
-
+                return HttpResponse("created") 
+                #return HttpResponse(data, mimetype="text/plain")
             else:
                 return HttpResponse("exists")
         else:
