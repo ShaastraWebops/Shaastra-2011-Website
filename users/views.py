@@ -102,18 +102,18 @@ def college_registration (request):
         coll_form = forms.AddCollegeForm(data,prefix="identifier")
 
         if coll_form.is_valid():
-            college=clean_string(coll_form.cleaned_data['name'])
+            college=coll_form.cleaned_data['name']
             if college.find('&')>=0:
                 college = college.replace('&','and')
-            city=clean_string(coll_form.cleaned_data['city'])
-            state=clean_string(coll_form.cleaned_data['state'])
-             
+            city=coll_form.cleaned_data['city']
+            state=coll_form.cleaned_data['state']
+            
             if len (College.objects.filter(name=college, city=city, state=state))== 0 :
                 college=College (name = college, city = city, state = state)
                 college.save()
                 data = college.name+","+college.city
-                return HttpResponse("created") 
-                #return HttpResponse(data, mimetype="text/plain")
+                #return HttpResponse("created") 
+                return HttpResponse(data, mimetype="text/plain")
             else:
                 return HttpResponse("exists")
         else:
