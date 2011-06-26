@@ -1,12 +1,9 @@
 {%extends "index.html"%}
 {%block event_categories%}{%endblock%}
-{%block title%}
-      Shaastra 2011 - {{event_name}}
-{%endblock%}
 
  {%block media_location%}   
-    <script type="text/javascript">
-		    var IntExp=0;
+	<script type="text/javascript">
+			var IntExp=0;
 			/***********************************************************************************************************************************************
 			How to add a new tab -
 			1) Update the elem array with the id of the new tab.															e.g : newTab
@@ -18,14 +15,13 @@
 			 var elem=[];
 			 var tabNames=[];
 			 var tot=0;
-			 var noOfTabs=0;
+			 var noOfTabs=0
 			{%for row in tab_list%}
 				elem[{{forloop.counter0}}]='{{row.title|slugify}}';
 				tabNames[{{forloop.counter0}}]='{{row.title}}';
 				tot=tot+1;
 			{%endfor%}
-            
-            noOfTabs=tot;		
+            noOfTabs=tot;			
 	</script>
     <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/events-tab.js"></script>
 {%endblock%}   
@@ -57,7 +53,10 @@
 					}
 		</script>		 
 	    </div> 
-	    <!-- I think I love you more than the japanese love tangle porn. -->
+
+
+
+
 	    <div id="event-details">
                               {%for row in tab_list %}
 				<div id="{{row.title|slugify }}_">
@@ -146,10 +145,12 @@
             <img src = "{{event.sponslogo.url}}"width="217" height="150">
             </div>
 		{%endif%}
+        {%if event.video%}
     		<div id = "rtvbottom">
 		    <iframe src="{{event.video}}"
    width="320" height="200"></iframe>
 		</div>
+    {%endif%}
 	      </div>
       </div>
 	 {%endblock%}     

@@ -44,9 +44,17 @@ $("#branch_input").autocomplete(bdata);
 </div>
 {% endif %}
 <div class="register">
- <h1 align = "center">
-  User Registration
- </h1>
+ 
+ <div class = "showclgfrm">
+    <div>Can't find your college?</div>
+	<div class="button2">
+		<a href="#reg_coll" onclick="showNewCollegeDiv()">
+		 <input type="button" value="Click Here" />
+		</a>
+		<span></span>
+	</div>
+</div>
+
 {% if user.is_authenticated %}
 <div class="errors">
   You have already registered, and are logged in.
@@ -62,9 +70,15 @@ $("#branch_input").autocomplete(bdata);
   </a>
   to login. Otherwise, please fill in the following details to register:
  </p>
+
 </div>
 
-<center>
+
+<center style="height:400px; overflow:scroll; margin-right:20px;">
+ <h1 align="center">
+  User Registration
+ </h1>
+ <br>
 <table id = "maintable" cellpadding = "10" rules = "cols">
 <tr>
 <td id="maincol1">
@@ -287,6 +301,7 @@ onblurAttribute();
 </script>
 
    <script type="text/javascript">
+		$('#content').css({'height':'412px','width':'98%'});
         var label = document.body.getElementsByTagName("label")[13];
         var string = label.innerHTML;
         label.innerHTML = "<div class='errors'>"+string+"<div style='font-family: verdana; color: black; font-size: 10px; line-height: 1em;'>We will be sending you a conformation mail after 3rd of September if you get shortlisted for accommodation!</div></div>";
@@ -294,30 +309,27 @@ onblurAttribute();
 
    <script type="text/javascript">
     function showNewCollegeDiv(){
-      document.getElementById("newcollege").style.display="block";
+      document.getElementById("maincol2").style.display="block";
+	  document.getElementById("newcollege").style.display="block";	  
+	  document.getElementById("maincol1").style.display="none";
     }
    </script>
    
+	<div id="reg_me">
+		<div class="button2">
+			<a href="#">
+				<input type="button" value="Register Me" onclick="validateForm()">
+			</a>
+			<span></span>
+		</div>
+	</div>
 
-   <br />
-    <input type="button" value="Register Me" onclick="validateForm()">
 </form>
 
 </div>
 </td>
 
 <td id="maincol2" style="display:none";>
-
-<div class = "info">
-    <i>
-    Can't find your college?
-    <a href="#reg_coll" onclick="showNewCollegeDiv()">
-     Click Here
-    </a>
-   </i>
-</div>
-
-
  <script type="text/javascript">
  $("#content").css({'background-image':'url(http://www.shaastra.org/2011/media/main/img/bg2.png)'});
   var xmlhttp;
@@ -356,16 +368,16 @@ if(xmlhttp.readyState==4)
     //alert(response);
 
     var coll_response = response;
-    alert(coll_response);
+    //alert(coll_response);
     
     document.getElementById("reg_success").style.display="block";
     document.getElementById("newcollege").style.display="none";
     if (coll_response != "exists" || coll_response != "failed")
     {
-        alert("works");
-        alert(data);
+        //alert("works");
+        //alert(data);
        data[data.length]=coll_response;
-       alert(data);
+       //alert(data);
        $('input#coll_input').flushCache();
        $("#coll_input").autocomplete(data);
 
@@ -393,7 +405,9 @@ function create_coll(){
 }
 
 function hide_college(){
-  document.getElementById("newcollege").style.display = "none";
+      document.getElementById("maincol2").style.display="none";
+	  document.getElementById("newcollege").style.display="none";	  
+	  document.getElementById("maincol1").style.display="block";
 }
 
 //function show_events(){
@@ -412,11 +426,9 @@ function hide_college(){
  </div>
  <a name="reg_coll">
   <div id="newcollege" style="display:none">
-   <div class="register">
-    <h1>
-     College Registration
-    </h1>
+   <div class="regCollInfo">
     <p>
+	 Please fill in the following details:<br />
      Please follow this guideline when registering:
      <br />
      Kindly use full names for the name of your
@@ -430,10 +442,8 @@ function hide_college(){
     <form id="reg_college" onsubmit="create_coll(); return false;"  onLoad="changeBg();">
     {% csrf_token %}
      <div class="info">
-      <p>
-       Please fill in the following details:
-      </p>
       <table name="register">
+	  <tr><td colspan="3"><h2>College Registraion</h2></td></tr>
       {% for field in coll_form %}
 <tr>
   <td>{{ field.label_tag }}</td><td align="left">{{ field }}</td>
@@ -441,7 +451,23 @@ function hide_college(){
     </tr>
       {% endfor %}
       </table>
-      <input type="submit" value="Register College" /><input type="button" value = "Cancel" onclick="javascript:hide_college()" />
+	<div id="regcoll">
+		<div class="button2">
+			<a href="#">
+				<input type="submit" value="Register College" />
+			</a>
+			<span></span>
+		</div>
+		<div id="regcoll_" style="float:left; margin-left:30px;">
+			<div class="button2">
+				<a href="#">
+					<input type="button" value = "Cancel" onclick="javascript:hide_college()" />
+				</a>
+				<span></span>
+			</div>
+		</div>
+	</div>
+
      </div>
     </form>
    </div> <!-- closes register -->
