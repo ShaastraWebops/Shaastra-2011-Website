@@ -49,7 +49,7 @@ def logout(request):
     if request.user.is_authenticated():
         auth.logout (request)
         return render_to_response('users/logout.html', locals(), context_instance= global_context(request))        
-    return HttpResponseRedirect('%sevents/login/'%settings.SITE_URL)        
+    return HttpResponseRedirect('%slogin/'%settings.SITE_URL)        
     
 def user_registration(request):
     colls = models.College.objects.all()
@@ -90,7 +90,7 @@ def user_registration(request):
 							 'SITE_URL':settings.SITE_URL,
 							 'activationkey':userprofile.activation_key }))
             send_mail('Your new Shaastra2011 account confirmation', body,'noreply@shaastra.org', [user.email,], fail_silently=False)
-
+            return render_to_response('users/registered.html', locals(), context_instance= global_context(request))    
     else:
         form = forms.AddUserForm()
         coll_form = forms.AddCollegeForm(prefix="identifier")
