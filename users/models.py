@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from main_test.events.models import Event
+from main_test.submissions.models import *
 
 GENDER_CHOICES = (
     ('M','Male'),
