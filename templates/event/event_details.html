@@ -163,13 +163,13 @@
 		{%endfor%}      
 		-->
 		<div id="qrre_btn" style="position:relative;">
-			<div id="edit_tab" style="position:absolute; bottom:0px; background-image:none;">
+			<div id="edit_tab" style="position:absolute; bottom:0px;">
 			<form action="edit_tab/" method = 'GET'>
 			{% csrf_token %}
 			<input type="hidden" value="{{row.id}}" name=tab_id >
 			<div class="button2">
 				<a href="#">
-					<input type="submit" value="Edit Questions Tab">
+					<input type="submit" value="Edit Questions Tab" style="background-image:none;">
 				</a>
 				<span></span>
 			</div>
