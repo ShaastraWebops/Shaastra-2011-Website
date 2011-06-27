@@ -162,34 +162,36 @@
                 </div>                       
 		{%endfor%}      
 		-->
-		<div id="edit_tab">
-		<form action="edit_tab/" method = 'GET'>
-		{% csrf_token %}
-		<input type="hidden" value="{{row.id}}" name=tab_id >
-		<div class="button2">
-			<a href="#">
-				<input type="submit" value="Edit Questions Tab">
-			</a>
-			<span></span>
-		</div>
-		
-		</form>
-		</div>
-		
-		<div id="add_question">
-		<form action="add_question/" method ="POST">
-		{% csrf_token %}
-		<input type="hidden" value="{{row.id}}" name="tab_id" />
-		<div class="button2">
-			<a href="#">
-				<input type="submit" value="Add Questions" />
-			</a>
-			<span></span>
-		</div>
-		
-		</form>
-		</div>         
-		{% endif %}
+		<!-- <div id="qrre_btn" style="position:relative;"> -->
+			<div id="edit_tab" style="position:absolute; bottom:0px;">
+			<form action="edit_tab/" method = 'GET'>
+			{% csrf_token %}
+			<input type="hidden" value="{{row.id}}" name=tab_id >
+			<div class="button2" style="position:relative;  left:220px; top:5px;">
+				<a href="#">
+					<input type="submit" value="Edit Questions Tab" style="background-image:none; color:#000;">
+				</a>
+				<span></span>
+			</div>
+			
+			</form>
+			</div>
+			
+			<div id="add_question" style="position:absolute; bottom:0px; left:100px;">
+			<form action="add_question/" method ="POST">
+			{% csrf_token %}
+			<input type="hidden" value="{{row.id}}" name="tab_id" />
+			<div class="button2" style="position:relative;  left:260px; top:5px;">
+				<a href="#">
+					<input type="submit" value="Add Questions" />
+				</a>
+				<span></span>
+			</div>
+			
+			</form>
+			</div>         
+			{% endif %}
+		<!-- </div>  -->
 
 
 
