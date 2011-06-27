@@ -65,7 +65,7 @@
                   <p>This is a multiple choice question. Please select your choice and click on "Submit".</p>
                   <p> This will be functional soon.</p>
                   <div id="mcq_question">
-                    <table>
+                    <table style="border:solid 0.1mm #000; border-radius:4px; background-color:#fafafa;">
                       <form>
                         {% csrf_token %}
                         {%for options in options_list %}
