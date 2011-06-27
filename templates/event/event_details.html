@@ -163,7 +163,7 @@
 		{%endfor%}      
 		-->
 		<div id="qrre_btn" style="position:relative;">
-			<div id="edit_tab" style="position:absolute; bottom:0px;">
+			<div id="edit_tab" style="position:absolute; bottom:0px; background-image:none;">
 			<form action="edit_tab/" method = 'GET'>
 			{% csrf_token %}
 			<input type="hidden" value="{{row.id}}" name=tab_id >
