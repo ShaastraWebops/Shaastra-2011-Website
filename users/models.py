@@ -80,3 +80,8 @@ class UserProfile(models.Model):
     class Admin:
         pass
 
+
+class Team(models.Model):
+    name            = models.CharField(max_length=50, default = False) 
+    event           = models.ForeignKey( Event, null = False)
+    members         = models.ManyToManyField(UserProfile,null=False)
