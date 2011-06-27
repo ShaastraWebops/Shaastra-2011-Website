@@ -82,7 +82,7 @@
                     {%for options in options_list %}
                         {%if options.question == ques %}
                             {%if is_coord %}
-                                <div id="delete_option">
+                                <div id="delete_option" style="float:left;">
                                 <tr><td>
                                 <form action="{{SITE_URL}}events/dashboard/delete_option/" method = 'POST'>
                                 {% csrf_token %}
@@ -101,13 +101,13 @@
                         {%endif%}
                     {%endfor%}
                     </table>
-                    <div id="add_choices">
+                    <div id="add_choices" style="float:left;">
                         <form action="add_choices/" method = 'GET'>
                         {% csrf_token %}
                         <input type="hidden" value="{{ques.id}}" name="ques_to_add_choices_id">
                         <div class="button2">
 									<a href="#">
-										<input type="submit" value="Add More Choices" style="float:left;">
+										<input type="submit" value="Add More Choices" >
 									</a>
 									<span></span>
 								</div>	
@@ -124,13 +124,13 @@
                   {% endif %}
                   
 
-                        <div id="delete_question">
+                        <div id="delete_question" style="float:left;">
                         <form action="{{SITE_URL}}events/dashboard/delete_question/" method = 'POST'>
                         {% csrf_token %}
                         <input type="hidden" value="{{ques.id}}" name=ques_id>
                         <div class="button2">
 									<a href="#">
-										<input type="submit" value="Delete Question" style="float:left;">
+										<input type="submit" value="Delete Question">
 									</a>
 									<span></span>
 								</div>	
