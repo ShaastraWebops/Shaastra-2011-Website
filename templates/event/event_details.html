@@ -204,8 +204,6 @@
  </div>
 
 <div id ="deltabconf{{row.id}}" >
-      
-        
     <form action="delete_tab/" method = 'POST'>
     {% csrf_token %}
     <input type="hidden" value="{{row.id}}" name=tab_id />
@@ -218,8 +216,6 @@
 		</div>
 	</div>
 	</form>
-    
-	
 <div id="cancel{{row.id}}" style="position:absolute; bottom:-5px; left:138px;"> 
 	<div class="button2">
 		<a href="#">
@@ -229,11 +225,6 @@
 	</div>
 </div>
     
-
-
-
-
-
 </div>
 
 <script>
@@ -270,7 +261,6 @@ $("#cancel{{row.id}}").click(function () {
 		},800);
 		$("#deletetab{{row.id}}").fadeIn(900);
 		$("#edit_tab{{row.id}}").fadeIn(900);
-		//$("#deltabconf{{row.id}}").fadeOut(300);
     })
 </script>
    <br><br><br><br><br>
