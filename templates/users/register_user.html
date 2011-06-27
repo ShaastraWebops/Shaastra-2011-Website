@@ -32,6 +32,25 @@ $("#branch_input").autocomplete(bdata);
   </script>
 <script language="javascript" type="text/javascript" src="http://www.shaastra.org/includes/2009/userportal/js/wz_tooltip.js">
   </script>
+  
+  {% if registered_user %}
+  
+  <center style="height:400px; overflow:scroll; margin-right:20px;">
+        <div class="success1">
+            You have successfully registered with Shaastra2011 !
+        </div>
+
+        <div class="warnings">
+            To activate your account, check your mail in a few minutes. 
+        <br /><br />
+        You will be able to login only after you have activated your account.
+
+        Click <a href="{{ SITE_URL }}home/">here</a> to go back to the home page.
+        </div>
+  </class>
+  
+  {% else %}
+ 
     {% if registered_college %}
 <div class="register">
  College successfully registered.
@@ -526,4 +545,6 @@ var branches=new Array("Arts","Accounting","Applied Mechanics / Mechatronics",
       }
     </script>
   -->
+  
+{% endif %}
 {% endblock %}
