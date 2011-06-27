@@ -90,10 +90,13 @@ def user_registration(request):
 							 'SITE_URL':settings.SITE_URL,
 							 'activationkey':userprofile.activation_key }))
             send_mail('Your new Shaastra2011 account confirmation', body,'noreply@shaastra.org', [user.email,], fail_silently=False)
-            return render_to_response('users/registered.html', locals(), context_instance= global_context(request))    
+            request.session['registered_user'] = True
+
     else:
         form = forms.AddUserForm()
         coll_form = forms.AddCollegeForm(prefix="identifier")
+    
+    registered_user = session_get(request,'registered_user')
     return render_to_response('users/register_user.html', locals(), context_instance= global_context(request))    
                             
 def college_registration (request):
