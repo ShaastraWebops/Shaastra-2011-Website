@@ -130,7 +130,7 @@
                         <input type="hidden" value="{{ques.id}}" name=ques_id>
                         <div class="button2">
 									<a href="#">
-										<input type="submit" value="Delete Question">
+										<input type="submit" value="Delete Question" style="float:left;">
 									</a>
 									<span></span>
 								</div>	
@@ -140,7 +140,7 @@
 
                         
 
-                        <div id="edit_question">
+                        <div id="edit_question" style="float:left;">
                         <form action="edit_question/" method = 'GET'>
                         {% csrf_token %}
                         <input type="hidden" value="{{ques.id}}" name=ques_id >
@@ -149,9 +149,10 @@
 									<a href="#">
 										<input type="submit" value="Edit Question">
 									</a>
+									<span></span>
 								</div>
                         </form>
-                        </div>
+                        </div></div>
                   
                   <script>
                     //$("#Question{{ques.Q_Number}}").hide();
