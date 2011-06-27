@@ -48,11 +48,10 @@
                  
  
            {%else%}
-           
+           <!--
 {% for ques in ques_list %}
 		<div id="Ques{{ques.Q_Number}}">
-                  <!--<a href="#Question{{ques.Q_Number}}">{{ques.Q_Number|safe}}. {{ques.title|safe}}</a><br/>-->
-	          <br/>{{ques.Q_Number|safe}}. {{ques.title|safe}}<br/>
+                  <a href="#Question{{ques.Q_Number}}">{{ques.Q_Number|safe}}. {{ques.title|safe}}</a><br/>
                 </div>
                 <div id="Question{{ques.Q_Number}}">
                   {% if ques.question_type == "NORMAL" %}
@@ -77,7 +76,8 @@
                       </form>
                     </table>
                     {%if not is_coord%}<input type="submit" value="Submit">{%endif%}
-                    <!-- Delete Option-->
+                    
+                    
                     <table>
                     {%for options in options_list %}
                         {%if options.question == ques %}
@@ -122,7 +122,7 @@
                   <input type="file" name="blah" size="30"><br/>
                   <input type="submit" value="Upload">               
                   {% endif %}
-                  <!-- the delete question button -->
+                  
 
                         <div id="delete_question">
                         <form action="{{SITE_URL}}events/dashboard/delete_question/" method = 'POST'>
@@ -138,7 +138,7 @@
                         </form>
                         </div>
 
-                        <!-- the edit question button -->
+                        
 
                         <div id="edit_question">
                         <form action="edit_question/" method = 'GET'>
@@ -188,7 +188,7 @@
 		</div>
 		
 		</form>
-		</div>          
+		</div>          -->
 		{% endif %}
 
 
