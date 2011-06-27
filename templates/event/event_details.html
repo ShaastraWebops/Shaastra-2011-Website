@@ -167,9 +167,9 @@
 			<form action="edit_tab/" method = 'GET'>
 			{% csrf_token %}
 			<input type="hidden" value="{{row.id}}" name=tab_id >
-			<div class="button2">
+			<div class="button2" style="position:relative; top:50px;">
 				<a href="#">
-					<input type="submit" value="Edit Questions Tab" style="background-image:none;">
+					<input type="submit" value="Edit Questions Tab" style="background-image:none; color:#000;">
 				</a>
 				<span></span>
 			</div>
@@ -181,7 +181,7 @@
 			<form action="add_question/" method ="POST">
 			{% csrf_token %}
 			<input type="hidden" value="{{row.id}}" name="tab_id" />
-			<div class="button2">
+			<div class="button2" style="position:relative; top:50px; left:50px;">
 				<a href="#">
 					<input type="submit" value="Add Questions" />
 				</a>
