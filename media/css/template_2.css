@@ -1,0 +1,172 @@
+html {
+}
+body {
+    font-family: "Century Gothic";
+    margin-left: auto;
+    margin-right: auto;
+    min-width: 1200px;
+}
+img {
+    border: medium none;
+}
+#container {
+    height: 100%;
+    margin: 0 auto;
+    min-width: 1200px;
+    padding: 0;
+    width: 100%;
+}
+#content {
+    background-image: url("../img/bg.png");
+    background-repeat: repeat;
+    height: 500px;
+    margin: 0 auto;
+    min-width: 1200px;
+    position: absolute;
+    top: 220px;
+    width: 100%;
+}
+#textcontent {
+    height: 200px;
+    left: -30%;
+    margin: 0 auto;
+    min-width: 320px;
+    padding: 20px;
+    position: relative;
+    top: -20px;
+    width: 36%;
+}
+#text {
+    margin: 0 auto;
+    padding: 10px;
+    width: 80%;
+}
+#closeq {
+    left: 90%;
+    margin-right: 0;
+    position: relative;
+}
+#scrollcontent {
+    height: 200px;
+    margin: 0 auto;
+    min-width: 516px;
+    padding: 20px 20px 40px;
+    position: relative;
+    right: -27%;
+    top: -40%;
+    width: 35%;
+}
+#contentin {
+    min-height: 150px;
+    padding-bottom: 10px;
+    width: 100%;
+}
+#topright {
+    margin: 0 auto 0 20px;
+    width: 85%;
+}
+#scroll_line {
+    background-image: url("../img/line_bg.png");
+    background-repeat: repeat-x;
+    height: 5px;
+    margin: 30px auto 0;
+    vertical-align: middle;
+    width: 90%;
+}
+#scrollimg {
+    left: 55%;
+    position: relative;
+    top: -35px;
+}
+#video {
+    height: 190px;
+    left: -30%;
+    min-width: 480px;
+    padding-left: 50px;
+    position: relative;
+    text-align: left;
+    top: -40%;
+    width: 40%;
+}
+#login{
+
+    margin:0 auto 0 auto;
+    text-align:center;
+
+
+}
+#vidimg {
+    margin-top: 70px;
+}
+#bottomrighttext {
+    background-image: url("../img/bg_stuff.png");
+    background-repeat: no-repeat;
+    height: 188px;
+    left: 60%;
+    min-width: 480px;
+    padding: 2px;
+    position: absolute;
+    top: 55%;
+    width: 33%;
+}
+#footer {
+    background-image: url("../img/bottom_bg.png");
+    background-repeat: repeat-x;
+    height: 60px;
+    min-width: 100px;
+    position: relative;
+    top: 460px;
+    width: 100%;
+}
+#footer img {
+    padding-right: 40px;
+}
+#e {
+    position: relative;
+    top: 10px;
+}
+#c {
+    margin-right: 0;
+    margin-top: 30px;
+    position: relative;
+    top: -4px;
+}
+#pp {
+    margin-top: 10px;
+}
+#m {
+    margin-top: 10px;
+    position: relative;
+    top: -4px;
+}
+#ms {
+    margin-top: 10px;
+    position: relative;
+    top: -1px;
+}
+#b {
+    margin-top: 10px;
+    position: relative;
+    top: -1px;
+}
+#cr {
+    margin-top: 10px;
+    position: relative;
+    top: -5px;
+}
+#focontent {
+    margin: 25px auto 0;
+    text-align: center;
+    vertical-align: baseline;
+    width: 1000px;
+}
+#spons{
+    position:absolute;
+    top:15%;
+    left:70%;
+    height:180px;
+    width:217px;
+    background-image:url('../img/nokia.png');
+    background-position:0px 30px;
+    background-repeat:no-repeat;
+}

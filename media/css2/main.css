@@ -1,0 +1,146 @@
+*{padding:0; margin:0;}
+
+#container1{width:1035px; z-index:0;}
+
+#impact{
+  background:url("http://www.shaastra.org/2011/media/main/img/impact.jpg") no-repeat;
+  width:253px;
+  height:189px;
+  position:absolute;
+  top:0;
+  left:0;
+}
+
+#design_and_build{
+  background:url("http://www.shaastra.org/2011/media/main/img/design_and_build.jpg") no-repeat;
+  width:254px;
+  height:189px;
+  position:absolute;
+  top:0;
+  left:261px;
+}
+
+#coding{
+  background:url("http://www.shaastra.org/2011/media/main/img/coding.jpg") no-repeat;
+  width:126px;
+  height:189px;
+  position:absolute;
+  top:0;
+  left:518px;
+}
+
+#online{
+  background:url("http://www.shaastra.org/2011/media/main/img/online.jpg") no-repeat;
+  width:125px;
+  height:189px;
+  position:absolute;
+  top:194px;
+  left:518px;
+}
+
+#spotlights{
+  background:url("http://www.shaastra.org/2011/media/main/img/spotlights.jpg") no-repeat;
+  width:254px;
+  height:189px;
+  position:absolute;
+  top:194px;
+  left:0;
+}
+
+#flagship{
+  background:url("http://www.shaastra.org/2011/media/main/img/flagship.jpg") no-repeat;
+  width:254px;
+  height:189px;
+  position:absolute;
+  top:0;
+  left:779px;
+
+}
+
+#exhibition{
+  background:url("http://www.shaastra.org/2011/media/main/img/exhibitions.jpg") no-repeat;
+  width:125px;
+  height:189px;
+  position:absolute;
+  top:194px;
+  left:259px;
+}
+
+#quizzes{
+  background:url("http://www.shaastra.org/2011/media/main/img/quizzes.jpg") no-repeat;
+  width:126px;
+  height:94px;
+  position:absolute;
+  top:290px;
+  left:388px;
+}
+
+#soe{
+  background:url("http://www.shaastra.org/2011/media/main/img/random_cube.jpg") no-repeat;
+  width:124px;
+  height:90px;
+  position:absolute;
+  top:194px;
+  left:388px;
+  
+}
+  
+
+#copter{
+  background:url("http://www.shaastra.org/2011/media/main/img/copter.jpg") no-repeat;
+  width:120px;
+  height:95px;
+  position:absolute;
+  top:194px;
+  left:518px;
+}
+
+#involve{
+  background:url("http://www.shaastra.org/2011/media/main/img/involve.jpg") no-repeat;
+  width:127px;
+  height:189px;
+  position:absolute;
+  top:0;
+  left:648px;
+}
+
+#aerofest{
+  background:url("http://www.shaastra.org/2011/media/main/img/aerofest.jpg") no-repeat;
+  width:126px;
+  height:189px;
+  position:absolute;
+  top:194px;
+  left:904px;
+}
+
+#workshops{
+  background:url("http://www.shaastra.org/2011/media/main/img/workshops.jpg") no-repeat;
+  width:254px;
+  height:189px;
+  position:absolute;
+  top:194px;
+  left:650px
+}
+
+
+#popup_container{
+  width:1030px;
+  height:388px;
+  background:url("http://www.shaastra.org/2011/media/main/img/shading.png");
+  top:176px;
+  z-index:1;
+  left:125px;
+  display:none;
+  position:absolute;
+}
+
+.popup_contents{
+  position:absolute;
+  left:0;
+  top:0;
+  width:auto;
+  height:auto;
+  display:none;
+  float:left;
+  z-index:2;
+}

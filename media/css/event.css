@@ -1,0 +1,49 @@
+#content{
+    margin : 0px auto 0px auto;
+    min-height : 350px;
+    overflow : hidden;
+}
+#verticlright{
+    font-family:"Lucida Sans";
+    font-size:"14px";
+    margin-right:auto;
+    margin-left : auto;
+    min-height : 400px;
+    width : 25%;
+    float:left;
+    margin-top : -15px;
+    margin-bottom:50px;
+}
+#verticlright>div{
+margin : 0 auto 0 auto;
+}
+#verticlleft{
+    margin-right:auto;
+    margin-left : auto;
+    min-height : 350px;
+    width : 65%;
+    margin-top : 0px;
+    float:left;
+
+}
+#rtvtop{
+
+    text-align : center;
+ /*   margin : 10px auto 0 auto;*/
+ /*   height : 180px;*/
+ /*  width : 50%;*/
+    background-repeat : no-repeat;
+}
+#rtvtop>img{
+
+    padding : 0px;
+}
+#rtvbottom{
+    padding-top:10px;
+    text-align : center;
+    margin : 10px auto 0 auto;
+    height : 208px;
+    width : 328px;
+    background : url(../img/mySh.png);
+    background-repeat : no-repeat;
+}

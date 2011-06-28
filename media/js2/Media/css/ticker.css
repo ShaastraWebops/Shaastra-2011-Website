@@ -1,0 +1,114 @@
+#ticker {
+	height:80px;
+}
+
+
+#ticker-img-left{
+	position:relative;
+        top:4px;
+	display:inline;
+	height:40px;
+	width:23px;
+	float: left;
+	background-image: url(../Images/arrow_left.png);
+        background-repeat:no-repeat;
+}
+
+#ticker-img-left:hover { 
+	cursor:pointer;
+	left:-2px; 
+}
+
+#ticker-img-right { 
+	position:relative;
+        top:4px;
+	display:inline;
+	height:40px;
+	width:23px;
+	float: right;
+	background-image: url(../Images/arrow_right_o.png);
+        background-repeat:no-repeat;
+}
+
+
+#ticker-img-right:hover { 
+	cursor:pointer;
+	left:2px; 
+}
+
+#ticker-link-updates,#ticker-link-text {padding-top:12px;,position:relative; display:inline; float:left; color: #183F5A;font-size : 10pt;} 
+
+#ticker-link-text {
+        padding-top:12px;
+	cursor:pointer;
+	color:#183F5A;
+	text-decoration:none;
+        font-family:"Century Gothic";
+        font-size : 18px;
+        
+}
+#ticker-link-text:hover { text-decoration:underline; }
+
+
+
+
+
+
+
+#ticker2 {
+        width:570px;
+        position:absolute;
+        top:395px;
+        left:10px;
+	height:30px;
+	background-image: url(../../media/images/uBar_small.png);
+        background-repeat:no-repeat;
+        background-position:22px 0px;
+}
+
+
+#ticker-img-left2{
+	position:relative;
+        top:4px;
+	display:inline;
+	height:22px;
+	width:20px;
+	float: left;
+	background-image: url(../../media/images/arrow_left_grey.png);
+        background-repeat:no-repeat;
+}
+
+#ticker-img-left2:hover { 
+	cursor:pointer;
+	left:-2px; 
+}
+
+#ticker-img-right2 { 
+	position:relative;
+        top:4px;
+	display:inline;
+	height:22px;
+	width:20px;
+	float: right;
+	background-image: url(../../media/images/arrow_right_grey.png);
+        background-repeat:no-repeat;
+}
+
+
+#ticker-img-right2:hover { 
+	cursor:pointer;
+	left:2px; 
+}
+
+#ticker-link-text2 {padding-top:12px;position:relative; display:inline; float:left; color: #183F5A;} 
+#ticker-link-updates2  {padding-top:2px;position:relative; display:inline; float:left; color: #183F5A;} 
+#ticker-link-text2 {
+        padding-top:2px;
+	cursor:pointer;
+	color:#183F5A;
+	text-decoration:none;
+        font-family:"Century Gothic";
+        font-size : 18px;
+        
+}
+#ticker-link-text2:hover { text-decoration:underline; }
