@@ -188,7 +188,7 @@ def coords_only (func):
             return func (*__args, **__kwargs)
         else:
             request.session['access_denied'] = True
-            return HttpResponseRedirect ("%s/home/"%settings.SITE_URL)
+            return HttpResponseRedirect ("%shome/"%settings.SITE_URL)
     return wrapper
 
 # Check for eventcore status. Use *after* needs_authentication. Always

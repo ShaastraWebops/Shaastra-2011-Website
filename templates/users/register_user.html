@@ -32,7 +32,16 @@ $("#branch_input").autocomplete(bdata);
   </script>
 <script language="javascript" type="text/javascript" src="http://www.shaastra.org/includes/2009/userportal/js/wz_tooltip.js">
   </script>
+  {% if logged_in %}
   
+  <center style="height:400px; overflow:auto; margin-right:20px;">
+        <div class="success1">
+            You have already registered with Shaastra2011 !
+        </div>
+        Click <a href="{{ SITE_URL }}home/">here</a> to go back to the home page.
+        </div>
+  </class>
+  {% else %}
   {% if registered_user %}
   
   <center style="height:400px; overflow:auto; margin-right:20px;">
@@ -52,9 +61,11 @@ $("#branch_input").autocomplete(bdata);
   {% else %}
  
     {% if registered_college %}
+     
 <div class="register">
- College successfully registered.
+ <center>College successfully registered.</center>
 </div>
+     
 {% endif %}
 
     {% if college_already %}
@@ -94,7 +105,7 @@ $("#branch_input").autocomplete(bdata);
 </div>
 
 
-<center style="height:400px; overflow:scroll; margin-right:20px;">
+<center style="height:400px; overflow:auto; margin-right:20px;">
  <h1 align="center">
   User Registration
  </h1>
@@ -546,5 +557,6 @@ var branches=new Array("Arts","Accounting","Applied Mechanics / Mechatronics",
     </script>
   -->
   
+{% endif %}
 {% endif %}
 {% endblock %}
