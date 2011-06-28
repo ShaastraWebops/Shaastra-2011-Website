@@ -161,6 +161,10 @@
   margin-bottom:10px;
   font-size:1.5em;
 }
+.event a{
+  color:white;
+  text-decoration:none;
+}
 .event:hover{
   border-bottom:2px #fff solid;
  font-weight:bold;
