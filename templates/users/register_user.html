@@ -50,17 +50,6 @@ $("#branch_input").autocomplete(bdata);
   </class>
   
   {% else %}
-  {% if logged_in %}
-   <center style="height:400px; overflow:auto; margin-right:20px;">
-        <div class="success1">
-            You have already registered with Shaastra2011 !
-        </div>
-
-        Click <a href="{{ SITE_URL }}home/">here</a> to go back to the home page.
-        </div>
-  </class>
-  {% endif %}
-  {% else % }
  
     {% if registered_college %}
 <div class="register">
@@ -86,7 +75,7 @@ $("#branch_input").autocomplete(bdata);
 	</div>
 </div>
 
-{% if user.is_authenticated %}
+{% if logged_in %}
 <div class="errors">
   You have already registered, and are logged in.
 </div>
@@ -558,5 +547,4 @@ var branches=new Array("Arts","Accounting","Applied Mechanics / Mechatronics",
   -->
   
 {% endif %}
-
 {% endblock %}
