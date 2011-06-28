@@ -52,6 +52,8 @@ def logout(request):
     return HttpResponseRedirect('%slogin/'%settings.SITE_URL)        
     
 def user_registration(request):
+    if request.user.is_authenticated():
+        logged_in = True
     colls = models.College.objects.all()
     collnames = list()
     for coll in colls:
