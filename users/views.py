@@ -59,8 +59,6 @@ def user_registration(request):
     for coll in colls:
         collnames.append(coll.name + "," + coll.city)
     js_data = simplejson.dumps(collnames)
-    
-    blue = "HAHAHAHAHA HIHIHIHI HUHUHUHU HEHEHEHE"
     if request.method=='POST':
         data = request.POST.copy()
         form = forms.AddUserForm(data)
