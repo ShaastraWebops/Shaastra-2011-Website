@@ -51,8 +51,7 @@
            
 {% for ques in ques_list %}
 		<div id="Ques{{ques.Q_Number}}">
-                  <!--<a href="#Question{{ques.Q_Number}}">{{ques.Q_Number|safe}}. {{ques.title|safe}}</a><br/>-->
-	          <br/>{{ques.Q_Number|safe}}. {{ques.title|safe}}<br/>
+                  <a href="#Question{{ques.Q_Number}}">{{ques.Q_Number|safe}}. {{ques.title|safe}}</a><br/>
                 </div>
                 <div id="Question{{ques.Q_Number}}">
                   {% if ques.question_type == "NORMAL" %}
@@ -66,7 +65,7 @@
                   <p>This is a multiple choice question. Please select your choice and click on "Submit".</p>
                   <p> This will be functional soon.</p>
                   <div id="mcq_question">
-                    <table border="1">
+                    <table style="border:solid 0.1mm #000; border-radius:4px; background-color:#fafafa;">
                       <form>
                         {% csrf_token %}
                         {%for options in options_list %}
@@ -77,17 +76,24 @@
                       </form>
                     </table>
                     {%if not is_coord%}<input type="submit" value="Submit">{%endif%}
-                    <!-- Delete Option-->
+                    
+                    
                     <table>
                     {%for options in options_list %}
                         {%if options.question == ques %}
                             {%if is_coord %}
-                                <div id="delete_option">
+                                <div id="delete_option" style="float:left;">
                                 <tr><td>
                                 <form action="{{SITE_URL}}events/dashboard/delete_option/" method = 'POST'>
                                 {% csrf_token %}
                                 <input type="hidden" value="{{options.id}}" name=option_id>
-                                <input type="submit" value="Delete Choice -- ({{options.option}},{{options.text}})">
+                                <div class="button2">
+												<a href="#">
+													<input type="submit" value="Delete Choice -- ({{options.option}},{{options.text}})">
+												</a>
+												<span></span>
+											</div>	
+                                
                                 </form>
                                 </td></tr>
                                 </div>
@@ -95,11 +101,16 @@
                         {%endif%}
                     {%endfor%}
                     </table>
-                    <div id="add_choices">
+                    <div id="add_choices" style="float:left;">
                         <form action="add_choices/" method = 'GET'>
                         {% csrf_token %}
                         <input type="hidden" value="{{ques.id}}" name="ques_to_add_choices_id">
-                        <input type="submit" value="Add More Choices">
+                        <div class="button2">
+									<a href="#">
+										<input type="submit" value="Add More Choices" >
+									</a>
+									<span></span>
+								</div>	
                         </form>
                     </div>
                   </div>            
@@ -111,51 +122,75 @@
                   <input type="file" name="blah" size="30"><br/>
                   <input type="submit" value="Upload">               
                   {% endif %}
-                  <!-- the delete question button -->
+                  
 
-                        <div id="delete_question">
+                        <div id="delete_question" style="float:left;">
                         <form action="{{SITE_URL}}events/dashboard/delete_question/" method = 'POST'>
                         {% csrf_token %}
                         <input type="hidden" value="{{ques.id}}" name=ques_id>
-                        <input type="submit" value="Delete Question">
+                        <div class="button2">
+									<a href="#">
+										<input type="submit" value="Delete Question">
+									</a>
+									<span></span>
+								</div>	
+                        
                         </form>
                         </div>
 
-                        <!-- the edit question button -->
+                        
 
-                        <div id="edit_question">
+                        <div id="edit_question" style="float:left;">
                         <form action="edit_question/" method = 'GET'>
                         {% csrf_token %}
                         <input type="hidden" value="{{ques.id}}" name=ques_id >
-                        <input type="submit" value="Edit Question">
+                        
+                        <div class="button2">
+									<a href="#">
+										<input type="submit" value="Edit Question">
+									</a>
+									<span></span>
+								</div>
                         </form>
-                        </div>
+                        </div><br><br /><br><br />
                   
                   <script>
-                    $("#Question{{ques.Q_Number}}").hide();
-                    $("#Ques{{ques.Q_Number}}").click(function () {
-                    $("#Question{{ques.Q_Number}}").toggleClass("inactive").slideToggle("slow");
-                    });
+                    //$("#Question{{ques.Q_Number}}").hide();
+                    //$("#Ques{{ques.Q_Number}}").click(function () {
+                    //$("#Question{{ques.Q_Number}}").toggleClass("inactive").slideToggle("slow");
+                    //});
                   </script>
-                </div>                       
-		{%endfor%}      
-		
-		<div id="edit_tab">
-		<form action="edit_tab/" method = 'GET'>
-		{% csrf_token %}
-		<input type="hidden" value="{{row.id}}" name=tab_id >
-		<input type="submit" value="Edit Questions Tab">
-		</form>
-		</div>
-		
-		<div id="add_question">
-		<form action="add_question/" method ="POST">
-		{% csrf_token %}
-		<input type="hidden" value="{{row.id}}" name="tab_id" />
-		<input type="submit" value="Add Questions" />
-		</form>
-		</div>          
-		{% endif %}
+                </div>    
+        {%endfor%}      
+		<!-- <div id="qrre_btn" style="position:relative;"> -->
+			<div id="edit_tab" style="position:absolute; bottom:0px;">
+			<form action="edit_tab/" method = 'GET'>
+			{% csrf_token %}
+			<input type="hidden" value="{{row.id}}" name=tab_id >
+			<div class="button2" style="position:relative;  left:220px; top:5px;">
+				<a href="#">
+					<input type="submit" value="Edit Questions Tab" style="background-image:none; color:#000;">
+				</a>
+				<span></span>
+			</div>
+			
+			</form>
+			</div>
+			
+			<div id="add_question" style="position:absolute; bottom:0px; left:100px;">
+			<form action="add_question/" method ="POST">
+			{% csrf_token %}
+			<input type="hidden" value="{{row.id}}" name="tab_id" />
+			<div class="button2" style="position:relative;  left:260px; top:5px;">
+				<a href="#">
+					<input type="submit" value="Add Questions" />
+				</a>
+				<span></span>
+			</div>
+			
+			</form>
+			</div>         
+			{% endif %}
 
 
 
@@ -170,8 +205,6 @@
  </div>
 
 <div id ="deltabconf{{row.id}}" >
-      
-        
     <form action="delete_tab/" method = 'POST'>
     {% csrf_token %}
     <input type="hidden" value="{{row.id}}" name=tab_id />
@@ -184,8 +217,6 @@
 		</div>
 	</div>
 	</form>
-    
-	
 <div id="cancel{{row.id}}" style="position:absolute; bottom:-5px; left:138px;"> 
 	<div class="button2">
 		<a href="#">
@@ -195,11 +226,6 @@
 	</div>
 </div>
     
-
-
-
-
-
 </div>
 
 <script>
@@ -236,7 +262,6 @@ $("#cancel{{row.id}}").click(function () {
 		},800);
 		$("#deletetab{{row.id}}").fadeIn(900);
 		$("#edit_tab{{row.id}}").fadeIn(900);
-		//$("#deltabconf{{row.id}}").fadeOut(300);
     })
 </script>
    <br><br><br><br><br>

@@ -32,6 +32,25 @@ $("#branch_input").autocomplete(bdata);
   </script>
 <script language="javascript" type="text/javascript" src="http://www.shaastra.org/includes/2009/userportal/js/wz_tooltip.js">
   </script>
+  
+  {% if registered_user %}
+  
+  <center style="height:400px; overflow:scroll; margin-right:20px;">
+        <div class="success1">
+            You have successfully registered with Shaastra2011 !
+        </div>
+
+        <div class="warnings">
+            To activate your account, check your mail in a few minutes. 
+        <br /><br />
+        You will be able to login only after you have activated your account.
+
+        Click <a href="{{ SITE_URL }}home/">here</a> to go back to the home page.
+        </div>
+  </class>
+  
+  {% else %}
+ 
     {% if registered_college %}
 <div class="register">
  College successfully registered.
@@ -46,6 +65,7 @@ $("#branch_input").autocomplete(bdata);
 <div class="register">
  
  <div class = "showclgfrm">
+    <p id="collsucc"></p>
     <div>Can't find your college?</div>
 	<div class="button2">
 		<a href="#reg_coll" onclick="showNewCollegeDiv()">
@@ -65,7 +85,7 @@ $("#branch_input").autocomplete(bdata);
   </p>
  <p>
   If you have already registered, click
-  <a href="{{SITE_URL}}events/login/">
+  <a href="{{SITE_URL}}login/">
    here
   </a>
   to login. Otherwise, please fill in the following details to register:
@@ -312,6 +332,7 @@ onblurAttribute();
       document.getElementById("maincol2").style.display="block";
 	  document.getElementById("newcollege").style.display="block";	  
 	  document.getElementById("maincol1").style.display="none";
+	  document.getElementById("collsucc").innerHTML="";
     }
    </script>
    
@@ -369,9 +390,10 @@ if(xmlhttp.readyState==4)
 
     var coll_response = response;
     //alert(coll_response);
-    
-    document.getElementById("reg_success").style.display="block";
-    document.getElementById("newcollege").style.display="none";
+    hide_college();
+    document.getElementById("collsucc").innerHTML="College Successfully Registered.";
+    //document.getElementById("reg_success").style.display="block";
+    //document.getElementById("newcollege").style.display="none";
     if (coll_response != "exists" || coll_response != "failed")
     {
         //alert("works");
@@ -476,6 +498,7 @@ function hide_college(){
 <div class="success" id="reg_success" style="display:none">
  College successfully registered.
 </div>
+
 <div class="errors" id="reg_fail" style="display:none">
  A college by this name and location has already been registered. Please check the list again.
 </div>
@@ -522,4 +545,6 @@ var branches=new Array("Arts","Accounting","Applied Mechanics / Mechatronics",
       }
     </script>
   -->
+  
+{% endif %}
 {% endblock %}

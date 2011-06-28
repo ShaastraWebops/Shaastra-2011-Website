@@ -79,4 +79,3 @@ class UserProfile(models.Model):
 
     class Admin:
         pass
-
