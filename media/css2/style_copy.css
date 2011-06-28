@@ -183,7 +183,7 @@ min-height : 100%;
 /* ----- END OF HEADER ---- */
 
 #content {
-    width : 100%;
+    width : 100%; 
     height : auto;
     overflow:hidden;
     min-width : 1200px;
