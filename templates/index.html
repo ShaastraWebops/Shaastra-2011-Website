@@ -9,7 +9,7 @@
 annual technical festival of IIT Madras
      {%endblock%}
     </title>
-    
+
     <link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}css2/style_copy.css">
          <link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}css2/events_scroll.css">
 	<script type="text/javascript" src="{{MEDIA_URL}}js2/Media/js/ticker.js"></script>
@@ -36,27 +36,18 @@ annual technical festival of IIT Madras
     <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/ticker.js"></script>
     <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/jquery.js"></script>
     <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/jquery-ui-1.8.12.custom.min.js"></script>
-        
+    <script>
+    function footeradjust(){
+	   					
+    }
+  
+	</script>        
     <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/jquery.jscrollpane.min.js"></script>
     <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/jquery.mousewheel.js"></script>
     <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/ticker2.js"></script>
     <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/action.js"></script>  
     <link rel="shortcut icon" href="http://www.shaastra.org/fav.ico" />     
-	<script>  
-	    if(window.innerHeight > 650)
-						{
-						var tp = window.innerHeight;
-						//alert(tp);
-						//alert(window.innerHeight);
-						var newtp = tp-46;
-						//alert(newtp);
-						document.getElementById("footer_container").style.position = "absolute";
-						//alert(document.getElementById("footer_container").style.position);
-						document.getElementById("footer_container").style.top = newtp+"px";
-						//alert(document.getElementById("footer_container").style.top);// = tp;
-						}
-  
-	</script>
+	
     <!--[if lte IE 8]>
         <script type="text/javascript">
           width=78;
@@ -81,8 +72,37 @@ annual technical festival of IIT Madras
 
 		
     <script>
+      var pop = 0;
+      var detectclick = 0;
+      function popup(){
+	    if(pop == 0 && detectclick == 0){
+		  detectclick++;
+		  load_popup();
+		  pop=1;
+		  setTimeout(function(){detectclick = 0},1000);
+		  return;
+	    }
+	    if(pop==1 && detectclick == 0)
+	    {
+		  detectclick++;
+		  close_popup();
+		  pop=0;
+		  setTimeout(function(){detectclick = 0},1000);
+		  return;
+	    }
+      }
+      
 	$(document).ready(function() {
-
+			       if(($(window).height()) > 650)
+						{
+						//alert($(window).height());
+						$('#footer_container').css('position','absolute');// = "absolute";
+						//alert(k);
+						$('#footer_container').css('bottom','7px');// = "100px";
+						//alert(k);
+						//alert(document.getElementById("footer_container").style.top);// = tp;
+						}
+	
 			  $('#ticker-img-right').click(function() {
 			  clearTimeout(t);
 			  untypeNext()
@@ -150,10 +170,10 @@ annual technical festival of IIT Madras
 				
 				
     </script>
-    <script src = "{{MEDIA_URL}}js/js/script/script.js"></script>
+    <!--<script src = "{{MEDIA_URL}}js/js/script/script.js"></script> -->
 {% block media_location%}{%endblock%}
   </head>
-  <body id="page">
+  <body id="page" style="width:100%;"s>
 
 <div id = "container">  
     <!-- HEADER BEGINS -->
@@ -168,8 +188,8 @@ annual technical festival of IIT Madras
           <div id ="navbar_container">
             <div id = "navbar">
                {%block top_navigation%}
-              <a href = "http://www.shaastra.org/2011/main" class="navig" id = "home"><span class = "nclass">Home</span></a>
-	      <a href = "http://www.shaastra.org/2011/events" class="navig" id = "events"><span class = "nclass">Events</span></a>
+              <a href = "{{SITE_URL}}home" class="navig" id = "home"><span class = "nclass">Home</span></a>
+	      <a href = "#" class="navig" id = "events" onclick = "javascript:setTimeout(function(){popup()},00);"><span class = "nclass">Events</span></a>
 	      <a href = "#" class="navig" id = "hospi"><span class = "nclass">Hospitality</span></a>
 	      <a href = "#" class="navig" id = "sponsor"><span class = "nclass">Sponsorship</span></a>
 	      <a href = "#" class="navig" id = "gallery"><span class = "nclass">Gallery</span></a>
@@ -177,14 +197,14 @@ annual technical festival of IIT Madras
               
               <div id = "logandsearch">
               {%block log_and_search%}
-               {% if user.is_authenticated %}			    
-                <div id="welcome" style="position:absolute; top:54px;">Welcome USER</div>
+               {% if user.is_authenticated and user.is_active%}			    
+                <div id="welcome" style="position:absolute; top:54px;">Welcome {{user}}</div>
                 <a href="{{SITE_URL}}logout/"><img src = "{{MEDIA_URL}}img/logout.png" id = "login"></a>
                 {% else %}
                 <a href="{{SITE_URL}}login/"><img src = "{{MEDIA_URL}}img/login.png" id = "login"></a>
                 <a href="{{SITE_URL}}register/user/"><img src = "{{MEDIA_URL}}img/sign_up.png" id = "sgnup"></a>
                 {% endif %}
-                <span id ="srch"><img src = "{{MEDIA_URL}}img/search.png" id = "srimg"><input type = "text" id = "search" name = "search"></span>
+                <div id ="srch"><img src = "{{MEDIA_URL}}img/search.png" id = "srimg">&nbsp;&nbsp;<input type = "text" id = "search" name = "search"></div>
              {%endblock%}
               </div>            
             </div>
@@ -232,9 +252,12 @@ annual technical festival of IIT Madras
       <div id = "content_top">
                 	<div class = "content_container">
                     <div id = "lefttop">
-						<img id="qOpen" src="http://www.shaastra.org/2011/media/main/img/quote_open.png"/>
-                        <div id="shString"></div>
-						<img id="qClose" src="http://www.shaastra.org/2011/media/main/img/quote_close.png"/>
+			<img id="qOpen" src="http://www.shaastra.org/2011/media/main/img/quote_open.png"/>
+
+                        <div id="shString">
+			     
+			</div>
+						<img id="qClose_main" src="http://www.shaastra.org/2011/media/main/img/quote_close.png" style="float:right;margin-top :120px;  margin-right:25px"/> 			
                     </div>
 
                     </div>
@@ -315,7 +338,7 @@ annual technical festival of IIT Madras
 		<a href = "#" class = "flinks" id = "con"></a>
 		<a href = "#" class = "flinks" id = "pp"></a>
 		<a href = "#footerlinks" class = "flinks" id = "blo"></a>
-		<a href = "#" class = "flinks" id = "eve"></a>
+		<a href = "#" class = "flinks" id = "eve" onclick = "javascript:setTimeout(function(){popup()},00);"></a>
 		<a href = "#" class = "flinks" id = "med"></a>
 		<a href = "#" class = "flinks" id = "mys"></a>
 		<a href = "#" class = "flinks" id = "cre"></a>

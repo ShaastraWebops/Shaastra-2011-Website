@@ -1,5 +1,5 @@
 {%extends "index.html"%}
-{%block event_categories%}{%endblock%}
+{%block event_categories%}{%include "event_categories.html"%}{%endblock%}
 
  {%block media_location%}   
 	<script type="text/javascript">
@@ -112,10 +112,10 @@
                   <input type="submit" value="Upload">               
                   {% endif %}
                   <script>
-                    $("#Question{{ques.Q_Number}}").hide();
-                    $("#Ques{{ques.Q_Number}}").click(function () {
-                    $("#Question{{ques.Q_Number}}").toggleClass("inactive").slideToggle("slow");
-                    });
+                    //$("#Question{{ques.Q_Number}}").hide();
+                    //$("#Ques{{ques.Q_Number}}").click(function () {
+                    //$("#Question{{ques.Q_Number}}").toggleClass("inactive").slideToggle("slow");
+                    //});
                   </script>
                 </div>                       
 		{%endfor%}                    
@@ -137,14 +137,18 @@
 	      </div>
 	    </div>
 	    <div id = "verticlright">
-	    {% if event.sponslogo %}
+	    
             <div id = "rtvtop">
             <div>
                 Sponsored By:
             </div>
+		{% if event.sponslogo %}
             <img src = "{{event.sponslogo.url}}"width="217" height="150">
-            </div>
+		{% else %}
+    	   <img src = "{{MEDIA_URL}}SPONS_DEFAULT.png"width="217" height="150">
 		{%endif%}
+            </div>
+		
         {%if event.video%}
     		<div id = "rtvbottom">
 		    <iframe src="{{event.video}}"

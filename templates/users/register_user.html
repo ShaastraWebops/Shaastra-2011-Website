@@ -32,10 +32,40 @@ $("#branch_input").autocomplete(bdata);
   </script>
 <script language="javascript" type="text/javascript" src="http://www.shaastra.org/includes/2009/userportal/js/wz_tooltip.js">
   </script>
+  {% if logged_in %}
+  
+  <center style="height:400px; overflow:auto; margin-right:20px;">
+        <div class="success1">
+            You have already registered with Shaastra2011 !
+        </div>
+        Click <a href="{{ SITE_URL }}home/">here</a> to go back to the home page.
+        </div>
+  </class>
+  {% else %}
+  {% if registered_user %}
+  
+  <center style="height:400px; overflow:auto; margin-right:20px;">
+        <div class="success1">
+            You have successfully registered with Shaastra2011 !
+        </div>
+
+        <div class="warnings">
+            To activate your account, check your mail in a few minutes. 
+        <br /><br />
+        You will be able to login only after you have activated your account.
+
+        Click <a href="{{ SITE_URL }}home/">here</a> to go back to the home page.
+        </div>
+  </class>
+  
+  {% else %}
+ 
     {% if registered_college %}
+     
 <div class="register">
- College successfully registered.
+ <center>College successfully registered.</center>
 </div>
+     
 {% endif %}
 
     {% if college_already %}
@@ -75,7 +105,7 @@ $("#branch_input").autocomplete(bdata);
 </div>
 
 
-<center style="height:400px; overflow:scroll; margin-right:20px;">
+<center style="height:400px; overflow:auto; margin-right:20px;">
  <h1 align="center">
   User Registration
  </h1>
@@ -84,7 +114,7 @@ $("#branch_input").autocomplete(bdata);
 <tr>
 <td id="maincol1">
 
-  <div class="info">
+  <div class="info" style = "overflow:auto">
  <form id="reg_form" action="{{SITE_URL}}register/user/" method="POST" onload="onblurAttribute();changeBg();">
 {% csrf_token %}
 <table name="register" >
@@ -526,4 +556,7 @@ var branches=new Array("Arts","Accounting","Applied Mechanics / Mechatronics",
       }
     </script>
   -->
+  
+{% endif %}
+{% endif %}
 {% endblock %}

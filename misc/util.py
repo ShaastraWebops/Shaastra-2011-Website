@@ -20,8 +20,8 @@ MESSAGE = 4
 
 def generate_menu_dict(request):
     #check if the menu list already exists
-    if 'menu_urls' in request.session:
-        return
+    #if 'menu_urls' in request.session:
+        #return
     #Otherwise, create it
     menu_list = main_test.events.models.Menu.objects.select_related('event').all()
     categories = menu_list.filter(parent_menu = None)
@@ -188,7 +188,7 @@ def coords_only (func):
             return func (*__args, **__kwargs)
         else:
             request.session['access_denied'] = True
-            return HttpResponseRedirect ("%s/home/"%settings.SITE_URL)
+            return HttpResponseRedirect ("%shome/"%settings.SITE_URL)
     return wrapper
 
 # Check for eventcore status. Use *after* needs_authentication. Always
