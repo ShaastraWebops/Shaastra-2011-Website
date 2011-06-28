@@ -168,6 +168,7 @@
 .event:hover{
   border-bottom:2px #fff solid;
  font-weight:bold;
+ text-shadow : 0 0 3px #FFF;
 }
 .heading{
   position:absolute;color:white;width:300px; font-size:1.5em;
