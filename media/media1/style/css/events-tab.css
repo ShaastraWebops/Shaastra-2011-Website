@@ -1,0 +1,206 @@
+body{
+	text-align:center;
+}
+#eventsTab{
+	text-align:left;
+	margin:0px auto 0px auto;
+	padding:0px;
+	top:215px;
+        position:relative;
+	background-image:url('../../images/contentBox.png');
+	background-repeat:no-repeat;
+	height:432px;
+	width:597px;
+}
+	#tabs{
+		overflow:hidden;
+		height:80px;
+		width:584px;
+		position:absolute;
+		top:0px;
+                margin-left:4px;
+		padding: 0 0 0 0; 
+		background-color:#5185BE;
+	}
+		#tabs div{
+			cursor:pointer;
+			padding-top:5px;
+			text-align:center;
+			float:left;
+			height:36px;
+                        padding-right:5px;
+                        padding-left:5px;
+			font-family:"Century Gothic";
+			font-size:20px;
+		}
+		#intro{ margin: 0px 2px 0 4px;
+			width:141px;
+		}
+		#pstmnt{ margin: 0px 2px 0 4px;
+			width:208px;
+		}
+		#rules{ margin: 0px 2px 0 4px;
+			width:81px;
+		}
+		#faq{
+			margin-left:2px;
+			width:57px;
+		}
+		#contact{margin: 0px 2px 0 4px;
+			width:98px;
+		}
+		#extraTabs{margin: 0px 2px 0 4px;
+			border-top:solid 0.1mm #fff;
+			width:584px;
+		}
+	
+	#event-details {
+			padding-left:10px;
+			position:relative;
+			top:90px;
+			font-family:"Lucida Sans";
+			width: 575px; 
+			height: 329px;
+			overflow: auto;
+		}
+		
+		#intro_, #pstmnt_, #rules_, #faq_, #contact_ ,#extraTabs_{
+				visibility:hidden;
+		}	
+		
+	    #intro_{ font-family:"Lucida Sans"; } 
+	    #pstmnt_{ font-family:"Comic Sans Ms"; } 
+	    #rules_{ font-family:"Arial"; } 
+	    #faq_{ font-family:"Matisse ITC"; } 
+	    #contact_{ font-family:"Calibri"; }
+			
+/****** Scrollpane Details ********/
+
+.jspContainer
+{
+	overflow: hidden;
+	position: relative;
+}
+
+#jspPane
+{
+	position: absolute;
+}
+
+.jspVerticalBar
+{
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 20px;
+	height: 278px;
+}
+
+.jspHorizontalBar
+{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 16px;
+	background: red;
+}
+
+.jspVerticalBar *,
+.jspHorizontalBar *
+{
+	margin: 0;
+	padding: 0;
+}
+
+.jspCap
+{
+	display: none;
+}
+
+.jspHorizontalBar .jspCap
+{
+	float: left;
+}
+
+.jspTrack
+{
+	position: relative;
+	background-image:url('../../images/scrollbox.png');
+	background-repeat:no-repeat;
+	background-position:-3px 0px;
+}
+
+.jspDrag
+{
+	background-image:url('../../images/scrollbar.png');
+	background-repeat:repeat-y;
+	background-position:-3px 0px;
+	border-top:solid 0.2mm grey;
+	border-bottom:solid 0.2mm grey;
+	position: relative;
+	top: 0;
+	left: 0;
+	cursor: pointer;
+}
+
+.jspHorizontalBar .jspTrack,
+.jspHorizontalBar .jspDrag
+{
+	float: left;
+	height: 100%;
+}
+
+.jspArrow
+{
+	text-indent: -20000px;
+	display: block;
+	cursor: pointer;
+}
+
+.jspArrow.jspDisabled
+{
+	cursor: default;
+	height: 27px;
+}
+
+.jspVerticalBar .jspArrowUp
+{
+	height: 27px;
+	background-image:url('../../images/scrollup.png');
+	background-repeat:no-repeat;
+	background-position:-3px 0px;
+	margin-bottom:-3px;
+}
+.jspVerticalBar .jspArrowDown
+{
+	height: 27px;
+	background-image:url('../../images/scrolldown.png');
+	background-repeat:no-repeat;
+	background-position:-3px 0px;
+}
+
+.jspHorizontalBar .jspArrow
+{
+	width: 16px;
+	float: left;
+	height: 100%;
+}
+
+.jspVerticalBar .jspArrow:focus
+{
+	outline: none;
+}
+
+.jspCorner
+{
+	background: #eeeef4;
+	float: left;
+	height: 100%;
+}
+
+/* ***** IE6 3 pixel bug  ********/
+* html .jspCorner
+{
+	margin: 0 -3px 0 0;
+}
