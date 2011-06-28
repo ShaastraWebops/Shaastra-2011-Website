@@ -175,6 +175,5 @@ def edit_profile(request):
     else:
         form=forms.EditUserForm(initial={'password':user.password,'password_again':user.password,'college_roll':userprofile.college_roll,'mobile_number':userprofile.mobile_number})
         return render_to_response('users/edit_user_raw.html', locals(), context_instance= global_context(request))
-    
-      
+
 
