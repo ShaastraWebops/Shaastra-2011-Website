@@ -32,18 +32,16 @@ $("#branch_input").autocomplete(bdata);
   </script>
 <script language="javascript" type="text/javascript" src="http://www.shaastra.org/includes/2009/userportal/js/wz_tooltip.js">
   </script>
-
-    {% if logged_in %}
+  {% if logged_in %}
   
   <center style="height:400px; overflow:auto; margin-right:20px;">
         <div class="success1">
             You have already registered with Shaastra2011 !
         </div>
-
         Click <a href="{{ SITE_URL }}home/">here</a> to go back to the home page.
         </div>
   </class>
-    { % endif %}  
+  {% else %}
   {% if registered_user %}
   
   <center style="height:400px; overflow:auto; margin-right:20px;">
@@ -61,7 +59,6 @@ $("#branch_input").autocomplete(bdata);
   </class>
   
   {% else %}
-
  
     {% if registered_college %}
 <div class="register">
@@ -87,7 +84,7 @@ $("#branch_input").autocomplete(bdata);
 	</div>
 </div>
 
-{% if logged_in %}
+{% if user.is_authenticated %}
 <div class="errors">
   You have already registered, and are logged in.
 </div>
@@ -558,5 +555,6 @@ var branches=new Array("Arts","Accounting","Applied Mechanics / Mechatronics",
     </script>
   -->
   
+{% endif %}
 {% endif %}
 {% endblock %}
