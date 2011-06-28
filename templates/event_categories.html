@@ -19,12 +19,15 @@
   </div>
 <div id="popup_container" onclick="closePopUp()" style="color:white;">
  {%for category in categories%}
+<h1>{{forloop.counter}}-{{category.text}}</h1>
 	<div id="impact_contents" class="popup_contents">
 	 
         <div id="impact_heading" style="left:450px; top:10px;" class="heading"><p>"A life is not important except iin the impact it has on others"</p></div>
 	
           <div id="impact_events" style="position:absolute; left:450px; top:175px;color:white;">
-	{%if category.text|stringformat:"s" == "impact"%}  
+	  
+        {%if category.text|stringformat:"s" == "impact"%}  
+         
            {% for event in category.events%}
           <p class="event"><a href="{{event.url}}">{{event.name|capfirst}}</a></p>
 	  {%endfor%}
