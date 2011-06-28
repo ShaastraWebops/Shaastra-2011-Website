@@ -1,4 +1,4 @@
-from django.db import models
+"""from django.db import models
 from django.contrib import admin
 from django.contrib.auth.models import User, Group
 from main_test.events.models import *
@@ -86,4 +86,4 @@ class Answer_file(Answer):
     def __unicode__(self):
         return self.File.url
     class Admin:
-        pass
+        pass"""

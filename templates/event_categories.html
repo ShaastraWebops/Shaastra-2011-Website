@@ -26,7 +26,7 @@
           <div id="impact_events" style="position:absolute; left:450px; top:175px;color:white;">
 	{%if category.text|stringformat:"s" == "impact"%}  
            {% for event in category.events%}
-          <p class="event">{{event.name}}</p>
+          <p class="event"><a href="{{event.url}}">{{event.name|capfirst}}</a></p>
 	  {%endfor%}
 	 {%endif%}
         </div>
@@ -38,7 +38,7 @@
             <div id="design_and_build_events" style="position:absolute; left:450px; top:150px;color:white;">
               {%if category.text|stringformat:"s" == "design and build"%}  
            {% for event in category.events%}
-          <p class="event">{{event.name}}</p>
+          <p class="event"><a href="{{event.url}}">{{event.name|capfirst}}</a></p>
 	  {%endfor%}
 	 {%endif%}
 	  </div>
@@ -49,7 +49,7 @@
 	  <div id="coding_events" style="position:absolute; color:white; left:10px; top:140px; font-size:0.45em;">
 		{%if category.text|stringformat:"s" == "coding"%}  
            {% for event in category.events%}
-          <p class="event">{{event.name}}</p>
+          <p class="event"><a href="{{event.url}}">{{event.name|capfirst}}</a></p>
 	  {%endfor%}
 	 {%endif%}
 		</div>
@@ -62,7 +62,7 @@
 		<div id="involve_events" style="position:absolute; color:white; left:10px; top:115px; font-size:0.45em;">
 			{%if category.text|stringformat:"s" == "involve"%}  
            {% for event in category.events%}
-          <p class="event">{{event.name}}</p>
+         <p class="event"><a href="{{event.url}}">{{event.name|capfirst}}</a></p>
 	  {%endfor%}
 	 {%endif%}
 		</div>
@@ -75,7 +75,7 @@
 	  <div id="online_events" style="position:absolute; color:white; left:10px; top:100px; font-size:0.6em;">
 		{%if category.text|stringformat:"s" == "online"%}  
            {% for event in category.events%}
-          <p class="event">{{event.name}}</p>
+           <p class="event"><a href="{{event.url}}">{{event.name|capfirst}}</a></p>
 	  {%endfor%}
 	 {%endif%}
 	  </div>
@@ -88,7 +88,7 @@
 	  <div id="spotlights_events" style="position:absolute; color:white; left:450px; top:100px; font-size:0.6em;">
 		{%if category.text|stringformat:"s" == "spotlights"%}  
            {% for event in category.events%}
-          <p class="event">{{event.name}}</p>
+           <p class="event"><a href="{{event.url}}">{{event.name|capfirst}}</a></p>
 	  {%endfor%}
 	 {%endif%}
 	  </div>
@@ -101,7 +101,7 @@
 	  <div id="flagship_events" style="position:absolute; color:white; left:10px; top:135px; font-size:0.6em;">
 		{%if category.text|stringformat:"s" == "flagship"%}  
            {% for event in category.events%}
-          <p class="event">{{event.name}}</p>
+           <p class="event"><a href="{{event.url}}">{{event.name|capfirst}}</a></p>
 	  {%endfor%}
 	 {%endif%}	  </div>
 
@@ -113,7 +113,7 @@
 	  <div id="exhibitions_events" style="position:absolute; color:white; left:275px; top:200px; font-size:0.6em;">
 		{%if category.text|stringformat:"s" == "exhibitions"%}  
            {% for event in category.events%}
-          <p class="event">{{event.name}}</p>
+           <p class="event"><a href="{{event.url}}">{{event.name|capfirst}}</a></p>
 	  {%endfor%}
 	 {%endif%}
 	  </div>
@@ -126,7 +126,7 @@
 	  <div id="quizzes_events" style="position:absolute; color:white; left:450px; top:200px; font-size:1em;">
 		{%if category.text|stringformat:"s" == "quizzes"%}  
            {% for event in category.events%}
-          <p class="event">{{event.name}}</p>
+           <p class="event"><a href="{{event.url}}">{{event.name|capfirst}}</a></p>
 	  {%endfor%}
 	 {%endif%}
 	  </div>
@@ -139,7 +139,7 @@
 	  <div id="aerofest_event" style="position:absolute; color:white; left:10px; top:200px; font-size:0.7em;">
 		{%if category.text|stringformat:"s" == "aerofest"%}  
            {% for event in category.events%}
-          <p class="event">{{event.name}}</p>
+           <p class="event"><a href="{{event.url}}">{{event.name|capfirst}}</a></p>
 	  {%endfor%}
 	 {%endif%}
 	  </div>
@@ -152,7 +152,7 @@
 	  <div id="workshop_events" style="position:absolute; color:white; left:10px; top:100px; font-size:0.6em;">
 		  {%if category.text|stringformat:"s" == "workshop"%}  
            {% for event in category.events%}
-          <p class="event">{{event.name}}</p>
+           <p class="event"><a href="{{event.url}}">{{event.name|capfirst}}</a></p>
 	  {%endfor%}
 	 {%endif%}
 	  </div>
