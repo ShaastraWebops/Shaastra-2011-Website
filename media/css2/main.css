@@ -76,7 +76,7 @@
 }
 
 #soe{
-  background:url("http://www.shaastra.org/2011/media/main/img/random_cube.jpg") no-repeat;
+  background:url("http://www.shaastra.org/2011/media/main/img/soe.jpg") no-repeat;
   width:124px;
   height:90px;
   position:absolute;
@@ -123,9 +123,20 @@
 }
 
 
-#popup_container{
+#popup_bg{
   width:1030px;
   height:388px;
+  background:url("http://www.shaastra.org/2011/media/main/img/shading.png");
+  top:176px;
+  z-index:1;
+  left:125px;
+  display:none;
+  position:absolute;
+}
+
+#popup_container{
+  width:0;
+  height:0;
   background:url("http://www.shaastra.org/2011/media/main/img/shading.png");
   top:176px;
   z-index:1;
@@ -138,9 +149,22 @@
   position:absolute;
   left:0;
   top:0;
-  width:auto;
-  height:auto;
   display:none;
-  float:left;
+  float:left;/*font-family:Helvetica, sans-serif;*/
   z-index:2;
+  
+}
+
+.event{
+  width:300px;
+  border-bottom:1px #AAA solid;
+  margin-bottom:10px;
+  font-size:1.5em;
+}
+.event:hover{
+  border-bottom:2px #fff solid;
+ font-weight:bold;
+}
+.heading{
+  position:absolute;color:white;width:300px; font-size:1.5em;
 }
