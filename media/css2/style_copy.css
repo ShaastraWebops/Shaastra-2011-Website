@@ -298,7 +298,7 @@ min-height : 100%;
 	margin-left : auto;
 	margin-right : auto;
 	
-	background : url('./Media/Images/pp_spr.png');
+	background : url('http://www.shaastra.org/2011/media/main/js2/Media/Images/pp_spr.png');
 	background-position : 0px bottom;
 	background-repeat : no-repeat;
 }
@@ -328,7 +328,7 @@ width : 65px;
 	margin-left : auto;
 	margin-right : auto;
 	
-	background : url('./Media/Images/mys_spr.png');
+	background : url('http://www.shaastra.org/2011/media/main/js2/Media/Images/mys_spr.png');
 	background-position : 0px bottom;
 	background-repeat : no-repeat;
 
@@ -489,20 +489,20 @@ top:10px;
   position:absolute;
   width:25px;
   height:70px;
-  background:url("http://www.shaastra.org/2011/media/main/js2/Media/Images/download.gif") 0 -70px;
+  background:url("http://www.shaastra.org/2011/media/main/img/download.gif") 0 -70px;
   right:10px;
   top:300px;
   display:block;
 }
-#right_arrow:hover{background:url("http://www.shaastra.org/2011/media/main/js2/Media/Images/download.gif") -25px -70px;}
+#right_arrow:hover{background:url("http://www.shaastra.org/2011/media/main/img/download.gif") -25px -70px;}
 
 #left_arrow{
   position:absolute;
   width:25px;
   height:70px;
-  background:url("http://www.shaastra.org/2011/media/main/js2/Media/Images/download.gif") 0 0px;
+  background:url("http://www.shaastra.org/2011/media/main/img/download.gif") 0 0px;
   left:10px;
   top:300px;
   display:none;
 }
-#left_arrow:hover{background:url("http://www.shaastra.org/2011/media/main/js2/Media/Images/download.gif") -25px 0px;}
+#left_arrow:hover{background:url("http://www.shaastra.org/2011/media/main/img/download.gif") -25px 0px;}
