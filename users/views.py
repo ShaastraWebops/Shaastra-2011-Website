@@ -52,20 +52,21 @@ def logout(request):
     return HttpResponseRedirect('%slogin/'%settings.SITE_URL)        
     
 def user_registration(request):
+    if request.user.is_authenticated():
+        logged_in = True
     colls = models.College.objects.all()
     collnames = list()
     for coll in colls:
         collnames.append(coll.name + "," + coll.city)
     js_data = simplejson.dumps(collnames)
-    
-    blue = "HAHAHAHAHA HIHIHIHI HUHUHUHU HEHEHEHE"
     if request.method=='POST':
         data = request.POST.copy()
         form = forms.AddUserForm(data)
   
         if form.is_valid():
   
-            user = User.objects.create_user(username = form.cleaned_data['username'], email = form.cleaned_data['email'],password = form.cleaned_data['password'],is_active=False,)
+            user = User.objects.create_user(username = form.cleaned_data['username'], email = form.cleaned_data['email'],password = form.cleaned_data['password'],)
+            user.is_active= False
             user.save()
             salt = sha.new(str(random.random())).hexdigest()[:5]
             activation_key = sha.new(salt+user.username).hexdigest()
