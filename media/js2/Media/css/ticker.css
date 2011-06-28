@@ -10,7 +10,7 @@
 	height:40px;
 	width:23px;
 	float: left;
-	background-image: url(../Images/arrow_left.png);
+	background-image: url("http://www.shaastra.org/2011/media/main/js2/Media/Images/arrow_left.png");
         background-repeat:no-repeat;
 }
 
@@ -26,7 +26,7 @@
 	height:40px;
 	width:23px;
 	float: right;
-	background-image: url(../Images/arrow_right_o.png);
+	background-image: url("http://www.shaastra.org/2011/media/main/js2/Media/Images/arrow_right_o.png");
         background-repeat:no-repeat;
 }
 
@@ -61,7 +61,7 @@
         top:395px;
         left:10px;
 	height:30px;
-	background-image: url(../../media/images/uBar_small.png);
+	background-image: url("http://www.shaastra.org/2011/media/main/media/images/uBar_small.png");
         background-repeat:no-repeat;
         background-position:22px 0px;
 }
@@ -74,7 +74,7 @@
 	height:22px;
 	width:20px;
 	float: left;
-	background-image: url(../../media/images/arrow_left_grey.png);
+	background-image: url("http://www.shaastra.org/2011/media/main/media/images/arrow_left_grey.png");
         background-repeat:no-repeat;
 }
 
@@ -90,7 +90,7 @@
 	height:22px;
 	width:20px;
 	float: right;
-	background-image: url(../../media/images/arrow_right_grey.png);
+	background-image: url("http://www.shaastra.org/2011/media/main/media/images/arrow_right_grey.png");
         background-repeat:no-repeat;
 }
 
