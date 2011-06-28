@@ -49,7 +49,8 @@ $("#branch_input").autocomplete(bdata);
         </div>
   </class>
   
-  {% elif logged_in %}
+  {% else %}
+  {% if logged_in %}
    <center style="height:400px; overflow:auto; margin-right:20px;">
         <div class="success1">
             You have already registered with Shaastra2011 !
