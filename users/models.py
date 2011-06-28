@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from main_test.events.models import Event
+from main_test.submissions.models import *
 
 GENDER_CHOICES = (
     ('M','Male'),
@@ -79,3 +80,9 @@ class UserProfile(models.Model):
 
     class Admin:
         pass
+
+
+class Team(models.Model):
+    name            = models.CharField(max_length=50, default = False) 
+    event           = models.ForeignKey( Event, null = False)
+    members         = models.ManyToManyField(UserProfile,null=False)

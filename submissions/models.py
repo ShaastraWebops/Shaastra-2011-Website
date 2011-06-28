@@ -2,12 +2,13 @@ from django.db import models
 from django.contrib import admin
 from django.contrib.auth.models import User, Group
 from main_test.events.models import *
+from main_test.users.models import UserProfile, Team
 
 
-class Submission(models.Model):
-    participant = models.ForeignKey(User)
+class BaseSubmission(models.Model):
+    event = models.ForeignKey(Event,null=False)
+    # Additional features. 
     submitted = models.BooleanField()
-    #Additional features. 
     interesting = models.BooleanField(default=False,blank = True)
     sub_read = models.BooleanField(default=False,blank = True)
     selected = models.BooleanField(default=False,blank = True)
@@ -16,9 +17,39 @@ class Submission(models.Model):
     is_new = models.BooleanField(default=True, blank=True)
     modified = models.BooleanField(default=False, blank=True)
     
+    def render(self):
+        pass
+    class Admin:
+        pass
+    class Meta:
+        ordering = ['id']
+
+
+class IndividualSubmissions(BaseSubmission):
+    participant = models.ForeignKey(UserProfile)
+    
+    def render(self):
+        pass
+    class Admin:
+        pass
+    class Meta:
+        ordering = ['id']
+    
+class TeamSubmission(BaseSubmission):
+    team = models.ForeignKey(Team)
+    
+    def render(self):
+        pass
+    class Admin:
+        pass
+    class Meta:
+        ordering = ['id']
+
+
 class Answer(models.Model):
     question = models.ForeignKey(Question)
-    submission = models.ForeignKey(Submission)
+    submission = models.ForeignKey(BaseSubmission)
+    
     def render(self):
         pass
     class Admin:
@@ -44,10 +75,6 @@ class Answer_MCQ(Answer):
     class Admin:
         pass
 
-
-#Will this work? I'm not sure at all. It didn't work for events. 
-# Yes!!! It does work! Check out how image and spons logos were done!!!
-'''
 def get_upload_path(instance, filename):
     event = instance.question.event
     return "events/" + camelize(event.name) + "/submissions/" + filename
@@ -60,4 +87,3 @@ class Answer_file(Answer):
         return self.File.url
     class Admin:
         pass
-'''
