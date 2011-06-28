@@ -59,6 +59,7 @@ $("#branch_input").autocomplete(bdata);
         Click <a href="{{ SITE_URL }}home/">here</a> to go back to the home page.
         </div>
   </class>
+  {% endif %}
   {% else % }
  
     {% if registered_college %}
@@ -557,5 +558,5 @@ var branches=new Array("Arts","Accounting","Applied Mechanics / Mechatronics",
   -->
   
 {% endif %}
-{% endif %}
+
 {% endblock %}
