@@ -19,144 +19,120 @@
   </div>
 <div id="popup_container" onclick="closePopUp()" style="color:white;">
  {%for category in categories%}
-	<div id="impact_contents" class="popup_contents">
-	 
-        <div id="impact_heading" style="left:450px; top:10px;" class="heading"><p>"A life is not important except iin the impact it has on others"</p></div>
-	
-          <div id="impact_events" style="position:absolute; left:450px; top:175px;color:white;">
-	{%if category.text|stringformat:"s" == "impact"%}  
-           {% for event in category.events%}
-          <p class="event"><a href="{{event.url}}">{{event.name|capfirst}}</a></p>
-	  {%endfor%}
-	 {%endif%}
-        </div>
+
+
+     <div id="{{category.text}}_contents" class="popup_contents">
+
+ <!-- listing all the headings -->
+	 {%if category.text|stringformat:"s" == "impact"%}
+        <div id="{{category.text}}_heading" class="heading" style="left:450px; top:10px;" >
+          
+            
+              <p>"A life is not important except iin the impact it has on others"</p></div>
          
-	</div>
-	<div id="design_and_build_contents" class="popup_contents">
-	  <div id="design_and_build_heading" class="heading" style="left:450px; top:10px;"><p>"Close You eyes and open your mind"</div>
-	  
-            <div id="design_and_build_events" style="position:absolute; left:450px; top:150px;color:white;">
-              {%if category.text|stringformat:"s" == "design and build"%}  
-           {% for event in category.events%}
-          <p class="event"><a href="{{event.url}}">{{event.name|capfirst}}</a></p>
-	  {%endfor%}
-	 {%endif%}
+          {%endif%}
+
+           {%if category.text|stringformat:"s" == "aerofest"%}
+          <div id="{{category.text}}_heading" class="heading" style="left:10px; top:10px;">
+		<p>"You haven't seen a tree until you have seen its shadow from the sky"</p>
 	  </div>
-	</div>
-	<div id="coding_contents" class="popup_contents">
+          {%endif%}
 
-	  <div id="coding_heading" class="heading" style="left:10px; top:10px;"><p>"There are 10 types of people in this world; those who understand binary and those who don't"</p></div>
-	  <div id="coding_events" style="position:absolute; color:white; left:10px; top:140px; font-size:0.45em;">
-		{%if category.text|stringformat:"s" == "coding"%}  
-           {% for event in category.events%}
-          <p class="event"><a href="{{event.url}}">{{event.name|capfirst}}</a></p>
-	  {%endfor%}
-	 {%endif%}
-		</div>
+           {%if category.text|stringformat:"s" == "design_and_build"%}
+           <div id="design_and_build_heading" class="heading" style="left:450px; top:10px;"><p>"Close You eyes and open your mind"</div>
+          {%endif%}
 
-	</div>
-	<div id="involve_contents" class="popup_contents" >
-
-	  <div id="involve_heading" class="heading" style="left:10px; top:10px;">
+           {%if category.text|stringformat:"s" == "coding"%}  
+          <div id="coding_heading" class="heading" style="left:10px; top:10px;"><p>"There are 10 types of people in this world; those who understand binary and those who don't"</p></div>
+	  {%endif%}
+         
+        {%if category.text|stringformat:"s" == "involve"%}
+         <div id="involve_heading" class="heading" style="left:10px; top:10px;">
 		<p>"One has to look out for engineers, the begin with sewing machines and end up with the atomic bomb"</p></div>
-		<div id="involve_events" style="position:absolute; color:white; left:10px; top:115px; font-size:0.45em;">
-			{%if category.text|stringformat:"s" == "involve"%}  
-           {% for event in category.events%}
-         <p class="event"><a href="{{event.url}}">{{event.name|capfirst}}</a></p>
-	  {%endfor%}
-	 {%endif%}
-		</div>
-
-	</div>
-	<div id="online_contents" class="popup_contents">
-	  <div id="online_heading" class="heading" style="left:10px; top:10px;">
+          {%endif%}
+        {%if category.text|stringformat:"s" == "online"%} 
+          <div id="online_heading" class="heading" style="left:10px; top:10px;">
 		<p>"A journey of a thousand sites begins with a click"</p>
 	  </div>
-	  <div id="online_events" style="position:absolute; color:white; left:10px; top:100px; font-size:0.6em;">
-		{%if category.text|stringformat:"s" == "online"%}  
-           {% for event in category.events%}
-           <p class="event"><a href="{{event.url}}">{{event.name|capfirst}}</a></p>
-	  {%endfor%}
-	 {%endif%}
-	  </div>
-	</div>
-	<div id="spotlights_contents" class="popup_contents">
-
-	  <div id="spotlights_heading" class="heading" style="top:10px; left:450px;">
+        {%endif%}
+       {%if category.text|stringformat:"s" == "spotlights"%}
+       <div id="spotlights_heading" class="heading" style="top:10px; left:450px;">
 	  <p>"Its now what you look at that matters but what you see"</p>
 	  </div>
-	  <div id="spotlights_events" style="position:absolute; color:white; left:450px; top:100px; font-size:0.6em;">
-		{%if category.text|stringformat:"s" == "spotlights"%}  
-           {% for event in category.events%}
-           <p class="event"><a href="{{event.url}}">{{event.name|capfirst}}</a></p>
-	  {%endfor%}
-	 {%endif%}
-	  </div>
-
-	</div>
-	<div id="flagship_contents" class="popup_contents">
-	  <div id="flagship_heading" class="heading" style="left:10px; top:10px;">
+      {%endif%}
+      {%if category.text|stringformat:"s" == "flagship"%}
+      <div id="flagship_heading" class="heading" style="left:10px; top:10px;">
 		<p>"Scientists investigate that which already is; Engineers create that which has never been"</p>
 	  </div>
-	  <div id="flagship_events" style="position:absolute; color:white; left:10px; top:135px; font-size:0.6em;">
-		{%if category.text|stringformat:"s" == "flagship"%}  
-           {% for event in category.events%}
-           <p class="event"><a href="{{event.url}}">{{event.name|capfirst}}</a></p>
-	  {%endfor%}
-	 {%endif%}	  </div>
-
-	</div>
-	<div id="exhibitions_contents" class="popup_contents">
-	  <div id="exhibitions_heading" class="heading" style="left:275px; top:10px;">
+       {%endif%}
+     {%if category.text|stringformat:"s" == "exhibitions"%}
+     <div id="exhibitions_heading" class="heading" style="left:275px; top:10px;">
 		<p>"Its only when you go wrong that machines remind you how powerful they are"</p>
 	  </div>
-	  <div id="exhibitions_events" style="position:absolute; color:white; left:275px; top:200px; font-size:0.6em;">
-		{%if category.text|stringformat:"s" == "exhibitions"%}  
-           {% for event in category.events%}
-           <p class="event"><a href="{{event.url}}">{{event.name|capfirst}}</a></p>
-	  {%endfor%}
-	 {%endif%}
-	  </div>
-	</div>
-	<div id="quizzes_contents" class="popup_contents">
-	  <div id="quizzes_heading" class="heading" style="left:450px; top:10px;">
+    {%endif%}
+    {%if category.text|stringformat:"s" == "quizzes"%}
+     <div id="quizzes_heading" class="heading" style="left:450px; top:10px;">
 		<p>"Intelligence is what you use if you don't know what to do"</p>
 
 	  </div>
-	  <div id="quizzes_events" style="position:absolute; color:white; left:450px; top:200px; font-size:1em;">
-		{%if category.text|stringformat:"s" == "quizzes"%}  
-           {% for event in category.events%}
-           <p class="event"><a href="{{event.url}}">{{event.name|capfirst}}</a></p>
-	  {%endfor%}
-	 {%endif%}
-	  </div>
-	</div>
+   {%endif%}
+{%if category.text|stringformat:"s" == "workshops"%}
 
-	<div id="aerofest_contents" class="popup_contents">
-	  <div id="aerofest_heading" class="heading" style="left:10px; top:10px;">
-		<p>"You haven't seen a tree until you have seen its shadow from the sky"</p>
-	  </div>
-	  <div id="aerofest_event" style="position:absolute; color:white; left:10px; top:200px; font-size:0.7em;">
-		{%if category.text|stringformat:"s" == "aerofest"%}  
-           {% for event in category.events%}
-           <p class="event"><a href="{{event.url}}">{{event.name|capfirst}}</a></p>
-	  {%endfor%}
-	 {%endif%}
-	  </div>
-	</div>
-	<div id="workshops_contents" class="popup_contents">
-	  <div id="workshops_heading" class="heading" style="left:10px; top:10px;">
+    <div id="workshops_heading" class="heading" style="left:10px; top:10px;">
 		<p>"Man is still the most extraordinary machine of all"</p>
 
 	  </div>
-	  <div id="workshop_events" style="position:absolute; color:white; left:10px; top:100px; font-size:0.6em;">
-		  {%if category.text|stringformat:"s" == "workshop"%}  
-           {% for event in category.events%}
-           <p class="event"><a href="{{event.url}}">{{event.name|capfirst}}</a></p>
+{%endif%}
+
+
+<!-- listing all the text -->
+
+          <div id="{{category.text}}_events">
+
+         {%if category.text|stringformat:"s" == "impact"%}
+         <div style="position:absolute; left:450px; top:175px;color:white;">
+	 {%endif%} 
+          {%if category.text|stringformat:"s" == "design_and_build"%}
+           <div style="position:absolute; left:450px; top:150px;color:white;">
+          {%endif%}
+             
+
+        {%if category.text|stringformat:"s" == "coding"%}
+           <div style="position:absolute; color:white; left:10px; top:140px; font-size:0.45em;">
+        {%endif%}
+       {%if category.text|stringformat:"s" == "involve"%}
+         <div style="position:absolute; color:white; left:10px; top:115px; font-size:0.45em;">
+       {%endif%}
+        {%if category.text|stringformat:"s" == "online"%}
+         <div style="position:absolute; color:white; left:10px; top:100px; font-size:0.6em;">
+          {%endif%}
+         {%if category.text|stringformat:"s" == "spotlights"%}
+             <div style="position:absolute; color:white; left:450px; top:100px; font-size:0.6em;">
+          {%endif%}
+            {%if category.text|stringformat:"s" == "flagship"%}
+                <div style="position:absolute; color:white; left:10px; top:135px; font-size:0.6em;">
+            {%endif%}
+            {%if category.text|stringformat:"s" == "exhibitions"%}
+              <div style="position:absolute; color:white; left:275px; top:200px; font-size:0.6em;">
+             {%endif%}
+           {%if category.text|stringformat:"s" == "quizzes"%}
+                <div style="position:absolute; color:white; left:450px; top:200px; font-size:1em;">
+           {%endif%} 
+           {%if category.text|stringformat:"s" == "aerofest"%}
+              <div style="position:absolute; color:white; left:10px; top:200px; font-size:0.7em;">  
+           {%endif%} 
+            {%if category.text|stringformat:"s" == "workshops"%}
+             <div style="position:absolute; color:white; left:10px; top:100px; font-size:0.6em;"> 
+            {%endif%} 
+        {% for event in category.events%}
+          <p class="event"><a href="{{event.url}}">{{event.name|capfirst}}</a></p>
 	  {%endfor%}
-	 {%endif%}
-	  </div>
+	
+        </div>
+        </div> 
 	</div>
+
+
    
 	<div id="soe_contents" class="popup_contents">
 <!-- 	  <div id="image"><img src="img/soe_copy.png"/></div> -->

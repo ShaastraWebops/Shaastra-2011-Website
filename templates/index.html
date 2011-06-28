@@ -9,7 +9,7 @@
 annual technical festival of IIT Madras
      {%endblock%}
     </title>
-    
+
     <link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}css2/style_copy.css">
          <link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}css2/events_scroll.css">
 	<script type="text/javascript" src="{{MEDIA_URL}}js2/Media/js/ticker.js"></script>
@@ -36,27 +36,18 @@ annual technical festival of IIT Madras
     <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/ticker.js"></script>
     <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/jquery.js"></script>
     <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/jquery-ui-1.8.12.custom.min.js"></script>
-        
+    <script>
+    function footeradjust(){
+	   					
+    }
+  
+	</script>        
     <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/jquery.jscrollpane.min.js"></script>
     <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/jquery.mousewheel.js"></script>
     <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/ticker2.js"></script>
     <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/action.js"></script>  
     <link rel="shortcut icon" href="http://www.shaastra.org/fav.ico" />     
-	<script>  
-	    if(window.innerHeight > 650)
-						{
-						var tp = window.innerHeight;
-						//alert(tp);
-						//alert(window.innerHeight);
-						var newtp = tp-46;
-						//alert(newtp);
-						document.getElementById("footer_container").style.position = "absolute";
-						//alert(document.getElementById("footer_container").style.position);
-						document.getElementById("footer_container").style.top = newtp+"px";
-						//alert(document.getElementById("footer_container").style.top);// = tp;
-						}
-  
-	</script>
+	
     <!--[if lte IE 8]>
         <script type="text/javascript">
           width=78;
@@ -81,8 +72,18 @@ annual technical festival of IIT Madras
 
 		
     <script>
+      
 	$(document).ready(function() {
-
+			       if(($(window).height()) > 650)
+						{
+						alert($(window).height());
+						$('#footer_container').css('position','absolute');// = "absolute";
+						//alert(k);
+						$('#footer_container').css('bottom','7px');// = "100px";
+						//alert(k);
+						//alert(document.getElementById("footer_container").style.top);// = tp;
+						}
+	
 			  $('#ticker-img-right').click(function() {
 			  clearTimeout(t);
 			  untypeNext()
@@ -153,7 +154,7 @@ annual technical festival of IIT Madras
     <script src = "{{MEDIA_URL}}js/js/script/script.js"></script>
 {% block media_location%}{%endblock%}
   </head>
-  <body id="page">
+  <body id="page" style="width:100%;"s>
 
 <div id = "container">  
     <!-- HEADER BEGINS -->
