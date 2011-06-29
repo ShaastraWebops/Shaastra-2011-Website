@@ -86,21 +86,23 @@ $("#branch_input").autocomplete(bdata);
 	</div>
 </div>
 
-{% if user.is_authenticated %}
-<div class="errors">
-  You have already registered, and are logged in.
-</div>
-{% endif %}
- <p>
-  For quick help and format, use the help icons <a onmouseover="Tip('Yep, ones that look like these.')" onmouseout="UnTip()"><img height=20 width=20 src="{{ MEDIA_URL }}img/help_icon.png"></a> near each field.
-  </p>
- <p>
-  If you have already registered, click
-  <a href="{{SITE_URL}}login/">
-   here
-  </a>
-  to login. Otherwise, please fill in the following details to register:
- </p>
+<p>
+	<ul style="list-style-type : square;">
+		<li>For quick help and format, use the help icons <a onmouseover="Tip('Yep, ones that look like these.')" onmouseout="UnTip()"><img height=20 width=20 src="{{ MEDIA_URL }}img/help_icon.png"></a> near each field.
+		</li>
+		<li>If you have already registered, click
+			  <a href="{{SITE_URL}}login/">
+			   here
+			  </a>
+			  to login. Otherwise, please fill in the following details to register:
+		</li>
+		{% if user.is_authenticated %}
+		<li>
+		  You have already registered, and are logged in.
+		</li>
+		{% endif %}
+	</ul>
+</p>		
 
 </div>
 
@@ -403,7 +405,6 @@ if(xmlhttp.readyState==4)
     //alert(coll_response);
     hide_college();
     document.getElementById("collsucc").innerHTML="College Successfully Registered.";
-    document.getElementById("processing").innerHTML="";
     //document.getElementById("reg_success").style.display="block";
     //document.getElementById("newcollege").style.display="none";
     if (coll_response != "exists" || coll_response != "failed")
@@ -427,7 +428,6 @@ if(xmlhttp.readyState==4)
 
 function create_coll(){
 
-  document.getElementById("processing").innerHTML="Processing the Request.";
   var url;
   url ="{{SITE_URL}}register/college/?";
   url=url+"identifier-name="+escape(document.getElementById("id_identifier-name").value);
@@ -461,20 +461,17 @@ function hide_college(){
  </div>
  <a name="reg_coll">
   <div id="newcollege" style="display:none">
-   <div class="regCollInfo">
+   <div class="regCollInfo" style="text-align:left;">
     <p>
-	 Please fill in the following details:<br />
-     Please follow this guideline when registering:
-     <br />
-     Kindly use full names for the name of your
-     <b>
-      College and City
-     </b>
-     .It would be extremely helpful to us if you did not use "hyd" for "Hyderabad" or "ABC" for "Amber Beryl College" and so on.
+	<ul style="list-style-type:square;">
+		<li>Please fill in the following details:</li>
+		<li>Please follow this guideline when registering.
+			<ul style="list-style-type:disc; "><li>Kindly use full names for the name of your
+		<b>College and City :</b> It would be extremely helpful to us if you did not use "hyd" for "Hyderabad" or "ABC" for "Amber Beryl College" and so on.</li></ul>
+		</li></ul>
     </p>
    </div><!-- closes div register -->
    <div class="register">
-   		<p id="processing"></p>
     <form id="reg_college" onsubmit="create_coll(); return false;"  onLoad="changeBg();">
     {% csrf_token %}
      <div class="info">
