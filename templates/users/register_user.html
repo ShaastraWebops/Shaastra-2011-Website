@@ -426,6 +426,7 @@ if(xmlhttp.readyState==4)
 
 function create_coll(){
 
+  document.getElementById("processing").innerHTML="Processing the Request.";
   var url;
   url ="{{SITE_URL}}register/college/?";
   url=url+"identifier-name="+escape(document.getElementById("id_identifier-name").value);
@@ -499,6 +500,8 @@ function hide_college(){
 				<span></span>
 			</div>
 		</div>
+		<br/>
+		<p id="processing"></p>
 	</div>
 
      </div>
