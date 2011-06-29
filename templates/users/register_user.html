@@ -73,10 +73,10 @@ $("#branch_input").autocomplete(bdata);
  A college by this name and location has already been registered. Please check the list again.
 </div>
 {% endif %}
+    <p id="collsucc"></p>
 <div class="register">
  
  <div class = "showclgfrm">
-    <p id="collsucc"></p>
     <div>Can't find your college?</div>
 	<div class="button2">
 		<a href="#reg_coll" onclick="showNewCollegeDiv()">
@@ -405,6 +405,16 @@ if(xmlhttp.readyState==4)
     //alert(coll_response);
     hide_college();
     document.getElementById("collsucc").innerHTML="College Successfully Registered.";
+
+for(ibm = 0; ibm <8; ibm++){
+	setTimeout(function(){
+            $('#collsucc').fadeOut(0)
+        },ibm*400);
+	setTimeout(function(){
+            $('#collsucc').fadeIn(0)
+        },200+ibm*400);
+}
+
     //document.getElementById("reg_success").style.display="block";
     //document.getElementById("newcollege").style.display="none";
     if (coll_response != "exists" || coll_response != "failed")
