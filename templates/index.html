@@ -22,10 +22,6 @@ annual technical festival of IIT Madras
       
 
 
-
-
-
-    <link rel="stylesheet" href="css/main.css" type="text/css"/>
     <link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}css/style_copy.css">
     <link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}css/ticker.css">
     <link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}css/events-tab.css" />
@@ -93,7 +89,7 @@ annual technical festival of IIT Madras
       }
       
 	$(document).ready(function() {
-			       if(($(window).height()) > 650)
+			    /*   if(($(window).height()) > 650)
 						{
 						//alert($(window).height());
 						$('#footer_container').css('position','absolute');// = "absolute";
@@ -102,7 +98,7 @@ annual technical festival of IIT Madras
 						//alert(k);
 						//alert(document.getElementById("footer_container").style.top);// = tp;
 						}
-	
+*/	
 			  $('#ticker-img-right').click(function() {
 			  clearTimeout(t);
 			  untypeNext()
@@ -186,7 +182,7 @@ annual technical festival of IIT Madras
             </div>
           </div>
           <div id ="navbar_container">
-            <div id = "navbar">
+            <div id = "navbar" style="position:relative;">
                {%block top_navigation%}
               <a href = "{{SITE_URL}}home" class="navig" id = "home"><span class = "nclass">Home</span></a>
 	      <a href = "#" class="navig" id = "events" onclick = "javascript:setTimeout(function(){popup()},00);"><span class = "nclass">Events</span></a>
@@ -198,13 +194,13 @@ annual technical festival of IIT Madras
               <div id = "logandsearch">
               {%block log_and_search%}
                {% if user.is_authenticated and user.is_active%}			    
-                <div id="welcome" style="position:absolute; top:54px;">Welcome {{user}}</div>
-                <a href="{{SITE_URL}}logout/"><img src = "{{MEDIA_URL}}img/logout.png" id = "login"></a>
+                <div id="welcome" style="position:absolute; left:0px; top:85px; color:#183c5a; font-size:20px; font-weight:normal; font-family:'helvetica'">Welcome {{user}}</div>
+                <a href="{{SITE_URL}}logout/"><img src = "{{MEDIA_URL}}img/logout.png" id = "login_"  style="position:absolute; left:240px; top:85px;" ></a>
                 {% else %}
-                <a href="{{SITE_URL}}login/"><img src = "{{MEDIA_URL}}img/login.png" id = "login"></a>
-                <a href="{{SITE_URL}}register/user/"><img src = "{{MEDIA_URL}}img/sign_up.png" id = "sgnup"></a>
+                <a href="{{SITE_URL}}login/"><img src = "{{MEDIA_URL}}img/login.png" id = "login_" style="position:absolute; left:0px; top:85px;"></a>
+                <a href="{{SITE_URL}}register/user/" ><img src = "{{MEDIA_URL}}img/sign_up.png" id = "sgnup_" style="position:absolute; left:120px; top:85px;"></a>
                 {% endif %}
-                <div id ="srch"><img src = "{{MEDIA_URL}}img/search.png" id = "srimg">&nbsp;&nbsp;<input type = "text" id = "search" name = "search"></div>
+                <div id ="srch"  style="position:absolute; left:362px; top:88px;"><img src = "{{MEDIA_URL}}img/search.png" id = "srimg_">&nbsp;&nbsp;<input type = "text" id = "search" name = "search"></div>
              {%endblock%}
               </div>            
             </div>
@@ -234,10 +230,10 @@ annual technical festival of IIT Madras
           <div id = "social_container">
             <div id = "social">
            {%block social%}
-              <div id="fb"></div>
-	      <div id="youtube"></div>
-	      <div id="blogger"></div>
-	      <div id="twitter"></div>
+				<a href="http://www.facebook.com/Shaastra" target="_blank" ><div id="fb"></div></a>
+				<a href="http://www.youtube.com/iitmshaastra" target="_blank" ><div id="youtube"></div></a>
+				<a href="http://www.shaastra.org/blog/" target="_blank"><div id="blogger"></div></a>
+				<a href="http://www.twitter.com/shaastra_2011" target="_blank" ><div id="twitter"></div></a>
           {%endblock%}
             </div>
           </div>
