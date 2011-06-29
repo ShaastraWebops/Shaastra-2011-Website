@@ -38,7 +38,22 @@ def fileuploadhandler(f, eventname, tabid, file_title):
 def show_quick_tab(request,event_name=None):
     urlname=decamelize(event_name)
     tab_list=models.QuickTabs.objects.filter(event__name = urlname).order_by('pref')
-    event=models.Event.objects.get(name = urlname)
+    try:
+        category = models.Menu.objects.filter(parent_menu = None).get(text = urlname) 
+        category.events_list = []
+        event_menu_list = category.menu_set.select_related('event').all()
+        for event_menu in event_menu_list:
+            event = event_menu.event
+            category.events_list.append(event)
+        return render_to_response('event/show_menu_items.html', locals(), context_instance = global_context(request))
+    except models.Menu.DoesNotExist:
+        pass
+    try:
+        event=models.Event.objects.get(name = urlname)
+    except models.Event.DoesNotExist:
+        raise Http404
+    cat_name = str(models.Menu.objects.get(event = event).parent_menu)
+    cam_cat_name = camelize(cat_name)
     ques_list= list()
     if tab_list.count():
         for t in tab_list:

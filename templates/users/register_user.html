@@ -32,7 +32,16 @@ $("#branch_input").autocomplete(bdata);
   </script>
 <script language="javascript" type="text/javascript" src="http://www.shaastra.org/includes/2009/userportal/js/wz_tooltip.js">
   </script>
+  {% if logged_in %}
   
+  <center style="height:400px; overflow:auto; margin-right:20px;">
+        <div class="success1">
+            You have already registered with Shaastra2011 !
+        </div>
+        Click <a href="{{ SITE_URL }}home/">here</a> to go back to the home page.
+        </div>
+  </class>
+  {% else %}
   {% if registered_user %}
   
   <center style="height:400px; overflow:auto; margin-right:20px;">
@@ -52,9 +61,11 @@ $("#branch_input").autocomplete(bdata);
   {% else %}
  
     {% if registered_college %}
+     
 <div class="register">
- College successfully registered.
+ <center>College successfully registered.</center>
 </div>
+     
 {% endif %}
 
     {% if college_already %}
@@ -94,7 +105,7 @@ $("#branch_input").autocomplete(bdata);
 </div>
 
 
-<center style="height:400px; overflow:scroll; margin-right:20px;">
+<center style="height:400px; overflow:auto; margin-right:20px;">
  <h1 align="center">
   User Registration
  </h1>
@@ -321,7 +332,7 @@ onblurAttribute();
 </script>
 
    <script type="text/javascript">
-		$('#content').css({'height':'412px','width':'98%'});
+		$('#content').css({'height':'400px','width':'98%'});
         var label = document.body.getElementsByTagName("label")[13];
         var string = label.innerHTML;
         label.innerHTML = "<div class='errors'>"+string+"<div style='font-family: verdana; color: black; font-size: 10px; line-height: 1em;'>We will be sending you a conformation mail after 3rd of September if you get shortlisted for accommodation!</div></div>";
@@ -546,5 +557,6 @@ var branches=new Array("Arts","Accounting","Applied Mechanics / Mechatronics",
     </script>
   -->
   
+{% endif %}
 {% endif %}
 {% endblock %}

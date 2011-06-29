@@ -1,5 +1,5 @@
 {%extends "index.html"%}
-{%block event_categories%}{%endblock%}
+{%block event_categories%}{%include "event_categories.html"%}{%endblock%}
 
  {%block media_location%}   
 	<script type="text/javascript">
@@ -38,8 +38,12 @@
         <div id = "video"></div>
 		
 		<div id="tabsTop">
-		<div id="events_heading">{{event_name|capfirst}}</div>
-		</div>
+		<span id="events_heading">
+		    {{event_name|capfirst}}
+
+	    <span id="menu_path" style="font-size:medium"><a href="{{SITE_URL}}home/">Home</a> >> <a href="{{SITE_URL}}home/">Events</a> >> <a href="{{SITE_URL}}events/{{cam_cat_name}}">{{cat_name|capfirst}}</a> >> {{event.display_name}}</span>
+		</span>
+        </div>
 
 	<div id = "verticlleft">              
 	  <div id="eventsTab"> 
@@ -137,14 +141,18 @@
 	      </div>
 	    </div>
 	    <div id = "verticlright">
-	    {% if event.sponslogo %}
+	    
             <div id = "rtvtop">
             <div>
                 Sponsored By:
             </div>
+		{% if event.sponslogo %}
             <img src = "{{event.sponslogo.url}}"width="217" height="150">
-            </div>
+		{% else %}
+    	   <img src = "{{MEDIA_URL}}SPONS_DEFAULT.png"width="217" height="150">
 		{%endif%}
+            </div>
+		
         {%if event.video%}
     		<div id = "rtvbottom">
 		    <iframe src="{{event.video}}"
