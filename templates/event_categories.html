@@ -21,7 +21,7 @@
  {%for category in categories%}
 
 
-     <div id="{{category.text}}_contents" class="popup_contents">
+     <div id="{{category.text|slugify}}_contents" class="popup_contents">
 
  <!-- listing all the headings -->
 	 {%if category.text|stringformat:"s" == "impact"%}
@@ -38,8 +38,8 @@
 	  </div>
           {%endif%}
 
-           {%if category.text|stringformat:"s" == "design_and_build"%}
-           <div id="design_and_build_heading" class="heading" style="left:450px; top:10px;"><p>"Close You eyes and open your mind"</div>
+           {%if category.text|stringformat:"s" == "Design And Build"%}
+           <div id="design-and-build_heading" class="heading" style="left:450px; top:10px;"><p>"Close You eyes and open your mind"</div>
           {%endif%}
 
            {%if category.text|stringformat:"s" == "coding"%}  
@@ -87,12 +87,12 @@
 
 <!-- listing all the text -->
 
-          <div id="{{category.text}}_events">
+          <div id="{{category.text|slugify}}_events">
 
          {%if category.text|stringformat:"s" == "impact"%}
          <div style="position:absolute; left:450px; top:175px;color:white;font-size:0.45em;">
 	 {%endif%} 
-          {%if category.text|stringformat:"s" == "design_and_build"%}
+          {%if category.text|stringformat:"s" == "Design And Build"%}
            <div style="position:absolute; left:450px; top:150px;color:white; font-size:0.45em;">
           {%endif%}
              
