@@ -199,12 +199,12 @@ annual technical festival of IIT Madras
               {%block log_and_search%}
                {% if user.is_authenticated and user.is_active%}			    
                 <div id="welcome" style="position:absolute; top:54px;">Welcome {{user}}</div>
-                <a href="{{SITE_URL}}logout/"><img src = "{{MEDIA_URL}}img/logout.png" id = "login_" style="position:absolute; left:35px; top:85px;" ></a>
+                <a href="{{SITE_URL}}logout/"><img src = "{{MEDIA_URL}}img/logout.png" id = "login_" style="position:absolute; left:0px; top:85px;" ></a>
                 {% else %}
-                <a href="{{SITE_URL}}login/"><img src = "{{MEDIA_URL}}img/login.png" id = "login_" style="position:absolute; left:35px; top:85px;"></a>
-                <a href="{{SITE_URL}}register/user/" ><img src = "{{MEDIA_URL}}img/sign_up.png" id = "sgnup_" style="position:absolute; left:155px; top:85px;"></a>
+                <a href="{{SITE_URL}}login/"><img src = "{{MEDIA_URL}}img/login.png" id = "login_" style="position:absolute; left:0px; top:85px;"></a>
+                <a href="{{SITE_URL}}register/user/" ><img src = "{{MEDIA_URL}}img/sign_up.png" id = "sgnup_" style="position:absolute; left:120px; top:85px;"></a>
                 {% endif %}
-                <div id ="srch"  style="position:absolute; left:395px; top:88px;"><img src = "{{MEDIA_URL}}img/search.png" id = "srimg_">&nbsp;&nbsp;<input type = "text" id = "search_" name = "search"></div>
+                <div id ="srch"  style="position:absolute; left:362px; top:88px;"><img src = "{{MEDIA_URL}}img/search.png" id = "srimg_">&nbsp;&nbsp;<input type = "text" id = "search" name = "search"></div>
              {%endblock%}
               </div>            
             </div>
