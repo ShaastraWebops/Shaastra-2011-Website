@@ -405,7 +405,7 @@ if(xmlhttp.readyState==4)
     //alert(coll_response);
     hide_college();
     document.getElementById("collsucc").innerHTML="College Successfully Registered.";
-
+/*
 for(ibm = 0; ibm <8; ibm++){
 	setTimeout(function(){
             $('#collsucc').fadeOut(0)
@@ -414,7 +414,12 @@ for(ibm = 0; ibm <8; ibm++){
             $('#collsucc').fadeIn(0)
         },200+ibm*400);
 }
+*/
 
+for(ibm = 0; ibm <5; ibm++){
+	$('#collsucc').fadeOut(0);
+	$('#collsucc').fadeIn(1000);
+}
     //document.getElementById("reg_success").style.display="block";
     //document.getElementById("newcollege").style.display="none";
     if (coll_response != "exists" || coll_response != "failed")
