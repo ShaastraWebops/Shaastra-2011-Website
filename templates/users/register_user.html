@@ -403,6 +403,7 @@ if(xmlhttp.readyState==4)
     //alert(coll_response);
     hide_college();
     document.getElementById("collsucc").innerHTML="College Successfully Registered.";
+    document.getElementById("processing").innerHTML="";
     //document.getElementById("reg_success").style.display="block";
     //document.getElementById("newcollege").style.display="none";
     if (coll_response != "exists" || coll_response != "failed")
@@ -426,6 +427,7 @@ if(xmlhttp.readyState==4)
 
 function create_coll(){
 
+  document.getElementById("processing").innerHTML="Processing the Request.";
   var url;
   url ="{{SITE_URL}}register/college/?";
   url=url+"identifier-name="+escape(document.getElementById("id_identifier-name").value);
@@ -472,6 +474,7 @@ function hide_college(){
     </p>
    </div><!-- closes div register -->
    <div class="register">
+   		<p id="processing"></p>
     <form id="reg_college" onsubmit="create_coll(); return false;"  onLoad="changeBg();">
     {% csrf_token %}
      <div class="info">

@@ -35,7 +35,7 @@
 
                <!-- The edit tab Button -->
                
-                <div id="edit_tab{{row.id}}" style="position:absolute; bottom:-10px; left:10px;">
+                <div id="edit_tab{{row.id}}" style="position:relative; bottom:0px; left:10px;display:block;">
 					<div id="edit_tab">
 						<form action="edit_tab/" method = 'GET' >
 						{% csrf_token %}
@@ -194,7 +194,7 @@
 
 
 <!-- the delete tab button -->                   
-<div id="deletetab{{row.id}}" style="position:absolute; bottom:0px; left:115px;">
+<div id="deletetab{{row.id}}" style="position:relative; bottom:48px; left:120px;display:block;">
     <div id="delete_tab">
     <input type="submit" value="">   
 </div>  
@@ -207,7 +207,7 @@
     <form action="delete_tab/" method = 'POST'>
     {% csrf_token %}
     <input type="hidden" value="{{row.id}}" name=tab_id />
-	<div id="conf_del{{row.id}}" style="position:absolute; bottom:-5px; left:5px;">
+	<div id="conf_del{{row.id}}" style="position:relative; bottom:0px; left:5px;display:none;">
 		<div class="button2">
 				<a href="#">
 					<input type="submit" value="Confirm Delete" />
@@ -216,7 +216,7 @@
 		</div>
 	</div>
 	</form>
-<div id="cancel{{row.id}}" style="position:absolute; bottom:-5px; left:138px;"> 
+<div id="cancel{{row.id}}" style="position:relative; bottom:0px; left:5px;display:none;"> 
 	<div class="button2">
 		<a href="#">
 				<input type="submit" value="Cancel" />
@@ -231,37 +231,31 @@
 
 
 //$("#deltabconf{{row.id}}").fadeOut(0);;
-
+$(document).ready(function(){
 		$("#conf_del{{row.id}}").animate({
-			marginLeft:'-300px'
+			marginLeft:'0px'
 		},300);
 		$("#cancel{{row.id}}").animate({
-			marginLeft:'-300px'
+			marginLeft:'0px'
 		},1200);
 		
 $("#deletetab{{row.id}}").click(function () {
 		$("#deletetab{{row.id}}").fadeOut(300);
 		$("#edit_tab{{row.id}}").fadeOut(300);
 		//$("#deltabconf{{row.id}}").fadeIn(300);		
-		$("#conf_del{{row.id}}").animate({
-			marginLeft:'0px'
-		},300);
-		$("#cancel{{row.id}}").animate({
-			marginLeft:'0px'
-		},800);
+		$("#conf_del{{row.id}}").fadeIn(300);
+		$("#cancel{{row.id}}").fadeIn(300);
     });
 
 
 $("#cancel{{row.id}}").click(function () {
-		$("#conf_del{{row.id}}").animate({
-			marginLeft:'-300px'
-		},300);
-		$("#cancel{{row.id}}").animate({
-			marginLeft:'-300px'
-		},800);
-		$("#deletetab{{row.id}}").fadeIn(900);
-		$("#edit_tab{{row.id}}").fadeIn(900);
-    })
+		$("#conf_del{{row.id}}").fadeOut(100);
+		$("#cancel{{row.id}}").fadeOut(100);
+		$("#deletetab{{row.id}}").fadeIn(300);
+		$("#edit_tab{{row.id}}").fadeIn(300);
+    });
+}
+);
 </script>
    <br><br><br><br><br>
 				</div>
