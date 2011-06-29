@@ -38,23 +38,15 @@
 	  </div>
           {%endif%}
 
-<<<<<<< Updated upstream
-           {%if category.text|stringformat:"s" == "Design And Build"%}
+
+           {%if category.text|slugify|stringformat:"s" == "design-and-build"%}
            <div id="design-and-build_heading" class="heading" style="left:450px; top:10px;">
 	    <p><span class = "quote">"</span>Close You eyes and open your mind<span class = "quote">"</span></div>
           {%endif%}
 
-           {%if category.text|stringformat:"s" == "coding"%}  
+           {%if category.text|slugify|stringformat:"s" == "coding"%}  
           <div id="coding_heading" class="heading" style="left:10px; top:10px;">
 	   <p><span class = "quote">"</span>There are 10 types of people in this world; those who understand binary and those who don't<span class = "quote">"</span></p></div>
-=======
-           {%if category.text|slugify|stringformat:"s" == "design-and-build"%}
-           <div id="design-and-build_heading" class="heading" style="left:450px; top:10px;"><p>"Close You eyes and open your mind"</div>
-          {%endif%}
-
-           {%if category.text|slugify|stringformat:"s" == "coding"%}  
-          <div id="coding_heading" class="heading" style="left:10px; top:10px;"><p>"There are 10 types of people in this world; those who understand binary and those who don't"</p></div>
->>>>>>> Stashed changes
 	  {%endif%}
          
         {%if category.text|slugify|stringformat:"s" == "involve"%}
