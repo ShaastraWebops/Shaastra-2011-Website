@@ -52,8 +52,13 @@ def show_quick_tab(request,event_name=None):
         event=models.Event.objects.get(name = urlname)
     except models.Event.DoesNotExist:
         raise Http404
-    cat_name = str(models.Menu.objects.get(event = event).parent_menu)
-    cam_cat_name = camelize(cat_name)
+    cat_name = ""
+    cam_cat_name = ""
+    if event.name  == "testevent":
+        pass
+    else:
+        cat_name = str(models.Menu.objects.get(event = event).parent_menu)
+        cam_cat_name = camelize(cat_name)
     ques_list= list()
     if tab_list.count():
         for t in tab_list:
