@@ -41,11 +41,11 @@ def show_quick_tab(request,event_name=None):
     try:
         category = models.Menu.objects.get(text = urlname)
         return render_to_response('event/show_menu_items.html', locals(), context_instance = global_context(request))
-    except Menu.DoesNotExist:
+    except models.Menu.DoesNotExist:
         pass
     try:
         event=models.Event.objects.get(name = urlname)
-    except Event.DoesNotExist:
+    except models.Event.DoesNotExist:
         raise Http404
     cat_name = str(models.Menu.objects.get(event = event).parent_menu)
     cam_cat_name = camelize(cat_name)
