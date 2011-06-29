@@ -40,11 +40,6 @@ def show_quick_tab(request,event_name=None):
     tab_list=models.QuickTabs.objects.filter(event__name = urlname).order_by('pref')
     try:
         category = models.Menu.objects.get(text = urlname)
-        category.events_list = []
-        event_menu_list = category.menu_set.select_related('event').all()
-        for event_menu in event_menu_list:
-            event = event_menu.event
-            category.events_list.append(event)
         return render_to_response('event/show_menu_items.html', locals(), context_instance = global_context(request))
     except models.Menu.DoesNotExist:
         pass
