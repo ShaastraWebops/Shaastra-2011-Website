@@ -86,22 +86,23 @@ $("#branch_input").autocomplete(bdata);
 	</div>
 </div>
 
- <ul style="list-style-type : square;">
-	<li>For quick help and format, use the help icons <a onmouseover="Tip('Yep, ones that look like these.')" onmouseout="UnTip()"><img height=20 width=20 src="{{ MEDIA_URL }}img/help_icon.png"></a> near each field.
-	</li>
-    <li>If you have already registered, click
-		  <a href="{{SITE_URL}}login/">
-		   here
-		  </a>
-		  to login. Otherwise, please fill in the following details to register:
-    </li>
-	{% if user.is_authenticated %}
-	<li>
-	  You have already registered, and are logged in.
-	</li>
-	{% endif %}
-</ul>
-		
+<p>
+	<ul style="list-style-type : square;">
+		<li>For quick help and format, use the help icons <a onmouseover="Tip('Yep, ones that look like these.')" onmouseout="UnTip()"><img height=20 width=20 src="{{ MEDIA_URL }}img/help_icon.png"></a> near each field.
+		</li>
+		<li>If you have already registered, click
+			  <a href="{{SITE_URL}}login/">
+			   here
+			  </a>
+			  to login. Otherwise, please fill in the following details to register:
+		</li>
+		{% if user.is_authenticated %}
+		<li>
+		  You have already registered, and are logged in.
+		</li>
+		{% endif %}
+	</ul>
+</p>		
 
 </div>
 
