@@ -1,21 +1,45 @@
 {% extends "index.html" %}
 {%block event_categories%}{%endblock%}
 {% block body %}
+ <style>
+  #errors{
+   width : 100%;
+   margin:0;
+  }
+  #errormessage{
+   width:300px;
+   height : 400px;
+   position:relative;
+   left : 500px;
+   margin : 0 auto 0 auto;
+  }
+  p{
+   font-size : 15px;
+    color : #000;
+   
+  }
+ </style>
 <div class="errors">
- <h1>
-  Page Not Found
- </h1>
- <p>
-  The url:
-  <u>
+<div id = "errormessage">
+ <img src = http://www.shaastra.org/2011/media/main/img/all_logos.png>
+  <br>
+ <p style="color:#AAA;font-size:20px;"><b style="font-size:22px;color:#000;">404</b> Error.</p>
+ 
+ </p><hr><br>
+<div style="background : rgba(200,200,200,.4);">
+ <p style="text-align:left;font-size:15px;color: #4e8557;font-family:'Garamond';line-height:20px;letter-spacing:0px;text-transform:uppercase;">
+  The URL:
+  <span style= "color : #701;font-size : 17px;">
    {{request.path}}
-  </u>
-  does not exist. If you have found
-    this error while being directed from one of our links, please inform
-    the WebOps team at: webops [at] shaastra.org.
+  </span>
+    Does not exist.
+    <p style="text-align:left;font-size:15px;color: #4e8557;font-family:'Garamond';line-height:20px;letter-spacing:0px;text-transform:uppercase;">Click <a href = "javascript:history.go(-1);">Here</a> to go back.
  </p>
- <p>
-  We apologise for the inconvinence
+ 
+ <p style="text-align:left;font-size:15px;color: #4e8557;font-family:'Garamond';line-height:20px;letter-spacing:0px;text-transform:uppercase;">
+  We apologise for the inconvinence.
  </p>
+</div>
+</div>
 </div>
 {% endblock %}
