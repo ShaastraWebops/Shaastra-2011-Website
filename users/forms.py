@@ -191,4 +191,4 @@ class EditUserForm(ModelForm):
 class FeedbackForm(ModelForm):
     class Meta:
         model=models.Feedback
-        widgets = {'content': Textarea(attrs={'cols': 80, 'rows': 20}),}
+        widgets = {'content': forms.Textarea(attrs={'cols': 80, 'rows': 20}),}
