@@ -43,7 +43,12 @@ annual technical festival of IIT Madras
     <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/ticker2.js"></script>
     <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/action.js"></script>  
     <link rel="shortcut icon" href="http://www.shaastra.org/fav.ico" >     
-	
+
+ <!--[if IE ]>
+        <script type="text/javascript">
+          var IE_ = true;
+        </script>
+    <![endif]-->
     <!--[if lte IE 8]>
         <script type="text/javascript">
           width=78;
@@ -221,6 +226,7 @@ annual technical festival of IIT Madras
 			<div id="ucLeft"></div>
 			<div id="ucMid"></div>
 			<div id="ucRight"></div>
+        <script type="text/javascript"> if(IE_) $("#updates_container").css('top','-3px');</script>
           {%block updates%}
 	    <div id="ticker" style="" class="iefix">
 	      <div id="ticker-img-left" class="iefix"></div>
