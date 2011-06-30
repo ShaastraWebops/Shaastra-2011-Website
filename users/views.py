@@ -191,6 +191,6 @@ def feedback(request):
             form.save()
             return HttpResponseRedirect ("%shome/"%settings.SITE_URL)
     else:            
-        form = forms.FeedbackForm(intial={'name':name,'email':email})
+        form = forms.FeedbackForm(initial={'name':name,'email':email})
         return render_to_response('users/feedback.html', locals(), context_instance= global_context(request))        
     
