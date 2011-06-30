@@ -93,25 +93,7 @@ annual technical festival of IIT Madras
 	    }
       }
       
-    function popup1(){
-	    if(pop == 0 && detectclick == 0){
-		  detectclick++;
-		  load_popup1();
-		  pop=1;
-		  setTimeout(function(){detectclick = 0},1000);
-		  return;
-	    }
-	    if(pop==1 && detectclick == 0)
-	    {
-		  detectclick++;
-		  close_popup1();
-		  pop=0;
-		  setTimeout(function(){detectclick = 0},1000);
-		  return;
-	    }
-      }
-
-
+    
 
 
 	$(document).ready(function() {
@@ -228,7 +210,7 @@ annual technical festival of IIT Madras
                {%block top_navigation%}
               <a href = "{{SITE_URL}}home" class="navig" id = "home"><span class = "nclass">Home</span></a>
 	      <a href = "#" class="navig" id = "events" onclick = "javascript:setTimeout(function(){popup()},00);"><span class = "nclass">Events</span></a>
-	      <a href = "#" class="navig" id = "hospi" onclick = "javascript:setTimeout(function(){popup1()},00);><span class = "nclass">Hospitality</span></a>
+	      <a href = "#" class="navig" id = "hospi" );><span class = "nclass">Hospitality</span></a>
 	      <a href = "#" class="navig" id = "sponsor"><span class = "nclass">Sponsorship</span></a>
 	      <a href = "#" class="navig" id = "gallery"><span class = "nclass">Gallery</span></a>
                {%endblock%}
