@@ -20,7 +20,10 @@
 <div id="popup_container" onclick="closePopUp()" style="color:white;">
  {%for category in categories%}
 
-
+	
+	<div id="catimage"></div>
+	
+	
      <div id="{{category.text|slugify}}_contents" class="popup_contents" style="display:none;" onload ="javascript:this.style.display = 'block';" >
 
  <!-- listing all the headings -->
