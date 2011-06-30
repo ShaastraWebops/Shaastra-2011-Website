@@ -179,4 +179,18 @@ def edit_profile(request):
         form=forms.EditUserForm(initial={'password':user.password,'password_again':user.password,'college_roll':userprofile.college_roll,'mobile_number':userprofile.mobile_number})
         return render_to_response('users/edit_user_raw.html', locals(), context_instance= global_context(request))
 
-
+def feedback(request):
+    name, email = "", ""
+    if request.user.is_authenticated():
+        user = request.user
+        name,email = user.first_name,user.email
+    if request.method=='POST':
+        data=request.POST.copy()
+        form=forms.FeedbackForm(data)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect ("%shome/"%settings.SITE_URL)
+    else:            
+    form = forms.FeedbackForm(intial={'name':name,'email':email})
+    return render_to_response('users/feedback.html', locals(), context_instance= global_context(request))        
+    

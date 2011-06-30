@@ -188,3 +188,7 @@ class EditUserForm(ModelForm):
         else:
            return self.cleaned_data['college_roll']
 
+class FeedbackForm(ModelForm):
+    class Meta:
+        model=models.Feedback
+        widgets = {'content': Textarea(attrs={'cols': 80, 'rows': 20}),}
