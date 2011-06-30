@@ -43,7 +43,12 @@ annual technical festival of IIT Madras
     <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/ticker2.js"></script>
     <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/action.js"></script>  
     <link rel="shortcut icon" href="http://www.shaastra.org/fav.ico" >     
-	
+
+ <!--[if IE ]>
+        <script type="text/javascript">
+          var IE_ = true;
+        </script>
+    <![endif]-->
     <!--[if lte IE 8]>
         <script type="text/javascript">
           width=78;
@@ -88,6 +93,27 @@ annual technical festival of IIT Madras
 	    }
       }
       
+    function popup1(){
+	    if(pop == 0 && detectclick == 0){
+		  detectclick++;
+		  load_popup1();
+		  pop=1;
+		  setTimeout(function(){detectclick = 0},1000);
+		  return;
+	    }
+	    if(pop==1 && detectclick == 0)
+	    {
+		  detectclick++;
+		  close_popup1();
+		  pop=0;
+		  setTimeout(function(){detectclick = 0},1000);
+		  return;
+	    }
+      }
+
+
+
+
 	$(document).ready(function() {
 			    /*   if(($(window).height()) > 650)
 						{
@@ -188,7 +214,7 @@ annual technical festival of IIT Madras
                {%block top_navigation%}
               <a href = "{{SITE_URL}}home" class="navig" id = "home"><span class = "nclass">Home</span></a>
 	      <a href = "#" class="navig" id = "events" onclick = "javascript:setTimeout(function(){popup()},00);"><span class = "nclass">Events</span></a>
-	      <a href = "#" class="navig" id = "hospi"><span class = "nclass">Hospitality</span></a>
+	      <a href = "#" class="navig" id = "hospi" onclick = "javascript:setTimeout(function(){popup1()},00);><span class = "nclass">Hospitality</span></a>
 	      <a href = "#" class="navig" id = "sponsor"><span class = "nclass">Sponsorship</span></a>
 	      <a href = "#" class="navig" id = "gallery"><span class = "nclass">Gallery</span></a>
                {%endblock%}
@@ -221,6 +247,7 @@ annual technical festival of IIT Madras
 			<div id="ucLeft"></div>
 			<div id="ucMid"></div>
 			<div id="ucRight"></div>
+        <script type="text/javascript"> if(IE_) $("#updates_container").css('top','-3px');</script>
           {%block updates%}
 	    <div id="ticker" style="" class="iefix">
 	      <div id="ticker-img-left" class="iefix"></div>
@@ -346,8 +373,9 @@ annual technical festival of IIT Madras
  {%endblock%}
 {%block event_categories%}
    {%include "event_categories.html"%}
+   
 {%endblock%}
-
+{%include "hospi.html"%}
  {%block menu_popup%}
     <div id = "eventscontainer">
       

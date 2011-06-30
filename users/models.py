@@ -81,6 +81,17 @@ class UserProfile(models.Model):
     class Admin:
         pass
 
+class Feedback(models.Model):
+    name    = models.CharField  ( max_length = 30, help_text = 'Your first name' )
+    email   = models.EmailField ( null = False, help_text = 'The email id to respond to' )
+    content = models.CharField  ( max_length = 10000, null = False, help_text= 'Please stick to the point' )
+    
+    def __unicode__(self):
+        return self.content
+    
+    class Admin:
+        pass            
+
 '''
 class Team(models.Model):
     name            = models.CharField(max_length=50, default = False) 
