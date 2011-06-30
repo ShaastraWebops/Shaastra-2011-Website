@@ -21,7 +21,7 @@
  {%for category in categories%}
 
 
-     <div id="{{category.text|slugify}}_contents" class="popup_contents">
+     <div id="{{category.text|slugify}}_contents" class="popup_contents" style="display:none;" onload ="javascript:this.style.display = 'block';" >
 
  <!-- listing all the headings -->
 	 {%if category.text|slugify|stringformat:"s" == "impact"%}
@@ -147,12 +147,17 @@
 </div>
 
 </div>
-				 
+	
+
+
+<div id="right_arrow1"  onclick="load_popup1()"></div>
+<div id="left_arrow1" onclick="close_popup1()"></div>
+			 
+
+
+{%endblock%}
 <div id="right_arrow"  onclick="load_popup()"></div>
 <div id="left_arrow" onclick="close_popup()"></div>
     <center style="color:#BBB;position:relative;top:410px;display:none;" id = "cen">Click on each category to know more.</center>
 
-
-
-{%endblock%}
 
