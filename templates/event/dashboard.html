@@ -107,9 +107,10 @@
 
 	  <div id="eventsTab"> 
 	    <div id="tabs">
+<!--initial id present id=\""+elem[t]+"\" -->
 		<script type="text/javascript">
 		            if(noOfTabs == 0){
-		                document.write("<div id=\""+elem[t]+"\">"+"Tabs can be added using the ADD TAB button"+"</div>");
+		                document.write("<div id=\"NULL \">"+"Tabs can be added using the ADD TAB button"+"</div>");
 		            }
 					for(var t=0;t<noOfTabs;t++){
 						document.write("<div id=\""+elem[t]+"\">"+tabNames[t]+"</div>");
