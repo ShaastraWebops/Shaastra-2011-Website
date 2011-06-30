@@ -24,40 +24,36 @@
      <div id="{{category.text|slugify}}_contents" class="popup_contents" style="display:none;" onload ="javascript:this.style.display = 'block';" >
 
  <!-- listing all the headings -->
-	 {%if category.text|slugify|stringformat:"s" == "impact"%}
+	{%if category.text|slugify|stringformat:"s" == "impact"%}
         <div id="{{category.text}}_heading" class="heading" style="left:450px; top:10px;" >
-          
-            
-              <p><span class = "quote">"</span>A life is not important except in the impact it has on others<span class = "quote">"</span></p></div>
-         
-          {%endif%}
-
-           {%if category.text|slugify|stringformat:"s" == "aerofest"%}
-          <div id="{{category.text}}_heading" class="heading" style="left:10px; top:10px;">
+              <p><span class = "quote">"</span>A life is not important except in the impact it has on others<span class = "quote">"</span></p>
+		</div>
+    {%endif%}
+    {%if category.text|slugify|stringformat:"s" == "aerofest"%}
+    <div id="{{category.text}}_heading" class="heading" style="left:10px; top:10px;">
 		<p><span class = "quote">"</span>You haven't seen a tree until you have seen its shadow from the sky<span class = "quote">"</span></p>
-	  </div>
-          {%endif%}
-
-
-           {%if category.text|slugify|stringformat:"s" == "design-and-build"%}
-           <div id="design-and-build_heading" class="heading" style="left:450px; top:10px;">
-	    <p><span class = "quote">"</span>Close You eyes and open your mind<span class = "quote">"</span></div>
-          {%endif%}
-
-           {%if category.text|slugify|stringformat:"s" == "coding"%}  
-          <div id="coding_heading" class="heading" style="left:10px; top:10px;">
-	   <p><span class = "quote">"</span>There are 10 types of people in this world; those who understand binary and those who don't<span class = "quote">"</span></p></div>
-	  {%endif%}
-         
-        {%if category.text|slugify|stringformat:"s" == "involve"%}
-         <div id="involve_heading" class="heading" style="left:10px; top:10px;">
-		<p><span class = "quote">"</span>One has to look out for engineers, they begin with sewing machines and end up with the atomic bomb<span class = "quote">"</span></p></div>
-          {%endif%}
-        {%if category.text|slugify|stringformat:"s" == "online"%} 
+	</div>
+    {%endif%}
+	{%if category.text|slugify|stringformat:"s" == "design-and-build"%}     
+    <div id="design-and-build_heading" class="heading" style="left:450px; top:10px;">
+	    <p><span class = "quote">"</span>Close You eyes and open your mind<span class = "quote">"</span>
+	</div>
+    {%endif%}
+	{%if category.text|slugify|stringformat:"s" == "coding"%}  
+    <div id="coding_heading" class="heading" style="left:10px; top:10px;">
+	   <p><span class = "quote">"</span>There are 10 types of people in this world; those who understand binary and those who don't<span class = "quote">"</span></p>
+	</div>
+    {%endif%}         
+    {%if category.text|slugify|stringformat:"s" == "involve"%}
+    <div id="involve_heading" class="heading" style="left:10px; top:10px;">
+		<p><span class = "quote">"</span>One has to look out for engineers, they begin with sewing machines and end up with the atomic bomb<span class = "quote">"</span></p>
+	</div>
+    {%endif%}
+    {%if category.text|slugify|stringformat:"s" == "online"%} 
           <div id="online_heading" class="heading" style="left:10px; top:10px;">
 		<p><span class = "quote">"</span>A journey of a thousand sites begins with a click<span class = "quote">"</span></p>
 	  </div>
-        {%endif%}
+         {%endif%}
        {%if category.text|slugify|stringformat:"s" == "spotlights"%}
        <div id="spotlights_heading" class="heading" style="top:10px; left:450px;">
 	  <p><span class = "quote">"</span>Its not what you look at that matters but what you see<span class = "quote">"</span></p>
