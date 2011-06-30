@@ -177,7 +177,7 @@ annual technical festival of IIT Madras
 	  
 			$(document).ready(function(){
 				var oht=document.getElementById('content').offsetHeight;
-				var ht, tpPad;
+				var ht, tpPad, catTop;
 					$("#page").mouseover(function(){
 						ht=$(window).height();
 						if(ht>600||oht<420){
@@ -186,10 +186,18 @@ annual technical festival of IIT Madras
 									tpPad = (parseInt(ht) - 433 -208)/2;
 									$("#content").css({marginTop:tpPad});
 									$("#content").css({marginBottom:-tpPad});
+									
+									catTop =( ht - 433 - 40 - 208 )/2;
+									$("#footer_container").css{('top':'+=2*catTop')};
+									$("#categories").css{('top':'+=catTop')};
+									
 								}
 							}
 						else{
 							$("#content").css({'height':oht+'px'});
+							$("#footer_container").css{('top':'593px')};
+							$("#container1").css{('top':'176px')};
+							$("#content").css({margin:'0px'});
 						}
 					});	
 				});	
