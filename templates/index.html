@@ -76,22 +76,14 @@ annual technical festival of IIT Madras
       var pop = 0;
       var detectclick = 0;
       function popup(){
-	    if(pop == 0 && detectclick == 0){
+	    if(detectclick == 0){
 		  detectclick++;
-		  load_popup();
-		  pop=1;
+		  callrec(1);
+		  //pop=1;
 		  setTimeout(function(){detectclick = 0},1000);
 		  return;
 	    }
-	    if(pop==1 && detectclick == 0)
-	    {
-		  detectclick++;
-		  close_popup();
-		  pop=0;
-		  setTimeout(function(){detectclick = 0},1000);
-		  return;
-	    }
-      }
+}
       
     
 
