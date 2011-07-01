@@ -1,63 +1,68 @@
 {%block event_categories%}
-
+ 
 	<div id="categories">
+	<!-- preload categories master image  and other images-->
+								<img src="http://www.shaastra.org/2011/media/main/img/cat/catmaster.jpg" style="height:0px; width:0px;"/>
+								<img src="http://www.shaastra.org/2011/media/main/img/ctbg.jpg" style="height:0px; width:0px;"/>	
+								<div style="background-image:url('http://www.shaastra.org/2011/media/main/img/cat/soe.png'); height:0px; width:0px;"/>	
+	<!-- preloading over -->							
+								
 	<div id="container1" style="display:none; position:absolute; left:1200px; top:176px; width:1035px;">
-	<div id="impact" onClick='openPopUp("impact",0,0,778,326)' onMouseOver='slide("impact",0,0,778,326)'></div>
-	<div id="design_and_build" onClick='openPopUp("design-and-build",0,100,770,325)' onMouseOver='slide("design-and-build",0,100,775,325)'></div>
+	<div id="impact" class = "cat" onClick='openPopUp("impact",0,0,778,326)'></div>
+	<div id="design_and_build" class = "cat" onClick='openPopUp("design-and-build",0,100,770,325)'></div>
 
-	<div id="coding" onClick='openPopUp("coding",0,150,561,325)' onMouseOver='slide("coding",0,150,561,325)'></div>
-	<div id="involve" onClick='openPopUp("involve",0,250,560,324)'  onMouseOver='slide("involve",0,250,560,324)'></div>
-	<div id="online" onClick='openPopUp("online",75,265,558,324)' onMouseOver='slide("online",75,265,558,324)'></div>
-	<div id="spotlights" onClick='openPopUp("spotlights",76,0,778,326)' onMouseOver='slide("spotlights",76,0,778,326)'></div>
-	<div id="flagship" onClick='openPopUp("flagship",0,265,780,325)' onMouseOver='slide("flagship",0,265,780,325)'></div>
-	<div id="exhibition" onClick='openPopUp("exhibitions",75,100,611,327)' onMouseOver='slide("exhibitions",75,100,611,327)'></div>
-	<div id="quizzes" onClick='openPopUp("quizzes",76,100,778,331)' onMouseOver='slide("quizzes",76,100,778,331)'></div>
-	<div id="aerofest" onClick='openPopUp("aerofest",76,495,560,325)' onMouseOver='slide("aerofest",76,495,560,325)'></div>
-	<div id="workshops" onClick='openPopUp("workshops",75,265,775,324)'  onMouseOver='slide("workshops",75,265,775,324)'></div>
+	<div id="coding" class = "cat" onClick='openPopUp("coding",0,150,561,325)'></div>
+	<div id="involve" class = "cat" onClick='openPopUp("involve",0,250,560,324)'></div>
+	<div id="online" class = "cat" onClick='openPopUp("online",75,265,558,324)'></div>
+	<div id="spotlights" class = "cat" onClick='openPopUp("spotlights",76,0,778,326)'></div>
+	<div id="flagship" class = "cat" onClick='openPopUp("flagship",0,265,780,325)'></div>
+	<div id="exhibition" class = "cat" onClick='openPopUp("exhibitions",75,100,611,327)'></div>
+	<div id="quizzes" class = "cat" onClick='openPopUp("quizzes",76,100,778,331)'></div>
+	<div id="aerofest" class = "cat" onClick='openPopUp("aerofest",76,495,560,325)'></div>
+	<div id="workshops" class = "cat" onClick='openPopUp("workshops",75,265,775,324)'></div>
 
-	<div id="soe" onClick='openPopUp("soe",50,265,599,328)'  onMouseOver='slide("soe",50,265,599,328)'></div>
+	<div id="soe" class = "cat" onClick='openPopUp("soe",50,265,599,328)'></div>
   </div>
 <div id="popup_container" onclick="closePopUp()" style="color:white;">
  {%for category in categories%}
 
-
-     <div id="{{category.text|slugify}}_contents" class="popup_contents">
+	
+	<div id="catimage"></div>
+	
+	
+     <div id="{{category.text|slugify}}_contents" class="popup_contents" style="display:none;" onload ="javascript:this.style.display = 'block';" >
 
  <!-- listing all the headings -->
-	 {%if category.text|slugify|stringformat:"s" == "impact"%}
+	{%if category.text|slugify|stringformat:"s" == "impact"%}
         <div id="{{category.text}}_heading" class="heading" style="left:450px; top:10px;" >
-          
-            
-              <p><span class = "quote">"</span>A life is not important except in the impact it has on others<span class = "quote">"</span></p></div>
-         
-          {%endif%}
-
-           {%if category.text|slugify|stringformat:"s" == "aerofest"%}
-          <div id="{{category.text}}_heading" class="heading" style="left:10px; top:10px;">
+              <p><span class = "quote">"</span>A life is not important except in the impact it has on others<span class = "quote">"</span></p>
+		</div>
+    {%endif%}
+    {%if category.text|slugify|stringformat:"s" == "aerofest"%}
+    <div id="{{category.text}}_heading" class="heading" style="left:10px; top:10px;">
 		<p><span class = "quote">"</span>You haven't seen a tree until you have seen its shadow from the sky<span class = "quote">"</span></p>
-	  </div>
-          {%endif%}
-
-
-           {%if category.text|slugify|stringformat:"s" == "design-and-build"%}
-           <div id="design-and-build_heading" class="heading" style="left:450px; top:10px;">
-	    <p><span class = "quote">"</span>Close You eyes and open your mind<span class = "quote">"</span></div>
-          {%endif%}
-
-           {%if category.text|slugify|stringformat:"s" == "coding"%}  
-          <div id="coding_heading" class="heading" style="left:10px; top:10px;">
-	   <p><span class = "quote">"</span>There are 10 types of people in this world; those who understand binary and those who don't<span class = "quote">"</span></p></div>
-	  {%endif%}
-         
-        {%if category.text|slugify|stringformat:"s" == "involve"%}
-         <div id="involve_heading" class="heading" style="left:10px; top:10px;">
-		<p><span class = "quote">"</span>One has to look out for engineers, they begin with sewing machines and end up with the atomic bomb<span class = "quote">"</span></p></div>
-          {%endif%}
-        {%if category.text|slugify|stringformat:"s" == "online"%} 
+	</div>
+    {%endif%}
+	{%if category.text|slugify|stringformat:"s" == "design-and-build"%}     
+    <div id="design-and-build_heading" class="heading" style="left:450px; top:10px;">
+	    <p><span class = "quote">"</span>Close You eyes and open your mind<span class = "quote">"</span>
+	</div>
+    {%endif%}
+	{%if category.text|slugify|stringformat:"s" == "coding"%}  
+    <div id="coding_heading" class="heading" style="left:10px; top:10px;">
+	   <p><span class = "quote">"</span>There are 10 types of people in this world; those who understand binary and those who don't<span class = "quote">"</span></p>
+	</div>
+    {%endif%}         
+    {%if category.text|slugify|stringformat:"s" == "involve"%}
+    <div id="involve_heading" class="heading" style="left:10px; top:10px;">
+		<p><span class = "quote">"</span>One has to look out for engineers, they begin with sewing machines and end up with the atomic bomb<span class = "quote">"</span></p>
+	</div>
+    {%endif%}
+    {%if category.text|slugify|stringformat:"s" == "online"%} 
           <div id="online_heading" class="heading" style="left:10px; top:10px;">
 		<p><span class = "quote">"</span>A journey of a thousand sites begins with a click<span class = "quote">"</span></p>
 	  </div>
-        {%endif%}
+         {%endif%}
        {%if category.text|slugify|stringformat:"s" == "spotlights"%}
        <div id="spotlights_heading" class="heading" style="top:10px; left:450px;">
 	  <p><span class = "quote">"</span>Its not what you look at that matters but what you see<span class = "quote">"</span></p>
@@ -132,19 +137,30 @@
 	  {%endfor%}
 	
         </div>
-        </div> 
+        </div>
+	      
 	</div>
 
-
+ 
    
 	<div id="soe_contents" class="popup_contents">
 <!-- 	  <div id="image"><img src="img/soe_copy.png"/></div> -->
 	</div>
 {%endfor%}
+
+
 </div>
+
 </div>
+	
+
+
 <div id="right_arrow"  onclick="load_popup()"></div>
 <div id="left_arrow" onclick="close_popup()"></div>
-    
+    <center style="color:#BBB;position:relative;top:410px;display:none;" id = "cen">Click on each category to know more.</center>
+			 
+
+
 {%endblock%}
+
 
