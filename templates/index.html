@@ -175,6 +175,11 @@ annual technical festival of IIT Madras
 
     <script type="text/javascript">
       
+   $(document).ready(
+  );
+
+
+
 
       $(document).ready(function () {      
 			  $('#ticker-img-right').click(function() {
@@ -379,10 +384,24 @@ annual technical festival of IIT Madras
 		<a href = "#" class = "flinks" id = "con"></a>
 		<a href = "#" class = "flinks" id = "pp"></a>
 		<a href = "#footerlinks" class = "flinks" id = "blo"></a>
-		<a href = "#" class = "flinks" id = "eve" onclick = "javascript:setTimeout(function(){slide()},00);"></a>
+		<a href = "#" class = "flinks" id = "eve" onclick = "javascript:setTimeout(events_tog());"></a>
 		<a href = "#" class = "flinks" id = "med"></a>
 		<a href = "#" class = "flinks" id = "mys"></a>
 		<a href = "#" class = "flinks" id = "cre"></a>
+
+<script>
+              function events_tog(){
+    $("#left_arrow").show();
+    
+
+  $("#page1").animate({"left":"-1200"},1000);
+  $("#page2").show().animate({"left":"0"},1000);
+  $("#page3").css({"left":"1200"},1000);
+  
+  $("#page1").fadeOut();
+
+
+}</script>
 		
 	      </div>
 	    </div>
