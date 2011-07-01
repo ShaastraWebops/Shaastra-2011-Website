@@ -134,7 +134,42 @@ annual technical festival of IIT Madras
     });
       
     </script>
+<style>
+		 
+		  .page{
+		  
+		  left:25px;
+		  position:absolute;
+		  
+		  }
+		  *{padding:0; margin:0}
+		  
+		  
 
+		  #right_arrow{
+  position:absolute;
+  width:25px;
+  height:70px;
+  background:url("http://www.shaastra.org/2011/media/main/img/download.gif") 0 -70px;
+  right:10px;
+  top:300px;
+  display:block;
+}
+#right_arrow:hover{background:url("http://www.shaastra.org/2011/media/main/img/download.gif") -25px -70px;}
+
+#left_arrow{
+  position:absolute;
+  width:25px;
+  height:70px;
+  background:url("http://www.shaastra.org/2011/media/main/img/download.gif") 0 0px;
+  left:10px;
+  top:300px;
+  display:none;
+}
+#left_arrow:hover{background:url("http://www.shaastra.org/2011/media/main/img/download.gif") -25px 0px;}
+	</style>
+<script src="http://www.shaastra.org/2011/media/main/js2/js/jquery1.js" type="text/javascript"></script>
+<script src="http://www.shaastra.org/2011/media/main/js2/js/main-slide.js" type="text/javascript"></script>
 
 
 
@@ -273,19 +308,18 @@ annual technical festival of IIT Madras
         </div>
       </div>   
       <!-- HEADER ENDS -->
-    <div id = "content" style = "overflow:hidden; position:relative;height:433px;">
 
-                   
+    <div id = "content" style = "overflow:hidden; position:relative;height:433px;">
+<div id="page1" class="page">                   
 {%block body%}
       <div id = "content_top">
                 	<div class = "content_container">
-                    <div id = "lefttop">
-			<img id="qOpen" src="http://www.shaastra.org/2011/media/main/img/quote_open.png"/>
+                                 <div id = "lefttop">
+			               <img id="qOpen" src="http://www.shaastra.org/2011/media/main/img/quote_open.png"/>
 
-                        <div id="shString">
-			     
+                        <div id="shString">     
 			</div>
-						<img id="qClose_main" src="http://www.shaastra.org/2011/media/main/img/quote_close.png" style="float:right;margin-top :120px;  margin-right:25px"/> 			
+				<img id="qClose_main" src="http://www.shaastra.org/2011/media/main/img/quote_close.png" style="float:right;margin-top :120px;  margin-right:25px"/> 			
                     </div>
 
                     </div>
@@ -327,6 +361,14 @@ annual technical festival of IIT Madras
 {%endblock%}
 
     </div>
+</div>
+{%block event_categories%}
+        <div id="page2" class="page" style="display:none; position:absolute; left:1200px; top:176px; width:1035px; padding-left:10%; margin-left:10%;" >{% include "event_categories.html" %}</div>
+	<div id="page3" class="page" style="display:none; left:1200px; top:176px;height:300px; ">{% include "hospi.html" %}</div>
+	<div id="page4" class="page" style="display:none; left:1200px; top:176px; height:300px;">{% include "gallery.html" %}</div>
+	<div id="right_arrow" onclick="slide1()"></div>
+	<div id="left_arrow" onclick="slide_back()"></div>
+{%endblock%}        
 
  
            {%block footer%}		
@@ -351,8 +393,7 @@ annual technical festival of IIT Madras
 	 </div>  
 	
 
-
-
+ 
 	  
     <div id = "scrollcontainer">
       <div id = "scroll">
@@ -367,10 +408,6 @@ annual technical festival of IIT Madras
         <div id = "9" class = "thumb"><div class = "thumbc"></div></div>
       </div>
     </div>
- {%endblock%}
-{%block event_categories%}
-   {%include "event_categories.html"%}
-   
 {%endblock%}
 
  {%block menu_popup%}
