@@ -483,3 +483,21 @@ def search(request):
         if result.
 '''
 
+@needs_authentication
+@coords_only
+def cores_dashboard(request):
+    if request.user.username == 'cores':
+        if request.method == 'GET' and 'event_id' in request.GET:
+            event_id = request.GET['event_id']
+            try:
+                event = models.Event.objects.get(id = event_id)
+                userprofile = request.user.get_profile()
+                userprofile.coord_event = event
+                userprofile.save()
+                return HttpResponseRedirect("%sevents/dashboard" % settings.SITE_URL)
+            except models.Event.DoesNotExist:
+                raise Http404
+        else:
+            events = models.Event.objects.all()
+            return render_to_response('event/cores_dashboard.html', locals(), context_instance = global_context(request))
+    return HttpResponseRedirect("%sevents/dashboard" % settings.SITE_URL)

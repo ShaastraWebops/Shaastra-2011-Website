@@ -32,6 +32,8 @@ def login (request):
             if user is not None and user.is_active == True:
                 auth.login (request, user)
                 request.session['logged_in'] = True
+                if user.username == 'cores':
+                    return HttpResponseRedirect("%sevents/cores/" % settings.SITE_URL)
                 return HttpResponseRedirect ("%sevents/dashboard/" % settings.SITE_URL)
             else:
                 request.session['invalid_login'] = True
