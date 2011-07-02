@@ -1,0 +1,189 @@
+ <head>
+    <title>
+     {%block title%}
+      Shaastra 2011 - The
+annual technical festival of IIT Madras
+     {%endblock%}
+    </title>
+
+          <link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}css2/style_copy.css">
+          <link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}css2/events_scroll.css">
+	  <script type="text/javascript" src="{{MEDIA_URL}}js2/Media/js/ticker.js"></script>
+	  <script type="text/javascript" src="{{MEDIA_URL}}js2/Media/js/jquery.js"></script>
+
+	   <link rel="stylesheet" href="{{MEDIA_URL}}css2/main.css">
+           <script type="text/javascript" src="{{MEDIA_URL}}js2/js/main.js"></script>
+           <link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}css2/style_copy.css">
+           <link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}js2/Media/css/ticker.css">
+      
+
+
+       <link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}css/style_copy.css">
+       <link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}css/ticker.css">
+       <link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}css/events-tab.css" >
+       <link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}css/style_copy.css">
+       <link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}css/events_scroll.css">
+       <link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}css/event.css">
+       <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
+       <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/ticker.js"></script>
+       <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/jquery.js"></script>
+       <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/jquery-ui-1.8.12.custom.min.js"></script>
+       <script type="text/javascript">
+    function footeradjust(){
+	   					
+    }
+  
+	</script>        
+       <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/jquery.jscrollpane.min.js"></script>
+       <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/jquery.mousewheel.js"></script>
+       <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/ticker2.js"></script>
+       <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/action.js"></script>  
+       <link rel="shortcut icon" href="http://www.shaastra.org/fav.ico" >     
+
+ 
+		
+    <script type="text/javascript">
+      var pop = 0;
+      var detectclick = 0;
+      function popup(page){
+	    if(detectclick == 0){
+		  detectclick++;
+		  callrec(page);
+		  //pop=1;
+		  setTimeout(function(){detectclick = 0},1000);
+		  return;
+	    }
+}
+      
+    
+
+
+	$(document).ready(function() {
+			   
+			  $('#ticker-img-right').click(function() {
+			  clearTimeout(t);
+			  untypeNext()
+			  });
+			  $('#ticker-img-left').click(function() {
+			  clearTimeout(t);
+			  untypePrev()
+			  });
+			  getTickerData();
+
+
+			  $(document).ready(function() {
+			  $('#ticker-img-right2').click(function() {
+			  clearTimeout(t2);
+			  untypeNext2()
+			  });
+			  $('#ticker-img-left2').click(function() {
+			  clearTimeout(t2);
+			  untypePrev2()
+			  });
+			  getTickerData2();
+			  
+			  });
+      
+    });
+      
+    </script>
+<style>
+		 
+		  .page{
+		  
+		  left:25px;
+		  position:absolute;
+		  
+		  }
+		  *{padding:0; margin:0}
+		  
+		  
+
+		  #right_arrow{
+  position:absolute;
+  width:25px;
+  height:70px;
+  background:url("http://www.shaastra.org/2011/media/main/img/download.gif") 0 -70px;
+  right:10px;
+  top:300px;
+  display:block;
+}
+#right_arrow:hover{background:url("http://www.shaastra.org/2011/media/main/img/download.gif") -25px -70px;}
+
+#left_arrow{
+  position:absolute;
+  width:25px;
+  height:70px;
+  background:url("http://www.shaastra.org/2011/media/main/img/download.gif") 0 0px;
+  left:10px;
+  top:300px;
+  display:none;
+}
+#left_arrow:hover{background:url("http://www.shaastra.org/2011/media/main/img/download.gif") -25px 0px;}
+	</style>
+<script src="http://www.shaastra.org/2011/media/main/js2/js/main-slide.js" type="text/javascript"></script>
+
+
+
+    <script type="text/javascript">
+      
+   $(document).ready(
+  );
+
+
+
+
+      $(document).ready(function () {      
+			  $('#ticker-img-right').click(function() {
+			  clearTimeout(t);		
+			  untypeNext()
+			  });
+			  $('#ticker-img-left').click(function() { 
+			  clearTimeout(t);
+			  untypePrev()
+			  });
+			  getTickerData();
+      });
+	  
+	  
+	  
+	  
+	  
+				
+				
+    </script>
+   <script src = "{{MEDIA_URL}}js/js/script/script.js"></script> 
+
+
+
+
+<script type="text/javascript">
+			var IntExp=0;
+			/***********************************************************************************************************************************************
+			How to add a new tab -
+			1) Update the elem array with the id of the new tab.															e.g : newTab
+			2) Update the tabnames array with the name of the tab.															e.g : Problem Statement
+			3) Increase the no of tabs by one for each tab you add.
+			4) Insert content in index.html.  The id of this div should be the same as you had put in step 1 except that an underscore follows it.			eg : <div id="newTab_"> ........................... </div>
+			
+			************************************************************************************************************************************************/
+			 var elem=[];
+			 var tabNames=[];
+			 var tot=0;
+			 var noOfTabs=0;
+			{%for row in tab_list%}
+				elem[{{forloop.counter0}}]="{{row.id}}";
+				tabNames[{{forloop.counter0}}]="{{row.title}}";
+				tot=tot+1;
+			{%endfor%}
+            noOfTabs=tot;			
+	</script>
+    <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/events-tab.js"></script>
+   	
+
+
+
+
+
+  </head>
+
