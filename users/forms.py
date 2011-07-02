@@ -48,7 +48,7 @@ class AddCollegeForm (ModelForm):
         model = models.College
         fields=('name','city','state')
         
-    def clean_name(self):
+    """def clean_name(self):
         if not self.cleaned_data['name'].replace(' ','').isalpha():
             raise forms.ValidationError(u'College Names cannot contain anything other than alphabets.')  
         else:
@@ -58,7 +58,7 @@ class AddCollegeForm (ModelForm):
         if not self.cleaned_data['city'].replace(' ','').isalpha():
             raise forms.ValidationError(u'location cannot contain anything other than alphabets.')
         else:
-            return self.cleaned_data['city']
+            return self.cleaned_data['city']"""
             
 class LoginForm(forms.Form):
     username=forms.CharField(help_text='Your Shaastra 2011 username')
