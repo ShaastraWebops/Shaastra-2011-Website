@@ -25,6 +25,7 @@ urlpatterns = patterns('',
      url(r'^admin/', include('admin.site.urls')),
      url(r'^events/', include ('main_test.events.urls')),  
      url(r'^techmash/', include ('main_test.techmash.urls')),  
+     url(r'^search/', include('haystack.urls')),
      url(r'^', include ('main_test.users.urls')),	
 )
 
