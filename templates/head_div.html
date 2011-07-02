@@ -17,7 +17,8 @@ annual technical festival of IIT Madras
            <link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}js2/Media/css/ticker.css">
       
 
-
+       <script type="text/javascript" src="http://www.shaastra.org/2011/Templates_test/jquery-1.3.2.min.js"></script>
+       <script type="text/javascript" src="http://www.shaastra.org/2011/Templates_test/jquery-1.5.2-min.js"></script> 
        <link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}css/style_copy.css">
        <link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}css/ticker.css">
        <link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}css/events-tab.css" >
@@ -115,9 +116,9 @@ annual technical festival of IIT Madras
         position:relative;
         float:left;
         height:48px;
-        width:905px;
+        width:760px;
         overflow:hidden;
-        border:solid 1px #DEDEDE;
+        border:0;
         padding:6px 0px 14px 10x;
 		}
 #listticker li{
@@ -152,7 +153,8 @@ annual technical festival of IIT Madras
             }
 	.arro{
     position:relative;
-	float:left;
+	float:right;
+	margin-right:40px;
 	overflow:hidden;
     height:40px;
     width:33px;
@@ -162,7 +164,7 @@ overflow:hidden;
 position:absolute;
 padding-top:10px;
 left:0px;
-top:1px;
+top:4px;
 height:20px;
 width:33px;
 background:url("http://www.shaastra.org/2011/Templates_test/up1.jpg");
@@ -172,7 +174,7 @@ overflow:hidden;
 position:absolute;
 padding-top:10px;
 left:0px;
-top:21px;
+top:25px;
 height:20px;
 width:33px;
 background:url("http://www.shaastra.org/2011/Templates_test/dow1.jpg");
@@ -210,8 +212,6 @@ background:url("http://www.shaastra.org/2011/Templates_test/dow1.jpg");
 #left_arrow:hover{background:url("http://www.shaastra.org/2011/media/main/img/download.gif") -25px 0px;}
 	</style>
 <script src="http://www.shaastra.org/2011/media/main/js2/js/main-slide.js" type="text/javascript"></script>
-<script type="text/javascript" src="http://www.shaastra.org/2011/Templates_test/jquery-1.3.2.min.js"></script>
-<script type="text/javascript" src="http://www.shaastra.org/2011/Templates_test/jquery-1.5.2-min.js"></script> 
 <script type="text/javascript">        
 $(document).ready(function(){
     interval = setInterval(move_all_down_circularly, pause);
