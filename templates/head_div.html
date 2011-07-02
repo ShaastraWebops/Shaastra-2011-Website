@@ -112,15 +112,14 @@ annual technical festival of IIT Madras
     </script>
 <style type="text/css">
 #listticker{
-        position:absolute;
-    top:0px;
-        left:0px;
+        position:relative;
+        float:left;
         height:48px;
-    width:875px;
-    overflow:hidden;
-    border:solid 1px #DEDEDE;
-    padding:6px 0px 14px 10x;
-}
+        width:875px;
+        overflow:hidden;
+        border:solid 1px #DEDEDE;
+        padding:6px 0px 14px 10x;
+		}
 #listticker li{
     border:0; margin:0; padding:0; list-style:none;
 }
@@ -148,22 +147,31 @@ annual technical festival of IIT Madras
         }
         #listticker img{
             float:left;
-            margin-right:15px;
+            margin-right:45px;
             padding:5px;
             }
-.up{
+	.arro{
+    position:relative;
+	float:left;
+	overflow:hidden;
+    height:40px;
+    width:33px;
+	}
+	.up{
+overflow:hidden;
 position:absolute;
 padding-top:10px;
-left:875px;
+left:0px;
 top:5px;
 height:20px;
 width:33px;
 background:url("http://www.shaastra.org/2011/Templates_test/up1.jpg");
 }
 .down{
+overflow:hidden;
 position:absolute;
 padding-top:10px;
-left:875px;
+left:0px;
 top:29px;
 height:20px;
 width:34px;
