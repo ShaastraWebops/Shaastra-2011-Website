@@ -35,7 +35,7 @@
 
                <!-- The edit tab Button -->
                
-                <div id="edit_tab{{row.id}}" style="position:relative; bottom:0px; left:10px;display:block;">
+                <div id="edit_tab{{row.id}}" style="position:relative; bottom:0px; left:10px;display:none;">
 					<div id="edit_tab">
 						<form action="edit_tab/" method = 'GET' >
 						{% csrf_token %}
@@ -194,7 +194,7 @@
 
 
 <!-- the delete tab button -->                   
-<div id="deletetab{{row.id}}" style="position:relative; bottom:48px; left:120px;display:block;">
+<div id="deletetab{{row.id}}" style="position:relative; bottom:48px; left:120px;display:none;">
     <div id="delete_tab">
     <input type="submit" value="">   
 </div>  
