@@ -2,11 +2,6 @@
 {%block event_categories%}{%endblock%}
 {%block gradient%}{%include "gradient.html"%}{%endblock%}
 {% block body %}
-
-<head>
-<meta name="keywords" content="Shaastra 2011,Registration,Sign Up,Be a part of Shaastra 2011" />
-<meta name="description" content="" />
-</head>
   <script src="{{ MEDIA_URL }}js/js/scriptjquery.js"></script>
   <link rel="stylesheet" href="{{ MEDIA_URL }}autocomplete/main.css" type="text/css" />
   <link rel="stylesheet" href="{{ MEDIA_URL }}autocomplete/jquery.autocomplete.css" type="text/css" />
@@ -493,108 +488,22 @@ function hide_college(){
     </p>
    </div><!-- closes div register -->
    <div class="register">
-    <form id="reg_college" onsubmit="create_coll(); return false;"  onload="onblurAttribute1();changeBg();">
+    <form id="reg_college" onsubmit="create_coll(); return false;"  onLoad="changeBg();">
     {% csrf_token %}
      <div class="info">
       <table name="register">
 	  <tr><td colspan="3"><h2>College Registraion</h2></td></tr>
       {% for field in coll_form %}
 <tr>
-    <td id="{{ field.label }}_img">{% if field.errors %}
-	<img height=20 width=20 src="{{ MEDIA_URL }}img/error.png">
-	    {% endif %}
-	</td>
-  <td>{{ field.label_tag }}</td>
-  <td align="left">{{ field }}
-  <div id="{{ field.label }}_div">
-	{% if field.errors %}{% for error in field.errors %} {{ error|escape }} </br> {% endfor %}{% endif %}
-	</div>
-  
-  </td>
+  <td>{{ field.label_tag }}</td><td align="left">{{ field }}</td>
 <td><a onmouseover="Tip('{{ field.help_text }}')" onmouseout="UnTip()"><img height=20 width=20 src="{{ MEDIA_URL }}img/help_icon.png"></a></td>
     </tr>
       {% endfor %}
       </table>
-      
-      
- <script type="text/javascript">
- 
- function validateName(fld) {   //done
-
-    var error = "";
-    var illegalChars = /^[a-zA-Z .,-]*$/; // allow letters, comma,hyphen and fullstop
-    if (fld.value == "") error = "This field is required.";
-    else if (!illegalChars.test(fld.value)) error = "College Names can only contain letters, comma, hyphen or fullstop."; 
-
-    if (error!="") {
-            document.getElementById('Name_img').innerHTML= img;
-		    document.getElementById('Name_div').innerHTML= error; return 1;}
-    document.getElementById('Name_img').innerHTML= "";
-    document.getElementById('Name_div').innerHTML="";
-    
-    return 0;
-}
- 
- function validateCity(fld) {   //done
-
-    var error = "";
-    var illegalChars = /^[a-zA-Z .,-]*$/; // allow letters, comma, hyphen and fullstop
- 
-    if (fld.value == "") error = "This field is required.";
-    else if (!illegalChars.test(fld.value)) error = "City Name can only contain letters, comma, hyphen or fullstop."; 
-
-    
-    if (error!="") {document.getElementById('City_img').innerHTML= img;
-		    document.getElementById('City_div').innerHTML= error; return 1;}
-    document.getElementById('City_img').innerHTML= "";
-    document.getElementById('City_div').innerHTML="";
-    
-    return 0;
-}
-
-function validateState(fld) {
-    
-    var error = "";
-    if (fld.value == "") error = "This field is required.";
-    if (error!="") {
-        document.getElementById('State_div').innerHTML= error;
-	document.getElementById('State_img').innerHTML= img;
-	return 1;
-    }
-    document.getElementById('State_img').innerHTML= "";
-    document.getElementById('State_div').innerHTML="";
-    return 0;
-}
-
-function validateCollegeForm() {
-
-    if (
-	 validateName    (document.getElementById ("id_identifier-name")  )
-    +validateCity	 (document.getElementById ("id_identifier-city")  )
-	+validateState   (document.getElementById ("id_identifier-state") )
-	== 0  ){ 
-	create_coll();
-	    }
-    else {
-    window.location.href = '#reg_college';
-    
-    }
-}
-
-function onblurAttribute1() {
-   document.getElementById ("id_identifier-name").setAttribute('onblur' , 'validateName(document.getElementById ("id_identifier-name"))');
-   document.getElementById ("id_identifier-city").setAttribute('onblur' , 'validateCity(document.getElementById ("id_identifier-city"))');
-   document.getElementById ("id_identifier-state").setAttribute('onblur' , 'validateState(document.getElementById ("id_identifier-state"))');
-}
-
-onblurAttribute1();
-
- </script>
- 
 	<div id="regcoll">
 		<div class="button2">
 			<a href="#">
-				<input type="button" value="Register College" onclick="validateCollegeForm()" />
+				<input type="submit" value="Register College" />
 			</a>
 			<span></span>
 		</div>
