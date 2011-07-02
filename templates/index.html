@@ -55,12 +55,41 @@
 			<div id="ucRight"></div>
         <script type="text/javascript"> if(IE_) $("#updates_container").css('top','-3px');</script>
           {%block updates%}
-	    <div id="ticker" style="" class="iefix">
-	      <div id="ticker-img-left" class="iefix"></div>
+           <div id="ticker" style="" class="iefix">
+       <ul id="listticker">
+       <li>
+     <img src="http://www.shaastra.org/2011/Templates_test/index.jpg" />
+        <a href="" class="news-title">Welcome</a>
+        <span class="news-text">IIT MADRAS welcomes you to Shaastra</span>
+    </li>
+    <li>
+        <img src="http://www.shaastra.org/2011/Templates_test/spon.jpg" />
+        <a href="" class="news-title">Sponsors</a>
+        <span class="news-text">We thank all our sponsors and the spons team</span>
+    </li>
+    <li>
+    <img src="http://www.shaastra.org/2011/Templates_test/car1.jpg" />
+        <a href="" class="news-title">Events</a>
 
-	      <a id="ticker-link-text">Shaastra 10 Updates Ticker!</a>
-	      <div id="ticker-img-right" class="iefix"></div>
-          {%endblock%}
+        <span class="news-text">A whole new range of events to take part in come and explore shaastra 2k11</span>
+    </li>
+       <li>
+         <img src="http://www.shaastra.org/2011/Templates_test/hospi1.jpg" />
+        <a href="" class="news-title">Hospitality</a>
+        <span class="news-text">Atithi devo bhava:Our motto</span>
+    </li>
+ <li>
+         <img src="http://www.shaastra.org/2011/Templates_test/contact.png" />
+        <a href="" class="news-title">Contact</a>
+        <span class="news-text">for help:100 for FIRE,101:no idea,+918792855337:IBM</span>
+    </li>
+</ul>
+<div class="arro">
+<input type='button'  id="upp" class='up' onClick='up();'>
+<input type='button'  id="do" class='down' onClick='dow();'>
+</div>
+</div>
+           {%endblock%}
 	    </div>
 
           </div>
