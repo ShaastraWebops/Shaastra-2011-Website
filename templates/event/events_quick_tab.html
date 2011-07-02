@@ -1,7 +1,9 @@
 {%extends "index.html"%}
-{%block event_categories%}{%include "event_categories.html"%}{%endblock%}
+
 {%block gradient%}{%include "gradient.html"%}{%endblock%}
  {%block media_location%}   
+<meta name="keywords" content="Shaastra 2011,{{event_name}}" />
+
 	<script type="text/javascript">
 			var IntExp=0;
 			/***********************************************************************************************************************************************
@@ -27,14 +29,17 @@
 {%endblock%}   
   <body>
 
-    <div id = "container" style="min-height:580px;">
+    
       
         
         
       {%block body%}
+
 <head>
 <meta name="keywords" content="Shaastra 2011,{{event_name}}" />
+<meta name="description" content="" />
 </head>
+
         <div id = "video"></div>
 		
 		<div id="tabsTop">
@@ -156,7 +161,7 @@
       </div>
 	 {%endblock%}     
 	      
-    </div> 
+   
 	                    
 
 		

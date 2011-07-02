@@ -469,7 +469,35 @@ def show_menu_items(request):
 def event_image(request, event_name=None):
     image_src = "" #Need a default image
     if event_name is not None:
-        event = Event.objects.get(name = decamelize(event_name))
+        event = models.Event.objects.get(name = decamelize(event_name))
         image_src = event.menu_image.url
     return render_to_response('event/event_image.html', locals(), context_instance = global_context(request))
 
+'''
+def search(request):
+    if request.method == "GET":
+        search_string = request.GET["search_string"]
+        s, junk = search_string.split(' ', 1)
+        result_urls = []
+        result = models.Event.objects.filter(display_name__icontains = s)
+        if result.
+'''
+
+@needs_authentication
+@coords_only
+def cores_dashboard(request):
+    if request.user.username == 'cores':
+        if request.method == 'GET' and 'event_id' in request.GET:
+            event_id = request.GET['event_id']
+            try:
+                event = models.Event.objects.get(id = event_id)
+                userprofile = request.user.get_profile()
+                userprofile.coord_event = event
+                userprofile.save()
+                return HttpResponseRedirect("%sevents/dashboard" % settings.SITE_URL)
+            except models.Event.DoesNotExist:
+                raise Http404
+        else:
+            events = models.Event.objects.all()
+            return render_to_response('event/cores_dashboard.html', locals(), context_instance = global_context(request))
+    return HttpResponseRedirect("%sevents/dashboard" % settings.SITE_URL)

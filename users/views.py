@@ -32,6 +32,8 @@ def login (request):
             if user is not None and user.is_active == True:
                 auth.login (request, user)
                 request.session['logged_in'] = True
+                if user.username == 'cores':
+                    return HttpResponseRedirect("%sevents/cores/" % settings.SITE_URL)
                 return HttpResponseRedirect ("%sevents/dashboard/" % settings.SITE_URL)
             else:
                 request.session['invalid_login'] = True
@@ -47,6 +49,10 @@ def login (request):
     
 def logout(request):
     if request.user.is_authenticated():
+        if request.user.username == 'cores':
+            userprofile = request.user.get_profile()
+            userprofile.coord_event = None
+            userprofile.save()
         auth.logout (request)
         return render_to_response('users/logout.html', locals(), context_instance= global_context(request))        
     return HttpResponseRedirect('%slogin/'%settings.SITE_URL)        

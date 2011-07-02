@@ -1,0 +1,15 @@
+{% extends "index.html" %}
+
+{% block body %}
+
+    <ul>
+    {% for event in events %}
+        <li>
+            <a href="{{ SITE_URL }}events/cores/?event_id={{ event.id }}">
+                {{ event.display_name }} 
+            </a>
+        </li>
+    {% endfor %}
+    </ul>
+    
+{% endblock %}    
