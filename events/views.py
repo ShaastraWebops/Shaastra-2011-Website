@@ -469,7 +469,17 @@ def show_menu_items(request):
 def event_image(request, event_name=None):
     image_src = "" #Need a default image
     if event_name is not None:
-        event = Event.objects.get(name = decamelize(event_name))
+        event = models.Event.objects.get(name = decamelize(event_name))
         image_src = event.menu_image.url
     return render_to_response('event/event_image.html', locals(), context_instance = global_context(request))
+
+'''
+def search(request):
+    if request.method == "GET":
+        search_string = request.GET["search_string"]
+        s, junk = search_string.split(' ', 1)
+        result_urls = []
+        result = models.Event.objects.filter(display_name__icontains = s)
+        if result.
+'''
 
