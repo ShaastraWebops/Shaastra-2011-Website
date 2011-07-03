@@ -94,8 +94,11 @@ def dashboard(request):
         event = None
         if( request.user.username == 'cores'):
             event_id  = request.session['event_id']
-            event = models.Event.objects.get(id=event_id)
-            event_name = event.name
+            try:
+                event = models.Event.objects.get(id=event_id)
+                event_name = event.name
+            except models.Event.DoesNotExist:
+                raise Http404
         else:
             event  = userprof.coord_event
             event_name = event.name
@@ -115,7 +118,6 @@ def dashboard(request):
                     for temps in temp:
                         options_list.append(temps)
                 is_coord=userprof.is_coord
-        event_name = userprof.coord_event.display_name
         return render_to_response('event/dashboard.html', locals(), context_instance= global_context(request))
     else:
         raise Http404        
@@ -503,11 +505,7 @@ def cores_dashboard(request):
     if request.user.username == 'cores':
         if request.method == 'GET' and 'event_id' in request.GET:
             event_id = request.GET['event_id']
-            try:
-                request.session['event_id'] = event_id
-                return HttpResponseRedirect("%sevents/dashboard" % settings.SITE_URL)
-            except models.Event.DoesNotExist:
-                raise Http404
+            request.session['event_id'] = event_id
         else:
             events = models.Event.objects.all()
             return render_to_response('event/cores_dashboard.html', locals(), context_instance = global_context(request))
