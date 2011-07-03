@@ -100,6 +100,24 @@
 				<span></span>
 			</div>
 		</div>	
+              {%if user.username == "cores" %}
+               <div id="back_to_cores">
+                     <div class="button">
+				<a href="#">    
+					<form action= "{{SITE_URL}}events/cores" method="POST" target="_blank" >
+					{% csrf_token %}
+					<input type="submit" value="BACK TO CORES DASHBOARD" />
+					</form>
+				</a>
+				<span></span>
+			</div>
+
+
+
+               </div>
+           {%endif%}
+
+
 	</div>
 </div>    <!-- end tabsTop -->
           
