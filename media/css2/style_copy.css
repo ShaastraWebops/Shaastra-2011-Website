@@ -267,6 +267,7 @@ min-height : 100%;
 #rightbottomcontent{
 	width : 70%;
 	height : 80%;
+	text-align : justify;
 }
 #rightbottom{
     width : 95%;
