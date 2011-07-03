@@ -68,12 +68,12 @@ def show_quick_tab(request,event_name=None):
                     ques_list = models.Question.objects.filter(event__name = event_name).order_by('Q_Number')
     #So each object in tab_list will have a file_list which is a list of urls to be displayed for the correspdong tab    
         display_edit = False
-        #if request.method=='POST': 
-        #    user=request.user
-        #    userprof=user.get_profile()
-        #    event = userprof.coord_event            #this event variable is used in the template
-        #    if userprof.is_coord == True and event.name == event_name:
-        #        display_edit=True  
+        if request.method=='POST': 
+            user=request.user
+            userprof=user.get_profile()
+            event = userprof.coord_event            #this event variable is used in the template
+            if userprof.is_coord == True and event.name == event_name:
+                display_edit=True  
         options_list = []
         for ques in ques_list:
             temp = models.MCQ_option.objects.filter(question=ques).order_by('option')
@@ -89,19 +89,9 @@ def show_quick_tab(request,event_name=None):
 @coords_only
 def dashboard(request):
     userprof = request.user.get_profile()
+    event = userprof.coord_event
     if userprof.is_coord:
-        event_name = None
-        event = None
-        if( request.user.username == 'cores'):
-            event_id  = request.session['event_id']
-            try:
-                event = models.Event.objects.get(id=event_id)
-                event_name = event.name
-            except models.Event.DoesNotExist:
-                raise Http404
-        else:
-            event  = userprof.coord_event
-            event_name = event.name
+        event_name = userprof.coord_event.name
         tab_list = models.QuickTabs.objects.filter(event__name = event_name).order_by('pref')  
         if(event.questions):
             questions_added = False
@@ -118,6 +108,7 @@ def dashboard(request):
                     for temps in temp:
                         options_list.append(temps)
                 is_coord=userprof.is_coord
+        event_name = userprof.coord_event.display_name
         return render_to_response('event/dashboard.html', locals(), context_instance= global_context(request))
     else:
         raise Http404        
@@ -505,8 +496,16 @@ def cores_dashboard(request):
     if request.user.username == 'cores':
         if request.method == 'GET' and 'event_id' in request.GET:
             event_id = request.GET['event_id']
-            request.session['event_id'] = event_id
+            try:
+                event = models.Event.objects.get(id = event_id)
+                userprofile = request.user.get_profile()
+                userprofile.coord_event = event
+                userprofile.save()
+                return HttpResponseRedirect("%sevents/dashboard" % settings.SITE_URL)
+            except models.Event.DoesNotExist:
+                raise Http404
         else:
             events = models.Event.objects.all()
             return render_to_response('event/cores_dashboard.html', locals(), context_instance = global_context(request))
     return HttpResponseRedirect("%sevents/dashboard" % settings.SITE_URL)
+
