@@ -68,6 +68,7 @@ def server_error (request):
     return render_to_response('500.html', locals(), context_instance= global_context(request)) 
 
 def render_home(request):
+    url=request.get_full_path()
     return render_to_response('index.html', locals(), context_instance= global_context(request)) 
 
 
