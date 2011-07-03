@@ -91,11 +91,14 @@ def dashboard(request):
     userprof = request.user.get_profile()
     if userprof.is_coord:
         event_name = ""
+        event = None
         if( request.user.username == 'cores'):
             event_id  = request.session['event_id']
-            event_name = models.Event.objects.get(id=event_id).name
+            event = models.Event.objects.get(id=event_id)
+            event_name = event.name
         else:
             event  = userprof.coord_event
+            event_name = event.name
         tab_list = models.QuickTabs.objects.filter(event__name = event_name).order_by('pref')  
         if(event.questions):
             questions_added = False
