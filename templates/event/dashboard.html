@@ -27,9 +27,27 @@
     <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/events-tab.js"></script>
    	
       
+
 {%endblock%}
-  
-  
+{%block welcome%}
+{%if user.username == "cores" %}
+
+<div id="cores_back">
+ <div class="button2">
+				<a href="#">
+					<form action="{{SITE_URL}}events/cores/" method ="POST">
+						{% csrf_token %}
+						
+						<input type="submit" value="Events List" />
+					</form>
+				</a>
+				<span></span>
+			</div>
+        
+ </div>          
+
+{%endif%}
+  {%endblock%}
 <body id="page">
   <div id = "container">
     
@@ -100,23 +118,7 @@
 				<span></span>
 			</div>
 		</div>	
-              {%if user.username == "cores" %}
-               <div id="back_to_cores">
-                     <div class="button">
-				<a href="#">    
-					<form action= "{{SITE_URL}}events/cores/" method="GET" >
-					{% csrf_token %}
-					<input type="submit" value="BACK TO CORES DASHBOARD" />
-					</form>
-				</a>
-				<span></span>
-			</div>
-
-
-
-               </div>
-           {%endif%}
-
+              
 
 	</div>
 </div>    <!-- end tabsTop -->
