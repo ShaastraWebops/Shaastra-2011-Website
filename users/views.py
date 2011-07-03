@@ -192,11 +192,15 @@ def feedback(request):
         name,email = user.first_name,user.email
     if request.method=='POST':
         data=request.POST.copy()
-        form=forms.FeedbackForm(data)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect ("%shome/"%settings.SITE_URL)
+        feedback_list = [request.POST['graphics1'],request.POST['graphics2'],request.POST['graphics3'],request.POST['structure1'],request.POST['structure2'],request.POST['info1'],request.POST['info2'], request.POST['info3'], request.POST['gen1'],request.POST['gen2'],request.POST['gen3']]
+        radiofeedbackstring = ''
+        for i in feedback_list:
+            radiofeedbackstring += '***'
+            radiofeedbackstring += str(i)
+        radiofeedbackstring += '***'
+        newfeedback = models.Feedback ( name = request.POST['name'], email = request.POST['email'], content = request.POST['text'], radiocontent = radiofeedbackstring )
+        newfeedback.save()        
+        return HttpResponseRedirect ("%shome/"%settings.SITE_URL)
     else:            
-        form = forms.FeedbackForm(initial={'name':name,'email':email})
         return render_to_response('users/feedback.html', locals(), context_instance= global_context(request))        
     
