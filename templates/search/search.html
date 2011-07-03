@@ -1,7 +1,7 @@
 {% extends 'index.html' %}
 {%block event_categories%}{%endblock%}
 
-{% block content %}
+{% block body %}
     <h2>Search</h2>
 
     <form method="get" action=".">
@@ -20,7 +20,7 @@
 
             {% for result in page.object_list %}
                 <p>
-                    <a href="{{ result.object.get_absolute_url }}">{{ result.object.title }}</a>
+                    <a href="{{ result.object.url }}">{{ result.object.display_name }}</a>
                 </p>
             {% empty %}
                 <p>No results found.</p>
