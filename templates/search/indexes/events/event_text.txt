@@ -1,2 +1,2 @@
-{{ object.display_name }}
-{{ object.name }}
+{{ object.name}}
+{{ object.url }}
