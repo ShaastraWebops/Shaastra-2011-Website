@@ -90,7 +90,7 @@ def show_quick_tab(request,event_name=None):
 def dashboard(request):
     userprof = request.user.get_profile()
     if userprof.is_coord:
-        event_name = ""
+        event_name = None
         event = None
         if( request.user.username == 'cores'):
             event_id  = request.session['event_id']
