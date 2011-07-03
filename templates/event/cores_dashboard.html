@@ -1,7 +1,9 @@
 {% extends "index.html" %}
-
+{%block event_categories%}{%endblock%}
 {% block body %}
 
+    <script type="text/javascript">$("#page1").css('overflow','scroll');</script>
+    
     <ul>
     {% for event in events %}
         <li>
