@@ -6,7 +6,7 @@
     
     <ul>
 {%for category in categories%}
-<h3>{{category.text}}</h3>
+<h3>{{category.text|title}}</h3><br />
     {% for event in category.events%}
         <li>
             <a href="{{ SITE_URL }}events/cores/?event_id={{ event.id }}">
