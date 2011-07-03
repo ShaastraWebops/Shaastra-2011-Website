@@ -82,10 +82,10 @@ class UserProfile(models.Model):
         pass
 
 class Feedback(models.Model):
-    name    = models.CharField  ( max_length = 30, help_text = 'Your first name' )
-    email   = models.EmailField ( null = False, help_text = 'The email id to respond to' )
-    content = models.CharField  ( max_length = 10000, null = False, help_text= 'Please stick to the point' )
-    
+    name    = models.CharField  ( max_length = 30, null = True,  help_text = 'Your first name' )
+    email   = models.EmailField ( null = True, help_text = 'The email id to respond to' )
+    content = models.CharField  ( max_length = 10000, null = True, help_text= 'Please stick to the point' )
+    radiocontent = models.CharField  ( max_length = 10000, null = True)
     def __unicode__(self):
         return self.content
     
