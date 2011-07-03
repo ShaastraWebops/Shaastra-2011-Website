@@ -17,7 +17,7 @@
 			 var tot=0;
 			 var noOfTabs=0
 			{%for row in tab_list%}
-				elem[{{forloop.counter0}}]='{{row.title|slugify}}';
+				elem[{{forloop.counter0}}]='{{row.id}}';
 				tabNames[{{forloop.counter0}}]='{{row.title}}';
 				tot=tot+1;
 			{%endfor%}
@@ -63,7 +63,7 @@
 
 	    <div id="event-details">
                               {%for row in tab_list %}
-				<div id="{{row.title|slugify }}_">
+				<div id="{{row.id}}_">
                                        {%if not row.question_tab%}
 			                            
 			                              {{row.text|safe}}
