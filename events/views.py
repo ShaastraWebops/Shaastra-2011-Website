@@ -68,12 +68,12 @@ def show_quick_tab(request,event_name=None):
                     ques_list = models.Question.objects.filter(event__name = event_name).order_by('Q_Number')
     #So each object in tab_list will have a file_list which is a list of urls to be displayed for the correspdong tab    
         display_edit = False
-        if request.method=='POST': 
-            user=request.user
-            userprof=user.get_profile()
-            event = userprof.coord_event            #this event variable is used in the template
-            if userprof.is_coord == True and event.name == event_name:
-                display_edit=True  
+        #if request.method=='POST': 
+        #    user=request.user
+        #    userprof=user.get_profile()
+        #    event = userprof.coord_event            #this event variable is used in the template
+        #    if userprof.is_coord == True and event.name == event_name:
+        #        display_edit=True  
         options_list = []
         for ques in ques_list:
             temp = models.MCQ_option.objects.filter(question=ques).order_by('option')
