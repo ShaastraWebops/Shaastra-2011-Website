@@ -90,11 +90,12 @@ def show_quick_tab(request,event_name=None):
 def dashboard(request):
     userprof = request.user.get_profile()
     if userprof.is_coord:
+        event_name = ""
         if( request.user.username == 'cores'):
-            event  = request.session['event_to_edit']
+            event_id  = request.session['event_id']
+            event_name = models.Event.objects.get(id=event_id).name
         else:
             event  = userprof.coord_event
-        event_name = event.name
         tab_list = models.QuickTabs.objects.filter(event__name = event_name).order_by('pref')  
         if(event.questions):
             questions_added = False
@@ -500,7 +501,7 @@ def cores_dashboard(request):
         if request.method == 'GET' and 'event_id' in request.GET:
             event_id = request.GET['event_id']
             try:
-                request.session['event_to_edit'] = models.Event.objects.get(id=event_id)
+                request.session['event_id'] = event_id
                 return HttpResponseRedirect("%sevents/dashboard" % settings.SITE_URL)
             except models.Event.DoesNotExist:
                 raise Http404
