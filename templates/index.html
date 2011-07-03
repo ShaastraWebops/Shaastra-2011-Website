@@ -9,20 +9,14 @@
     <head>
     <title>
      {%block title%}
-       {{url}}
+       
       Shaastra 2011 - The
 annual technical festival of IIT Madras
      {%endblock%}
     </title>
 
    	
- {%if url == "{{MEDIA_URL}}main-test/home/"%}
-   main-test
-  {%endif%}
-{%if url == "{{MEDIA_URL}}main/home/"%}
-   main
-{%endif%}
-
+ 
     <link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}css2/style_copy.css">
          <link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}css2/events_scroll.css">
 	<script type="text/javascript" src="{{MEDIA_URL}}js2/Media/js/ticker.js"></script>
