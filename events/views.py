@@ -134,6 +134,13 @@ def Question_Tab(request):
 
 
 
+def sitemap(request):
+    urls = ['/home/',]
+    querySet = models.Event.objects.all()
+    for query in querySet:
+        urls.append(query.url)
+    return render_to_response('sitemap.xml', locals(), context_instance= global_context(request))
+
 
 @needs_authentication    
 @coords_only
