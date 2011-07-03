@@ -16,11 +16,12 @@ annual technical festival of IIT Madras
     </title>
 
    	
- {%if url equals "{{MEDIA_URL}}main-test/home/"%}
+ {%if url == "{{MEDIA_URL}}main-test/home/"%}
    main-test
-{%if url equals "{{MEDIA_URL}}main/home/"%}
+  {%endif%}
+{%if url == "{{MEDIA_URL}}main/home/"%}
    main
-
+{%endif%}
 
     <link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}css2/style_copy.css">
          <link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}css2/events_scroll.css">
