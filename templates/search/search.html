@@ -19,7 +19,7 @@
 
             {% for result in page.object_list %}
                 <p>
-                    <a href="{{ result.object.url }}">{{ result.object.display_name }}</a>
+                    <a href="{{ result.object.get_url }}">{{ result.object.search_title|title }}</a>
                 </p>
             {% empty %}
                 <p>No results found.</p>
