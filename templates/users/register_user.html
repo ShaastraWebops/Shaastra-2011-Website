@@ -364,7 +364,7 @@ onblurAttribute();
 </div>
 </td>
 
-<td id="maincol2" style="display:none";>
+<td id="maincol2" style="display:none">
  <script type="text/javascript">
  $("#content").css({'background-image':'url(http://www.shaastra.org/2011/media/main/img/bg2.png)'});
   var xmlhttp;
@@ -490,9 +490,9 @@ function hide_college(){
    <div class="register">
     <form id="reg_college" onsubmit="create_coll(); return false;"  onload="onblurAttribute1();changeBg();">
     {% csrf_token %}
-     <div class="info">
+     <div class="info" style = "overflow:auto">
       <table name="register">
-	  <tr><td colspan="3"><h2>College Registraion</h2></td></tr>
+	  <tr><td colspan="4"><h2>College Registraion</h2></td></tr>
       {% for field in coll_form %}
 <tr>
     <td id="{{ field.label }}_img">{% if field.errors %}
@@ -500,8 +500,8 @@ function hide_college(){
 	    {% endif %}
 	</td>
   <td>{{ field.label_tag }}</td>
-  <td align="left">{{ field }}
-  <div id="{{ field.label }}_div">
+  <td>{{ field }}
+  <div id="{{ field.label }}_div" style="color:#E95A5A;font-family:Lucida Sabs;font-style: italic">
 	{% if field.errors %}{% for error in field.errors %} {{ error|escape }} </br> {% endfor %}{% endif %}
 	</div>
   </td>
