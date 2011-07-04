@@ -132,14 +132,50 @@
 	    <div id = "verticlright">
 	    
             <div id = "rtvtop">
-            <div>
-                Sponsored By:
-            </div>
-		{% if event.sponslogo %}
-            <img src = "{{event.sponslogo.url}}"width="217" height="150">
-		{% else %}
-    	   <img src = "{{MEDIA_URL}}SPONS_DEFAULT.png"width="217" height="150">
-		{%endif%}
+            
+		{%for category in categories%}
+
+                   {%for event_list in category.events%}
+                        
+                      {%if event_list.name|stringformat:"s" == event_name|stringformat:"s"%}
+                       
+                    {%if category.text|slugify|stringformat:"s" == "impact" %}
+                     <a href="{{SITE_URL}}events/impact/"><img src="http://www.shaastra.org/2011/media/main/img/impact.jpg" /></a>
+                    {%endif%}
+                     {%if category.text|slugify|stringformat:"s" == "design-and-build" %}
+                    <a href="{{SITE_URL}}events/DesignAndBuild/"> <img src="http://www.shaastra.org/2011/media/main/img/design_and_build.jpg" /></a>
+                    {%endif%}
+                     {%if category.text|slugify|stringformat:"s" == "coding" %}
+                     <a href="{{SITE_URL}}events/coding/"><img src="http://www.shaastra.org/2011/media/main/img/coding.jpg" /></a>
+                    {%endif%}
+                   {%if category.text|slugify|stringformat:"s" == "involve" %}
+                     <a href="{{SITE_URL}}events/involve/"><img src="http://www.shaastra.org/2011/media/main/img/involve.jpg" /></a>
+                    {%endif%}
+                    {%if category.text|slugify|stringformat:"s" == "online" %}
+                     <a href="{{SITE_URL}}events/online/"><img src="http://www.shaastra.org/2011/media/main/img/online.jpg" /></a>
+                    {%endif%}
+                    {%if category.text|slugify|stringformat:"s" == "spotlights" %}
+                     <a href="{{SITE_URL}}events/spotlights/"><img src="http://www.shaastra.org/2011/media/main/img/spotlights.jpg" /></a>
+                    {%endif%}
+                    {%if category.text|slugify|stringformat:"s" == "flagships" %}
+                     <a href="{{SITE_URL}}events/flagships/"><img src="http://www.shaastra.org/2011/media/main/img/flagships.jpg" /></a>
+                    {%endif%}
+                     {%if category.text|slugify|stringformat:"s" == "quizzes" %}
+                     <a href="{{SITE_URL}}events/quizzes/"><img src="http://www.shaastra.org/2011/media/main/img/quizzes.jpg" /></a>
+                    {%endif%}
+                    {%if category.text|slugify|stringformat:"s" == "aerofest" %}
+                     <a href="{{SITE_URL}}events/aerfoest/"><img src="http://www.shaastra.org/2011/media/main/img/aerofest.jpg" /></a>
+                    {%endif%}
+                     {%if category.text|slugify|stringformat:"s" == "workshops" %}
+                     <a href="{{SITE_URL}}events/workshops/"><img src="http://www.shaastra.org/2011/media/main/img/workshops.jpg" /></a>
+                    {%endif%}
+                       
+
+                     {%endif%}
+ 
+                   {%endfor%}
+
+                 {%endfor%}
             </div>
 		
         {%if event.video%}
