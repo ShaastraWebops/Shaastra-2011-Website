@@ -20,40 +20,53 @@ annual technical festival of IIT Madras
 
     <link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}css2/style_copy.css">
          <link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}css2/events_scroll.css">
+    <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
 	<script type="text/javascript" src="{{MEDIA_URL}}js2/Media/js/ticker.js"></script>
-	<script type="text/javascript" src="{{MEDIA_URL}}js2/Media/js/jquery.js"></script>
 
 	<link rel="stylesheet" href="{{MEDIA_URL}}css2/main.css">
        <script type="text/javascript" src="{{MEDIA_URL}}js2/js/main.js"></script>
         <link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}js2/Media/css/ticker.css">
       
+<<<<<<< HEAD
    <script src="http://www.shaastra.org/2011/media/main/js2/js/main-slide.js" type="text/javascript"></script>
 <script type="text/javascript" src="http://www.shaastra.org/2011/Templates_test/jquery-1.3.2.min.js"></script>
        <script type="text/javascript" src="http://www.shaastra.org/2011/Templates_test/jquery-1.5.2-min.js"></script>
+=======
+   <script src="{{MEDIA_URL}}js2/js/main-slide.js" type="text/javascript"></script>
+<!--	<script type="text/javascript" src="{{MEDIA_URL}}js2/js/jquery-1.3.2.min.js"></script> -->
+<!--    <script type="text/javascript" src="{{MEDIA_URL}}js2/js/jquery-1.5.2-min.js"></script> -->
+>>>>>>> 519c83c1c3c7dd8cbab205551567db9877f3e890
 
     <link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}css/style_copy.css">
     <link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}css/ticker.css">
-    <link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}css/events-tab.css" >
+    <link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}css/events-tab.css" > 
     <link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}css/style_copy.css">
     <link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}css/events_scroll.css">
     <link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}css/event.css">
+   <link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}hospi/style/css/hospiTabs.css" />  
+	
     <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
     
     <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/ticker.js"></script>
-    <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/jquery.js"></script>
-    <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/jquery-ui-1.8.12.custom.min.js"></script>
+ <!--   <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/jquery-ui-1.8.12.custom.min.js"></script> -->
+    <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/jquery.jscrollpane.min.js"></script>
+    <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/jquery.mousewheel.js"></script>
+    <script type="text/javascript" src="{{MEDIA_URL}}hospi/scripts/js/hospiTabs.js"></script>
     <script type="text/javascript">
     function footeradjust(){
 	   					
     }
   
 	</script>        
-    <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/jquery.jscrollpane.min.js"></script>
-    <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/jquery.mousewheel.js"></script>
     <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/ticker2.js"></script>
     <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/action.js"></script>  
+<<<<<<< HEAD
     <link rel="shortcut icon" href="http://www.shaastra.org/fav.ico" >     
     
+=======
+    <link rel="shortcut icon" href="{{MEDIA_URL}}fav.ico" >  
+     
+>>>>>>> 519c83c1c3c7dd8cbab205551567db9877f3e890
 
   <style type="text/css">
 #listticker{
@@ -464,7 +477,7 @@ function dow()
    <div id="page2" class="page" style="display:none; position:absolute; left:1200px; top:176px; width:1035px; padding-left:10%; margin-left:10%;" >{% include "event_categories.html" %}</div>
 
 
-<div id="page3" class="page" style="display:none; left:1200px; top:176px;height:300px; ">{% include "hospi.html" %}</div>
+<div id="page3" class="page" style="left:1200px; top:176px;height:300px; ">{% include "hospi.html" %}</div>
 
 	<div id="page4" class="page" style="display:none; left:1200px; top:176px; height:300px;">{% include "spons.html" %}</div>
         <div id="page5" class="page" style="display:none; left:1200px; top:176px; height:300px;">{% include "gallery.html" %}</div>
@@ -475,12 +488,13 @@ function dow()
 {%endblock%}   
 
 
-           {%block footer%}		
+           {%block footer%}
+            		
 	    <div id = "footer_container">
 	      <div id = "footerlinks">
            
 		<a href = "#" class = "flinks" id = "con"></a>
-		<a href = "#" class = "flinks" id = "pp"></a>
+		<a href = "{{SITE_URL}}policy/" class = "flinks" id = "pp"></a>
 		<a href = "#footerlinks" class = "flinks" id = "blo"></a>
 		<a href = "#" class = "flinks" id = "eve" onclick = "javascript:setTimeout(function(){popup(1)},00);"></a>
 		<a href = "#" class = "flinks" id = "med"></a>
