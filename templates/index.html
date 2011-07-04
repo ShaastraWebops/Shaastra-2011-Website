@@ -51,7 +51,22 @@ annual technical festival of IIT Madras
 	   					
     }
   
-	</script>        
+	</script>
+<link rel="stylesheet" media="screen" type="text/css" href="{{MEDIA_URL}}spacegallery/css/spacegallery.css" />
+<!--	<script type="text/javascript" src="Media/js/jquery.js"></script>-->
+<script type="text/javascript" src="{{MEDIA_URL}}spacegallery/js/eye.js"></script>
+<script type="text/javascript" src="{{MEDIA_URL}}spacegallery/js/utils.js"></script>
+<script type="text/javascript" src="{{MEDIA_URL}}spacegallery/js/spacegallery1.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+$('#myGallery').spacegallery({loadingClass: 'loading', perspective:'25', });
+});
+</script>
+
+        
+
+        
     <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/ticker2.js"></script>
     <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/action.js"></script>  
     <link rel="shortcut icon" href="{{MEDIA_URL}}fav.ico" >  
@@ -424,13 +439,11 @@ function dow()
                     </div>
                     <div class = "content_container">
                     <div id = "righttop">
-			<div id = "img_contaner">
-                        <img src = "{{MEDIA_URL}}js2/Media/Images/einstien.jpg" style = "padding-left : 5px;">
-			</div>
-			<div id = "righttopcontent">
-			    This is Random Content Here. Please respect THE MAN! And this is how long this will go. This is a test for the back end
-			    guys to figure out where each thing goes. thank you.
-			</div>
+ <div id="myGallery" class="spacegallery" style="width:529px; height:160px;">
+	<img src="{{MEDIA_URL}}spacegallery/img/einstien.png"/>
+	<img src="{{MEDIA_URL}}spacegallery/img/iitm_sym.jpg"/>
+	<img src="{{MEDIA_URL}}spacegallery/img/research_expo.png"/>
+  </div>
 
                     </div>
                     </div>
