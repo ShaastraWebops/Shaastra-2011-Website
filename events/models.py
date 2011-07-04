@@ -46,7 +46,7 @@ class Event(models.Model):
     menu_image = models.ImageField(upload_to = get_eventlogo_path, max_length=200, blank = True, null = True, help_text = "Event's image displayed in the menu")
     video = models.URLField(blank = True, null=True,verify_exists=False,default = SHAASTRA_TEASER_URL )
     def __unicode__(self):
-        return self.name
+        return self.display_name
     
     #A directory should only be created when a new event is saved to the db
     def save(self, *args, **kwargs):
@@ -57,6 +57,12 @@ class Event(models.Model):
         os.system("mkdir " + MEDIA_ROOT + EVENTS_PATH + camelize(self.name) + "/images/eventlogos")
         os.system("mkdir " + MEDIA_ROOT + EVENTS_PATH + camelize(self.name) + "/images/sponslogos")
         return super(Event, self).save(*args, **kwargs) # Call the "real" save() method.
+    
+    def get_url(self):
+        return self.url
+    
+    def search_title(self):
+        return self.display_name
     
     class Admin:
         pass  
@@ -86,6 +92,12 @@ class QuickTabs(models.Model):
     def __unicode__(self):
         return self.text
     
+    def get_url(self):
+        return self.event.url
+        
+    def search_title(self):
+        return self.event.display_name + " : " + self.title
+
     class Meta:
     	ordering = ['pref']
     
@@ -164,6 +176,16 @@ class Menu(models.Model):
     thumbnail = models.ImageField(upload_to = get_menu_thumbnail_path, blank = True, null = True)
     
     def __unicode__(self):
+        return self.text
+    
+    def get_url(self):
+        if self.event is not None:
+            return self.event.url
+        return SITE_URL + 'events/' + camelize(self.text) + '/'
+    
+    def search_title(self):
+        if self.event is not None:
+            return self.event.display_name
         return self.text
     
     class Meta:
