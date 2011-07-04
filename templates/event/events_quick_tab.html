@@ -23,15 +23,11 @@
 			{%endfor%}
             noOfTabs=tot;			
 	</script>
-    <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/events-tab.js"></script>
-{%endblock%}   
-  <body>
-
-    <div id = "container" style="min-height:580px;">
-      
-        
-        
-      {%block body%}
+    <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/eventsTab.js"></script>
+	{%endblock%}   
+	<body>
+    <div id = "container" style="min-height:580px;">  
+    {%block body%}
 
 
 
@@ -45,9 +41,10 @@
 		</span>
         </div>
 
-	<div id = "verticlleft">              
-	  <div id="eventsTab" style="visibility:hidden;"> 
-	    <div id="tabs">
+	<div id = "verticlleft">  
+	
+	<div id="eventsTab" style="visibility:hidden;"> 
+		<div id="tabs">
 		<script type="text/javascript">
 		            if(noOfTabs == 0){
 		                document.write("<div id=\""+elem[t]+"\">"+"Tabs can be added using the ADD TAB button"+"</div>");
