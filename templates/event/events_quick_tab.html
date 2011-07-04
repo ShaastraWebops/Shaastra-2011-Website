@@ -142,7 +142,7 @@
 
                    {%for event_list in category.events%}
                         
-                      {%if event_list.name|slugify|stringformat:"s" == event_name|slugify|stringformat:"s"%}
+                      {%if event_list.id == event.id%}
                        
                     {%if category.text|slugify|stringformat:"s" == "impact" %}
                      <img src="http://www.shaastra.org/2011/media/main/img/impact.jpg" />
