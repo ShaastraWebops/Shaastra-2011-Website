@@ -1,0 +1,63 @@
+{%extends "index.html"%}
+{%block media_location%}
+		<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}credits/style/css/credits.css" />   
+		<script type="text/javascript" src="{{MEDIA_URL}}credits/scripts/js/jquery-1.5.2-min.js"></script>
+		<script type="text/javascript" src="{{MEDIA_URL}}credits/scripts/js/jquery.jscrollpane.min.js"></script>
+		<script type="text/javascript" src="{{MEDIA_URL}}credits/scripts/js/jquery.mousewheel.js"></script>
+		<script type="text/javascript" src="{{MEDIA_URL}}credits/scripts/js/credits.js"></script>
+		<script type="text/javascript">
+			
+		</script>
+	{%endblock%}
+	{%block body%}
+		<div id="creditsContainer" style="">
+			
+			<div id="creditsContent">
+				<br />
+				<img id="coreTeam11" src="{{MEDIA_URL}}credits/images/coreTeam11.png" />
+				<div id="creditsMainContent">
+					<div id="team" style="z-index:10;">
+						<img id="centreLine" src="{{MEDIA_URL}}credits/images/centreLine.png" />
+						
+						<div id="CoCAS">
+							<div class="dept">
+								Co-Curricular Affairs Secretary
+							</div>
+							<div class="cores">
+								I.V.S Sandeep
+							</div>
+							<div class="email">
+								sandeep@shaastra.org
+							</div>
+							
+							<img src="{{MEDIA_URL}}credits/images/leftLine.png" class="lLine" />
+							<img src="{{MEDIA_URL}}credits/images/rightLine.png" class="rLine" />
+						</div>
+						
+						
+						<div id="ConceptDesign">
+							<div class="dept">
+								Concept And Design
+							</div>
+							<div class="cores">
+								Saptarshi Prakash <br>
+								Sreenath Paleri
+							</div>
+							<div class="email">
+								saptarshi@shaastra.org <br>
+								sreentah.paleri@shaastra.org
+							</div>
+							
+							<img src="{{MEDIA_URL}}credits/images/leftLine.png" class="lLine" />
+							<img src="{{MEDIA_URL}}credits/images/rightLine.png" class="rLine" />
+						</div>
+						
+						
+					</div>				
+				</div>
+				<div id="creditsMainTab"><img src="{{MEDIA_URL}}credits/images/creditsText.png" /></div>
+			</div>
+			
+		</div>
+	
+{%endblock%}
