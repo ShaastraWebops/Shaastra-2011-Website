@@ -89,16 +89,9 @@ def show_quick_tab(request,event_name=None):
 @coords_only
 def dashboard(request):
     userprof = request.user.get_profile()
+    event = userprof.coord_event
     if userprof.is_coord:
-        event_name = None
-        event = None
-        if( request.user.username == 'cores'):
-            event_id  = request.session['event_id']
-            event = models.Event.objects.get(id=event_id)
-            event_name = event.name
-        else:
-            event  = userprof.coord_event
-            event_name = event.name
+        event_name = userprof.coord_event.name
         tab_list = models.QuickTabs.objects.filter(event__name = event_name).order_by('pref')  
         if(event.questions):
             questions_added = False
@@ -504,7 +497,10 @@ def cores_dashboard(request):
         if request.method == 'GET' and 'event_id' in request.GET:
             event_id = request.GET['event_id']
             try:
-                request.session['event_id'] = event_id
+                event = models.Event.objects.get(id = event_id)
+                userprofile = request.user.get_profile()
+                userprofile.coord_event = event
+                userprofile.save()
                 return HttpResponseRedirect("%sevents/dashboard" % settings.SITE_URL)
             except models.Event.DoesNotExist:
                 raise Http404
@@ -512,3 +508,10 @@ def cores_dashboard(request):
             events = models.Event.objects.all()
             return render_to_response('event/cores_dashboard.html', locals(), context_instance = global_context(request))
     return HttpResponseRedirect("%sevents/dashboard" % settings.SITE_URL)
+def render_policy(request):
+    return render_to_response('policy.html', locals(), context_instance = global_context(request))
+def render_hospitality(request):
+    return render_to_response('hospi.html', locals(), context_instance = global_context(request))
+def render_sponsorship(request):
+    return render_to_response('spons.html', locals(), context_instance = global_context(request))
+    

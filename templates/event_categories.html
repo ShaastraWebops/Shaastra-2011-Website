@@ -1,13 +1,13 @@
 {%block event_categories%}
  
-	<div id="categories" style="position:realtive;left:-50px;">
+	<div id="categories" style="position:relative;left:20%;">
 	<!-- preload categories master image  and other images-->
 	  <img src="http://www.shaastra.org/2011/media/main/img/cat/catmaster.jpg" style="height:0px; width:0px;"/>
 	 <img src="http://www.shaastra.org/2011/media/main/img/ctbg.png" style="height:0px; width:0px;"/>	
 	<div style="background-image:url('http://www.shaastra.org/2011/media/main/img/cat/soe.png'); height:0px; width:0px;"></div>	
 	<!-- preloading over -->							
 								
-	<div id="container1">
+	<div id="container1" style="position:relative;left:-100px;">
 	<div id="impact" class = "cat" onClick='openPopUp("impact",0,0,778,326)'></div>
 	<div id="design_and_build" class = "cat" onClick='openPopUp("design-and-build",0,100,770,325)'></div>
 
@@ -130,7 +130,7 @@
               <div style="position:absolute; color:white; left:10px; top:145px; font-size:1em;">  
            {%endif%} 
             {%if category.text|slugify|stringformat:"s" == "workshops"%}
-             <div style="position:absolute; color:white; left:10px; top:80px; font-size:0.7em;"> 
+             <div style="position:absolute; color:white; left:10px; top:75px; font-size:0.65em;"> 
             {%endif%} 
         {% for event in category.events%}
           <p class="event"><a href="{{event.url}}">{{event.name|capfirst}}</a></p>

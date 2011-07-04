@@ -27,6 +27,9 @@ urlpatterns = patterns('',
      url(r'^techmash/', include ('main_test.techmash.urls')),  
      url(r'^search/?$', include('haystack.urls')),
      url(r'^sitemap\.xml$', 'main_test.events.views.sitemap'),
+     url(r'^policy/$', 'main_test.events.views.render_policy'),
+     url(r'^hospitality/$', 'main_test.events.views.render_hospitality'),
+     url(r'^sponsorship/$', 'main_test.events.views.render_sponsorship'),
      url(r'^', include ('main_test.users.urls')),	
 )
 
