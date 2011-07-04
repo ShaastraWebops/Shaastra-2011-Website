@@ -13,7 +13,7 @@
 			
 			************************************************************************************************************************************************/
 			 var elem=[];
-                         var tabnames;
+                         var tabNames;
 			 var tot=0;
 			 var noOfTabs=0
 			{%for row in tab_list%}
@@ -49,7 +49,7 @@
 		<div id="tabs">
 		<script type="text/javascript">
 		            if(noOfTabs == 0){
-		                document.write("<div id=null>Tabs can be added using the ADD TAB button </div>");
+		                 document.write("<div id=\""+elem[t]+"\">"+"Tabs can be added using the ADD TAB button"+"</div>");
 		            }
 					for(var t=0;t<noOfTabs;t++){
 						document.write("<div id=\""+elem[t]+"\">"+tabNames[t]+"</div>");
