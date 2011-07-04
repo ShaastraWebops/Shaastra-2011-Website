@@ -142,7 +142,7 @@
 
                    {%for event_list in category.events%}
                         
-                      {%if event_list.name|stringformat:"s" == event_name|stringformat:"s"%}
+                      {%if event_list.id == event.id%}
                        
                     {%if category.text|slugify|stringformat:"s" == "impact" %}
                      <img src="http://www.shaastra.org/2011/media/main/img/impact.jpg" />
@@ -154,10 +154,10 @@
                     <img src="http://www.shaastra.org/2011/media/main/img/coding.jpg" />
                     {%endif%}
                    {%if category.text|slugify|stringformat:"s" == "involve" %}
-                    <img src="http://www.shaastra.org/2011/media/main/img/involve.jpg" />
+                    <img src="http://www.shaastra.org/2011/media/main/img/involve_right.jpg" />
                     {%endif%}
                     {%if category.text|slugify|stringformat:"s" == "online" %}
-                    <img src="http://www.shaastra.org/2011/media/main/img/online.jpg" />
+                    <img src="http://www.shaastra.org/2011/media/main/img/online_right.jpg" />
                     {%endif%}
                     {%if category.text|slugify|stringformat:"s" == "spotlights" %}
                      <img src="http://www.shaastra.org/2011/media/main/img/spotlights.jpg" />
@@ -169,13 +169,13 @@
                      <img src="http://www.shaastra.org/2011/media/main/img/quizzes.jpg" />
                     {%endif%}
                     {%if category.text|slugify|stringformat:"s" == "aerofest" %}
-                     <img src="http://www.shaastra.org/2011/media/main/img/aerofest.jpg" />
+                     <img src="http://www.shaastra.org/2011/media/main/img/aerofest_right.jpg" />
                     {%endif%}
                      {%if category.text|slugify|stringformat:"s" == "workshops" %}
                      <img src="http://www.shaastra.org/2011/media/main/img/workshops.jpg" />
                     {%endif%}
                        {%if category.text|slugify|stringformat:"s" == "exhibitions" %}
-                     <img src="http://www.shaastra.org/2011/media/main/img/exhibitions.jpg" />
+                     <img src="http://www.shaastra.org/2011/media/main/img/exhibitions_right.jpg" />
                     {%endif%}
 
                      {%endif%}
