@@ -158,7 +158,7 @@
                      <a href="{{SITE_URL}}events/spotlights/"><img src="http://www.shaastra.org/2011/media/main/img/spotlights.jpg" /></a>
                     {%endif%}
                     {%if category.text|slugify|stringformat:"s" == "flagships" %}
-                     <a href="{{SITE_URL}}events/flagships/"><img src="http://www.shaastra.org/2011/media/main/img/flagships.jpg" /></a>
+                     <a href="{{SITE_URL}}events/flagship/"><img src="http://www.shaastra.org/2011/media/main/img/flagship.jpg" /></a>
                     {%endif%}
                      {%if category.text|slugify|stringformat:"s" == "quizzes" %}
                      <a href="{{SITE_URL}}events/quizzes/"><img src="http://www.shaastra.org/2011/media/main/img/quizzes.jpg" /></a>
@@ -176,6 +176,12 @@
                    {%endfor%}
 
                  {%endfor%}
+
+           
+                     
+                    
+            
+
             </div>
 		
         {%if event.video%}
