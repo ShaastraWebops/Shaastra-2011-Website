@@ -310,8 +310,8 @@ function dow()
                {%block top_navigation%}
               <a href = "{{SITE_URL}}home" class="navig" id = "home"><span class = "nclass">Home</span></a>
 	      <a href = "#" class="navig" id = "events" onclick = "javascript:setTimeout(function(){popup(1)},00);"><span class = "nclass">Events</span></a>
-	      <a href = "#" class="navig" id = "hospi" ><span class = "nclass">Hospitality</span></a>
-	      <a href = "#" class="navig" id = "sponsor"><span class = "nclass">Sponsorship</span></a>
+	      <a href = "{{SITE_URL}}hospitality" class="navig" id = "hospi" ><span class = "nclass">Hospitality</span></a>
+	      <a href = "{{SITE_URL}}sponsorship" class="navig" id = "sponsor"><span class = "nclass">Sponsorship</span></a>
 	      <a href = "#" class="navig" id = "gallery" onclick = "javascript:setTimeout(function(){popup(2)},00);"><span class = "nclass">Gallery</span></a>
                {%endblock%}
               
@@ -466,9 +466,6 @@ function dow()
    <div id="page2" class="page" style="display:none; position:absolute; left:1200px; top:176px; width:1035px; padding-left:10%; margin-left:10%;" >{% include "event_categories.html" %}</div>
 
 
-<!--<div id="page3" class="page" style="width:100%;display:none; left:1200px; top:176px;height:300px;">{% include "hospi.html" %}</div>
-
-	<div id="page4" class="page" style="display:none; left:1200px; top:176px; height:300px;">{% include "spons.html" %}</div>-->
         <div id="page3" class="page" style="display:none; left:1200px; top:176px; height:300px;">{% include "gallery.html" %}</div>
 
 <div id="right_arrow" onclick="slide1()"></div>

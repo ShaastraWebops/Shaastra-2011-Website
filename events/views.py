@@ -510,4 +510,8 @@ def cores_dashboard(request):
     return HttpResponseRedirect("%sevents/dashboard" % settings.SITE_URL)
 def render_policy(request):
     return render_to_response('policy.html', locals(), context_instance = global_context(request))
+def render_hospitality(request):
+    return render_to_response('hospi.html', locals(), context_instance = global_context(request))
+def render_sponsorship(request):
+    return render_to_response('spons.html', locals(), context_instance = global_context(request))
     
