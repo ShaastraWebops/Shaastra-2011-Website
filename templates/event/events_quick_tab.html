@@ -142,40 +142,40 @@
 
                    {%for event_list in category.events%}
                         
-                      {%if event_list.name|stringformat:"s" == event_name|stringformat:"s"%}
+                      {%if event_list.id == event.id%}
                        
                     {%if category.text|slugify|stringformat:"s" == "impact" %}
-                     <a href="{{SITE_URL}}events/impact/"><img src="http://www.shaastra.org/2011/media/main/img/impact.jpg" /></a>
+                     <img src="http://www.shaastra.org/2011/media/main/img/impact.jpg" />
                     {%endif%}
                      {%if category.text|slugify|stringformat:"s" == "design-and-build" %}
-                    <a href="{{SITE_URL}}events/DesignAndBuild/"> <img src="http://www.shaastra.org/2011/media/main/img/design_and_build.jpg" /></a>
+                    <img src="http://www.shaastra.org/2011/media/main/img/design_and_build.jpg" />
                     {%endif%}
                      {%if category.text|slugify|stringformat:"s" == "coding" %}
-                     <a href="{{SITE_URL}}events/coding/"><img src="http://www.shaastra.org/2011/media/main/img/coding.jpg" /></a>
+                    <img src="http://www.shaastra.org/2011/media/main/img/coding.jpg" />
                     {%endif%}
                    {%if category.text|slugify|stringformat:"s" == "involve" %}
-                     <a href="{{SITE_URL}}events/involve/"><img src="http://www.shaastra.org/2011/media/main/img/involve.jpg" /></a>
+                    <img src="http://www.shaastra.org/2011/media/main/img/involve_right.jpg" />
                     {%endif%}
                     {%if category.text|slugify|stringformat:"s" == "online" %}
-                     <a href="{{SITE_URL}}events/online/"><img src="http://www.shaastra.org/2011/media/main/img/online.jpg" /></a>
+                    <img src="http://www.shaastra.org/2011/media/main/img/online_right.jpg" />
                     {%endif%}
                     {%if category.text|slugify|stringformat:"s" == "spotlights" %}
-                     <a href="{{SITE_URL}}events/spotlights/"><img src="http://www.shaastra.org/2011/media/main/img/spotlights.jpg" /></a>
+                     <img src="http://www.shaastra.org/2011/media/main/img/spotlights.jpg" />
                     {%endif%}
-                    {%if category.text|slugify|stringformat:"s" == "flagships" %}
-                     <a href="{{SITE_URL}}events/flagship/"><img src="http://www.shaastra.org/2011/media/main/img/flagship.jpg" /></a>
+                    {%if category.text|slugify|stringformat:"s" == "flagship" %}
+                     <img src="http://www.shaastra.org/2011/media/main/img/flagship.jpg" />
                     {%endif%}
                      {%if category.text|slugify|stringformat:"s" == "quizzes" %}
-                     <a href="{{SITE_URL}}events/quizzes/"><img src="http://www.shaastra.org/2011/media/main/img/quizzes.jpg" /></a>
+                     <img src="http://www.shaastra.org/2011/media/main/img/quizzes.jpg" />
                     {%endif%}
                     {%if category.text|slugify|stringformat:"s" == "aerofest" %}
-                     <a href="{{SITE_URL}}events/aerfoest/"><img src="http://www.shaastra.org/2011/media/main/img/aerofest.jpg" /></a>
+                     <img src="http://www.shaastra.org/2011/media/main/img/aerofest_right.jpg" />
                     {%endif%}
                      {%if category.text|slugify|stringformat:"s" == "workshops" %}
-                     <a href="{{SITE_URL}}events/workshops/"><img src="http://www.shaastra.org/2011/media/main/img/workshops.jpg" /></a>
+                     <img src="http://www.shaastra.org/2011/media/main/img/workshops.jpg" />
                     {%endif%}
                        {%if category.text|slugify|stringformat:"s" == "exhibitions" %}
-                     <a href="{{SITE_URL}}events/exhibitions/"><img src="http://www.shaastra.org/2011/media/main/img/exhibitions.jpg" /></a>
+                     <img src="http://www.shaastra.org/2011/media/main/img/exhibitions_right.jpg" />
                     {%endif%}
 
                      {%endif%}

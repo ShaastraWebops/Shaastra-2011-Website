@@ -133,7 +133,7 @@
              <div style="position:absolute; color:white; left:10px; top:70px; font-size:0.6em;"> 
             {%endif%} 
         {% for event in category.events%}
-          <p class="event"><a href="{{event.url}}">{{event.name|capfirst}}</a></p>
+          <p class="event"><a href="{{event.url}}">{{event.display_name|capfirst}}</a></p>
 	  {%endfor%}
 	
         </div>

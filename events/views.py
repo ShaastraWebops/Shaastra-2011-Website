@@ -514,4 +514,8 @@ def render_hospitality(request):
     return render_to_response('hospi.html', locals(), context_instance = global_context(request))
 def render_sponsorship(request):
     return render_to_response('spons.html', locals(), context_instance = global_context(request))
+def render_credits(request):
+    return render_to_response('credits.html', locals(), context_instance = global_context(request))
+def render_contact(request):
+    return render_to_response('contacts.html', locals(), context_instance = global_context(request))    
     

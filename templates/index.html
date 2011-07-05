@@ -21,10 +21,11 @@ annual technical festival of IIT Madras
     <link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}css2/style_copy.css">
          <link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}css2/events_scroll.css">
     <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+       <script type="text/javascript" src="{{MEDIA_URL}}js2/js/main.js"></script>
+    <script src="{{MEDIA_URL}}js2/js/easing.js" type="text/javascript"></script>
 	<script type="text/javascript" src="{{MEDIA_URL}}js2/Media/js/ticker.js"></script>
 
 	<link rel="stylesheet" href="{{MEDIA_URL}}css2/main.css">
-       <script type="text/javascript" src="{{MEDIA_URL}}js2/js/main.js"></script>
         <link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}js2/Media/css/ticker.css">
       
   <script src="{{MEDIA_URL}}js2/js/main-slide.js" type="text/javascript"></script>
@@ -39,18 +40,16 @@ annual technical festival of IIT Madras
    <link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}hospi/style/css/hospiTabs.css" />  
 	
     <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
-    <script src="{{MEDIA_URL}}js2/js/easing.js" type="text/javascript"></script>
 
     <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/ticker.js"></script>
- 		<script type="text/javascript" src="{{MEDIA_URL}}js/js/script/jquery-ui-1.8.12.custom.min.js"></script>
+ 	<script type="text/javascript" src="{{MEDIA_URL}}js/js/script/jquery-ui-1.8.12.custom.min.js"></script>
     <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/jquery.jscrollpane.min.js"></script>
     <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/jquery.mousewheel.js"></script>
-    <script type="text/javascript" src="{{MEDIA_URL}}hospi/scripts/js/hospiTabs.js"></script>
         <script type="text/javascript">
     function footeradjust(){
 	   					
     }
-  
+     var IE_ =0;
 	</script>
 <link rel="stylesheet" media="screen" type="text/css" href="{{MEDIA_URL}}spacegallery/css/spacegallery.css" />
 <!--	<script type="text/javascript" src="Media/js/jquery.js"></script>-->
@@ -69,7 +68,8 @@ $('#myGallery').spacegallery({loadingClass: 'loading', perspective:'25', });
         
     <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/ticker2.js"></script>
     <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/action.js"></script>  
-   <link rel="shortcut icon" href="{{MEDIA_URL}}fav.ico" >  
+    <link rel="shortcut icon" href="{{MEDIA_URL}}fav.ico" >  
+
      
 
   <style type="text/css">
@@ -200,7 +200,32 @@ function dow()
     clear_interval_evaluate_set_interval (move_all_down_circularly);
 }           
 </script>
- 
+ <!--[if IE ]>
+        <script type="text/javascript">
+          var IE_ = true;
+        </script>
+    <![endif]-->
+    <!--[if lte IE 8]>
+        <script type="text/javascript">
+          width=78;
+        </script>
+        <![endif]-->
+    <!--[if IE 7]>
+        <style type="text/css">
+          #eventsTab{ position:relative; left:0%; }
+        </style>
+        <![endif]-->
+    <!--[if IE 6]>
+        <style type="text/css">
+          #eventsTab{ top:0%; }
+          body {width:1200px; }                
+          img, div { behavior: url('iepngfix.htc') }
+          /*    #social_container {border: solid 0.2mm black; width:160px; height:40px; }*/
+          #youtube { background-position-x:-37px; background-position-y:0px; }
+          #blogger {}
+          #twitter {}
+        </style>
+        <![endif]-->
 		
     <script type="text/javascript">
       var pops = 0;
@@ -341,7 +366,8 @@ function dow()
                 <a href="{{SITE_URL}}login/"><img src = "{{MEDIA_URL}}img/login.png" id = "login_" style="position:absolute; left:0px; top:85px;"></a>
                 <a href="{{SITE_URL}}register/user/" ><img src = "{{MEDIA_URL}}img/sign_up.png" id = "sgnup_" style="position:absolute; left:120px; top:85px;"></a>
                 {% endif %}
-                <div id ="srch"  style="position:absolute; left:362px; top:88px;"><img src = "{{MEDIA_URL}}img/search.png" id = "srimg_">&nbsp;&nbsp;<input type = "text" id = "search" name = "search"></div>
+<!--                <div id ="srch"  style="position:absolute; left:362px; top:88px;"><img src = "{{MEDIA_URL}}img/search.png" id = "srimg_">&nbsp;&nbsp;<input type = "text" id = "search" name = "search"></div>
+-->
              {%endblock%}
               </div>            
             </div>
@@ -360,7 +386,7 @@ function dow()
 			<div id="ucLeft"></div>
 			<div id="ucMid"></div>
 			<div id="ucRight"></div>
-        <script type="text/javascript"> if(IE_) $("#updates_container").css('top','-3px');</script>
+			<script type="text/javascript"> if(IE_) $("#updates_container").css('top','-3px');</script>
           {%block updates%}
 	    <div class="tick" style="">
 	     <ul id="listticker"> 
@@ -419,11 +445,12 @@ function dow()
       <!-- HEADER ENDS -->
 
 
-<div id="page1" class="page" style = "overflow:hidden; position:relative;height:433px;width:90%">
+<div id="page1" class="page" style = "overflow:hidden; position:relative;height:433px;width:100%;left:0px;">
     <div id = "content" >
 
                    
 {%block body%}
+	 <div id="home">
       <div id = "content_top">
                 	<div class = "content_container">
                     <div id = "lefttop">
@@ -436,15 +463,21 @@ function dow()
                     </div>
 
                     </div>
+<script>function fadein(){
+document.write("<style type='text/css'>#myGallery{visibility:hidden;} </style>");
+
+$("#myGallery").fadeIn("slow");} </script>
                     <div class = "content_container">
                     <div id = "righttop">
- <div id="myGallery" class="spacegallery" style="width:529px; height:160px;">
+ <div id="myGallery" class="spacegallery" style="width:529px; height:160px;" onload="fadein()">
 	<img src="{{MEDIA_URL}}spacegallery/img/einstien.png"/>
 	<img src="{{MEDIA_URL}}spacegallery/img/iitm_sym.jpg"/>
 	<img src="{{MEDIA_URL}}spacegallery/img/research_expo.png"/>
   </div>
 
                     </div>
+
+
                     </div>
                     <div class = "clearfloat"></div>
                 </div>
@@ -459,7 +492,7 @@ function dow()
                     <div class = "content_container_2">
                     <div id = "rightbottom">
 			<div id = "rightbottomcontent">
-                       The long wait for IIT Madras’ exalted technical festival will soon end. The 13th edition of Shaastra, to be held between September 28th and October 2nd, is set to amaze and enthrall audiences everywhere! Shaastra will extend its focus on challenging new boundaries and will be a platform of ingenuity and innovation. A dedicated show with spectacular displays of technology and science will stretch the limits of your imagination. Continuing the philosophy of promoting creativity and showcasing innovation, Shaastra 2011 is all set to truly Inspire the Future. 
+                       <p>The long wait for IIT Madras’ exalted technical festival will soon end. The 13th edition of Shaastra, to be held between September 28th and October 2nd, is set to amaze and enthrall audiences everywhere! Shaastra will extend its focus on challenging new boundaries and will be a platform of ingenuity and innovation. A dedicated show with spectacular displays of technology and science will stretch the limits of your imagination. Continuing the philosophy of promoting creativity and showcasing innovation, Shaastra 2011 is all set to truly <span style="color:blue">Inspire the Future</span></p>. 
 			</div>
                     </div>
                     </div>
@@ -470,7 +503,7 @@ function dow()
 
 
 {%endblock%}
-
+	</div>
     </div>
 
  </div>
@@ -499,8 +532,8 @@ function dow()
 		<a href = "#" class = "flinks" id = "eve" onclick = "javascript:setTimeout(function(){popup(1)},00);"></a>
 		<!--<a href = "#" class = "flinks" id = "med"></a>
 		<a href = "#" class = "flinks" id = "mys"></a>-->
-		<a href = "#" class = "flinks" id = "cre"></a>
-		<a href = "#" class = "flinks" id = "con"></a>
+		<a href = "{{SITE_URL}}credits" class = "flinks" id = "cre"></a>
+		<a href = "{{SITE_URL}}contact" class = "flinks" id = "con"></a>
 	      </div>
 	    </div>
  {%block gradient%}
