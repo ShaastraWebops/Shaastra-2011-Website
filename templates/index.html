@@ -256,12 +256,22 @@ background:url("http://www.shaastra.org/2011/Templates_test/dow1.jpg");
 				
 				
     </script>
-<script type="text/javascript">        
+<script type="text/javascript"> 
+var speed = 400;
+var pause = 5000;       
 $(document).ready(function(){
+ function move_all_down_circularly ()
+{
+    // hide and delete the last one,
+    // put it at the start,
+    // slide down (for this, first one has to be hidden),
+    // the jquery slide down makes the first element visible.
+    last = $('ul#listticker li:last').hide().remove();
+    $('ul#listticker').prepend(last);
+    $('ul#listticker li:first').slideDown("slow");
+}
     interval = setInterval(move_all_down_circularly, pause);
 });
-var speed = 400;
-var pause = 5000;
 // Say, there are 4 elements is the list.
 // The idea is to have all of them visible
 // at all the time except the short sliding peroid
