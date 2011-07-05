@@ -31,6 +31,7 @@ urlpatterns = patterns('',
      url(r'^hospitality/$', 'main_test.events.views.render_hospitality'),
      url(r'^sponsorship/$', 'main_test.events.views.render_sponsorship'),
      url(r'^credits/$', 'main_test.events.views.render_credits'),
+     url(r'^contact/$', 'main_test.events.views.render_contact'),
      url(r'^', include ('main_test.users.urls')),	
 )
 
