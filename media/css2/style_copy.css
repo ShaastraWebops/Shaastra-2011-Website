@@ -272,7 +272,8 @@ min-height : 100%;
 #rightbottom{
     width : 95%;
     height : 100%;
-    background : url('http://www.shaastra.org/2011/media/main/js2/Media/Images/border.png');
+    background-image: url("http://www.jaredhirsch.com/coolrunnings/public_images/7b7c70dfd5/spriteme1.png");
+    background-position: -10px -117px;
     background-repeat :no-repeat;
     margin-left: auto;
     text-align : left;
@@ -299,8 +300,8 @@ min-height : 100%;
 	margin-left : auto;
 	margin-right : auto;
 	
-	background : url('http://www.shaastra.org/2011/media/main/js2/Media/Images/pp_spr.png');
-	background-position : 0px bottom;
+  background-image: url("http://www.jaredhirsch.com/coolrunnings/public_images/7b7c70dfd5/spriteme1.png");
+  background-position: -10px -411px;
 	background-repeat : no-repeat;
 }
 #pp:hover{
@@ -346,8 +347,8 @@ width : 110px;
 	margin-left : auto;
 	margin-right : auto;
 	
-	background : url('http://www.shaastra.org/2011/media/main/js2/Media/Images/cre_spr.png');
-	background-position : 0px bottom;
+    background-image: url("http://www.jaredhirsch.com/coolrunnings/public_images/7b7c70dfd5/spriteme1.png");
+    background-position: -10px -85px;
 	background-repeat : no-repeat;
 	
 }
@@ -411,8 +412,9 @@ top:10px;
 
 	position:relative;
 	top : -2px;
-	background: url('http://www.shaastra.org/2011/media/main/js2/Media/Images/footer_events.png');
-		background-repeat:no-repeat;
+	background-image: url("http://www.jaredhirsch.com/coolrunnings/public_images/7b7c70dfd5/spriteme1.png");
+    background-position: -10px -10px;
+    background-repeat:no-repeat;
 }
 
 #fb{
