@@ -7,6 +7,8 @@
 <div id = "container">  
     <!-- HEADER BEGINS -->
     <head>
+	<meta name="description" content="Welcome to the technical festival of IIT Madras, SHAASTRA" >
+	<meta name="keywords" content="shaastra,shaastra 2011,shaastra 2010,iitm shaastra,shaastra iit madras,techfest,technical festival iit madras" >
     <title>
      {%block title%}
        
@@ -386,6 +388,9 @@ function dow()
               </div>            
             </div>
           </div>
+		  <div id="fblike">
+			<iframe src="http://www.facebook.com/plugins/like.php?app_id=200960543285346&amp;href=www.shaastra.org&amp;send=false&amp;layout=button_count&amp;width=100&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font=arial&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:21px;" allowTransparency="true"></iframe>
+		  </div>
           <div id = "spons_container">
             <div id = "spons">
            {%block main_sponsor%}
@@ -434,9 +439,9 @@ function dow()
 				<a href="http://www.shaastra.org/blog/" target="_blank"><div id="blogger"></div></a>
 				<a href="http://www.twitter.com/shaastra_2011" target="_blank" ><div id="twitter"></div></a>
 				
-          {%endblock%}
+				<g:plusone href = "www.shaastra.org"></g:plusone>
+				{%endblock%}
             </div>
-	    <g:plusone href = "www.shaastra.org"></g:plusone>
           </div>
 
           <div class = "clearfloat"></div>
