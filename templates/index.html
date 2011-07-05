@@ -52,7 +52,7 @@ annual technical festival of IIT Madras
      var IE_ =0;
 	</script>
 <link rel="stylesheet" media="screen" type="text/css" href="{{MEDIA_URL}}spacegallery/css/spacegallery.css" />
-<!--	<script type="text/javascript" src="Media/js/jquery.js"></script>-->
+<!--<script type="text/javascript" src="Media/js/jquery.js"></script>-->
 <script type="text/javascript" src="{{MEDIA_URL}}spacegallery/js/eye.js"></script>
 <script type="text/javascript" src="{{MEDIA_URL}}spacegallery/js/utils.js"></script>
 <script type="text/javascript" src="{{MEDIA_URL}}spacegallery/js/spacegallery1.js"></script>
@@ -60,6 +60,20 @@ annual technical festival of IIT Madras
 <script type="text/javascript">
 $(document).ready(function(){
 $('#myGallery').spacegallery({loadingClass: 'loading', perspective:'25', });
+/*var noelem = $('#myGallery > img').size();
+//alert($('#myGallery > img').eq(1));
+$('#myGallery > img').hide();
+var track = 0;
+
+setInterval(function(){
+if(track == noelem) track = 0;
+var curimg = $('#myGallery > img').eq(track);
+curimg.show("slide",{direction:"left"},750);
+setTimeout(function(){
+curimg.hide("slide",{direction:"right"},750);
+},1750);
+track++;
+},2500);*/
 });
 </script>
 
@@ -401,11 +415,7 @@ function dow()
 		<a href="" class="news-title">Events</a>
          <a href="" class="news-text">A whole new range of events to take part in come and explore shaastra 2k11</a>
 	</li>
- <li>
-         <img src="http://www.shaastra.org/2011/Templates_test/dic.png" />
-		<a href="" class="news-title">Website</a>
-	    <a href="" class="news-text">Shaastra 2011 website is up</a>
-	</li>
+
 </ul>
 <div class="arro">
 <a href="#"upp" class='up' onClick='up();'></a>
@@ -457,7 +467,8 @@ function dow()
 <script>function fadein(){
 document.write("<style type='text/css'>#myGallery{visibility:hidden;} </style>");
 
-$("#myGallery").fadeIn("slow");} </script>
+$("#myGallery").fadeIn("slow");} 
+</script>
                     <div class = "content_container">
                     <div id = "righttop">
  <div id="myGallery" class="spacegallery" style="width:529px; height:160px;" onload="fadein()">
