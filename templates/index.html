@@ -52,7 +52,7 @@ annual technical festival of IIT Madras
      var IE_ =0;
 	</script>
 <link rel="stylesheet" media="screen" type="text/css" href="{{MEDIA_URL}}spacegallery/css/spacegallery.css" />
-<!--	<script type="text/javascript" src="Media/js/jquery.js"></script>-->
+<!--<script type="text/javascript" src="Media/js/jquery.js"></script>-->
 <script type="text/javascript" src="{{MEDIA_URL}}spacegallery/js/eye.js"></script>
 <script type="text/javascript" src="{{MEDIA_URL}}spacegallery/js/utils.js"></script>
 <script type="text/javascript" src="{{MEDIA_URL}}spacegallery/js/spacegallery1.js"></script>
@@ -60,6 +60,20 @@ annual technical festival of IIT Madras
 <script type="text/javascript">
 $(document).ready(function(){
 $('#myGallery').spacegallery({loadingClass: 'loading', perspective:'25', });
+/*var noelem = $('#myGallery > img').size();
+//alert($('#myGallery > img').eq(1));
+$('#myGallery > img').hide();
+var track = 0;
+
+setInterval(function(){
+if(track == noelem) track = 0;
+var curimg = $('#myGallery > img').eq(track);
+curimg.show("slide",{direction:"left"},750);
+setTimeout(function(){
+curimg.hide("slide",{direction:"right"},750);
+},1750);
+track++;
+},2500);*/
 });
 </script>
 
@@ -143,63 +157,6 @@ width:27px;
 background:url("http://www.shaastra.org/2011/Templates_test/dow1.jpg");
 }		 
 </style>
-<script type="text/javascript">        
-$(document).ready(function(){
-    interval = setInterval(move_all_down_circularly, pause);
-});
-var speed = 200;
-var pause = 3500;
-// Say, there are 4 elements is the list.
-// The idea is to have all of them visible
-// at all the time except the short sliding peroid
-// (ie, during the circular function execution.)
-// So, each of our functions start with all the elements
-// of the list visible, and by the time they finish,
-// all of them are still visible.
-
-function move_all_down_circularly ()
-{
-    // hide and delete the last one,
-    // put it at the start,
-    // slide down (for this, first one has to be hidden),
-    // the jquery slide down makes the first element visible.
-    last = $('ul#listticker li:last').hide().remove();
-    $('ul#listticker').prepend(last);
-    $('ul#listticker li:first').slideDown("slow");
-}
-
-function move_all_up_circularly ()
-{
-    // slide up and after the animation is complete...
-    // now the first one is hidden
-    // delete the first one
-    // add it to the end
-    // make it visible
-    first = $('ul#listticker li:first').slideUp("slow",  function() {
-        $('ul#listticker').append(first);
-        $('ul#listticker li:last').show();
-    });
-}
-
-function clear_interval_evaluate_set_interval (function_to_eval)
-{
-    clearInterval (interval);
-    function_to_eval ();
-    interval = setInterval (move_all_down_circularly , pause);
-}
-
-function up ()
-{
-    // This is triggered when we press the up arrow.
-    clear_interval_evaluate_set_interval (move_all_up_circularly);
-}
-
-function dow()
-{
-    // This is triggered when we press the down arrow.
-    clear_interval_evaluate_set_interval (move_all_down_circularly);
-}           
-</script>
  <!--[if IE ]>
         <script type="text/javascript">
           var IE_ = true;
@@ -299,7 +256,63 @@ function dow()
 				
 				
     </script>
+<script type="text/javascript"> 
+var speed = 1000;
+var pause = 5000;       
+$(document).ready(function(){
+    interval = setInterval(move_all_up_circularly, pause);
+});
+// Say, there are 4 elements is the list.
+// The idea is to have all of them visible
+// at all the time except the short sliding peroid
+// (ie, during the circular function execution.)
+// So, each of our functions start with all the elements
+// of the list visible, and by the time they finish,
+// all of them are still visible.
 
+function move_all_down_circularly ()
+{
+    // hide and delete the last one,
+    // put it at the start,
+    // slide down (for this, first one has to be hidden),
+    // the jquery slide down makes the first element visible.
+    last = $('ul#listticker li:last').hide().remove();
+    $('ul#listticker').prepend(last);
+    $('ul#listticker li:first').slideDown("slow");
+}
+
+function move_all_up_circularly ()
+{
+    // slide up and after the animation is complete...
+    // now the first one is hidden
+    // delete the first one
+    // add it to the end
+    // make it visible
+    first = $('ul#listticker li:first').slideUp("slow",  function() {
+        $('ul#listticker').append(first);
+        $('ul#listticker li:last').show();
+    });
+}
+
+function clear_interval_evaluate_set_interval (function_to_eval)
+{
+    clearInterval (interval);
+    function_to_eval ();
+    interval = setInterval (move_all_up_circularly , pause);
+}
+
+function up ()
+{
+    // This is triggered when we press the up arrow.
+    clear_interval_evaluate_set_interval (move_all_up_circularly);
+}
+
+function dow()
+{
+    // This is triggered when we press the down arrow.
+    clear_interval_evaluate_set_interval (move_all_down_circularly);
+}           
+</script>
 <style>
 
  .page{
@@ -394,28 +407,14 @@ function dow()
        <li>
 	 <img src="http://www.shaastra.org/2011/Templates_test/index.jpg" />
 		<a href="" class="news-title">Welcome</a>
-		<a href="" class="news-text">IIT MADRAS welcomes you to Shaastra</a>
-	</li>
-	<li>
-        <img src="http://www.shaastra.org/2011/Templates_test/spon.jpg" />
-		<a href="" class="news-title">Sponsors</a>
-		<a href="" class="news-text">We thank all our sponsors and the spons team</a>
+		<a href="" class="news-text">IIT MADRAS welcomes you to Shaastra 2011</a>
 	</li>
 	<li>
 	<img src="http://www.shaastra.org/2011/Templates_test/car1.jpg" />
 		<a href="" class="news-title">Events</a>
          <a href="" class="news-text">A whole new range of events to take part in come and explore shaastra 2k11</a>
 	</li>
-       <li>
-         <img src="http://www.shaastra.org/2011/Templates_test/hospi1.jpg" />
-		<a href="" class="news-title">Hospitality</a>
-        <a href="" class="news-text">Atithi devo bhava:Our motto</a>
-	</li>
- <li>
-         <img src="http://www.shaastra.org/2011/Templates_test/dic.png" />
-		<a href="" class="news-title">Website</a>
-	    <a href="" class="news-text">Shaastra 2011 website is up</a>
-	</li>
+
 </ul>
 <div class="arro">
 <a href="#"upp" class='up' onClick='up();'></a>
@@ -446,11 +445,12 @@ function dow()
       <!-- HEADER ENDS -->
 
 
-<div id="page1" class="page" style = "overflow:hidden; position:relative;height:433px;width:90%">
+<div id="page1" class="page" style = "overflow:hidden; position:relative;height:433px;width:100%;left:0px;">
     <div id = "content" >
 
                    
 {%block body%}
+	 <div id="home">
       <div id = "content_top">
                 	<div class = "content_container">
                     <div id = "lefttop">
@@ -466,7 +466,8 @@ function dow()
 <script>function fadein(){
 document.write("<style type='text/css'>#myGallery{visibility:hidden;} </style>");
 
-$("#myGallery").fadeIn("slow");} </script>
+$("#myGallery").fadeIn("slow");} 
+</script>
                     <div class = "content_container">
                     <div id = "righttop">
  <div id="myGallery" class="spacegallery" style="width:529px; height:160px;" onload="fadein()">
@@ -503,7 +504,7 @@ $("#myGallery").fadeIn("slow");} </script>
 
 
 {%endblock%}
-
+	</div>
     </div>
 
  </div>
@@ -528,7 +529,7 @@ $("#myGallery").fadeIn("slow");} </script>
            
 		
 		<a href = "{{SITE_URL}}policy/" class = "flinks" id = "pp"></a>
-		<a href = "#footerlinks" class = "flinks" id = "blo"></a>
+		<a href = "http://www.shaastra.org/blog" class = "flinks" id = "blo"></a>
 		<a href = "#" class = "flinks" id = "eve" onclick = "javascript:setTimeout(function(){popup(1)},00);"></a>
 		<!--<a href = "#" class = "flinks" id = "med"></a>
 		<a href = "#" class = "flinks" id = "mys"></a>-->
