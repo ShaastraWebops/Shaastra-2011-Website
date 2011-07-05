@@ -157,47 +157,6 @@ width:27px;
 background:url("http://www.shaastra.org/2011/Templates_test/dow1.jpg");
 }		 
 </style>
-<script type="text/javascript">        
-$(document).ready(function(){
-    interval = setInterval(move_all_down_circularly, pause);
-});
-var speed = 400;
-var pause = 5000;
-function move_all_down_circularly ()
-{
-
-    last = $('ul#listticker li:last').hide().remove();
-    $('ul#listticker').prepend(last);
-    $('ul#listticker li:first').slideDown("slow");
-}
-
-function move_all_up_circularly ()
-{
-
-    first = $('ul#listticker li:first').slideUp("slow",  function() {
-        $('ul#listticker').append(first);
-        $('ul#listticker li:last').show();
-    });
-}
-
-function clear_interval_evaluate_set_interval (function_to_eval)
-{
-    clearInterval (interval);
-    function_to_eval ();
-    interval = setInterval (move_all_down_circularly , pause);
-}
-
-function up ()
-{
-
-    clear_interval_evaluate_set_interval (move_all_up_circularly);
-}
-
-function dow()
-{
-    clear_interval_evaluate_set_interval (move_all_down_circularly);
-}           
-</script>
  <!--[if IE ]>
         <script type="text/javascript">
           var IE_ = true;
@@ -239,7 +198,10 @@ function dow()
 	    }
 }
       
-	/*$(document).ready(function() {
+    
+
+
+	$(document).ready(function() {
 			    
 			  $('#ticker-img-right').click(function() {
 			  clearTimeout(t);
@@ -266,7 +228,7 @@ function dow()
 			  });
       
     });
-     */ 
+      
     </script>
 
 
@@ -274,7 +236,7 @@ function dow()
 
     <script type="text/javascript">
       
-/*
+
       $(document).ready(function () {      
 			  $('#ticker-img-right').click(function() {
 			  clearTimeout(t);		
@@ -285,10 +247,72 @@ function dow()
 			  untypePrev()
 			  });
 			  getTickerData();
-      });				
-*/  
-  </script>
+      });
+	  
+	  
+	  
+	  
+	  
+				
+				
+    </script>
+<script type="text/javascript">        
+$(document).ready(function(){
+    interval = setInterval(move_all_down_circularly, pause);
+});
+var speed = 400;
+var pause = 5000;
+// Say, there are 4 elements is the list.
+// The idea is to have all of them visible
+// at all the time except the short sliding peroid
+// (ie, during the circular function execution.)
+// So, each of our functions start with all the elements
+// of the list visible, and by the time they finish,
+// all of them are still visible.
 
+function move_all_down_circularly ()
+{
+    // hide and delete the last one,
+    // put it at the start,
+    // slide down (for this, first one has to be hidden),
+    // the jquery slide down makes the first element visible.
+    last = $('ul#listticker li:last').hide().remove();
+    $('ul#listticker').prepend(last);
+    $('ul#listticker li:first').slideDown("slow");
+}
+
+function move_all_up_circularly ()
+{
+    // slide up and after the animation is complete...
+    // now the first one is hidden
+    // delete the first one
+    // add it to the end
+    // make it visible
+    first = $('ul#listticker li:first').slideUp("slow",  function() {
+        $('ul#listticker').append(first);
+        $('ul#listticker li:last').show();
+    });
+}
+
+function clear_interval_evaluate_set_interval (function_to_eval)
+{
+    clearInterval (interval);
+    function_to_eval ();
+    interval = setInterval (move_all_down_circularly , pause);
+}
+
+function up ()
+{
+    // This is triggered when we press the up arrow.
+    clear_interval_evaluate_set_interval (move_all_up_circularly);
+}
+
+function dow()
+{
+    // This is triggered when we press the down arrow.
+    clear_interval_evaluate_set_interval (move_all_down_circularly);
+}           
+</script>
 <style>
 
  .page{
@@ -390,6 +414,7 @@ function dow()
 		<a href="" class="news-title">Events</a>
          <a href="" class="news-text">A whole new range of events to take part in come and explore shaastra 2k11</a>
 	</li>
+
 </ul>
 <div class="arro">
 <a href="#"upp" class='up' onClick='up();'></a>
