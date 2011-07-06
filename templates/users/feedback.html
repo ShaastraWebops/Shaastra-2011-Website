@@ -4,7 +4,7 @@
 {%block gradient%}{%include "gradient.html"%}{%endblock%}
 
 {% block body %}
-
+<center>
     {% for error in errors %}
     <li id="lgnerr"> {{error}} </li>
     {% endfor %}
@@ -122,7 +122,7 @@
     <input type="submit" value="Submit" style="background:rgb(200,200,200); padding:4px;"/>
     
 </form>
-
+</center>
     
 
 {% endblock %}                
