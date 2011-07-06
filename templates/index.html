@@ -367,8 +367,13 @@ function dow()
                {%block top_navigation%}
               <a href = "{{SITE_URL}}home" class="navig" id = "home"><span class = "nclass">Home</span></a>
 	      <a href = "#" class="navig" id = "events" onclick = "javascript:setTimeout(function(){popup(1)},00);"><span class = "nclass">Events</span></a>
+              <input type="hidden" value="2" name="static_id">
 	      <a href = "{{SITE_URL}}hospitality" class="navig" id = "hospi" ><span class = "nclass">Hospitality</span></a>
-	      <a href = "{{SITE_URL}}sponsorship" class="navig" id = "sponsor"><span class = "nclass">Sponsorship</span></a>
+             <form action="sponsorship/" method="GET">
+             <input type="hidden" value="3" name=static_id />
+	      <a  href="{{SITE_URL}}sponsorship/" method=GET name=static_id value="3" class="navig" id = "sponsor"><span class = "nclass">Sponsorship</span></a>
+              
+             </form>
  <!-- gallery button commented for time being. have to put it back once we get it-->
 	     <!-- <a href = "#" class="navig" id = "gallery" onclick = "javascript:setTimeout(function(){popup(2)},00);"><span class = "nclass">Gallery</span></a>-->
                {%endblock%}
@@ -536,13 +541,15 @@ $("#myGallery").fadeIn("slow");}
 	    <div id = "footer_container">
 	      <div id = "footerlinks">
            
-		
+		<input type="hidden" value="1" name="static_id">
 		<a href = "{{SITE_URL}}policy/" class = "flinks" id = "pp"></a>
 		<a href = "http://www.shaastra.org/blog" class = "flinks" id = "blo"></a>
 		<a href = "#" class = "flinks" id = "eve" onclick = "javascript:setTimeout(function(){popup(1)},00);"></a>
 		<!--<a href = "#" class = "flinks" id = "med"></a>
 		<a href = "#" class = "flinks" id = "mys"></a>-->
+                <input type="hidden" value="4" name="static_id">
 		<a href = "{{SITE_URL}}credits" class = "flinks" id = "cre"></a>
+                <input type="hidden" value="5" name="static_id">
 		<a href = "{{SITE_URL}}contact" class = "flinks" id = "con"></a>
 	      </div>
 	    </div>
