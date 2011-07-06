@@ -8,6 +8,7 @@
     {% for error in errors %}
     <li id="lgnerr"> {{error}} </li>
     {% endfor %}
+<script type="text/javascript">$("#page1").css('overflow','scroll');</script>
 <form method="post" action="">
     {% csrf_token %}
     
