@@ -225,7 +225,7 @@ function validateAge(fld) {   //done
 function validateMobileNumber(fld) {   //done
     var error = "";
     if (fld.value == "") error = "This field is required.";
-    else if ((! isInteger(fld.value))||(fld.value.length!=10)||((fld.value.charAt(0)!=7)&&(fld.value.charAt(0)!=8)&&(fld.value.charAt(0)!=9))) error = "Enter a valid mobile number";
+
 
     if (error!="") {
         document.getElementById('Mobile number_div').innerHTML= error;
