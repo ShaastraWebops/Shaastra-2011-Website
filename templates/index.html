@@ -369,12 +369,10 @@ function dow()
 	      <a href = "#" class="navig" id = "events" onclick = "javascript:setTimeout(function(){popup(1)},00);"><span class = "nclass">Events</span></a>
               <input type="hidden" value="2" name="static_id">
 	      <a href = "{{SITE_URL}}hospitality" class="navig" id = "hospi" ><span class = "nclass">Hospitality</span></a>
-             <form action="sponsorship/" method="GET">
-             <input type="hidden" value="3" name=static_id />
-	      <a  href="{{SITE_URL}}sponsorship/" method=GET name=static_id value="3" class="navig" id = "sponsor"><span class = "nclass">Sponsorship</span></a>
+             
+	      <a  href="{{SITE_URL}}sponsorship/" class="navig" id = "sponsor"><span class = "nclass">Sponsorship</span></a>
               
-             </form>
- <!-- gallery button commented for time being. have to put it back once we get it-->
+              <!-- gallery button commented for time being. have to put it back once we get it-->
 	     <!-- <a href = "#" class="navig" id = "gallery" onclick = "javascript:setTimeout(function(){popup(2)},00);"><span class = "nclass">Gallery</span></a>-->
                {%endblock%}
               
