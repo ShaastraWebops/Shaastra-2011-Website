@@ -523,6 +523,8 @@ def render_static(request,static_name):
         return render_to_response('credits.html', locals(), context_instance = global_context(request))    
     if static_name=="contact":
         return render_to_response('contacts.html', locals(), context_instance = global_context(request)) 
+    if static_name=="webopsTeam":
+        return render_to_response('webteam.html', locals(), context_instance = global_context(request))
     
     raise Http404
     
