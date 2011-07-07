@@ -1,12 +1,14 @@
 {%extends "index.html"%}
-
+{%block media_location%}
+<script type="text/javascript"> $("#page1").css({'width':'100%','left':'0px'}); </script>
+{%endblock%}
 
 {%block body%}
 
 
 
 <div id="hospiContainer" style="visibility:hidden; width:100%;">
-	<script type="text/javascript"> $("#page1").css({'width':'100%','left':'0px'}); </script>
+	
   <img id="underline" src="{{MEDIA_URL}}hospi/images/underline.png" />
   <div id="hospiMainTab"><img src="{{MEDIA_URL}}hospi/images/hospiText.png" /></div>
   <div id="hospiTabs">
