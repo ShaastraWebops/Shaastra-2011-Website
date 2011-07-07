@@ -508,6 +508,26 @@ def cores_dashboard(request):
             events = models.Event.objects.all()
             return render_to_response('event/cores_dashboard.html', locals(), context_instance = global_context(request))
     return HttpResponseRedirect("%sevents/dashboard" % settings.SITE_URL)
+#having a common render_static function
+
+def render_static(request,static_name):
+
+      
+    if static_name=="policy":
+        return render_to_response('policy.html', locals(), context_instance = global_context(request))    
+    if static_name=="hospitality":
+        return render_to_response('hospi.html', locals(), context_instance = global_context(request))    
+    if static_name=="sponsorship":
+        return render_to_response('spons.html', locals(), context_instance = global_context(request))    
+    if static_name=="credits":
+        return render_to_response('credits.html', locals(), context_instance = global_context(request))    
+    if static_name=="contact":
+        return render_to_response('contacts.html', locals(), context_instance = global_context(request)) 
+    
+    raise Http404
+    
+     
+""" 
 def render_policy(request):
     return render_to_response('policy.html', locals(), context_instance = global_context(request))
 def render_hospitality(request):
@@ -518,4 +538,4 @@ def render_credits(request):
     return render_to_response('credits.html', locals(), context_instance = global_context(request))
 def render_contact(request):
     return render_to_response('contacts.html', locals(), context_instance = global_context(request))    
-    
+"""    
