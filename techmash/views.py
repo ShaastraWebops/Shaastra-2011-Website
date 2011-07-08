@@ -8,7 +8,6 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.conf import settings
 from main_test.techmash.models import *
-from main_test.settings import TECHMASH_URL
 from django import forms
 import os
 import stat
