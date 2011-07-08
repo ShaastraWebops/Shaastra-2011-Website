@@ -2,28 +2,51 @@
 {% block title %}Select the photo you like{% endblock %}
 
 {% block content %}
-<h1>Two photos</h1>
 
-
+<body style="background : url('http://www.shaastra.org/2011/media/main/img/bg.png'); background-repeat:repeat-x; background-color:#E0E4E8;" >
+<p style="font-family:'URW Chancery L'; text-align:center;font-size:34px;"> Tech Mash </p>
+<center>
+<a href="#" target=_blank>
+<img src="http://sig.graphicsfactory.com/Keyboard_Keys/s.gif" border=0>
+<img src="http://sig.graphicsfactory.com/Keyboard_Keys/e.gif" border=0>
+<img src="http://sig.graphicsfactory.com/Keyboard_Keys/l.gif" border=0>
+<img src="http://sig.graphicsfactory.com/Keyboard_Keys/e.gif" border=0>
+<img src="http://sig.graphicsfactory.com/Keyboard_Keys/c.gif" border=0>
+<img src="http://sig.graphicsfactory.com/Keyboard_Keys/t.gif" border=0>
+<img src="http://sig.graphicsfactory.com/Keyboard_Keys/blank.gif" border=0>
+<img src="http://sig.graphicsfactory.com/Keyboard_Keys/t.gif" border=0>
+<img src="http://sig.graphicsfactory.com/Keyboard_Keys/h.gif" border=0>
+<img src="http://sig.graphicsfactory.com/Keyboard_Keys/e.gif" border=0>
+<img src="http://sig.graphicsfactory.com/Keyboard_Keys/blank.gif" border=0>
+<img src="http://sig.graphicsfactory.com/Keyboard_Keys/p.gif" border=0>
+<img src="http://sig.graphicsfactory.com/Keyboard_Keys/h.gif" border=0>
+<img src="http://sig.graphicsfactory.com/Keyboard_Keys/o.gif" border=0>
+<img src="http://sig.graphicsfactory.com/Keyboard_Keys/t.gif" border=0>
+<img src="http://sig.graphicsfactory.com/Keyboard_Keys/o.gif" border=0>
+<br></a>
+</center>
   <div id="thumbnails">
    
-        <img src="{{ MEDIA_URL }}/images/{{photo1.title}}" />
-        
-<form enctype="multipart/form-data" method="post" action="{{SITE_URL}}techmash/mashphotos/">
-<div align="center">
-<input type="hidden" name="selectedid" value={{photo1.photoid}} id="selectedid">
-<input type="hidden" name="photoid1" value={{photo1.photoid1}} id="photoid1">
-<input type="hidden" name="photoid2" value={{photo2.photoid2}} id="photoid2">
-<input type="submit" value="Select" id="Select"/>
+<br></br>        
+<form enctype="multipart/form-data" method="post" action="/mashphotos/">
+<div>
+<input type="hidden" name="selectedid" value={{photo1.photoid}} id="selectedid" />
+<input type="hidden" name="photoid1" value={{photo1.photoid1}} id="photoid1" />
+<input type="hidden" name="photoid2" value={{photo2.photoid2}} id="photoid2" />
+<input type="image" src="{{ MEDIA_URL }}/images/{{photo1.title}}" value="Select" id="Select" style="left:100px; top:100px; padding-left:10px; padding-top:10px;float:left;height:350px; width:350px;"/>
+</div>
 </form>
+</div>
 
-  <div id="thumbnails">
-           <img src="{{ MEDIA_URL }}/images/{{photo2.title}}" />
-<form enctype="multipart/form-data" method="post" action="{{SITE_URL}}techmash/mashphotos/">
-<div align="center">
-<input type="hidden" name="selectedid" value={{photo2.photoid}} id="selectedid">
-<input type="hidden" name="photoid1" value={{photo1.photoid}} id="photoid1">
-<input type="hidden" name="photoid2" value={{photo2.photoid}} id="photoid2">
-<input type="submit" value="Select" id="Select"/>
-</form>        
+    <div id="thumbnails">
+<form enctype="multipart/form-data" method="post" action="/mashphotos/">
+<div>
+<input type="hidden" name="selectedid" value={{photo2.photoid}} id="selectedid" />
+<input type="hidden" name="photoid1" value={{photo1.photoid}} id="photoid1" />
+<input type="hidden" name="photoid2" value={{photo2.photoid}} id="photoid2" />
+<input type="image" src="{{ MEDIA_URL }}/images/{{photo2.title}}" value="Select" id="Select" style="left:800px; padding-left:10px; padding-top:10px;float:left;height:350px; width:350px;" />
+</div>
+</form>     
+</body>
 {% endblock %}
+
