@@ -84,7 +84,7 @@ track++;
         
     <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/ticker2.js"></script>
     <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/action.js"></script>  
-    <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/sponsSlide.js"></script>  
+    <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/jquery.cycle.lite.js"></script>  
     
     <link rel="shortcut icon" href="{{MEDIA_URL}}fav.ico" > 
 
@@ -249,6 +249,10 @@ background:url("http://www.shaastra.org/2011/Templates_test/dow1.jpg");
 			  untypePrev()
 			  });
 			  getTickerData();
+			  
+			    $('#sponsbox').cycle({
+					fx: 'fade' // choose your transition type, ex: fade, scrollUp, shuffle, etc...
+				});
       });
 	  
 	  
@@ -418,9 +422,9 @@ function dow()
           <div id = "spons_container">
             <div id = "spons">
            {%block main_sponsor%}
-			<div id="sponsbox" style="display:none;">
+			<div id="sponsbox">
 				<img src = "{{MEDIA_URL}}img/durr.png" />
-				<!--<img src = "{{MEDIA_URL}}img/airbus.png" />-->
+				<img src = "{{MEDIA_URL}}img/airbus.png" />
 			</div> 
            {%endblock%}
             </div>
