@@ -13,6 +13,7 @@ import os
 import stat
 import shutil
 import StringIO
+import hashlib
 from datetime import datetime
 from tempfile import NamedTemporaryFile, mkdtemp
 import Image
