@@ -137,10 +137,12 @@
 	    <div id = "verticlright">
 	    
             <div id = "rtvtop">
-
-             {%if event.menu_image%}
+             {%if event.sponslogo%}
+            <img src="{{MEDIA_URL}}{{event.sponslogo}}"
+   width="320" height="180" style="sizingMethod:scale" />
+            {%else%} {%if event.menu_image%}
             <img src="{{MEDIA_URL}}{{event.menu_image}}"
-   width="320" height="180" style="sizingMethod:scale"></iframe>
+   width="320" height="180" style="sizingMethod:scale" />
             {%else%}
 		{%for category in categories%}
 
@@ -189,7 +191,7 @@
                  {%endfor%}
 
            
-             {%endif%}        
+             {%endif%}{%endif%}        
                     
             
 
