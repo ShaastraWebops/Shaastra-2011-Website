@@ -137,7 +137,11 @@
 	    <div id = "verticlright">
 	    
             <div id = "rtvtop">
-            
+
+             {%if event.sponslogo%}
+            <iframe src="{{event.sponslogo}}"
+   width="320" height="200"></iframe>
+            {%else%}
 		{%for category in categories%}
 
                    {%for event_list in category.events%}
@@ -185,7 +189,7 @@
                  {%endfor%}
 
            
-                     
+             {%endif%}        
                     
             
 
