@@ -138,10 +138,10 @@
 	    
             <div id = "rtvtop">
              {%if event.sponslogo%}
-            <img src="{{event.sponslogo}}"
+            <img src="{{MEDIA_URL}}{{event.sponslogo}}"
    width="300" height="160" style="sizingMethod:scale;vertical-align:middle;" />
             {%else%} {%if event.menu_image%}
-            <img src="{{event.menu_image}}"
+            <img src="{{MEDIA_URL}}{{event.menu_image}}"
    width="300" height="160" style="sizingMethod:scale;vertical-align:middle;" />
             {%else%}
 		{%for category in categories%}
