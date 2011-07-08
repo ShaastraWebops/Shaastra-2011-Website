@@ -139,7 +139,7 @@
             <div id = "rtvtop">
 
              {%if event.sponslogo%}
-            <iframe src="{{event.sponslogo}}"
+            <iframe src="{{MEDIA_URL}}{{event.sponslogo}}"
    width="320" height="200"></iframe>
             {%else%}
 		{%for category in categories%}

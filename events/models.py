@@ -54,7 +54,7 @@ class Event(models.Model):
         os.system("mkdir " + MEDIA_ROOT + EVENTS_PATH + camelize(self.name) + "/files")
         os.system("mkdir " + MEDIA_ROOT + EVENTS_PATH + camelize(self.name) + "/submissions")
         os.system("mkdir " + MEDIA_ROOT + EVENTS_PATH + camelize(self.name) + "/images")
-        os.system("mkdir " + MEDIA_ROOT + EVENTS_PATH + "/images/eventlogos")
+        os.system("mkdir " + MEDIA_ROOT + EVENTS_PATH + camelize(self.name) + "/images/eventlogos")
         os.system("mkdir " + MEDIA_ROOT + EVENTS_PATH + camelize(self.name) + "/images/sponslogos")
         return super(Event, self).save(*args, **kwargs) # Call the "real" save() method.
     
