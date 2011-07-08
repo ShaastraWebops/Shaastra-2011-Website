@@ -62,8 +62,8 @@ def global_context(request):
     return context
 
 # Error pages
-#def not_found (request):
-    #return render_to_response('404.html', locals(), context_instance= global_context(request)) 
+def not_found (request):
+    return render_to_response('404.html', locals(), context_instance= global_context(request)) 
 def server_error (request):
     return render_to_response('500.html', locals(), context_instance= global_context(request)) 
 
