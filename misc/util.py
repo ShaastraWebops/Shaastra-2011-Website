@@ -48,7 +48,7 @@ def global_context(request):
         hospi_coord=True
     if request.user.is_authenticated() and request.user.groups.filter(name="EventCores"):
         is_core=True
-    #generate_menu_dict(request)
+    generate_menu_dict(request)
     context =  RequestContext (request,
             {'user':request.user,
             'SITE_URL':settings.SITE_URL,
