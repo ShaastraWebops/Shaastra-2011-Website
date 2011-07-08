@@ -26,7 +26,7 @@ urlpatterns = patterns('',
      url(r'^events/', include ('main_test.events.urls')),  
      url(r'^techmash/', include ('main_test.techmash.urls')),  
      url(r'^search/?$', include('haystack.urls')),
-     url(r'^sitemap\.xml$', 'main_test.events.views.sitemap'),
+     #url(r'^sitemap\.xml$', 'main_test.events.views.sitemap'),
      url(r'^', include ('main_test.users.urls')),
      url(r'^(?P<static_name>.*)/$', 'main_test.events.views.render_static'),	
 )
