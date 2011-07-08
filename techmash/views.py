@@ -12,6 +12,7 @@ from django import forms
 import os
 import stat
 import shutil
+import StringIO
 from datetime import datetime
 from tempfile import NamedTemporaryFile, mkdtemp
 import Image
