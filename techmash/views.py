@@ -54,7 +54,7 @@ def upload_file1(request):
             photo = Photo(image=photopath,title = uploaded_filename,rating=300,user=request.user.username,groupnum=1)
             # Save it -- the thumbnails etc. get created.
             photo.save()
-            hanle_uploaded_image(request.FILES['file'])
+            handle_uploaded_image(request.FILES['file'])
             return HttpResponseRedirect(("%stechmash/upload/" % settings.SITE_URL))
     else:
         form = UploadFileForm()
