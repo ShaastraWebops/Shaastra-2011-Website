@@ -21,6 +21,7 @@ import Image
 from main_test.misc.util import *
 from math import fabs
 
+TECHMASH_URL = 'http://www.shaastra.org/2011/media/techmash/'
 def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
