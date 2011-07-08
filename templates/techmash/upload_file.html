@@ -2,6 +2,7 @@
 
 {% block content %}
 <form enctype="multipart/form-data" method="post" action="{{SITE_URL}}techmash/upload_file1/">
+{% csrf_token %}
 <table>
 <tr><td>
 <b> {{ form.file.label_tag }}</b>  {{ form.file}}
