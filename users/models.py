@@ -91,7 +91,7 @@ class Feedback(models.Model):
     
     class Admin:
         pass            
-
+        
 '''
 class Team(models.Model):
     name            = models.CharField(max_length=50, default = False) 
