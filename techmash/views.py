@@ -38,7 +38,7 @@ def upload_file1(request):
         if form.is_valid():
             print "form valid"
             uploaded_filename = request.FILES['file'].name
-            destdir= os.path.join(settings.MEDIA_ROOT,'images/')
+            destdir= os.path.join(settings.TECHMASH_ROOT,'images/')
             if not os.path.isdir(destdir):
                 os.makedirs(destdir, 0775)
             photopath = os.path.join(destdir, os.path.basename(uploaded_filename))
@@ -50,11 +50,11 @@ def upload_file1(request):
             print photopath
             # Create the object
             if photopath.startswith(os.path.sep):
-                photopath = photopath[len(settings.MEDIA_ROOT):]
+                photopath = photopath[len(settings.TECHMASH_ROOT):]
             photo = Photo(image=photopath,title = uploaded_filename,rating=300,user=request.user.username,groupnum=1)
             # Save it -- the thumbnails etc. get created.
             photo.save()
-            handle_uploaded_image(request.FILES['file'])
+            hanle_uploaded_image(request.FILES['file'])
             return HttpResponseRedirect(("%stechmash/upload/" % settings.SITE_URL))
     else:
         form = UploadFileForm()
@@ -149,7 +149,7 @@ def handle_uploaded_image(i):
     filename = hashlib.md5(imagefile.getvalue()).hexdigest()+'.jpg'
 
     # #save to disk
-    destdir= os.path.join(settings.MEDIA_ROOT,'images/')
+    destdir= os.path.join(settings.TECHMASH_ROOT,'images/')
     if not os.path.isdir(destdir):
         os.makedirs(destdir, 0775)
     photopath = os.path.join(destdir, os.path.basename(filename))
