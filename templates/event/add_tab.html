@@ -3,197 +3,185 @@
 {%block event_categories%}{%endblock%}
 {%block gradient%}{%include "gradient.html"%}{%endblock%}
 {% block media_location %}
-<style type="text/css">
- /*
- <![CDATA[*/
+    <style type="text/css">
+        /*<![CDATA[*/
             .nicEdit-main
             {
                background-color: white;
             }
             textarea 
             { margin: 0 auto 0 auto; } 
-        /*]]>
- */
-</style>
+        /*]]>*/
+    </style>
 {% endblock %}
 
-{%block body%}
+{%block body%}	
 <center>
- <!--logout button-->
- <div id="entire_page">
-  <div id="logout" align="right">
-   <div class="button2">
-    <a href="#">
-    </a>
-    <form action="{{SITE_URL}}logout/" method="POST">
-     {% csrf_token %}
-     <input type="submit" value="LOGOUT" />
-    </form>
-    <span>
-    </span>
-   </div>
-  </div>
-  <!--The Back To DashBoard Button -->
-  <div id="cancel">
-   <div class="button2">
-    <a href="#">
-    </a>
-    <form action="{{SITE_URL}}events/dashboard/" method="POST">
-     {% csrf_token %}
-     <input type="submit" value="Back To Dashboard" />
-    </form>
-    <span>
-    </span>
-   </div>
-  </div>
-  <div id="AET">
-   <div class="button2">
-    <a href="#">
-     <input type="button" onclick="addArea2();" value="Add " title="Add Editor to Textarea" />
-     <image src="http://www.shaastra.org/2011/media/main/img/txtedtr.png" style="cursor:pointer;" onclick="addArea2();" title="Add Editor to Textarea">
-     </image>
-    </a>
-    <span>
-    </span>
-   </div>
-  </div>
-  <div id="RET">
-   <div class="button2">
-    <a href="#">
-     <input type="button" onclick="removeArea2();" value="Remove " title="Remove Editor from Textarea" />
-     <image src="http://www.shaastra.org/2011/media/main/img/txtedtr.png" style="cursor:pointer;" onclick="removeArea2();" title="Remove Editor to Textarea">
-     </image>
-    </a>
-    <span>
-    </span>
-   </div>
-  </div>
- </div>
- <!--the js for the WYSIWYG editor-->
- <script type="text/javascript" src="{{MEDIA_URL}}niceditor/nicEdit.js">
- </script>
+<!--logout button-->
+	<div id="entire_page">			 
+			<div id="logout" align="right">
+				<div class="button2">
+					<a href="#">
+						<form action= "{{SITE_URL}}logout/" method="POST">
+						{% csrf_token %}
+						<input type="submit" value="LOGOUT" />
+						</form>
+					</a>
+					<span></span>
+				</div>
+			</div>
+			<!--The Back To DashBoard Button -->
+
+			<div id="cancel">
+				<div class="button2">
+					<a href="#">
+						<form action="{{SITE_URL}}events/dashboard/" method="POST">
+						{% csrf_token %}
+						<input type="submit" value="Back To Dashboard"/>
+						</form>
+					</a>
+					<span></span>
+				</div>
+			</div>
+
+			<div id="AET">
+				<div class="button2">
+					<a href="#">
+						<input type="button" onclick="addArea2();" value="Add " title="Add Editor to Textarea"/>    
+						<image src="http://www.shaastra.org/2011/media/main/img/txtedtr.png" style="cursor:pointer;" onclick="addArea2();"  title="Add Editor to Textarea"/>
+					</a>
+					<span></span>
+				</div>
+			</div>
+			
+			<div id="RET">
+				<div class="button2">
+					<a href="#">
+						<input type="button" onclick="removeArea2();" value="Remove " title="Remove Editor from Textarea"/>     
+						<image src="http://www.shaastra.org/2011/media/main/img/txtedtr.png" style="cursor:pointer;" onclick="removeArea2();"  title="Remove Editor to Textarea"/>       
+					</a>
+					<span></span>
+				</div>
+			</div>
+	
+	</div>
+<!--the js for the WYSIWYG editor-->
+<script type="text/javascript" src="{{MEDIA_URL}}niceditor/nicEdit.js"></script>
  <script type="text/javascript">
   var  area2;
  
-  bkLib.onDomLoaded(function() { area2 = new nicEditor({buttonList : ['fontSize','bold','italic','underline','strikeThrough','subscript','superscript','left','center','right','justify','link']} ).panelInstance('myArea2');
+  bkLib.onDomLoaded(function() { area2 = new nicEditor({buttonList : ['fontSize','bold','italic','underline','strikeThrough','subscript','superscript','left','center','right','justify','link','ol','ul']} ).panelInstance('myArea2');
   });
     
   function addArea2() {
-        area2 = new nicEditor({buttonList : ['fontSize','bold','italic','underline','strikeThrough','subscript','superscript','left','center','right','justify','link']} ).panelInstance('myArea2');
+        area2 = new nicEditor({buttonList : ['fontSize','bold','italic','underline','strikeThrough','subscript','superscript','left','center','right','justify','link','ol','ul']} ).panelInstance('myArea2');
   }
   function removeArea2() {
         area2.removeInstance('myArea2');
   }
  
   bkLib.onDomLoaded(function() { toggleArea1(); });
- </script>
- <div id="adtabbody">
-  <div id="login">
-   <!-- the edit tab form -->
-   <div id="form">
-    <form action="" method="POST" enctype="multipart/form-data">
-     {% csrf_token %}
-     <table>
-      {{ form.as_table }}
-     </table>
-     <!--The Submit Button -->
-     <input type="hidden" value="{{row.id}}" />
-     {%if is_edit_tab%}
-     <div id="update_tab">
-      <div class="button">
-       <a href="#">
-        <input type="submit" value="Update Tab" onclick="addArea2()" />
-       </a>
-       <span>
-       </span>
-      </div>
-     </div>
-     {%else%}
-     <div id="create_tab">
-      <div class="button">
-       <a href="#">
-        <input type="submit" value="Create Tab" onclick="addArea2()" />
-       </a>
-       <span>
-       </span>
-      </div>
-     </div>
-     {%endif%}
-    </form>
-   </div>
-   <div id="files_everything">
-    <!--List displaying the currently uploaded files -->
-    <br />
-    <br />
-    <br />
-    <br />
-    {%if not is_question%}
-    <div id="fileupload">
-     <div id="filetitle">
-      Currently uploaded files :
-     </div>
-     <div id="filelist">
-      {%if file_list%}
+  </script>
+
+						
+<div id="adtabbody">
+	<div id="login" >	
+		<!-- the edit tab form -->
+		<div id="form" > 
+			<form action="" method="POST" enctype="multipart/form-data">
+				{% csrf_token %}
+				<table>
+					{{ form.as_table }}
+				</table>
+		<!--The Submit Button -->
+				<input type="hidden" value="{{row.id}}" />
+				{%if is_edit_tab%}
+				<div id="update_tab">
+					<div class="button">
+						<a href="#">
+							<input type="submit" value="Update Tab" onclick = "addArea2()"/>
+						</a>
+						<span></span>
+					</div>
+				</div>
+				{%else%}
+				<div id="create_tab">
+					<div class="button">
+						<a href="#">				
+							<input type="submit" value="Create Tab" onclick = "addArea2()" />
+						</a>
+						<span></span>
+					</div>
+				</div>
+				{%endif%}
+			</form>
+		</div>    
+
+		<div id="files_everything">     
+		  <!--List displaying the currently uploaded files -->
+			<br><br><br><br>
+			{%if not is_question%}
+			<div id="fileupload">
+				<div id="filetitle">
+					Currently uploaded files : 
+				</div>
+				
+				<div id="filelist"> 
+					{%if file_list%}
 						{%for file in file_list%}
-      <li>
-       <a href="">
-        {{file.title}}
-       </a>
-      </li>
-      <form action="{{SITE_URL}}events/dashboard/delete_file/" method="POST">
-       {% csrf_token %}
-       <input type="hidden" value="{{file.id}}" name="tabfile_id" />
-       <div id="delete_file">
-        <div class="button">
-         <a href="#">
-          <input type="submit" value="Delete" />
-         </a>
-         <span>
-         </span>
-        </div>
-       </div>
-      </form>
-      {%endfor%}
+							<li><a href={{file.url}}>{{file.title}}</a></li>
+							<form action="{{SITE_URL}}events/dashboard/delete_file/" method='POST'>
+								{% csrf_token %}
+								<input type="hidden" value="{{file.id}}" name="tabfile_id" />
+								<div id="delete_file">
+									<div class="button">
+										<a href="#">				
+												<input type="submit" value="Delete"/>
+										</a>
+										<span></span>
+									</div>
+								</div>
+							</form>
+						{%endfor%}
 					{%else%}
-      <li>
-       No currently uploaded files
-      </li>
-      {%endif%}
-     </div>
-     <!--The add file form -->
-     <div>
-      {%if is_edit_tab%}
-      <form action="{{SITE_URL}}events/dashboard/add_file/" method="POST" enctype="multipart/form-data">
-       {% csrf_token %}
-       <table>
-        {{formadd.as_table}}
-       </table>
-       <input type="hidden" value="{{row.id}}" name="tabfile_id" />
-       <div id="add_file">
-        <div class="button">
-         <a href="#">
-          <input type="submit" value="Add File" />
-         </a>
-         <span>
-         </span>
-        </div>
-       </div>
-      </form>
-      {%else%}
+					<li>No currently uploaded files</li>
+					{%endif%}
+				</div>
+				   
+				<!--The add file form -->
+
+				<div>
+					{%if is_edit_tab%}
+		                <form action="{{SITE_URL}}events/dashboard/add_file/" method='POST' enctype="multipart/form-data" >
+			                {% csrf_token %}
+			                <table>
+			                {{formadd.as_table}}  
+			                </table>
+			                <input type="hidden" value="{{row.id}}" name="tabfile_id" />
+							<div id="add_file">
+								<div class="button">
+									<a href="#">
+										<input type="submit" value="Add File" />
+									</a>
+									<span></span>
+								</div>
+							</div>
+		                </form>
+					{%else%}
 						 Please create tab before uploading files.
 					{%endif%}
-     </div>
-    </div>
-    {%endif%}
-   </div>
-  </div>
-  <br />
-  <br />
-  <br />
-  <br />
-  <br />
-  <br />
-  <br />
- </div>
+				</div>
+			</div> 
+			{%endif%}               
+		</div> 
+	</div>
+	<br><br><br><br><br><br><br>
+</div>
+</div>
 </center>
 {%endblock%}
+
+
+
+
+
