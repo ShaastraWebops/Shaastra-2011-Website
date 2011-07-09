@@ -68,6 +68,8 @@ def kvaluegenerator(rating):
     factor = 0 
     if rating > 1400:
         factor = int(((rating - 1400)/100))
+    if rating > 2400:
+        factor =10    
     return kdictionary[factor]            
 
 def mashphotos(request):
@@ -125,7 +127,6 @@ from random import randint, choice
 
 def selectimages(request):
     photo1=Photo.objects.order_by('?')[0]
-    print photo1.title
     photo2=Photo.objects.filter(kvalue=photo1.kvalue).order_by('?')[0]
     return(photo1,photo2)
     #show2=pool.objects.filter(random 2)
