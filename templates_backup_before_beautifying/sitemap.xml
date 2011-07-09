@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
+{% spaceless %}
+<url>
+    <loc>'/home/'</loc>
+    <changefreq>'hourly'</changefreq>
+    <priority>'1.0'</priority>
+</url>
+{% for url in urls %}
+  <url>
+    <loc>{{ url }}</loc>
+    <changefreq>'hourly'</changefreq>
+    <priority>'0.6'</priority>
+   </url>
+{% endfor %}
+{% endspaceless %}
+</urlset>

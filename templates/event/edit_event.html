@@ -2,45 +2,42 @@
 {%block gradient%}{%include "gradient.html"%}{%endblock%}
 {%block event_categories%}{%endblock%}
 {% block body %}
-
 <!--logout button -->
-
 <div id="logout" align="right">
-    <form action= "{{SITE_URL}}logout/" method="POST">
-        {% csrf_token %}
-        <input type="submit" value="LOGOUT" />
-    </form>          
+ <form action="{{SITE_URL}}logout/" method="POST">
+  {% csrf_token %}
+  <input type="submit" value="LOGOUT" />
+ </form>
 </div>
-
 <!--edit event form -->
 <center>
-<div id="edit_event">
-
-     <form action="" method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-      <table>
-         {{ form.as_table }}
-      
- <tr><td colspan="2" >
-
-    <div class="button2">
-			<a href="#">
-				<input type="submit" value="Save Event Details" />
-			</a>
-			<span></span>
-		</div>
- </td></tr></table>
-</form>
-In order to embed a youtube video, go to the youtube page of the video you want to use.
-<br />
-Then press on the "Share" button that's visible beneath the video (in youtube). 
-<br />
-Copy the last part of the link - the last bit of text only.
-<br />
-For example, if the link says http://youtu.be/SomeLinkText, then copy only the SomeLinkText part.
-<br />
-Paste it like this: http://www.youtube.com/v/SomeLinkText in this form. As simple as that! 
-</div></center>
-
+ <div id="edit_event">
+  <form action="" method="POST" enctype="multipart/form-data">
+   {% csrf_token %}
+   <table>
+    {{ form.as_table }}
+    <tr>
+     <td colspan="2">
+      <div class="button2">
+       <a href="#">
+        <input type="submit" value="Save Event Details" />
+       </a>
+       <span>
+       </span>
+      </div>
+     </td>
+    </tr>
+   </table>
+  </form>
+  In order to embed a youtube video, go to the youtube page of the video you want to use.
+  <br />
+  Then press on the "Share" button that's visible beneath the video (in youtube).
+  <br />
+  Copy the last part of the link - the last bit of text only.
+  <br />
+  For example, if the link says http://youtu.be/SomeLinkText, then copy only the SomeLinkText part.
+  <br />
+  Paste it like this: http://www.youtube.com/v/SomeLinkText in this form. As simple as that!
+ </div>
+</center>
 {% endblock body %}
-
