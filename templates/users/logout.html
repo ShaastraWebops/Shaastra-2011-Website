@@ -2,30 +2,28 @@
 
 {%block gradient%}{%include "gradient.html"%}{%endblock%}
 {%block body%}
+
 <div id="login">
- <center>
-  <div id="checking">
-   <form action="{{SITE_URL}}login/" method="POST">
-    {% csrf_token %}
-         You Have Successfully Logged Out!!
-    <br />
-    <br />
-    <table>
-     <tr>
-      <td style="margin-left:10px;">
-       <div class="button2">
-        <a href="#">
-         <input type="submit" value="Login Again" />
-        </a>
-        <span>
-        </span>
-       </div>
-      </td>
-     </tr>
-    </table>
-   </form>
-   <br />
-  </div>
- </center>
+<center><div id="checking">
+     <form action= "{{SITE_URL}}login/" method="POST">
+         {% csrf_token %}
+         You Have Successfully Logged Out!!<br/><br/>  
+     
+<table><tr><td style="margin-left:10px;" >
+        <div class="button2">
+			<a href="#">
+                             
+                       
+				<input type="submit" value="Login Again" />
+			     
+                     </a>
+			<span></span>
+		</div>
+		</td></tr></table>
+     </form>
+     <br>
+   </div>
+</center>
 </div>
+
 {%endblock%}

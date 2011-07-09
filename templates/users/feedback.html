@@ -5,245 +5,143 @@
 
 {% block body %}
 <center>
- <div id="feedbackform">
-  {% for error in errors %}
-  <li id="lgnerr">
-   {{error}}
-  </li>
-  {% endfor %}
-  <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/jquery-custom-radio.js">
-  </script>
-  <script type="text/javascript">
-   $("#page1").css('overflow','scroll');
+<div id="feedbackform">
+    {% for error in errors %}
+    <li id="lgnerr"> {{error}} </li>
+    {% endfor %}
+<script type="text/javascript" src="{{MEDIA_URL}}js/js/script/jquery-custom-radio.js"></script>
+<script type="text/javascript">
+	$("#page1").css('overflow','scroll');
 	$(document).ready(function(){
 		//$(".radio").dgStyle();
 	});
-  </script>
-  <form method="post" action="">
-   {% csrf_token %}
-   <h2>
-    Graphics and Design
-   </h2>
-   <ol>
-    <li>
-     Look and feel of the web pages
-     <br />
-     <input type="radio" name="graphics1" value="1" />
-     &nbsp;1&nbsp; &nbsp; &nbsp; &nbsp;
-     <input type="radio" name="graphics1" value="2" />
-     &nbsp;2&nbsp; &nbsp; &nbsp; &nbsp;
-     <input type="radio" name="graphics1" value="3" checked="Checked" />
-     &nbsp;3&nbsp; &nbsp; &nbsp; &nbsp;
-     <input type="radio" name="graphics1" value="4" />
-     &nbsp;4&nbsp; &nbsp; &nbsp; &nbsp;
-     <input type="radio" name="graphics1" value="5" />
-     &nbsp;5&nbsp; &nbsp; &nbsp; &nbsp;
-     <i>
-      (1 = Very bad, 5 = Excellent)
-     </i>
-    </li>
-    <li>
-     Style of presentation
-     <br />
-     <input type="radio" name="graphics2" value="1" />
-     &nbsp;1&nbsp; &nbsp; &nbsp; &nbsp;
-     <input type="radio" name="graphics2" value="2" />
-     &nbsp;2&nbsp; &nbsp; &nbsp; &nbsp;
-     <input type="radio" name="graphics2" value="3" checked="Checked" />
-     &nbsp;3&nbsp; &nbsp; &nbsp; &nbsp;
-     <input type="radio" name="graphics2" value="4" />
-     &nbsp;4&nbsp; &nbsp; &nbsp; &nbsp;
-     <input type="radio" name="graphics2" value="5" />
-     &nbsp;5&nbsp; &nbsp; &nbsp; &nbsp;
-     <i>
-      (1 = Very bad, 5 = Excellent)
-     </i>
-    </li>
-    <li>
-     Would you like to see more dynamic content on our website?
-     <br />
-     <input type="radio" name="graphics3" value="yes" />
-     &nbsp;Yes &nbsp; &nbsp; &nbsp; &nbsp;
-     <input type="radio" name="graphics3" value="no" />
-     &nbsp;No &nbsp; &nbsp; &nbsp; &nbsp;
-     <input type="radio" name="graphics3" value="nobother" checked="Checked" />
-     &nbsp;Not bothered&nbsp; &nbsp; &nbsp; &nbsp;
-    </li>
-   </ol>
-   <h2>
-    Structure
-   </h2>
-   <ol>
-    <li>
-     Ease of navigation
-     <br />
-     <input type="radio" name="structure1" value="1" />
-     &nbsp;1&nbsp; &nbsp; &nbsp; &nbsp;
-     <input type="radio" name="structure1" value="2" />
-     &nbsp;2&nbsp; &nbsp; &nbsp; &nbsp;
-     <input type="radio" name="structure1" value="3" checked="Checked" />
-     &nbsp;3&nbsp; &nbsp; &nbsp; &nbsp;
-     <input type="radio" name="structure1" value="4" />
-     &nbsp;4&nbsp; &nbsp; &nbsp; &nbsp;
-     <input type="radio" name="structure1" value="5" />
-     &nbsp;5&nbsp; &nbsp; &nbsp; &nbsp;
-     <i>
-      (1 = Very bad, 5 = Excellent)
-     </i>
-    </li>
-    <li>
-     Loading speed of web pages
-     <br />
-     <input type="radio" name="structure2" value="1" />
-     &nbsp;1&nbsp; &nbsp; &nbsp; &nbsp;
-     <input type="radio" name="structure2" value="2" />
-     &nbsp;2&nbsp; &nbsp; &nbsp; &nbsp;
-     <input type="radio" name="structure2" value="3" checked="Checked" />
-     &nbsp;3&nbsp; &nbsp; &nbsp; &nbsp;
-     <input type="radio" name="structure2" value="4" />
-     &nbsp;4&nbsp; &nbsp; &nbsp; &nbsp;
-     <input type="radio" name="structure2" value="5" />
-     &nbsp;5&nbsp; &nbsp; &nbsp; &nbsp;
-     <i>
-      (1 = Very bad, 5 = Excellent)
-     </i>
-    </li>
-   </ol>
-   <h2>
-    Information
-   </h2>
-   <ol>
-    <li>
-     Relevance of information presented on our website
-     <br />
-     <input type="radio" name="info1" value="1" />
-     &nbsp;1&nbsp; &nbsp; &nbsp; &nbsp;
-     <input type="radio" name="info1" value="2" />
-     &nbsp;2&nbsp; &nbsp; &nbsp; &nbsp;
-     <input type="radio" name="info1" value="3" checked="Checked" />
-     &nbsp;3&nbsp; &nbsp; &nbsp; &nbsp;
-     <input type="radio" name="info1" value="4" />
-     &nbsp;4&nbsp; &nbsp; &nbsp; &nbsp;
-     <input type="radio" name="info1" value="5" />
-     &nbsp;5&nbsp; &nbsp; &nbsp; &nbsp;
-     <i>
-      (1 = Very bad, 5 = Excellent)
-     </i>
-    </li>
-    <li>
-     Organization of information
-     <br />
-     <input type="radio" name="info2" value="1" />
-     &nbsp;1&nbsp; &nbsp; &nbsp; &nbsp;
-     <input type="radio" name="info2" value="2" />
-     &nbsp;2&nbsp; &nbsp; &nbsp; &nbsp;
-     <input type="radio" name="info2" value="3" checked="Checked" />
-     &nbsp;3&nbsp; &nbsp; &nbsp; &nbsp;
-     <input type="radio" name="info2" value="4" />
-     &nbsp;4&nbsp; &nbsp; &nbsp; &nbsp;
-     <input type="radio" name="info2" value="5" />
-     &nbsp;5&nbsp; &nbsp; &nbsp; &nbsp;
-     <i>
-      (1 = Very bad, 5 = Excellent)
-     </i>
-    </li>
-    <li>
-     Is there anything that you expected but didn't find on our website?
-     <br />
-     <input type="radio" name="info3" value="yesmany" />
-     &nbsp;Yes, many such things
-     <br />
-     <input type="radio" name="info3" value="yesnotmany" checked="Checked" />
-     &nbsp;Yes, but not many
-     <br />
-     <input type="radio" name="info3" value="nothing" />
-     &nbsp;No, nothing at all
-     <br />
-     <div id="feedbackGen">
-      <h2>
-       General
-      </h2>
-      <ol>
-       <li>
-        How did you come to know about this website?
-        <br />
-        <input type="radio" name="gen1" value="poster" />
-        &nbsp;Shaastra posters
-        <br />
-        <input type="radio" name="gen1" value="brochure" />
-        &nbsp;Shaastra brochure
-        <br />
-        <input type="radio" name="gen1" value="newspaper" />
-        &nbsp;Newspaper article
-        <br />
-        <input type="radio" name="gen1" value="friends" />
-        &nbsp;Friends
-        <br />
-        <input type="radio" name="gen1" value="present" />
-        &nbsp;Shaastra Presentation in your college
-        <br />
-        <input type="radio" name="gen1" value="others" checked="Checked" />
-        &nbsp;Other sources (please specify)
-        <br />
-        &nbsp; &nbsp; &nbsp; &nbsp;
-        <textarea rows="2" cols="50" name="gen_text" style="">
-        </textarea>
-       </li>
-       <li>
-        How often do you visit this website?
-        <br />
-        <input type="radio" name="gen2" value="everyday" />
-        &nbsp;Almost every day
-        <br />
-        <input type="radio" name="gen2" value="onceaweek" checked="Checked" />
-        &nbsp;Not daily, but at least once a week
-        <br />
-        <input type="radio" name="gen2" value="onceamonth" />
-        &nbsp;Not weekly, but at least once a month
-       </li>
-       <li>
-        Overall rating for this website
-        <br />
-        <input type="radio" name="gen3" value="1" />
-        &nbsp;1&nbsp; &nbsp; &nbsp; &nbsp;
-        <input type="radio" name="gen3" value="2" />
-        &nbsp;2&nbsp; &nbsp; &nbsp; &nbsp;
-        <input type="radio" name="gen3" value="3" checked="Checked" />
-        &nbsp;3&nbsp; &nbsp; &nbsp; &nbsp;
-        <input type="radio" name="gen3" value="4" />
-        &nbsp;4&nbsp; &nbsp; &nbsp; &nbsp;
-        <input type="radio" name="gen3" value="5" />
-        &nbsp;5&nbsp; &nbsp; &nbsp; &nbsp;
-        <i>
-         (1 = Very bad, 5 = Excellent)
-        </i>
-       </li>
-      </ol>
-     </div>
-     <br />
-     Your name &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;
-     <input type="text" id="id_name" name="name" maxlength="30" size="30" />
-     <br />
-     <br />
-     Email ID&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-     <input type="text" maxlength="75" name="email" id="id_email" size="30" />
-     <br />
-     <br />
-     General feedback
-     <textarea rows="10" cols="65" name="text" id="">
-     </textarea>
-     <br />
-     <br />
-     <div class="button2">
-      <a href="#">
-       <input type="submit" id="feedSubmit" value="Submit" style="padding:4px;" />
-      </a>
-      <span>
-      </span>
-     </div>
-    </li>
-   </ol>
-  </form>
- </div>
+</script>
+<form method="post" action="">
+    {% csrf_token %}
+    
+    <h2> Graphics and Design </h2>
+    <ol>
+    <li>Look and feel of the web pages<br />
+        <input type="radio" name="graphics1" value="1" />&nbsp;1&nbsp; &nbsp; &nbsp; &nbsp;
+
+        <input type="radio" name="graphics1" value="2" />&nbsp;2&nbsp; &nbsp; &nbsp; &nbsp;
+        <input type="radio" name="graphics1" value="3" Checked/>&nbsp;3&nbsp; &nbsp; &nbsp; &nbsp;
+        <input type="radio" name="graphics1" value="4" />&nbsp;4&nbsp; &nbsp; &nbsp; &nbsp;
+        <input type="radio" name="graphics1" value="5" />&nbsp;5&nbsp; &nbsp; &nbsp; &nbsp;<i>(1 = Very bad, 5 = Excellent)</i>
+        </li>
+    <li>Style of presentation <br />
+        <input type="radio" name="graphics2" value="1" />&nbsp;1&nbsp; &nbsp; &nbsp; &nbsp;
+        <input type="radio" name="graphics2" value="2" />&nbsp;2&nbsp; &nbsp; &nbsp; &nbsp;
+        <input type="radio" name="graphics2" value="3" Checked/>&nbsp;3&nbsp; &nbsp; &nbsp; &nbsp;
+        <input type="radio" name="graphics2" value="4" />&nbsp;4&nbsp; &nbsp; &nbsp; &nbsp;
+        <input type="radio" name="graphics2" value="5" />&nbsp;5&nbsp; &nbsp; &nbsp; &nbsp;<i>(1 = Very bad, 5 = Excellent)</i>
+        </li>
+    <li>Would you like to see more dynamic content on our website?<br />
+        <input type="radio" name="graphics3" value="yes" />&nbsp;Yes &nbsp; &nbsp; &nbsp; &nbsp;
+
+        <input type="radio" name="graphics3" value="no" />&nbsp;No &nbsp; &nbsp; &nbsp; &nbsp;
+        <input type="radio" name="graphics3" value="nobother" Checked/>&nbsp;Not bothered&nbsp; &nbsp; &nbsp; &nbsp;
+        </li>
+    </ol>
+    
+    <h2>Structure</h2>
+
+    <ol>
+    <li>Ease of navigation<br />
+        <input type="radio" name="structure1" value="1" />&nbsp;1&nbsp; &nbsp; &nbsp; &nbsp;
+        <input type="radio" name="structure1" value="2" />&nbsp;2&nbsp; &nbsp; &nbsp; &nbsp;
+
+        <input type="radio" name="structure1" value="3" Checked/>&nbsp;3&nbsp; &nbsp; &nbsp; &nbsp;
+        <input type="radio" name="structure1" value="4" />&nbsp;4&nbsp; &nbsp; &nbsp; &nbsp;
+        <input type="radio" name="structure1" value="5" />&nbsp;5&nbsp; &nbsp; &nbsp; &nbsp;<i>(1 = Very bad, 5 = Excellent)</i>
+
+        </li>
+    <li>Loading speed of web pages <br />
+        <input type="radio" name="structure2" value="1" />&nbsp;1&nbsp; &nbsp; &nbsp; &nbsp;
+        <input type="radio" name="structure2" value="2" />&nbsp;2&nbsp; &nbsp; &nbsp; &nbsp;
+
+        <input type="radio" name="structure2" value="3" Checked/>&nbsp;3&nbsp; &nbsp; &nbsp; &nbsp;
+        <input type="radio" name="structure2" value="4" />&nbsp;4&nbsp; &nbsp; &nbsp; &nbsp;
+        <input type="radio" name="structure2" value="5" />&nbsp;5&nbsp; &nbsp; &nbsp; &nbsp;<i>(1 = Very bad, 5 = Excellent)</i>
+
+        </li>
+    </ol>
+    
+    <h2>Information</h2>
+    <ol>
+    <li>Relevance of information presented on our website <br />
+        <input type="radio" name="info1" value="1" />&nbsp;1&nbsp; &nbsp; &nbsp; &nbsp;
+
+        <input type="radio" name="info1" value="2" />&nbsp;2&nbsp; &nbsp; &nbsp; &nbsp;
+        <input type="radio" name="info1" value="3" Checked/>&nbsp;3&nbsp; &nbsp; &nbsp; &nbsp;
+        <input type="radio" name="info1" value="4" />&nbsp;4&nbsp; &nbsp; &nbsp; &nbsp;
+
+        <input type="radio" name="info1" value="5" />&nbsp;5&nbsp; &nbsp; &nbsp; &nbsp;<i>(1 = Very bad, 5 = Excellent)</i>
+        </li>
+    <li>Organization of information <br />
+        <input type="radio" name="info2" value="1" />&nbsp;1&nbsp; &nbsp; &nbsp; &nbsp;
+
+        <input type="radio" name="info2" value="2" />&nbsp;2&nbsp; &nbsp; &nbsp; &nbsp;
+        <input type="radio" name="info2" value="3" Checked/>&nbsp;3&nbsp; &nbsp; &nbsp; &nbsp;
+        <input type="radio" name="info2" value="4" />&nbsp;4&nbsp; &nbsp; &nbsp; &nbsp;
+
+        <input type="radio" name="info2" value="5" />&nbsp;5&nbsp; &nbsp; &nbsp; &nbsp;<i>(1 = Very bad, 5 = Excellent)</i>
+        </li>
+    <li>Is there anything that you expected but didn't find on our website?<br />
+        <input type="radio" name="info3" value="yesmany" />&nbsp;Yes, many such things <br />
+        <input type="radio" name="info3" value="yesnotmany" Checked/>&nbsp;Yes, but not many<br />
+
+        <input type="radio" name="info3" value="nothing" />&nbsp;No, nothing at all<br />
+
+    <div id="feedbackGen">       
+    <h2>General</h2>
+
+    <ol>
+    <li>How did you come to know about this website? <br />
+        <input type="radio" name="gen1" value="poster" />&nbsp;Shaastra posters<br />
+        <input type="radio" name="gen1" value="brochure" />&nbsp;Shaastra brochure <br />
+        <input type="radio" name="gen1" value="newspaper" />&nbsp;Newspaper article<br />
+        <input type="radio" name="gen1" value="friends" />&nbsp;Friends<br />
+
+        <input type="radio" name="gen1" value="present" />&nbsp;Shaastra Presentation in your college <br />
+
+
+                <input type="radio" name="gen1" value="others" Checked/>&nbsp;Other sources (please specify) <br />
+        &nbsp; &nbsp; &nbsp; &nbsp;<textarea rows="2" cols="50" name="gen_text" style=""></textarea></li>
+
+    <li>How often do you visit this website? <br />
+        <input type="radio" name="gen2" value="everyday" />&nbsp;Almost every day<br />
+
+        <input type="radio" name="gen2" value="onceaweek" Checked />&nbsp;Not daily, but at least once a week<br />
+        <input type="radio" name="gen2" value="onceamonth" />&nbsp;Not weekly, but at least once a month</li>
+    <li>Overall rating for this website <br />
+        <input type="radio" name="gen3" value="1" />&nbsp;1&nbsp; &nbsp; &nbsp; &nbsp;
+        <input type="radio" name="gen3" value="2" />&nbsp;2&nbsp; &nbsp; &nbsp; &nbsp;
+
+        <input type="radio" name="gen3" value="3" Checked/>&nbsp;3&nbsp; &nbsp; &nbsp; &nbsp;
+        <input type="radio" name="gen3" value="4" />&nbsp;4&nbsp; &nbsp; &nbsp; &nbsp;
+        <input type="radio" name="gen3" value="5" />&nbsp;5&nbsp; &nbsp; &nbsp; &nbsp;<i>(1 = Very bad, 5 = Excellent)</i>
+
+        </li>
+    </ol>
+	</div>
+    <br>
+    Your name &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;<input type="text" id="id_name" name="name" maxlength="30" size="30"><br><br>
+    Email ID&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" maxlength="75" name="email" id="id_email"  size="30"><br><br>
+    General feedback 
+    <textarea rows="10" cols="65" name="text" id=""></textarea>
+ 
+	<br><br>
+	<div class="button2">
+		<a href="#">
+			<input type="submit" id="feedSubmit" value="Submit" style="padding:4px;">
+		</a>
+		<span></span>
+	</div>
+    
+</form>
+</div>
 </center>
-{% endblock %}
+    
+
+{% endblock %}                
