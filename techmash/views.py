@@ -12,12 +12,15 @@ from django import forms
 import os
 import stat
 import shutil
+import StringIO
+import hashlib
 from datetime import datetime
 from tempfile import NamedTemporaryFile, mkdtemp
 import Image
 from main_test.misc.util import *
 from math import fabs
 
+TECHMASH_URL = 'http://www.shaastra.org/2011/media/techmash/'
 def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -30,7 +33,7 @@ def register(request):
     return render_to_response("registration/register.html",locals(),context_instance= global_context(request))
 
 def profile(request):
- 	return render_to_response("techmash/profile.html", Context({'usename': request.user.username}), locals(),context_instance= global_context(request))
+ 	return render_to_response("techmash/profile.html", locals(),context_instance= global_context(request))
 
 def upload_file1(request):
     if request.method == 'POST':
@@ -38,7 +41,7 @@ def upload_file1(request):
         if form.is_valid():
             print "form valid"
             uploaded_filename = request.FILES['file'].name
-            destdir= os.path.join(settings.MEDIA_ROOT,'images/')
+            destdir= os.path.join(settings.TECHMASH_ROOT,'images/')
             if not os.path.isdir(destdir):
                 os.makedirs(destdir, 0775)
             photopath = os.path.join(destdir, os.path.basename(uploaded_filename))
@@ -50,11 +53,11 @@ def upload_file1(request):
             print photopath
             # Create the object
             if photopath.startswith(os.path.sep):
-                photopath = photopath[len(settings.MEDIA_ROOT):]
+                photopath = photopath[len(settings.TECHMASH_ROOT):]
             photo = Photo(image=photopath,title = uploaded_filename,rating=300,user=request.user.username,groupnum=1)
             # Save it -- the thumbnails etc. get created.
             photo.save()
-            hanle_uploaded_image(request.FILES['file'])
+            handle_uploaded_image(request.FILES['file'])
             return HttpResponseRedirect(("%stechmash/upload/" % settings.SITE_URL))
     else:
         form = UploadFileForm()
@@ -133,30 +136,35 @@ def selectimages(request):
 def seephotos(request):   
     photo_list=Photo.objects.all()
     return render_to_response("techmash/mash.html", locals(),context_instance= global_context(request))
-    
+
 def handle_uploaded_image(i):
-    # resize image
-    imagefile  = StringIO.StringIO(i.read())
+    #imagefile  = StringIO.StringIO(i.read())
+    str = ''
+    for c in i.chunks():
+        str += c
+        #create PIL Image instance
+    imagefile  = StringIO.StringIO(str)
     imageImage = Image.open(imagefile)
-
-    (width, height) = imageImage.size
-    (width, height) = scale_dimensions(width, height, longest_side=240)
-
-    resizedImage = imageImage.resize((width, height))
-
+    #imageImage = Image.fromstring(i.read())
+    resizedImage = imageImage.resize((240, 240))
     imagefile = StringIO.StringIO()
     resizedImage.save(imagefile,'JPEG')
     filename = hashlib.md5(imagefile.getvalue()).hexdigest()+'.jpg'
 
     # #save to disk
-    imagefile = open(os.path.join('/images',filename), 'w')
-    resizedImage.save(imagefile,'JPEG')
-    imagefile = open(os.path.join('/images',filename), 'r')
-    content = django.core.files.File(imagefile)
-    #photopath = os.path.join(destdir, os.path.basename(uploaded_filename))
-    #fout = open(photopath, 'wb+')
-    #f=request.FILES['file']
+    destdir= os.path.join(settings.TECHMASH_ROOT,'images/')
+    if not os.path.isdir(destdir):
+        os.makedirs(destdir, 0775)
+    photopath = os.path.join(destdir, os.path.basename(filename))
+    fout = open(photopath, 'wb+')
+    #f=resizedImage
     #for chunk in f.chunks():
-		#fout.write(chunk)
-    #fout.close()         
-      
+        #fout.write(chunk)
+    #fout.close()
+    imagefile = open(photopath, 'w')
+    resizedImage.save(imagefile,'JPEG')
+    #imagefile = open(os.path.join('/images',i,name), 'r')
+    #content = django.core.files.File(imagefile)
+
+    #my_object = MyDjangoObject()
+    #my_object.photo.save(filename, content)

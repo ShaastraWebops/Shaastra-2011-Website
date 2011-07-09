@@ -1,33 +1,47 @@
 {%extends "index.html"%}
 {%block media_location%}
-		<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}credits/style/css/credits.css" />   
-		<script type="text/javascript" src="{{MEDIA_URL}}credits/scripts/js/contacts.js"></script>
-		<script type="text/javascript">
-			
-		</script>
-	{%endblock%}
+<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}credits/style/css/credits.css" />
+<script type="text/javascript" src="{{MEDIA_URL}}credits/scripts/js/contacts.js">
+</script>
+<script type="text/javascript">
+</script>
+{%endblock%}
 	{%block body%}
-		<div id="contactsContainer" style="">
-			
-			<div id="contactsContent">
-				General queries about events can be mailed to events@shaastra.org.<br>
-				<br>
-					<br>
-				<div id="CoCASContact">
-					<p class="contactsBold">Co-Curricular Affairs Secretary</p>
-					<p class="contactsText">I.V.S Sandeep<br>cas@iitm.ac.in<br>sand9deep@gmail.com</p>
-					<br>
-					<br>
-				</div>
-				<div id="sponsContact">
-					<p class="contactsBold">For sponsorship related queries contact</p>
-					<p class="contactsText">Kaushik Mohan &nbsp;&nbsp;&nbsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Vinay Sridhar<br>
-					kaushik.mohan@shaastra.org &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; vinay.sridhar@shaastra.org</p>
-				<br>
-					<br>
-				</div>
-				<div id="contactsMainTab"><img src="{{MEDIA_URL}}credits/images/contactsText.png" /></div>
-			</div>
-			
-		</div>	
+<div id="contactsContainer" style="">
+ <div id="contactsContent">
+  General queries about events can be mailed to events@shaastra.org.
+  <br />
+  <br />
+  <br />
+  <div id="CoCASContact">
+   <p class="contactsBold">
+    Co-Curricular Affairs Secretary
+   </p>
+   <p class="contactsText">
+    I.V.S Sandeep
+    <br />
+    cas@iitm.ac.in
+    <br />
+    sandeep@shaastra.org
+   </p>
+   <br />
+   <br />
+  </div>
+  <div id="sponsContact">
+   <p class="contactsBold">
+    For sponsorship related queries contact
+   </p>
+   <p class="contactsText">
+    Kaushik Mohan &nbsp;&nbsp;&nbsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Vinay Sridhar
+    <br />
+    kaushik.mohan@shaastra.org &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; vinay.sridhar@shaastra.org
+   </p>
+   <br />
+   <br />
+  </div>
+  <div id="contactsMainTab">
+   <img src="{{MEDIA_URL}}credits/images/contactsText.png" />
+  </div>
+ </div>
+</div>
 {%endblock%}

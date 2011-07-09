@@ -3,15 +3,20 @@
 {%block gradient%}{%include "gradient.html"%}{%endblock%}
 {%block body%}
 <div id="login">
-<div id="confirm_answer">
-
-     <form action= "" method="POST">
-         {% csrf_token %}
-         <h1>Are You Sure You Want To Confirm? You <b>Cannot</b> Change your Answers After This.</h1><br/><br/>  
-     <input type="submit" value="LOGIN AGAIN" />
-     </form>
-
+ <div id="confirm_answer">
+  <form action="" method="POST">
+   {% csrf_token %}
+   <h1>
+    Are You Sure You Want To Confirm? You
+    <b>
+     Cannot
+    </b>
+    Change your Answers After This.
+   </h1>
+   <br />
+   <br />
+   <input type="submit" value="LOGIN AGAIN" />
+  </form>
+ </div>
 </div>
-</div>
-
 {%endblock%}

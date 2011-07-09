@@ -1,0 +1,123 @@
+{%extends "index.html"%}
+{%block media_location%}
+		<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}credits/style/css/credits.css" />   
+		<script type="text/javascript" src="{{MEDIA_URL}}credits/scripts/js/credits.js"></script>
+		<script type="text/javascript">
+			
+		</script>
+		<style type="text/css">
+			#webTeamCores{
+				position:absolute;
+				top:30px;
+				height:120px;
+			}
+			#webTeamWebops{
+				position:absolute;
+				top:150px;
+				height:370px;
+			}
+			#webTeamMobops{
+				position:absolute;
+				top:540px;
+				height:170px;
+			}
+			.coords {
+				 left: 100px;
+				 position: absolute;
+				 top: 40px;
+				 width: 300px;
+			}
+		</style>
+{%endblock%}
+	{%block body%}
+		<div id="creditsContainer" style="">
+			
+			<div id="creditsContent">
+				<br />
+				<img id="coreTeam11" src="{{MEDIA_URL}}credits/images/webTeam11.png" />
+				<div id="creditsMainContent">
+					<div id="ateam" style="z-index:10;height:700px;">
+						<div id="centerline" style="position:relative;left:40px">
+						<img id="centreLine" src="{{MEDIA_URL}}credits/images/centreLine.png" />
+						</div>
+						
+						<div id="webTeamCores">
+							<div class="dept">
+								Cores
+							</div>
+							<div class="cores">
+								Sudharshan Vishwanathan<br>
+								Siddarth Swaminathan
+							</div>
+							<div class="email">
+								sudharshan.v@shaastra.org<br>
+								siddharth.s@shaastra.org
+							</div>
+							<img src="{{MEDIA_URL}}credits/images/leftLine.png" class="lLine" />
+							<img src="{{MEDIA_URL}}credits/images/rightLine.png" class="rLine" />
+						</div>	
+						<div id="webTeamWebops">						
+							<div class="dept">
+								Coordinators - Webops
+							</div>
+							<div class="coords">
+								Praveen Venkatesh<br>
+								Karthik Abinav<br>
+								Chetan Suresh Bademi<br>
+								M Vijay Karthik<br>
+								Krishna<br>
+								Sivaramakrishnan<br>
+								Pradeep Kumar<br>
+								Vivek Kumar Bagaria<br>
+								Swaroop Ramaswamy<br>
+								Numaan Ashraf<br>
+								Govind Krishna Joshi<br>
+								Akshay Rangasai Devalla<br>
+								Vishwajith G Bhatt<br>
+								Vineet Upadhyay<br>
+								
+							</div>
+							<!--<div class="email">
+								praveenv253@gmail.com<br>
+								karthikabinavs@gmail.com<br>
+								chetanbademi@gmail.com<br>
+								mvijaykarthik@gmail.com<br>
+                                                                krishan92@gmail.com<br>
+								srk2siva@gmail.com<br>
+								gohanpra@gmail.com<br>									
+								vivekee047@gmail.com<br>
+								swaroop551992@gmail.com<br>
+								
+								n7m03n@gmail.com<br>
+								govindkrjoshi@gmail.com<br>
+								akshayrangasai.d@gmail.com<br>
+								bhat.vishwajith@gmail.com<br>
+								vineet.1991.483@gmail.com<br>
+								manjhunathcr@gmail.com
+							</div>-->
+							<img src="{{MEDIA_URL}}credits/images/leftLine.png" class="lLine" />
+							<img src="{{MEDIA_URL}}credits/images/rightLine.png" class="rLine" />
+						</div>
+						<div id="webTeamMobops">
+							<div class="dept">
+								Coordinators - Mobops
+							</div>
+							<div class="cores">
+								Anjan D N<br>
+								Bharath M R<br>
+								B Prabath Kiran<br>
+								Nishaanth<br>
+								R Athindran
+							</div>
+							<div class="email">
+							</div>
+						</div>	
+						
+					</div>				
+				</div>
+				<div id="creditsMainTab"><img src="{{MEDIA_URL}}credits/images/creditsText.png" /></div>
+			</div>
+			 <div id="webops_names" style="position:relative;bottom:2px;font-size:1em"><a class=navig   href="{{SITE_URL}}credits">Back to<br /> Core list</a></div>
+		</div>
+	
+{%endblock%}

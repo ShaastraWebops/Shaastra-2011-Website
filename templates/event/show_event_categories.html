@@ -2,7 +2,6 @@
 {%block event_categories%}{%endblock%}
 {%block gradient%}{%include "gradient.html"%}{%endblock%}
 {% block media_location %}
-
 <!--
 <div id="lefttop">
     <ul>
@@ -25,7 +24,7 @@
 </div>
 -->
 <script>
-    var urls = new Array();
+ var urls = new Array();
 
     {% for category in categories %}
         var k = new Array();
@@ -33,7 +32,6 @@
             k.push("{{event.image_src}}|`{{event.url}}");
         {% endfor %}
         urls.push(k);
-    {% endfor %}    
-</script>    
+    {% endfor %}
+</script>
 {% endblock %}
-
