@@ -1,250 +1,164 @@
 {%block event_categories%}
-<div id="categories" style="position:relative;left:0%;top:-10px;">
- <!-- preload categories master image  and other images-->
- <img src="http://www.shaastra.org/2011/media/main/img/cat/catmaster.jpg" style="height:0px; width:0px;" />
- <img src="http://www.shaastra.org/2011/media/main/img/ctbg.png" style="height:0px; width:0px;" />
- <div style="background-image:url('http://www.shaastra.org/2011/media/main/img/cat/soe.png'); height:0px; width:0px;">
- </div>
- <!-- preloading over -->
- <div id="container1" style="position:relative;left:10%;width:90%">
-  <div id="impact" class="cat" onclick='openPopUp("impact",0,0,778,326)'>
+ 
+	<div id="categories" style="position:relative;left:0%;top:-10px;">
+	<!-- preload categories master image  and other images-->
+	  <img src="http://www.shaastra.org/2011/media/main/img/cat/catmaster.jpg" style="height:0px; width:0px;"/>
+	 <img src="http://www.shaastra.org/2011/media/main/img/ctbg.png" style="height:0px; width:0px;"/>	
+	<div style="background-image:url('http://www.shaastra.org/2011/media/main/img/cat/soe.png'); height:0px; width:0px;"></div>	
+	<!-- preloading over -->							
+								
+	<div id="container1" style="position:relative;left:10%;width:90%">
+	<div id="impact" class = "cat" onClick='openPopUp("impact",0,0,778,326)'></div>
+	<div id="design_and_build" class = "cat" onClick='openPopUp("design-and-build",0,100,770,325)'></div>
+
+	<div id="coding" class = "cat" onClick='openPopUp("coding",0,150,561,325)'></div>
+	<div id="involve" class = "cat" onClick='openPopUp("involve",0,250,560,324)'></div>
+	<div id="online" class = "cat" onClick='openPopUp("online",75,265,558,324)'></div>
+	<div id="spotlights" class = "cat" onClick='openPopUp("spotlights",76,0,778,326)'></div>
+	<div id="flagship" class = "cat" onClick='openPopUp("flagship",0,265,780,325)'></div>
+	<div id="exhibition" class = "cat" onClick='openPopUp("exhibitions",75,100,611,327)'></div>
+	<div id="quizzes" class = "cat" onClick='openPopUp("quizzes",76,100,778,331)'></div>
+	<div id="aerofest" class = "cat" onClick='openPopUp("aerofest",76,495,560,325)'></div>
+	<div id="workshops" class = "cat" onClick='openPopUp("workshops",75,265,775,324)'></div>
+
+	<div id="soe" class = "cat" onClick='openPopUp("soe",50,265,599,328)'></div>
   </div>
-  <div id="design_and_build" class="cat" onclick='openPopUp("design-and-build",0,100,770,325)'>
-  </div>
-  <div id="coding" class="cat" onclick='openPopUp("coding",0,150,561,325)'>
-  </div>
-  <div id="involve" class="cat" onclick='openPopUp("involve",0,250,560,324)'>
-  </div>
-  <div id="online" class="cat" onclick='openPopUp("online",75,265,558,324)'>
-  </div>
-  <div id="spotlights" class="cat" onclick='openPopUp("spotlights",76,0,778,326)'>
-  </div>
-  <div id="flagship" class="cat" onclick='openPopUp("flagship",0,265,780,325)'>
-  </div>
-  <div id="exhibition" class="cat" onclick='openPopUp("exhibitions",75,100,611,327)'>
-  </div>
-  <div id="quizzes" class="cat" onclick='openPopUp("quizzes",76,100,778,331)'>
-  </div>
-  <div id="aerofest" class="cat" onclick='openPopUp("aerofest",76,495,560,325)'>
-  </div>
-  <div id="workshops" class="cat" onclick='openPopUp("workshops",75,265,775,324)'>
-  </div>
-  <div id="soe" class="cat" onclick='openPopUp("soe",50,265,599,328)'>
-  </div>
- </div>
- <div id="popup_container" onclick="closePopUp()" style="color:white;">
-  {%for category in categories%}
-  <div id="catimage">
-  </div>
-  <div id="{{category.text|slugify}}_contents" class="popup_contents" style="display:none;" onload="javascript:this.style.display = 'block';">
-   <!-- listing all the headings -->
-   {%if category.text|slugify|stringformat:"s" == "impact"%}
-   <div id="{{category.text}}_heading" class="heading" style="left:450px; top:10px;">
-    <p>
-     <span class="quote">
-      "
-     </span>
-     A life is not important except in the impact it has on others
-     <span class="quote">
-      "
-     </span>
-    </p>
-   </div>
-   {%endif%}
+<div id="popup_container" onclick="closePopUp()" style="color:white;">
+ {%for category in categories%}
+
+	
+	<div id="catimage"></div>
+	
+	
+     <div id="{{category.text|slugify}}_contents" class="popup_contents" style="display:none;" onload ="javascript:this.style.display = 'block';" >
+
+ <!-- listing all the headings -->
+	{%if category.text|slugify|stringformat:"s" == "impact"%}
+        <div id="{{category.text}}_heading" class="heading" style="left:450px; top:10px;" >
+              <p><span class = "quote">"</span>A life is not important except in the impact it has on others<span class = "quote">"</span></p>
+		</div>
+    {%endif%}
     {%if category.text|slugify|stringformat:"s" == "aerofest"%}
-   <div id="{{category.text}}_heading" class="heading" style="left:10px; top:10px;">
-    <p>
-     <span class="quote">
-      "
-     </span>
-     You haven't seen a tree until you have seen its shadow from the sky
-     <span class="quote">
-      "
-     </span>
-    </p>
-   </div>
-   {%endif%}
-	{%if category.text|slugify|stringformat:"s" == "design-and-build"%}
-   <div id="design-and-build_heading" class="heading" style="left:450px; top:10px;">
-    <p>
-     <span class="quote">
-      "
-     </span>
-     Close You eyes and open your mind
-     <span class="quote">
-      "
-     </span>
-    </p>
-   </div>
-   {%endif%}
-	{%if category.text|slugify|stringformat:"s" == "coding"%}
-   <div id="coding_heading" class="heading" style="left:10px; top:10px;">
-    <p>
-     <span class="quote">
-      "
-     </span>
-     There are 10 types of people in this world; those who understand binary and those who don't
-     <span class="quote">
-      "
-     </span>
-    </p>
-   </div>
-   {%endif%}         
+    <div id="{{category.text}}_heading" class="heading" style="left:10px; top:10px;">
+		<p><span class = "quote">"</span>You haven't seen a tree until you have seen its shadow from the sky<span class = "quote">"</span></p>
+	</div>
+    {%endif%}
+	{%if category.text|slugify|stringformat:"s" == "design-and-build"%}     
+    <div id="design-and-build_heading" class="heading" style="left:450px; top:10px;">
+	    <p><span class = "quote">"</span>Close You eyes and open your mind<span class = "quote">"</span>
+	</div>
+    {%endif%}
+	{%if category.text|slugify|stringformat:"s" == "coding"%}  
+    <div id="coding_heading" class="heading" style="left:10px; top:10px;">
+	   <p><span class = "quote">"</span>There are 10 types of people in this world; those who understand binary and those who don't<span class = "quote">"</span></p>
+	</div>
+    {%endif%}         
     {%if category.text|slugify|stringformat:"s" == "involve"%}
-   <div id="involve_heading" class="heading" style="left:10px; top:10px;">
-    <p>
-     <span class="quote">
-      "
-     </span>
-     One has to look out for engineers, they begin with sewing machines and end up with the atomic bomb
-     <span class="quote">
-      "
-     </span>
-    </p>
-   </div>
-   {%endif%}
-    {%if category.text|slugify|stringformat:"s" == "online"%}
-   <div id="online_heading" class="heading" style="left:10px; top:10px;">
-    <p>
-     <span class="quote">
-      "
-     </span>
-     A journey of a thousand sites begins with a click
-     <span class="quote">
-      "
-     </span>
-    </p>
-   </div>
-   {%endif%}
+    <div id="involve_heading" class="heading" style="left:10px; top:10px;">
+		<p><span class = "quote">"</span>One has to look out for engineers, they begin with sewing machines and end up with the atomic bomb<span class = "quote">"</span></p>
+	</div>
+    {%endif%}
+    {%if category.text|slugify|stringformat:"s" == "online"%} 
+          <div id="online_heading" class="heading" style="left:10px; top:10px;">
+		<p><span class = "quote">"</span>A journey of a thousand sites begins with a click<span class = "quote">"</span></p>
+	  </div>
+         {%endif%}
        {%if category.text|slugify|stringformat:"s" == "spotlights"%}
-   <div id="spotlights_heading" class="heading" style="top:10px; left:450px;">
-    <p>
-     <span class="quote">
-      "
-     </span>
-     Its not what you look at that matters but what you see
-     <span class="quote">
-      "
-     </span>
-    </p>
-   </div>
-   {%endif%}
+       <div id="spotlights_heading" class="heading" style="top:10px; left:450px;">
+	  <p><span class = "quote">"</span>Its not what you look at that matters but what you see<span class = "quote">"</span></p>
+	  </div>
+      {%endif%}
       {%if category.text|slugify|stringformat:"s" == "flagship"%}
-   <div id="flagship_heading" class="heading" style="left:10px; top:10px;">
-    <p>
-     <span class="quote">
-      "
-     </span>
-     Scientists investigate that which already is; Engineers create that which has never been
-     <span class="quote">
-      "
-     </span>
-    </p>
-   </div>
-   {%endif%}
+      <div id="flagship_heading" class="heading" style="left:10px; top:10px;">
+		<p><span class = "quote">"</span>Scientists investigate that which already is; Engineers create that which has never been<span class = "quote">"</span></p>
+	  </div>
+       {%endif%}
      {%if category.text|slugify|stringformat:"s" == "exhibitions"%}
-   <div id="exhibitions_heading" class="heading" style="left:275px; top:10px;">
-    <p>
-     <span class="quote">
-      "
-     </span>
-     Its only when you go wrong that machines remind you how powerful they are
-     <span class="quote">
-      "
-     </span>
-    </p>
-   </div>
-   {%endif%}
+     <div id="exhibitions_heading" class="heading" style="left:275px; top:10px;">
+		<p><span class = "quote">"</span>Its only when you go wrong that machines remind you how powerful they are<span class = "quote">"</span></p>
+	  </div>
+    {%endif%}
     {%if category.text|slugify|stringformat:"s" == "quizzes"%}
-   <div id="quizzes_heading" class="heading" style="left:450px; top:10px;">
-    <p>
-     <span class="quote">
-      "
-     </span>
-     Intelligence is what you use if you don't know what to do
-     <span class="quote">
-      "
-     </span>
-    </p>
-   </div>
+     <div id="quizzes_heading" class="heading" style="left:450px; top:10px;">
+		<p><span class = "quote">"</span>Intelligence is what you use if you don't know what to do<span class = "quote">"</span></p>
+
+	  </div>
    {%endif%}
 {%if category.text|slugify|stringformat:"s" == "workshops"%}
-   <div id="workshops_heading" class="heading" style="left:10px; top:10px;">
-    <p>
-     <span class="quote">
-      "
-     </span>
-     Man is still the most extraordinary machine of all
-     <span class="quote">
-      "
-     </span>
-    </p>
-   </div>
-   {%endif%}
-   <!-- listing all the text -->
-   <div id="{{category.text|slugify}}_events">
-    {%if category.text|slugify|stringformat:"s" == "impact"%}
-    <div style="position:absolute; left:450px; top:145px;color:white;font-size:0.85em;">
-     {%endif%} 
+
+    <div id="workshops_heading" class="heading" style="left:10px; top:10px;">
+		<p><span class = "quote">"</span>Man is still the most extraordinary machine of all<span class = "quote">"</span></p>
+
+	  </div>
+{%endif%}
+
+
+<!-- listing all the text -->
+
+          <div id="{{category.text|slugify}}_events">
+
+         {%if category.text|slugify|stringformat:"s" == "impact"%}
+         <div style="position:absolute; left:450px; top:145px;color:white;font-size:0.85em;">
+	 {%endif%} 
           {%if category.text|slugify|stringformat:"s" == "design-and-build"%}
-     <div style="position:absolute; left:450px; top:100px;color:white; font-size:0.8em;">
-      {%endif%}
+           <div style="position:absolute; left:450px; top:100px;color:white; font-size:0.8em;">
+          {%endif%}
              
 
         {%if category.text|slugify|stringformat:"s" == "coding"%}
-      <div style="position:absolute; color:white; left:10px; top:100px; font-size:0.6em;">
-       {%endif%}
-       {%if category.text|slugify|stringformat:"s" == "involve"%}
-       <div style="position:absolute; color:white; left:10px; top:90px; font-size:0.6em;">
+           <div style="position:absolute; color:white; left:10px; top:100px; font-size:0.6em;">
         {%endif%}
+       {%if category.text|slugify|stringformat:"s" == "involve"%}
+         <div style="position:absolute; color:white; left:10px; top:90px; font-size:0.6em;">
+       {%endif%}
         {%if category.text|slugify|stringformat:"s" == "online"%}
-        <div style="position:absolute; color:white; left:10px; top:100px; font-size:0.85em;">
-         {%endif%}
+         <div style="position:absolute; color:white; left:10px; top:100px; font-size:0.85em;">
+          {%endif%}
          {%if category.text|slugify|stringformat:"s" == "spotlights"%}
-         <div style="position:absolute; color:white; left:450px; top:100px; font-size:0.85em;">
+             <div style="position:absolute; color:white; left:450px; top:100px; font-size:0.85em;">
           {%endif%}
             {%if category.text|slugify|stringformat:"s" == "flagship"%}
-          <div style="position:absolute; color:white; left:10px; top:100px; font-size:0.8em;">
-           {%endif%}
-            {%if category.text|slugify|stringformat:"s" == "exhibitions"%}
-           <div style="position:absolute; color:white; left:275px; top:145px; font-size:0.85em;">
+                <div style="position:absolute; color:white; left:10px; top:100px; font-size:0.8em;">
             {%endif%}
+            {%if category.text|slugify|stringformat:"s" == "exhibitions"%}
+              <div style="position:absolute; color:white; left:275px; top:145px; font-size:0.85em;">
+             {%endif%}
            {%if category.text|slugify|stringformat:"s" == "quizzes"%}
-            <div style="position:absolute; color:white; left:450px; top:160px; font-size:1em;">
-             {%endif%} 
+                <div style="position:absolute; color:white; left:450px; top:160px; font-size:1em;">
+           {%endif%} 
            {%if category.text|slugify|stringformat:"s" == "aerofest"%}
-             <div style="position:absolute; color:white; left:10px; top:145px; font-size:1em;">
-              {%endif%} 
+              <div style="position:absolute; color:white; left:10px; top:145px; font-size:1em;">  
+           {%endif%} 
             {%if category.text|slugify|stringformat:"s" == "workshops"%}
-              <div style="position:absolute; color:white; left:10px; top:70px; font-size:0.6em;">
-               {%endif%} 
+             <div style="position:absolute; color:white; left:10px; top:70px; font-size:0.6em;"> 
+            {%endif%} 
         {% for event in category.events%}
-               <p class="event">
-                <a href="{{event.url}}">
-                 {{event.display_name|capfirst}}
-                </a>
-               </p>
-               {%endfor%}
-              </div>
-             </div>
-            </div>
-            <div id="soe_contents" class="popup_contents">
-             <!-- 	  <div id="image"><img src="img/soe_copy.png" /></div> -->
-            </div>
-            {%endfor%}
-           </div>
-          </div>
-          <center style="color:#BBB;position:relative;top:-20px;width:100%;" id="cen">
-           Click on each category to know more.
-          </center>
-          {%endblock%}
-         </div>
+          <p class="event"><a href="{{event.url}}">{{event.display_name|capfirst}}</a></p>
+	  {%endfor%}
+	
         </div>
-       </div>
-      </div>
-     </div>
-    </div>
-   </div>
-  </div>
- </div>
+        </div>
+	      
+	</div>
+
+ 
+   
+	<div id="soe_contents" class="popup_contents">
+<!-- 	  <div id="image"><img src="img/soe_copy.png"/></div> -->
+	</div>
+{%endfor%}
+
+
 </div>
+
+</div>
+	
+
+
+    <center style="color:#BBB;position:relative;top:-20px;width:100%;" id = "cen">Click on each category to know more.</center>
+			 
+
+
+{%endblock%}
+
+
