@@ -6,7 +6,7 @@ from django.contrib.auth.views import login, logout
 from django.contrib import admin
 admin.autodiscover()
 
-#handler404 = "main_test.misc.util.not_found"
+handler404 = "main_test.misc.util.not_found"
 handler500 = "main_test.misc.util.server_error"
 
 #testing
