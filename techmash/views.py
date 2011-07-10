@@ -49,24 +49,22 @@ def upload_file1(request):
                 str += c
             imagefile  = StringIO.StringIO(str)
             photo = Image.open(imagefile)
+            photo.thumbnail((500, 500),Image.ANTIALIAS)
             filename = hashlib.md5(imagefile.getvalue()).hexdigest()+'.jpg'
             destdir= os.path.join(settings.TECHMASH_ROOT,'images/')
             if not os.path.isdir(destdir):
                 os.makedirs(destdir, 0775)
             photopath = os.path.join(destdir, os.path.basename(filename))
             fout = open(photopath, 'wb+')
-            f=request.FILES['file']
-            for chunk in f.chunks():
-                fout.write(chunk)
-            fout.close()         
-            #print photopath
+            imagefile = open(photopath, 'w')
+            photo.save(imagefile,'JPEG')
             # Create the object
             if photopath.startswith(os.path.sep):
                 photopath = photopath[len(settings.TECHMASH_ROOT):]
             photo = Photo(image=photopath,title = filename,rating=1600,kvalue = 32, user=request.user.username)
             # Save it -- the thumbnails etc. get created.
             photo.save()
-            handle_uploaded_image(request.FILES['file'])
+            #handle_uploaded_image(request.FILES['file'])
             return HttpResponseRedirect(("%stechmash/upload/" % settings.SITE_URL))
     else:
         form = UploadFileForm()
@@ -141,14 +139,14 @@ def selectimages(request):
 def seephotos(request):   
     photo_list=Photo.objects.all()
     return render_to_response("techmash/mash.html", locals(),context_instance= global_context(request))
-
+    """
 def handle_uploaded_image(i):
     str = ''
     for c in i.chunks():
         str += c
     imagefile  = StringIO.StringIO(str)
     photo = Image.open(imagefile)
-    photo.thumbnail((400, 400),Image.ANTIALIAS)
+    photo.thumbnail((500, 500),Image.ANTIALIAS)
     imagefile =StringIO.StringIO()
     filename = hashlib.md5(imagefile.getvalue()).hexdigest()+'.jpg'
     destdir= os.path.join(settings.TECHMASH_ROOT,'images/')
@@ -158,3 +156,4 @@ def handle_uploaded_image(i):
     fout = open(photopath, 'wb+')
     imagefile = open(photopath, 'w')
     photo.save(imagefile,'JPEG')
+    """
