@@ -48,7 +48,7 @@ def upload_file1(request):
             for c in i.chunks():
                 str += c
             imagefile  = StringIO.StringIO(str)
-            imageImage = Image.open(imagefile)
+            photo = Image.open(imagefile)
             filename = hashlib.md5(imagefile.getvalue()).hexdigest()+'.jpg'
             destdir= os.path.join(settings.TECHMASH_ROOT,'images/')
             if not os.path.isdir(destdir):
@@ -147,10 +147,9 @@ def handle_uploaded_image(i):
     for c in i.chunks():
         str += c
     imagefile  = StringIO.StringIO(str)
-    imageImage = Image.open(imagefile)
-    resizedImage = imageImage.thumbnail((500, 500),Image.ANTIALIAS)
-    imagefile = StringIO.StringIO()
-    resizedImage.save(imagefile,'JPEG')
+    photo = Image.open(imagefile)
+    photo.thumbnail((500, 500),Image.ANTIALIAS)
+    imagefile =StringIO.StringIO()
     filename = hashlib.md5(imagefile.getvalue()).hexdigest()+'.jpg'
     destdir= os.path.join(settings.TECHMASH_ROOT,'images/')
     if not os.path.isdir(destdir):
@@ -158,4 +157,4 @@ def handle_uploaded_image(i):
     photopath = os.path.join(destdir, os.path.basename(filename))
     fout = open(photopath, 'wb+')
     imagefile = open(photopath, 'w')
-    resizedImage.save(imagefile,'JPEG')
+    photo.save(imagefile,'JPEG')
