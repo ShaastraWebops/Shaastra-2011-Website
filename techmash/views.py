@@ -148,7 +148,7 @@ def handle_uploaded_image(i):
         str += c
     imagefile  = StringIO.StringIO(str)
     photo = Image.open(imagefile)
-    photo.thumbnail((500, 500),Image.ANTIALIAS)
+    photo.thumbnail((400, 400),Image.ANTIALIAS)
     imagefile =StringIO.StringIO()
     filename = hashlib.md5(imagefile.getvalue()).hexdigest()+'.jpg'
     destdir= os.path.join(settings.TECHMASH_ROOT,'images/')
