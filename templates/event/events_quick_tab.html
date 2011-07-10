@@ -64,10 +64,10 @@
 
 	    <div id="event-details">
                               {%for row in tab_list %}
-				<div id="{{row.id}}_">
+				<div id="{{row.id}}_" style="padding-left:20px">
                                        {%if not row.question_tab%}
-			                            <div style="padding:20px">
-			                              {{row.text|safe}}</div>
+			                            
+			                              {{row.text|safe}}
 			                                <br /><br />
 
                                         <!-- displaying file list -->
