@@ -40,21 +40,30 @@ def upload_file1(request):
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
             print "form valid"
-            uploaded_filename = request.FILES['file'].name
             destdir= os.path.join(settings.TECHMASH_ROOT,'images/')
             if not os.path.isdir(destdir):
                 os.makedirs(destdir, 0775)
-            photopath = os.path.join(destdir, os.path.basename(uploaded_filename))
+            i=request.FILES['file']
+            str = ''
+            for c in i.chunks():
+                str += c
+            imagefile  = StringIO.StringIO(str)
+            imageImage = Image.open(imagefile)
+            filename = hashlib.md5(imagefile.getvalue()).hexdigest()+'.jpg'
+            destdir= os.path.join(settings.TECHMASH_ROOT,'images/')
+            if not os.path.isdir(destdir):
+                os.makedirs(destdir, 0775)
+            photopath = os.path.join(destdir, os.path.basename(filename))
             fout = open(photopath, 'wb+')
             f=request.FILES['file']
             for chunk in f.chunks():
                 fout.write(chunk)
             fout.close()         
-            print photopath
+            #print photopath
             # Create the object
             if photopath.startswith(os.path.sep):
                 photopath = photopath[len(settings.TECHMASH_ROOT):]
-            photo = Photo(image=photopath,title = uploaded_filename,rating=1600,kvalue = 32, user=request.user.username,groupnum=1)
+            photo = Photo(image=photopath,title = filename,rating=1600,kvalue = 32, user=request.user.username,groupnum=1)
             # Save it -- the thumbnails etc. get created.
             photo.save()
             handle_uploaded_image(request.FILES['file'])
@@ -68,8 +77,6 @@ def kvaluegenerator(rating):
     factor = 0 
     if rating > 1400:
         factor = int(((rating - 1400)/100))
-    if rating > 2400:
-        factor =10    
     return kdictionary[factor]            
 
 def mashphotos(request):
@@ -127,43 +134,28 @@ from random import randint, choice
 
 def selectimages(request):
     photo1=Photo.objects.order_by('?')[0]
+    print photo1.title
     photo2=Photo.objects.filter(kvalue=photo1.kvalue).order_by('?')[0]
     return(photo1,photo2)
-    #show2=pool.objects.filter(random 2)
-    #give to template#
 
 def seephotos(request):   
     photo_list=Photo.objects.all()
     return render_to_response("techmash/mash.html", locals(),context_instance= global_context(request))
 
 def handle_uploaded_image(i):
-    #imagefile  = StringIO.StringIO(i.read())
     str = ''
     for c in i.chunks():
         str += c
-        #create PIL Image instance
     imagefile  = StringIO.StringIO(str)
     imageImage = Image.open(imagefile)
-    #imageImage = Image.fromstring(i.read())
     resizedImage = imageImage.resize((240, 240))
     imagefile = StringIO.StringIO()
     resizedImage.save(imagefile,'JPEG')
     filename = hashlib.md5(imagefile.getvalue()).hexdigest()+'.jpg'
-
-    # #save to disk
     destdir= os.path.join(settings.TECHMASH_ROOT,'images/')
     if not os.path.isdir(destdir):
         os.makedirs(destdir, 0775)
     photopath = os.path.join(destdir, os.path.basename(filename))
     fout = open(photopath, 'wb+')
-    #f=resizedImage
-    #for chunk in f.chunks():
-        #fout.write(chunk)
-    #fout.close()
     imagefile = open(photopath, 'w')
     resizedImage.save(imagefile,'JPEG')
-    #imagefile = open(os.path.join('/images',i,name), 'r')
-    #content = django.core.files.File(imagefile)
-
-    #my_object = MyDjangoObject()
-    #my_object.photo.save(filename, content)
