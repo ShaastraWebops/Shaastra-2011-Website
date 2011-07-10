@@ -147,8 +147,8 @@ def handle_uploaded_image(i):
     for c in i.chunks():
         str += c
     imagefile  = StringIO.StringIO(str)
-    imageImage = Image.open(imagefile)
-    resizedImage = imageImage.resize((240, 240))
+    photo = Image.open(imagefile)
+    resizedImage = photo.thumbnail((400, 400),Image.ANTIALIAS)
     imagefile = StringIO.StringIO()
     resizedImage.save(imagefile,'JPEG')
     filename = hashlib.md5(imagefile.getvalue()).hexdigest()+'.jpg'
