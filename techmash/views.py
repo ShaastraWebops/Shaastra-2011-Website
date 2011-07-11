@@ -32,11 +32,11 @@ def register(request):
         c={'form':form}
     return render_to_response("registration/register.html",locals(),context_instance= global_context(request))
 
-@login_required
+@needs_authentication
 def profile(request):
  	return render_to_response("techmash/profile.html", locals(),context_instance= global_context(request))
  	
-@login_required
+@needs_authentication
 def upload_file1(request):
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
