@@ -1,6 +1,7 @@
 {% extends 'index.html' %}
 
 {% block body %}
+	<div style="overflow: auto;">
     <h2>Search</h2>
 
     <form method="get" action=".">
@@ -36,6 +37,7 @@
             {# Show some example queries to run, maybe query syntax, something else? #}
         {% endif %}
     </form>
+    </div>
 <!--
     <h2>
         Search

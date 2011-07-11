@@ -9,6 +9,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.conf import settings
 from main_test.techmash.models import *
 from django import forms
+from django.contrib.auth.decorators import login_required
 import os
 import stat
 import shutil
@@ -32,10 +33,15 @@ def register(request):
         c={'form':form}
     return render_to_response("registration/register.html",locals(),context_instance= global_context(request))
 
+@needs_authentication 	
 def profile(request):
- 	return render_to_response("techmash/profile.html", locals(),context_instance= global_context(request))
-
-def upload_file1(request):
+    try:
+        image_list = Photo.objects.filter(user = request.user.username).order_by('rating')
+    except:
+        image_list =list()    
+    return render_to_response("techmash/profile.html", locals(),context_instance= global_context(request))
+@needs_authentication 	
+def upload(request):
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
