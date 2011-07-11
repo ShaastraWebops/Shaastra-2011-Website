@@ -40,7 +40,7 @@ def profile(request):
     except:
         image_list =list()    
     return render_to_response("techmash/profile.html", locals(),context_instance= global_context(request))
- 	
+@login_required 	
 def upload(request):
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
