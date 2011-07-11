@@ -132,8 +132,10 @@ from random import randint, choice
 
 def selectimages(request):
     photo1=Photo.objects.order_by('?')[0]
-    print photo1.title
-    photo2=Photo.objects.filter(kvalue=photo1.kvalue).exclude(photoid=photo1.photoid).order_by('?')[0]
+    try:
+        photo2=Photo.objects.filter(kvalue=photo1.kvalue).exclude(photoid=photo1.photoid).order_by('?')[0]
+    except:
+        pass    
     return(photo1,photo2)
 
 def seephotos(request):   
