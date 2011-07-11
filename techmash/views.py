@@ -34,7 +34,10 @@ def register(request):
 
 @needs_authentication
 def profile(request):
-    image_list = Photo.objects.filter(username = request.user.username).order_by('rating')
+    try:
+        image_list = Photo.objects.filter(user = request.user.username).order_by('rating')
+    except:
+        image_list =list()    
     return render_to_response("techmash/profile.html", locals(),context_instance= global_context(request))
  	
 @needs_authentication
