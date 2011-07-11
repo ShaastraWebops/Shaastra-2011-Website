@@ -34,7 +34,10 @@ def login (request):
                 request.session['logged_in'] = True
                 if user.username == 'cores':
                     return HttpResponseRedirect("%sevents/cores/" % settings.SITE_URL)
-                return HttpResponseRedirect ("%sevents/dashboard/" % settings.SITE_URL)
+                try:
+                    return HttpResponseRedirect (request.session['from_url'])
+                except:
+                    return HttpResponseRedirect ("%sevents/dashboard/" % settings.SITE_URL)
             else:
                 request.session['invalid_login'] = True
                 request.session['logged_in'] = False
