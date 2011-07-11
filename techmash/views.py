@@ -41,7 +41,7 @@ def profile(request):
         image_list =list()    
     return render_to_response("techmash/profile.html", locals(),context_instance= global_context(request))
  	
-def upload_file1(request):
+def upload(request):
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
