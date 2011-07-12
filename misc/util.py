@@ -174,7 +174,7 @@ def needs_authentication (func):
         request = __args[0]
         if not request.user.is_authenticated():
             # Return here after logging in
-            request.session['from_url'] = request.path
+            request.session['from_url'] = request.get_full_path()
             return HttpResponseRedirect ("%slogin/"%settings.SITE_URL)
         else:
             return func (*__args, **__kwargs)
