@@ -19,6 +19,8 @@ img#arbit{
 $(document).ready(
 
 function(){
+$(document).mouseenter(
+function(){
 if($(document).height() > 650){
 	//alert($('body').height());	
 	var h = $(document).height() - 147;
@@ -26,7 +28,8 @@ if($(document).height() > 650){
 	$("body").css({'background-position':"0px "+h+"px"});
 	$('#arbit').css({'top':hi});
 	}
-
+	}
+);
 }
 
 );
