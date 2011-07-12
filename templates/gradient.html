@@ -23,11 +23,12 @@ $(document).mouseenter(
 function(){
 if($(document).height() > 650){
 	//alert($('body').height());	
-	var h = $(document).height() - 147;
-	var hi = $(document).height() - 388 ;
+	var h = $(document).height() - (600-147);
+	var hi = $(document).height() - (600-341) ;
 	var pos = "0px "+h+"px";
+	//alert(pos);
 	var ipos = hi+"px";
-	$("body").css({backgroundPosition:pos});
+	$("body").css({'background-position':pos});
 	$('#arbit').css({'top': ipos});
 	}
 	}
