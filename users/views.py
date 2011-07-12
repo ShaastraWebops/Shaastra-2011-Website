@@ -60,6 +60,7 @@ def logout(request):
             userprofile.coord_event = None
             userprofile.save()
         auth.logout (request)
+        request.session['logged_in'] = False
         return render_to_response('users/logout.html', locals(), context_instance= global_context(request))        
     return HttpResponseRedirect('%slogin/'%settings.SITE_URL)        
     
