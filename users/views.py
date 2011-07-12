@@ -34,7 +34,7 @@ def login (request):
                 request.session['logged_in'] = True
                 if user.username == 'cores':
                     return HttpResponseRedirect("%sevents/cores/" % settings.SITE_URL)
-                elif user.is_coord: 
+                elif user.get_profile().is_coord: 
                     return HttpResponseRedirect("%sevents/dashboard/" % settings.SITE_URL)
                 else:
                     try:
