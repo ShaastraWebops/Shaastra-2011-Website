@@ -26,8 +26,9 @@ if($(document).height() > 650){
 	var h = $(document).height() - 147;
 	var hi = $(document).height() - 388 ;
 	var pos = "0px "+h+"px";
+	var ipos = hi+"px";
 	$("body").css({backgroundPosition:pos});
-	$('#arbit').css({'bottom': '47px'});
+	$('#arbit').css({'top': ipos});
 	}
 	}
 );
