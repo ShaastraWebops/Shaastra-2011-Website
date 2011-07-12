@@ -38,7 +38,8 @@ def login (request):
                     return HttpResponseRedirect("%sevents/dashboard/" % settings.SITE_URL)
                 else:
                     try:
-                        return HttpResponseRedirect(request.session['from_url'])
+                        redirect_to = request.REQUEST.get('next', '')
+                        return HttpResponseRedirect(redirect_to)
                     except:
                         return HttpResponseRedirect("%shome/" % settings.SITE_URL)        
             else:
