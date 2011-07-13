@@ -1,5 +1,5 @@
 from django.contrib import admin
-from main_test.users.models import *
+from main_test.users import models
 
-for x in main_test.users.models:
+for x in models:
     admin.site.register(x)
