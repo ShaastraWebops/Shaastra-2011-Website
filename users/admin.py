@@ -1,5 +1,7 @@
 from django.contrib import admin
-from main_test.users import models
+from main_test.users.models import *
 
-for x in models:
-    admin.site.register(x)
+admin.site.register(College)
+admin.site.register(UserProfile)
+admin.site.register(Feedback)
+
