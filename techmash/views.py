@@ -1,4 +1,4 @@
-
+# coding: utf-8
 from django.template.loader import get_template
 from django.template import Context
 from django.http import HttpResponse, Http404, HttpResponseRedirect
@@ -9,6 +9,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.conf import settings
 from main_test.techmash.models import *
 from django import forms
+from django.contrib.auth.decorators import login_required
 import os
 import stat
 import shutil
@@ -32,36 +33,54 @@ def register(request):
         c={'form':form}
     return render_to_response("registration/register.html",locals(),context_instance= global_context(request))
 
+@needs_authentication   
 def profile(request):
- 	return render_to_response("techmash/profile.html", locals(),context_instance= global_context(request))
-
-def upload_file1(request):
+    try:
+        image_list = Photo.objects.filter(user = request.user.username).order_by('rating')
+    except:
+        image_list =list()    
+    return render_to_response("techmash/profile.html", locals(),context_instance= global_context(request))
+@needs_authentication 	
+def upload(request):
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
-            print "form valid"
-            uploaded_filename = request.FILES['file'].name
             destdir= os.path.join(settings.TECHMASH_ROOT,'images/')
             if not os.path.isdir(destdir):
                 os.makedirs(destdir, 0775)
-            photopath = os.path.join(destdir, os.path.basename(uploaded_filename))
+            i=request.FILES['file']
+            str = ''
+            for c in i.chunks():
+                str += c
+            imagefile  = StringIO.StringIO(str)
+            photo = Image.open(imagefile)
+            photo.thumbnail((500, 500),Image.ANTIALIAS)
+            filename = hashlib.md5(imagefile.getvalue()).hexdigest()+'.jpg'
+            destdir= os.path.join(settings.TECHMASH_ROOT,'images/')
+            if not os.path.isdir(destdir):
+                os.makedirs(destdir, 0775)
+            photopath = os.path.join(destdir, os.path.basename(filename))
             fout = open(photopath, 'wb+')
-            f=request.FILES['file']
-            for chunk in f.chunks():
-                fout.write(chunk)
-            fout.close()         
-            print photopath
+            imagefile = open(photopath, 'w')
+            photo.save(imagefile,'JPEG')
             # Create the object
             if photopath.startswith(os.path.sep):
                 photopath = photopath[len(settings.TECHMASH_ROOT):]
-            photo = Photo(image=photopath,title = uploaded_filename,rating=300,user=request.user.username,groupnum=1)
+            photo = Photo(image=photopath,title = filename,rating=1600,kvalue = 32, user=request.user.username)
             # Save it -- the thumbnails etc. get created.
             photo.save()
-            handle_uploaded_image(request.FILES['file'])
+            #handle_uploaded_image(request.FILES['file'])
             return HttpResponseRedirect(("%stechmash/upload/" % settings.SITE_URL))
     else:
         form = UploadFileForm()
         return render_to_response('techmash/upload_file.html', locals(),context_instance= global_context(request))
+
+def kvaluegenerator(rating):
+    kdictionary = { 0 : 36 , 1: 34 , 2:32 , 3:30 , 4:28 , 5:26 , 6:24 , 7:22 , 8:20 , 9:18 , 10:16 }
+    factor = 0 
+    if rating > 1400:
+        factor = int(((rating - 1400)/100))
+    return kdictionary[factor]            
 
 def mashphotos(request):
     if request.method == 'POST':
@@ -74,31 +93,25 @@ def mashphotos(request):
             photoid2=request.POST['photoid2']
             rphoto1=Photo.objects.get(photoid=photoid1)
             rphoto2=Photo.objects.get(photoid=photoid2)
-            rphoto3=Photo.objects.get(photoid=selectedid)
-            print rphoto1.rating
-            print rphoto2.rating
-            print rphoto3.rating
-            diff=fabs(rphoto1.rating-rphoto2.rating)
-            if diff==0:
-                rphoto3.rating=rphoto3.rating+10
-            elif rphoto3.rating<500:
-                rphoto3.rating=rphoto3.rating+diff*10
-            elif rphoto3.rating<1000:                                                                                                                                                           
-                rphoto3.rating += diff*8   
+            photo1winprob= 1/((10**(( rphoto2.rating-rphoto1.rating)/400)) + 1)
+            photo2winprob= 1/((10**(( rphoto1.rating-rphoto2.rating)/400)) + 1)
+            if selectedid==photoid1:
+                rphoto1.rating = rphoto1.rating + (rphoto1.kvalue * (1-photo1winprob))
+                rphoto2.rating = rphoto2.rating + (rphoto2.kvalue * (0-photo2winprob))
             else:
-                rphoto3.rating +=diff*5
-            print "here u are"
+                rphoto2.rating = rphoto2.rating + (rphoto2.kvalue * (1-photo2winprob))
+                rphoto1.rating = rphoto1.rating + (rphoto1.kvalue * (0-photo1winprob))
+            rphoto1.kvalue = kvaluegenerator(rphoto1.rating)
+            rphoto2.kvalue = kvaluegenerator(rphoto2.rating)                                
+            rphoto1.save()
+            rphoto2.save()
             photo1,photo2=selectimages(request)
-            print rphoto3.rating
-            rphoto3.save()
             return render_to_response("techmash/select.html", locals(),context_instance= global_context(request))
         else:
             photo1,photo2=selectimages(request)
-            print "here i am2"
             return render_to_response("techmash/select.html", locals(),context_instance= global_context(request))    
     else:
         photo1,photo2=selectimages(request)
-        print "here i am2"
         return render_to_response("techmash/select.html", locals(),context_instance= global_context(request))
 
 
@@ -123,48 +136,31 @@ def updategrp(self):
 from random import randint, choice
 
 def selectimages(request):
-    group=1
-    photo_list=Photo.objects.all().order_by('?')[:2]                    
-    print photo_list
-    photo1=photo_list[0:1].get()
-    photo2=photo_list[1:2].get()
-    print "here"
+    photo1=Photo.objects.order_by('?')[0]
+    try:
+        photo2=Photo.objects.filter(kvalue=photo1.kvalue).exclude(photoid=photo1.photoid).order_by('?')[0]
+    except:
+        pass    
     return(photo1,photo2)
-    #show2=pool.objects.filter(random 2)
-    #give to template#
 
 def seephotos(request):   
     photo_list=Photo.objects.all()
     return render_to_response("techmash/mash.html", locals(),context_instance= global_context(request))
-
+    """
 def handle_uploaded_image(i):
-    #imagefile  = StringIO.StringIO(i.read())
     str = ''
     for c in i.chunks():
         str += c
-        #create PIL Image instance
     imagefile  = StringIO.StringIO(str)
-    imageImage = Image.open(imagefile)
-    #imageImage = Image.fromstring(i.read())
-    resizedImage = imageImage.resize((240, 240))
-    imagefile = StringIO.StringIO()
-    resizedImage.save(imagefile,'JPEG')
+    photo = Image.open(imagefile)
+    photo.thumbnail((500, 500),Image.ANTIALIAS)
+    imagefile =StringIO.StringIO()
     filename = hashlib.md5(imagefile.getvalue()).hexdigest()+'.jpg'
-
-    # #save to disk
     destdir= os.path.join(settings.TECHMASH_ROOT,'images/')
     if not os.path.isdir(destdir):
         os.makedirs(destdir, 0775)
     photopath = os.path.join(destdir, os.path.basename(filename))
     fout = open(photopath, 'wb+')
-    #f=resizedImage
-    #for chunk in f.chunks():
-        #fout.write(chunk)
-    #fout.close()
     imagefile = open(photopath, 'w')
-    resizedImage.save(imagefile,'JPEG')
-    #imagefile = open(os.path.join('/images',i,name), 'r')
-    #content = django.core.files.File(imagefile)
-
-    #my_object = MyDjangoObject()
-    #my_object.photo.save(filename, content)
+    photo.save(imagefile,'JPEG')
+    """

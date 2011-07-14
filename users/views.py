@@ -34,7 +34,14 @@ def login (request):
                 request.session['logged_in'] = True
                 if user.username == 'cores':
                     return HttpResponseRedirect("%sevents/cores/" % settings.SITE_URL)
-                return HttpResponseRedirect ("%sevents/dashboard/" % settings.SITE_URL)
+                elif user.get_profile().is_coord: 
+                    return HttpResponseRedirect("%sevents/dashboard/" % settings.SITE_URL)
+                else:
+                    try:
+                        redirect_to = request.session['from_url']
+                        return HttpResponseRedirect(redirect_to)
+                    except:
+                        return HttpResponseRedirect("%shome/" % settings.SITE_URL)        
             else:
                 request.session['invalid_login'] = True
                 request.session['logged_in'] = False
@@ -54,6 +61,7 @@ def logout(request):
             userprofile.coord_event = None
             userprofile.save()
         auth.logout (request)
+        request.session['logged_in'] = False
         return render_to_response('users/logout.html', locals(), context_instance= global_context(request))        
     return HttpResponseRedirect('%slogin/'%settings.SITE_URL)        
     

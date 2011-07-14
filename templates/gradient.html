@@ -15,6 +15,28 @@ img#arbit{
    
 }
 </style>
+<script>
+$(document).ready(
+
+function(){
+$(document).mouseenter(
+function(){
+if($(document).height() > 650){
+	//alert($('body').height());	
+	var h = $(document).height() - (600-147);
+	var hi = $(document).height() - (600-341) ;
+	var pos = "0px "+h+"px";
+	//alert(pos);
+	var ipos = hi+"px";
+	$("body").css({'background-position':pos});
+	$('#arbit').css({'top': ipos});
+	}
+	}
+);
+}
+
+);
+</script>
 <img src ="http://www.shaastra.org/2011/media/main/img/arbit.png" id = "arbit">
 {%endblock%}
 

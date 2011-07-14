@@ -1,0 +1,41 @@
+{% extends "index.html" %}
+
+
+{%block gradient%}{%include "gradient.html"%}{%endblock%}
+
+
+{% block body %}
+
+
+    {% for error in errors %}
+<li id="lgnerr">
+ {{error}}
+</li>
+{% endfor %}
+<!-- the login menu -->
+<div id="login">
+ <center>
+ </center>
+ <form action="" method="post">
+  {% csrf_token %}
+  <table>
+   {{ form.as_table }}
+   <!-- submit button -->
+   <tr>
+    <td colspan="2">
+     <div id="submit">
+      <div class="button2">
+       <a href="#">
+        <input type="submit" value="&nbsp;&nbsp;Login&nbsp;&nbsp;" />
+       </a>
+       <span>
+       </span>
+      </div>
+     </div>
+    </td>
+   </tr>
+  </table>
+ </form>
+ <br />
+</div>
+{% endblock %}

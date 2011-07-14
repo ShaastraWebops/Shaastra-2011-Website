@@ -1,0 +1,150 @@
+{% for ques in ques_list %}
+<!-- for now the whole question is the href. later we can get an image of + sign before the question and make only that href -->
+<div id="Ques{{ques.Q_Number}}">
+ <a href="#Question{{ques.Q_Number}}">
+  {{ques.Q_Number}}. {{ques.title|safe}}
+ </a>
+ <br />
+</div>
+<div id="Question{{ques.Q_Number}}">
+ {% if ques.question_type == "NORMAL" %}
+ <div id="normal_question">
+  <p>
+   Type your answer in the textarea and hit the "Submit" button.
+  </p>
+  <textarea rows="6" cols="40">
+   This is not fully functional right now. Clicking on submit does nothing.
+  </textarea>
+  <br />
+  <input type="submit" value="Submit" />
+ </div>
+ {% else %}
+                                {% if ques.question_type == "MCQ" %}
+ <p>
+  This is a multiple choice question. Please select your choice and click on "Submit".
+ </p>
+ <p>
+  This will be functional soon.
+ </p>
+ <div id="mcq_question">
+  <table border="1">
+   <form>
+    {% csrf_token %}
+                                            {%for options in options_list %}
+                                                {%if options.question == ques %}
+   </form>
+   <tr>
+    <td>
+     {{options.option}}
+    </td>
+    <td>
+     <input type="radio" name="answer_chosen" value="{{options.option}}" />
+    </td>
+    <td>
+     {{options.text}}
+    </td>
+   </tr>
+   {%endif%}
+                                            {%endfor%}
+  </table>
+  {%if not is_coord%}
+  <input type="submit" value="Submit" />
+  {%endif%}
+  <!-- Delete Option-->
+  <table>
+   {%for options in options_list %}
+                                                {%if options.question == ques %}
+                                                    {%if is_coord %}
+   <div id="delete_option">
+   </div>
+   <tr>
+    <td>
+     <form action="{{SITE_URL}}events/dashboard/delete_option/" method="POST">
+      {% csrf_token %}
+      <input type="hidden" value="{{options.id}}" name="option_id" />
+      <input type="submit" value="Delete Choice -- ({{options.option}},{{options.text}})" />
+     </form>
+    </td>
+   </tr>
+  </table>
+ </div>
+ {%endif%}
+                                                {%endif%}
+                                            {%endfor%}
+ <div id="add_choices">
+  <form action="add_choices/" method="GET">
+   {% csrf_token %}
+   <input type="hidden" value="{{ques.id}}" name="ques_to_add_choices_id" />
+   <input type="submit" value="Add More Choices" />
+  </form>
+ </div>
+</div>
+{% else %}
+<p>
+ Choose the file you want to upload and click on "Upload".
+</p>
+<p>
+ This will be functional soon.
+</p>
+<br />
+<input type="file" name="blah" size="30" />
+<br />
+<input type="submit" value="Upload" />
+{% endif %}
+                             {% endif %}
+<!-- the delete question button -->
+<div id="delete_question">
+ <form action="{{SITE_URL}}events/dashboard/delete_question/" method="POST">
+  {% csrf_token %}
+  <input type="hidden" value="{{ques.id}}" name="ques_id" />
+  <input type="submit" value="Delete Question" />
+ </form>
+</div>
+<!-- the edit question button -->
+<div id="edit_question">
+ <form action="edit_question/" method="GET">
+  {% csrf_token %}
+  <input type="hidden" value="{{ques.id}}" name="ques_id" />
+  <input type="submit" value="Edit Question" />
+ </form>
+</div>
+<script>
+ $("#Question{{ques.Q_Number}}").hide();
+                     $("#Ques{{ques.Q_Number}}").click(function () {
+                     $("#Question{{ques.Q_Number}}").toggleClass("inactive").slideToggle("slow");
+                       });
+</script>
+{%endfor%}
+<br />
+<br />
+<div id="edit_tab">
+ <form action="edit_tab/" method="GET">
+  {% csrf_token %}
+  <input type="hidden" value="{{row.id}}" name="tab_id" />
+  <input type="submit" value="Edit Questions Tab" />
+ </form>
+</div>
+<!-- the SAVE ANSWERS button -->
+<!-- once clicked will be redirected to the testevent page-->
+<!--<div id="save_answers">
+           <form action="" method ="POST">
+          {% csrf_token %}
+           
+       <input type="submit" value="Save Answers"  />
+       </form>
+    </div>-->
+<!-- the freeze answers button -->
+<!-- <div id="freeze_answers">
+              <form action="freeze_answers/" method ="POST">
+          {% csrf_token %}
+             
+          <input type="submit" value="Freeze Answers"  />
+          </form>
+    </div>-->
+<div id="add_question">
+ <form action="add_question/" method="POST">
+  {% csrf_token %}
+  <input type="hidden" value="{{row.id}}" name="tab_id" />
+  <input type="submit" value="Add Questions" />
+ </form>
+</div>

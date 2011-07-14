@@ -23,7 +23,7 @@ class Forum(models.Model):
     name = models.CharField( max_length = 50 )
     content = models.TextField()    
     #Name of the thread , could be decided by the author of the thread
-    tags = models.ManyToManyField(Tag, blank=True, null=True)
+    #tags = models.ManyToManyField(Tag, blank=True, null=True)
     #Tags associated with the thread, similar to tags in blogspot/wordpress
     started_by = models.ForeignKey(User,blank=True, null=True, related_name='started_by')
     time_created = models.DateTimeField(auto_now=False, auto_now_add=False)

@@ -18,7 +18,7 @@ class Photo(models.Model):
     photoid        = models.AutoField(primary_key=True)  
     image          = models.ImageField(upload_to=settings.MEDIA_ROOT)
     title          = models.CharField(max_length=80)
-    groupnum       = models.IntegerField(blank=True, null=True) 
+    kvalue         = models.IntegerField(blank=True, null=True) 
     rating         = models.IntegerField(blank=True, null=True)
     user           = models.CharField(max_length=80)
     
