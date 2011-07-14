@@ -59,9 +59,21 @@ annual technical festival of IIT Madras
 <script>
 $(document).mousemove(
 function(){
+var newch = ($(document).height() - 210);
+//if(newch > 500){
+newch = newch - 433;;
+//}
+newch = newch/2;
+var newpxch = newch+"px";
+
 if($(document).height() > 650){
 //alert($('body').height());
 $("#footer_container").css({'position':'absolute','bottom':'15px'});
+$(".page").css({'position':'relative','top':newpxch});
+var posarr = newch+300;
+var posarrpx = posarr+"px";
+$('#right_arrow').css({'top':posarrpx});
+$('#left_arrow').css({'top':posarrpx});
 }
 else{
 $("#footer_container").css({'position':'absolute','top':'593px'});
