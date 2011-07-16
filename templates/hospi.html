@@ -1,13 +1,13 @@
 {%extends "index.html"%}
 {%block media_location%}
 <script type="text/javascript" src="{{MEDIA_URL}}hospi/scripts/js/hospiTabs.js"></script>
-<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}hospi/style/css/hospiTabs.css" />  
+<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}hospi/style/css/hospiTabs.css" />
+<link rel="stylesheet" media="screen" type="text/css" href="{{MEDIA_URL}}hospi/hospi/css/spacegallery.css" />  
 <script type="text/javascript"> $("#page1").css({'width':'100%','left':'0px'}); </script>
-  <script type="text/javascript" src="{{MEDIA_URL}}hospi/hospi/js/jquery.js"></script>
+<script type="text/javascript" src="{{MEDIA_URL}}hospi/hospi/js/jquery.js"></script>
 <script type="text/javascript" src="{{MEDIA_URL}}hospi/hospi/js/eye.js"></script>
 <script type="text/javascript" src="{{MEDIA_URL}}hospi/hospi/js/utils.js"></script>
 <script type="text/javascript" src="{{MEDIA_URL}}hospi/hospi/js/spacegallery1.js"></script>
-<link rel="stylesheet" media="screen" type="text/css" href="{{MEDIA_URL}}hospi/hospi/css/spacegallery.css" />
 <script type="text/javascript">
 $(document).ready(function(){
 $('#myGallery').spacegallery({loadingClass: 'loading', perspective:'25', });
