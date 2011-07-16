@@ -2,17 +2,72 @@
 {%block media_location%}
 <script type="text/javascript" src="{{MEDIA_URL}}hospi/scripts/js/hospiTabs.js"></script>
 <link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}hospi/style/css/hospiTabs.css" />
-<link rel="stylesheet" media="screen" type="text/css" href="{{MEDIA_URL}}hospi/hospi/css/spacegallery.css" />  
 <script type="text/javascript"> $("#page1").css({'width':'100%','left':'0px'}); </script>
-<script type="text/javascript" src="{{MEDIA_URL}}hospi/hospi/js/jquery.js"></script>
-<script type="text/javascript" src="{{MEDIA_URL}}hospi/hospi/js/eye.js"></script>
-<script type="text/javascript" src="{{MEDIA_URL}}hospi/hospi/js/utils.js"></script>
-<script type="text/javascript" src="{{MEDIA_URL}}hospi/hospi/js/spacegallery1.js"></script>
+<link rel="stylesheet" media="screen" type="text/css" href="{{MEDIA_URL}}spacegallery/css/spacegallery.css" />
+<!--<script type="text/javascript" src="Media/js/jquery.js"></script>-->
+<script type="text/javascript" src="{{MEDIA_URL}}spacegallery/js/eye.js"></script>
+<script type="text/javascript" src="{{MEDIA_URL}}spacegallery/js/utils.js"></script>
+<script type="text/javascript" src="{{MEDIA_URL}}spacegallery/js/spacegallery1.js"></script>
+<script>
+$(document).mousemove(
+function(){
+var newch = ($(document).height() - 210);
+//if(newch > 500){
+newch = newch - 433;
+//}
+newch = 160 + (newch/2);
+var newpxch = newch+"px";
+
+if($(document).height() > 650){
+//alert($('body').height());
+$("#footer_container").css({'position':'absolute','bottom':'15px'});
+$(".page").css({'position':'absolute','top':newpxch});
+var posarr = newch+(300 -160);
+var posarrpx = posarr+"px";
+$('#right_arrow').css({'top':posarrpx});
+$('#left_arrow').css({'top':posarrpx});
+}
+else{
+$("#footer_container").css({'position':'absolute','top':'593px'});
+}
+}
+);
+$(document).ready(function(){
+//alert($(document).height());
+$(document).mousemove(
+function(){
+if($(document).height() > 650){
+//alert($('body').height());
+$("#footer_container").css({'position':'absolute','bottom':'15px'});
+}
+
+}
+
+
+);
+}
+);
+</script>
 <script type="text/javascript">
 $(document).ready(function(){
 $('#myGallery').spacegallery({loadingClass: 'loading', perspective:'25', });
+/*var noelem = $('#myGallery > img').size();
+//alert($('#myGallery > img').eq(1));
+$('#myGallery > img').hide();
+var track = 0;
+
+setInterval(function(){
+if(track == noelem) track = 0;
+var curimg = $('#myGallery > img').eq(track);
+curimg.show("slide",{direction:"left"},750);
+setTimeout(function(){
+curimg.hide("slide",{direction:"right"},750);
+},1750);
+track++;
+},2500);*/
 });
 </script>
+
 {%endblock%}
 
 {%block body%}
