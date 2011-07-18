@@ -1,6 +1,8 @@
 {% extends "index.html" %}
 {%block event_categories%}{%endblock%}
 {%block gradient%}{%include "gradient.html"%}{%endblock%}
+
+{% block body %}
 <div id="body">
     <h3>List of events:</h3>
     <ul>
@@ -11,3 +13,4 @@
         {% endfor %}
     </ul>
 </div>
+{% endblock %}
