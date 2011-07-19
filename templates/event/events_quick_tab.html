@@ -71,6 +71,15 @@
 			                                <br /><br />
 
                                         <!-- displaying file list -->
+                                        <div id="file_content"> 
+			           {%for file in row.file_list %}
+			               <p>Files:</p><br/>
+			               <a href={{file.url}}>{{file.title}}</a>
+		                       <br/>
+		               {% empty %}
+		                   
+			           {%endfor%}
+                               </div>
  
 			              
 
