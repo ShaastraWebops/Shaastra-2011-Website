@@ -1,0 +1,33 @@
+{% extends "index.html" %}
+
+{%block event_categories%}
+{%endblock%}
+
+{%block gradient%}
+    {%include "gradient.html"%}
+{%endblock%}
+
+{% block body %}
+    <div id="registered_events">
+        <p>Events you have registered for:</p>
+        <ul>
+            {% for event in events_list %}
+                <li>
+                    <a href="{{ event.url }}">{{ event.display_name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    
+    {% if teams %}
+        <div id="teams">
+            <p>You are a part of the following teams:</p>
+            <ul>
+                {% for team in teams %}
+                    <li>{{ team.name }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+    
+{% endblock %}
