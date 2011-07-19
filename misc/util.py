@@ -172,7 +172,7 @@ def session_get (request, key, default=False):
 def needs_authentication (func):
     def wrapper (*__args, **__kwargs):
         request = __args[0]
-        if request.user.is_authenticated():
+        if not request.user.is_authenticated():
             # Return here after logging in
             request.session['from_url'] = request.get_full_path()
             return HttpResponseRedirect ("%slogin/"%settings.SITE_URL)
