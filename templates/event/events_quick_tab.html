@@ -1,231 +1,231 @@
 {%extends "index.html"%}
 
 {%block gradient%}{%include "gradient.html"%}{%endblock%}
- {%block media_location%}   
-	<script type="text/javascript">
-			var IntExp=0;
-			/***********************************************************************************************************************************************
-			How to add a new tab -
-			1) Update the elem array with the id of the new tab.															e.g : newTab
-			2) Update the tabnames array with the name of the tab.															e.g : Problem Statement
-			3) Increase the no of tabs by one for each tab you add.
-			4) Insert content in index.html.  The id of this div should be the same as you had put in step 1 except that an underscore follows it.			eg : <div id="newTab_"> ........................... </div>
-			
-			************************************************************************************************************************************************/
-			 var elem=[];
-                         var tabNames=[];
-			 var tot=0;
-			 var noOfTabs=0
-			{%for row in tab_list%}
-				elem[{{forloop.counter0}}]='{{row.id}}';
-				tabNames[{{forloop.counter0}}]='{{row.title}}';
-				tot=tot+1;
-			{%endfor%}
-            noOfTabs=tot;			
-	</script>
-    <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/events-tab.js"></script>
-	{%endblock%}   
-	<body>
-    <div id = "container" style="min-height:580px;padding-left:20px;">  
+{%block media_location%}   
+<script type="text/javascript">
+  var IntExp=0;
+  /***********************************************************************************************************************************************
+  How to add a new tab -
+  1) Update the elem array with the id of the new tab.															e.g : newTab
+  2) Update the tabnames array with the name of the tab.															e.g : Problem Statement
+  3) Increase the no of tabs by one for each tab you add.
+  4) Insert content in index.html.  The id of this div should be the same as you had put in step 1 except that an underscore follows it.			eg : <div id="newTab_"> ........................... </div>
+  
+  ************************************************************************************************************************************************/
+  var elem=[];
+  var tabNames=[];
+  var tot=0;
+  var noOfTabs=0
+  {%for row in tab_list%}
+  elem[{{forloop.counter0}}]='{{row.id}}';
+  tabNames[{{forloop.counter0}}]='{{row.title}}';
+  tot=tot+1;
+  {%endfor%}
+  noOfTabs=tot;			
+</script>
+<script type="text/javascript" src="{{MEDIA_URL}}js/js/script/events-tab.js"></script>
+{%endblock%}   
+<body>
+  <div id = "container" style="min-height:580px;padding-left:20px;">  
     {%block body%}
 
 
 
-        <div id = "video"></div>
-		
-		<div id="tabsTop">
-		<span id="events_heading">
-		    {{event_name|capfirst}}
-<!-- keeping the traceback for later time -->
+    <div id = "video"></div>
+    
+    <div id="tabsTop">
+      <span id="events_heading">
+	{{event_name|capfirst}}
+	<!-- keeping the traceback for later time -->
 
-<!--
+	<!--
 	    <span id="menu_path" style="font-size:medium"><a href="{{SITE_URL}}home/">Home</a> >> <a href = "#" onclick = "javascript:setTimeout(function(){popup(1)},00);">Events</a> >> <span id="evtname"> {{event.display_name}} </span> </span> -->
-		</span>
-        </div>
+      </span>
+    </div>
 
-	<div id = "verticlleft">  
-	
-	<div id="eventsTab" style="visibility:hidden;"> 
-		<div id="tabs">
-		<script type="text/javascript">
-		            if(noOfTabs == 0){
-		                 document.write("<div id=\""+elem[t]+"\">"+"Tabs can be added using the ADD TAB button"+"</div>");
-                                 //document.write("<div id=null>Tabs can be added using the ADD TAB button</div>");
-                                   
-		            }
-					for(var t=0;t<noOfTabs;t++){
-						document.write("<div id=\""+elem[t]+"\">"+tabNames[t]+"</div>");
-					}
-		</script>		 
-	    </div> 
-
-
-
-
-	    <div id="event-details">
-                              {%for row in tab_list %}
-				<div id="{{row.id}}_">
-                                       {%if not row.question_tab%}
-			                            
-			                             <div style="padding-left:20px"> {{row.text|safe}} </div>
-			                                <br /><br />
-
-                                        <!-- displaying file list -->
-                                        <div id="file_content"> 
-			           {%for file in row.file_list %}
-			               <p>Files:</p><br/>
-			               <a href={{file.url}}>{{file.title}}</a>
-		                       <br/>
-		               {% empty %}
-		                   
-			           {%endfor%}
-                               </div>
- 
-			              
-
-
-                 
- 
-           {%else%}
-           
-{% for ques in ques_list %}
-		<div id="Ques{{ques.Q_Number}}">
-                  <!--<a href="#Question{{ques.Q_Number}}">{{ques.Q_Number|safe}}. {{ques.title|safe}}</a><br/>-->
-	          <br/>{{ques.Q_Number|safe}}. {{ques.title|safe}}<br/>
-                </div>
-                <div id="Question{{ques.Q_Number}}">
-                  {% if ques.question_type == "NORMAL" %}
-                  <div id="normal_question">
-                    <p>Type your answer in the text area and hit the "Submit" button.</p>
-                    <textarea rows="6" cols="40" >This is not fully functional right now. Clicking on submit does nothing.</textarea><br/>
-                    <input type="submit" value="Submit">
-                  </div>
-                  {% endif %}
-                  {% if ques.question_type == "MCQ" %}
-                  <p>This is a multiple choice question. Please select your choice and click on "Submit".</p>
-                  <p> This will be functional soon.</p>
-                  <div id="mcq_question">
-                    <table border="1">
-                      <form>
-                        {% csrf_token %}
-                        {%for options in options_list %}
-                        {%if options.question == ques %}
-                        <tr><td>{{options.option}}</td><td><input type="radio" name="answer_chosen" value="{{options.option}}"/></td><td>{{options.text}}</td></tr>
-                        {%endif%}
-                        {%endfor%}
-                      </form>
-                    </table>
-                    {%if not is_coord%}<input type="submit" value="Submit">{%endif%}
-                  </div>            
-                  {% endif %}
-                  {% if ques.question_type == "FILE" %}
-                  <p> Choose the file you want to upload and click on "Upload".</p>
-                  <p> This will be functional soon.</p>
-                  <br/>
-                  <input type="file" name="blah" size="30"><br/>
-                  <input type="submit" value="Upload">               
-                  {% endif %}
-                  <script>
-                    //$("#Question{{ques.Q_Number}}").hide();
-                    //$("#Ques{{ques.Q_Number}}").click(function () {
-                    //$("#Question{{ques.Q_Number}}").toggleClass("inactive").slideToggle("slow");
-                    //});
-                  </script>
-                </div>                       
-		{%endfor%}                    
-		{% endif %}
-
-
-    
-				</div>
-                              {%endfor%}
-					</div>
-		
-	      </div>
-	    </div>
-	    <div id = "verticlright">
-	    
-            <div id = "rtvtop">
-             {%if event.sponslogo%}
-            <img src="{{MEDIA_URL}}{{event.sponslogo}}"
-   width="300" height="160" style="sizingMethod:scale;vertical-align:middle;" />
-            {%else%} {%if event.menu_image%}
-            <img src="{{MEDIA_URL}}{{event.menu_image}}"
-   width="300" height="160" style="sizingMethod:scale;vertical-align:middle;" />
-            {%else%}
-		{%for category in categories%}
-
-                   {%for event_list in category.events%}
-                        
-                      {%if event_list.id == event.id%}
-                       
-                    {%if category.text|slugify|stringformat:"s" == "impact" %}
-                     <img src="http://www.shaastra.org/2011/media/main/img/impact.jpg" />
-                    {%endif%}
-                     {%if category.text|slugify|stringformat:"s" == "design-and-build" %}
-                    <img src="http://www.shaastra.org/2011/media/main/img/design_and_build.jpg" />
-                    {%endif%}
-                     {%if category.text|slugify|stringformat:"s" == "coding" %}
-                    <img src="http://www.shaastra.org/2011/media/main/img/coding.jpg" />
-                    {%endif%}
-                   {%if category.text|slugify|stringformat:"s" == "involve" %}
-                    <img src="http://www.shaastra.org/2011/media/main/img/involve_right.jpg" />
-                    {%endif%}
-                    {%if category.text|slugify|stringformat:"s" == "online" %}
-                    <img src="http://www.shaastra.org/2011/media/main/img/online_right.jpg" />
-                    {%endif%}
-                    {%if category.text|slugify|stringformat:"s" == "spotlights" %}
-                     <img src="http://www.shaastra.org/2011/media/main/img/spotlights.jpg" />
-                    {%endif%}
-                    {%if category.text|slugify|stringformat:"s" == "flagship" %}
-                     <img src="http://www.shaastra.org/2011/media/main/img/flagship.jpg" />
-                    {%endif%}
-                     {%if category.text|slugify|stringformat:"s" == "quizzes" %}
-                     <img src="http://www.shaastra.org/2011/media/main/img/quizzes.jpg" />
-                    {%endif%}
-                    {%if category.text|slugify|stringformat:"s" == "aerofest" %}
-                     <img src="http://www.shaastra.org/2011/media/main/img/aerofest_right.jpg" />
-                    {%endif%}
-                     {%if category.text|slugify|stringformat:"s" == "workshops" %}
-                     <img src="http://www.shaastra.org/2011/media/main/img/workshops.jpg" />
-                    {%endif%}
-                       {%if category.text|slugify|stringformat:"s" == "exhibitions" %}
-                     <img src="http://www.shaastra.org/2011/media/main/img/exhibitions_right.jpg" />
-                    {%endif%}
-
-                     {%endif%}
- 
-                   {%endfor%}
-
-                 {%endfor%}
-
-           
-             {%endif%}{%endif%}        
-                    
+    <div id = "verticlleft">  
+      
+      <div id="eventsTab" style="visibility:hidden;"> 
+	<div id="tabs">
+	  <script type="text/javascript">
+	    if(noOfTabs == 0){
+	    document.write("<div id=\""+elem[t]+"\">"+"Tabs can be added using the ADD TAB button"+"</div>");
+            //document.write("<div id=null>Tabs can be added using the ADD TAB button</div>");
             
+	    }
+	    for(var t=0;t<noOfTabs;t++){
+			    document.write("<div id=\""+elem[t]+"\">"+tabNames[t]+"</div>");
+			    }
+			    </script>		 
+	</div> 
 
-            </div>
-		<br/>
-        {%if event.video%}
-    		<div id = "rtvbottom">
-		    <iframe src="{{event.video}}"
-   width="320" height="200"></iframe>
-		</div>
-    {%endif%}
-	      </div>
-      </div>
-	 {%endblock%}     
+
+
+
+	<div id="event-details">
+          {%for row in tab_list %}
+	  <div id="{{row.id}}_">
+            {%if not row.question_tab%}
+	    
+	    <div style="padding-left:20px"> {{row.text|safe}} </div>
+	    <br /><br />
+
+            <!-- displaying file list -->
+            <div id="file_content"> 
+	      {%for file in row.file_list %}
+	      <p>Files:</p><br/>
+	      <a href={{file.url}}>{{file.title}}</a>
+	      <br/>
+	      {% empty %}
 	      
-    </div> 
-	                    
+	      {%endfor%}
+            </div>
+	    
+	    
 
-		
-	    	  
+
+            
+	    
+            {%else%}
+            
+	    {% for ques in ques_list %}
+	    <div id="Ques{{ques.Q_Number}}">
+              <!--<a href="#Question{{ques.Q_Number}}">{{ques.Q_Number|safe}}. {{ques.title|safe}}</a><br/>-->
+	      <br/>{{ques.Q_Number|safe}}. {{ques.title|safe}}<br/>
+            </div>
+            <div id="Question{{ques.Q_Number}}">
+              {% if ques.question_type == "NORMAL" %}
+              <div id="normal_question">
+                <p>Type your answer in the text area and hit the "Submit" button.</p>
+                <textarea rows="6" cols="40" >This is not fully functional right now. Clicking on submit does nothing.</textarea><br/>
+                <input type="submit" value="Submit">
+              </div>
+              {% endif %}
+              {% if ques.question_type == "MCQ" %}
+              <p>This is a multiple choice question. Please select your choice and click on "Submit".</p>
+              <p> This will be functional soon.</p>
+              <div id="mcq_question">
+                <table border="1">
+                  <form>
+                    {% csrf_token %}
+                    {%for options in options_list %}
+                    {%if options.question == ques %}
+                    <tr><td>{{options.option}}</td><td><input type="radio" name="answer_chosen" value="{{options.option}}"/></td><td>{{options.text}}</td></tr>
+                    {%endif%}
+                    {%endfor%}
+                  </form>
+                </table>
+                {%if not is_coord%}<input type="submit" value="Submit">{%endif%}
+              </div>            
+              {% endif %}
+              {% if ques.question_type == "FILE" %}
+              <p> Choose the file you want to upload and click on "Upload".</p>
+              <p> This will be functional soon.</p>
+              <br/>
+              <input type="file" name="blah" size="30"><br/>
+              <input type="submit" value="Upload">               
+              {% endif %}
+              <script>
+                //$("#Question{{ques.Q_Number}}").hide();
+                //$("#Ques{{ques.Q_Number}}").click(function () {
+                //$("#Question{{ques.Q_Number}}").toggleClass("inactive").slideToggle("slow");
+                //});
+              </script>
+            </div>                       
+	    {%endfor%}                    
+	    {% endif %}
+
+
+	    
+	  </div>
+          {%endfor%}
+	</div>
 	
+      </div>
+    </div>
+    <div id = "verticlright">
+      
+      <div id = "rtvtop">
+        {%if event.sponslogo%}
+        <img src="{{MEDIA_URL}}{{event.sponslogo}}"
+	     width="300" height="160" style="sizingMethod:scale;vertical-align:middle;" />
+        {%else%} {%if event.menu_image%}
+        <img src="{{MEDIA_URL}}{{event.menu_image}}"
+	     width="300" height="160" style="sizingMethod:scale;vertical-align:middle;" />
+        {%else%}
+	{%for category in categories%}
+
+        {%for event_list in category.events%}
+        
+        {%if event_list.id == event.id%}
+        
+        {%if category.text|slugify|stringformat:"s" == "impact" %}
+        <img src="http://www.shaastra.org/2011/media/main/img/impact.jpg" />
+        {%endif%}
+        {%if category.text|slugify|stringformat:"s" == "design-and-build" %}
+        <img src="http://www.shaastra.org/2011/media/main/img/design_and_build.jpg" />
+        {%endif%}
+        {%if category.text|slugify|stringformat:"s" == "coding" %}
+        <img src="http://www.shaastra.org/2011/media/main/img/coding.jpg" />
+        {%endif%}
+        {%if category.text|slugify|stringformat:"s" == "involve" %}
+        <img src="http://www.shaastra.org/2011/media/main/img/involve_right.jpg" />
+        {%endif%}
+        {%if category.text|slugify|stringformat:"s" == "online" %}
+        <img src="http://www.shaastra.org/2011/media/main/img/online_right.jpg" />
+        {%endif%}
+        {%if category.text|slugify|stringformat:"s" == "spotlights" %}
+        <img src="http://www.shaastra.org/2011/media/main/img/spotlights.jpg" />
+        {%endif%}
+        {%if category.text|slugify|stringformat:"s" == "flagship" %}
+        <img src="http://www.shaastra.org/2011/media/main/img/flagship.jpg" />
+        {%endif%}
+        {%if category.text|slugify|stringformat:"s" == "quizzes" %}
+        <img src="http://www.shaastra.org/2011/media/main/img/quizzes.jpg" />
+        {%endif%}
+        {%if category.text|slugify|stringformat:"s" == "aerofest" %}
+        <img src="http://www.shaastra.org/2011/media/main/img/aerofest_right.jpg" />
+        {%endif%}
+        {%if category.text|slugify|stringformat:"s" == "workshops" %}
+        <img src="http://www.shaastra.org/2011/media/main/img/workshops.jpg" />
+        {%endif%}
+        {%if category.text|slugify|stringformat:"s" == "exhibitions" %}
+        <img src="http://www.shaastra.org/2011/media/main/img/exhibitions_right.jpg" />
+        {%endif%}
+
+        {%endif%}
+	
+        {%endfor%}
+
+        {%endfor%}
+
+        
+        {%endif%}{%endif%}        
+        
+        
+
+      </div>
+      <br/>
+      {%if event.video%}
+      <div id = "rtvbottom">
+	<iframe src="{{event.video}}"
+		width="320" height="200"></iframe>
+      </div>
+      {%endif%}
+    </div>
+  </div>
+  {%endblock%}     
+  
+</div> 
 
 
 
-	  
-    
+
+
+
+
+
+
+
 </body>
 
