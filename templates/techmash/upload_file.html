@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+<p> {{request.user.username}} </p>
 <form enctype="multipart/form-data" method="post" action="">
 {% csrf_token %}
 <table>
