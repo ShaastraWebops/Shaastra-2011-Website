@@ -2,634 +2,634 @@
 
 {%block gradient%}{%include "gradient.html"%}{%endblock%}
 {% block body %}
-  <script src="{{ MEDIA_URL }}js/js/scriptjquery.js"></script>
-  <link rel="stylesheet" href="{{ MEDIA_URL }}autocomplete/main.css" type="text/css" />
-  <link rel="stylesheet" href="{{ MEDIA_URL }}autocomplete/jquery.autocomplete.css" type="text/css" />
-  <script type="text/javascript" src="{{ MEDIA_URL }}autocomplete/jquery.bgiframe.min.js"></script>
-  <script type="text/javascript" src="{{ MEDIA_URL }}autocomplete/jquery.dimensions.js"></script>
-  <script type="text/javascript" src="{{ MEDIA_URL }}autocomplete/jquery.autocomplete.js"></script>
-  <script>
-   var data = {{js_data|safe}};
-   function changeBg(){
-		$("#content").css({'background-image':'url(http://www.shaastra.org/2011/media/main/img/bg2.png)'});
-	};
-   $(document).ready(function(){
-	
-    //alert(data);
-$("#coll_input").autocomplete(data);
+<script src="{{ MEDIA_URL }}js/js/scriptjquery.js"></script>
+<link rel="stylesheet" href="{{ MEDIA_URL }}autocomplete/main.css" type="text/css" />
+<link rel="stylesheet" href="{{ MEDIA_URL }}autocomplete/jquery.autocomplete.css" type="text/css" />
+<script type="text/javascript" src="{{ MEDIA_URL }}autocomplete/jquery.bgiframe.min.js"></script>
+<script type="text/javascript" src="{{ MEDIA_URL }}autocomplete/jquery.dimensions.js"></script>
+<script type="text/javascript" src="{{ MEDIA_URL }}autocomplete/jquery.autocomplete.js"></script>
+<script>
+  var data = {{js_data|safe}};
+  function changeBg(){
+  $("#content").css({'background-image':'url(http://www.shaastra.org/2011/media/main/img/bg2.png)'});
+  };
+  $(document).ready(function(){
+  
+  //alert(data);
+  $("#coll_input").autocomplete(data);
   });
   $(document).ready(function(){
-    var bdata = ["Arts","Accounting","Applied Mechanics / Mechatronics",
-      "Aerospace Engineering","Automobile Engineering","Biotech / Biochemical / Biomedical",
-      "Biology","Ceramic Engineering","Chemical Engineering",
-      "Chemistry","Design / Engineering Design","Civil Engineering","Computer Science and Engineering",
-      "Electronics and Communications Engineering","Electrical and Electronics Engineering","Electrical Engineering",
-      "Electronics and Instrumentation Engineering","Engineering Physics","Economics","Fashion Technology",
-      "Humanities and Social Sciences","Industrial Production    / Production","Information Technology and Information Science(IT/IS)",
-      "Management","Manufacturing","Mathematics","Metallurgy and Material Science","Mechanical Engineering",
-      "Ocean Engineering and Naval Architecture","Physics","Telecom","Textile Engineering"];
-$("#branch_input").autocomplete(bdata);
+  var bdata = ["Arts","Accounting","Applied Mechanics / Mechatronics",
+  "Aerospace Engineering","Automobile Engineering","Biotech / Biochemical / Biomedical",
+  "Biology","Ceramic Engineering","Chemical Engineering",
+  "Chemistry","Design / Engineering Design","Civil Engineering","Computer Science and Engineering",
+  "Electronics and Communications Engineering","Electrical and Electronics Engineering","Electrical Engineering",
+  "Electronics and Instrumentation Engineering","Engineering Physics","Economics","Fashion Technology",
+  "Humanities and Social Sciences","Industrial Production    / Production","Information Technology and Information Science(IT/IS)",
+  "Management","Manufacturing","Mathematics","Metallurgy and Material Science","Mechanical Engineering",
+  "Ocean Engineering and Naval Architecture","Physics","Telecom","Textile Engineering"];
+  $("#branch_input").autocomplete(bdata);
   });
-  </script>
+</script>
 <script language="javascript" type="text/javascript" src="http://www.shaastra.org/includes/2009/userportal/js/wz_tooltip.js">
-  </script>
-  {% if logged_in %}
-  
-  <center style="height:400px; overflow:auto; margin-right:20px;">
-        <div class="success1">
-            You have already registered with Shaastra2011 !
-        </div>
-        Click <a href="{{ SITE_URL }}home/">here</a> to go back to the home page.
-        </div>
-  </class>
-  {% else %}
-  {% if registered_user %}
-  
-  <center style="height:400px; overflow:auto; margin-right:20px;">
-        <div class="success1">
-            You have successfully registered with Shaastra2011 !
-        </div>
+</script>
+{% if logged_in %}
 
-        <div class="warnings">
-            To activate your account, check your mail in a few minutes. 
-        <br /><br />
-        You will be able to login only after you have activated your account.
-
-        Click <a href="{{ SITE_URL }}home/">here</a> to go back to the home page.
-        </div>
-  </class>
-  
-  {% else %}
- 
-    {% if registered_college %}
-     
-<div class="register">
- <center>College successfully registered.</center>
+<center style="height:400px; overflow:auto; margin-right:20px;">
+  <div class="success1">
+    You have already registered with Shaastra2011 !
+  </div>
+  Click <a href="{{ SITE_URL }}home/">here</a> to go back to the home page.
 </div>
-     
+</class>
+{% else %}
+{% if registered_user %}
+
+<center style="height:400px; overflow:auto; margin-right:20px;">
+  <div class="success1">
+    You have successfully registered with Shaastra2011 !
+  </div>
+
+  <div class="warnings">
+    To activate your account, check your mail in a few minutes. 
+    <br /><br />
+    You will be able to login only after you have activated your account.
+
+    Click <a href="{{ SITE_URL }}home/">here</a> to go back to the home page.
+  </div>
+</class>
+
+{% else %}
+
+{% if registered_college %}
+
+<div class="register">
+  <center>College successfully registered.</center>
+</div>
+
 {% endif %}
 
-    {% if college_already %}
+{% if college_already %}
 <div class="register">
- A college by this name and location has already been registered. Please check the list again.
+  A college by this name and location has already been registered. Please check the list again.
 </div>
 {% endif %}
-    <p id="collsucc"></p>
+<p id="collsucc"></p>
 <div class="register">
- 
- <div class = "showclgfrm">
+  
+  <div class = "showclgfrm">
     <div>Can't find your college?</div>
-	<div class="button2">
-		<a href="#reg_coll" onclick="showNewCollegeDiv()">
-		 <input type="button" value="Click Here" />
-		</a>
-		<span></span>
-	</div>
-</div>
+    <div class="button2">
+      <a href="#reg_coll" onclick="showNewCollegeDiv()">
+	<input type="button" value="Click Here" />
+      </a>
+      <span></span>
+    </div>
+  </div>
 
-<p>
-	<ul style="list-style-type : square;">
-		<li>For quick help and format, use the help icons <a onmouseover="Tip('Yep, ones that look like these.')" onmouseout="UnTip()"><img height=20 width=20 src="{{ MEDIA_URL }}img/help_icon.png"></a> near each field.
-		</li>
-		<li>If you have already registered, click
-			  <a href="{{SITE_URL}}login/">
-			   here
-			  </a>
-			  to login. Otherwise, please fill in the following details to register:
-		</li>
-		{% if user.is_authenticated %}
-		<li>
-		  You have already registered, and are logged in.
-		</li>
-		{% endif %}
-	</ul>
-</p>		
+  <p>
+    <ul style="list-style-type : square;">
+      <li>For quick help and format, use the help icons <a onmouseover="Tip('Yep, ones that look like these.')" onmouseout="UnTip()"><img height=20 width=20 src="{{ MEDIA_URL }}img/help_icon.png"></a> near each field.
+      </li>
+      <li>If you have already registered, click
+	<a href="{{SITE_URL}}login/">
+	  here
+	</a>
+	to login. Otherwise, please fill in the following details to register:
+      </li>
+      {% if user.is_authenticated %}
+      <li>
+	You have already registered, and are logged in.
+      </li>
+      {% endif %}
+    </ul>
+  </p>		
 
 </div>
 
 
 <center style="height:400px; overflow:auto; margin-right:20px;">
- <h1 align="center">
-  User Registration
- </h1>
- <br>
-<table id = "maintable" cellpadding = "10" rules = "cols" border="0">
-<tr>
-<td id="maincol1">
+  <h1 align="center">
+    User Registration
+  </h1>
+  <br>
+  <table id = "maintable" cellpadding = "10" rules = "cols" border="0">
+    <tr>
+      <td id="maincol1">
 
-  <div class="info" style = "overflow:auto">
- <form id="reg_form" action="{{SITE_URL}}register/user/" method="POST" onload="onblurAttribute();changeBg();">
-{% csrf_token %}
-<table name="register" >
-  {% for field in  form  %}
-<tr>
-	<td id="{{ field.label }}_img">{% if field.errors %}
-	<img height=20 width=20 src="{{ MEDIA_URL }}img/error.png">
-	    {% endif %}
-	</td>
-	<th>{{ field.label_tag }}</th>
-	<td>{{ field }}
-	<div id="{{ field.label }}_div">
-	{% if field.errors %}{% for error in field.errors %} {{ error|escape }} </br> {% endfor %}{% endif %}
+	<div class="info" style = "overflow:auto">
+	  <form id="reg_form" action="{{SITE_URL}}register/user/" method="POST" onload="onblurAttribute();changeBg();">
+	    {% csrf_token %}
+	    <table name="register" >
+	      {% for field in  form  %}
+	      <tr>
+		<td id="{{ field.label }}_img">{% if field.errors %}
+		  <img height=20 width=20 src="{{ MEDIA_URL }}img/error.png">
+		  {% endif %}
+		</td>
+		<th>{{ field.label_tag }}</th>
+		<td>{{ field }}
+		  <div id="{{ field.label }}_div">
+		    {% if field.errors %}{% for error in field.errors %} {{ error|escape }} </br> {% endfor %}{% endif %}
+		  </div>
+		</td>
+		<td><a onmouseover="Tip('{{ field.help_text }}')" onmouseout="UnTip()"><img height=20 width=20 src="{{ MEDIA_URL }}img/help_icon.png"></a></td>
+		{% endfor %}
+	    </table>
+
+
+	    <script type="text/javascript">
+	      img = '<img height=20 width=20 src="{{ MEDIA_URL }}img/error.png">';
+	      function validateUsername(fld) {   //done
+
+	      var error = "";
+	      var illegalChars = /[^A-Za-z0-9_.]/; // allow letters, numbers, and underscores
+	      
+	      if (fld.value == "") error = "This field is required.";
+	      else if (illegalChars.test(fld.value)) error = "Usernames can only contain letters, numbers and underscores."; 
+
+	      document.getElementById('Username_div').innerHTML= error;
+	      if (error!="") {document.getElementById('Username_img').innerHTML= img;
+	      document.getElementById('Username_div').innerHTML= error; return 1;}
+	      document.getElementById('Username_img').innerHTML= "";
+	      document.getElementById('Username_div').innerHTML="";
+	      
+	      return 0;
+	      }
+
+	      function validatePassword(fld,fld2) {   //done
+
+	      var error = "";
+	      
+	      if (fld.value != fld2.value) {error = "The entered passwords do not match.";}
+	      else if (fld.value.length < 6) {error = "Ensure this value has at least 6 characters.";} 
+					  else if (fld.value =="") {error = "This field is required.";} 
+					  if (error!="") {
+					  document.getElementById('Password_div').innerHTML= error;
+					  document.getElementById('Password again_div').innerHTML= error;
+					  document.getElementById('Password_img').innerHTML= img;
+					  document.getElementById('Password again_img').innerHTML= img;
+					  return 1;
+					  } 
+					  document.getElementById('Password_img').innerHTML= "";
+					  document.getElementById('Password again_img').innerHTML= ""; 
+					  document.getElementById('Password_div').innerHTML="";
+					  document.getElementById('Password again_div').innerHTML="";
+					  return 0;
+					  }
+
+					  function isAlpha(xStr){  
+					  var regEx = /^[a-zA-Z\-\ ]+$/;  
+					  return xStr.match(regEx);  
+					  }
+
+					  function isAlphaNumeric(xStr){  
+					  var regEx = /^[a-zA-Z0-9\-]+$/;  
+					  return xStr.match(regEx);  
+					  }
+
+					  function isInteger(s) {
+					  return (s.toString().search(/^-?[0-9]+$/) == 0);
+					  }
+					  
+					  function validateCollege(fld) {
+					  var error = "";
+					  if (fld.value == "") error = "This field is required.";
+					  if (error!="") {
+					  document.getElementById('College_div').innerHTML= error;
+					  document.getElementById('College_img').innerHTML= img;
+					  return 1;
+					  }
+					  document.getElementById('College_img').innerHTML= "";
+					  document.getElementById('College_div').innerHTML="";
+					  return 0;
+					  }
+
+
+					  function validateAge(fld) {   //done
+					  var error = "";
+					  if (fld.value == "") error = "This field is required.";
+					  else if (! isInteger(fld.value)) error = "Enter a whole number.";
+					  else if (parseInt(fld.value)<12||parseInt(fld.value)>80) error = "Please enter an acceptable age (12 to 80)";
+
+					  if (error!="") {
+					  document.getElementById('Age_div').innerHTML= error;
+					  document.getElementById('Age_img').innerHTML= img;
+					  return 1;
+					  } 
+					  document.getElementById('Age_img').innerHTML= "";
+					  document.getElementById('Age_div').innerHTML="";
+					  return 0;
+					  }
+
+					  function validateMobileNumber(fld) {   //done
+					  var error = "";
+					  if (fld.value == "") error = "This field is required.";
+
+
+					  if (error!="") {
+					  document.getElementById('Mobile number_div').innerHTML= error;
+					  document.getElementById('Mobile number_img').innerHTML= img;
+					  return 1;
+					  } 
+					  document.getElementById('Mobile number_img').innerHTML= "";
+					  document.getElementById('Mobile number_div').innerHTML="";
+					  return 0;
+					  }
+
+
+					  function validateEmail(fld) {   //done
+					  var error = "";
+					  if (fld.value == "") error = "This field is required.";
+					  else if(!((fld.value.lastIndexOf(".") > 2) && (fld.value.indexOf("@") > 0))) error = "Enter a valid e-mail address.";
+		if (error!="") {
+		document.getElementById('Email_div').innerHTML= error;
+		document.getElementById('Email_img').innerHTML= img;
+		return 1;
+		} 
+		document.getElementById('Email_img').innerHTML= "";
+		document.getElementById('Email_div').innerHTML="";
+		return 0;
+		}
+
+		function validateRollNumber(fld) {   //done
+		var error = "";
+		if (fld.value == "") error = "This field is required.";
+		else if (!isAlphaNumeric(fld.value) || isAlpha(fld.value)) error = "Enter a valid roll number."
+		if (error!="") {
+		document.getElementById('College roll_div').innerHTML= error;
+		document.getElementById('College roll_img').innerHTML= img;
+		return 1;
+		}
+		document.getElementById('College roll_img').innerHTML= "";
+		document.getElementById('College roll_div').innerHTML="";
+		return 0;
+		}
+
+		function validateBranch(fld) {
+		
+		var error = "";
+		if (fld.value == "") error = "This field is required.";
+		if (error!="") {
+		document.getElementById('Branch_div').innerHTML= error;
+		document.getElementById('Branch_img').innerHTML= img;
+		return 1;
+		}
+		document.getElementById('Branch_img').innerHTML= "";
+		document.getElementById('Branch_div').innerHTML="";
+		return 0;
+		}
+
+		function validateCaptcha(fld) {   //done
+		var error = "";
+		if (fld.value == "") error = "This field is required.";
+		if (error!="") {
+		document.getElementById('Show us that you are not a bot!_div').innerHTML= error;
+		document.getElementById('Show us that you are not a bot!_img').innerHTML= img;
+		return 1;
+		} 
+		document.getElementById('Show us that you are not a bot!_img').innerHTML= "";
+		document.getElementById('Show us that you are not a bot!_div').innerHTML="";
+		return 0;
+		}
+
+
+		function validateForm() {
+
+		if (
+		validateUsername    (document.getElementById ("id_username")  )
+		+validateAge	     (document.getElementById ("id_age")  )
+		+validateBranch      (document.getElementById ("branch_input")  )
+		+validateEmail	     (document.getElementById ("id_email")  )
+		+validatePassword    (document.getElementById ("id_password"), document.getElementById ("id_password_again")  )
+		+validateMobileNumber(document.getElementById ("id_mobile_number")  )
+		+validateRollNumber  (document.getElementById ("id_college_roll")  )
+ 		+validateCaptcha     (document.getElementById ("recaptcha_response_field")  )
+ 		+validateCollege     (document.getElementById ("coll_input")  )
+		== 0  ){ 
+		document.forms["reg_form"].submit();
+		}
+		else {
+		window.location.href = '#reg_form';
+		
+		}
+		}
+
+		function onblurAttribute() {
+		document.getElementById ("id_username").setAttribute('onblur' , 'validateUsername(document.getElementById ("id_username"))');
+		document.getElementById ("id_password_again").setAttribute('onblur' , 'validatePassword(document.getElementById ("id_password"), document.getElementById ("id_password_again"))');
+		document.getElementById ("id_email").setAttribute('onblur' , 'validateEmail(document.getElementById ("id_email"))');
+		document.getElementById ("id_age").setAttribute('onblur' , 'validateAge(document.getElementById ("id_age"))');
+		document.getElementById ("coll_input").setAttribute('onblur' , 'validateCollege(document.getElementById ("coll_input"))');
+		document.getElementById ("id_college_roll").setAttribute('onblur' , 'validateRollNumber(document.getElementById ("id_college_roll"))');
+		
+
+		document.getElementById ("id_mobile_number").setAttribute('onblur' , 'validateMobileNumber(document.getElementById ("id_mobile_number"))');
+		document.getElementById ("recaptcha_response_field").setAttribute('onblur' , 'validateCaptcha(document.getElementById ("recaptcha_response_field"))');
+		document.getElementById ("branch_input").setAttribute('onblur' , 'validateBranch(document.getElementById ("branch_input"))');
+		
+
+		}
+		onblurAttribute();
+
+	    </script>
+
+	    <script type="text/javascript">
+	      $('#content').css({'height':'400px','width':'98%'});
+	      $('#page1').css({'height':'402px'});
+              var label = document.body.getElementsByTagName("label")[13];
+              var string = label.innerHTML;
+              label.innerHTML = "<div class='errors'>"+string+"<div style='font-family: verdana; color: black; font-size: 10px; line-height: 1em;'>We will be sending you a conformation mail after 3rd of September if you get shortlisted for accommodation!</div></div>";
+	    </script>
+
+	    <script type="text/javascript">
+	      function showNewCollegeDiv(){
+	      document.getElementById("maincol2").style.display="block";
+	      document.getElementById("newcollege").style.display="block";	  
+	      document.getElementById("maincol1").style.display="none";
+	      document.getElementById("collsucc").innerHTML="";
+	      }
+	    </script>
+	    
+	    <div id="reg_me">
+	      <div class="button2">
+		<a href="#">
+		  <input type="button" value="Register Me" onclick="validateForm()">
+		</a>
+		<span></span>
+	      </div>
+	    </div>
+
+	  </form>
+
 	</div>
-	</td>
-	<td><a onmouseover="Tip('{{ field.help_text }}')" onmouseout="UnTip()"><img height=20 width=20 src="{{ MEDIA_URL }}img/help_icon.png"></a></td>
-  {% endfor %}
-</table>
+      </td>
+
+      <td id="maincol2" style="display:none">
+	<script type="text/javascript">
+	  $("#content").css({'background-image':'url(http://www.shaastra.org/2011/media/main/img/bg2.png)'});
+	  var xmlhttp;
+	  function getXmlHttpObj()
+	  {
+
+	  if (window.XMLHttpRequest)
+	  {
+	  // code for IE7+, Firefox, Chrome, Opera, Safari
+	  xmlhttp=new XMLHttpRequest();
+	  }
+	  else if (window.ActiveXObject)
+	  {
+	  // code for IE6, IE5
+	  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	  }
+	  else
+	  {
+	  alert("Your browser does not support XMLHTTP!");
+	  }
+	  
+	  }
+	  getXmlHttpObj();
+	  xmlhttp.onreadystatechange=function()
+	  {
+	  if(xmlhttp.readyState==4)
+	  {
+	  var response = xmlhttp.responseText;
+	  if(response=="exists"){
+	  document.getElementById("reg_fail").style.display="block";
+	  }
+	  else if(response=="failed"){
+	  }
+	  else{
+	  //alert("works");
+	  //alert(response);
+
+	  var coll_response = response;
+	  //alert(coll_response);
+	  hide_college();
+	  document.getElementById("collsucc").innerHTML="College Successfully Registered.";
+	  /*
+	  for(ibm = 0; ibm <8; ibm++){
+			       setTimeout(function(){
+			       $('#collsucc').fadeOut(0)
+			       },ibm*400);
+			       setTimeout(function(){
+			       $('#collsucc').fadeIn(0)
+			       },200+ibm*400);
+			       }
+			       */
+
+			       for(ibm = 0; ibm <5; ibm++){
+						    $('#collsucc').fadeOut(0);
+						    $('#collsucc').fadeIn(1000);
+						    }
+						    //document.getElementById("reg_success").style.display="block";
+						    //document.getElementById("newcollege").style.display="none";
+						    if (coll_response != "exists" || coll_response != "failed")
+						    {
+						    //alert("works");
+						    //alert(data);
+						    data[data.length]=coll_response;
+						    //alert(data);
+						    $('input#coll_input').flushCache();
+						    $("#coll_input").autocomplete(data);
 
 
-<script type="text/javascript">
-img = '<img height=20 width=20 src="{{ MEDIA_URL }}img/error.png">';
-function validateUsername(fld) {   //done
+						    }
+						    //actb_add(document.getElementById("id_id2-name").value);
+						    //alert(data);
+						    
+						    }
+						    
+						    }
+						    }
 
-    var error = "";
-    var illegalChars = /[^A-Za-z0-9_.]/; // allow letters, numbers, and underscores
- 
-    if (fld.value == "") error = "This field is required.";
-    else if (illegalChars.test(fld.value)) error = "Usernames can only contain letters, numbers and underscores."; 
+						    function create_coll(){
 
-    document.getElementById('Username_div').innerHTML= error;
-    if (error!="") {document.getElementById('Username_img').innerHTML= img;
-		    document.getElementById('Username_div').innerHTML= error; return 1;}
-    document.getElementById('Username_img').innerHTML= "";
-    document.getElementById('Username_div').innerHTML="";
-    
-    return 0;
-}
+						    var url;
+						    url ="{{SITE_URL}}register/college/?";
+						    url=url+"identifier-name="+escape(document.getElementById("id_identifier-name").value);
+						    url=url+"&identifier-state="+escape(document.getElementById("id_identifier-state").value);
+						    url=url+"&identifier-city="+escape(document.getElementById("id_identifier-city").value);
 
-function validatePassword(fld,fld2) {   //done
+						    xmlhttp.open("GET",url,true);
+						    xmlhttp.send(null);
+						    
+						    }
 
-    var error = "";
- 
-    if (fld.value != fld2.value) {error = "The entered passwords do not match.";}
-    else if (fld.value.length < 6) {error = "Ensure this value has at least 6 characters.";} 
-    else if (fld.value =="") {error = "This field is required.";} 
-    if (error!="") {
-        document.getElementById('Password_div').innerHTML= error;
-        document.getElementById('Password again_div').innerHTML= error;
-	document.getElementById('Password_img').innerHTML= img;
-	document.getElementById('Password again_img').innerHTML= img;
-	return 1;
-    } 
-    document.getElementById('Password_img').innerHTML= "";
-    document.getElementById('Password again_img').innerHTML= ""; 
-    document.getElementById('Password_div').innerHTML="";
-    document.getElementById('Password again_div').innerHTML="";
-    return 0;
-}
+						    function hide_college(){
+						    document.getElementById("maincol2").style.display="none";
+						    document.getElementById("newcollege").style.display="none";	  
+						    document.getElementById("maincol1").style.display="block";
+						    }
 
-function isAlpha(xStr){  
-    var regEx = /^[a-zA-Z\-\ ]+$/;  
-    return xStr.match(regEx);  
-}
+						    //function show_events(){
+						    //    var url;
+						    //   url = "{{SITE_URL}}/events/view/hospitality/";
+						    //    xmlhttp.open("GET",url,true);
+						    //    xmlhttp.send(null);
+						    //    document.getElementById("events_hospi").style.display = "block";
+						    //}
 
-function isAlphaNumeric(xStr){  
-    var regEx = /^[a-zA-Z0-9\-]+$/;  
-    return xStr.match(regEx);  
-}
-
-function isInteger(s) {
-  return (s.toString().search(/^-?[0-9]+$/) == 0);
-}
- 
-function validateCollege(fld) {
-    var error = "";
-    if (fld.value == "") error = "This field is required.";
-    if (error!="") {
-        document.getElementById('College_div').innerHTML= error;
-	document.getElementById('College_img').innerHTML= img;
-	return 1;
-    }
-    document.getElementById('College_img').innerHTML= "";
-    document.getElementById('College_div').innerHTML="";
-    return 0;
-}
-
-
-function validateAge(fld) {   //done
-    var error = "";
-    if (fld.value == "") error = "This field is required.";
-    else if (! isInteger(fld.value)) error = "Enter a whole number.";
-    else if (parseInt(fld.value)<12||parseInt(fld.value)>80) error = "Please enter an acceptable age (12 to 80)";
-
-    if (error!="") {
-        document.getElementById('Age_div').innerHTML= error;
-	document.getElementById('Age_img').innerHTML= img;
-	return 1;
-    } 
-    document.getElementById('Age_img').innerHTML= "";
-    document.getElementById('Age_div').innerHTML="";
-    return 0;
-}
-
-function validateMobileNumber(fld) {   //done
-    var error = "";
-    if (fld.value == "") error = "This field is required.";
-
-
-    if (error!="") {
-        document.getElementById('Mobile number_div').innerHTML= error;
-	document.getElementById('Mobile number_img').innerHTML= img;
-	return 1;
-    } 
-    document.getElementById('Mobile number_img').innerHTML= "";
-    document.getElementById('Mobile number_div').innerHTML="";
-    return 0;
-}
-
-
-function validateEmail(fld) {   //done
-    var error = "";
-    if (fld.value == "") error = "This field is required.";
-    else if(!((fld.value.lastIndexOf(".") > 2) && (fld.value.indexOf("@") > 0))) error = "Enter a valid e-mail address.";
-    if (error!="") {
-        document.getElementById('Email_div').innerHTML= error;
-	document.getElementById('Email_img').innerHTML= img;
-	return 1;
-    } 
-     document.getElementById('Email_img').innerHTML= "";
-    document.getElementById('Email_div').innerHTML="";
-    return 0;
-}
-
-function validateRollNumber(fld) {   //done
-    var error = "";
-    if (fld.value == "") error = "This field is required.";
-    else if (!isAlphaNumeric(fld.value) || isAlpha(fld.value)) error = "Enter a valid roll number."
-    if (error!="") {
-        document.getElementById('College roll_div').innerHTML= error;
-	document.getElementById('College roll_img').innerHTML= img;
-	return 1;
-    }
-    document.getElementById('College roll_img').innerHTML= "";
-    document.getElementById('College roll_div').innerHTML="";
-    return 0;
-}
-
-function validateBranch(fld) {
-    
-    var error = "";
-    if (fld.value == "") error = "This field is required.";
-    if (error!="") {
-        document.getElementById('Branch_div').innerHTML= error;
-	document.getElementById('Branch_img').innerHTML= img;
-	return 1;
-    }
-    document.getElementById('Branch_img').innerHTML= "";
-    document.getElementById('Branch_div').innerHTML="";
-    return 0;
-}
-
-function validateCaptcha(fld) {   //done
-    var error = "";
-    if (fld.value == "") error = "This field is required.";
-    if (error!="") {
-        document.getElementById('Show us that you are not a bot!_div').innerHTML= error;
-	document.getElementById('Show us that you are not a bot!_img').innerHTML= img;
-	return 1;
-    } 
-    document.getElementById('Show us that you are not a bot!_img').innerHTML= "";
-    document.getElementById('Show us that you are not a bot!_div').innerHTML="";
-    return 0;
-}
-
-
-function validateForm() {
-
-    if (
-	 validateUsername    (document.getElementById ("id_username")  )
-    +validateAge	     (document.getElementById ("id_age")  )
-	+validateBranch      (document.getElementById ("branch_input")  )
-	+validateEmail	     (document.getElementById ("id_email")  )
-	+validatePassword    (document.getElementById ("id_password"), document.getElementById ("id_password_again")  )
-	+validateMobileNumber(document.getElementById ("id_mobile_number")  )
-	+validateRollNumber  (document.getElementById ("id_college_roll")  )
- 	+validateCaptcha     (document.getElementById ("recaptcha_response_field")  )
- 	+validateCollege     (document.getElementById ("coll_input")  )
-	== 0  ){ 
-	document.forms["reg_form"].submit();
-	    }
-    else {
-    window.location.href = '#reg_form';
-    
-    }
-}
-
-function onblurAttribute() {
-   document.getElementById ("id_username").setAttribute('onblur' , 'validateUsername(document.getElementById ("id_username"))');
-   document.getElementById ("id_password_again").setAttribute('onblur' , 'validatePassword(document.getElementById ("id_password"), document.getElementById ("id_password_again"))');
-   document.getElementById ("id_email").setAttribute('onblur' , 'validateEmail(document.getElementById ("id_email"))');
-   document.getElementById ("id_age").setAttribute('onblur' , 'validateAge(document.getElementById ("id_age"))');
-   document.getElementById ("coll_input").setAttribute('onblur' , 'validateCollege(document.getElementById ("coll_input"))');
-   document.getElementById ("id_college_roll").setAttribute('onblur' , 'validateRollNumber(document.getElementById ("id_college_roll"))');
-   
-
-   document.getElementById ("id_mobile_number").setAttribute('onblur' , 'validateMobileNumber(document.getElementById ("id_mobile_number"))');
-   document.getElementById ("recaptcha_response_field").setAttribute('onblur' , 'validateCaptcha(document.getElementById ("recaptcha_response_field"))');
-   document.getElementById ("branch_input").setAttribute('onblur' , 'validateBranch(document.getElementById ("branch_input"))');
-   
-
-}
-onblurAttribute();
-
-</script>
-
-   <script type="text/javascript">
-		$('#content').css({'height':'400px','width':'98%'});
-		$('#page1').css({'height':'402px'});
-        var label = document.body.getElementsByTagName("label")[13];
-        var string = label.innerHTML;
-        label.innerHTML = "<div class='errors'>"+string+"<div style='font-family: verdana; color: black; font-size: 10px; line-height: 1em;'>We will be sending you a conformation mail after 3rd of September if you get shortlisted for accommodation!</div></div>";
-   </script>
-
-   <script type="text/javascript">
-    function showNewCollegeDiv(){
-      document.getElementById("maincol2").style.display="block";
-	  document.getElementById("newcollege").style.display="block";	  
-	  document.getElementById("maincol1").style.display="none";
-	  document.getElementById("collsucc").innerHTML="";
-    }
-   </script>
-   
-	<div id="reg_me">
-		<div class="button2">
-			<a href="#">
-				<input type="button" value="Register Me" onclick="validateForm()">
-			</a>
-			<span></span>
-		</div>
+						    //function close_evHospi(){
+						    //    document.getElementById("events_hospi").style.display="none";
+						    //}
+						    </script>
+	<div id="events_hospi" style="display:none;">
 	</div>
-
-</form>
-
-</div>
-</td>
-
-<td id="maincol2" style="display:none">
- <script type="text/javascript">
- $("#content").css({'background-image':'url(http://www.shaastra.org/2011/media/main/img/bg2.png)'});
-  var xmlhttp;
- function getXmlHttpObj()
-{
-
-if (window.XMLHttpRequest)
-  {
-  // code for IE7+, Firefox, Chrome, Opera, Safari
-  xmlhttp=new XMLHttpRequest();
-  }
-else if (window.ActiveXObject)
-  {
-  // code for IE6, IE5
-  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-  }
-else
-  {
-  alert("Your browser does not support XMLHTTP!");
-  }
-  
-}
-getXmlHttpObj();
-xmlhttp.onreadystatechange=function()
-{
-if(xmlhttp.readyState==4)
-  {
-  var response = xmlhttp.responseText;
-  if(response=="exists"){
-    document.getElementById("reg_fail").style.display="block";
-  }
-  else if(response=="failed"){
-  }
-  else{
-  //alert("works");
-    //alert(response);
-
-    var coll_response = response;
-    //alert(coll_response);
-    hide_college();
-    document.getElementById("collsucc").innerHTML="College Successfully Registered.";
-/*
-for(ibm = 0; ibm <8; ibm++){
-	setTimeout(function(){
-            $('#collsucc').fadeOut(0)
-        },ibm*400);
-	setTimeout(function(){
-            $('#collsucc').fadeIn(0)
-        },200+ibm*400);
-}
-*/
-
-for(ibm = 0; ibm <5; ibm++){
-	$('#collsucc').fadeOut(0);
-	$('#collsucc').fadeIn(1000);
-}
-    //document.getElementById("reg_success").style.display="block";
-    //document.getElementById("newcollege").style.display="none";
-    if (coll_response != "exists" || coll_response != "failed")
-    {
-        //alert("works");
-        //alert(data);
-       data[data.length]=coll_response;
-       //alert(data);
-       $('input#coll_input').flushCache();
-       $("#coll_input").autocomplete(data);
-
-
-    }
-    //actb_add(document.getElementById("id_id2-name").value);
-    //alert(data);
-    
-  }
-  
-  }
-}
-
-function create_coll(){
-
-  var url;
-  url ="{{SITE_URL}}register/college/?";
-  url=url+"identifier-name="+escape(document.getElementById("id_identifier-name").value);
-  url=url+"&identifier-state="+escape(document.getElementById("id_identifier-state").value);
-  url=url+"&identifier-city="+escape(document.getElementById("id_identifier-city").value);
-
-  xmlhttp.open("GET",url,true);
-  xmlhttp.send(null);
-  
-}
-
-function hide_college(){
-      document.getElementById("maincol2").style.display="none";
-	  document.getElementById("newcollege").style.display="none";	  
-	  document.getElementById("maincol1").style.display="block";
-}
-
-//function show_events(){
-//    var url;
-//   url = "{{SITE_URL}}/events/view/hospitality/";
-//    xmlhttp.open("GET",url,true);
-//    xmlhttp.send(null);
-//    document.getElementById("events_hospi").style.display = "block";
-//}
-
-//function close_evHospi(){
-//    document.getElementById("events_hospi").style.display="none";
-//}
- </script>
- <div id="events_hospi" style="display:none;">
- </div>
- <a name="reg_coll">
-  <div id="newcollege" style="display:none">
-   <div class="regCollInfo" style="text-align:left;">
-    <p>
-	<ul style="list-style-type:square;">
-		<li>Please fill in the following details:</li>
-		<li>Please follow this guideline when registering.
-			<ul style="list-style-type:disc; "><li>Kindly use full names for the name of your
-		<b>College and City :</b> It would be extremely helpful to us if you did not use "hyd" for "Hyderabad" or "ABC" for "Amber Beryl College" and so on.</li></ul>
+	<a name="reg_coll">
+	  <div id="newcollege" style="display:none">
+	    <div class="regCollInfo" style="text-align:left;">
+	      <p>
+		<ul style="list-style-type:square;">
+		  <li>Please fill in the following details:</li>
+		  <li>Please follow this guideline when registering.
+		    <ul style="list-style-type:disc; "><li>Kindly use full names for the name of your
+			<b>College and City :</b> It would be extremely helpful to us if you did not use "hyd" for "Hyderabad" or "ABC" for "Amber Beryl College" and so on.</li></ul>
 		</li></ul>
-    </p>
-   </div><!-- closes div register -->
-   <div class="register">
-    <form id="reg_college" onsubmit="create_coll(); return false;"  onload="onblurAttribute1();changeBg();">
-    {% csrf_token %}
-     <div class="info" style = "overflow:auto">
-      <table name="register">
-	  <tr><td colspan="4"><h2>College Registraion</h2></td></tr>
-      {% for field in coll_form %}
-<tr>
-    <td id="{{ field.label }}_img">{% if field.errors %}
-	<img height=20 width=20 src="{{ MEDIA_URL }}img/error.png">
-	    {% endif %}
-	</td>
-  <td>{{ field.label_tag }}</td>
-  <td>{{ field }}
-  <div id="{{ field.label }}_div" style="color:#E95A5A;font-family:Lucida Sabs;font-style: italic">
-	{% if field.errors %}{% for error in field.errors %} {{ error|escape }} </br> {% endfor %}{% endif %}
-	</div>
-  </td>
-<td><a onmouseover="Tip('{{ field.help_text }}')" onmouseout="UnTip()"><img height=20 width=20 src="{{ MEDIA_URL }}img/help_icon.png"></a></td>
-    </tr>
-      {% endfor %}
-      </table>
-      
-<script type="text/javascript">
+	      </p>
+	    </div><!-- closes div register -->
+	    <div class="register">
+	      <form id="reg_college" onsubmit="create_coll(); return false;"  onload="onblurAttribute1();changeBg();">
+		{% csrf_token %}
+		<div class="info" style = "overflow:auto">
+		  <table name="register">
+		    <tr><td colspan="4"><h2>College Registraion</h2></td></tr>
+		    {% for field in coll_form %}
+		    <tr>
+		      <td id="{{ field.label }}_img">{% if field.errors %}
+			<img height=20 width=20 src="{{ MEDIA_URL }}img/error.png">
+			{% endif %}
+		      </td>
+		      <td>{{ field.label_tag }}</td>
+		      <td>{{ field }}
+			<div id="{{ field.label }}_div" style="color:#E95A5A;font-family:Lucida Sabs;font-style: italic">
+			  {% if field.errors %}{% for error in field.errors %} {{ error|escape }} </br> {% endfor %}{% endif %}
+			</div>
+		      </td>
+		      <td><a onmouseover="Tip('{{ field.help_text }}')" onmouseout="UnTip()"><img height=20 width=20 src="{{ MEDIA_URL }}img/help_icon.png"></a></td>
+		    </tr>
+		    {% endfor %}
+		  </table>
+		  
+		  <script type="text/javascript">
 
-img = '<img height=20 width=20 src="{{ MEDIA_URL }}img/error.png">';
-function validateName(fld) {   //done
+		    img = '<img height=20 width=20 src="{{ MEDIA_URL }}img/error.png">';
+		    function validateName(fld) {   //done
 
-    var error = "";
-    var legalChars = /^[A-Za-z -.,]*$/; // allow letters, hiphen, comma and whitespaces
- 
-    if (fld.value == "") error = "This field is required.";
-    else if (!legalChars.test(fld.value)) error = "College Names can only contain letters, hiphen, comma and whitespaces."; 
+		    var error = "";
+		    var legalChars = /^[A-Za-z -.,]*$/; // allow letters, hiphen, comma and whitespaces
+		    
+		    if (fld.value == "") error = "This field is required.";
+		    else if (!legalChars.test(fld.value)) error = "College Names can only contain letters, hiphen, comma and whitespaces."; 
 
-    if (error!="") {document.getElementById('Name_img').innerHTML= img;
+		    if (error!="") {document.getElementById('Name_img').innerHTML= img;
 		    document.getElementById('Name_div').innerHTML= error; return 1;}
-    document.getElementById('Name_img').innerHTML= "";
-    document.getElementById('Name_div').innerHTML="";
-    
-    return 0;
-}
+		    document.getElementById('Name_img').innerHTML= "";
+		    document.getElementById('Name_div').innerHTML="";
+		    
+		    return 0;
+		    }
 
-function validateCity(fld) {   //done
+		    function validateCity(fld) {   //done
 
-    var error = "";
-    var legalChars = /^[A-Za-z -.,]*$/; // allow letters, hiphen, comma and whitespaces
- 
-    if (fld.value == "") error = "This field is required.";
-    else if (!legalChars.test(fld.value)) error = "City Names can only contain letters, hiphen, comma and whitespaces."; 
+		    var error = "";
+		    var legalChars = /^[A-Za-z -.,]*$/; // allow letters, hiphen, comma and whitespaces
+		    
+		    if (fld.value == "") error = "This field is required.";
+		    else if (!legalChars.test(fld.value)) error = "City Names can only contain letters, hiphen, comma and whitespaces."; 
 
-    if (error!="") {document.getElementById('City_img').innerHTML= img;
+		    if (error!="") {document.getElementById('City_img').innerHTML= img;
 		    document.getElementById('City_div').innerHTML= error; return 1;}
-    document.getElementById('City_img').innerHTML= "";
-    document.getElementById('City_div').innerHTML="";
-    
-    return 0;
-}
+		    document.getElementById('City_img').innerHTML= "";
+		    document.getElementById('City_div').innerHTML="";
+		    
+		    return 0;
+		    }
 
-function validateState(fld) {
-    
-    var error = "";
-    if (fld.value == "") error = "This field is required.";
-    if (error!="") {
-        document.getElementById('State_div').innerHTML= error;
-	document.getElementById('State_img').innerHTML= img;
-	return 1;
-    }
-    document.getElementById('State_img').innerHTML= "";
-    document.getElementById('State_div').innerHTML="";
-    return 0;
-}
+		    function validateState(fld) {
+		    
+		    var error = "";
+		    if (fld.value == "") error = "This field is required.";
+		    if (error!="") {
+		    document.getElementById('State_div').innerHTML= error;
+		    document.getElementById('State_img').innerHTML= img;
+		    return 1;
+		    }
+		    document.getElementById('State_img').innerHTML= "";
+		    document.getElementById('State_div').innerHTML="";
+		    return 0;
+		    }
 
-function validateCollegeForm() {
+		    function validateCollegeForm() {
 
-    if (
-	 validateName    (document.getElementById ("id_identifier-name")  )
-    +validateCity	     (document.getElementById ("id_identifier-city")  )
-	+validateState      (document.getElementById ("id_identifier-state")  )
-	== 0  ){ 
-        create_coll();
-	    }
-    else {
-    window.location.href = '#reg_college';
-    
-    }
-}
+		    if (
+		    validateName    (document.getElementById ("id_identifier-name")  )
+		    +validateCity	     (document.getElementById ("id_identifier-city")  )
+		    +validateState      (document.getElementById ("id_identifier-state")  )
+		    == 0  ){ 
+		    create_coll();
+		    }
+		    else {
+		    window.location.href = '#reg_college';
+		    
+		    }
+		    }
 
 
-function onblurAttribute1() {
-   document.getElementById ("id_identifier-name").setAttribute('onblur' , 'validateName(document.getElementById ("id_identifier-name"))');
-   document.getElementById ("id_identifier-city").setAttribute('onblur' , 'validateCity(document.getElementById ("id_identifier-city"))');
-   document.getElementById ("id_identifier-state").setAttribute('onblur' , 'validateState(document.getElementById ("id_identifier-state"))');
+		    function onblurAttribute1() {
+		    document.getElementById ("id_identifier-name").setAttribute('onblur' , 'validateName(document.getElementById ("id_identifier-name"))');
+		    document.getElementById ("id_identifier-city").setAttribute('onblur' , 'validateCity(document.getElementById ("id_identifier-city"))');
+		    document.getElementById ("id_identifier-state").setAttribute('onblur' , 'validateState(document.getElementById ("id_identifier-state"))');
 
-}
-onblurAttribute1();
-</script>
-	<div id="regcoll">
-		<div class="button2">
+		    }
+		    onblurAttribute1();
+		  </script>
+		  <div id="regcoll">
+		    <div class="button2">
+		      <a href="#">
+			<input type="button" value="Register College" onclick="validateCollegeForm()" />
+		      </a>
+		      <span></span>
+		    </div>
+		    <div id="regcoll_" style="float:left; margin-left:30px;">
+		      <div class="button2">
 			<a href="#">
-				<input type="button" value="Register College" onclick="validateCollegeForm()" />
+			  <input type="button" value = "Cancel" onclick="javascript:hide_college()" />
 			</a>
 			<span></span>
+		      </div>
+		    </div>
+		  </div>
+
 		</div>
-		<div id="regcoll_" style="float:left; margin-left:30px;">
-			<div class="button2">
-				<a href="#">
-					<input type="button" value = "Cancel" onclick="javascript:hide_college()" />
-				</a>
-				<span></span>
-			</div>
-		</div>
+	      </form>
+	    </div> <!-- closes register -->
+	  </div> <!-- Closes new college -->
+	</a>
+	<div class="success" id="reg_success" style="display:none">
+	  College successfully registered.
 	</div>
 
-     </div>
-    </form>
-   </div> <!-- closes register -->
-  </div> <!-- Closes new college -->
- </a>
-<div class="success" id="reg_success" style="display:none">
- College successfully registered.
-</div>
+	<div class="errors" id="reg_fail" style="display:none">
+	  A college by this name and location has already been registered. Please check the list again.
+	</div>
 
-<div class="errors" id="reg_fail" style="display:none">
- A college by this name and location has already been registered. Please check the list again.
-</div>
-
-</td>
-</tr>
-</table>
+      </td>
+    </tr>
+  </table>
 </center>
 <script>
 
-      
-var branches=new Array("Arts","Accounting","Applied Mechanics / Mechatronics",
-      "Aerospace Engineering","Automobile Engineering","Biotech / Biochemical / Biomedical",
-      "Biology","Ceramic Engineering","Chemical Engineering",
-      "Chemistry","Design / Engineering Design","Civil Engineering","Computer Science and Engineering",
-      "Electronics and Communications Engineering","Electrical and Electronics Engineering","Electrical Engineering",
-      "Electronics and Instrumentation Engineering","Engineering Physics","Economics","Fashion Technology",
-      "Humanities and Social Sciences","Industrial Production    / Production","Information Technology and Information Science(IT/IS)",
-      "Management","Manufacturing","Mathematics","Metallurgy and Material Science","Mechanical Engineering",
-      "Ocean Engineering and Naval Architecture","Physics","Telecom","Textile Engineering");
+  
+  var branches=new Array("Arts","Accounting","Applied Mechanics / Mechatronics",
+  "Aerospace Engineering","Automobile Engineering","Biotech / Biochemical / Biomedical",
+  "Biology","Ceramic Engineering","Chemical Engineering",
+  "Chemistry","Design / Engineering Design","Civil Engineering","Computer Science and Engineering",
+  "Electronics and Communications Engineering","Electrical and Electronics Engineering","Electrical Engineering",
+  "Electronics and Instrumentation Engineering","Engineering Physics","Economics","Fashion Technology",
+  "Humanities and Social Sciences","Industrial Production    / Production","Information Technology and Information Science(IT/IS)",
+  "Management","Manufacturing","Mathematics","Metallurgy and Material Science","Mechanical Engineering",
+  "Ocean Engineering and Naval Architecture","Physics","Telecom","Textile Engineering");
 
 
 </script>
@@ -637,26 +637,26 @@ var branches=new Array("Arts","Accounting","Applied Mechanics / Mechatronics",
 <!--<script>
     function function1()
     {
-    	var nam = new Array({%for coll in colls%}"{{ coll.name }},{{ coll.city }}",{%endfor%}"");
-        var obj = actb(document.getElementById('coll_input'),nam);
+    var nam = new Array({%for coll in colls%}"{{ coll.name }},{{ coll.city }}",{%endfor%}"");
+    var obj = actb(document.getElementById('coll_input'),nam);
     }  
-        var branches=new Array("Arts","Accounting","Applied Mechanics / Mechatronics",
-      "Aerospace Engineering","Automobile Engineering","Biotech / Biochemical / Biomedical",
-      "Biology","Ceramic Engineering","Chemical Engineering",
-      "Chemistry","Design / Engineering Design","Civil Engineering","Computer Science and Engineering",
-      "Electronics and Communications Engineering","Electrical and Electronics Engineering","Electrical Engineering",
-      "Electronics and Instrumentation Engineering","Engineering Physics","Economics","Fashion Technology",
-      "Humanities and Social Sciences","Industrial Production    / Production","Information Technology and Information Science(IT/IS)",
-      "Management","Manufacturing","Mathematics","Metallurgy and Material Science","Mechanical Engineering",
-      "Ocean Engineering and Naval Architecture","Physics","Telecom","Textile Engineering");
-      var objBranch = actb(document.getElementById('id_branch'),branches);
-      
+    var branches=new Array("Arts","Accounting","Applied Mechanics / Mechatronics",
+    "Aerospace Engineering","Automobile Engineering","Biotech / Biochemical / Biomedical",
+    "Biology","Ceramic Engineering","Chemical Engineering",
+    "Chemistry","Design / Engineering Design","Civil Engineering","Computer Science and Engineering",
+    "Electronics and Communications Engineering","Electrical and Electronics Engineering","Electrical Engineering",
+    "Electronics and Instrumentation Engineering","Engineering Physics","Economics","Fashion Technology",
+    "Humanities and Social Sciences","Industrial Production    / Production","Information Technology and Information Science(IT/IS)",
+    "Management","Manufacturing","Mathematics","Metallurgy and Material Science","Mechanical Engineering",
+    "Ocean Engineering and Naval Architecture","Physics","Telecom","Textile Engineering");
+    var objBranch = actb(document.getElementById('id_branch'),branches);
+    
     function actb_add(name){
-        actb_keywords[actb_keywords.length] = name;
-      }
+    actb_keywords[actb_keywords.length] = name;
+    }
     </script>
-  -->
-  
+-->
+
 {% endif %}
 {% endif %}
 {% endblock %}

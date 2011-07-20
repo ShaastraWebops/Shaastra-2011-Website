@@ -421,7 +421,28 @@ def edit_event(request):
     else:
         form = forms.EventForm(instance = event)
     return render_to_response('event/edit_event.html', locals(), context_instance=global_context(request))
-
+    
+@coords_only    
+def add_event_update(request):
+    if request.method =='POST':
+        data=request.POST.copy()
+        form=forms.EventUpdateForm(data)
+        if form.is_valid():
+            neweventupdate=models.Update(event = request.user.get_profile().coord_event , content_formatted = form.cleaned_data['UpdateContent'])
+            neweventupdate.save()
+        return HttpResponseRedirect('%sevents/dashboard/updates/'%settings.SITE_URL)    
+    else:
+        form=forms.EventUpdateForm()
+    return render_to_response('event/add_update.html', locals(), context_instance=global_context(request))
+        
+@coords_only 
+def updates_page(request):
+    
+    updates_list=models.Update.objects.filter(event=request.user.get_profile().coord_event)
+    return render_to_response('event/updates_page.html', locals(), context_instance=global_context(request))
+    
+            
+             
 @needs_authentication
 def register(request):
     user = request.uesr
@@ -527,8 +548,7 @@ def render_static(request,static_name):
         return render_to_response('webteam.html', locals(), context_instance = global_context(request))
     
     raise Http404
-    
-     
+        
 """ 
 def render_policy(request):
     return render_to_response('policy.html', locals(), context_instance = global_context(request))

@@ -153,12 +153,12 @@ class MCQ_option(models.Model):
 
 class Update(models.Model):
 	event = models.ForeignKey(Event)
-	update_time = models.DateTimeField(null = False)
+	update_time = models.DateTimeField(auto_now_add=True,null = False)
 	
 	#Allotting 1kB of space just in case there's a lot of formatting
 	#This field should contain an html-ready update for direct display
 	content_formatted = models.CharField(max_length = 1000)
-	
+	display = models.BooleanField(default = True)
 	def __unicode__(self):
 		return self.content
 		
