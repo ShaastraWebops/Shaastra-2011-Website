@@ -24,6 +24,12 @@ def login (request):
     form=forms.LoginForm()
     if 'logged_in' in request.session and request.session['logged_in'] == True and request.user.get_profile().is_coord == True and request.user.username != 'cores':
         return HttpResponseRedirect("%sevents/dashboard/" % settings.SITE_URL)
+    if 'logged_in' in request.session and request.session['logged_in'] == True:
+        try:
+            return HttpResponseRedirect(request.session['from_url'])
+        except:
+            return HttpResponseRedirect("%shome/" % settings.SITE_URL)    
+            
     if request.method == 'POST':
         data = request.POST.copy()
         form = forms.LoginForm(data)
