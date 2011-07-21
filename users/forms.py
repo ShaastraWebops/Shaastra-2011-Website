@@ -204,3 +204,10 @@ class FeedbackForm(ModelForm):
         model=models.Feedback
         widgets = {'content': forms.Textarea(attrs={'cols': 80, 'rows': 20}),}
         exclude = ('radiocontent')
+        
+'''
+class CreateTeamForm(ModelForm):
+    class Meta:
+        model = models.Team
+        fields = ('name', 'event')
+'''

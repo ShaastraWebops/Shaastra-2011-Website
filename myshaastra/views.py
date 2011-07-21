@@ -57,3 +57,13 @@ def home(request):
     #Account settings page
     return render_to_response('myshaastra/home.html', locals(), context_instance = global_context(request))
 
+'''
+def create_team(request):
+    user = request.user
+    userprof = user.get_profile()
+    teams = None
+    try:
+        teams = Team.objects.filter(members__id__exact = user.id)
+    except:
+        raise Http404
+'''
