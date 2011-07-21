@@ -88,7 +88,8 @@
 	    <br /><br />
 
             <!-- displaying file list -->
-            <div id="file_content"> 
+            <div id="file_content">
+          {% if row.file_list%}   
           <p>Files:</p><br/>  
 	      {%for file in row.file_list %}
 	      
@@ -97,6 +98,7 @@
 	      {% empty %}
 	      
 	      {%endfor%}
+	      {%endif%}
             </div>
 	    
 	    
