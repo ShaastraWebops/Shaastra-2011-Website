@@ -192,6 +192,10 @@
         {%if category.text|slugify|stringformat:"s" == "exhibitions" %}
         <img src="http://www.shaastra.org/2011/media/main/img/exhibitions_right.jpg" />
         {%endif%}
+        {%if category.text|slugify|stringformat:"s" == "robotics" %}
+        <!-- For the robotics sub-events -->
+        <img src="http://www.shaastra.org/2011/media/main/img/design_and_build.jpg" />
+        {% endif %}
 
         {%endif%}
 	
