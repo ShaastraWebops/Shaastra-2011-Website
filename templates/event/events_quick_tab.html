@@ -40,7 +40,24 @@
 
 	<!--
 	    <span id="menu_path" style="font-size:medium"><a href="{{SITE_URL}}home/">Home</a> >> <a href = "#" onclick = "javascript:setTimeout(function(){popup(1)},00);">Events</a> >> <span id="evtname"> {{event.display_name}} </span> </span> -->
+   
       </span>
+         {% if user.is_authenticated %} 
+	  <div class="button2" style="float:right;">
+	    <a href="#">
+	        {% if user_has_registered %}
+              <input type="button" value="You have Registered" />
+	        {% else %}
+	          <form action="{{SITE_URL}}events/register/" method="GET">
+		        {% csrf_token %}
+		        <input type="hidden" name="event_id" value="{{ event.id }}" />
+		        <input type="submit" value="Register" />
+	          </form>
+	        {% endif %}
+	    </a>
+	    <span></span>
+	  </div>  
+       {% endif %}
     </div>
 
     <div id = "verticlleft">  
@@ -192,6 +209,10 @@
         {%if category.text|slugify|stringformat:"s" == "exhibitions" %}
         <img src="http://www.shaastra.org/2011/media/main/img/exhibitions_right.jpg" />
         {%endif%}
+        {%if category.text|slugify|stringformat:"s" == "robotics" %}
+        <!-- For the robotics sub-events -->
+        <img src="http://www.shaastra.org/2011/media/main/img/design_and_build.jpg" />
+        {% endif %}
 
         {%endif%}
 	
