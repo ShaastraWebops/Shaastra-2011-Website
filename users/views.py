@@ -20,6 +20,16 @@ from main_test.users import models
 from main_test.users import forms
 
 import sha,random,datetime
+from django.core.mail import EmailMultiAlternatives
+
+def invite (request):
+    subject, from_email, to = 'hello', 'swaroop@localhost', 'swaroop551992@gmail.com'
+    text_content = 'This is a image message.'
+    html_content = '<img src = "http://www.shaastra.org/2011/media/main/img/all_logos.png"'
+    msg = EmailMultiAlternatives(subject, text_content, from_email, [to])# sending plain text in case they cant view html
+    msg.attach_alternative(html_content, "text/html")# the additional html content added to the content for ppl who can view html content
+    msg.send()
+    return HttpResponseRedirect("%shome/" % settings.SITE_URL)
 def login (request):
     form=forms.LoginForm()
     if 'logged_in' in request.session and request.session['logged_in'] == True and request.user.get_profile().is_coord == True and request.user.username != 'cores':

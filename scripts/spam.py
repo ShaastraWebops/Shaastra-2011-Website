@@ -1,8 +1,9 @@
+#! /usr/bin/env python
 
 from django.core.mail import EmailMultiAlternatives
 
-def message():
-    subject, from_email, to = 'hello', 'karthikabinavs@gmail.com', 'karthikabinavs@gmail.com'
+def spam():
+    subject, from_email, to = 'hello', 'swaroop5@gmail51992.com', 'swaroop551992@gmail.com'
     text_content = 'This is a image message.'
     html_content = '<img src = "http://www.shaastra.org/2011/media/main/img/all_logos.png"'
     msg = EmailMultiAlternatives(subject, text_content, from_email, [to])# sending plain text in case they cant view html
