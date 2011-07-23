@@ -36,7 +36,7 @@ def spam():
     
 def spam2():
     subject, from_email= 'Shaastra 2011 invitation', 'hospitality@shaastra.org'
-    f = open('/home/swaroop/data.csv','rw')
+    f = open('./data.csv','rw')
     text_content = '[image: invite.jpg]'
     html_content = '<img title="invite.jpg" alt="invite.jpg" src="http://www.shaastra.org/2011/media/main/img/invite.jpg">'
     for line in f:
