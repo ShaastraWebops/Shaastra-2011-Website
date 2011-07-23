@@ -30,6 +30,7 @@ urlpatterns = patterns('',
      url(r'^search/?$', 'main_test.search.views.custom_search'),
      #url(r'^sitemap\.xml$', 'main_test.events.views.sitemap'),
      url(r'^', include ('main_test.users.urls')),
+     url(r'^confluence/', 'main_test.confluence.views.rsvp'),
      url(r'^(?P<static_name>.*)/$', 'main_test.events.views.render_static'),	
 )
 

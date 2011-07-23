@@ -1,0 +1,16 @@
+<html>
+<head>
+CONFLUENCE
+</head>
+Hi
+<br>
+<form action="{{SITE_URL}}/confluence/" method="POST">{% csrf_token %}
+    <table name="register">
+      {{ form }}
+    </table>
+    <hr />
+    <input type="submit" value="Register" >
+  </div>
+</form>
+
+</html>
