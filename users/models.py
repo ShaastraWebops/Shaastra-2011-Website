@@ -91,10 +91,17 @@ class Feedback(models.Model):
     
     class Admin:
         pass            
-        
+
 '''
 class Team(models.Model):
-    name            = models.CharField(max_length=50, default = False) 
-    event           = models.ForeignKey( Event, null = False)
-    members         = models.ManyToManyField(UserProfile,null=False)
+    name            = models.CharField(max_length = 50) 
+    event           = models.ForeignKey(Event, null = False)
+    members         = models.ManyToManyField(User, related_name = 'teams', blank = True, null = True)
+    join_requests   = models.ManyToManyField(User, related_name = 'team_requests', blank = True, null = True)
+    
+    def __unicode__(self):
+        return self.name
+    
+    class Admin:
+        pass
 '''
