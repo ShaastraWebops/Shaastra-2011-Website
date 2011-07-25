@@ -14,7 +14,7 @@ div.leftdiv {margin:0 auto 0 auto;height:auto;width:440px;background-color:#FFFF
 div.rightdiv {margin : 0 auto 0 auto;height:auto;width:410px;background-color:#FFFFFF;color:#0c3046;font-size:16px;text-align:center;float:right}
 tr label{font-size : 15px;font-family:"century Gothic";letter-spacing : 1px; line-height : 20px}
 th{font-weight:100}
-input[type = "text"]{width : 100px; border : 1px solid #006}
+input[type = "text"]{width : 180px; border : 1px solid #006}
 </style>
 <body>
 
@@ -49,13 +49,15 @@ Phone: +91-94444 07541 | +91-99520 92691
 <div id = "righthead" style = "font-size:32px;text-align : center;">
 RSVP
 </div>
+<div id = "rcontent" style = "width : 300px;margin : 0 auto 0 auto;">
   <form action="{{SITE_URL}}confluence/" method="POST">{% csrf_token %}
-    <table name="register" >
+    <table name="register">
       {{ form }}
     </table>
 
     <input type="submit" value="Submit" >
   </form>
+  </div>
 </div>
 </div>
 </div>
