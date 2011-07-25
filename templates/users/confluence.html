@@ -1,47 +1,58 @@
 <html>
 <head>
-<img src = "{{MEDIA_URL}}img/logo_white.png" style = "width : 1000px;height:150px">
+<div id = "container" style = "width:100%;height:100%">
+<div id = "head" style = "text-align:center">
+<!--<img src = "{{MEDIA_URL}}img/logo_white.png">-->
+<img src = "./logo_white.png" style = "width:500px;height: 140px;">
+</div>
 </head>
 <br>
 <style type="text/css">
-body {margin:0;padding:0;height:100%;}
-div.leftdiv {float:left;height:100%;width:50%;background-color:#FFFFFF;color:#0c3046;font-size:12px;font-family:'century gothic';text-align:left;}
-div.rightdiv {float:left;height:100%;width:50%;background-color:#FFFFFF;color:#0c3046;font-size:16px;text-align:center;}
+body {margin:0;padding:0;height:100%;min-width:1000px}
+p{line-height : 15px}
+div.leftdiv {margin:0 auto 0 auto;height:auto;width:440px;background-color:#FFFFFF;color:#0c3046;font-size:12px;font-family:'century gothic';text-align:left;float:left}
+div.rightdiv {margin : 0 auto 0 auto;height:auto;width:440px;background-color:#FFFFFF;color:#0c3046;font-size:16px;text-align:center;float:left}
 </style>
 <body>
 
-<div class="leftdiv">
-<br>Dear Sir/Madam
-<br>
-<br>
-IIT Madras is proud to present the IIT Madras Confluence 2011, a special initiative<br>of Shaastra 2011, the annual technical festival of IIT Madras. IIT Madras' official technical<br>festival, Shaastra is the first student organized festival to be awarded the ISO 9001:2008<br>certification, and is one of the largest events of its kind in Asia.
-<br>
-<br>
-The IIT Madras Confluence is scheduled to take place on Sunday, 25th September 2011. The<br>initiative intends to bring together stalwarts from the fields of research, industry and public<br>policy onto one platform and obtain their unique perspectives on the festival's theme “Inspire the<br>Future”. This ceremony will also showcase IIT Madras’ contribution to global<br>technological development via presentations from the various technical clubs of IIT Madras<br>like the Center for Innovation (a unique initiative of IIT Madras) and Sustainability Network,<br>an organization dedicated to making IIT Madras sustainable. The schedule will be designed to<br>also give alumni an opportunity to interact with current students at IIT M after the<br>Confluence.<br><br>
-
-IITM Research Park, the first University-based Research Park in India, which seeks to<br>provide a vital link between academia and the industry will also be a part of the Confluence.<br><br>
-
-We would like invite you to be a part of this event helping us in making the event a grand <br>success.
-<br>
-<br>
-Regards,<br>
-I V S Sandeep<br> 
-Co-curricular Affairs Secretary<br> 
-Indian Institute of Technology (IIT) Madras<br>
-Chennai | PO Box 600036 | India<br>
-Phone: +91-94444 07541 | +91-99520 92691<br>
+<div id = "content" style = "margin : 0 auto 0 auto; width : 900px;"> 
+<div class="leftdiv" style = "text-align:justify">
+<div id = "lefthead" style = "font-size:32px;text-align : center;">
+Invitation
 </div>
-
+<div id = "lcontent" style = "padding:0 10px;margin:4px solid #CCC; width : 420px;min-height : 400px;">
+<p>Dear Sir/Madam
+</p>
+<p>
+IIT Madras is proud to present the IIT Madras Confluence 2011, a special initiative of Shaastra 2011, the annual technical festival of IIT Madras. IIT Madras' official technical festival, Shaastra is the first student organized festival to be awarded the ISO 9001:2008 certification, and is one of the largest events of its kind in Asia.
+</p><p>
+The IIT Madras Confluence is scheduled to take place on Sunday, 25th September 2011. The initiative intends to bring together stalwarts from the fields of research, industry and public policy onto one platform and obtain their unique perspectives on the festival's theme “Inspire the Future”. This ceremony will also showcase IIT Madras’ contribution to global technological development via presentations from the various technical clubs of IIT Madras like the Center for Innovation (a unique initiative of IIT Madras) and Sustainability Network,an organization dedicated to making IIT Madras sustainable. The schedule will be designed to also give alumni an opportunity to interact with current students at IIT M after the Confluence.</p><p>
+</P><p>
+IITM Research Park, the first University-based Research Park in India, which seeks to provide a vital link between academia and the industry will also be a part of the Confluence.  
+</p><p>
+We would like invite you to be a part of this event helping us in making the event a grand  success.
+ </p><p>
+ 
+Regards,<br> 
+I V S Sandeep<br>  
+Co-curricular Affairs Secretary  <br>
+Indian Institute of Technology (IIT) Madras <br> 
+Chennai | PO Box 600036 | India <br>
+Phone: +91-94444 07541 | +91-99520 92691 
+</p>
+</div>
+</div>
 <div class="rightdiv">
   <form action="{{SITE_URL}}confluence/" method="POST">{% csrf_token %}
-    <table name="register">
+    <table name="register" style = "margin-left:4px solid #000">
       {{ form }}
     </table>
 
     <input type="submit" value="Submit" >
   </form>
 </div>
-
+</div>
+</div>
 </body>
 </html>
 
