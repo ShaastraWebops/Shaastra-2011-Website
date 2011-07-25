@@ -79,7 +79,19 @@ def show_quick_tab(request,event_name=None):
             temp = models.MCQ_option.objects.filter(question=ques).order_by('option')
             for temps in temp:
                 options_list.append(temps)
-        event_name = event.display_name
+        event_name = None
+        event = None
+        user_has_registered = False
+        try:
+            event = models.Event.objects.get(name = urlname)
+            event_name = event.display_name
+            try:
+                request.user.get_profile().registered.get(pk = event.id)
+                user_has_registered = True
+            except:
+                pass
+        except:
+            raise Http404
         #return render_to_response('event/QuickTabs.html', locals(), context_instance= global_context(request))
         return render_to_response('event/events_quick_tab.html', locals(), context_instance= global_context(request))
     else:
@@ -445,12 +457,15 @@ def updates_page(request):
              
 @needs_authentication
 def register(request):
-    user = request.uesr
+    user = request.user
     userprof = user.get_profile()
-    event_id = request.GET['event_id']
+    if request.method == 'GET':
+        event_id = request.GET['event_id']
+    else:
+        raise Http404
     event = models.Event.objects.get(id = event_id)
     userprof.registered.add(event)
-    return HttpResponseRedirect('%myshaastra/'%settings.SITE_URL)
+    return HttpResponseRedirect(event.url)
 
 @needs_authentication
 @coords_only

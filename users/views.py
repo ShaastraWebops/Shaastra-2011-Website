@@ -20,6 +20,16 @@ from main_test.users import models
 from main_test.users import forms
 
 import sha,random,datetime
+from django.core.mail import EmailMultiAlternatives
+
+def invite (request):
+    subject, from_email, to = 'hello', 'hospitality@shaastra.org', 'krishna92@gmail.com'
+    text_content = 'This is a image message.'
+    html_content = '<img src = "http://www.shaastra.org/2011/media/main/img/all_logos.png>"'
+    msg = EmailMultiAlternatives(subject, text_content, from_email, [to])# sending plain text in case they cant view html
+    msg.attach_alternative(html_content, "text/html")# the additional html content added to the content for ppl who can view html content
+    msg.send()
+    return HttpResponseRedirect("%shome/" % settings.SITE_URL)
 def login (request):
     form=forms.LoginForm()
     if 'logged_in' in request.session and request.session['logged_in'] == True and request.user.get_profile().is_coord == True and request.user.username != 'cores':
@@ -183,21 +193,25 @@ def myshaastra(request):
 @needs_authentication
 def edit_profile(request):
     user = request.user
-    #userid = user.id
     userprofile = user.get_profile()
+    form = forms.EditUserForm()
     if request.method=='POST':
         data=request.POST.copy()
         form=forms.EditUserForm(data)
         if form.is_valid():
             user.password=form.cleaned_data['password']
+            user.first_name = form.cleaned_data['first_name']
+            user.last_name = form.cleaned_data['last_name']
             user.save()
+            userprofile.age = form.cleaned_data['age']
             userprofile.college_roll=form.cleaned_data['college_roll']
             userprofile.mobile_number=form.cleaned_data['mobile_number']
+            userprofile.branch = form.cleaned_data['branch']
             userprofile.save()
             return HttpResponseRedirect ("%slogin/"%settings.SITE_URL)
     else:
         form=forms.EditUserForm(initial={'password':user.password,'password_again':user.password,'college_roll':userprofile.college_roll,'mobile_number':userprofile.mobile_number})
-        return render_to_response('users/edit_user_raw.html', locals(), context_instance= global_context(request))
+    return render_to_response('users/edit_user_raw.html', locals(), context_instance= global_context(request))
 
 def feedback(request):
     name, email = "", ""

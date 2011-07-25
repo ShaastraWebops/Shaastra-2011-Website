@@ -28,6 +28,28 @@
                 {% endfor %}
             </ul>
         </div>
+        <div id="join_requests">
+            <p>The following people want to join in your team:</p>
+            <ul>
+                {% for request in team_join_requests %}
+                    <li>{{ request.get_full_name }}</li>
+                {% empty %}
+                    No one has asked yet... Tell your team name to your friends!
+                {% endfor %}
+            </ul>
+        </div>
     {% endif %}
-    
+
+<!--    <div id="edit_profile">
+        <div class="button">
+            <a href="#">
+                <form action="edit/profile/" method="GET">
+                    <input type="submit" value="Edit Profile" />
+                </form>
+            </a>
+            <span></span>
+        </div>  
+    </div>
+-->    
+
 {% endblock %}

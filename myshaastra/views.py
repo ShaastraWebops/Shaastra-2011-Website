@@ -3,8 +3,10 @@ from django.shortcuts import render_to_response
 
 from main_test.events.models import *
 from main_test.users.models import *
+from main_test.submissions.models import *
 from main_test.misc.util import *
 from main_test.settings import *
+from main_test.myshaastra.forms import *
 
 @needs_authentication
 def home(request):
@@ -33,12 +35,54 @@ def home(request):
     except:
         pass
     teams = None
+    team_submissions = []
+    team_join_requests = []
     try:
         teams = Team.objects.filter(members__id__exact = user.id)
+        try:
+            for team in teams:
+                tr = team.join_requests.all()
+                team_join_requests.extend(tr)
+                ts = TeamSubmissions.objects.filter(team = team)
+                team_submissions.extend(ts)
+        except:
+            pass
     except:
         pass
-    #Display all submissions that this person is linked to
+    indi_submissions = None
+    try:
+        indi_submissions = IndividualSubmissions.objects.filter(participant = user)
+    except:
+        pass
+    display_add_join_team = False
+    if teams is not None:
+        display_add_join_team = True
     #Add/join team functionality
     #Account settings page
     return render_to_response('myshaastra/home.html', locals(), context_instance = global_context(request))
+
+def create_team(request):
+    user = request.user
+    form = CreateTeamForm()
+    view = "Create"
+    if request.method == 'POST':
+        form = CreateTeamForm(request.POST)
+        if form.is_valid():
+            team = form.save(commit = False)
+            team.save()
+            team.members.add(user)
+            return HttpResponseRedirect('%smyshaastra/' % SITE_URL)
+    return render_to_response('myshaastra/team_form.html', locals(), context_instance = global_context(request))
+    
+def join_team(request):
+    user = request.user
+    form = JoinTeamForm()
+    view = "Join"
+    if request.method == 'POST':
+        form = JoinTeamForm(request.POST)
+        if form.is_valid():
+            team = Team.objects.get(name = form.cleaned_data['name'], event = form.cleaned_data['event'])
+            team.join_requests.add(user)
+            return HttpResponseRedirect('%smyshaastra/' % SITE_URL)
+    return render_to_response('myshaastra/team_form.html', locals(), context_instance = global_context['request'])
 
