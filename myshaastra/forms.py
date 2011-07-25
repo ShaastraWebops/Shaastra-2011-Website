@@ -16,7 +16,7 @@ class CreateTeamForm(forms.ModelForm):
     
     def clean(self):
         data = self.cleaned_data
-        if 'name' is in data and 'event' is in data:
+        if 'name' in data and 'event' in data:
             try:
                 Team.objects.filter(event__id = data['event'].id).get(name__iexact = data['name'])
                 raise ValidationError('A team with the same name already exists for this event!')
@@ -41,7 +41,7 @@ class JoinTeamForm(forms.ModelForm):
     
     def clean(self):
         data = self.cleaned_data
-        if 'name' is in data and 'event' is in data:
+        if 'name' in data and 'event' in data:
             try:
                 Team.objects.filter(event__id = data['event'].id).get(name__iexact = data['name'])
             except Team.DoesNotExist:
