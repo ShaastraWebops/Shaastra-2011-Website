@@ -5,7 +5,7 @@ class RSVP(models.Model):
     name    = models.CharField  ( max_length = 30, null = True )
     email   = models.EmailField ( null = True, unique=True )
     address =models.CharField  ( max_length = 30, null = True )
-    mobile_number = models.CharField(max_length = 15, null=True , help_text='Please enter your current mobile number')
+    mobile_number = models.CharField(max_length = 15, null=True )
     def __unicode__(self):
         return self.content
     
