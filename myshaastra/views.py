@@ -61,6 +61,7 @@ def home(request):
         display_add_join_team = True
     #Add/join team functionality
     #Account settings page
+    create_team_form = CreateTeamForm()
     return render_to_response('myshaastra/home.html', locals(), context_instance = global_context(request))
 
 @needs_authentication
@@ -93,10 +94,11 @@ def create_team(request):
         if form.is_valid():
             team = form.save(commit = False)
             team.leader = user
+            if team.leader.
             team.save()
             team.members.add(user)
             return HttpResponseRedirect('%smyshaastra/' % SITE_URL)
-    return render_to_response('myshaastra/create_team_form.html', locals(), context_instance = global_context(request))
+    return render_to_response('myshaastra/create_team.html', locals(), context_instance = global_context(request))
 
 '''
 def join_team(request):
@@ -126,9 +128,9 @@ def add_member(request):
             member = User.objects.get(username = form.cleaned_data['member'])
             # autoregister member on addition to the team
             try:
-                member.registered.get(pk = team.event.id)
+                member.get_profile().registered.get(pk = team.event.id)
             except Event.DoesNotExist:
-                member.registered.add(team.event)
+                member.get_profile().registered.add(team.event)
             team.members.add(member)
             return HttpResponseRedirect('%smyshaastra/' % SITE_URL)           # this probably needs to be changed to the submissions form page
     return render_to_response('myshaastra/team_home.html', locals(), context_instance = global_context(request))
