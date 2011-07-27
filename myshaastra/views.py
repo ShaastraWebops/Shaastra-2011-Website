@@ -94,7 +94,10 @@ def create_team(request):
         if form.is_valid():
             team = form.save(commit = False)
             team.leader = user
-            if team.leader.
+            try:
+                team.leader.get_profile().registered.get(pk = team.event.id)
+            except Event.DoesNotExist:
+                team.leader.get_profile().registered.add(team.event)
             team.save()
             team.members.add(user)
             return HttpResponseRedirect('%smyshaastra/' % SITE_URL)
