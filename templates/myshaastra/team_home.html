@@ -12,20 +12,21 @@
                 {% if member != user %}
                     <li>
                         {% if team.leader == user %}
-                            <script type="text/javascript">
+<!--                            <script type="text/javascript">
                                 function submit_form_{{ member.id }}()
                                 {
                                     document.remove_{{ member.id }}.submit();
                                 }
                             </script>
+                            <a href="javascript:submit_form_{{ member.id }}">   -->
+                                {{ member.username }}
+<!--                            </a>   -->
                             <form name="remove_{{ member.id }}" action="{{ SITE_URL }}myshaastra/teams/remove_member/" method="POST">
                                 {% csrf_token %}
                                 <input type="hidden" name="new_leader" value="{{ member.username }}" />
                                 <input type="hidden" name="team_id" value="{{ team.id }}" />
+                                <input type="submit" value="Remove" />
                             </form>
-                            <a href="javascript:submit_form_{{ member.id }}">
-                                {{ member.username }}
-                            </a>
                         {% else %}
                             {{ member.username }}
                         {% endif %}

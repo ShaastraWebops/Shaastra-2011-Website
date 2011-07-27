@@ -89,7 +89,7 @@ class ChangeLeaderForm(forms.Form):
     def clean_team_id(self):
         team_id = self.cleaned_data['team_id']
         try:
-            team = Team.objects.get(pk = team_id)
+            team = Team.objects.get(pk = int(team_id))
         except Team.DoesNotExist:
             raise forms.ValidationError('Team does not exist!')
         return team_id
@@ -97,7 +97,7 @@ class ChangeLeaderForm(forms.Form):
     def clean(self):
         data = self.cleaned_data
         if 'team_id' and 'new_leader' in data:
-            team = Team.objects.get(pk = team_id)
+            team = Team.objects.get(pk = data['team_id'])
             try:
                 user = team.members.get(username = data['new_leader'])
             except User.DoesNotExist:
