@@ -1,0 +1,73 @@
+{% extends "index.html" %}
+
+{%block event_categories%}
+{%endblock%}
+
+{%block gradient%}
+    {%include "gradient.html"%}
+{%endblock%}
+
+{% block body %}
+    <div id="registered_events">
+        <p>Events you have registered for:</p>
+        <ul>
+            {% for event in events_list %}
+                <li>
+                    <a href="{{ event.url }}">{{ event.display_name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    
+    {% if teams %}
+        <div id="member_teams">
+            <p>You are a member of the following teams: (Click to see team details)</p>
+            <ul>
+                {% for team in member_teams %}
+                    <li>
+                        <a href="{{ SITE_URL }}myshaastra/teams/?team_id={{ team.id }}">
+                            {{ team.name }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div id="leader_teams">
+            <p>You are the leader of the following teams: (Click to see team details)</p>
+            <ul>
+                {% for team in leader_teams %}
+                    <li>
+                        <a href="{{ SITE_URL }}myshaastra/teams/?team_id={{ team.id }}">
+                            {{ team.name }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div id="join_requests">
+            <p>The following people want to join in your team:</p>
+            <ul>
+                {% for request in team_join_requests %}
+                    <li>{{ request.get_full_name }}</li>
+                {% empty %}
+                    No one has asked yet... Tell your team name to your friends!
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+<!--    <div id="edit_profile">
+        <div class="button">
+            <a href="#">
+                <form action="edit/profile/" method="GET">
+                    <input type="submit" value="Edit Profile" />
+                </form>
+            </a>
+            <span></span>
+        </div>  
+    </div>
+-->    
+
+    <a href="{{ SITE_URL }}myshaastra/teams/create/">Create a new team</a>
+
+{% endblock %}

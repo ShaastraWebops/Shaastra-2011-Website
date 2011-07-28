@@ -1,0 +1,24 @@
+{% extends "index.html" %}
+
+{% block body %}
+
+    <div id="team_form">
+        <div class="button2">
+            <a href="#">    
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <table>
+                        {{ form.as_table }}
+                        <tr>
+                            <td>
+                                <input type="submit" value="{{ view }}" />
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </a>
+            <span></span>
+        </div>
+    </div>	
+
+{% endblock %}

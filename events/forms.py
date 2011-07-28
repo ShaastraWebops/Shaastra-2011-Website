@@ -102,4 +102,6 @@ class EventForm(ModelForm):
         model = Event
         #fields = ('name', 'registrable', 'questions', 'start_time', 'end_time', 'accommodation', 'logo', 'sponslogo')
         fields = ('display_name', 'menu_image', 'sponslogo','video',)
+class EventUpdateForm(forms.Form):
+    UpdateContent = forms.CharField(widget=forms.Textarea(), help_text = 'The content of the update, 140 characters or less')        
 

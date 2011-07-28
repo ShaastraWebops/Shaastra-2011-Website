@@ -1,0 +1,80 @@
+{% extends "myshaastra/home.html" %}
+
+{% block body %}
+
+    <div id="list_of_members">
+        <h3>Members:</h3>
+        {% if team.leader == user %}
+            <p>Click to remove a member</p>
+        {% endif %}
+        <ul>
+            {% for member in team.members.all %}
+                {% if member != user %}
+                    <li>
+                        {% if team.leader == user %}
+<!--                            <script type="text/javascript">
+                                function submit_form_{{ member.id }}()
+                                {
+                                    document.remove_{{ member.id }}.submit();
+                                }
+                            </script>
+                            <a href="javascript:submit_form_{{ member.id }}">   -->
+                                {{ member.username }}
+<!--                            </a>   -->
+                            <form name="remove_{{ member.id }}" action="{{ SITE_URL }}myshaastra/teams/remove_member/" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="new_leader" value="{{ member.username }}" />
+                                <input type="hidden" name="team_id" value="{{ team.id }}" />
+                                <input type="submit" value="Remove" />
+                            </form>
+                        {% else %}
+                            {{ member.username }}
+                        {% endif %}
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+    
+    <br />
+    
+    {% if team.leader == user %}
+        <div id="add_member_form">
+            <p>Add a member:</a>
+            <form name="add_member" action="{{ SITE_URL }}myshaastra/teams/add_member/" method="POST">
+                {% csrf_token %}
+                {{ add_member_form.member.errors }}
+                <label for="id_member">Username:</label>
+                {{ add_member_form.member }} 
+                <input type="hidden" name="team_id" value="{{ team.id }}" />
+                <p><input type="submit" value="Add" /></p>
+            </form>
+        </div>
+    {% else %}
+        <script type="text/javascript">
+            function submit_dropout_form()
+            {
+                document.dropout.submit();
+            }
+        </script>        
+        <form name="dropout" action="{{ SITE_URL }}myshaastra/teams/drop_out/" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="team_id" value="{{ team.id }}" />
+        </form>
+        <a href="javascript:submit_dropout_form()">Leave this team</a>
+    {% endif %}
+
+    {% if team.leader == user %}
+        <h3>Change the team leader</h3>
+        <div id="change_leader_form">
+            <form action="{{ SITE_URL }}myshaastra/teams/change_leader/" method="POST">
+                {% csrf_token %}
+                {{ change_leader_form.new_leader.errors }}
+                <label for="id_new_leader">Pass on the leadership to:</label>
+                {{ change_leader_form.new_leader }}
+                <input type="hidden" name="team_id" value="{{ team.id }}">
+            </form>
+        </div>
+    {% endif %}   
+
+{% endblock %}

@@ -79,7 +79,22 @@ def show_quick_tab(request,event_name=None):
             temp = models.MCQ_option.objects.filter(question=ques).order_by('option')
             for temps in temp:
                 options_list.append(temps)
-        event_name = event.display_name
+        event_name = None
+        event = None
+        user_has_registered = False
+        show_register = False
+        try:
+            event = models.Event.objects.get(name = urlname)
+            event_name = event.display_name
+            if event.registrable:
+                show_register = True
+            try:
+                request.user.get_profile().registered.get(pk = event.id)
+                user_has_registered = True
+            except:
+                pass
+        except:
+            raise Http404
         #return render_to_response('event/QuickTabs.html', locals(), context_instance= global_context(request))
         return render_to_response('event/events_quick_tab.html', locals(), context_instance= global_context(request))
     else:
@@ -421,15 +436,39 @@ def edit_event(request):
     else:
         form = forms.EventForm(instance = event)
     return render_to_response('event/edit_event.html', locals(), context_instance=global_context(request))
-
+    
+@coords_only    
+def add_event_update(request):
+    if request.method =='POST':
+        data=request.POST.copy()
+        form=forms.EventUpdateForm(data)
+        if form.is_valid():
+            neweventupdate=models.Update(event = request.user.get_profile().coord_event , content_formatted = form.cleaned_data['UpdateContent'])
+            neweventupdate.save()
+        return HttpResponseRedirect('%sevents/dashboard/updates/'%settings.SITE_URL)    
+    else:
+        form=forms.EventUpdateForm()
+    return render_to_response('event/add_update.html', locals(), context_instance=global_context(request))
+        
+@coords_only 
+def updates_page(request):
+    
+    updates_list=models.Update.objects.filter(event=request.user.get_profile().coord_event)
+    return render_to_response('event/updates_page.html', locals(), context_instance=global_context(request))
+    
+            
+             
 @needs_authentication
 def register(request):
-    user = request.uesr
+    user = request.user
     userprof = user.get_profile()
-    event_id = request.GET['event_id']
+    if request.method == 'GET':
+        event_id = request.GET['event_id']
+    else:
+        raise Http404
     event = models.Event.objects.get(id = event_id)
     userprof.registered.add(event)
-    return HttpResponseRedirect('%myshaastra/'%settings.SITE_URL)
+    return HttpResponseRedirect(event.url)
 
 @needs_authentication
 @coords_only
@@ -527,8 +566,7 @@ def render_static(request,static_name):
         return render_to_response('webteam.html', locals(), context_instance = global_context(request))
     
     raise Http404
-    
-     
+        
 """ 
 def render_policy(request):
     return render_to_response('policy.html', locals(), context_instance = global_context(request))

@@ -154,21 +154,32 @@ class AddUserForm(ModelForm):
      
 class EditUserForm(ModelForm):
 
+    first_name = forms.CharField(max_length=50, help_text="Your first name")
+    last_name = forms.CharField(max_length=50, help_text="Your last name")
     password=forms.CharField(min_length=6, max_length=30, widget=forms.PasswordInput,help_text='Enter a password that you can remember')
     password_again=forms.CharField(max_length=30, widget=forms.PasswordInput,help_text='Enter the same password that you entered above')
+    
+    branch=forms.CharField(max_length=50,widget=forms.TextInput(attrs={'id':'branch_input'}),help_text='Select your branch from the list. If it does not show up, please select the "Other" option.')
 
     class Meta:
         model = models.UserProfile
-        fields=('password','password_again','college_roll','mobile_number')
+        fields=('first_name','last_name','age','password','password_again','college_roll','mobile_number','branch')
         #except = ('is_coord','coord_event')        
     
-	    
+    #Commented out for the saudi arabia issue
+	'''
     def clean_mobile_number(self):
 	if (len(self.cleaned_data['mobile_number'])!=10 or (self.cleaned_data['mobile_number'][0]!='7' and self.cleaned_data['mobile_number'][0]!='8' and self.cleaned_data['mobile_number'][0]!='9') or (not self.cleaned_data['mobile_number'].isdigit())):
 	    raise forms.ValidationError(u'Enter a valid mobile number')
 	else:
 	  return self.cleaned_data['mobile_number']
+	'''
 
+    def clean_age(self):
+        if self.age < 12 or self.age > 80:
+            raise forms.ValidationError(u'You need to be over 12 and under 80 years of age to participate')
+        return self.cleaned_data['age']
+    
     def clean_password(self):
         if self.prefix:
             field_name1 = '%s-password'%self.prefix
@@ -193,3 +204,4 @@ class FeedbackForm(ModelForm):
         model=models.Feedback
         widgets = {'content': forms.Textarea(attrs={'cols': 80, 'rows': 20}),}
         exclude = ('radiocontent')
+
