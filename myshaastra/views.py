@@ -123,12 +123,12 @@ def add_member(request):
     change_leader_form = ChangeLeaderForm()
     if request.method == 'POST':
         user = request.user
-        form = AddMemberForm(request.POST)
-        if form.is_valid():
-            team = Team.objects.get(pk = form.cleaned_data['team_id'])
+        add_member_form = AddMemberForm(request.POST)
+        if add_member_form.is_valid():
+            team = Team.objects.get(pk = add_member_form.cleaned_data['team_id'])
             if user != team.leader:
                 return HttpResponseRedirect('myshaastra/you_arent_leader.html', locals(), context_instance = global_context(request))
-            member = User.objects.get(username = form.cleaned_data['member'])
+            member = User.objects.get(username = add_member_form.cleaned_data['member'])
             # autoregister member on addition to the team
             try:
                 member.get_profile().registered.get(pk = team.event.id)
@@ -144,12 +144,12 @@ def change_team_leader(request):
     add_member_form = AddMemberForm()
     if request.method == 'POST':
         user = request.user
-        form = ChangeLeaderForm(request.POST)
-        if form.is_valid():
-            team = Team.objects.get(pk = form.cleaned_data['team_id'])
+        change_leader_form = ChangeLeaderForm(request.POST)
+        if change_leader_form.is_valid():
+            team = Team.objects.get(pk = change_leader_form.cleaned_data['team_id'])
             if user != team.leader:
                 return render_to_response('myshaastra/you_arent_leader.html', locals(), context_instance = global_context(request))
-            new_leader = team.members.get(username = form.cleaned_data['new_leader'])
+            new_leader = team.members.get(username = change_leader_form.cleaned_data['new_leader'])
             team.leader = new_leader
             team.save()
             return HttpResponseRedirect('%smyshaastra/' % SITE_URL)           # this probably needs to be changed - i dunno to what :P
@@ -184,12 +184,12 @@ def remove_member(request):
     add_member_form = AddMemberForm()
     if request.method == 'POST':
         user = request.user
-        form = ChangeLeaderForm(request.POST)
-        if form.is_valid():
-            team = Team.objects.get(pk = form.cleaned_data['team_id'])
+        change_leader_form = ChangeLeaderForm(request.POST)
+        if change_leader_form.is_valid():
+            team = Team.objects.get(pk = change_leader_form.cleaned_data['team_id'])
             if user != team.leader:
                 return HttpResponseRedirect('myshaastra/you_arent_leader.html', locals(), context_instance = global_context(request))
-            new_leader = team.members.get(username = form.cleaned_data['new_leader'])           
+            new_leader = team.members.get(username = change_leader_form.cleaned_data['new_leader'])           
             team.members.remove(new_leader)                                                     # yes i know, it looks bad. but what the hell. i'm lazy.
             return HttpResponseRedirect('%smyshaastra/' % SITE_URL)           # this probably needs to be changed - i dunno to what :P
     return render_to_response('myshaastra/team_home.html', locals(), context_instance = global_context(request))
