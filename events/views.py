@@ -82,9 +82,12 @@ def show_quick_tab(request,event_name=None):
         event_name = None
         event = None
         user_has_registered = False
+        show_register = False
         try:
             event = models.Event.objects.get(name = urlname)
             event_name = event.display_name
+            if event.registrable:
+                show_register = True
             try:
                 request.user.get_profile().registered.get(pk = event.id)
                 user_has_registered = True
