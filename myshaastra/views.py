@@ -64,24 +64,28 @@ def home(request):
     create_team_form = CreateTeamForm()
     return render_to_response('myshaastra/home.html', locals(), context_instance = global_context(request))
 
-@needs_authentication
-def team_home(request):
-    add_member_form = AddMemberForm()
-    change_leader_form = ChangeLeaderForm()
-    if request.method == 'GET' and 'team_id' in request.GET:
-        team_id = request.GET['team_id']
+def get_authentic_team(request = None, team_id = None):
+    if team_id is None or request is None:
+        return None
+    try:
+        team = Team.objects.get(pk = int(team_id))
         try:
-            team = Team.objects.get(pk = int(team_id))
-            try:
-                team.members.get(pk = request.user.id)
-            except User.DoesNotExist:
-                raise Http404
-            team.is_leader = False
-            if team.leader == request.user:
-                team.is_leader = True
-            return render_to_response('myshaastra/team_home.html', locals(), context_instance = global_context(request))
-        except Team.DoesNotExist:
-            raise Http404
+            team.members.get(pk = request.user.id)
+            return team
+        # Non-members fail the test
+        except User.DoesNotExist:
+            return None
+    except Team.DoesNotExist:
+        return None
+    return None
+
+@needs_authentication
+def team_home(request, team_id = None):
+    team = get_authentic_team(request, team_id)
+    if team is not None:
+        add_member_form = AddMemberForm()
+        change_leader_form = ChangeLeaderForm()
+        return render_to_response('myshaastra/team_home.html', locals(), context_instance = global_context(request))
     raise Http404
 
 @needs_authentication
@@ -118,59 +122,52 @@ def join_team(request):
 '''
 
 @needs_authentication
-def add_member(request):
-    add_member_form = AddMemberForm()
-    change_leader_form = ChangeLeaderForm()
-    if request.method == 'POST':
-        user = request.user
-        add_member_form = AddMemberForm(request.POST)
-        if add_member_form.is_valid():
-            team = Team.objects.get(pk = add_member_form.cleaned_data['team_id'])
-            if user != team.leader:
-                return HttpResponseRedirect('myshaastra/you_arent_leader.html', locals(), context_instance = global_context(request))
-            member = User.objects.get(username = add_member_form.cleaned_data['member'])
-            # autoregister member on addition to the team
-            try:
-                member.get_profile().registered.get(pk = team.event.id)
-            except Event.DoesNotExist:
-                member.get_profile().registered.add(team.event)
-            team.members.add(member)
-            return HttpResponseRedirect('%smyshaastra/' % SITE_URL)           # this probably needs to be changed to the submissions form page
-    return render_to_response('myshaastra/team_home.html', locals(), context_instance = global_context(request))
+def add_member(request, team_id = None):
+    team = get_authentic_team(request, team_id)    
+    if team is not None:
+        add_member_form = AddMemberForm()
+        change_leader_form = ChangeLeaderForm()
+        if request.method == 'POST':
+            user = request.user
+            add_member_form = AddMemberForm(request.POST)
+            if add_member_form.is_valid():
+                if user != team.leader:
+                    return HttpResponseRedirect('myshaastra/you_arent_leader.html', locals(), context_instance = global_context(request))
+                member = User.objects.get(username = add_member_form.cleaned_data['member'])
+                # autoregister member on addition to the team
+                try:
+                    member.get_profile().registered.get(pk = team.event.id)
+                except Event.DoesNotExist:
+                    member.get_profile().registered.add(team.event)
+                team.members.add(member)
+                return HttpResponseRedirect('%smyshaastra/' % SITE_URL)           # this probably needs to be changed to the submissions form page
+        return render_to_response('myshaastra/team_home.html', locals(), context_instance = global_context(request))
+    raise Http404
 
 @needs_authentication
-def change_team_leader(request):
-    change_leader_form = ChangeLeaderForm()
-    add_member_form = AddMemberForm()
-    if request.method == 'POST':
-        user = request.user
-        change_leader_form = ChangeLeaderForm(request.POST)
-        if change_leader_form.is_valid():
-            team = Team.objects.get(pk = change_leader_form.cleaned_data['team_id'])
-            if user != team.leader:
-                return render_to_response('myshaastra/you_arent_leader.html', locals(), context_instance = global_context(request))
-            new_leader = team.members.get(username = change_leader_form.cleaned_data['new_leader'])
-            team.leader = new_leader
-            team.save()
-            return HttpResponseRedirect('%smyshaastra/' % SITE_URL)           # this probably needs to be changed - i dunno to what :P
-    return render_to_response('myshaastra/team_home.html', locals(), context_instance = global_context(request))
+def change_team_leader(request, team_id = None):
+    team = get_authentic_team(request, team_id)
+    if team is not None:
+        change_leader_form = ChangeLeaderForm()
+        add_member_form = AddMemberForm()
+        if request.method == 'POST':
+            user = request.user
+            change_leader_form = ChangeLeaderForm(request.POST)
+            if change_leader_form.is_valid():
+                if user != team.leader:
+                    return render_to_response('myshaastra/you_arent_leader.html', locals(), context_instance = global_context(request))
+                new_leader = team.members.get(username = change_leader_form.cleaned_data['new_leader'])
+                team.leader = new_leader
+                team.save()
+                return HttpResponseRedirect('%smyshaastra/' % SITE_URL)           # this probably needs to be changed - i dunno to what :P
+        return render_to_response('myshaastra/team_home.html', locals(), context_instance = global_context(request))
+    raise Http404
 
 @needs_authentication
-def drop_out(request):
-    if request.method == 'POST':
+def drop_out(request, team_id = None):
+    team = get_authentic_team(request, team_id)
+    if team is not None:
         user = request.user
-        team_id = request.POST['team_id']
-        team = None
-        try:
-            # team should exist
-            team = Team.objects.get(pk = int(team_id))
-        except Team.DoesNotExist:
-            raise Http404
-        try:
-            # user should be a team member
-            team.members.get(username = user.username)
-        except User.DoesNotExist:
-            raise Http404
         if user == team.leader:
             return render_to_response('myshaastra/you_are_leader.html', locals(), context_instance = global_context(request))
         else:
@@ -179,19 +176,21 @@ def drop_out(request):
     raise Http404
 
 @needs_authentication
-def remove_member(request):
-    change_leader_form = ChangeLeaderForm()            # it is the same form essentially :P
-    add_member_form = AddMemberForm()
-    if request.method == 'POST':
-        user = request.user
-        change_leader_form = ChangeLeaderForm(request.POST)
-        if change_leader_form.is_valid():
-            team = Team.objects.get(pk = change_leader_form.cleaned_data['team_id'])
-            if user != team.leader:
-                return HttpResponseRedirect('myshaastra/you_arent_leader.html', locals(), context_instance = global_context(request))
-            new_leader = team.members.get(username = change_leader_form.cleaned_data['new_leader'])           
-            team.members.remove(new_leader)                                                     # yes i know, it looks bad. but what the hell. i'm lazy.
-            return HttpResponseRedirect('%smyshaastra/' % SITE_URL)           # this probably needs to be changed - i dunno to what :P
-    return render_to_response('myshaastra/team_home.html', locals(), context_instance = global_context(request))
-
+def remove_member(request, team_id = None):
+    team = get_authentic_team(request, team_id)
+    if team is not None:
+        change_leader_form = ChangeLeaderForm()            # it is the same form essentially :P
+        add_member_form = AddMemberForm()
+        if request.method == 'POST':
+            user = request.user
+            change_leader_form = ChangeLeaderForm(request.POST)
+            if change_leader_form.is_valid():
+                team = Team.objects.get(pk = change_leader_form.cleaned_data['team_id'])
+                if user != team.leader:
+                    return HttpResponseRedirect('myshaastra/you_arent_leader.html', locals(), context_instance = global_context(request))
+                new_leader = team.members.get(username = change_leader_form.cleaned_data['new_leader'])           
+                team.members.remove(new_leader)                                                # yes i know, it looks bad. but what the hell. i'm lazy.
+                return HttpResponseRedirect('%smyshaastra/' % SITE_URL)           # this probably needs to be changed - i dunno to what :P
+        return render_to_response('myshaastra/team_home.html', locals(), context_instance = global_context(request))
+    raise Http404
 
