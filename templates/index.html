@@ -435,9 +435,9 @@ function dow()
 	      <a  href="{{SITE_URL}}sponsorship/" class="navig" id = "sponsor"><span class = "nclass">Sponsorship</span></a>
 				</div>
 				<div id = "log">
-				<a href="{{SITE_URL}}logout/"><img src = "http://www.shaastra.org/2011/media/main/img/newhead/Header/Login.png" id = "login_"  style="position:relative; left:240px; top:0px;" ></a>
-               
-                <a href="{{SITE_URL}}login/"><img src = "http://www.shaastra.org/2011/media/main/img/newhead/Header/Sign-Up.png" id = "login_" style="position:relative; left:0px; top:0px;"></a>
+				<a href="{{SITE_URL}}logout/"><img src = "http://www.shaastra.org/2011/media/main/img/newhead/Header/Login.png" id = "login_"  style="position:relative; left:180px; top:-13px;" ></a>
+                <a href="{{SITE_URL}}logout/"><img src = "{{MEDIA_URL}}img/logout.png" id = "login_"  style="position:relative; left:230px; top:-13px;" ></a>               
+                <a href="{{SITE_URL}}login/"><img src = "http://www.shaastra.org/2011/media/main/img/newhead/Header/Sign-Up.png" id = "login_" style="position:relative; left:210px; top:-13px;"></a>
 				</div>
 				<div id="fb-root" style = "position:relative;padding-left:40px;"></div><script src="http://connect.facebook.net/en_US/all.js#appId=236519179715949&amp;xfbml=1"></script><center><fb:like href="http://www.facebook.com/Shaastra" send="false" layout="button_count" width="50" show_faces="false" font="arial"></fb:like><!-- Place this tag where you want the +1 button to render -->
 <g:plusone size="medium"></g:plusone>
@@ -449,6 +449,15 @@ function dow()
 					<div id = "itlogo">
 					</div>
 					<div id = "sponslogo">
+					            <div id = "spons">
+           {%block main_sponsor%}
+			<div id="sponsbox">
+				<img src = "{{MEDIA_URL}}img/durr.png" />
+				<img src = "{{MEDIA_URL}}img/airbus.png" />
+				<img id="intsl" src = "{{MEDIA_URL}}img/Internshala-Animated-Logo-1.5seconds_.gif" />
+			</div> 
+           {%endblock%}
+            </div>
 					</div>
 				</div>
 			</div>
