@@ -17,6 +17,7 @@ annual technical festival of IIT Madras
    	
  
     <link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}css2/style_copy.css">
+	<link rel = "stylesheet" type = "text/css" href = "http://www.shaastra.org/2011/media/main/css2/style_copy_new.css">
     <link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}css2/events_scroll.css">
     <link rel="stylesheet" href="{{MEDIA_URL}}css2/main.css">
     <link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}js2/Media/css/ticker.css">
@@ -417,63 +418,60 @@ function dow()
   
     <div id = "header" style="overflow:hidden;">
         <div id = "header_top">
-          <div id = "logos_container">
-            <div id = "logos">
-              <img src = "{{MEDIA_URL}}img/all_logos.png" style = "width : 247px;height:115px">
-                
-            </div>
-          </div>
-          <div id ="navbar_container">
-            <div id = "navbar" style="position:relative;">
-               {%block top_navigation%}
-              <a href = "{{SITE_URL}}home" class="navig" id = "home"><span class = "nclass">Home</span></a>
+
+		
+				<div id = "head_container">
+			<div id = "head_left_container">
+				<div id = "logo_container">
+				</div>
+			</div>
+			<div id = "head_middle_container">
+				<div id = "navcontainer">
+				 <a href = "{{SITE_URL}}home" class="navig" id = "home"><span class = "nclass">Home</span></a>
 	      <a href = "#" class="navig" id = "events" onclick = "javascript:setTimeout(function(){popup(1)},00);"><span class = "nclass">Events</span></a>
               <input type="hidden" value="2" name="static_id">
 	      <a href = "{{SITE_URL}}hospitality" class="navig" id = "hospi" ><span class = "nclass">Hospitality</span></a>
              
 	      <a  href="{{SITE_URL}}sponsorship/" class="navig" id = "sponsor"><span class = "nclass">Sponsorship</span></a>
-              
-              <!-- gallery button commented for time being. have to put it back once we get it-->
-	     <!-- <a href = "#" class="navig" id = "gallery" onclick = "javascript:setTimeout(function(){popup(2)},00);"><span class = "nclass">Gallery</span></a>-->
-               {%endblock%}
-              
-              <div id = "logandsearch">
+				</div>
+				<div id = "log">
               {%block log_and_search%}
                {% if user.is_authenticated and user.is_active%}	
-                		    
-                <div id="welcome" style="position:absolute; left:0px; top:85px; color:#183c5a; font-size:20px; font-weight:normal; font-family:'helvetica'">Welcome {{user}}</div>{%block welcome%}{%endblock%}
-                <a href="{{SITE_URL}}logout/"><img src = "{{MEDIA_URL}}img/logout.png" id = "login_"  style="position:absolute; left:240px; top:85px;" ></a>
-                {% else %}
-                <a href="{{SITE_URL}}login/"><img src = "{{MEDIA_URL}}img/login.png" id = "login_" style="position:absolute; left:0px; top:85px;"></a>
-              
-              <a href="{{SITE_URL}}register/user/" ><img src = "{{MEDIA_URL}}img/sign_up.png" id = "sgnup_" style="position:absolute; left:120px; top:85px;"></a>
-                {% endif %}
-<!--                <div id ="srch"  style="position:absolute; left:362px; top:88px;"><img src = "{{MEDIA_URL}}img/search.png" id = "srimg_">&nbsp;&nbsp;<input type = "text" id = "search" name = "search"></div>
--->
-             {%endblock%}
-              </div>            
-            </div>
-          </div>
-           <div id="fbg" style="position:relative;left:30px;">
-		  <div id="fblike">
-			<iframe src="http://www.facebook.com/plugins/like.php?app_id=200960543285346&amp;href=www.facebook.com/Shaastra&amp;send=false&amp;layout=button_count&amp;width=100&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font=arial&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:21px;" allowTransparency="true"></iframe>
-		  </div>
-		  <div id="gplusone">			
-			<g:plusone size="medium" href="http://www.shaastra.org/"></g:plusone>
-		  </div> 
- </div>   
-          <div id = "spons_container">
-            <div id = "spons">
+                <div id="welcome" style="position:relative; left:-55px; top:-13px; color:#183c5a; font-size:20px; font-weight:normal; font-family:'helvetica'">Welcome {{user}}</div>{%block welcome%}{%endblock%}
+                <a href="{{SITE_URL}}logout/"><img src = "{{MEDIA_URL}}img/logout.png" id = "login_"  style="position:relative; left:90px; top:-13px;" ></a>  
+                {% else %}             
+                <a href="{{SITE_URL}}login/"><img src = "http://www.shaastra.org/2011/media/main/img/newhead/Header/Sign-Up.png" id = "login_" style="position:relative; left:270px; top:-13px;"></a>
+				<a href="{{SITE_URL}}logout/"><img src = "http://www.shaastra.org/2011/media/main/img/newhead/Header/Login.png" id = "login_"  style="position:relative; left:90px; top:-13px;" ></a>	    
+				</div>
+				{% endif %}
+				{%endblock%}
+				<center style="margin-top:-8px;">
+					<iframe src="http://www.facebook.com/plugins/like.php?app_id=200960543285346&amp;href=www.facebook.com/Shaastra&amp;send=false&amp;layout=button_count&amp;width=100&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font=arial&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:21px;" allowTransparency="true"></iframe>
+					<g:plusone size="medium" href="http://www.shaastra.org/"></g:plusone>
+					<a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="shaastra">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+				
+</center>
+		</div>
+			<div id = "head_right_container">
+				<div id = "right_contain">
+					<div id = "itlogo">
+					</div>
+					<div id = "sponslogo">
+					            <div id = "spons">
            {%block main_sponsor%}
 			<div id="sponsbox">
 				<img src = "{{MEDIA_URL}}img/durr.png" />
 				<img src = "{{MEDIA_URL}}img/airbus.png" />
+				<img id="intsl" src = "{{MEDIA_URL}}img/Internshala-Animated-Logo-1.5seconds_.gif" />
 			</div> 
            {%endblock%}
             </div>
-          </div>
-          <div class = "clearfloat"></div>
-        </div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
         <div id = "header_bottom">
           <div id = "updates_container">
 			<div id="ucLeft"></div>
@@ -588,7 +586,7 @@ $("#myGallery").fadeIn("slow");}
 	</div>
     </div>
 
- </div>
+ </div></div>
 
 {%block event_categories%}
 
