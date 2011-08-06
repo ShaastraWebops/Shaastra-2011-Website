@@ -67,13 +67,26 @@ class LoginForm(forms.Form):
 
 class AddUserForm(ModelForm):
 
-    username = forms.CharField(max_length=30,help_text='30 characters or fewer. Letters, numbers and @/./+/-/_ characters')
-    email = forms.EmailField(help_text='Enter your e-mail address. eg, someone@gmail.com')
-    password=forms.CharField(min_length=6, max_length=30, widget=forms.PasswordInput,help_text='Enter a password that you can remember')
-    password_again=forms.CharField(max_length=30, widget=forms.PasswordInput,help_text='Enter the same password that you entered above')
-    recaptcha = recaptcha_fields.ReCaptchaField(label='Show us that you are not a bot!',help_text='Enter the words shown in the space provided')
-    college = forms.CharField(max_length=120,widget=forms.TextInput(attrs={'id':'coll_input'}),help_text='Select your college from the list. If it is not there, use the link below')
-    branch=forms.CharField(max_length=50,widget=forms.TextInput(attrs={'id':'branch_input'}),help_text='Select your branch from the list. If it does not show up, please select the "Other" option.')
+    username       = forms.CharField  (max_length=30,
+                                       help_text='30 characters or fewer. Letters, numbers and @/./+/-/_ characters')
+    email          = forms.EmailField (help_text='Enter your e-mail address. eg, someone@gmail.com')
+    password       = forms.CharField  (min_length=6,
+                                       max_length=30,
+                                       widget=forms.PasswordInput,
+                                       help_text='Enter a password that you can remember')
+    password_again = forms.CharField  (max_length=30,
+                                       widget=forms.PasswordInput,
+                                       help_text='Enter the same password that you entered above')
+    college        = forms.CharField  (max_length=120,
+                                       widget=forms.TextInput(attrs={'id':'coll_input'}),
+                                       help_text='Select your college from the list. If it is not there, use the link below')
+    college_roll   = forms.CharField  (max_length=25,
+                                       help_text='Enter your college ID / roll number here.')
+    branch         = forms.CharField  (max_length=50,
+                                       widget=forms.TextInput(attrs={'id':'branch_input'}),
+                                       help_text='Select your branch from the list. If it does not show up, please select the "Other" option.')
+    recaptcha      = recaptcha_fields.ReCaptchaField (label='Show us that you are not a bot!',
+                                                      help_text='Enter the words shown in the space provided')
     class Meta:
         model = models.UserProfile
         fields=('username','password','password_again','email','age','gender','college','college_roll','branch','mobile_number')

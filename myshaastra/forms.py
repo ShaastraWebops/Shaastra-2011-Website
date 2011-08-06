@@ -104,4 +104,8 @@ class ChangeLeaderForm(forms.Form):
                 raise forms.ValidationError('This user is not a part of this team')
         return data
 
+class ShaastraAmbassadorForm(forms.ModelForm):
+    class Meta:
+        model = ShaastraAmbassador
+
 

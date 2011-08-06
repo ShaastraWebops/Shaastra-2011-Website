@@ -19,7 +19,7 @@ except ImportError:
             return "Markdown is not installed!"
     raise MarkdownNotFound
 
-from forum.managers import ForumManager
+from main_test.forum.managers import ForumManager
 
 class Forum(models.Model):
     """

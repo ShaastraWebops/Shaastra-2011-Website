@@ -1,5 +1,5 @@
 from django.contrib import admin
-from forum.models import Forum, Thread, Post, Subscription
+from main_test.forum.models import Forum, Thread, Post, Subscription
 
 class ForumAdmin(admin.ModelAdmin):
     list_display = ('title', '_parents_repr')

@@ -1,7 +1,7 @@
 from django.contrib.sitemaps import Sitemap
 from django.core.urlresolvers import reverse
 
-from forum.models import Forum, Thread, Post
+from main_test.forum.models import Forum, Thread, Post
 
 class ForumSitemap(Sitemap):
     changefreq = 'weekly'
