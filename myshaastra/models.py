@@ -16,7 +16,7 @@ PROGRAMME_CHOICES = (
 class ShaastraAmbassador(models.Model)
     user = models.ForeignKey(User, unique = True)
     college_url = models.URLField(null=True,blank=True)
-    programme = models.ChoiceField(widget=RadioSelect, choices=PROGRAMME_CHOICES,blank=False)
+    programme = models.ChoiceField(choices=PROGRAMME_CHOICES,blank=False)
     resume_file = models.FileField(blank=False)
     ques1 = models.TextField(blank=False,help_text = 'Write it in your own words - your motivation for the application.')
     ques2 = models.TextField(blank=False, help_text = 'This will help us to link your thinking with the Shaastra 2011 theme : "Inspire the Future"')
