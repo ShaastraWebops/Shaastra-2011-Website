@@ -7,7 +7,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
 
-from forum.models import Forum, Thread, Post
+from main_test.forum.models import Forum, Thread, Post
 
 class RssForumFeed(Feed):
     title_template = 'forum/feeds/post_title.html'

@@ -16,8 +16,8 @@ from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
 from django.views.generic.list_detail import object_list
 
-from forum.models import Forum,Thread,Post,Subscription
-from forum.forms import CreateThreadForm, ReplyForm
+from main_test.forum.models import Forum,Thread,Post,Subscription
+from main_test.forum.forms import CreateThreadForm, ReplyForm
 
 FORUM_PAGINATION = getattr(settings, 'FORUM_PAGINATION', 10)
 LOGIN_URL = getattr(settings, 'LOGIN_URL', '/accounts/login/')
