@@ -110,11 +110,15 @@ def show_quick_tab(request,event_name=None):
     #So each object in tab_list will have a file_list which is a list of urls to be displayed for the correspdong tab    
         display_edit = False
         if request.method=='POST': 
-            user=request.user
-            userprof=user.get_profile()
-            event = userprof.coord_event            #this event variable is used in the template
-            if userprof.is_coord == True and event.name == event_name:
-                display_edit=True
+            try:
+                user=request.user
+                userprof=user.get_profile()
+                event = userprof.coord_event            #this event variable is used in the template
+            except:
+                pass
+            else:
+                if userprof.is_coord == True and event.name == event_name:
+                    display_edit=True
             userportal_submissions(request,ques_list,event)
         options_list = []
         for ques in ques_list:
