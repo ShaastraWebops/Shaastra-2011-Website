@@ -1,0 +1,20 @@
+{% extends "index.html" %}
+
+{%block event_categories%}
+{%endblock%}
+
+{%block gradient%}
+    {%include "gradient.html"%}
+{%endblock%}
+
+{% block body %}
+
+    <div id="ambassadors">
+        <ul>
+            {% for sa in ambassador_list %}
+                <li><a href="{{ sa.id }}/">{{ sa }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+
+{% endblock %}
