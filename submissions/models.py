@@ -27,7 +27,6 @@ class BaseSubmission(models.Model):
 
 class IndividualSubmissions(BaseSubmission):
     participant = models.ForeignKey(UserProfile)
-    
     def render(self):
         pass
     class Admin:
@@ -77,7 +76,9 @@ class Answer_MCQ(Answer):
 
 def get_upload_path(instance, filename):
     event = instance.question.event
-    return "events/" + camelize(event.name) + "/submissions/" + filename
+    ans = "events/" + camelize(event.name) + "/submissions/" + filename
+    print ans 
+    return ans
     
 class Answer_file(Answer):    
     File = models.FileField(upload_to = get_upload_path, max_length = 200, blank = True, null = True)

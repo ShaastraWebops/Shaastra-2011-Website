@@ -7,7 +7,8 @@ from django.template.context import Context, RequestContext
 from django import forms
 from main_test.misc.util import *               
 from main_test.settings import *
-from main_test.submissions import *
+from main_test.users.models import Team
+from main_test.submissions.models import *
 #from submissions import *
 import models,forms
 import sha, random
@@ -34,6 +35,46 @@ def fileuploadhandler(f, eventname, tabid, file_title):
 
 
     
+
+def userportal_submissions(request,questionList,event):
+    nQuestions = len( questionList )
+    questionId = []
+    questionAnswer = []
+    questionType = []
+    print "doing submissions.."
+    for i in range(nQuestions):
+        try:
+            questionId.append(request.POST['question'+str(i+1)])
+            questionType.append(request.POST['type'+str(i+1)])
+        except: 
+            return
+            
+    
+    #TODO: change this according to individiual/team. It's only team for now.
+    # Do whatever magic you need to do and give me a team instance. Thanks. :)
+    submission = TeamSubmission( event = event , team = Team.objects.get(id = 1) )
+    submission.save()
+    
+    for i in range( nQuestions ):
+        questionObject = models.Question.objects.get( id = questionId[i] )
+        if( questionType[i] == "NORMAL"):
+            normalAns = Answer_Text( question = questionObject , submission = submission , text = request.POST['answer'+str(i+1)]) 
+            normalAns.save() 
+            print "saved text answer"
+        elif ( questionType[i] == "FILE" ):
+            fileAns = Answer_file( question = questionObject , submission = submission , File = request.FILES['answer'+str(i+1)])
+            print "saved file answer....."
+            fileAns.save()
+        else:
+            mcqAns = Answer_MCQ( question = questionObject , submission = submission , choice = models.MCQ_option.objects.get( id = int(request.POST['answer'+str(i+1)]) ))
+            print "saved MCQ answer"
+            mcqAns.save()
+            
+        
+    answers = []
+    
+    print "awesomeSauce!"
+
 #Handler for displaying /2011/event/eventname page 
 def show_quick_tab(request,event_name=None):
     urlname=decamelize(event_name)
@@ -73,7 +114,8 @@ def show_quick_tab(request,event_name=None):
             userprof=user.get_profile()
             event = userprof.coord_event            #this event variable is used in the template
             if userprof.is_coord == True and event.name == event_name:
-                display_edit=True  
+                display_edit=True
+            userportal_submissions(request,ques_list,event)
         options_list = []
         for ques in ques_list:
             temp = models.MCQ_option.objects.filter(question=ques).order_by('option')
