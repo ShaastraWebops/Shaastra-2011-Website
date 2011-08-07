@@ -1,0 +1,28 @@
+{% extends "index.html" %}
+
+{%block event_categories%}
+{%endblock%}
+
+{%block gradient%}
+    {%include "gradient.html"%}
+{%endblock%}
+
+{% block body %}
+
+    <script type="text/javascript"> $("#page1").css('overflow','scroll'); </script>
+    <div id="ambassador_form">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <table>
+                        {{ form.as_table }}
+                    </table>
+        <div class="button2">
+            <a href="#">
+                    <input type="submit" value="Submit" />
+            </a>
+            <span></span>
+        </div>
+                </form>
+    </div>
+
+{% endblock %}

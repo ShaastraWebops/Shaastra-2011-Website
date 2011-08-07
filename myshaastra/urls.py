@@ -17,4 +17,7 @@ urlpatterns = patterns('',
     url(r'^teams/(?P<team_id>\d+)/change_leader/$', 'main_test.myshaastra.views.change_team_leader'),
     url(r'^teams/(?P<team_id>\d+)/drop_out/$', 'main_test.myshaastra.views.drop_out'),
     url(r'^teams/(?P<team_id>\d+)/remove_member/$', 'main_test.myshaastra.views.remove_member'),
+    url(r'^shaastra_ambassador/$', 'main_test.myshaastra.views.ambassador_form'),
+    url(r'^cores/ambassadors/$', 'main_test.myshaastra.views.ambassador_list'),
+    url(r'^cores/ambassadors/(?P<ambassador_id>\d+)/$', 'main_test.myshaastra.views.ambassador_details'),
 )

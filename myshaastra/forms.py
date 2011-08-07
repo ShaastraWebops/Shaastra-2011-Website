@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 
 from main_test.users.models import Team
 from main_test.events.models import Event
+from main_test.myshaastra.models import ShaastraAmbassador
 
 class CreateTeamForm(forms.ModelForm):
     
@@ -105,7 +106,19 @@ class ChangeLeaderForm(forms.Form):
         return data
 
 class ShaastraAmbassadorForm(forms.ModelForm):
+    
+    def clean_user(self):
+        if 'user' in self.cleaned_data:
+            user = self.cleaned_data['user']
+            try:
+                User.objects.get(pk = user.id)
+            except User.DoesNotExist:
+                raise forms.ValidationError('User does not exist!')
+        return self.cleaned_data['user']
+    
     class Meta:
         model = ShaastraAmbassador
-
+        widgets = {
+            'user' : forms.HiddenInput(),
+        }
 

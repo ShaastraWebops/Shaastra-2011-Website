@@ -1,0 +1,41 @@
+{% extends "index.html" %}
+
+{%block event_categories%}
+{%endblock%}
+
+{%block gradient%}
+    {%include "gradient.html"%}
+{%endblock%}
+
+{% block body %}
+
+    <div id="ambassador_details">
+        {{ sa.user.username }}
+        <br />
+        {{ sa.user.get_full_name }}
+        <br />
+        {{ sa.profile.college }}
+        <br />
+        {{ sa.user.email }}
+        <br />
+        {{ sa.profile.mobile_number }}
+        <br />
+        {{ sa.profile.branch }}
+        <br />
+        {{ sa.college_url }}
+        <br />
+        {{ sa.programme }}
+        <br />
+        {{ sa.resume_file }}
+        <br />
+        {{ sa.ques1 }}
+        <br />
+        {{ sa.ques2 }}
+        <br />
+        {{ sa.ques3 }}
+        <br />
+        {{ sa.ques4 }}
+        <br />
+   </div>
+   
+{% endblock %}

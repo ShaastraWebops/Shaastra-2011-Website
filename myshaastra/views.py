@@ -7,6 +7,7 @@ from main_test.users.models import *
 from main_test.submissions.models import *
 from main_test.misc.util import *
 from main_test.settings import *
+from main_test.myshaastra.models import *
 from main_test.myshaastra.forms import *
 
 @needs_authentication
@@ -194,3 +195,37 @@ def remove_member(request, team_id = None):
         return render_to_response('myshaastra/team_home.html', locals(), context_instance = global_context(request))
     raise Http404
 
+@needs_authentication
+def ambassador_form(request):
+    user = request.user
+    sa = ShaastraAmbassador(user = user)
+    form = ShaastraAmbassadorForm(instance = sa)
+    if request.method == 'POST':
+        form = ShaastraAmbassadorForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('%smyshaastra/' % SITE_URL)
+    return render_to_response('myshaastra/shaastra_ambassador.html', locals(), context_instance = global_context(request))
+
+@needs_authentication
+def ambassador_list(request):
+    user = request.user
+    if user.username != 'cores':
+        raise Http404
+    ambassador_list = ShaastraAmbassador.objects.all()
+    return render_to_response('myshaastra/ambassador_list.html', locals(), context_instance = global_context(request))
+
+@needs_authentication
+def ambassador_details(request, ambassador_id = None):
+    user = request.user
+    if user.username != 'cores':
+        raise Http404
+    if ambassador_id is None:
+        raise Http404
+    try:
+        sa = ShaastraAmbassador.objects.get(pk = int(ambassador_id))
+        sa.profile = sa.user.get_profile()
+        return render_to_response('myshaastra/ambassador_details.html', locals(), context_instance = global_context(request))
+    except ShaastraAmbassador.DoesNotExist:
+        raise Http404
+    raise Http404
