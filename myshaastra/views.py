@@ -201,7 +201,10 @@ def ambassador_form(request):
     sa = ShaastraAmbassador(user = user)
     form = ShaastraAmbassadorForm(instance = sa)
     if request.method == 'POST':
-        form = ShaastraAmbassadorForm(request.POST)
+        if form.is_multipart():
+            form = ShaastraAmbassadorForm(request.POST, request.FILES)
+        else:
+            form = ShaastraAmbassadorForm(request.POST)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect('%smyshaastra/' % SITE_URL)

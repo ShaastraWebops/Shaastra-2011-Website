@@ -11,7 +11,7 @@
 
     <script type="text/javascript"> $("#page1").css('overflow','scroll'); </script>
     <div id="ambassador_form">
-                <form action="" method="POST">
+                <form action="" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     <table>
                         {{ form.as_table }}
