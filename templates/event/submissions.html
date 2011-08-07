@@ -38,6 +38,8 @@
         <input type="file" name = "answer{{ques.Q_Number}}" size="30"><br/>
         {% endif %}
     </div>                       
-{%endfor%}       
+{%endfor%}      
+{% if user.is_authenticated %}
 <input type="submit" value="Submit Answers">               
+{% endif %}
 </form>
