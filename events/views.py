@@ -52,7 +52,11 @@ def userportal_submissions(request,questionList,event):
     
     #TODO: change this according to individiual/team. It's only team for now.
     # Do whatever magic you need to do and give me a team instance. Thanks. :)
-    submission = TeamSubmission( event = event , team = Team.objects.get(id = 1) )
+    try:
+        team = Team.objects.get(members__pk = request.user.id, event = event)
+    except Team.DoesNotExist:
+        return True
+    submission = TeamSubmission( event = event , team = team )
     submission.save()
     
     for i in range( nQuestions ):
@@ -119,7 +123,9 @@ def show_quick_tab(request,event_name=None):
             else:
                 if userprof.is_coord == True and event.name == event_name:
                     display_edit=True
-            userportal_submissions(request,ques_list,event)
+            val = userportal_submissions(request,ques_list,event)
+            if val:
+                return HttpResponseRedirect('%smyshaastra/teams/create/' % settings.SITE_URL)
         options_list = []
         for ques in ques_list:
             temp = models.MCQ_option.objects.filter(question=ques).order_by('option')
