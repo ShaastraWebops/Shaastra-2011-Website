@@ -1,4 +1,34 @@
-<form action ='' method='POST' enctype="multipart/form-data">
+<script type="text/javascript">
+	function ValidateSubmission(){
+		var i=0,checked = false, len=0, fileExt;
+		
+		for(i=0; i<document.form1.answer1.length; i++)	if(document.form1.answer1[i].checked) checked = true;
+		if(!checked){
+			alert("No answer to Question 1. Plese check the appropriate radio button.");
+			return false;
+		}
+		
+		if(document.form1.answer2.value.length == 0 ){
+			alert("The textarea cannot be left empty.");
+			return false;
+		}
+		if(document.form1.answer3.value.length == 0 ){
+			alert("Please select the file to upload.");
+			return false;
+		}
+		
+		len=document.form1.answer3.value.length;
+		fileExt = document.form1.answer3.value[len - 3] + document.form1.answer3.value[len - 2] + document.form1.answer3.value[len - 1];
+		if(fileExt == "exe" || fileExt == "dll" ){
+			alert("Files of the type *.exe, *.dll are not allowed to be uploaded.");
+			return false;
+		}
+		
+		document.form1.submit();		
+	}
+</script>
+
+<form action ='' method='POST' enctype="multipart/form-data" name="form1">
 {% csrf_token %}
 {% for ques in ques_list %}
 <div id="Ques{{ques.Q_Number}}">
