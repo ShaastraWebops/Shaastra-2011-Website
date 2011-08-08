@@ -604,7 +604,7 @@ def UpdateSpons(request):
     
     if request.method=='POST':
         data=request.POST.copy()
-        form = forms.UpdateSpons()    
+        form = forms.UpdateSpons(data)    
         newtab=models.UpdateSpons(text=form.cleaned_data['text'])
         newtab.save()
             
