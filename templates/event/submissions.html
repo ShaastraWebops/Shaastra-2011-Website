@@ -70,6 +70,6 @@
     </div>                       
 {%endfor%}      
 {% if user.is_authenticated %}
-<input type="submit" value="Submit Answers">               
+<input type="button" value="Submit Answers" onclick="ValidateSubmission();">               
 {% endif %}
 </form>
