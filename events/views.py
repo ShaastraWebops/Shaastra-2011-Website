@@ -599,6 +599,20 @@ def cores_dashboard(request):
             events = models.Event.objects.all()
             return render_to_response('event/cores_dashboard.html', locals(), context_instance = global_context(request))
     return HttpResponseRedirect("%sevents/dashboard" % settings.SITE_URL)
+
+def UpdateSpons(request):
+    
+    if request.method=='POST':
+        data=request.POST.copy()
+        form = forms.UpdateSpons()    
+        newtab=models.UpdateSpons(text=form.cleaned_data['text'])
+        newtab.save()
+            
+        return HttpResponseRedirect ("%shome/"%settings.SITE_URL)
+    else:
+        form = forms.UpdateSpons()
+    return render_to_response('update_spons.html', locals(), context_instance= global_context(request))      
+    
 #having a common render_static function
 
 def render_static(request,static_name):
