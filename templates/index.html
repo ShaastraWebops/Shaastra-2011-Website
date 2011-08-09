@@ -70,13 +70,14 @@ annual technical festival of IIT Madras
 <script type="text/javascript" src="{{MEDIA_URL}}spacegallery/js/spacegallery1.js"></script>
 <script>
 		$(document).mousemove(function(){
-				var newch = ($(document).height() - 210);
+				var newch = ($(window).height() - 210);
 				newch = newch - 433;
 				newch = 160 + (newch/2);
 				var newpxch = newch+"px";
 
-				if($(document).height() > 650){
-						$("#footer_container").css({'position':'absolute','bottom':'15px'});
+				if($(window).height() > 650){
+						var topPos = $(window).height() - 56 + "px";
+						$("#footer_container").css({'position':'absolute','top':topPos});
 						$(".page").css({'position':'absolute','top':newpxch});
 						var posarr = newch+(300 -160);
 						var posarrpx = posarr+"px";
