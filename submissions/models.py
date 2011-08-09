@@ -1,8 +1,9 @@
 from django.db import models
 from django.contrib import admin
 from django.contrib.auth.models import User, Group
-from main_test.events.models import *
 from main_test.users.models import UserProfile, Team
+from main_test.events.models import *
+
 
 
 class BaseSubmission(models.Model):
