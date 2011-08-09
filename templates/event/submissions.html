@@ -2,28 +2,34 @@
 	function ValidateSubmission(){
 		var i=0,checked = false, len=0, fileExt;
 		
-		for(i=0; i<document.form1.answer1.length; i++)	if(document.form1.answer1[i].checked) checked = true;
-		if(!checked){
-			alert("No answer to Question 1. Plese check the appropriate radio button.");
-			return false;
+		if(document.getElementById('answer1')){
+			for(i=0; i<document.form1.answer1.length; i++)	if(document.form1.answer1[i].checked) checked = true;
+			if(!checked){
+				alert("No answer to Question 1. Plese check the appropriate radio button.");
+				return false;
+			}
 		}
 		
-		if(document.form1.answer2.value.length == 0 ){
-			alert("The textarea cannot be left empty.");
-			return false;
+		if(document.getElementById('answer2')){
+			if(document.form1.answer2.value.length == 0 ){
+				alert("The textarea cannot be left empty.");
+				return false;
+			}
+			if(document.form1.answer3.value.length == 0 ){
+				alert("Please select the file to upload.");
+				return false;
+			}
 		}
-		if(document.form1.answer3.value.length == 0 ){
-			alert("Please select the file to upload.");
-			return false;
+			
+		if(document.getElementById('answer3')){
+			len=document.form1.answer3.value.length;
+			fileExt = document.form1.answer3.value[len - 3] + document.form1.answer3.value[len - 2] + document.form1.answer3.value[len - 1];
+			if(fileExt == "exe" || fileExt == "dll" ){
+				alert("Files of the type *.exe, *.dll are not allowed to be uploaded.");
+				return false;
+			}
 		}
-		
-		len=document.form1.answer3.value.length;
-		fileExt = document.form1.answer3.value[len - 3] + document.form1.answer3.value[len - 2] + document.form1.answer3.value[len - 1];
-		if(fileExt == "exe" || fileExt == "dll" ){
-			alert("Files of the type *.exe, *.dll are not allowed to be uploaded.");
-			return false;
-		}
-		
+			
 		document.form1.submit();		
 	}
 </script>
@@ -42,7 +48,7 @@
         <div id="normal_question">
         <p>Type your answer in the text area and hit the "Submit" button.</p>
         <input type="hidden" value="NORMAL" name="type{{ques.Q_Number}}"/>
-        <textarea name = "answer{{ques.Q_Number}}" rows="6" cols="40" >This is not fully functional right now. Clicking on submit does nothing.</textarea><br/>
+        <textarea id = "answer{{ques.Q_Number}}" name = "answer{{ques.Q_Number}}" rows="6" cols="40" >This is not fully functional right now. Clicking on submit does nothing.</textarea><br/>
         </div>
         {% endif %}
         {% if ques.question_type == "MCQ" %}
@@ -54,7 +60,7 @@
             {% csrf_token %}
             {%for options in options_list %}
             {%if options.question == ques %}
-            <tr><td>{{options.option}}</td><td><input type="radio" name = "answer{{ques.Q_Number}}" value="{{options.id}}"/></td><td>{{options.text}}</td></tr>
+            <tr><td>{{options.option}}</td><td><input type="radio" id = "answer{{ques.Q_Number}}" name = "answer{{ques.Q_Number}}" value="{{options.id}}"/></td><td>{{options.text}}</td></tr>
             {%endif%}
             {%endfor%}
         </table>
@@ -65,7 +71,7 @@
         <p> Choose the file you want to upload and click on "Upload".</p>
         <p> This will be functional soon.</p>
         <br/>
-        <input type="file" name = "answer{{ques.Q_Number}}" size="30"><br/>
+        <input type="file" id = "answer{{ques.Q_Number}}" name = "answer{{ques.Q_Number}}" size="30"><br/>
         {% endif %}
     </div>                       
 {%endfor%}      
