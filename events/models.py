@@ -194,3 +194,11 @@ class Menu(models.Model):
     class Admin:
         pass
 
+class UpdateSpons(models.Model):
+    text        = models.TextField()
+    def __unicode__(self):
+        return self.text
+
+    class Admin:
+        pass
+
