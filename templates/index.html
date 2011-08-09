@@ -69,34 +69,34 @@ annual technical festival of IIT Madras
 <script type="text/javascript" src="{{MEDIA_URL}}spacegallery/js/utils.js"></script>
 <script type="text/javascript" src="{{MEDIA_URL}}spacegallery/js/spacegallery1.js"></script>
 <script>
-$(document).mousemove(function(){
-		var newch = ($(document).height() - 210);
-		newch = newch - 433;
-		newch = 160 + (newch/2);
-		var newpxch = newch+"px";
+		$(document).mousemove(function(){
+				var newch = ($(document).height() - 210);
+				newch = newch - 433;
+				newch = 160 + (newch/2);
+				var newpxch = newch+"px";
 
-		if($(document).height() > 650){
+				if($(document).height() > 650){
+						$("#footer_container").css({'position':'absolute','bottom':'15px'});
+						$(".page").css({'position':'absolute','top':newpxch});
+						var posarr = newch+(300 -160);
+						var posarrpx = posarr+"px";
+						$('#right_arrow').css({'top':posarrpx});
+						$('#left_arrow').css({'top':posarrpx});
+				}
+				else{
+						$("#footer_container").css({'position':'absolute','top':'593px'});
+				}
+		});
+
+		$(document).ready(function(){		
+	    $("#footer_container").css({"position":"absolute","top":"593px"}); 
+		$(document).mousemove(
+			function(){
+				if($(document).height() > 650){
 				$("#footer_container").css({'position':'absolute','bottom':'15px'});
-				$(".page").css({'position':'absolute','top':newpxch});
-				var posarr = newch+(300 -160);
-				var posarrpx = posarr+"px";
-				$('#right_arrow').css({'top':posarrpx});
-				$('#left_arrow').css({'top':posarrpx});
-		}
-		else{
-				$("#footer_container").css({'position':'absolute','top':'593px'});
-		}
-});
-
-$(document).ready(function(){
-$(document).mousemove(
-	function(){
-		if($(document).height() > 650){
-		$("#footer_container").css({'position':'absolute','bottom':'15px'});
-		}
-	});
-});
-$("#footer_container").css({"position":"absolute","top":"593px"}); 
+				}
+			});
+		});
 </script>
 
 <script type="text/javascript">
@@ -636,8 +636,6 @@ $("#myGallery").fadeIn("slow");}
 | &nbsp; Developed and Maintained by <a href="{{SITE_URL}}Developers">'Shaastra 2011 Webops Team'</a>
 </div>
 </div>
-	    
-
  {%block gradient%}
   
 {%endblock%}
