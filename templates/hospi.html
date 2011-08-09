@@ -3,7 +3,7 @@
 <script type="text/javascript" src="{{MEDIA_URL}}hospi/scripts/js/hospiTabs.js"></script>
 <link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}hospi/style/css/hospiTabs.css" />
 <link rel="stylesheet" type="text/css" href="http://www.shaastra.org/2011/media/main/hospi/style.css" />
-<script type="text/javascript"> $("#page1").css({'width':'100%','left':'0px','position':'absolute'}); </script>
+<script type="text/javascript"> $("#page1").css({'width':'100%','left':'0px'}); </script>
 <script type="text/javascript" src="http://www.shaastra.org/2011/media/main/hospi/jquery.simplyscroll-1.0.4.min.js"></script>
 
 
@@ -1031,6 +1031,7 @@ minutes.<o:p></o:p></span></p>
 		$("#scroller").simplyScroll({
 			autoMode:'loop'
 		});
+		$("#page1").css({'position':'absolute'});
 	</script>
 
 {%endblock%}
