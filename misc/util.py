@@ -206,6 +206,16 @@ def event_cores_only (func):
             return HttpResponseRedirect ("%s/home/"%settings.SITE_URL)
     return wrapper
 
+def cores_only (func):
+    def wrapper (*__args, **__kwargs):
+        request = __args[0]
+        if request.user.groups.filter(name="cores"):
+            return func (*__args, **__kwargs)
+        else:
+            request.session['access_denied'] = True
+            return HttpResponseRedirect ("%s/home/"%settings.SITE_URL)
+    return wrapper
+
 # Check for admin status. Use *after* needs_authentication. Always
 def admin_only (func):
     def wrapper (*__args, **__kwargs):

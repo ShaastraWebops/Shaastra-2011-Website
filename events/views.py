@@ -601,7 +601,7 @@ def cores_dashboard(request):
     return HttpResponseRedirect("%sevents/dashboard" % settings.SITE_URL)
 
 @needs_authentication
-@coords_only
+@cores_only
 def UpdateSpons(request):
     
     if request.method=='POST':
