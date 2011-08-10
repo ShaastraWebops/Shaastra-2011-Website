@@ -48,6 +48,8 @@ def global_context(request):
         hospi_coord=True
     if request.user.is_authenticated() and request.user.groups.filter(name="EventCores"):
         is_core=True
+    image = main_test.events.models.UpdateSpons.objects.select_related('text').all()
+    
     generate_menu_dict(request)
     context =  RequestContext (request,
             {'user':request.user,
@@ -58,6 +60,7 @@ def global_context(request):
             'hospi_coord':hospi_coord,
             'is_core':is_core,
             'categories':request.session['menu_urls'],
+            'image':image,
             })
     return context
 

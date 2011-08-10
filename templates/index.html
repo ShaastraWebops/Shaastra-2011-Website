@@ -473,14 +473,25 @@ function dow()
 				<img id="intsl" src = "{{MEDIA_URL}}img/Internshala-Animated-Logo-1.5seconds_.gif" />
 				<img src = "{{MEDIA_URL}}img/alStrut_possibilities_unlimited.png" />
 				<img src = "{{MEDIA_URL}}img/ERI_UF_cmyk.png" />
-			</div> 
 			-->
+                         <!--{%for images in image%}
+                           {{images|safe}}
+                         {%endfor%}-->
+                        </div> 
+			
+                       
+
 				<div id="sponstkr" class="sponspics">
-				<img src = "http://www.shaastra.org/2011/media/main/img/durr.png" />
+				<!--<img src = "http://www.shaastra.org/2011/media/main/img/durr.png" />
 				<img src = "http://www.shaastra.org/2011/media/main/img/airbus.png" />
 				<img src = "http://www.shaastra.org/2011/media/main/img/Internshala-Animated-Logo-1.5seconds_.gif" />
 				<img src = "http://www.shaastra.org/2011/media/main/img/alStrut_possibilities_unlimited.png" />
-				<img src = "http://www.shaastra.org/2011/media/main/img/ERI_UF_cmyk.png" />
+				<img src = "http://www.shaastra.org/2011/media/main/img/ERI_UF_cmyk.png" />-->
+                                
+                                   {%for images in image%}
+                                      {{images|safe}}
+                                  {%endfor%}
+
 				</div>
             </div>
            {%endblock%}
