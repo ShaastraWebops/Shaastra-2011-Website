@@ -600,8 +600,8 @@ def cores_dashboard(request):
             return render_to_response('event/cores_dashboard.html', locals(), context_instance = global_context(request))
     return HttpResponseRedirect("%sevents/dashboard" % settings.SITE_URL)
 
-#@needs_authentication
-#@event_cores_only
+@needs_authentication
+@coords_only
 def UpdateSpons(request):
     
     if request.method=='POST':
