@@ -118,11 +118,10 @@ def show_quick_tab(request,event_name=None):
                 user=request.user
                 userprof=user.get_profile()
                 event = userprof.coord_event            #this event variable is used in the template
-            except:
-                pass
-            else:
-                if userprof.is_coord == True and event.name == event_name:
+		if userprof.is_coord == True and event.name == event_name:
                     display_edit=True
+            except:
+                pass                
             val = userportal_submissions(request,ques_list,event)
             if val:
                 return HttpResponseRedirect('%smyshaastra/teams/create/' % settings.SITE_URL)
