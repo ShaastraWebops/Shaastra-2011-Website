@@ -8,9 +8,24 @@
 {%endblock%}
 
 {%block body%}
-		
-	
-	
+	{%if is_core%}	
+	<div id="edit_spons">
+
+         <div class="button2">
+		<a href="#">
+		  <form action= "{{SITE_URL}}events/UpdateSponsPage" method="GET">
+		  {% csrf_token %}
+		  <input type="hidden" value="1" name=tab_id >						
+	          <input type="submit" value="Submit">
+	          </form>
+	   	</a>
+	<span></span>
+	</div>
+ 
+          
+    </div>
+
+	{%endif%}
 		<div id="sponsContainer" style="width:100%; visibility:hidden;">
 	    
 			
@@ -775,27 +790,12 @@
 <tr>
   <td align="middle"><a href="http://blog.internshala.com/summer-internship-story/"> <img src="http://www.shaastra.org/2011/media/main/img/Internshala-Animated-Logo-1.5seconds_.gif" > </a> </td>
 </tr>-->
-<!--<tr>
-<div id="edit_spons">
-
-         <div class="button2">
-		<a href="#">
-		  <form action= "{{SITE_URL}}events/UpdateSponsPage" method="GET">
-		  {% csrf_token %}
-		  <input type="hidden" value="1" name=tab_id >						
-	          <input type="submit" value="Submit">
-	          </form>
-	   	</a>
-	<span></span>
-	</div>
- 
-          
-    </div>
+<!--<tr>-->
 
 
 
 
-</tr>-->
+<!--</tr>-->
 
 
   
