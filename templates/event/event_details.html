@@ -38,8 +38,7 @@
     
     <div id="edit_tab{{row.id}}" style="position:relative; bottom:0px; left:10px;display:block;">
       <div id="edit_tab">
-	<form action="edit_tab/" method = 'POST' >
-	  {% csrf_token %}
+	<form action="edit_tab/" method = 'GET' >
 	  <input type="hidden" value="{{row.id}}" name=tab_id >						
 	  <input type="submit" value="">
 	</form>
@@ -103,8 +102,7 @@
               {%endfor%}
             </table>
             <div id="add_choices" style="float:left;">
-              <form action="add_choices/" method = 'POST'>
-                {% csrf_token %}
+              <form action="add_choices/" method = 'GET'>
                 <input type="hidden" value="{{ques.id}}" name="ques_to_add_choices_id">
                 <div class="button2">
 		  <a href="#">
@@ -142,8 +140,7 @@
           
 
           <div id="edit_question" style="float:left;">
-            <form action="edit_question/" method = 'POST'>
-              {% csrf_token %}
+            <form action="edit_question/" method = 'GET'>
               <input type="hidden" value="{{ques.id}}" name=ques_id >
               
               <div class="button2">
@@ -164,8 +161,7 @@
         </div>    
         {%endfor%}     
 	<div id="edit_tab" style="position:absolute; bottom:0px;">
-	  <form action="edit_tab/" method = 'POST'>
-	    {% csrf_token %}
+	  <form action="edit_tab/" method = 'GET'>
 	    <input type="hidden" value="{{row.id}}" name=tab_id >
 	    <div class="button2" style="position:relative;  left:220px; top:5px;">
 	      <a href="#">
