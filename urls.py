@@ -34,7 +34,7 @@ urlpatterns = patterns('',
     url(r'^confluence/', 'main_test.confluence.views.rsvp'),
 
 	#temporary
-	url(r'^event-details/$', direct_to_template, { 'template' : 'event-details.html', } ),
+	url(r'^event_details/$', direct_to_template, { 'template' : 'event-details.html', } ),
 	url(r'^event_categories/$', direct_to_template, { 'template' : 'event_categories_2.html', } ),
 
 
