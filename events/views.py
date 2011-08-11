@@ -41,17 +41,12 @@ def userportal_submissions(request,questionList,event):
     questionId = []
     questionAnswer = []
     questionType = []
-    print "doing submissions.."
     for i in range(nQuestions):
         try:
             questionId.append(request.POST['question'+str(i+1)])
             questionType.append(request.POST['type'+str(i+1)])
         except: 
             return
-            
-    
-    #TODO: change this according to individiual/team. It's only team for now.
-    # Do whatever magic you need to do and give me a team instance. Thanks. :)
     try:
         team = Team.objects.get(members__pk = request.user.id, event = event)
     except Team.DoesNotExist:
@@ -64,20 +59,13 @@ def userportal_submissions(request,questionList,event):
         if( questionType[i] == "NORMAL"):
             normalAns = Answer_Text( question = questionObject , submission = submission , text = request.POST['answer'+str(i+1)]) 
             normalAns.save() 
-            print "saved text answer"
         elif ( questionType[i] == "FILE" ):
             fileAns = Answer_file( question = questionObject , submission = submission , File = request.FILES['answer'+str(i+1)])
-            print "saved file answer....."
             fileAns.save()
         else:
             mcqAns = Answer_MCQ( question = questionObject , submission = submission , choice = models.MCQ_option.objects.get( id = int(request.POST['answer'+str(i+1)]) ))
-            print "saved MCQ answer"
             mcqAns.save()
-            
-        
-    answers = []
-    
-    print "awesomeSauce!"
+    return False  
 
 #Handler for displaying /2011/event/eventname page 
 def show_quick_tab(request,event_name=None):
@@ -146,7 +134,17 @@ def show_quick_tab(request,event_name=None):
                 pass
         except:
             raise Http404
-        #return render_to_response('event/QuickTabs.html', locals(), context_instance= global_context(request))
+        
+        # get initial values for forms
+        answers = []
+        
+        try:
+            team = Team.objects.get(members__pk = request.user.id, event = event)
+            submission = TeamSubmission.object.get( team = team , event = event )
+            print submission
+            print "awesome!"
+        except:
+            pass
         return render_to_response('event/events_quick_tab.html', locals(), context_instance= global_context(request))
     else:
         raise Http404    
