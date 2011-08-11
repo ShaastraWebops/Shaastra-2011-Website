@@ -1,7 +1,6 @@
-<script type="text/javascript">
+<!--<script type="text/javascript">
 	function ValidateSubmission(){
 		var i=0,checked = false, len=0, fileExt;
-		
 		if(document.getElementById('answer1')){
 			for(i=0; i<document.form1.answer1.length; i++)	if(document.form1.answer1[i].checked) checked = true;
 			if(!checked){
@@ -29,10 +28,9 @@
 				return false;
 			}
 		}
-			
 		document.form1.submit();		
 	}
-</script>
+</script>-->
 
 <form action ='' method='POST' enctype="multipart/form-data" name="form1">
 {% csrf_token %}
@@ -75,7 +73,9 @@
         {% endif %}
     </div>                       
 {%endfor%}      
+<!--
 {% if user.is_authenticated %}
-<input type="button" value="Submit Answers" onclick="ValidateSubmission();">               
+<input type="button" value="Submit Answers" onclick="ValidateSubmission();">
 {% endif %}
+-->
 </form>

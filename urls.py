@@ -4,6 +4,7 @@ from django.conf.urls.defaults import *
 from django.contrib.auth.views import login, logout
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
+from django.views.generic.simple import direct_to_template
 admin.autodiscover()
 
 handler404 = "main_test.misc.util.not_found"
@@ -31,11 +32,17 @@ urlpatterns = patterns('',
     #url(r'^sitemap\.xml$', 'main_test.events.views.sitemap'),
     url(r'^', include ('main_test.users.urls')),
     url(r'^confluence/', 'main_test.confluence.views.rsvp'),
-    url(r'^(?P<static_name>.*)/$', 'main_test.events.views.render_static'),
-    url(r'^community/', include('main_test.sphene.community.urls'), defaultdict),
-    url(r'^board/', include('main_test.sphene.sphboard.urls'), defaultdict),
-    url(r'^wiki/', include('main_test.sphene.sphwiki.urls'), defaultdict),
-    	
+
+	#temporary
+	url(r'^event_details/$', direct_to_template, { 'template' : 'event-details.html', } ),
+	url(r'^event_categories/$', direct_to_template, { 'template' : 'event_categories_2.html', } ),
+
+
+    url(r'^(?P<static_name>.*)/$', 'main_test.events.views.render_static'),	
+    (r'^community/', include('sphene.community.urls'), defaultdict),
+    (r'^board/', include('sphene.sphboard.urls'), defaultdict),
+    (r'^wiki/', include('sphene.sphwiki.urls'), defaultdict),
+    (r'^static/sphene/(.*)$', 'django.views.static.serve', {'document_root': '/home/swaroop/main_test/sct-0.6/communitytools/static/sphene' }),	
 )
 
 urlpatterns += patterns('django.views.generic.simple',
