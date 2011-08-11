@@ -2,7 +2,7 @@
 # Create your views here.
 
 from django.shortcuts import render_to_response
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib import auth
 from django.contrib.auth.models import User, Group
@@ -231,4 +231,52 @@ def feedback(request):
         return HttpResponseRedirect ("%shome/"%settings.SITE_URL)
     else:            
         return render_to_response('users/feedback.html', locals(), context_instance= global_context(request))        
-    
+
+def forgot_password(request):
+    reset_password_form = forms.ResetPasswordForm()
+    username_form = forms.UsernameForm()
+    if request.method == 'GET' and 'password_key' in request.GET:
+        try:
+            profile = UserProfile.objects.get(activation_key = request.GET['password_key'])
+            profile.save()
+            user = profile.user
+            reset_password_form = forms.ResetPasswordForm(initial = {'user' : user.id, })
+            return render_to_response('users/reset_password_form.html', locals(), context_instance = global_context(request))
+        except UserProfile.DoesNotExist:
+            raise Http404
+    elif request.method == 'POST':
+        username_form = forms.UsernameForm(request.POST)
+        if username_form.is_valid():
+            username = username_form.cleaned_data['username']
+            user = User.objects.get(username = username)
+            profile = user.get_profile()
+            salt = sha.new(str(random.random())).hexdigest()[:5]
+            profile.activation_key = sha.new(salt+user.username).hexdigest()
+            profile.save()
+            
+            mail_template = get_template('email/forgot_password.html')
+            body = mail_template.render(Context( {
+                'username' : user.username,
+                'SITE_URL' : settings.SITE_URL,
+                'passwordkey' : profile.activation_key 
+            } ))
+            send_mail('[Shaastra 2011] Password reset request', body,'noreply@shaastra.org', [user.email,], fail_silently = False)
+            return HttpResponseRedirect('%smyshaastra/forgot_password/done/' % settings.SITE_URL)
+    return render_to_response('users/username_form.html', locals(), context_instance = global_context(request))
+
+def reset_password(request):
+    if request.method == 'POST':
+        form = forms.ResetPasswordForm(request.POST)
+        if form.is_valid():
+            password = form.cleaned_data['password']
+            user_id = form.cleaned_data['user']
+            try:
+                user = User.objects.get(pk = int(user_id))
+                user.set_password(password)
+                user.save()
+                return HttpResponseRedirect('%smyshaastra/reset_password/done/' % settings.SITE_URL)
+            except User.DoesNotExist:
+                raise Http404
+        return render_to_response('users/reset_password_form.html', locals(), context_instance = global_context(request))
+    else:
+        raise Http404
