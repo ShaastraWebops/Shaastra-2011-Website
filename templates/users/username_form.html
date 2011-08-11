@@ -1,0 +1,25 @@
+{% extends "index.html" %}
+
+{%block event_categories%}
+{%endblock%}
+
+{%block gradient%}
+    {%include "gradient.html"%}
+{%endblock%}
+
+{% block body %}
+    <form action="" method="POST">
+        {% csrf_token %}
+        <table>
+            {{ username_form.as_table }}
+            <tr><td>
+                <div id="someuniqueid">
+                    <a href="#">
+                        <input type="submit" value="Reset" />
+                    </a>
+                    <span></span>
+                </div>
+            </td></tr>
+        </table>
+    </form>
+{% endblock %}
