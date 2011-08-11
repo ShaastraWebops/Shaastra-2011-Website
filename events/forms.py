@@ -106,5 +106,11 @@ class EventUpdateForm(forms.Form):
     UpdateContent = forms.CharField(widget=forms.Textarea(), help_text = 'The content of the update, 140 characters or less')
 
 class UpdateSpons(forms.Form):
-    text=forms.CharField(widget=forms.Textarea(attrs={'id':'myArea2','cols':"40",'rows':"10"}), help_text='copy and paste the spons image here')      
+    text=forms.CharField(widget=forms.Textarea(attrs={'id':'myArea2','cols':"40",'rows':"10"}), help_text='copy and paste the spons image here')
+
+class SponsPageForm(forms.Form):
+    title=forms.CharField(required = True, help_text='Title of the tab')
+    text=forms.CharField(widget=forms.Textarea(attrs={'id':'myArea2','cols':"80",'rows':"20"}))
+    tab_pref=forms.IntegerField(required=True)
+      
 

@@ -21,6 +21,7 @@ urlpatterns = patterns('main_test.events.views',
       (r'^dashboard/delete_tab/$', 'remove_quick_tab'),
       (r'^dashboard/edit_event/$', 'edit_event'),
       (r'^UpdateSpons/$', 'UpdateSpons'),
+      (r'^UpdateSponsPage/$', 'edit_spons'),
       (r'^images/(?P<event_name>.*)/$', 'event_image'),
       (r'^cores/$', 'cores_dashboard'),
       

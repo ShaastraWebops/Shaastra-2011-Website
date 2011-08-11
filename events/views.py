@@ -635,6 +635,45 @@ def render_static(request,static_name):
         return render_to_response('webteam.html', locals(), context_instance = global_context(request))
     
     raise Http404
+
+# the edit page for spons starts from here
+@needs_authentication    
+@coords_only
+def edit_spons(request):
+    tab_to_edit=models.SponsPage.objects.get(id=request.GET['tab_id'])            
+    if request.method=='POST':      
+            data=request.POST.copy()
+            form = forms.SponsPageForm(data)
+            
+            if form.is_valid():
+                tab_to_edit.title= form.cleaned_data['title']
+                tab_to_edit.text = form.cleaned_data['text']
+                tab_to_edit.pref = form.cleaned_data['tab_pref']
+                tab_to_edit.save()
+
+                return HttpResponseRedirect ("%shome"%settings.SITE_URL)
+            else: 
+                
+                tab_to_edit=models.SponsPage.objects.get(id=request.session["tab_id"])
+                  
+            return render_to_response('edit_spons_page.html', locals(), context_instance= global_context(request))
+
+
+    else:
+        tab_to_edit = models.SponsPage.objects.get(id=request.GET["tab_id"])
+        request.session["tab_id"]=request.GET["tab_id"]
+        
+        if request.user.username=="cores":
+            form = forms.SponsPageForm(initial={'title' : tab_to_edit.title , 'text' :tab_to_edit.text, 'tab_pref': tab_to_edit.pref })
+            return render_to_response('edit_spons_page.html', locals(), context_instance= global_context(request))
+        else:
+            raise Http404
+
+
+
+
+
+#edit page for the spons page ends here
         
 """ 
 def render_policy(request):
