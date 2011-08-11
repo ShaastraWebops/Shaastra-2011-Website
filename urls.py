@@ -4,6 +4,7 @@ from django.conf.urls.defaults import *
 from django.contrib.auth.views import login, logout
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
+from django.views.generic.simple import direct_to_template
 admin.autodiscover()
 
 handler404 = "main_test.misc.util.not_found"
@@ -32,6 +33,10 @@ urlpatterns = patterns('',
     url(r'^', include ('main_test.users.urls')),
     url(r'^confluence/', 'main_test.confluence.views.rsvp'),
     url(r'^(?P<static_name>.*)/$', 'main_test.events.views.render_static'),	
+	
+	#temporary
+	url(r'^event-details/$', direct_to_template, { 'template' : 'event-details.html', } )
+	url(r'^event_categories/$', direct_to_template, { 'template' : 'event_categories_2.html', } )
 )
 
 urlpatterns += patterns('django.views.generic.simple',
