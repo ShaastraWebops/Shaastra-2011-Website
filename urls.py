@@ -21,7 +21,12 @@ urlpatterns = patterns('',
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
-    # Uncomment the next line to enable the admin:
+    # Uncomment the next line to enable the adminl
+    (r'^community/', include('sphene.community.urls'), defaultdict),
+    (r'^board/', include('sphene.sphboard.urls'), defaultdict),
+    (r'^wiki/', include('sphene.sphwiki.urls'), defaultdict),
+    (r'^static/sphene/(.*)$', 'django.views.static.serve', {'document_root': '/home/swaroop/main_test/sct-0.6/communitytools/static/sphene' }),	
+
     url(r'^home/$', 'main_test.misc.util.render_home' ),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^events/', include ('main_test.events.urls')),
@@ -32,17 +37,8 @@ urlpatterns = patterns('',
     #url(r'^sitemap\.xml$', 'main_test.events.views.sitemap'),
     url(r'^', include ('main_test.users.urls')),
     url(r'^confluence/', 'main_test.confluence.views.rsvp'),
+    url(r'^(?P<static_name>.*)/$', 'main_test.events.views.render_static'),
 
-	#temporary
-	url(r'^event_details/$', direct_to_template, { 'template' : 'event-details.html', } ),
-	url(r'^event_categories/$', direct_to_template, { 'template' : 'event_categories_2.html', } ),
-
-
-    url(r'^(?P<static_name>.*)/$', 'main_test.events.views.render_static'),	
-    (r'^community/', include('sphene.community.urls'), defaultdict),
-    (r'^board/', include('sphene.sphboard.urls'), defaultdict),
-    (r'^wiki/', include('sphene.sphwiki.urls'), defaultdict),
-    (r'^static/sphene/(.*)$', 'django.views.static.serve', {'document_root': '/home/swaroop/main_test/sct-0.6/communitytools/static/sphene' }),	
 )
 
 urlpatterns += patterns('django.views.generic.simple',
