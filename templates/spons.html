@@ -730,12 +730,15 @@
 </div>
     </div>
 
-					<div id="spons2007_"><div class="content"><div align="center"><strong>We would like to thank all of our sponsors for their continued support</strong>
+					<div id="spons2007_"><div class="content">{{spons_content|safe}}
+<!--<div align="center"><strong>We would like to thank all of our sponsors for their continued support</strong>
 
 <table style="table-layout: fixed; width: 100%;">
 <tbody>
 <tr>
-<td align="middle"><!-- <img  style="border-style: none;" src="http://www.shaastra.org/includes/2007/shaastraTextLogoAll.jpg" />  --> </td>
+
+
+<td align="middle"> </td>
 </tr>
 </tbody>
 </table>
@@ -743,12 +746,6 @@
 <div class="content">
 <table class="spons_table" style="table-layout: fixed; width: 100%;" border="0" cellspacing="0">
 <tbody>
-<!--
-<tr>
-<td align="middle" bgcolor="#eeeeee" valign="center"><span style="padding: 0px; font-size: 1em; line-height: 1.5em;"><strong>Principal Sponsor</strong> 
-<p></p></span></td>
-</tr>
--->
 <tr>
 <td style="padding-bottom: 10px;" align="middle"></td>
 </tr>
@@ -777,7 +774,30 @@
 </tr> <tr><td>&nbsp;</td></tr>
 <tr>
   <td align="middle"><a href="http://blog.internshala.com/summer-internship-story/"> <img src="http://www.shaastra.org/2011/media/main/img/Internshala-Animated-Logo-1.5seconds_.gif" > </a> </td>
-</tr>
+</tr>-->
+<!--<tr>
+<div id="edit_spons">
+
+         <div class="button2">
+		<a href="#">
+		  <form action= "{{SITE_URL}}events/UpdateSponsPage" method="GET">
+		  {% csrf_token %}
+		  <input type="hidden" value="1" name=tab_id >						
+	          <input type="submit" value="Submit">
+	          </form>
+	   	</a>
+	<span></span>
+	</div>
+ 
+          
+    </div>
+
+
+
+
+</tr>-->
+
+
   
 </tbody>
 </table>
