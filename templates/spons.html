@@ -401,7 +401,7 @@
 <tbody>
 <tr>
 <td>
-						<a href="http://www.airbus.com"><img alt="Event partner" src="/2009/site/sites/default/files/images/quicklinks/airbus.jpg" style="width: 208px; height: 182px;" title="Airbus" /></a></td>
+						<a href="http://www.airbus.com"><img alt="Event partner" src="http://www.shaastra.org/2011/media/main/img/airbus.png" style="width: 135px; height: 65px;" title="Airbus" /></a></td>
 <td>
 						<a href="http://www.bosch.com"><img alt="Event partner" src="http://www.shaastra.org/2009/site/themes/prince_hari/images/bosch_logo_big.jpg" style="width: 194px; height: 169px;" title="Bosch" /></a></td>
 </tr>
@@ -758,9 +758,7 @@
 <p></p></span></td>
 </tr> <tr><td>&nbsp;</td></tr>
 <tr>
-  <td align="middle"><a href="http://www.durr.com"> <img src="http://www.shaastra.org/2011/media/main/img/durr.png" > </a> </td>
   <td align="middle"><a href="http://www.airbus.com"> <img src="http://www.shaastra.org/2011/media/main/img/airbus.png" > </a> </td>
-  <td align="middle"><a href="http://blog.internshala.com/summer-internship-story/"> <img src="http://www.shaastra.org/2011/media/main/img/Internshala-Animated-Logo-1.5seconds_.gif" > </a> </td>
 </tr>
 
 <tr>
@@ -768,11 +766,19 @@
 <p></p></span></td>
 </tr> <tr><td>&nbsp;</td></tr>
 <tr>
+  <td align="middle"><a href="http://www.durr.com"> <img src="http://www.shaastra.org/2011/media/main/img/durr.png" > </a> </td>
   <td align="middle"><a href="http://www.alstrut.com/index.html"> <img src = "{{MEDIA_URL}}img/alStrut_possibilities_unlimited.png" /> </a></td>
   <td align="middle"><a href="http://www.ericsson.com/"> <img alt="Telecom Parteners" src = "{{MEDIA_URL}}img/ERI_UF_cmyk.png" /> </a></td>
 </tr>
 
-
+<tr>
+<td align="middle" bgcolor="#eeeeee" valign="center"><span style="font-size: 1em; line-height: 1.5em;"><strong>Internship Partner</strong> 
+<p></p></span></td>
+</tr> <tr><td>&nbsp;</td></tr>
+<tr>
+  <td align="middle"><a href="http://blog.internshala.com/summer-internship-story/"> <img src="http://www.shaastra.org/2011/media/main/img/Internshala-Animated-Logo-1.5seconds_.gif" > </a> </td>
+</tr>
+  
 </tbody>
 </table>
 </div>
@@ -792,7 +798,26 @@
 			</div>
 		</div>
 	
+<script type="text/javascript">
+
+		$("#sponsContainer").css('visibility','visible');
+		$("#sponsTabs").click(function(e){
+			var id = e.target.id;
+			sponsTabsMain(id);	
+		});
+		$("#sponsMainTab").click(function(e){
+			var id = e.target.id;
+			sponsMainTab(e);
+		});
+		$(function(){
+			$('#sponsTabsContent').jScrollPane({showArrows: true,verticalScroll: true});
+		});
+		
+		setHeights();
+		document.getElementById(elem[3]).style.backgroundPosition="0px -35px";
+		document.getElementById(elem[3]).style.color="#ffffff";
+		sponsTabsMain(elem[3]);
+</script>
 
 
 {%endblock%}
-
