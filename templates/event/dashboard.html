@@ -99,7 +99,6 @@
 	    <a href="#">
 	      {%if user.is_authenticated%} 
 	      <form action= "{{SITE_URL}}events/dashboard/edit_event/" method="GET">
-		{% csrf_token %}
 		<input type="submit" value="Edit Event Details" />
 	      </form>
 	      {%endif%}

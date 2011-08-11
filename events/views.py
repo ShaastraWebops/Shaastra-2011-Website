@@ -41,17 +41,12 @@ def userportal_submissions(request,questionList,event):
     questionId = []
     questionAnswer = []
     questionType = []
-    print "doing submissions.."
     for i in range(nQuestions):
         try:
             questionId.append(request.POST['question'+str(i+1)])
             questionType.append(request.POST['type'+str(i+1)])
         except: 
             return
-            
-    
-    #TODO: change this according to individiual/team. It's only team for now.
-    # Do whatever magic you need to do and give me a team instance. Thanks. :)
     try:
         team = Team.objects.get(members__pk = request.user.id, event = event)
     except Team.DoesNotExist:
@@ -64,20 +59,13 @@ def userportal_submissions(request,questionList,event):
         if( questionType[i] == "NORMAL"):
             normalAns = Answer_Text( question = questionObject , submission = submission , text = request.POST['answer'+str(i+1)]) 
             normalAns.save() 
-            print "saved text answer"
         elif ( questionType[i] == "FILE" ):
             fileAns = Answer_file( question = questionObject , submission = submission , File = request.FILES['answer'+str(i+1)])
-            print "saved file answer....."
             fileAns.save()
         else:
             mcqAns = Answer_MCQ( question = questionObject , submission = submission , choice = models.MCQ_option.objects.get( id = int(request.POST['answer'+str(i+1)]) ))
-            print "saved MCQ answer"
             mcqAns.save()
-            
-        
-    answers = []
-    
-    print "awesomeSauce!"
+    return False  
 
 #Handler for displaying /2011/event/eventname page 
 def show_quick_tab(request,event_name=None):
@@ -118,11 +106,10 @@ def show_quick_tab(request,event_name=None):
                 user=request.user
                 userprof=user.get_profile()
                 event = userprof.coord_event            #this event variable is used in the template
-            except:
-                pass
-            else:
                 if userprof.is_coord == True and event.name == event_name:
                     display_edit=True
+            except:
+                pass                
             val = userportal_submissions(request,ques_list,event)
             if val:
                 return HttpResponseRedirect('%smyshaastra/teams/create/' % settings.SITE_URL)
@@ -147,7 +134,17 @@ def show_quick_tab(request,event_name=None):
                 pass
         except:
             raise Http404
-        #return render_to_response('event/QuickTabs.html', locals(), context_instance= global_context(request))
+        
+        # get initial values for forms
+        answers = []
+        
+        #try:
+            #team = Team.objects.get(members__pk = request.user.id, event = event)
+            #submission = TeamSubmission.object.get( team = team , event = event )
+            #print submission
+            #print "awesome!"
+        #except:
+            #pass
         return render_to_response('event/events_quick_tab.html', locals(), context_instance= global_context(request))
     else:
         raise Http404    
@@ -601,22 +598,21 @@ def cores_dashboard(request):
     return HttpResponseRedirect("%sevents/dashboard" % settings.SITE_URL)
 
 @needs_authentication
-@coords_only
+
 def UpdateSpons(request):
-    
-    if request.method=='POST':
-        data=request.POST.copy()
-        form = forms.UpdateSpons(data)
-        if form.is_valid():
-               
-            newtab=models.UpdateSpons(text=form.cleaned_data['text'])
-            newtab.save()
+    if request.user.username=="cores":    
+        if request.method=='POST':
+            data=request.POST.copy()
+            form = forms.UpdateSpons(data)
+            if form.is_valid():
+                newtab=models.UpdateSpons(text=form.cleaned_data['text'])
+                newtab.save()
             
-        return HttpResponseRedirect("%shome" % settings.SITE_URL)
-    else:
-        form = forms.UpdateSpons()
-    return render_to_response('update_spons.html', locals(), context_instance= global_context(request))      
-    
+            return HttpResponseRedirect("%shome" % settings.SITE_URL)
+        else:
+            form = forms.UpdateSpons()
+        return render_to_response('update_spons.html', locals(), context_instance= global_context(request))      
+    return HttpResponseRedirect("%slogin" % settings.SITE_URL) 
 #having a common render_static function
 
 def render_static(request,static_name):
@@ -636,6 +632,45 @@ def render_static(request,static_name):
         return render_to_response('webteam.html', locals(), context_instance = global_context(request))
     
     raise Http404
+
+# the edit page for spons starts from here
+@needs_authentication    
+@coords_only
+def edit_spons(request):
+    tab_to_edit=models.SponsPage.objects.get(id=request.GET['tab_id'])            
+    if request.method=='POST':      
+            data=request.POST.copy()
+            form = forms.SponsPageForm(data)
+            
+            if form.is_valid():
+                tab_to_edit.title= form.cleaned_data['title']
+                tab_to_edit.text = form.cleaned_data['text']
+                tab_to_edit.pref = form.cleaned_data['tab_pref']
+                tab_to_edit.save()
+
+                return HttpResponseRedirect ("%shome"%settings.SITE_URL)
+            else: 
+                
+                tab_to_edit=models.SponsPage.objects.get(id=request.session["tab_id"])
+                  
+            return render_to_response('edit_spons_page.html', locals(), context_instance= global_context(request))
+
+
+    else:
+        tab_to_edit = models.SponsPage.objects.get(id=request.GET["tab_id"])
+        request.session["tab_id"]=request.GET["tab_id"]
+        
+        if request.user.username=="cores":
+            form = forms.SponsPageForm(initial={'title' : tab_to_edit.title , 'text' :tab_to_edit.text, 'tab_pref': tab_to_edit.pref })
+            return render_to_response('edit_spons_page.html', locals(), context_instance= global_context(request))
+        else:
+            raise Http404
+
+
+
+
+
+#edit page for the spons page ends here
         
 """ 
 def render_policy(request):
