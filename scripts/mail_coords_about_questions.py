@@ -1,8 +1,4 @@
-from main_test.misc.util import camelize
-from main_test.events.models import Event
-from main_test.settings import SITE_URL
 from django.contrib.auth.models import User
-from main_test.users.models import UserProfile, College
 from django.core.mail import send_mail
 from django.template import Context, Template
 import random, string
