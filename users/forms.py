@@ -218,3 +218,32 @@ class FeedbackForm(ModelForm):
         widgets = {'content': forms.Textarea(attrs={'cols': 80, 'rows': 20}),}
         exclude = ('radiocontent')
 
+class ResetPasswordForm(forms.Form):
+    user = forms.IntegerField(widget = forms.HiddenInput)
+    password = forms.CharField(min_length = 6, max_length = 30, widget = forms.PasswordInput, help_text = 'Enter a password that you can remember')
+    password_again = forms.CharField(max_length = 30, widget = forms.PasswordInput, help_text = 'Enter the same password that you entered above')
+    
+    def clean_password(self):
+        if self.prefix:
+            field_name1 = '%s-password'%self.prefix
+            field_name2 = '%s-password_again'%self.prefix
+        else:
+            field_name1 = 'password'
+            field_name2 = 'password_again'
+            
+        if self.data[field_name1] != '' and self.data[field_name1] != self.data[field_name2]:
+            raise forms.ValidationError ("The entered passwords do not match.")
+        else:
+            return self.data[field_name1]
+          
+class UsernameForm(forms.Form):
+    username = forms.CharField(max_length = 50, help_text = 'Please enter your username')
+    
+    def clean_username(self):
+        if 'username' in self.cleaned_data:
+            try:
+                User.objects.get(username = self.cleaned_data['username'])
+            except User.DoesNotExist:
+                raise forms.ValidationError('Invalid username')
+        return self.cleaned_data['username']
+

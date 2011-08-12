@@ -204,15 +204,13 @@ class UpdateSpons(models.Model):
 
 class SponsPage(models.Model): 
 
-    title       = models.CharField(max_length=100)
+    
     text        = models.TextField()
-    pref = models.IntegerField(max_length=2,default = 0, blank=False);
+    
     
     def __unicode__(self):
         return self.text
       
-    class Meta:
-    	ordering = ['pref']
     
     class Admin:
         pass
