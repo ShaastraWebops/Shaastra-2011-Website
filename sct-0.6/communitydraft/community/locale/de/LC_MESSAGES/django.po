@@ -1,0 +1,50 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-03-14 21:25+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Herbert Poul <herbert.poul@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: sitetemplates/base_root.html:73
+#, python-format
+msgid "You are logged in as %(user)s"
+msgstr "Sie sind als %(user)s eingelogged."
+
+#: sitetemplates/base_root.html:74
+msgid "Edit Profile"
+msgstr "Profil bearbeiten"
+
+#: sitetemplates/base_root.html:75
+msgid "Logout"
+msgstr "Ausloggen"
+
+#: sitetemplates/base_root.html:77
+msgid "You are not logged in."
+msgstr "Sie sind nicht eingelogged."
+
+#: sitetemplates/base_root.html:78
+msgid "Login"
+msgstr "Anmelden"
+
+#: sitetemplates/base_root.html:79
+msgid "Register"
+msgstr "Registrieren"
+
+#: sitetemplates/base_root.html:86 sitetemplates/base_root.html.py:90
+msgid "Change Language"
+msgstr "Sprache wechseln"
+
+#: sitetemplates/base_root.html:102
+msgid "Manage Roles"
+msgstr "Rollen bearbeiten"

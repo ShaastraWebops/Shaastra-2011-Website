@@ -49,7 +49,7 @@ def global_context(request):
     if request.user.is_authenticated() and request.user.groups.filter(name="EventCores"):
         is_core=True
     image = main_test.events.models.UpdateSpons.objects.select_related('text').all()
-    
+    spons_content=main_test.events.models.SponsPage.objects.get()
     generate_menu_dict(request)
     context =  RequestContext (request,
             {'user':request.user,
@@ -61,6 +61,7 @@ def global_context(request):
             'is_core':is_core,
             'categories':request.session['menu_urls'],
             'image':image,
+            'spons_content':spons_content,
             })
     return context
 
