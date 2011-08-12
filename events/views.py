@@ -69,6 +69,22 @@ def userportal_submissions(request,questionList,event):
 
 #Handler for displaying /2011/event/eventname page 
 def show_quick_tab(request,event_name=None):
+    """"
+        This is the view for the display for the event page i.e the tabs
+        
+        The tab_list is a list of QuickTabs objects for for event__name is the urlname
+        Note that , urlname is a decamelized version of the event_name which is the event_name parameter in the URL.
+        (Refer decamelize and camelize in /misc/util.py)
+        
+        Example:-
+        www.shaastra.org/2011/main/events/Robotics/
+        
+        Here, "Robotics" is the event_name
+        
+        category is a menu object for which the menu "text" is urlname. The corresponding category image is displayed in the template
+        
+        If the event is registrable, a register button is displayed. Similarly, if the user is the coord for the event, a button is displayed which takes him/her to the dashboard
+    """
     urlname=decamelize(event_name)
     tab_list=models.QuickTabs.objects.filter(event__name = urlname).order_by('pref')
     try:
@@ -152,6 +168,17 @@ def show_quick_tab(request,event_name=None):
 @needs_authentication    
 @coords_only
 def dashboard(request):
+    """
+        This is the view that displays the coord's dashboard. The code is similar to the show_quick_tab view
+    
+        This page is visible to coords only and needs authentication
+    
+    
+    
+    
+    
+    
+    """
     userprof = request.user.get_profile()
     event = userprof.coord_event
     if userprof.is_coord:
@@ -328,6 +355,16 @@ def add_file(request):
 @needs_authentication         
 @coords_only
 def add_quick_tab(request):
+    """
+        This is the view for adding a new quick tab. Access is restricted to event coords.
+        
+        Event name is got from the userprofile object of the user .
+        
+        The EditTabForm is displayed without any preset data and it is saved.
+        
+        Files cannot be added when a tab is first added. Please ignore the form = forms.EditTabForm(data,request.FILES) part.
+        
+    """
     userprof=request.user.get_profile()
     event_name = userprof.coord_event.name
     if request.method=='POST':
@@ -419,6 +456,12 @@ def add_question(request):
 @needs_authentication            
 @coords_only
 def remove_quick_tab(request):
+    """
+        This is the view to remove a tab. The tab id is passed as a POST parameter.
+        
+        The tab and the files associated with the particular tab are deleted 
+        
+    """    
     tabs_id=request.POST["tab_id"]
     tab_to_delete = models.QuickTabs.objects.get(id = tabs_id)
     tab_files_list = models.TabFiles.objects.filter(Tab = tab_to_delete)
@@ -470,6 +513,13 @@ def remove_file(request):
 @needs_authentication
 @coords_only
 def edit_event(request):
+    """
+        This is the view to edit event details of each event. 
+        
+        Only the event coord can edit this page.
+        
+        A model form is used and the event coord can modify display_name, menu_image, sponslogo, video attributes
+    """    
     user = request.user
     userprof = user.get_profile()
     event = userprof.coord_event
@@ -509,6 +559,11 @@ def updates_page(request):
              
 @needs_authentication
 def register(request):
+    """ 
+        This is the view for registering for an event. 
+        
+        The event id is passed as a GET parameter and the event is added to the registered field of the userprofile model.
+    """   
     user = request.user
     userprof = user.get_profile()
     if request.method == 'GET':
@@ -581,6 +636,18 @@ def search(request):
 @needs_authentication
 @coords_only
 def cores_dashboard(request):
+    """
+        This is the view that displays the cores dashboard.
+        
+        Initially all the events are displayed. 
+        
+        If the core clicks on a event, the event id is passed as a GET parameter. 
+        
+        The coord_event field of the userprofile model is set to corresponding event and he is taken to the event dashboard.
+        
+        So, basically every time the core clicks on a event, he temporarily becomes a coord for the event. A nice workaround.
+        
+    """    
     if request.user.username == 'cores' or request.user.username == 'spons':
         if request.method == 'GET' and 'event_id' in request.GET:
             event_id = request.GET['event_id']

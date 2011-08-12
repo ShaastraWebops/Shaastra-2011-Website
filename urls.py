@@ -22,10 +22,9 @@ urlpatterns = patterns('',
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the adminl
-    (r'^community/', include('sphene.community.urls'), defaultdict),
-    (r'^board/', include('sphene.sphboard.urls'), defaultdict),
-    (r'^wiki/', include('sphene.sphwiki.urls'), defaultdict),
-    (r'^static/sphene/(.*)$', 'django.views.static.serve', {'document_root': '/home/swaroop/main_test/sct-0.6/communitytools/static/sphene' }),	
+    url(r'^community/', include('sphene.community.urls'), defaultdict),
+    url(r'^board/', include('sphene.sphboard.urls'), defaultdict),
+    url(r'^wiki/', include('sphene.sphwiki.urls'), defaultdict),	
 
     url(r'^home/$', 'main_test.misc.util.render_home' ),
     url(r'^admin/', include(admin.site.urls)),
