@@ -109,7 +109,7 @@ class UpdateSpons(forms.Form):
     text=forms.CharField(widget=forms.Textarea(attrs={'id':'myArea2','cols':"40",'rows':"10"}), help_text='copy and paste the spons image here')
 
 class SponsPageForm(forms.Form):
-    text=forms.CharField(widget=forms.Textarea(attrs={'id':'myArea2','cols':"80",'rows':"750"}))
+    text=forms.CharField(widget=forms.Textarea(attrs={'id':'myArea2','cols':"150",'rows':"15"}))
     
       
 
