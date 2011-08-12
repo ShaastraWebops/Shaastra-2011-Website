@@ -32,7 +32,7 @@ def invite (request):
     return HttpResponseRedirect("%shome/" % settings.SITE_URL)
 def login (request):
     form=forms.LoginForm()
-    if 'logged_in' in request.session and request.session['logged_in'] == True and request.user.get_profile().is_coord == True and request.user.username != 'cores':
+    if 'logged_in' in request.session and request.session['logged_in'] == True and request.user.get_profile().is_coord == True and request.user.username != 'cores' and request.user.username != 'spons':
         return HttpResponseRedirect("%sevents/dashboard/" % settings.SITE_URL)
     if 'logged_in' in request.session and request.session['logged_in'] == True:
         try:
@@ -48,7 +48,7 @@ def login (request):
             if user is not None and user.is_active == True:
                 auth.login (request, user)
                 request.session['logged_in'] = True
-                if user.username == 'cores':
+                if user.username == 'cores' or user.username == 'spons':
                     return HttpResponseRedirect("%sevents/cores/" % settings.SITE_URL)
                 elif user.get_profile().is_coord: 
                     return HttpResponseRedirect("%sevents/dashboard/" % settings.SITE_URL)
@@ -72,7 +72,7 @@ def login (request):
     
 def logout(request):
     if request.user.is_authenticated():
-        if request.user.username == 'cores':
+        if request.user.username == 'cores' or request.user.username == 'spons':
             userprofile = request.user.get_profile()
             userprofile.coord_event = None
             userprofile.save()
