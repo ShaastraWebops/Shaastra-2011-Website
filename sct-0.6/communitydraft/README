@@ -1,0 +1,65 @@
+CommunityDraft is an example website which uses the SCT applications. 
+It is basically not just a draft but a full blown website which is used to 
+provide http://sct.sphene.net (I'm currently only using a couple of different 
+settings and 2 overloaded templates to add google analytics and the bookmark 
+link below the navigation)
+
+# Download
+
+To get the CommunityDraft up and running is very easy actually. After you've 
+got python and django installed simply checkout 'communitytools' and 
+'communitydraft' from subversion (see [Downloads]) into the same directory 
+(or download a release).
+
+## Requirements
+
+Make sure you have installed all requirements for SCT - You can find them in communitytools/README or on the [Documentation] page.
+
+# Configuration
+
+Now change into the directory communitydraft/community/ and copy the file settings_local.py.tmpl to settings_local.py and configure the database settings:
+
+    DATABASE_ENGINE = 'postgresql'   # 'postgresql', 'mysql', 'sqlite3' or 
+                                     # 'ado_mssql'.
+    DATABASE_NAME = 'communitydraft' # Or path to database file if using sqlite3.
+    DATABASE_USER = 'django'         # Not used with sqlite3.
+    DATABASE_PASSWORD = 'test'       # Not used with sqlite3.
+    DATABASE_HOST = '127.0.0.1'      # Set to empty string for localhost. Not 
+                                     # used with sqlite3.
+    DATABASE_PORT = ''               # Set to empty string for default. Not 
+                                     # used with sqlite3.
+
+# Setup
+
+After you completed this configuration (and configured your database accordingly) 
+you can create the database tables by running:
+
+    ./manage.py syncdb
+
+
+from the same directory. In the end you will be asked to create a superuser 
+account  - you should do this.
+
+# Running
+
+And as a last step.. start the project:
+
+    ./manage.py runserver
+
+By default this will start the server running on port 8000 so access your new 
+cool website at: http://127.0.0.1:8000
+
+# What Now ?
+
+After you've successfully set up your website locally you may wonder how to
+
+- Use it
+    - See the [Documentation](http://sct.sphene.net/wiki/show/Documentation/)
+- Deploy it
+    - Please see the django documentation: <http://www.djangoproject.com/documentation/>
+        - mod_python: <http://www.djangoproject.com/documentation/modpython/>
+        - FastCGI, SCGI or AJP: <http://www.djangoproject.com/documentation/fastcgi/>
+- Customize your website
+    - The simplest way to customize your website is probably by overloading a couple of templates. This can be done by modifying the settings variable TEMPLATE_DIRS and adding your own directory to the beginning. - You might need to see the django documentation on how the templating system works.
+
+If you have any further problems/questions please visit the [Forums](http://sct.sphene.net/board/).
