@@ -44,12 +44,12 @@
     <div id="Question{{ques.Q_Number}}">
         {% if ques.question_type == "NORMAL" %}
         <div id="normal_question">
-        <input type="hidden" value="NORMAL" name="type{{ques.Q_Number}}"/>
+<!--         <input type="hidden" value="NORMAL" name="type{{ques.Q_Number}}"/> -->
 <!--         <textarea id = "answer{{ques.Q_Number}}" name = "answer{{ques.Q_Number}}" rows="6" cols="40" >  </textarea><br/> -->
         </div>
         {% endif %}
         {% if ques.question_type == "MCQ" %}
-        <input type="hidden" value="MCQ" name="type{{ques.Q_Number}}"/>
+<!--         <input type="hidden" value="MCQ" name="type{{ques.Q_Number}}"/> -->
 <!--         <p>This is a multiple choice question. Please select your choice and click on "Submit".</p> -->
 <!--         <p> This will be functional soon.</p> -->
         <div id="mcq_question">
@@ -64,11 +64,11 @@
         </div>            
         {% endif %}
         {% if ques.question_type == "FILE" %}
-        <input type="hidden" value="FILE" name="type{{ques.Q_Number}}"/>
+<!--         <input type="hidden" value="FILE" name="type{{ques.Q_Number}}"/> -->
 <!--         <p> Choose the file you want to upload and click on "Upload".</p> -->
 <!--         <p> <font color = "red">This will be functional soon.</font></p> -->
         <br/>
-        <input type="file" id = "answer{{ques.Q_Number}}" name = "answer{{ques.Q_Number}}" size="30"><br/>
+<!--         <input type="file" id = "answer{{ques.Q_Number}}" name = "answer{{ques.Q_Number}}" size="30"><br/> -->
         {% endif %}
         <p><font color="red"> You will be able to submit answers to the questions soon. Please watch this space for more updates. </font></p>
     </div>                       
