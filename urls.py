@@ -8,7 +8,7 @@ admin.autodiscover()
 
 handler404 = "main_test.misc.util.not_found"
 handler500 = "main_test.misc.util.server_error"
-
+defaultdict = { 'groupName': 'example' }
 #testing
 urlpatterns = patterns('',
     
@@ -31,7 +31,11 @@ urlpatterns = patterns('',
     #url(r'^sitemap\.xml$', 'main_test.events.views.sitemap'),
     url(r'^', include ('main_test.users.urls')),
     url(r'^confluence/', 'main_test.confluence.views.rsvp'),
-    url(r'^(?P<static_name>.*)/$', 'main_test.events.views.render_static'),	
+    url(r'^(?P<static_name>.*)/$', 'main_test.events.views.render_static'),
+    url(r'^community/', include('main_test.sphene.community.urls'), defaultdict),
+    url(r'^board/', include('main_test.sphene.sphboard.urls'), defaultdict),
+    url(r'^wiki/', include('main_test.sphene.sphwiki.urls'), defaultdict),
+    	
 )
 
 urlpatterns += patterns('django.views.generic.simple',
