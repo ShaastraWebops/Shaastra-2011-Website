@@ -46,13 +46,13 @@
         <div id="normal_question">
         <p>Type your answer in the text area and hit the "Submit" button.</p>
         <input type="hidden" value="NORMAL" name="type{{ques.Q_Number}}"/>
-        <textarea id = "answer{{ques.Q_Number}}" name = "answer{{ques.Q_Number}}" rows="6" cols="40" >This is not fully functional right now. Clicking on submit does nothing.</textarea><br/>
+<!--         <textarea id = "answer{{ques.Q_Number}}" name = "answer{{ques.Q_Number}}" rows="6" cols="40" >  </textarea><br/> -->
         </div>
         {% endif %}
         {% if ques.question_type == "MCQ" %}
         <input type="hidden" value="MCQ" name="type{{ques.Q_Number}}"/>
         <p>This is a multiple choice question. Please select your choice and click on "Submit".</p>
-        <p> This will be functional soon.</p>
+<!--         <p> This will be functional soon.</p> -->
         <div id="mcq_question">
         <table border="1">
             {% csrf_token %}
@@ -67,7 +67,7 @@
         {% if ques.question_type == "FILE" %}
         <input type="hidden" value="FILE" name="type{{ques.Q_Number}}"/>
         <p> Choose the file you want to upload and click on "Upload".</p>
-        <p> This will be functional soon.</p>
+<!--         <p> <font color = "red">This will be functional soon.</font></p> -->
         <br/>
         <input type="file" id = "answer{{ques.Q_Number}}" name = "answer{{ques.Q_Number}}" size="30"><br/>
         {% endif %}
