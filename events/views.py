@@ -581,7 +581,7 @@ def search(request):
 @needs_authentication
 @coords_only
 def cores_dashboard(request):
-    if request.user.username == 'cores':
+    if request.user.username == 'cores' or request.user.username == 'spons':
         if request.method == 'GET' and 'event_id' in request.GET:
             event_id = request.GET['event_id']
             try:
@@ -600,7 +600,7 @@ def cores_dashboard(request):
 @needs_authentication
 
 def UpdateSpons(request):
-    if request.user.username=="cores":    
+    if request.user.username=="cores" or request.user.username == 'spons':    
         if request.method=='POST':
             data=request.POST.copy()
             form = forms.UpdateSpons(data)
@@ -623,7 +623,7 @@ def render_static(request,static_name):
     if static_name=="hospitality":
         return render_to_response('hospi.html', locals(), context_instance = global_context(request))    
     if static_name=="sponsorship":
-        if request.user.username=="cores":
+        if request.user.username=="cores" or request.user.username == 'spons':
             is_core=True
         else:
             is_core=False 
@@ -665,7 +665,7 @@ def edit_spons(request):
         tab_to_edit = models.SponsPage.objects.get(id=request.GET["tab_id"])
         request.session["tab_id"]=request.GET["tab_id"]
         
-        if request.user.username=="cores":
+        if request.user.username=="cores" or request.user.username == 'spons':
             form = forms.SponsPageForm(initial={'text' :tab_to_edit.text })
             return render_to_response('edit_spons_page.html', locals(), context_instance= global_context(request))
         else:
