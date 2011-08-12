@@ -601,22 +601,21 @@ def cores_dashboard(request):
     return HttpResponseRedirect("%sevents/dashboard" % settings.SITE_URL)
 
 @needs_authentication
-@coords_only
+
 def UpdateSpons(request):
-    
-    if request.method=='POST':
-        data=request.POST.copy()
-        form = forms.UpdateSpons(data)
-        if form.is_valid():
-               
-            newtab=models.UpdateSpons(text=form.cleaned_data['text'])
-            newtab.save()
+    if request.user.username=="cores":    
+        if request.method=='POST':
+            data=request.POST.copy()
+            form = forms.UpdateSpons(data)
+            if form.is_valid():
+                newtab=models.UpdateSpons(text=form.cleaned_data['text'])
+                newtab.save()
             
-        return HttpResponseRedirect("%shome" % settings.SITE_URL)
-    else:
-        form = forms.UpdateSpons()
-    return render_to_response('update_spons.html', locals(), context_instance= global_context(request))      
-    
+            return HttpResponseRedirect("%shome" % settings.SITE_URL)
+        else:
+            form = forms.UpdateSpons()
+        return render_to_response('update_spons.html', locals(), context_instance= global_context(request))      
+    return HttpResponseRedirect("%slogin" % settings.SITE_URL) 
 #having a common render_static function
 
 def render_static(request,static_name):
