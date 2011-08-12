@@ -44,7 +44,9 @@
       </span>
       {% if show_register %}
 	        {% if user_has_registered %}
-              <input type="button" value="You have Registered" />
+              <div style="margin-left:640px;">
+				<input type="button" value="You have Registered" />
+			  </div>
 	        {% else %}
 	          <form action="{{SITE_URL}}events/register/" method="GET">
 		        <input type="hidden" name="event_id" value="{{ event.id }}" />
