@@ -820,6 +820,9 @@
 	
 <script type="text/javascript">
 
+		$(function(){
+			$('#sponsTabsContent').jScrollPane({showArrows: true,verticalScroll: true});
+		});		
 		$("#sponsContainer").css('visibility','visible');
 		$("#sponsTabs").click(function(e){
 			var id = e.target.id;
@@ -829,10 +832,6 @@
 			var id = e.target.id;
 			sponsMainTab(e);
 		});
-		$(function(){
-			$('#sponsTabsContent').jScrollPane({showArrows: true,verticalScroll: true});
-		});
-		
 		setHeights();
 		document.getElementById(elem[3]).style.backgroundPosition="0px -35px";
 		document.getElementById(elem[3]).style.color="#ffffff";
