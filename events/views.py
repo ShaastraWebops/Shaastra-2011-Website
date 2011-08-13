@@ -767,7 +767,7 @@ def edit_spons(request):
                 tab_to_edit.text = form.cleaned_data['text']
                 tab_to_edit.save()
 
-                return HttpResponseRedirect ("%shome"%settings.SITE_URL)
+                return HttpResponseRedirect ("%sponsorship"%settings.SITE_URL)
             else: 
                 
                 tab_to_edit=models.SponsPage.objects.get(id=request.session["tab_id"])
