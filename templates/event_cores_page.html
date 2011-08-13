@@ -1,0 +1,22 @@
+{% extends "index.html"%}
+{% block media_location %}
+<style>
+  #cores_content{
+     padding-left:10px;
+     margin-left:10px;
+     overflow:auto;
+     height:800 px;
+     
+ }
+
+</style>
+{% endblock %}
+
+{% block body %}
+   
+   <div id="cores_content">
+       
+       {{event_cores_content.text |safe }}
+       
+   </div>
+{% endblock%}
