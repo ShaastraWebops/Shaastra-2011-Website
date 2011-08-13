@@ -686,19 +686,36 @@ def UpdateSpons(request):
 @needs_authentication
 
 def EventCoresEditPage(request):
-    if request.user.username == 'cores':    
-        if request.method=='POST':
+    print "come here"
+    tab_to_edit=models.EventCoresEditPage.objects.get(id=request.GET['tab_id']) 
+               
+    if request.method=='POST':      
             data=request.POST.copy()
             form = forms.EventCoresEditPage(data)
-            if form.is_valid():
-                newtab=models.EventCoresEditPage(text=form.cleaned_data['text'])
-                newtab.save()
             
-            return HttpResponseRedirect("%sevents/cores/EventCoresPage" % settings.SITE_URL)
+            if form.is_valid():
+                tab_to_edit.text = form.cleaned_data['text']
+                tab_to_edit.save()
+
+                return HttpResponseRedirect ("%sevents/cores/EventCoresPage"%settings.SITE_URL)
+            else: 
+                
+                tab_to_edit=models.EventCoresEditPage.objects.get(id=request.session["tab_id"])
+                  
+            return render_to_response('edit_cores_page.html', locals(), context_instance= global_context(request))
+
+
+    else:
+        
+        tab_to_edit = models.EventCoresEditPage.objects.get(id=request.GET["tab_id"])
+        request.session["tab_id"]=request.GET["tab_id"]
+        
+        if request.user.username == 'cores':
+            form = forms.EventCoresEditPage(initial={'text' :tab_to_edit.text })
+            return render_to_response('edit_cores_page.html', locals(), context_instance= global_context(request))
         else:
-            form = forms.EventCoresEditPage()
-        return render_to_response('event_cores_edit.html', locals(), context_instance= global_context(request))      
-    return HttpResponseRedirect("%slogin" % settings.SITE_URL) 
+            raise Http404
+
 
 def EventCoresPage(request):
     if request.user.username == "cores":
