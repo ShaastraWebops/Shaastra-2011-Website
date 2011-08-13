@@ -48,8 +48,10 @@ def login (request):
             if user is not None and user.is_active == True:
                 auth.login (request, user)
                 request.session['logged_in'] = True
-                if user.username == 'cores' or user.username == 'spons':
+                if user.username == 'cores':
                     return HttpResponseRedirect("%sevents/cores/" % settings.SITE_URL)
+                elif user.username == 'spons':
+                    return HttpResponseRedirect("%spons/" % settings.SITE_URL)
                 elif user.get_profile().is_coord: 
                     return HttpResponseRedirect("%sevents/dashboard/" % settings.SITE_URL)
                 else:
@@ -69,7 +71,13 @@ def login (request):
             invalid_login = session_get(request, "invalid_login")
             form = forms.LoginForm () 
     return render_to_response('users/login.html', locals(), context_instance= global_context(request))
-    
+
+@needs_authentication
+def spons_dashboard(request):
+    if request.user.username == 'spons':
+        return render_to_response('users/spons_dashboard.html', locals(), context_instance = global_context(request))
+    raise Http404
+
 def logout(request):
     if request.user.is_authenticated():
         if request.user.username == 'cores' or request.user.username == 'spons':
