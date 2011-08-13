@@ -706,7 +706,7 @@ def EventCoresPage(request):
         if event_cores_content:
             return render_to_response('event_cores_page.html', locals(), context_instance= global_context(request))
         else:
-            Http 404
+            return Http404
         
     return HttpResponseRedirect("%slogin" % settings.SITE_URL) 
 
