@@ -696,7 +696,7 @@ def EventCoresEditPage(request):
             
             return HttpResponseRedirect("%sevents/cores/EventCoresPage" % settings.SITE_URL)
         else:
-            form = forms.EventCoresPage()
+            form = forms.EventCoresEditPage()
         return render_to_response('event_cores_edit.html', locals(), context_instance= global_context(request))      
     return HttpResponseRedirect("%slogin" % settings.SITE_URL) 
 
