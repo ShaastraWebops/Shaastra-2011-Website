@@ -680,6 +680,36 @@ def UpdateSpons(request):
             form = forms.UpdateSpons()
         return render_to_response('update_spons.html', locals(), context_instance= global_context(request))      
     return HttpResponseRedirect("%slogin" % settings.SITE_URL) 
+
+# having a page for the event cores to edit
+
+@needs_authentication
+
+def EventCoresEditPage(request):
+    if request.user.username == 'cores':    
+        if request.method=='POST':
+            data=request.POST.copy()
+            form = forms.EventCoresEditPage(data)
+            if form.is_valid():
+                newtab=models.EventCoresEditPage(text=form.cleaned_data['text'])
+                newtab.save()
+            
+            return HttpResponseRedirect("%sevents/cores/EventCoresPage" % settings.SITE_URL)
+        else:
+            form = forms.EventCoresPage()
+        return render_to_response('event_cores_edit.html', locals(), context_instance= global_context(request))      
+    return HttpResponseRedirect("%slogin" % settings.SITE_URL) 
+
+def EventCoresPage(request):
+    if request.user.username == "cores":
+        event_cores_content=models.EventCoresEditPage.objects.get()
+        if event_cores_content:
+            return render_to_response('event_cores_page.html', locals(), context_instance= global_context(request))
+        else:
+            Http 404
+        
+    return HttpResponseRedirect("%slogin" % settings.SITE_URL) 
+
 #having a common render_static function
 
 def render_static(request,static_name):

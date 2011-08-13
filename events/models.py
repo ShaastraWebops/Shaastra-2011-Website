@@ -202,6 +202,16 @@ class UpdateSpons(models.Model):
     class Admin:
         pass
 
+class EventCoresEditPage(models.Model):
+    text        = models.TextField()
+    def __unicode__(self):
+        return self.text
+
+    class Admin:
+        pass
+
+
+
 class SponsPage(models.Model): 
 
     

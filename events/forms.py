@@ -108,6 +108,11 @@ class EventUpdateForm(forms.Form):
 class UpdateSpons(forms.Form):
     text=forms.CharField(widget=forms.Textarea(attrs={'id':'myArea2','cols':"40",'rows':"10"}), help_text='copy and paste the spons image here')
 
+class EventCoresEditPage(forms.Form):
+    text=forms.CharField(widget=forms.Textarea(attrs={'id':'myArea2','cols':"150",'rows':"10"}))
+
+
+
 class SponsPageForm(forms.Form):
     text=forms.CharField(widget=forms.Textarea(attrs={'id':'myArea2','cols':"150",'rows':"15"}))
     
