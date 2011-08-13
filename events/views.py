@@ -704,6 +704,7 @@ def EventCoresPage(request):
     if request.user.username == "cores":
         event_cores_content=models.EventCoresEditPage.objects.get()
         if event_cores_content:
+            is_core=True
             return render_to_response('event_cores_page.html', locals(), context_instance= global_context(request))
         else:
             return Http404
