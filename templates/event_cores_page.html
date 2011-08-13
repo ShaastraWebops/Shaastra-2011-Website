@@ -20,14 +20,14 @@
        
    </div>
    {%if is_core%}	
-	<div id="edit_spons">
+	<div id="edit_cores_page">
 
          <div class="button2">
 		<a href="#">
-		  <form action= "{{SITE_URL}}events/UpdateSponsPage" method="GET">
+		  <form action= "{{SITE_URL}}events/cores/EventCoresEditPage" method="GET">
 		  {% csrf_token %}
 		  <input type="hidden" value="1" name=tab_id >						
-	          <input type="submit" value="edit 2011 spons">
+	          <input type="submit" value="edit event cores page">
 	          </form>
 	   	</a>
 	<span></span>
