@@ -19,4 +19,23 @@
        {{event_cores_content.text |safe }}
        
    </div>
+   {%if is_core%}	
+	<div id="edit_spons">
+
+         <div class="button2">
+		<a href="#">
+		  <form action= "{{SITE_URL}}events/UpdateSponsPage" method="GET">
+		  {% csrf_token %}
+		  <input type="hidden" value="1" name=tab_id >						
+	          <input type="submit" value="edit 2011 spons">
+	          </form>
+	   	</a>
+	<span></span>
+	</div>
+ 
+          
+    </div>
+
+	{%endif%}
+   
 {% endblock%}
