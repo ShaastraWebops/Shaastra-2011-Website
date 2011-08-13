@@ -702,7 +702,7 @@ def EventCoresEditPage(request):
                 
                 tab_to_edit=models.EventCoresEditPage.objects.get(id=request.session["tab_id"])
                   
-            return render_to_response('edit_cores_page.html', locals(), context_instance= global_context(request))
+            return render_to_response('event_cores_page.html', locals(), context_instance= global_context(request))
 
 
     else:
@@ -712,7 +712,7 @@ def EventCoresEditPage(request):
         
         if request.user.username == 'cores':
             form = forms.EventCoresEditPage(initial={'text' :tab_to_edit.text })
-            return render_to_response('edit_cores_page.html', locals(), context_instance= global_context(request))
+            return render_to_response('event_cores_page.html', locals(), context_instance= global_context(request))
         else:
             raise Http404
 
