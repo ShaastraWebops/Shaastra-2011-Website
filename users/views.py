@@ -52,7 +52,7 @@ def login (request):
                 if user.username == 'cores':
                     return HttpResponseRedirect("%sevents/cores/" % settings.SITE_URL)
                 elif user.username == 'spons':
-                    return HttpResponseRedirect("%spons/" % settings.SITE_URL)
+                    return HttpResponseRedirect("%sspons/" % settings.SITE_URL)
                 elif user.get_profile().is_coord: 
                     return HttpResponseRedirect("%sevents/dashboard/" % settings.SITE_URL)
                 else:
