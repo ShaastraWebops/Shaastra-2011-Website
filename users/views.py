@@ -21,16 +21,17 @@ from main_test.users import forms
 
 import sha,random,datetime
 from django.core.mail import EmailMultiAlternatives
-
-def invite (request):
-    subject, from_email, to = 'hello', 'hospitality@shaastra.org', 'krishna92@gmail.com'
-    text_content = 'This is a image message.'
-    html_content = '<img src = "http://www.shaastra.org/2011/media/main/img/all_logos.png>"'
-    msg = EmailMultiAlternatives(subject, text_content, from_email, [to])# sending plain text in case they cant view html
-    msg.attach_alternative(html_content, "text/html")# the additional html content added to the content for ppl who can view html content
-    msg.send()
-    return HttpResponseRedirect("%shome/" % settings.SITE_URL)
+  
 def login (request):
+    """
+        This is the view for logging a user in.
+        If the user is already logged in and is a core or coord, he is redirected to the dashboard.
+        Normal users are redirected to the home page.
+        
+        If the user who logs in is a core or coord, he is redirected to the dashboard. 
+        If normal users login, he/she is redirected to the previous url. If this fails, he/she is 
+        redirected to the home page.
+    """    
     form=forms.LoginForm()
     if 'logged_in' in request.session and request.session['logged_in'] == True and request.user.get_profile().is_coord == True and request.user.username != 'cores' and request.user.username != 'spons':
         return HttpResponseRedirect("%sevents/dashboard/" % settings.SITE_URL)
@@ -64,13 +65,21 @@ def login (request):
                 errors=[]
                 errors.append("Incorrect username and password combination!")
                 return render_to_response('users/login.html', locals(), context_instance= global_context(request))
-                
+                 
         else:                       
             invalid_login = session_get(request, "invalid_login")
             form = forms.LoginForm () 
     return render_to_response('users/login.html', locals(), context_instance= global_context(request))
     
 def logout(request):
+    """
+        If username is cores or spons, the coord_event is set to none and the userprofile is saved.
+        The user is then logged out using the default django view.
+              
+        In case the user is not logged in and tries to visit the logout url, he/she is redirected to the login page.
+        Nice touch. :)
+    
+    """
     if request.user.is_authenticated():
         if request.user.username == 'cores' or request.user.username == 'spons':
             userprofile = request.user.get_profile()
@@ -82,6 +91,24 @@ def logout(request):
     return HttpResponseRedirect('%slogin/'%settings.SITE_URL)        
     
 def user_registration(request):
+    """ 
+        If the user is already logged it, set logged_in to true. He/she won't be allowed to register.
+        
+        Retrieve the list of colleges and display them as coll.name,coll.city . This list is used for the jquery autocompletion. 
+        js_data is a simplejson dump of the list of collnames. 
+        
+        ...var data = {{js_data|safe}};
+        ...$("#coll_input").autocomplete(data);
+        
+        These two lines in the template handle the autocomplete for college selection. ( The id of the college field is set to coll_input in forms.py. You need to include the jquery autocomplete plugin for it to work.
+        
+        If the request method is post and the form is valid , a user object is created and the is_active attribute is set to false.
+        
+        A random activation_key is generated and the expiry is set to 2 days fromt the point of registration.
+        
+        The userprofile object is created with the foreign key set the user object previously created.
+        
+    """ 
     if request.user.is_authenticated():
         logged_in = True
     colls = models.College.objects.all()
@@ -156,7 +183,14 @@ def college_registration (request):
     #coll_form=forms.AddCollegeForm()        
     #return render_to_response('users/register_user.html', locals(), context_instance= global_context(request))        
             
-def activate (request, a_key = None ):
+def activate (request, a_key = None ): 
+    """
+       The activation_key (a_key) is trapped from the url. If the key is not empty then the corresponding userprofile object is retrieved. If the object doesn't exist and ObjectDoesNotExist error is flagged.
+       
+       The the key has already expired then the userprofile and the corresponding user objects are deleted, otherwise, the is_active field in the user model is set to true.
+       
+       Note that, if is_active is not set to true, the user cannot login. 
+    """
     SITE_URL = settings.SITE_URL
     if (a_key == '' or a_key==None):
 	    key_dne = True
