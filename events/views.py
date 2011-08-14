@@ -721,15 +721,14 @@ def EventCoresEditPage(request):
 
 
 def EventCoresPage(request):
-    if request.user.username == "cores":
+    
         event_cores_content=models.EventCoresEditPage.objects.get()
-        if event_cores_content:
+        if request.user.username=="cores":
             is_core=True
-            return render_to_response('event_cores_page.html', locals(), context_instance= global_context(request))
         else:
-            return Http404
-        
-    return HttpResponseRedirect("%slogin" % settings.SITE_URL) 
+            is_core=False
+        return render_to_response('event_cores_page.html', locals(), context_instance= global_context(request))
+    
 
 #having a common render_static function
 

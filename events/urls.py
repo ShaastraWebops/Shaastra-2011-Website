@@ -24,7 +24,7 @@ urlpatterns = patterns('main_test.events.views',
       (r'^UpdateSponsPage/$', 'edit_spons'),
       (r'^images/(?P<event_name>.*)/$', 'event_image'),
       (r'^cores/$', 'cores_dashboard'),
-      (r'^cores/EventCoresPage/$', 'EventCoresPage'),
+      (r'^ImportantDates/$', 'EventCoresPage'),
       (r'^cores/EventCoresEditPage/$', 'EventCoresEditPage'), 
       
       #Add any more urls here
