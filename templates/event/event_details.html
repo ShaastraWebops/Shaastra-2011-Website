@@ -171,7 +171,7 @@
 	  </form>
 	</div>
 	
-	<div id="add_question" style="position:relative; bottom:0px; left:5px;">
+	<div id="add_question" style="position:relative; bottom:0px; left:5px; z-index:6;">
 	  <form action="add_question/" method ="POST">
 	    {% csrf_token %}
 	    <input type="hidden" value="{{row.id}}" name="tab_id" />
@@ -193,7 +193,7 @@
 
     <!-- the delete tab button --> 
     {%if row.question_tab%}                  
-    <div id="deletetab{{row.id}}" style="position:relative;bottom:0px; left:5px;display:block; width:100px;">
+    <div id="deletetab{{row.id}}" style="position:relative;bottom:0px; left:5px;display:block; width:100px; z-index:5;">
      {%else%}
      <div id="deletetab{{row.id}}" style="position:relative; bottom:48px; left:120px;display:block; width:100px;">
      {%endif%} 
@@ -259,7 +259,7 @@
       }
       );
     </script>
-    <br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br>
   </div>
   {%endfor%}
 </div>
