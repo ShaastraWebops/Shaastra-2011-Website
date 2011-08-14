@@ -246,7 +246,7 @@ def edit_tab_content(request):
                     form = forms.EditTabForm(data,request.FILES)
             except: 
                 if(tab_to_edit.question_tab):
-                    forms.EditQuestionsTabForm(data)
+                    form = forms.EditQuestionsTabForm(data)
                 else:
                     form = forms.EditTabForm(data)
             if form.is_valid():
