@@ -275,7 +275,10 @@ def edit_tab_content(request):
         request.session["tab_id"]=request.GET["tab_id"]
         userprof = request.user.get_profile()
         if tab_to_edit.event == userprof.coord_event and userprof.is_coord:
-            form = forms.EditTabForm(initial={'title' : tab_to_edit.title , 'text' :tab_to_edit.text, 'tab_pref': tab_to_edit.pref })
+            if( tab_to_edit.question_tab ):
+                form = forms.EditQuestionsTabForm(initial={'title' : tab_to_edit.title , 'tab_pref': tab_to_edit.pref })
+            else:
+                form = forms.EditTabForm(initial={'title' : tab_to_edit.title , 'text' :tab_to_edit.text, 'tab_pref': tab_to_edit.pref })
             file_list = models.TabFiles.objects.filter(Tab = tab_to_edit)
             formadd = forms.AddFileForm()
             is_edit_tab=True
