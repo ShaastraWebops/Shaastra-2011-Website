@@ -241,7 +241,7 @@ def edit_tab_content(request):
             data=request.POST.copy()
             try:
                 if(tab_to_edit.question_tab):
-                    forms.EditQuestionsTabForm(data,request.FILES)
+                    form = forms.EditQuestionsTabForm(data,request.FILES)
                 else:
                     form = forms.EditTabForm(data,request.FILES)
             except: 
