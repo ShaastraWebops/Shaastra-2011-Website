@@ -3,7 +3,7 @@
 from django.core.mail import EmailMultiAlternatives
 
 def spam():
-    subject, from_email, to = 'hello', 'hospitality@shaastra.org', 'swaroop551992@gmail.com'
+    subject, from_email, to =  'chetanbademi@gmail.com'
     text_content = 'This is a image message.'
     html_content = '<img src = "http://www.shaastra.org/2011/media/main/img/all_logos.png>"'
     msg = EmailMultiAlternatives(subject, text_content, from_email, [to])# sending plain text in case they cant view html
