@@ -1,8 +1,0 @@
-This is the documentation for the models in the events app
---------------------------------------------------------------------------------
-1. Tag - Just a character field;
-2. Events - ManyTomany with Tag; name, url, Registration stuff- Didn't remove. flagged_by - myshaastra 
-logos could have been placed at logos/spons/ and logos/events
-3. QuickTabs - title, event, text, preference.
-4. TabFiles - files associated with the tab, could have had a description lets see about that
-5. Update - Event update, update content, time.
