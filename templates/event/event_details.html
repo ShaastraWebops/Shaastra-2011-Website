@@ -161,7 +161,7 @@
 	<div id="edit_tab" style="position:relative; bottom:-41.5px;left:-25px">
 	  <form action="edit_tab/" method = 'GET'>
 	    <input type="hidden" value="{{row.id}}" name=tab_id >
-	    <div class="button2" style="position:relative;  left:180px; top:5px;">
+	    <div class="button2" style="position:relative;  left:165px; top:5px;">
 	      <a href="#">
 			<input type="submit" value="Edit Tab" style="background-image:none; color:#000;">
 	      </a>
@@ -171,7 +171,7 @@
 	  </form>
 	</div>
 	
-	<div id="add_question" style="position:relative; bottom:0px; left:20px;">
+	<div id="add_question" style="position:relative; bottom:0px; left:5px;">
 	  <form action="add_question/" method ="POST">
 	    {% csrf_token %}
 	    <input type="hidden" value="{{row.id}}" name="tab_id" />
@@ -193,7 +193,8 @@
 
     <!-- the delete tab button --> 
     {%if row.question_tab%}                  
-    <div id="deletetab{{row.id}}" style="position:relative;top:100px; left:-116px;display:block; width:100px;">
+    <div id="deletetab{{row.id}}" style="position:relative;bottom:0px; left:5px;display:block; width:100px;">
+    <div id="deletetab{{row.id}}" style="position:relative;bottom:0px; left:5px;display:block; width:100px;">
      {%else%}
      <div id="deletetab{{row.id}}" style="position:relative; bottom:48px; left:120px;display:block; width:100px;">
      {%endif%} 
