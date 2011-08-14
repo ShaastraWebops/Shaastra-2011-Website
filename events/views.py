@@ -710,7 +710,7 @@ def EventCoresEditPage(request):
         tab_to_edit = models.EventCoresEditPage.objects.get(id=request.GET["tab_id"])
         request.session["tab_id"]=request.GET["tab_id"]
         
-        if request.user.username == 'cores':
+        if request.user.username == 'testevent':
             form = forms.EventCoresEditPage(initial={'text' :tab_to_edit.text })
             return render_to_response('event_cores_edit.html', locals(), context_instance= global_context(request))
         else:
@@ -718,7 +718,7 @@ def EventCoresEditPage(request):
 
 
 def EventCoresPage(request):
-    if request.user.username == "cores":
+    if request.user.username == "testevent":
         event_cores_content=models.EventCoresEditPage.objects.get()
         if event_cores_content:
             is_core=True

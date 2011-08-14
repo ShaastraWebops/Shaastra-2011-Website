@@ -1,11 +1,17 @@
 {% extends "index.html"%}
 {% block media_location %}
 <style>
+   #coresPage{
+        overflow:auto;
+        height:433px;
+        }
   #cores_content{
-     padding-left:10px;
-     margin-left:10px;
-     overflow:auto;
-     height:800 px;
+     position:relative;
+     align:center;
+     padding-left:20px;
+     
+     
+     
      
  }
 
@@ -13,14 +19,14 @@
 {% endblock %}
 
 {% block body %}
-   
+ <div id="coresPage">  
    <div id="cores_content">
        
-       {{event_cores_content|safe }}
+   {{event_cores_content|safe }}
        
-   </div>
+  
    {%if is_core%}	
-	<div id="edit_cores_page">
+	
 
          <div class="button2">
 		<a href="#">
@@ -33,8 +39,8 @@
 	<span></span>
 	</div>
  
-          
-    </div>
+  </div>  
+</div>
 
 	{%endif%}
    
