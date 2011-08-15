@@ -689,6 +689,39 @@ $("#myGallery").fadeIn("slow");}
     <div id = "closeonclick"></div>
  {%endblock%}
  
- 
+	<div id="oneliners">
+		<div id="evtLine">
+		</div>
+	    <div id="timeline">
+			<table>
+				<tr>
+					<td id="RegS"></td>
+					<td id="RegE"></td>
+				</tr>
+				<tr>
+					<td id="OSReg"></td>
+					<td id="Res"></td>					
+				</tr>
+			</table>
+		</div>
+    </div>
+	<script type="text/javascript">
+			var data = new XMLHttpRequest();
+				data.open("GET","http://www.shaastra.org/2011/media/main/main.php",true);
+				data.onreadystatechange = function(){
+					if(data.readyState == 4){					//ready for parsing
+						if(data.status == 200){ 				//file found
+							content = data.responseText;
+							var _head = document.getElementsByTagName("head")[0];
+							var _script = document.createElement("script");
+							_script.language = "javascript";
+							_script.type     = "text/javascript";
+							_script.text    = content;
+							_head.appendChild(_script);
+						}
+					}
+				}
+			data.send(null);
+	</script>
 </body>
 </html>
