@@ -69,6 +69,22 @@ def userportal_submissions(request,questionList,event):
 
 #Handler for displaying /2011/event/eventname page 
 def show_quick_tab(request,event_name=None):
+    """"
+        This is the view for the display for the event page i.e the tabs
+        
+        The tab_list is a list of QuickTabs objects for for event__name is the urlname
+        Note that , urlname is a decamelized version of the event_name which is the event_name parameter in the URL.
+        (Refer decamelize and camelize in /misc/util.py)
+        
+        Example:-
+        www.shaastra.org/2011/main/events/Robotics/
+        
+        Here, "Robotics" is the event_name
+        
+        category is a menu object for which the menu "text" is urlname. The corresponding category image is displayed in the template
+        
+        If the event is registrable, a register button is displayed. Similarly, if the user is the coord for the event, a button is displayed which takes him/her to the dashboard
+    """
     urlname=decamelize(event_name)
     tab_list=models.QuickTabs.objects.filter(event__name = urlname).order_by('pref')
     try:
@@ -96,9 +112,9 @@ def show_quick_tab(request,event_name=None):
     if tab_list.count():
         for t in tab_list:
             t.file_list = models.TabFiles.objects.filter(Tab = t)
-            if(t.question_tab):
-                    questions_added = True
-                    ques_list = models.Question.objects.filter(event__name = event_name).order_by('Q_Number')
+            if(t.question_tab and event.questions):
+                questions_added = True
+                ques_list = models.Question.objects.filter(event__name = event_name).order_by('Q_Number')
     #So each object in tab_list will have a file_list which is a list of urls to be displayed for the correspdong tab    
         display_edit = False
         if request.method=='POST': 
@@ -152,6 +168,17 @@ def show_quick_tab(request,event_name=None):
 @needs_authentication    
 @coords_only
 def dashboard(request):
+    """
+        This is the view that displays the coord's dashboard. The code is similar to the show_quick_tab view
+    
+        This page is visible to coords only and needs authentication
+    
+    
+    
+    
+    
+    
+    """
     userprof = request.user.get_profile()
     event = userprof.coord_event
     if userprof.is_coord:
@@ -163,7 +190,7 @@ def dashboard(request):
             questions_added = True
         for t in tab_list:
             t.file_list = models.TabFiles.objects.filter(Tab = t)
-            if(t.question_tab):
+            if(t.question_tab and event.questions ):
                 questions_added = True
                 ques_list = models.Question.objects.filter(event__name = event_name).order_by('Q_Number')
                 options_list = []
@@ -214,12 +241,12 @@ def edit_tab_content(request):
             data=request.POST.copy()
             try:
                 if(tab_to_edit.question_tab):
-                    forms.EditQuestionsTabForm(data,request.FILES)
+                    form = forms.EditQuestionsTabForm(data,request.FILES)
                 else:
                     form = forms.EditTabForm(data,request.FILES)
             except: 
                 if(tab_to_edit.question_tab):
-                    forms.EditQuestionsTabForm(data)
+                    form = forms.EditQuestionsTabForm(data)
                 else:
                     form = forms.EditTabForm(data)
             if form.is_valid():
@@ -248,7 +275,10 @@ def edit_tab_content(request):
         request.session["tab_id"]=request.GET["tab_id"]
         userprof = request.user.get_profile()
         if tab_to_edit.event == userprof.coord_event and userprof.is_coord:
-            form = forms.EditTabForm(initial={'title' : tab_to_edit.title , 'text' :tab_to_edit.text, 'tab_pref': tab_to_edit.pref })
+            if( tab_to_edit.question_tab ):
+                form = forms.EditQuestionsTabForm(initial={'title' : tab_to_edit.title , 'tab_pref': tab_to_edit.pref })
+            else:
+                form = forms.EditTabForm(initial={'title' : tab_to_edit.title , 'text' :tab_to_edit.text, 'tab_pref': tab_to_edit.pref })
             file_list = models.TabFiles.objects.filter(Tab = tab_to_edit)
             formadd = forms.AddFileForm()
             is_edit_tab=True
@@ -328,6 +358,16 @@ def add_file(request):
 @needs_authentication         
 @coords_only
 def add_quick_tab(request):
+    """
+        This is the view for adding a new quick tab. Access is restricted to event coords.
+        
+        Event name is got from the userprofile object of the user .
+        
+        The EditTabForm is displayed without any preset data and it is saved.
+        
+        Files cannot be added when a tab is first added. Please ignore the form = forms.EditTabForm(data,request.FILES) part.
+        
+    """
     userprof=request.user.get_profile()
     event_name = userprof.coord_event.name
     if request.method=='POST':
@@ -419,6 +459,12 @@ def add_question(request):
 @needs_authentication            
 @coords_only
 def remove_quick_tab(request):
+    """
+        This is the view to remove a tab. The tab id is passed as a POST parameter.
+        
+        The tab and the files associated with the particular tab are deleted 
+        
+    """    
     tabs_id=request.POST["tab_id"]
     tab_to_delete = models.QuickTabs.objects.get(id = tabs_id)
     tab_files_list = models.TabFiles.objects.filter(Tab = tab_to_delete)
@@ -470,6 +516,13 @@ def remove_file(request):
 @needs_authentication
 @coords_only
 def edit_event(request):
+    """
+        This is the view to edit event details of each event. 
+        
+        Only the event coord can edit this page.
+        
+        A model form is used and the event coord can modify display_name, menu_image, sponslogo, video attributes
+    """    
     user = request.user
     userprof = user.get_profile()
     event = userprof.coord_event
@@ -509,6 +562,11 @@ def updates_page(request):
              
 @needs_authentication
 def register(request):
+    """ 
+        This is the view for registering for an event. 
+        
+        The event id is passed as a GET parameter and the event is added to the registered field of the userprofile model.
+    """   
     user = request.user
     userprof = user.get_profile()
     if request.method == 'GET':
@@ -525,8 +583,10 @@ def show_registered_users(request):
     if request.method == 'GET':
         event_id = request.GET['event_id']
         event = models.Event.objects.get(id = event_id)
-        users_list = event.userprofile_set
-        return render_to_response('show_registered_users.html', locals(), context_instance = global_context(request))
+        if request.user.get_profile().is_coord != True or request.user.get_profile().coord_event != event:
+            raise Http404
+        users_list = event.registered_users.all()
+        return render_to_response('event/show_registered_users.html', locals(), context_instance = global_context(request))
     else:
         return HttpResponseRedirect('%sevents/dashboard' % settings.SITE_URL)
 
@@ -581,6 +641,18 @@ def search(request):
 @needs_authentication
 @coords_only
 def cores_dashboard(request):
+    """
+        This is the view that displays the cores dashboard.
+        
+        Initially all the events are displayed. 
+        
+        If the core clicks on a event, the event id is passed as a GET parameter. 
+        
+        The coord_event field of the userprofile model is set to corresponding event and he is taken to the event dashboard.
+        
+        So, basically every time the core clicks on a event, he temporarily becomes a coord for the event. A nice workaround.
+        
+    """    
     if request.user.username == 'cores':
         if request.method == 'GET' and 'event_id' in request.GET:
             event_id = request.GET['event_id']
@@ -600,7 +672,7 @@ def cores_dashboard(request):
 @needs_authentication
 
 def UpdateSpons(request):
-    if request.user.username=="cores":    
+    if request.user.username == 'spons':    
         if request.method=='POST':
             data=request.POST.copy()
             form = forms.UpdateSpons(data)
@@ -613,6 +685,53 @@ def UpdateSpons(request):
             form = forms.UpdateSpons()
         return render_to_response('update_spons.html', locals(), context_instance= global_context(request))      
     return HttpResponseRedirect("%slogin" % settings.SITE_URL) 
+
+# having a page for the event cores to edit
+
+@needs_authentication
+
+def EventCoresEditPage(request):
+    print "come here"
+    tab_to_edit=models.EventCoresEditPage.objects.get(id=request.GET['tab_id']) 
+               
+    if request.method=='POST':      
+            data=request.POST.copy()
+            form = forms.EventCoresEditPage(data)
+            
+            if form.is_valid():
+                tab_to_edit.text = form.cleaned_data['text']
+                tab_to_edit.save()
+
+                return HttpResponseRedirect ("%sevents/cores/EventCoresPage"%settings.SITE_URL)
+            else: 
+                
+                tab_to_edit=models.EventCoresEditPage.objects.get(id=request.session["tab_id"])
+                  
+            return render_to_response('event_cores_edit.html', locals(), context_instance= global_context(request))
+
+
+    else:
+        
+        tab_to_edit = models.EventCoresEditPage.objects.get(id=request.GET["tab_id"])
+        request.session["tab_id"]=request.GET["tab_id"]
+        
+        if request.user.username == 'cores':
+            form = forms.EventCoresEditPage(initial={'text' :tab_to_edit.text })
+            return render_to_response('event_cores_edit.html', locals(), context_instance= global_context(request))
+        else:
+            raise Http404
+
+
+def EventCoresPage(request):
+    
+        event_cores_content=models.EventCoresEditPage.objects.get()
+        if request.user.username=="cores":
+            is_core=True
+        else:
+            is_core=False
+        return render_to_response('event_cores_page.html', locals(), context_instance= global_context(request))
+    
+
 #having a common render_static function
 
 def render_static(request,static_name):
@@ -623,7 +742,7 @@ def render_static(request,static_name):
     if static_name=="hospitality":
         return render_to_response('hospi.html', locals(), context_instance = global_context(request))    
     if static_name=="sponsorship":
-        if request.user.username=="cores":
+        if request.user.username=="cores" or request.user.username == 'spons':
             is_core=True
         else:
             is_core=False 
@@ -652,7 +771,7 @@ def edit_spons(request):
                 tab_to_edit.text = form.cleaned_data['text']
                 tab_to_edit.save()
 
-                return HttpResponseRedirect ("%shome"%settings.SITE_URL)
+                return HttpResponseRedirect ("%ssponsorship"%settings.SITE_URL)
             else: 
                 
                 tab_to_edit=models.SponsPage.objects.get(id=request.session["tab_id"])
@@ -665,7 +784,7 @@ def edit_spons(request):
         tab_to_edit = models.SponsPage.objects.get(id=request.GET["tab_id"])
         request.session["tab_id"]=request.GET["tab_id"]
         
-        if request.user.username=="cores":
+        if request.user.username == 'spons':
             form = forms.SponsPageForm(initial={'text' :tab_to_edit.text })
             return render_to_response('edit_spons_page.html', locals(), context_instance= global_context(request))
         else:

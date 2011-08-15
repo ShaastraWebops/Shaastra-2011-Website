@@ -32,7 +32,7 @@ class Event(models.Model):
     
     # Registration. 
     registrable = models.BooleanField(default=False, help_text= "Can participants register online?")
-    questions = models.BooleanField(default=False, help_text= "Will the participant have to answer a questionnaire?")
+    questions = models.BooleanField(default=False, help_text= "Will the participant have to answer a questionnaire or submit a TDP?")
     team_event = models.BooleanField(default=False, help_text= "Is this a team event?")
 
     # Hospitality.
@@ -201,6 +201,16 @@ class UpdateSpons(models.Model):
 
     class Admin:
         pass
+
+class EventCoresEditPage(models.Model):
+    text        = models.TextField()
+    def __unicode__(self):
+        return self.text
+
+    class Admin:
+        pass
+
+
 
 class SponsPage(models.Model): 
 

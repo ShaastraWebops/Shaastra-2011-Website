@@ -1,5 +1,4 @@
 {%extends "index.html"%}
-{%block event_categories%}{%endblock%}
 {%block gradient%}{%include "gradient.html"%}{%endblock%}
 {%block body%}
 
@@ -32,7 +31,18 @@
                   <!--The Submit Button -->
 
 		<!--<input type="hidden" value="{{row.id}}" />-->
-		<input type="submit" value="Submit" />
+	<div id="submit" style="position:relative;bottom:10px;">	
+		<div class="button2">
+		<a href="#">
+		  <form action= "" method="GET">
+		  {% csrf_token %}
+		  					
+	          <input type="submit" value="Submit" />
+	          </form>
+	   	</a>
+	<span></span>
+	</div>
+  </div>	
 	  </form>
     </div>    
           
@@ -48,11 +58,16 @@
 
                     <!--The Back To DashBoard Button -->
 
-                    <div id="cancel">
-                            <form action="{{SITE_URL}}events/dashboard/" method="POST">
-                            {% csrf_token %}
-                            <input type="submit" value="Back To Dashboard"/>
-                            </form>
+                    <div id="cancel" style="position:relative;bottom:48px;left:10px">
+                            <div class="button2">
+		                     <a href="#">
+		                     <form action= "{{SITE_URL}}events/dashboard" method="GET">
+		                        {% csrf_token %}
+		  					       <input type="submit" value="Back to dashboard">
+	                            </form>
+	   	                     </a>
+	                        <span></span>
+	                       </div>
                     </div>
 
 

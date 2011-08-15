@@ -1,0 +1,55 @@
+{% extends "index.html"%}
+{% block media_location %}
+<style>
+   #coresPage{
+        overflow:auto;
+        height:433px;
+        width:100%;
+        left:20px;
+        align:center;   
+        }
+  #cores_content{
+     position:relative;
+     margin:0 auto 0 auto;
+     padding-left:20px;
+     width:100%;
+     left:50px;
+     align:center;
+     
+     
+     
+     
+     
+ }
+
+</style>
+<script type="text/javascript"> $("#page1").css({'width':'100%','left':'0px'}); </script>
+{% endblock %}
+
+{% block body %}
+ <div id="coresPage">  
+   <div id="cores_content">
+       
+   {{event_cores_content|safe }}
+       
+  
+   {%if is_core%}	
+	
+
+         <div class="button2">
+		<a href="#">
+		  <form action= "{{SITE_URL}}events/cores/EventCoresEditPage" method="GET">
+		  {% csrf_token %}
+		  <input type="hidden" value="1" name=tab_id >						
+	          <input type="submit" value="edit event cores page">
+	          </form>
+	   	</a>
+	<span></span>
+	</div>
+ 
+    </div>
+</div>
+
+	{%endif%}
+   
+{% endblock%}

@@ -1,0 +1,61 @@
+
+
+The PRIMARY AUTHORS are:
+
+Herbert Poul <herbert.poul@gmail.com> - Creator and maintainer of 
+the Sphene Community Tools.
+
+
+
+Thanks to the following contributors:
+(This list might not be complete)
+
+
+Almir Karic - for contributing patches
+(404 fixes, quick reply feature)
+
+
+Bruce Kroeze <bkroeze@gmail.com> - for contributing patches 
+('Modular post rendering')
+
+
+Daniel Ellison <daniel@syrinx.net> - for providing 
+feature requests/feedback and the "default avatar" image:
+http://sct.sphene.net/board/thread/256/?page=2
+
+
+Daniele Varrazzo - for providing various patches especially for the
+blog.
+
+
+Eric Simorre <eric.simorre@c-s.fr> - contributed french
+translations for all apps and communitydraft.
+http://djangopeople.net/esimorre/
+
+
+Iain Mac Donald - contributed the 'SCT powered' logo:
+http://sct.sphene.net/static/sphene/community/logo/sct-powered-124x25.png
+
+
+Jakub Wiśniowski <restless.being@gmail.com> - for contributing patches 
+(Using MEDIA_URL instead of hard coded links, i18n translation strings
+as well as polish translations)
+
+
+Maciej Wiśniowski <pigletto@gmail.com> - http://ekrawiectwo.net
+Contributing various patches for forum bugs and features as well as polish
+translations.
+
+
+Mariano Casco <verdecito@gmail.com> - various blog-related features
+and fixes.
+
+
+Walter Woods <woodswalben@gmail.com> - contributing patch for the forum and 
+testing many posting/permission related problems.
+
+
+Young Gyu Park <ygpark2@gmail.com> - for contributing korean 
+translations for all applications.
+
+

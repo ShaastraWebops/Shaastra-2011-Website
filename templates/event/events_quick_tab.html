@@ -43,20 +43,16 @@
    
       </span>
       {% if show_register %}
-	<!--  <div class="button2" style="float:right;">
-	    <a href="#">
 	        {% if user_has_registered %}
-              <input type="button" value="You have Registered" />
+              <div style="margin-left:640px;">
+				<input type="button" value="You have Registered" />
+			  </div>
 	        {% else %}
 	          <form action="{{SITE_URL}}events/register/" method="GET">
-		        {% csrf_token %}
 		        <input type="hidden" name="event_id" value="{{ event.id }}" />
-		        <input type="submit" value="Register" />
+		        <input type="submit" value="" class="btnNew" style="height:28px;"/>
 	          </form>
 	        {% endif %}
-	    </a>
-	    <span></span>
-	  </div>  -->
 	  {% endif %}
     </div>
 
