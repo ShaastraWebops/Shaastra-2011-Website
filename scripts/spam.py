@@ -1,13 +1,38 @@
 #! /usr/bin/env python
 
 from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 
-def spam():
-    subject, from_email, to =  'gen', 'noreply@iitm.ac.in', 'chetanbademi@gmail.com'
-    text_content = 'This is an image message. http://www.shaastra.org/2011/media/main/img/all_logos.png'
-    html_content = '<a href="www.google.com">Google!</a>This is an <img src = "http://www.shaastra.org/2011/media/main/img/all_logos.png>" message.'
-    msg = EmailMultiAlternatives(subject, text_content, from_email, [to])# sending plain text in case they cant view html
+def spam(line):
+    subject = 'Registration and Questions on the Shaastra 2011 site'
+    from_email =  'noreply@iitm.ac.in'
+    [dname, email_string] = line.split(',', 1)
+    email_string = email_string.replace("\n", '')
+    to  = email_string.split(',')
+    to.append("chetanbademi@gmail.com")    
+    print to
+    html_content = """Dear coords,
+    A couple of new features are up on the shaastra site. You will be able to open the registration and add a questionnaire to your event.
+    1. Registration
+        - To enable registration, go to your dashboard and click on "Edit Event Details.
+        - Check the "registrable" option. 
+        - Updat e
+        " """
+
+    text_content = strip_tags(html_content) # this strips the html, so people will have the text as well.
+    print html_content
+    print text_content
+    msg = EmailMultiAlternatives(subject, text_content, from_email, to)# sending plain text in case they cant view html
     msg.attach_alternative(html_content, "text/html")# the additional html content added to the content for ppl who can view html content
     msg.send()
+    print "Sent mail to %s", dname
 
-spam()
+
+f = open("/home/chetan/main_test/scripts/test.csv")
+for line in f:
+    spam(line)
+    print line
+
+f.close()
+    
