@@ -7,6 +7,7 @@
     <h3>List of registered users</h3>
     <table id="user_details">
         <tr>
+            <td>Username</td>
             <td>First Name</td>
             <td>Last Name</td>
             <td>College</td>
@@ -16,6 +17,7 @@
         </tr>
         {% for u in users_list %}
             <tr>
+                <td>{{ u.user.username }}</td>
                 <td>{{ u.user.first_name }}</td>
                 <td>{{ u.user.last_name }}</td>
                 <td>{{ u.college.name }}</td>
