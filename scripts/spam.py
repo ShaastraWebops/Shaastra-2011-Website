@@ -17,7 +17,12 @@ def spam(line):
     1. Registration
         - To enable registration, go to your dashboard and click on "Edit Event Details.
         - Check the "registrable" option. 
-        - Updat e
+        - Save the event details. 
+        - Check <a href = "">this</a> for more detais. 
+        - Once you've done this, a register button will appear when users login. 
+        - You can also view the users who have registered by clicking on the "Show registered users" button.
+    
+    2. 
         " """
 
     text_content = strip_tags(html_content) # this strips the html, so people will have the text as well.
