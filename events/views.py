@@ -583,7 +583,7 @@ def show_registered_users(request):
     if request.method == 'GET':
         event_id = request.GET['event_id']
         event = models.Event.objects.get(id = event_id)
-        users_list = event.userprofile_set
+        users_list = event.userprofile_set.all()
         return render_to_response('event/show_registered_users.html', locals(), context_instance = global_context(request))
     else:
         return HttpResponseRedirect('%sevents/dashboard' % settings.SITE_URL)
