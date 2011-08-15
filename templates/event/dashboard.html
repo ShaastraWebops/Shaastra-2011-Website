@@ -113,6 +113,7 @@
         <a href="#">
           {%if user.is_authenticated%} 
           <form action= "{{SITE_URL}}events/dashboard/show_users/" method="GET">
+          <input type="hidden" value="{{event.id}}" name= "event_id" />
         <input type="submit" value="Show Registered Users" />
           </form>
           {%endif%}
@@ -126,8 +127,7 @@
 	  <div class="button">
 	    <a href="#">    
 	      <form action= "{{ event.url}}" method="GET" target="_blank" >
-		{% csrf_token %}
-		<input type="submit" value="PREVIEW" />
+	      <input type="submit" value="PREVIEW" />
 	      </form>
 	    </a>
 	    <span></span>
