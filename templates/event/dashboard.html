@@ -107,11 +107,25 @@
 	  </div>  
 	</div>
 
+    <!-- Show registered users -->
+    <div id="show_registered_users">
+      <div class="button">
+        <a href="#">
+          {%if user.is_authenticated%} 
+          <form action= "{{SITE_URL}}events/dashboard/show_users/" method="GET">
+        <input type="submit" value="Show Registered Users" />
+          </form>
+          {%endif%}
+        </a>
+        <span></span>
+      </div>  
+    </div>
+
 
 	<div id="logout_" align="right">
 	  <div class="button">
 	    <a href="#">    
-	      <form action= "{{ event.url}}" method="POST" target="_blank" >
+	      <form action= "{{ event.url}}" method="GET" target="_blank" >
 		{% csrf_token %}
 		<input type="submit" value="PREVIEW" />
 	      </form>
