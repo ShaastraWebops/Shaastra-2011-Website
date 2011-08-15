@@ -583,6 +583,8 @@ def show_registered_users(request):
     if request.method == 'GET':
         event_id = request.GET['event_id']
         event = models.Event.objects.get(id = event_id)
+        if request.user.get_profile().is_coord != True or request.user.get_profile().coord_event != event:
+            raise Http404
         users_list = event.registered_users.all()
         return render_to_response('event/show_registered_users.html', locals(), context_instance = global_context(request))
     else:
