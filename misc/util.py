@@ -19,10 +19,6 @@ MCQ = 3
 MESSAGE = 4
 
 def generate_menu_dict(request):
-    #check if the menu list already exists
-    #if 'menu_urls' in request.session:
-        #return
-    #Otherwise, create it
     menu_list = main_test.events.models.Menu.objects.select_related('event').all()
     categories = menu_list.filter(parent_menu = None)
     for category in categories:
@@ -34,8 +30,7 @@ def generate_menu_dict(request):
             event_name = camelize(event.name)
             event.image_src = settings.SITE_URL + "events/images/" + event_name + "/"
             category.events.append(event)
-    request.session['menu_urls'] = categories
-    return
+    return categories
     
 # Generates a context with the most used variables
 def global_context(request):
@@ -50,7 +45,7 @@ def global_context(request):
         is_core=True
     image = main_test.events.models.UpdateSpons.objects.select_related('text').all()
     spons_content=main_test.events.models.SponsPage.objects.get()
-    generate_menu_dict(request)
+    categories = generate_menu_dict(request)
     context =  RequestContext (request,
             {'user':request.user,
             'SITE_URL':settings.SITE_URL,
@@ -59,7 +54,7 @@ def global_context(request):
             'is_coord':is_coord,
             'hospi_coord':hospi_coord,
             'is_core':is_core,
-            'categories':request.session['menu_urls'],
+            'categories':categories,
             'image':image,
             'spons_content':spons_content,
             })
