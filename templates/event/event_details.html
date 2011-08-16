@@ -185,7 +185,14 @@
 	  </form>
 	</div>
 	  
+	  <!-- displaying file list -->
 	  
+	  <div id="file_display">
+	  <div id="file_header">
+	  Currently uploaded files:
+	  </div>
+	  
+	  <br/>
 	  <!-- displaying the file urls -->
 	  
 	  <div id="file_content"> 
@@ -198,6 +205,19 @@
 	  </div>
 	  <br/>
 	  </div>
+	  
+	  <!-- The edit tab Button -->
+	  
+	  <div id="edit_tab{{row.id}}" style="position:relative; bottom:0px; left:10px;display:block;">
+	  <div id="edit_tab">
+	  <form action="edit_tab/" method = 'GET' >
+	  <input type="hidden" value="{{row.id}}" name=tab_id >                     
+	  <input type="submit" value="Submit">
+	  </form>
+	  </div>
+	  </div>
+	  
+	  
 	  
     {% endif %}
 
