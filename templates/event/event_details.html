@@ -189,14 +189,14 @@
 	  <!-- displaying file list -->
 	  
 	  <div id="file_display">
-	  <div id="file_header">
+	  <div id="file_header" style="position:absolute;left:20px">
 	  Currently uploaded files:
 	  </div>
 	  
 	  <br/>
       <!--displaying the file urls -->
 	  
-	  <div id="file_content"> 
+	  <div id="file_content" style="position:absolute;left:20px"> 
 	  {%for file in row.file_list %}
 	  <a href={{file.url}}>{{file.title}}</a>
 	  <br/>
