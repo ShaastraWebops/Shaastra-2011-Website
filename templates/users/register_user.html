@@ -9,14 +9,14 @@
 <script type="text/javascript" src="{{ MEDIA_URL }}autocomplete/jquery.dimensions.js"></script>
 <script type="text/javascript" src="{{ MEDIA_URL }}autocomplete/jquery.autocomplete.js"></script>
 <script>
-  var data = {{js_data|safe}};
+  var cdata = {{js_data|safe}};
   function changeBg(){
   $("#content").css({'background-image':'url(http://www.shaastra.org/2011/media/main/img/bg2.png)'});
   };
   $(document).ready(function(){
   
   //alert(data);
-  $("#coll_input").autocomplete(data);
+  $("#coll_input").autocomplete(cdata);
   });
   $(document).ready(function(){
   var bdata = ["Arts","Accounting","Applied Mechanics / Mechatronics",

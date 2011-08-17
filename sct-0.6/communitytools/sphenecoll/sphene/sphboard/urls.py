@@ -1,6 +1,6 @@
 from django.conf.urls.defaults import *
-print "hi"
 from sphene.sphboard.feeds import LatestThreads
+from sphene.sphboard.views import *
 
 feeds = {
     'latest': LatestThreads,

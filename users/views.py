@@ -202,29 +202,28 @@ def activate (request, a_key = None ):
     SITE_URL = settings.SITE_URL
     if (a_key == '' or a_key==None):
 	    key_dne = True
-	    
     else:
         try:
 	        user_profile = UserProfile.objects.get(activation_key = a_key)
         except ObjectDoesNotExist:
-
             prof_dne = True
-        if user_profile.key_expires < datetime.datetime.today():
-	        expired = True
-	        user = user_profile.user
-	        user.delete()
-	        user_profile.delete()
-	
+        # try-except-else is actually there! God knows what for... Nested try blocks work just as well...
         else:
-            user = user_profile.user
-            user.is_active = True
-            user.save()
-            request.session["registered"]=True
-            activated = True
-
+            if user_profile.user.is_active == True:
+                activated = True
+            elif user_profile.key_expires < datetime.datetime.today():
+	            expired = True
+	            user = user_profile.user
+	            user.delete()
+	            user_profile.delete()
+            else:
+                user = user_profile.user
+                user.is_active = True
+                user.save()
+                request.session["registered"] = True
+                activated = True
     return render_to_response('registration/activated.html',locals(), context_instance= global_context(request))
     
-
 @needs_authentication
 def myshaastra(request):
     user = request.user
