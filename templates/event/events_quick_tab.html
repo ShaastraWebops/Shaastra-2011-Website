@@ -45,7 +45,7 @@
       {% if show_register %}
 	        {% if user_has_registered %}
               <div style="margin-left:640px;">
-				<input type="button" value="You have Registered" />
+				<input type="button" style="text-transform:capitalize;" value="Registered. You may now submit your answers." />
 			  </div>
 	        {% else %}
 	          <form action="{{SITE_URL}}events/register/" method="GET">
