@@ -4,6 +4,7 @@ from settings import SITE_URL
 from events.models import Event
 from users.models import User,UserProfile
 from misc.util import camelize
+from django.core.mail import send_mail
 
 sender = "noreply@shaastra.org"
 mail = open("/home/shaastra/mail.txt")
