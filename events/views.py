@@ -154,14 +154,15 @@ def show_quick_tab(request,event_name=None):
         
         # get initial values for forms
         answers = []
+        already_submitted = False
+        try:
+            team = Team.objects.get(members__pk = request.user.id, event = event)
+            submission = TeamSubmission.object.get( team = team , event = event )
+            print submission
+            print "awesome!"
+        except:
+            pass
         
-        #try:
-            #team = Team.objects.get(members__pk = request.user.id, event = event)
-            #submission = TeamSubmission.object.get( team = team , event = event )
-            #print submission
-            #print "awesome!"
-        #except:
-            #pass
         return render_to_response('event/events_quick_tab.html', locals(), context_instance= global_context(request))
     else:
         raise Http404    
