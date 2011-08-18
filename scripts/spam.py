@@ -22,7 +22,7 @@ def spam(line):
     print "Sent mail to " , dname, to 
 
 
-f = open("/home/chetan/main_test/scripts/test.csv")
+f = open("/home/chetan/main_test/scripts/new")
 for line in f:
     spam(line)
     print line

@@ -1,5 +1,9 @@
 from django.template import Context, Template
 import random, string
+from settings import SITE_URL
+from events.models import Event
+from users.models import User,UserProfile
+from misc.util import camelize
 
 sender = "noreply@shaastra.org"
 mail = open("/home/shaastra/mail.txt")
@@ -11,7 +15,7 @@ def insert(line):
     [dname, email_string] = line.split(',', 1)
     email_string = email_string.replace("\n", '')
     mailing_list = email_string.split(',')
-    mailing_list.append("praveenv253@gmail.com")
+    mailing_list.append("chetanbademi@gmail.com")
     name = dname.replace('&', '').replace('!', '').replace('\'', '').replace('-', '').replace('  ', ' ')
     username = camelize(name).lower()
     password = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in range(N))
