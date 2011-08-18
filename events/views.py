@@ -704,7 +704,7 @@ def EventCoresEditPage(request):
                 tab_to_edit.text = form.cleaned_data['text']
                 tab_to_edit.save()
 
-                return HttpResponseRedirect ("%sevents/cores/EventCoresPage"%settings.SITE_URL)
+                return HttpResponseRedirect ("%sevents/ImportantDates"%settings.SITE_URL)
             else: 
                 
                 tab_to_edit=models.EventCoresEditPage.objects.get(id=request.session["tab_id"])
