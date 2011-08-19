@@ -55,6 +55,8 @@ def login (request):
                     return HttpResponseRedirect("%sspons/" % settings.SITE_URL)
                 elif user.get_profile().is_coord: 
                     return HttpResponseRedirect("%sevents/dashboard/" % settings.SITE_URL)
+                elif not user.first_name and not user.last_name:
+                    return HttpResponseRedirect("%sevents/myshaastra/edit_profile" % settings.SITE_URL)
                 else:
                     try:
                         redirect_to = request.session['from_url']
