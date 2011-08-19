@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.shortcuts import render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
 from django.http import Http404
@@ -172,21 +173,28 @@ def show_quick_tab(request,event_name=None):
             team = Team.objects.get(members__pk = request.user.id, event = event)
             submission = TeamSubmission.objects.get( team = team , event = event )
             base_submission_id = int(submission.basesubmission_ptr_id)
+            print base_submission_id
             already_submitted = True
-            base_submission = BaseSubmission.objects.get( id = base_submission_ptr_id ) 
+            print already_submitted
+            base_submission = BaseSubmission.objects.get( id = base_submission_id ) 
+            print base_submission
+            print ques
             for question in ques_list:
+                print question 
                 if( question.question_type == 'NORMAL'):
                     ansText = Answer_Text.objects.get( submission = base_submission , question = question )
+                    print "i'm ok ok2"
                     answers.append(ansText.text)
-                elif ( question.question_type == "FILE"):
-                    ansFile = Answer_file.objects.get( submission = base_submission , question = question )
-                    answers.append(ansFile)
-                elif ( question.question_type == "MCQ"):
-                    ansMCQ = Answer_MCQ.objects.get( submission = base_submission , question = question )
-                    answers.append(ansFile)
+                    print "i'm ok ok3"
+                #elif ( question.question_type == "FILE"):
+                    #ansFile = Answer_file.objects.get( submission = base_submission , question = question )
+                    #answers.append(ansFile)
+                #elif ( question.question_type == "MCQ"):
+                    #ansMCQ = Answer_MCQ.objects.get( submission = base_submission , question = question )
+                    #answers.append(ansFile)
         except:
-            pass
-        
+             pass
+	#    print "FAAAAAAAAACK"
         return render_to_response('event/events_quick_tab.html', locals(), context_instance= global_context(request))
     else:
         raise Http404    
