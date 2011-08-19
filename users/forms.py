@@ -108,11 +108,14 @@ class AddUserForm(ModelForm):
 	else:
 	    return self.cleaned_data['age']
 	    
-    """def clean_mobile_number(self):
+    def clean_mobile_number(self):
 	if (len(self.cleaned_data['mobile_number'])!=10 or (self.cleaned_data['mobile_number'][0]!='7' and self.cleaned_data['mobile_number'][0]!='8' and self.cleaned_data['mobile_number'][0]!='9') or (not self.cleaned_data['mobile_number'].isdigit())):
 	    raise forms.ValidationError(u'Enter a valid mobile number')
+	if models.UserProfile.objects.filter(mobile_number=self.cleaned_data['mobile_number']):
+	    pass    
 	else:
-	  return self.cleaned_data['mobile_number']"""
+	  return self.cleaned_data['mobile_number']
+	raise forms.ValidationError('This mobile number is already registered')  
 	  
     def clean_first_name(self):
 	if not self.cleaned_data['first_name'].replace(' ','').isalpha():
