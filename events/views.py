@@ -36,7 +36,7 @@ def fileuploadhandler(f, eventname, tabid, file_title):
 
     
 
-def userportal_submissions(request,questionList,event):
+def userportal_submissions(request,questionList,event,saved,locked):
     nQuestions = len( questionList )
     questionId = []
     questionAnswer = []
@@ -68,6 +68,8 @@ def userportal_submissions(request,questionList,event):
         else:
             mcqAns = Answer_MCQ( question = questionObject , submission = submission , choice = models.MCQ_option.objects.get( id = int(request.POST['answer'+str(i+1)]) ))
             mcqAns.save()
+    saved = True
+    locked = False
     return False  
 
 #Handler for displaying /2011/event/eventname page 
@@ -131,7 +133,11 @@ def show_quick_tab(request,event_name=None):
                     display_edit=True
             except:
                 pass                
-	    val = userportal_submissions(request,ques_list,urlname)
+
+
+
+            val = userportal_submissions(request,ques_list,urlname,saved,locked)
+
             if val:
                 return HttpResponseRedirect('%smyshaastra/teams/create/' % settings.SITE_URL)
         options_list = []
@@ -173,9 +179,11 @@ def show_quick_tab(request,event_name=None):
                     ansText = Answer_Text.objects.get( submission = base_submission , question = question )
                     answers.append(ansText)
                 elif ( question.question_type == "FILE"):
-                    answers.append("FILE is blah wonly!")
+                    ansFile = Answer_file.objects.get( submission = base_submission , question = question )
+                    answers.append(ansFile)
                 elif ( question.question_type == "MCQ"):
-                    answers.append("MCQ is blah wonly!")
+                    ansMCQ = Answer_MCQ.objects.get( submission = base_submission , question = question )
+                    answers.append(ansFile)
         except:
             pass
         
