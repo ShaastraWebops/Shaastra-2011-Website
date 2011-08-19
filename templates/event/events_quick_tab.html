@@ -199,10 +199,11 @@
                      <!-- put the script herre -->
                      <!-- for tab id use {{row.id}} -->
                 <script type="text/javascript">
-                    setTabBgBlue({{row.id}});      
-                    setVisible({{row.id}});
-                    tabsPreInit = true;
-					console.log(tabsPreInit);
+					$(document).ready(function(){
+						setTabBgBlue({{row.id}});      
+						setVisible({{row.id}});
+						tabsPreInit = true;
+					});
                 </script>
                        {% endif %}
                  {% endif %}
