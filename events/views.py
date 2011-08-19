@@ -48,10 +48,13 @@ def userportal_submissions(request,questionList,event):
         except: 
             return
     try:
-        team = Team.objects.get(members__pk = request.user.id, event = event)
+        print request.user.id, event
+        team = Team.objects.get(members__pk = request.user.id, event__name = event)
+        print "Yeah i go a tema"
     except Team.DoesNotExist:
         return True
-    submission = TeamSubmission( event = event , team = team )
+    e = Event.objects.get(name = event)
+    submission = TeamSubmission( event = e , team = team )
     submission.save()
     
     for i in range( nQuestions ):
@@ -99,6 +102,7 @@ def show_quick_tab(request,event_name=None):
         pass
     try:
         event=models.Event.objects.get(name = urlname)
+	print event
     except models.Event.DoesNotExist:
         raise Http404
     cat_name = ""
@@ -127,7 +131,7 @@ def show_quick_tab(request,event_name=None):
                     display_edit=True
             except:
                 pass                
-            val = userportal_submissions(request,ques_list,event)
+	    val = userportal_submissions(request,ques_list,urlname)
             if val:
                 return HttpResponseRedirect('%smyshaastra/teams/create/' % settings.SITE_URL)
         options_list = []
