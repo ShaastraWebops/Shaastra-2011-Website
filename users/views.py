@@ -243,7 +243,8 @@ def edit_profile(request):
         form=forms.EditUserForm(data)
         
         if form.is_valid():
-            user.set_password(form.cleaned_data['password'])
+            if form.cleaned_data['password']:
+                user.set_password(form.cleaned_data['password'])
             user.first_name = form.cleaned_data['first_name']
             user.last_name = form.cleaned_data['last_name']
             user.save()
