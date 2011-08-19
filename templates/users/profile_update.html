@@ -5,7 +5,7 @@
 
 {%block body %}
 
-     <div id="form" style="overflow:auto;height:450px"> 
+     <div id="form" style="position:absolute;overflow:auto;height:450px;left:180px;"> 
 	  <form action="" method="POST" enctype="multipart/form-data">
 		{% csrf_token %}
 		<table>
@@ -23,8 +23,8 @@
 			{{form.as_table}}
 			 
 			
-		</table>
-		<br /><br />
+		
+		<tr><tr><td><td>
 		
 		<div class="button2">
 					<a href="#">
@@ -34,6 +34,7 @@
 					</a>
 					<span></span>
 				</div>
+		</td></td></tr></tr></table>		
 	  </form>
     </div>  
 
