@@ -53,9 +53,15 @@ def userportal_submissions(request,questionList,event,saved,locked):
         print "Yeah i go a tema"
     except Team.DoesNotExist:
         return True
+
     e = Event.objects.get(name = event)
-    submission = TeamSubmission( event = e , team = team )
-    submission.save()
+
+    submission = None
+    try:
+        submission = TeamSubmission.objects.get(event = e, team = team)
+    except TeamSubmission.DoesNotExist:
+        submission = TeamSubmission( event = e , team = team )
+        submission.save()
     
     for i in range( nQuestions ):
         questionObject = models.Question.objects.get( id = questionId[i] )
