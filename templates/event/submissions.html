@@ -46,7 +46,15 @@
         {% if ques.question_type == "NORMAL" %}
         <div id="normal_question">
         <input type="hidden" value="NORMAL" name="type{{ques.Q_Number}}"/>
-        <textarea id = "answer{{ques.Q_Number}}" name = "answer{{ques.Q_Number}}" rows="6" cols="40" >  </textarea><br/>
+        <textarea id = "answer{{ques.Q_Number}}" name = "answer{{ques.Q_Number}}" rows="6" cols="40" > 
+            {% if already_submitted %}
+                {% for ans in answers%}
+                    {% if ans.question == ques %}
+                        {{ans.text}}
+                    {% endif%}
+                {% endfor %}
+            {% endif %}
+        </textarea><br/>
         </div>
         {% endif %}
         {% if ques.question_type == "MCQ" %}
