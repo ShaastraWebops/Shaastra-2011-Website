@@ -171,7 +171,7 @@ def show_quick_tab(request,event_name=None):
         try:
             team = Team.objects.get(members__pk = request.user.id, event = event)
             submission = TeamSubmission.objects.get( team = team , event = event )
-            base_submission_id = submission.base_submission_ptr_id
+            base_submission_id = super(submission).id
             already_submitted = True
             base_submission = BaseSubmission.objects.get( id = base_submission_ptr_id ) 
             for question in ques_list:
