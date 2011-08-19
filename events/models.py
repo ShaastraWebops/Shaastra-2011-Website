@@ -33,13 +33,17 @@ class Event(models.Model):
     # Registration. 
     registrable = models.BooleanField(default=False, help_text= "Can participants register online?")
     questions = models.BooleanField(default=False, help_text= "Will the participant have to answer a questionnaire or submit a TDP?")
-    team_event = models.BooleanField(default=False, help_text= "Is this a team event?")
 
     # Hospitality.
     accommodation = models.BooleanField(default=False, help_text= "Is accommodation compulsory?")
 
     # MyShaastra 
     flagged_by = models.ManyToManyField(User,  blank=True, null=True, related_name= 'flagged_events')
+
+    # Teams
+    team_event = models.BooleanField(default=False, help_text= "Is this a team event?")
+    min_members = models.IntegerField(blank = True, null = True, help_text = "Minimum number of members in case of team event")
+    max_members = models.IntegerField(blank = True, null = True, help_text = "Maximum number of members in case of team event")
 
     # Logo and Sponsorship logos
     sponslogo = models.ImageField(upload_to = get_sponslogo_path, max_length=200, default="http://www.shaastra.org/2011/media/main/SPONS_DEFAULT.png", blank = True, null = True, help_text = "Sponsor's image displayed on event page")
