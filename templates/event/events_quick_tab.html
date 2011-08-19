@@ -199,12 +199,14 @@
                      <!-- put the script herre -->
                      <!-- for tab id use {{row.id}} -->
                 <script type="text/javascript">
-					$(document).ready(function(){
+						setHeights();
+						$('#event-details').jScrollPane({showArrows: true,verticalScroll: true}); 
+						
 						setTabBgBlue({{row.id}});      
 						setVisible({{row.id}});
 						tabsPreInit = true;
 						console.log(tabsPreInit);
-					});
+						
                 </script>
                        {% endif %}
                  {% endif %}
