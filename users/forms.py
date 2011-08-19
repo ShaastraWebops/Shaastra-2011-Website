@@ -172,8 +172,8 @@ class EditUserForm(ModelForm):
 
     first_name = forms.CharField(max_length=50, help_text="Your first name")
     last_name = forms.CharField(max_length=50, help_text="Your last name")
-    password=forms.CharField(min_length=6, max_length=30, widget=forms.PasswordInput,help_text='Enter a password that you can remember')
-    password_again=forms.CharField(max_length=30, widget=forms.PasswordInput,help_text='Enter the same password that you entered above')
+    password=forms.CharField(min_length=6, max_length=30, widget=forms.PasswordInput,required=False,help_text='Enter a password that you can remember')
+    password_again=forms.CharField(max_length=30, widget=forms.PasswordInput,required=False,help_text='Enter the same password that you entered above')
     
     #branch=forms.CharField(max_length=50,widget=forms.TextInput(attrs={'id':'branch_input'}),help_text='Select your branch from the list. If it does not show up, please select the "Other" option.')
 
@@ -204,7 +204,7 @@ class EditUserForm(ModelForm):
             field_name1 = 'password'
             field_name2 = 'password_again'
             
-        if self.data[field_name1] != '' and self.data[field_name1] != self.data[field_name2]:
+        if self.data[field_name1] != self.data[field_name2]:
             raise forms.ValidationError ("The entered passwords do not match.")
         else:
             return self.data[field_name1]
