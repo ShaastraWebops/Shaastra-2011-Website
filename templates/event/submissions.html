@@ -35,10 +35,10 @@
 
 <form action ='' method='POST' enctype="multipart/form-data" name="form1">
 {% csrf_token %}
-{{answers.0.text}}
-{{answers.1.text}}
-{{answers.2.text}}
-{{answers.3.text}}
+WHAT->{{answers.0}}
+WHAT->{{answers.1}}
+WHAT->{{answers.2}}
+WHAT->{{answers.3}}
 {% for ques in ques_list %}
 {{answers.forloop.counter0.text}}
 <div id="Ques{{ques.Q_Number}}">

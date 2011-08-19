@@ -177,7 +177,7 @@ def show_quick_tab(request,event_name=None):
             for question in ques_list:
                 if( question.question_type == 'NORMAL'):
                     ansText = Answer_Text.objects.get( submission = base_submission , question = question )
-                    answers.append(ansText)
+                    answers.append(ansText.text)
                 elif ( question.question_type == "FILE"):
                     ansFile = Answer_file.objects.get( submission = base_submission , question = question )
                     answers.append(ansFile)
