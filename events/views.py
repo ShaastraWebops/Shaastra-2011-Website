@@ -68,7 +68,7 @@ def userportal_submissions(request,questionList,event):
             if( questionType[i] == "NORMAL"):
                 try:
                     normalAns = Answer_Text.objects.get( question = questionObject , submission = submission ) 
-                    normalAns.text = request.POST['answer'+str(i+1)]) 
+                    normalAns.text = request.POST['answer'+str(questionList[i].Q_Number)]
                     normalAns.save() 
                 except Answer_Text.DoesNotExist:
                     normalAns = Answer_Text( question = questionObject , submission = submission , text = request.POST['answer'+str(questionList[i].Q_Number)]) 
@@ -76,7 +76,7 @@ def userportal_submissions(request,questionList,event):
             elif ( questionType[i] == "FILE" ):
                 try:
                     fileAns = Answer_file.objects.get( question = questionObject , submission = submission )
-                    fileAns.File = request.FILES['answer'+str(i+1)])
+                    fileAns.File = request.FILES['answer'+str(questionList[i].Q_Number)]
                     fileAns.save()
                 except Answer_file.DoesNotExist:
                     fileAns = Answer_file( question = questionObject , submission = submission , File = request.FILES['answer'+str(questionList[i].Q_Number)])
@@ -84,10 +84,10 @@ def userportal_submissions(request,questionList,event):
             else:
                 try:
                     mcqAns = Answer_MCQ( question = questionObject , submission = submission )
-                    mcqAns.choice = models.MCQ_option.objects.get( id = int(request.POST['answer'+str(questionList[i].Q_Number)]) ))
+                    mcqAns.choice = models.MCQ_option.objects.get( id = int(request.POST['answer'+str(questionList[i].Q_Number)]))
                     mcqAns.save()
                 except Answer_MCQ.DoesNotExist:
-                    mcqAns = Answer_MCQ( question = questionObject , submission = submission , choice = models.MCQ_option.objects.get( id = int(request.POST['answer'+str(i+1)]) ))
+                    mcqAns = Answer_MCQ( question = questionObject , submission = submission , choice = models.MCQ_option.objects.get( id = int(request.POST['answer'+str(questionList[i].Q_Number)]) ))
                     mcqAns.save()                    
     except TeamSubmission.DoesNotExist:
         submission = TeamSubmission( event = e , team = team )
