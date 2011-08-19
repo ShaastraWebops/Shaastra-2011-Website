@@ -103,7 +103,7 @@
             
 	    
             {%else%}
-            {% include "submissions.html" %}
+            {% include "event/submissions.html" %}
             {% endif %}
 
 
@@ -189,21 +189,27 @@
       {%endif%}
     </div>
   </div>
+  
+  
+  {% for row in tab_list %}
+        {%if row.question_tab%}
+          {% if show_register %}
+                       {% if user_has_registered %}
+                     <!-- put the script herre -->
+                     <!-- for tab id use {{row.id}} -->
+                <scaript type="text/javascript">
+                    setTabBgBlue({{row.id}});      
+                    setVisible({{row.id}});
+                </script>
+                       {% endif %}
+                 {% endif %}
+
+        {%endif%}
+
+        {%endfor%}
   {%endblock%}     
   
 </div> 
-{% for row in tab_list %}
-{%if row.question_tab%}
-   {% if show_register %}
-	        {% if user_has_registered %}
-              <!-- put the script herre -->
-              <!-- for tab id use {{row.id}} -->
-	        {% endif %}
-	  {% endif %}
-
-{%endif%}
-
-{%endfor%}
 
 
 </body>
