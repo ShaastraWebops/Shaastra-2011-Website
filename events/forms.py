@@ -104,7 +104,7 @@ class EventForm(ModelForm):
             if data['team_event'] == True:
                 if data['min_members'] is None or data['max_members'] is None:
                     raise forms.ValidationError('Min and max members must be entered for a team event')
-            if data['min_members'] > data['max_members'];
+            if data['min_members'] > data['max_members']:
                 raise forms.ValidationError('The minimum limit must be less than or equal to the maximum limit')
         return data
     
