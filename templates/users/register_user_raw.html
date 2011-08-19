@@ -1,4 +1,10 @@
-<body>
+{% extends "index.html" %}
+
+{%block gradient%}{%include "gradient.html"%}{%endblock%}
+
+
+{%block body %}
+
      <div id="form"> 
 	  <form action="" method="POST" enctype="multipart/form-data">
 		{% csrf_token %}
@@ -9,4 +15,5 @@
 		<input type="submit" value="Submit" />
 	  </form>
     </div>  
-</body>    
+
+{%endblock%}   

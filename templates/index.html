@@ -444,7 +444,9 @@ function dow()
 				<div id = "log">
               {%block log_and_search%}
                {% if user.is_authenticated and user.is_active%}	
-                <div id="welcome" style="position:relative; left:25px; top:-13px; color:#183c5a; font-size:20px; font-weight:normal; font-family:'helvetica'">Welcome {{user}}</div>{%block welcome%}{%endblock%}
+                <div id="welcome" style="position:relative; left:25px; top:-13px; color:#183c5a; font-size:20px; font-weight:normal; font-family:'helvetica'">Welcome {{user}}</div>
+               
+                {%block welcome%}{%endblock%}
                 <a href="{{SITE_URL}}logout/"><img src = "{{MEDIA_URL}}img/logout.png" id = "login_"  style="position:absolute; left:400px; top:50px;" ></a>  
                 {% else %}             
                 <a href="{{SITE_URL}}register/user/"><img src = "http://www.shaastra.org/2011/media/main/img/newhead/Header/Sign-Up.png" id = "login_" style="position:relative; left:270px; top:-13px;"></a>
