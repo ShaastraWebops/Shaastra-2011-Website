@@ -51,6 +51,7 @@
 <!--                 {{ answers.forloop.counter0 }} -->
                 
                 {% for ans in answers%}
+                {{forloop.counter0}}
                 {{ans.text}}
                     <!--{% if ans.question == ques %}
                         {{ans.text}}
