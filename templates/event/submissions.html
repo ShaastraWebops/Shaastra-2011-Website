@@ -48,11 +48,14 @@
         <input type="hidden" value="NORMAL" name="type{{ques.Q_Number}}"/>
         <textarea id = "answer{{ques.Q_Number}}" name = "answer{{ques.Q_Number}}" rows="6" cols="40" > 
             {% if already_submitted %}
+                {% answers.forloop.counter0 %}
+                <!--
                 {% for ans in answers%}
                     {% if ans.question == ques %}
                         {{ans.text}}
                     {% endif%}
                 {% endfor %}
+                -->
             {% endif %}
         </textarea><br/>
         </div>
@@ -65,19 +68,26 @@
         <table border="1">
             {% csrf_token %}
             {%for options in options_list %}
-            {%if options.question == ques %}
-            <tr><td>{{options.option}}</td><td><input type="radio" id = "answer{{ques.Q_Number}}" name = "answer{{ques.Q_Number}}" value="{{options.id}}"/></td><td>{{options.text}}</td></tr>
-            {%endif%}
+                {%if options.question == ques %}
+                    {% if already_submitted and option == answers.forloop.counter0.choice %}
+                        <tr><td>{{options.option}}</td><td><input type="radio" id = "answer{{ques.Q_Number}}" name = "answer{{ques.Q_Number}}" checked = "checked" value="{{options.id}}"/></td><td>{{options.text}}</td></tr>          
+                    {% else %}
+                        <tr><td>{{options.option}}</td><td><input type="radio" id = "answer{{ques.Q_Number}}" name = "answer{{ques.Q_Number}}" value="{{options.id}}"/></td><td>{{options.text}}</td></tr>
+                    {% endif %}
+                {%endif%}
             {%endfor%}
         </table>
         </div>            
         {% endif %}
         {% if ques.question_type == "FILE" %}
-        <input type="hidden" value="FILE" name="type{{ques.Q_Number}}"/>
-        <p> Choose the file you want to upload and click on "Upload".</p>
-        <p> <font color = "red">This will be functional soon.</font></p>
-        <br/>
-        <input type="file" id = "answer{{ques.Q_Number}}" name = "answer{{ques.Q_Number}}" size="30"><br/>
+            (% if already_submitted %}
+                Previously submitted file: <a href="{{answers.forloop.counter0}}"></a>
+            {% endif %}
+            <input type="hidden" value="FILE" name="type{{ques.Q_Number}}"/>
+            <p> Choose the file you want to upload and click on "Upload".</p>
+            <p> <font color = "red">This will be functional soon.</font></p>
+            <br/>
+            <input type="file" id = "answer{{ques.Q_Number}}" name = "answer{{ques.Q_Number}}" size="30"><br/>
         {% endif %}
     </div>         
 {%endfor%}      
