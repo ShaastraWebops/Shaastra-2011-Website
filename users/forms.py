@@ -175,11 +175,11 @@ class EditUserForm(ModelForm):
     password=forms.CharField(min_length=6, max_length=30, widget=forms.PasswordInput,help_text='Enter a password that you can remember')
     password_again=forms.CharField(max_length=30, widget=forms.PasswordInput,help_text='Enter the same password that you entered above')
     
-    branch=forms.CharField(max_length=50,widget=forms.TextInput(attrs={'id':'branch_input'}),help_text='Select your branch from the list. If it does not show up, please select the "Other" option.')
+    #branch=forms.CharField(max_length=50,widget=forms.TextInput(attrs={'id':'branch_input'}),help_text='Select your branch from the list. If it does not show up, please select the "Other" option.')
 
     class Meta:
         model = models.UserProfile
-        fields=('first_name','last_name','age','password','password_again','college_roll','mobile_number','branch')
+        fields=('first_name','last_name','password','password_again','college_roll','mobile_number')
         #except = ('is_coord','coord_event')        
     
     #Commented out for the saudi arabia issue
