@@ -132,6 +132,11 @@
 		  <div id="{{ field.label }}_div">
 		    {% if field.errors %}{% for error in field.errors %} {{ error|escape }} </br> {% endfor %}{% endif %}
 		  </div>
+		  
+		  <div class="infoReg" style="color:grey; padding:3px;">
+		    <!--- move the input tooltip here -->
+		  </div>
+		  
 		</td>
 		<td><a onmouseover="Tip('{{ field.help_text }}')" onmouseout="UnTip()"><img height=20 width=20 src="{{ MEDIA_URL }}img/help_icon.png"></a></td>
 		{% endfor %}
