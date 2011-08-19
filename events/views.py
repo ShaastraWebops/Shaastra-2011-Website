@@ -155,11 +155,23 @@ def show_quick_tab(request,event_name=None):
         # get initial values for forms
         answers = []
         already_submitted = False
+        saved = False
+        locked = False
+        
         try:
             team = Team.objects.get(members__pk = request.user.id, event = event)
-            submission = TeamSubmission.object.get( team = team , event = event )
-            print submission
-            print "awesome!"
+            already_submitted = True
+            submission = TeamSubmission.objects.get( team = team , event = event )
+            base_submission_id = submission.base_submission_ptr_id
+            base_submission = BaseSubmission.objects.get( id = base_submission_ptr_id ) 
+            for question in ques_list:
+                if( question.question_type == 'NORMAL'):
+                    ansText = Answer_Text.objects.get( submission = base_submission , question = question )
+                    answers.append(ansText)
+                elif ( question.question_type == "FILE"):
+                    answers.append("FILE is blah wonly!")
+                elif ( question.question_type == "MCQ"):
+                    answers.append("MCQ is blah wonly!")
         except:
             pass
         

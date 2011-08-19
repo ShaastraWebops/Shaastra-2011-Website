@@ -1,12 +1,32 @@
-<body>
-     <div id="form"> 
+{% extends "index.html" %}
+
+{%block gradient%}{%include "gradient.html"%}{%endblock%}
+
+
+{%block body %}
+
+     <div id="form" style="overflow:auto;height:450px"> 
 	  <form action="" method="POST" enctype="multipart/form-data">
 		{% csrf_token %}
 		<table>
-			{{ form.as_table }}
+		   <!-- <tr>
+			<td>First name: </td>
+			<td>
+			{{form.first_name}}
+			</td>
+			</tr>
+			<tr>
+			<td> Last name: </td>
+			<td>
+			{{form.last_name}}
+			</td></tr>-->
+			{{form.as_table}}
+			 
+			
 		</table>
 		<br /><br />
 		<input type="submit" value="Submit" />
 	  </form>
     </div>  
-</body>    
+
+{%endblock%}   
