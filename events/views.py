@@ -36,7 +36,7 @@ def fileuploadhandler(f, eventname, tabid, file_title):
 
     
 
-def userportal_submissions(request,questionList,event,saved,locked):
+def userportal_submissions(request,questionList,event):
     nQuestions = len( questionList )
     questionId = []
     questionAnswer = []
@@ -74,8 +74,6 @@ def userportal_submissions(request,questionList,event,saved,locked):
         else:
             mcqAns = Answer_MCQ( question = questionObject , submission = submission , choice = models.MCQ_option.objects.get( id = int(request.POST['answer'+str(i+1)]) ))
             mcqAns.save()
-    saved = True
-    locked = False
     return False  
 
 #Handler for displaying /2011/event/eventname page 
@@ -142,7 +140,7 @@ def show_quick_tab(request,event_name=None):
 
 
 
-            val = userportal_submissions(request,ques_list,urlname,saved,locked)
+            val = userportal_submissions(request,ques_list,urlname)
 
             if val:
                 return HttpResponseRedirect('%smyshaastra/teams/create/' % settings.SITE_URL)
@@ -171,8 +169,7 @@ def show_quick_tab(request,event_name=None):
         # get initial values for forms
         answers = []
         already_submitted = False
-        saved = False
-        locked = False
+        
         
         try:
             team = Team.objects.get(members__pk = request.user.id, event = event)

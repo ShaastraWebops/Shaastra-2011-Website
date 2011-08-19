@@ -80,7 +80,7 @@
         </div>            
         {% endif %}
         {% if ques.question_type == "FILE" %}
-            (% if already_submitted %}
+            {% if already_submitted %}
                 Previously submitted file: <a href="{{answers.forloop.counter0}}"></a>
             {% endif %}
             <input type="hidden" value="FILE" name="type{{ques.Q_Number}}"/>
