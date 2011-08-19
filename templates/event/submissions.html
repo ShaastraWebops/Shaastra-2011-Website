@@ -48,14 +48,14 @@
         <input type="hidden" value="NORMAL" name="type{{ques.Q_Number}}"/>
         <textarea id = "answer{{ques.Q_Number}}" name = "answer{{ques.Q_Number}}" rows="6" cols="40" > 
             {% if already_submitted %}
-                {{ answers.forloop.counter0 }}
-                <!--
+<!--                 {{ answers.forloop.counter0 }} -->
+                
                 {% for ans in answers%}
                     {% if ans.question == ques %}
                         {{ans.text}}
                     {% endif%}
                 {% endfor %}
-                -->
+                
             {% endif %}
         </textarea><br/>
         </div>
