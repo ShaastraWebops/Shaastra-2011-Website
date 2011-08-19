@@ -52,10 +52,16 @@ def userportal_submissions(request,questionList,event):
         team = Team.objects.get(members__pk = request.user.id, event__name = event)
         print "Yeah i go a tema"
     except Team.DoesNotExist:
-        return True
+        return None
+
     e = Event.objects.get(name = event)
-    submission = TeamSubmission( event = e , team = team )
-    submission.save()
+
+    submission = None
+    try:
+        submission = TeamSubmission.objects.get(event = e, team = team)
+    except TeamSubmission.DoesNotExist:
+        submission = TeamSubmission( event = e , team = team )
+        submission.save()
     
     for i in range( nQuestions ):
         questionObject = models.Question.objects.get( id = questionId[i] )
@@ -68,7 +74,7 @@ def userportal_submissions(request,questionList,event):
         else:
             mcqAns = Answer_MCQ( question = questionObject , submission = submission , choice = models.MCQ_option.objects.get( id = int(request.POST['answer'+str(i+1)]) ))
             mcqAns.save()
-    return False  
+    return 'saved'
 
 #Handler for displaying /2011/event/eventname page 
 def show_quick_tab(request,event_name=None):
@@ -132,11 +138,8 @@ def show_quick_tab(request,event_name=None):
             except:
                 pass                
 
-
-
             val = userportal_submissions(request,ques_list,urlname)
-
-            if val:
+            if val is None:
                 return HttpResponseRedirect('%smyshaastra/teams/create/' % settings.SITE_URL)
         options_list = []
         for ques in ques_list:
