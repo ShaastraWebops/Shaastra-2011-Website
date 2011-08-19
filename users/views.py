@@ -53,10 +53,10 @@ def login (request):
                     return HttpResponseRedirect("%sevents/cores/" % settings.SITE_URL)
                 elif user.username == 'spons':
                     return HttpResponseRedirect("%sspons/" % settings.SITE_URL)
-                #elif user.get_profile().is_coord: 
-                    #return HttpResponseRedirect("%sevents/dashboard/" % settings.SITE_URL)
-                #elif not user.first_name and not user.last_name:
-                    #return HttpResponseRedirect("%smyshaastra/edit_profile" % settings.SITE_URL)
+                elif user.get_profile().is_coord: 
+                    return HttpResponseRedirect("%sevents/dashboard/" % settings.SITE_URL)
+                elif not user.first_name and not user.last_name:
+                    return HttpResponseRedirect("%smyshaastra/edit_profile" % settings.SITE_URL)
                 else:
                     try:
                         redirect_to = request.session['from_url']
@@ -243,19 +243,19 @@ def edit_profile(request):
         form=forms.EditUserForm(data)
         
         if form.is_valid():
-            user.password=form.cleaned_data['password']
+            user.set_password(form.cleaned_data['password'])
             user.first_name = form.cleaned_data['first_name']
             user.last_name = form.cleaned_data['last_name']
             user.save()
-            userprofile.age = form.cleaned_data['age']
+            #userprofile.age = form.cleaned_data['age']
             userprofile.college_roll=form.cleaned_data['college_roll']
             userprofile.mobile_number=form.cleaned_data['mobile_number']
-            userprofile.branch = form.cleaned_data['branch']
+            #userprofile.branch = form.cleaned_data['branch']
             userprofile.save()
             return HttpResponseRedirect ("%slogin/"%settings.SITE_URL)
     else:
-        form=forms.EditUserForm(initial={'password':user.password,'password_again':user.password,'college_roll':userprofile.college_roll,'mobile_number':userprofile.mobile_number})
-    return render_to_response('users/register_user_raw.html', locals(), context_instance= global_context(request))
+        form=forms.EditUserForm(initial={'college_roll':userprofile.college_roll,'mobile_number':userprofile.mobile_number})
+    return render_to_response('users/profile_update.html', locals(), context_instance= global_context(request))
 
 def feedback(request):
     name, email = "", ""
