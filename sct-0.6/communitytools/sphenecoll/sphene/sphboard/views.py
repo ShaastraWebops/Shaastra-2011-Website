@@ -6,7 +6,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.views.generic.list_detail import object_list
 from django.template.context import RequestContext
 from django.utils.translation import ugettext, ugettext_lazy as _
-
+from django.contrib.auth import models
 from sphene.community import PermissionDenied
 from sphene.community.middleware import get_current_sphdata
 from sphene.community.sphutils import sph_reverse, get_user_displayname, format_date, get_sph_setting, add_rss_feed, sph_render_to_response
