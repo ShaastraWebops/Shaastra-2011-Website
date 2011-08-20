@@ -124,9 +124,16 @@
 
 {% if event.accommodation %}
 <!-- Want accommodation button -->
-    <label for="hospi">Apply for accommodation in IIT Madras</label>
-    <input type="checkbox" name="want_hospi" />
-    <span class="helptext">Checking this option DOES NOT GUARANTEE accommodation inside IIT Madras during Shaastra 2011. The Hospitality Department will get in touch with you or your team if your accommodation is confirmed</span>
+<div id="hospi_checkbox">
+<table>
+    <tr>
+        <th><label for="hospi">Apply for accommodation in IIT Madras</label></th>
+        <td><input type="checkbox" name="want_hospi" /></td>
+    </tr>
+    <tr>
+        <span class="helptext">Checking this option DOES NOT GUARANTEE accommodation inside IIT Madras during Shaastra 2011. The Hospitality Department will get in touch with you or your team if your accommodation is confirmed</span>
+    </tr>
+<table>
 {% endif %}
 
 {% if user.is_authenticated %}

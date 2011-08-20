@@ -67,9 +67,9 @@ class LoginForm(forms.Form):
 
 class AddUserForm(ModelForm):
 
-    firstname      = forms.CharField  (max_length=30,
+    first_name      = forms.CharField  (max_length=30,
                                        help_text='Enter your first name here.')
-    lastname       = forms.CharField  (max_length=30,
+    last_name       = forms.CharField  (max_length=30,
                                        help_text='Enter your last name here.')
     username       = forms.CharField  (max_length=30,
                                        help_text='30 characters or fewer. Letters, numbers and @/./+/-/_ characters')
@@ -93,7 +93,7 @@ class AddUserForm(ModelForm):
                                                       help_text='Enter the words shown in the space provided')
     class Meta:
         model = models.UserProfile
-        fields=('username','password','password_again','email','age','gender','college','college_roll','branch','mobile_number')
+        fields=('first_name','last_name','username','password','password_again','email','age','gender','college','college_roll','branch','mobile_number')
         #except = ('is_coord','coord_event')        
     
     def clean_username(self):
