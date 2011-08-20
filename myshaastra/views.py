@@ -90,9 +90,16 @@ def team_home(request, team_id = None):
     raise Http404
 
 @needs_authentication
-def create_team(request):
+def create_team(request, event_id = None):
+    if event_id is None:
+        raise Http404
     user = request.user
-    form = CreateTeamForm()
+    event = None
+    try:
+        event = Event.objects.get(pk = int(event_id))
+    except:
+        raise Http404
+    form = CreateTeamForm(initial = { 'event' : event.id, } )
     view = "Create"
     if request.method == 'POST':
         form = CreateTeamForm(request.POST)

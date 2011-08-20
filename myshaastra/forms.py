@@ -29,6 +29,9 @@ class CreateTeamForm(forms.ModelForm):
     class Meta:
         model = Team
         fields = ('name', 'event')
+        widgets = {
+            'event' : forms.HiddenInput(),
+        }
 
 class JoinTeamForm(forms.ModelForm):
     

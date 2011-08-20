@@ -228,7 +228,8 @@ def show_quick_tab(request,event_name=None):
             if ( request.user.is_authenticated()):
                 val = userportal_submissions(request,ques_list,urlname)
                 if val is None:
-                    return HttpResponseRedirect('%smyshaastra/teams/create/' % settings.SITE_URL)
+                    e = Event.objects.get(name = urlname)
+                    return HttpResponseRedirect('%smyshaastra/teams/create/%s/' % [ settings.SITE_URL, e.id])
                 elif val == "saved":
                     saved = True
         options_list = []
