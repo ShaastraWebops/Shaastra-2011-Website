@@ -108,8 +108,9 @@ def userportal_submissions(request,questionList,event):
                     if( request.POST['answer'+str(questionList[i].Q_Number)] ):
                         mcqAns = Answer_MCQ( question = questionObject , submission = submission , choice = models.MCQ_option.objects.get( id = int(request.POST['answer'+str(questionList[i].Q_Number)]) ))
                         mcqAns.save()
+        return "saved"
     else:
-        print "What's up?"
+        return "saved"
 
 #Handler for displaying /2011/event/eventname page 
 def show_quick_tab(request,event_name=None):
@@ -176,7 +177,7 @@ def show_quick_tab(request,event_name=None):
             val = userportal_submissions(request,ques_list,urlname)
             if val is None:
                 return HttpResponseRedirect('%smyshaastra/teams/create/' % settings.SITE_URL)
-            elif val == 'saved':
+            elif val == "saved":
                 saved = True
         options_list = []
         for ques in ques_list:
