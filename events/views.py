@@ -50,15 +50,16 @@ def userportal_submissions(request,questionList,event):
         except: 
             raise
             return 
+    e = Event.objects.get(name = event)
     try:
         print request.user.id, event
-        team = Team.objects.get(members__pk = request.user.id, event__name = event)
+        if e.team_event:
+	    team = Team.objects.get(members__pk = request.user.id, event__name = event)
         print "Yeah i go a tema"
     except Team.DoesNotExist:
         print "faaaaaaaaack!"
         return None
 
-    e = Event.objects.get(name = event)
     if ( e.team_event ):
         submission = None
         try:
