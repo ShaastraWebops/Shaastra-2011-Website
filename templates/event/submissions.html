@@ -46,10 +46,10 @@
 <form action ='' method='POST' enctype="multipart/form-data" name="form1">
 {% csrf_token %}
 {% for ques in ques_list %}
-{ { answers.(forloop.counter) } } = {{answers.(forloop.counter)}}</br>
-{ { answers.(forloop.counter).text } } = {{answers.(forloop.counter).text}}</br>
-{ { answers.(forloop.counter).File } } = {{answers.(forloop.counter).File}}</br>
-{ { answers.(forloop.counter).choice.option } } = {{answers.(forloop.counter).choice.option}} {{answers.(forloop.counter).choice.text}}</br>
+{ { answers.forloop.counter } } = {{answers.forloop.counter}}</br>
+{ { answers.forloop.counter.text } } = {{answers.forloop.counter.text}}</br>
+{ { answers.forloop.counter.File } } = {{answers.forloop.counter.File}}</br>
+{ { answers.forloop.counter.choice.option } } = {{answers.forloop.counter.choice.option}} {{answers.forloop.counter.choice.text}}</br>
 {% endfor %}
 {% for ans in answers %}
     { { ans } } = {{ans}}</br>
@@ -129,10 +129,11 @@
     <tr>
         <th><label for="hospi">Apply for accommodation in IIT Madras</label></th>
         <td><input type="checkbox" name="want_hospi" /></td>
-        <td><span class="helptext">Checking this option DOES NOT GUARANTEE accommodation inside IIT Madras during Shaastra 2011. The Hospitality Department will get in touch with you or your team if your accommodation is confirmed</span></td>
+    </tr>
+    <tr>
+        <span class="helptext">Checking this option DOES NOT GUARANTEE accommodation inside IIT Madras during Shaastra 2011. The Hospitality Department will get in touch with you or your team if your accommodation is confirmed</span>
     </tr>
 </table>
-</div>
 {% endif %}
 
 {% if user.is_authenticated %}
