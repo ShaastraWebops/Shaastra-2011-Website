@@ -47,7 +47,7 @@
 {% csrf_token %}
 {% for ques in ques_list %}
 {{ forloop.counter }}
-{ { answers.forloop.counter } } = {{answers.forloop.counter}}</br>
+{ { answers.{{forloop.counter}} } } = {{answers.{{forloop.counter}} }}</br>
 { { answers.forloop.counter.text } } = {{answers.forloop.counter.text}}</br>
 { { answers.forloop.counter.File } } = {{answers.forloop.counter.File}}</br>
 { { answers.forloop.counter.choice.option } } = {{answers.forloop.counter.choice.option}} {{answers.forloop.counter.choice.text}}</br>
