@@ -86,7 +86,7 @@
                     {% if already_submitted %} 
                         {% for ans in answers %}
                             {% if ans.question == ques %}
-                                {%  if ans.choice == options %}
+                                {%  if ans.choice == options and ans != "No MCQ answers"%}
                                     <tr><td>{{options.option}}</td><td><input type="radio" id = "answer{{ques.Q_Number}}" name = "answer{{ques.Q_Number}}" checked = "checked" value="{{options.id}}"/></td><td>{{options.text}}</td></tr>
                                 {% else %}
                                     <tr><td>{{options.option}}</td><td><input type="radio" id = "answer{{ques.Q_Number}}" name = "answer{{ques.Q_Number}}" value="{{options.id}}"/></td><td>{{options.text}}</td></tr>          
@@ -103,9 +103,9 @@
         </div>            
         {% endif %}
         {% if ques.question_type == "FILE" %}
-            {% if already_submitted %}
+            {% if already_submitted  %}
                 {% for ans in answers %}
-                    {% if ans.question == ques %}
+                    {% if ans.question == ques and ans != "No file answer" %}
                         Previously submitted file: <a href="{{ans.File}}">{{ans.File}}</a>
                     {% endif%}
                 {% endfor %}
