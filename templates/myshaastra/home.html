@@ -21,7 +21,7 @@
     
     {% if teams %}
         <div id="member_teams">
-            <p>You are a member of the following teams: (Click to see team details)</p>
+            <p>You are a member (and not leader) of the following teams: (Click to see team details)</p>
             <ul>
                 {% for team in member_teams %}
                     <li>
@@ -29,6 +29,8 @@
                             {{ team.name }}
                         </a>
                     </li>
+                {% empty %}
+                    <p>Not a non-leading member of any team</p>
                 {% endfor %}
             </ul>
         </div>
@@ -41,6 +43,8 @@
                             {{ team.name }}
                         </a>
                     </li>
+                {% empty %}
+                    <p>Not the leader of any team<p>
                 {% endfor %}
             </ul>
         </div>
