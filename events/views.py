@@ -112,7 +112,8 @@ def userportal_submissions(request,questionList,event):
     else:
         submission = None
         try:
-            submission = IndividualSubmissions.objects.get(team = team)
+            userprofile = UserProfile.objects.get( user = request.user )
+            submission = IndividualSubmissions( user = userprofile , event__name = event )
             for i in range( nQuestions ):
                 questionObject = models.Question.objects.get( id = questionId[i] )
                 if( questionType[i] == "NORMAL"):
@@ -223,11 +224,13 @@ def show_quick_tab(request,event_name=None):
             except:
                 pass                
 
-            val = userportal_submissions(request,ques_list,urlname)
-            if val is None:
-                return HttpResponseRedirect('%smyshaastra/teams/create/' % settings.SITE_URL)
-            elif val == "saved":
-                saved = True
+            val = None
+            if ( request.user.is_authenticated()):
+                val = userportal_submissions(request,ques_list,urlname)
+                if val is None:
+                    return HttpResponseRedirect('%smyshaastra/teams/create/' % settings.SITE_URL)
+                elif val == "saved":
+                    saved = True
         options_list = []
         for ques in ques_list:
             temp = models.MCQ_option.objects.filter(question=ques).order_by('option')
@@ -278,7 +281,7 @@ def show_quick_tab(request,event_name=None):
         elif ( event.team_event == False and request.user.is_authenticated() ):
             try:
                 userprofile = UserProfile.objects.get( user = request.user )
-                submission = IndividualSubmissions.objects.get( user = userprofile , event = event )
+                submission = IndividualSubmissions.objects.get( participant = userprofile , event = event )
                 base_submission_id = int(submission.basesubmission_ptr_id)
                 base_submission = BaseSubmission.objects.get( id = base_submission_id ) 
                 for question in ques_list:
