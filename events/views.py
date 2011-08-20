@@ -112,7 +112,7 @@ def userportal_submissions(request,questionList,event):
     else:
         submission = None
         try:
-            submission = IndividualSubmission.objects.get(team = team)
+            submission = IndividualSubmissions.objects.get(team = team)
             for i in range( nQuestions ):
                 questionObject = models.Question.objects.get( id = questionId[i] )
                 if( questionType[i] == "NORMAL"):
@@ -141,9 +141,9 @@ def userportal_submissions(request,questionList,event):
                         except:
                             mcqAns = Answer_MCQ( question = questionObject , submission = submission , choice = models.MCQ_option.objects.get( id = int(request.POST['answer'+str(questionList[i].Q_Number)]) ))
                             mcqAns.save()                    
-        except IndividualSubmission.DoesNotExist:
+        except IndividualSubmissions.DoesNotExist:
             userprofile = UserProfile.objects.get( user = request.user )
-            submission = IndividualSubmission( user = userprofile , event__name = event )
+            submission = IndividualSubmissions( user = userprofile , event__name = event )
             submission.save()    
             for i in range( nQuestions ):
                 questionObject = models.Question.objects.get( id = questionId[i] )
@@ -278,7 +278,7 @@ def show_quick_tab(request,event_name=None):
         else:
             try:
                 userprofile = UserProfile.objects.get( user = request.user )
-                submission = IndividualSubmission.objects.get( user = userprofile , event = event )
+                submission = IndividualSubmissions.objects.get( user = userprofile , event = event )
                 base_submission_id = int(submission.basesubmission_ptr_id)
                 base_submission = BaseSubmission.objects.get( id = base_submission_id ) 
                 for question in ques_list:
