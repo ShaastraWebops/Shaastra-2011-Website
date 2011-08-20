@@ -257,7 +257,7 @@ def show_quick_tab(request,event_name=None):
         # get initial values for forms
         answers = []
         already_submitted = False
-        everything = []
+        zipped = [] 
         # team event => Team Submissions. 
         if( event.team_event and request.user.is_authenticated() ):
             try:
@@ -267,6 +267,8 @@ def show_quick_tab(request,event_name=None):
                 base_submission = BaseSubmission.objects.get( id = base_submission_id ) 
                 for question in ques_list:
                     if( question.question_type == 'NORMAL'):
+                        temp = []
+                        temp.append( ques )
                         try:
                             ansText = Answer_Text.objects.get( submission = base_submission , question = question )
                             answers.append(ansText)

@@ -46,10 +46,11 @@
 <form action ='' method='POST' enctype="multipart/form-data" name="form1">
 {% csrf_token %}
 {% for ques in ques_list %}
-{ { answers.(forloop.counter0) } } = {{answers.(forloop.counter0)}}</br>
-{ { answers.(forloop.counter0).text } } = {{answers.(forloop.counter0).text}}</br>
-{ { answers.(forloop.counter0).File } } = {{answers.(forloop.counter0).File}}</br>
-{ { answers.(forloop.counter0).choice.option } } = {{answers.(forloop.counter0).choice.option}} {{answers.(forloop.counter0).choice.text}}</br>
+{{ forloop.counter }}
+{ { answers.forloop.counter } } = {{answers.forloop.counter}}</br>
+{ { answers.forloop.counter.text } } = {{answers.forloop.counter.text}}</br>
+{ { answers.forloop.counter.File } } = {{answers.forloop.counter.File}}</br>
+{ { answers.forloop.counter.choice.option } } = {{answers.forloop.counter.choice.option}} {{answers.forloop.counter.choice.text}}</br>
 {% endfor %}
 {% for ans in answers %}
     { { ans } } = {{ans}}</br>
@@ -134,7 +135,6 @@
         <td><span class="helptext">Checking this option DOES NOT GUARANTEE accommodation inside IIT Madras during Shaastra 2011. The Hospitality Department will get in touch with you or your team if your accommodation is confirmed</span></td>
     </tr>
 </table>
-</div>
 {% endif %}
 
 {% if user.is_authenticated %}
