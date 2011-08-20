@@ -145,6 +145,41 @@
 
 	    <script type="text/javascript">
 	      img = '<img height=20 width=20 src="{{ MEDIA_URL }}img/error.png">';
+	      
+	      function validateFirstname(fld) {   //done
+
+	      var error = "";
+	      var illegalChars = /[^A-Za-z]/; // allow letters, 
+	      
+	      if (fld.value == "") error = "This field is required.";
+	      else if (illegalChars.test(fld.value)) error = "Firstnames can only contain letters"; 
+
+	      document.getElementById('Firstname_div').innerHTML= error;
+	      if (error!="") {document.getElementById('Firstname_img').innerHTML= img;
+	      document.getElementById('Firstname_div').innerHTML= error; return 1;}
+	      document.getElementById('Firstname_img').innerHTML= "";
+	      document.getElementById('Firstname_div').innerHTML="";
+	      
+	      return 0;
+	      }
+	      
+	      function validateLastname(fld) {   //done
+
+	      var error = "";
+	      var illegalChars = /[^A-Za-z]/; // allow letters,
+	      
+	      if (fld.value == "") error = "This field is required.";
+	      else if (illegalChars.test(fld.value)) error = "Lastnames can only contain letters."; 
+
+	      document.getElementById('Lastname_div').innerHTML= error;
+	      if (error!="") {document.getElementById('Lastname_img').innerHTML= img;
+	      document.getElementById('Lastname_div').innerHTML= error; return 1;}
+	      document.getElementById('Lastname_img').innerHTML= "";
+	      document.getElementById('Lastname_div').innerHTML="";
+	      
+	      return 0;
+	      }
+	      
 	      function validateUsername(fld) {   //done
 
 	      var error = "";
@@ -302,7 +337,9 @@
 		function validateForm() {
 
 		if (
-		validateUsername    (document.getElementById ("id_username")  )
+		validateFirstname   (document.getElementById ("id_firstname"))
+		+validateLastname   (document.getElementById ("id_lastname"))
+		+validateUsername    (document.getElementById ("id_username")  )
 		+validateAge	     (document.getElementById ("id_age")  )
 		+validateBranch      (document.getElementById ("branch_input")  )
 		+validateEmail	     (document.getElementById ("id_email")  )
@@ -321,6 +358,8 @@
 		}
 
 		function onblurAttribute() {
+		document.getElementById ("id_firstname").setAttribute('onblur' , 'validateFirstname(document.getElementById ("id_firstname"))');
+		document.getElementById ("id_lastname").setAttribute('onblur' , 'validateLastname(document.getElementById ("id_lastname"))');
 		document.getElementById ("id_username").setAttribute('onblur' , 'validateUsername(document.getElementById ("id_username"))');
 		document.getElementById ("id_password_again").setAttribute('onblur' , 'validatePassword(document.getElementById ("id_password"), document.getElementById ("id_password_again"))');
 		document.getElementById ("id_email").setAttribute('onblur' , 'validateEmail(document.getElementById ("id_email"))');
