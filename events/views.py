@@ -110,6 +110,55 @@ def userportal_submissions(request,questionList,event):
                         mcqAns.save()
         return "saved"
     else:
+        submission = None
+        try:
+            submission = IndividualSubmission.objects.get(team = team)
+            for i in range( nQuestions ):
+                questionObject = models.Question.objects.get( id = questionId[i] )
+                if( questionType[i] == "NORMAL"):
+                    try:
+                        normalAns = Answer_Text.objects.get( question = questionObject , submission = submission ) 
+                        normalAns.text = request.POST['answer'+str(questionList[i].Q_Number)]
+                        normalAns.save() 
+                    except:
+                        normalAns = Answer_Text( question = questionObject , submission = submission , text = request.POST['answer'+str(questionList[i].Q_Number)]) 
+                        normalAns.save()                     
+                elif ( questionType[i] == "FILE" ):
+                    if(  'answer'+str(questionList[i].Q_Number) in request.FILES):
+                        try:
+                            fileAns = Answer_file.objects.get( question = questionObject , submission = submission )
+                            fileAns.File = request.FILES['answer'+str(questionList[i].Q_Number)]
+                            fileAns.save()
+                        except:
+                            fileAns = Answer_file( question = questionObject , submission = submission , File = request.FILES['answer'+str(questionList[i].Q_Number)])
+                            fileAns.save()                
+                else:
+                    if(  'answer'+str(questionList[i].Q_Number) in request.POST):
+                        try:
+                            mcqAns = Answer_MCQ.objects.get( question = questionObject , submission = submission )
+                            mcqAns.choice = models.MCQ_option.objects.get( id = int(request.POST['answer'+str(questionList[i].Q_Number)]))
+                            mcqAns.save()
+                        except:
+                            mcqAns = Answer_MCQ( question = questionObject , submission = submission , choice = models.MCQ_option.objects.get( id = int(request.POST['answer'+str(questionList[i].Q_Number)]) ))
+                            mcqAns.save()                    
+        except IndividualSubmission.DoesNotExist:
+            userprofile = UserProfile.objects.get( user = request.user )
+            submission = IndividualSubmission( user = userprofile , event__name = event )
+            submission.save()    
+            for i in range( nQuestions ):
+                questionObject = models.Question.objects.get( id = questionId[i] )
+                if( questionType[i] == "NORMAL"):
+                    if( request.POST['answer'+str(questionList[i].Q_Number)] ):
+                        normalAns = Answer_Text( question = questionObject , submission = submission , text = request.POST['answer'+str(questionList[i].Q_Number)]) 
+                        normalAns.save() 
+                elif ( questionType[i] == "FILE" ):
+                    if( request.FILES['answer'+str(questionList[i].Q_Number)] ):
+                        fileAns = Answer_file( question = questionObject , submission = submission , File = request.FILES['answer'+str(questionList[i].Q_Number)])
+                        fileAns.save()
+                else:
+                    if( request.POST['answer'+str(questionList[i].Q_Number)] ):
+                        mcqAns = Answer_MCQ( question = questionObject , submission = submission , choice = models.MCQ_option.objects.get( id = int(request.POST['answer'+str(questionList[i].Q_Number)]) ))
+                        mcqAns.save()
         return "saved"
 
 #Handler for displaying /2011/event/eventname page 
@@ -213,7 +262,6 @@ def show_quick_tab(request,event_name=None):
                 base_submission_id = int(submission.basesubmission_ptr_id)
                 base_submission = BaseSubmission.objects.get( id = base_submission_id ) 
                 for question in ques_list:
-                    print question 
                     if( question.question_type == 'NORMAL'):
                         ansText = Answer_Text.objects.get( submission = base_submission , question = question )
                         answers.append(ansText)
@@ -224,12 +272,28 @@ def show_quick_tab(request,event_name=None):
                         ansMCQ = Answer_MCQ.objects.get( submission = base_submission , question = question )
                         answers.append(ansMCQ)
                 already_submitted = True
-                print "already submited = %d " % already_submitted
             except:
                 raise
         # Individual submissions
         else:
-            print "blah!"
+            try:
+                userprofile = UserProfile.objects.get( user = request.user )
+                submission = IndividualSubmission.objects.get( user = userprofile , event = event )
+                base_submission_id = int(submission.basesubmission_ptr_id)
+                base_submission = BaseSubmission.objects.get( id = base_submission_id ) 
+                for question in ques_list:
+                    if( question.question_type == 'NORMAL'):
+                        ansText = Answer_Text.objects.get( submission = base_submission , question = question )
+                        answers.append(ansText)
+                    elif ( question.question_type == "FILE"):
+                        ansFile = Answer_file.objects.get( submission = base_submission , question = question )
+                        answers.append(ansFile)
+                    elif ( question.question_type == "MCQ"):
+                        ansMCQ = Answer_MCQ.objects.get( submission = base_submission , question = question )
+                        answers.append(ansMCQ)
+                already_submitted = True
+            except:
+                raise
         return render_to_response('event/events_quick_tab.html', locals(), context_instance= global_context(request))
     else:
         raise Http404    
