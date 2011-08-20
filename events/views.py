@@ -267,14 +267,23 @@ def show_quick_tab(request,event_name=None):
                 base_submission = BaseSubmission.objects.get( id = base_submission_id ) 
                 for question in ques_list:
                     if( question.question_type == 'NORMAL'):
-                        ansText = Answer_Text.objects.get( submission = base_submission , question = question )
-                        answers.append(ansText)
+                        try:
+                            ansText = Answer_Text.objects.get( submission = base_submission , question = question )
+                            answers.append(ansText)
+                        except:
+                            answers.append("No normal answers")
                     elif ( question.question_type == "FILE"):
-                        ansFile = Answer_file.objects.get( submission = base_submission , question = question )
-                        answers.append(ansFile)
+                        try:
+                            ansFile = Answer_file.objects.get( submission = base_submission , question = question )
+                            answers.append(ansFile)
+                        except:
+                            answers.append("No file answer")
                     elif ( question.question_type == "MCQ"):
-                        ansMCQ = Answer_MCQ.objects.get( submission = base_submission , question = question )
-                        answers.append(ansMCQ)
+                        try:
+                            ansMCQ = Answer_MCQ.objects.get( submission = base_submission , question = question )
+                            answers.append(ansMCQ)
+                        except:
+                            answers.append("No MCQ answers")
                 already_submitted = True
             except:
                 pass
@@ -287,14 +296,23 @@ def show_quick_tab(request,event_name=None):
                 base_submission = BaseSubmission.objects.get( id = base_submission_id ) 
                 for question in ques_list:
                     if( question.question_type == 'NORMAL'):
-                        ansText = Answer_Text.objects.get( submission = base_submission , question = question )
-                        answers.append(ansText)
+                        try:
+                            ansText = Answer_Text.objects.get( submission = base_submission , question = question )
+                            answers.append(ansText)
+                        except:
+                            answers.append("No normal answers")
                     elif ( question.question_type == "FILE"):
-                        ansFile = Answer_file.objects.get( submission = base_submission , question = question )
-                        answers.append(ansFile)
+                        try:
+                            ansFile = Answer_file.objects.get( submission = base_submission , question = question )
+                            answers.append(ansFile)
+                        except:
+                            answers.append("No file answer")
                     elif ( question.question_type == "MCQ"):
-                        ansMCQ = Answer_MCQ.objects.get( submission = base_submission , question = question )
-                        answers.append(ansMCQ)
+                        try:
+                            ansMCQ = Answer_MCQ.objects.get( submission = base_submission , question = question )
+                            answers.append(ansMCQ)
+                        except:
+                            answers.append("No MCQ answers")
                 already_submitted = True
             except:
                 pass
