@@ -144,7 +144,7 @@ def userportal_submissions(request,questionList,event):
                             mcqAns.save()                    
         except IndividualSubmissions.DoesNotExist:
             userprofile = UserProfile.objects.get( user = request.user )
-            submission = IndividualSubmissions( participant = userprofile , event__name = event )
+            submission = IndividualSubmissions( participant = userprofile , event  = e )
             submission.save()    
             for i in range( nQuestions ):
                 questionObject = models.Question.objects.get( id = questionId[i] )
@@ -298,12 +298,6 @@ def show_quick_tab(request,event_name=None):
                 already_submitted = True
             except:
                 pass
-        part_of_a_team = False
-        try:
-            Team.objects.get(members__pk = request.user.id, event__name = urlname)
-            part_of_a_team = True
-        except Team.DoesNotExist:
-            pass
         return render_to_response('event/events_quick_tab.html', locals(), context_instance= global_context(request))
     else:
         raise Http404    
