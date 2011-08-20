@@ -339,7 +339,7 @@ def show_quick_tab(request,event_name=None):
                         for option in options_list:
                             if option.question == ques:
                                 option_list.append(option)
-                        zipped.append(option_list)
+                        temp.append(option_list)
                         zipped.append(temp)
                 already_submitted = True
             except:
