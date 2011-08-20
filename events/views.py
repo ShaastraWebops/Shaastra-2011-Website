@@ -277,7 +277,7 @@ def show_quick_tab(request,event_name=None):
                         answers.append(ansMCQ)
                 already_submitted = True
             except:
-                pass
+                raise
         # Individual submissions
         elif ( event.team_event == False and request.user.is_authenticated() ):
             try:
@@ -297,7 +297,7 @@ def show_quick_tab(request,event_name=None):
                         answers.append(ansMCQ)
                 already_submitted = True
             except:
-                pass
+                raise
         return render_to_response('event/events_quick_tab.html', locals(), context_instance= global_context(request))
     else:
         raise Http404    
