@@ -50,15 +50,16 @@
         {% if ques.question_type == "NORMAL" %}
         <div id="normal_question">
         <input type="hidden" value="NORMAL" name="type{{ques.Q_Number}}"/>
-        <textarea id = "answer{{ques.Q_Number}}" name = "answer{{ques.Q_Number}}" rows="6" cols="40" > 
+        
             {% if already_submitted %}                
                 {% for ans in answers%}
                     {% if ans.question == ques %}
-                        {{ans.text}}
+                        <textarea id = "answer{{ques.Q_Number}}" name = "answer{{ques.Q_Number}}" rows="6" cols="40" >{{ans.text}}</textarea>
                     {% endif%}
                 {% endfor %}
+            {% else %}
+                <textarea id = "answer{{ques.Q_Number}}" name = "answer{{ques.Q_Number}}" rows="6" cols="40" ></textarea>
             {% endif %}
-        </textarea><br/>
         </div>
         {% endif %}
         {% if ques.question_type == "MCQ" %}
@@ -73,14 +74,16 @@
                     {% if already_submitted %} 
                         {% for ans in answers %}
                             {% if ans.question == ques %}
-                                <tr><td>{{options.option}}</td><td><input type="radio" id = "answer{{ques.Q_Number}}" name = "answer{{ques.Q_Number}}" checked = "checked" value="{{options.id}}"/></td><td>{{options.text}}</td></tr>   
-                            {% else %}
-                                <tr><td>{{options.option}}</td><td><input type="radio" id = "answer{{ques.Q_Number}}" name = "answer{{ques.Q_Number}}" value="{{options.id}}"/></td><td>{{options.text}}</td></tr>          
-                            {%endif%}
+                                {%  if ans.choice == options %}
+                                    <tr><td>{{options.option}}</td><td><input type="radio" id = "answer{{ques.Q_Number}}" name = "answer{{ques.Q_Number}}" checked = "checked" value="{{options.id}}"/></td><td>{{options.text}}</td></tr>
+                                {% else %}
+                                    <tr><td>{{options.option}}</td><td><input type="radio" id = "answer{{ques.Q_Number}}" name = "answer{{ques.Q_Number}}" value="{{options.id}}"/></td><td>{{options.text}}</td></tr>          
+                                {%endif%}
+                            {% endif %}
                         {% endfor%}
                         
                     {% else %}
-                        <tr><td>{{options.option}}</td><td><input type="radio" id = "answer{{ques.Q_Number}}" name = "answer{{ques.Q_Number}}" checked = "checked" value="{{options.id}}"/></td><td>{{options.text}}</td></tr>
+                        <tr><td>{{options.option}}</td><td><input type="radio" id = "answer{{ques.Q_Number}}" name = "answer{{ques.Q_Number}}" value="{{options.id}}"/></td><td>{{options.text}}</td></tr>
                     {% endif %}
                 {%endif%}
             {%endfor%}

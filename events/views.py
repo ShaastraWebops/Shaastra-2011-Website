@@ -70,25 +70,27 @@ def userportal_submissions(request,questionList,event):
                     normalAns = Answer_Text.objects.get( question = questionObject , submission = submission ) 
                     normalAns.text = request.POST['answer'+str(questionList[i].Q_Number)]
                     normalAns.save() 
-                except Answer_Text.DoesNotExist:
+                except:
                     normalAns = Answer_Text( question = questionObject , submission = submission , text = request.POST['answer'+str(questionList[i].Q_Number)]) 
                     normalAns.save()                     
             elif ( questionType[i] == "FILE" ):
-                try:
-                    fileAns = Answer_file.objects.get( question = questionObject , submission = submission )
-                    fileAns.File = request.FILES['answer'+str(questionList[i].Q_Number)]
-                    fileAns.save()
-                except Answer_file.DoesNotExist:
-                    fileAns = Answer_file( question = questionObject , submission = submission , File = request.FILES['answer'+str(questionList[i].Q_Number)])
-                    fileAns.save()                
+                if(  'answer'+str(questionList[i].Q_Number) in request.FILES):
+                    try:
+                        fileAns = Answer_file.objects.get( question = questionObject , submission = submission )
+                        fileAns.File = request.FILES['answer'+str(questionList[i].Q_Number)]
+                        fileAns.save()
+                    except:
+                        fileAns = Answer_file( question = questionObject , submission = submission , File = request.FILES['answer'+str(questionList[i].Q_Number)])
+                        fileAns.save()                
             else:
-                try:
-                    mcqAns = Answer_MCQ( question = questionObject , submission = submission )
-                    mcqAns.choice = models.MCQ_option.objects.get( id = int(request.POST['answer'+str(questionList[i].Q_Number)]))
-                    mcqAns.save()
-                except Answer_MCQ.DoesNotExist:
-                    mcqAns = Answer_MCQ( question = questionObject , submission = submission , choice = models.MCQ_option.objects.get( id = int(request.POST['answer'+str(questionList[i].Q_Number)]) ))
-                    mcqAns.save()                    
+                if(  'answer'+str(questionList[i].Q_Number) in request.POST):
+                    try:
+                        mcqAns = Answer_MCQ.objects.get( question = questionObject , submission = submission )
+                        mcqAns.choice = models.MCQ_option.objects.get( id = int(request.POST['answer'+str(questionList[i].Q_Number)]))
+                        mcqAns.save()
+                    except:
+                        mcqAns = Answer_MCQ( question = questionObject , submission = submission , choice = models.MCQ_option.objects.get( id = int(request.POST['answer'+str(questionList[i].Q_Number)]) ))
+                        mcqAns.save()                    
     except TeamSubmission.DoesNotExist:
         submission = TeamSubmission( event = e , team = team )
         submission.save()    
@@ -220,12 +222,12 @@ def show_quick_tab(request,event_name=None):
                     ansFile = Answer_file.objects.get( submission = base_submission , question = question )
                     answers.append(ansFile)
                 elif ( question.question_type == "MCQ"):
-                    ansFile = Answer_MCQ.objects.get( submission = base_submission , question = question )
-                    answers.append(ansFile)
+                    ansMCQ = Answer_MCQ.objects.get( submission = base_submission , question = question )
+                    answers.append(ansMCQ)
             already_submitted = True
             print "already submited = %d " % already_submitted
         except:
-             pass
+             raise
 	#    print "FAAAAAAAAACK"
         #print answers
         return render_to_response('event/events_quick_tab.html', locals(), context_instance= global_context(request))
