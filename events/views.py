@@ -271,21 +271,33 @@ def show_quick_tab(request,event_name=None):
                         temp.append( ques )
                         try:
                             ansText = Answer_Text.objects.get( submission = base_submission , question = question )
-                            answers.append(ansText)
+                            temp.append(ansText)
                         except:
-                            answers.append("No normal answers")
+                            temp.append("No normal answers")
+                        zipped.append(temp)
                     elif ( question.question_type == "FILE"):
+                        temp = []
+                        temp.append( ques )
                         try:
                             ansFile = Answer_file.objects.get( submission = base_submission , question = question )
-                            answers.append(ansFile)
+                            temp.append(ansFile)
                         except:
-                            answers.append("No file answer")
+                            temp.append("No file answer")
+                        zipped.append(temp)
                     elif ( question.question_type == "MCQ"):
+                        temp=[]
+                        temp.append(ques)
                         try:
                             ansMCQ = Answer_MCQ.objects.get( submission = base_submission , question = question )
-                            answers.append(ansMCQ)
+                            temp.append(ansMCQ)
                         except:
-                            answers.append("No MCQ answers")
+                            temp.append("No MCQ answers")
+                        option_list = []
+                        for option in options_list:
+                            if option.question == ques:
+                                option_list.append(option)
+                        zipped.append(option_list)
+                        zipped.append(temp)
                 already_submitted = True
             except:
                 pass
@@ -298,23 +310,37 @@ def show_quick_tab(request,event_name=None):
                 base_submission = BaseSubmission.objects.get( id = base_submission_id ) 
                 for question in ques_list:
                     if( question.question_type == 'NORMAL'):
+                        temp = []
+                        temp.append( ques )
                         try:
                             ansText = Answer_Text.objects.get( submission = base_submission , question = question )
-                            answers.append(ansText)
+                            temp.append(ansText)
                         except:
-                            answers.append("No normal answers")
+                            temp.append("No normal answers")
+                        zipped.append(temp)
                     elif ( question.question_type == "FILE"):
+                        temp = []
+                        temp.append( ques )
                         try:
                             ansFile = Answer_file.objects.get( submission = base_submission , question = question )
-                            answers.append(ansFile)
+                            temp.append(ansFile)
                         except:
-                            answers.append("No file answer")
+                            temp.append("No file answer")
+                        zipped.append(temp)
                     elif ( question.question_type == "MCQ"):
+                        temp=[]
+                        temp.append(ques)
                         try:
                             ansMCQ = Answer_MCQ.objects.get( submission = base_submission , question = question )
-                            answers.append(ansMCQ)
+                            temp.append(ansMCQ)
                         except:
-                            answers.append("No MCQ answers")
+                            temp.append("No MCQ answers")
+                        option_list = []
+                        for option in options_list:
+                            if option.question == ques:
+                                option_list.append(option)
+                        zipped.append(option_list)
+                        zipped.append(temp)
                 already_submitted = True
             except:
                 pass
