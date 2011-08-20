@@ -22,7 +22,10 @@ def home(request):
             category = Menu.objects.get(event = event).parent_menu
             event.similar = category.menu_set.exclude(event = event)
         except Menu.DoesNotExist:
-            raise Http404
+            if event.name == 'testevent':
+                pass
+            else:
+                raise Http404
     ''' 
         for event in events_list:
             try:
