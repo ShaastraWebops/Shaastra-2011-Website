@@ -46,10 +46,10 @@
 <form action ='' method='POST' enctype="multipart/form-data" name="form1">
 {% csrf_token %}
 {% for ans in answers %}
-{{ans}}</br>
-    {{ans.text}}</br>
-    {{ans.File}}</br>
-    {{ans.choice.option}} {{ans.choice.text}}</br>
+    { { ans } } = {{ans}}</br>
+    { { ans.text } } = {{ans.text}}</br>
+    { { ans.File } } = {{ans.File}}</br>
+    { { ans.choice.option } } = {{ans.choice.option}} {{ans.choice.text}}</br>
 {% endfor %}
 {% for ques in ques_list %}
 <div id="Ques{{ques.Q_Number}}">
@@ -91,7 +91,6 @@
                                 <tr><td>{{options.option}}</td><td><input type="radio" id = "answer{{ques.Q_Number}}" name = "answer{{ques.Q_Number}}" value="{{options.id}}"/></td><td>{{options.text}}</td></tr>          
                             {% endif %}
                         {% endfor%}
-                        
                     {% else %}
                         <tr><td>{{options.option}}</td><td><input type="radio" id = "answer{{ques.Q_Number}}" name = "answer{{ques.Q_Number}}" value="{{options.id}}"/></td><td>{{options.text}}</td></tr>
                     {% endif %}
