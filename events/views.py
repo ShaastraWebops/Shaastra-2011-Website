@@ -97,15 +97,15 @@ def userportal_submissions(request,questionList,event):
             for i in range( nQuestions ):
                 questionObject = models.Question.objects.get( id = questionId[i] )
                 if( questionType[i] == "NORMAL"):
-                    if( request.POST['answer'+str(questionList[i].Q_Number)] ):
+                    if( 'answer'+str(questionList[i].Q_Number) in request.POST ):
                         normalAns = Answer_Text( question = questionObject , submission = submission , text = request.POST['answer'+str(questionList[i].Q_Number)]) 
                         normalAns.save() 
                 elif ( questionType[i] == "FILE" ):
-                    if( request.FILES['answer'+str(questionList[i].Q_Number)] ):
+                    if( 'answer'+str(questionList[i].Q_Number) in request.POST ):
                         fileAns = Answer_file( question = questionObject , submission = submission , File = request.FILES['answer'+str(questionList[i].Q_Number)])
                         fileAns.save()
                 else:
-                    if( request.POST['answer'+str(questionList[i].Q_Number)] ):
+                    if( 'answer'+str(questionList[i].Q_Number)  in request.POST):
                         mcqAns = Answer_MCQ( question = questionObject , submission = submission , choice = models.MCQ_option.objects.get( id = int(request.POST['answer'+str(questionList[i].Q_Number)]) ))
                         mcqAns.save()
         return "saved"
@@ -149,15 +149,15 @@ def userportal_submissions(request,questionList,event):
             for i in range( nQuestions ):
                 questionObject = models.Question.objects.get( id = questionId[i] )
                 if( questionType[i] == "NORMAL"):
-                    if( request.POST['answer'+str(questionList[i].Q_Number)] ):
+                    if( 'answer'+str(questionList[i].Q_Number) in request.POST ):
                         normalAns = Answer_Text( question = questionObject , submission = submission , text = request.POST['answer'+str(questionList[i].Q_Number)]) 
                         normalAns.save() 
                 elif ( questionType[i] == "FILE" ):
-                    if( request.FILES['answer'+str(questionList[i].Q_Number)] ):
+                    if( 'answer'+str(questionList[i].Q_Number) in request.POST ):
                         fileAns = Answer_file( question = questionObject , submission = submission , File = request.FILES['answer'+str(questionList[i].Q_Number)])
                         fileAns.save()
                 else:
-                    if( request.POST['answer'+str(questionList[i].Q_Number)] ):
+                    if( 'answer'+str(questionList[i].Q_Number)  in request.POST):
                         mcqAns = Answer_MCQ( question = questionObject , submission = submission , choice = models.MCQ_option.objects.get( id = int(request.POST['answer'+str(questionList[i].Q_Number)]) ))
                         mcqAns.save()
         return "saved"
