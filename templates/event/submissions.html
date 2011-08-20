@@ -85,12 +85,10 @@
                 {%if options.question == ques %}
                     {% if already_submitted %} 
                         {% for ans in answers %}
-                            {% if ans.question == ques %}
-                                {%  if ans.choice == options and ans != "No MCQ answers"%}
-                                    <tr><td>{{options.option}}</td><td><input type="radio" id = "answer{{ques.Q_Number}}" name = "answer{{ques.Q_Number}}" checked = "checked" value="{{options.id}}"/></td><td>{{options.text}}</td></tr>
-                                {% else %}
-                                    <tr><td>{{options.option}}</td><td><input type="radio" id = "answer{{ques.Q_Number}}" name = "answer{{ques.Q_Number}}" value="{{options.id}}"/></td><td>{{options.text}}</td></tr>          
-                                {%endif%}
+                            {% if ans.question == ques and ans.choice == options %}
+                                <tr><td>{{options.option}}</td><td><input type="radio" id = "answer{{ques.Q_Number}}" name = "answer{{ques.Q_Number}}" checked = "checked" value="{{options.id}}"/></td><td>{{options.text}}</td></tr>
+                            {% else %}
+                                <tr><td>{{options.option}}</td><td><input type="radio" id = "answer{{ques.Q_Number}}" name = "answer{{ques.Q_Number}}" value="{{options.id}}"/></td><td>{{options.text}}</td></tr>          
                             {% endif %}
                         {% endfor%}
                         
@@ -106,7 +104,7 @@
             {% if already_submitted  %}
                 {% for ans in answers %}
                     {% if ans.question == ques and ans != "No file answer" %}
-                        Previously submitted file: <a href="{{ans.File}}">{{ans.File}}</a>
+                        Previously submitted file: <a href="{{ans.text}}">{{ans.File}}</a>
                     {% endif%}
                 {% endfor %}
             {% endif %}
