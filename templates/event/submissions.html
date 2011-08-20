@@ -36,7 +36,12 @@
     <p><font size="3" color="green"> Your answers have been saved!</font></p>
 {% endif %}
 
+{% if not part_of_a_team %}
+    <p>Please create a team in order to save answers</p>
+    <p><a href="{{ SITE_URL }}myshaastra/teams/create/{{ event.id }}/">Create a team</a></p>
+{% endif %}
 
+{% endif %}
 <form action ='' method='POST' enctype="multipart/form-data" name="form1">
 {% csrf_token %}
 {% for ques in ques_list %}
