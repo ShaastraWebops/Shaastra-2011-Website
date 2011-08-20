@@ -110,7 +110,7 @@ class EventForm(ModelForm):
     
     class Meta:
         model = Event
-        fields = ('display_name', 'menu_image', 'sponslogo', 'video', 'registrable', 'questions', 'team_event', 'min_members', 'max_members', 'accommodation')
+        fields = ('display_name', 'menu_image', 'sponslogo', 'video', 'questions', 'team_event', 'min_members', 'max_members', 'accommodation')
 
 class EventUpdateForm(forms.Form):
     UpdateContent = forms.CharField(widget=forms.Textarea(), help_text = 'The content of the update, 140 characters or less')
