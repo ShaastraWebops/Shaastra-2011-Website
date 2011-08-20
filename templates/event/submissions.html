@@ -46,10 +46,10 @@
 <form action ='' method='POST' enctype="multipart/form-data" name="form1">
 {% csrf_token %}
 {% for ques in ques_list %}
-{ { answers.forloop.counter0 } } = {{answers.forloop.counter0}}</br>
-{ { answers.forloop.counter0.text } } = {{answers.forloop.counter0.text}}</br>
-{ { answers.forloop.counter0.File } } = {{answers.forloop.counter0.File}}</br>
-{ { answers.forloop.counter0.choice.option } } = {{answers.forloop.counter0.choice.option}} {{answers.forloop.counter0.choice.text}}</br>
+{ { answers.(forloop.counter0) } } = {{answers.(forloop.counter0)}}</br>
+{ { answers.(forloop.counter0).text } } = {{answers.(forloop.counter0).text}}</br>
+{ { answers.(forloop.counter0).File } } = {{answers.(forloop.counter0).File}}</br>
+{ { answers.(forloop.counter0).choice.option } } = {{answers.(forloop.counter0).choice.option}} {{answers.(forloop.counter0).choice.text}}</br>
 {% endfor %}
 {% for ans in answers %}
     { { ans } } = {{ans}}</br>
