@@ -106,7 +106,12 @@
             
 	    
             {%else%}
-            {% include "event/submissions.html" %}
+                {% if event.registrable %}
+                    {% include "event/submissions.html" %}
+                {% else %}
+                    <p>The registration portal for this event is currently closed</p>
+                    <p>Watch this space for updates</p>
+                {% endif %}
             {% endif %}
 
 
