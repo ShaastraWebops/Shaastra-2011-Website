@@ -41,7 +41,6 @@
     <p><a href="{{ SITE_URL }}myshaastra/teams/create/{{ event.id }}/">Create a team</a></p>
 {% endif %}
 
-{% endif %}
 <form action ='' method='POST' enctype="multipart/form-data" name="form1">
 {% csrf_token %}
 {% for ques in ques_list %}
