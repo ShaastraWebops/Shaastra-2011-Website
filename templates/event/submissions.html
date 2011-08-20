@@ -46,6 +46,7 @@
 <form action ='' method='POST' enctype="multipart/form-data" name="form1">
 {% csrf_token %}
 {% for ques in ques_list %}
+{{ forloop.counter }}
 { { answers.forloop.counter } } = {{answers.forloop.counter}}</br>
 { { answers.forloop.counter.text } } = {{answers.forloop.counter.text}}</br>
 { { answers.forloop.counter.File } } = {{answers.forloop.counter.File}}</br>
