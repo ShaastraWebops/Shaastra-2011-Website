@@ -101,7 +101,7 @@ def userportal_submissions(request,questionList,event):
                         normalAns = Answer_Text( question = questionObject , submission = submission , text = request.POST['answer'+str(questionList[i].Q_Number)]) 
                         normalAns.save() 
                 elif ( questionType[i] == "FILE" ):
-                    if( 'answer'+str(questionList[i].Q_Number) in request.POST ):
+                    if( 'answer'+str(questionList[i].Q_Number) in request.FILES ):
                         fileAns = Answer_file( question = questionObject , submission = submission , File = request.FILES['answer'+str(questionList[i].Q_Number)])
                         fileAns.save()
                 else:
