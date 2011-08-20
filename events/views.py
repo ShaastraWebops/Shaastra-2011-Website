@@ -255,7 +255,7 @@ def show_quick_tab(request,event_name=None):
         already_submitted = False
         everything = []
         # team event => Team Submissions. 
-        if( event.team_event ):
+        if( event.team_event and request.user.is_authenticated() ):
             try:
                 team = Team.objects.get(members__pk = request.user.id, event = event)
                 submission = TeamSubmission.objects.get( team = team , event = event )
@@ -275,7 +275,7 @@ def show_quick_tab(request,event_name=None):
             except:
                 raise
         # Individual submissions
-        else:
+        elif ( event.team_event == False and request.user.is_authenticated() ):
             try:
                 userprofile = UserProfile.objects.get( user = request.user )
                 submission = IndividualSubmissions.objects.get( user = userprofile , event = event )
