@@ -46,6 +46,7 @@
 <form action ='' method='POST' enctype="multipart/form-data" name="form1">
 {% csrf_token %}
 {% for ans in answers %}
+{{ans}}</br>
     {{ans.text}}</br>
     {{ans.File}}</br>
     {{ans.choice.option}} {{ans.choice.text}}</br>
