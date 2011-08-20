@@ -113,7 +113,7 @@ def userportal_submissions(request,questionList,event):
         submission = None
         try:
             userprofile = UserProfile.objects.get( user = request.user )
-            submission = IndividualSubmissions( user = userprofile , event = e )
+            submission = IndividualSubmissions( participant = userprofile , event = e )
             for i in range( nQuestions ):
                 questionObject = models.Question.objects.get( id = questionId[i] )
                 if( questionType[i] == "NORMAL"):
@@ -144,7 +144,7 @@ def userportal_submissions(request,questionList,event):
                             mcqAns.save()                    
         except IndividualSubmissions.DoesNotExist:
             userprofile = UserProfile.objects.get( user = request.user )
-            submission = IndividualSubmissions( user = userprofile , event__name = event )
+            submission = IndividualSubmissions( participant = userprofile , event__name = event )
             submission.save()    
             for i in range( nQuestions ):
                 questionObject = models.Question.objects.get( id = questionId[i] )
