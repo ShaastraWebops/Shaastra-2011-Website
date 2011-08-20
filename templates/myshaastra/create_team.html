@@ -3,6 +3,7 @@
 {% block body %}
 
     <div id="create_team_form">
+        <p>Create a team to participate in {{ event.display_name }}:</p>
         <form action="" method="POST">
             {% csrf_token %}
             <table>
