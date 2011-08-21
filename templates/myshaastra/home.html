@@ -26,7 +26,7 @@
                 {% for team in member_teams %}
                     <li>
                         <a href="{{ SITE_URL }}myshaastra/teams/{{ team.id }}/">
-                            {{ team.name }}
+                            {{ team.name }} - {{ team.event }}
                         </a>
                     </li>
                 {% empty %}
@@ -40,7 +40,7 @@
                 {% for team in leader_teams %}
                     <li>
                         <a href="{{ SITE_URL }}myshaastra/teams/{{ team.id }}/">
-                            {{ team.name }}
+                            {{ team.name }} - {{ team.event }}
                         </a>
                     </li>
                 {% empty %}
