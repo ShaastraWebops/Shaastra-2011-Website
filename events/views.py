@@ -179,7 +179,6 @@ def show_quick_tab(request,event_name=None):
         
         category is a menu object for which the menu "text" is urlname. The corresponding category image is displayed in the template
         
-        If the event is registrable, a register button is displayed. Similarly, if the user is the coord for the event, a button is displayed which takes him/her to the dashboard
     """
     urlname=decamelize(event_name)
     tab_list=models.QuickTabs.objects.filter(event__name = urlname).order_by('pref')
@@ -267,9 +266,12 @@ def show_quick_tab(request,event_name=None):
         # team event => Team Submissions. 
         if( event.team_event and request.user.is_authenticated() ):
             part_of_a_team = False
+            team_size_inappropriate = False
             try:
                 team = Team.objects.get(members__pk = request.user.id, event = event)
                 part_of_a_team = True
+                if team.members.all().count() < event.min_members or team.members.all().count() > event.max_members:
+                    team_size_inappropriate = True
                 submission = TeamSubmission.objects.get( team = team , event = event )
                 base_submission_id = int(submission.basesubmission_ptr_id)
                 base_submission = BaseSubmission.objects.get( id = base_submission_id ) 
@@ -297,6 +299,8 @@ def show_quick_tab(request,event_name=None):
                 pass
         # Individual submissions
         elif ( event.team_event == False and request.user.is_authenticated() ):
+            part_of_a_team = True
+            team_size_inappropriate = False
             try:
                 userprofile = UserProfile.objects.get( user = request.user )
                 submission = IndividualSubmissions.objects.get( participant = userprofile , event = event )
