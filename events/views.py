@@ -205,7 +205,7 @@ def show_quick_tab(request,event_name=None):
     else:
         cat_name = str(models.Menu.objects.get(event = event).parent_menu)
         cam_cat_name = camelize(cat_name)
-   # ques_list= list()
+   ques_list= list()
     if tab_list.count():
         for t in tab_list:
             t.file_list = models.TabFiles.objects.filter(Tab = t)
