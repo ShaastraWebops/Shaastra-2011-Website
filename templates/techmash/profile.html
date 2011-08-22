@@ -1,7 +1,7 @@
-{% extends "index.html" %}
+{% extends "base.html" %}
 
 {% block content %}
-<p>Hi {{username}} Here is your profile</p>
+<p>Hi {{request.user.username}} Here is your profile</p>
 <p><a href="{{SITE_URL}}techmash/accounts/logout/">Logout</a></p>
 <form action = "{{SITE_URL}}techmash/upload/" method = GET>
 <input type="submit" value="Add photo" />
