@@ -3,10 +3,10 @@
 {% block content %}
 <p>Hi {{username}} Here is your profile</p>
 <p><a href="{{SITE_URL}}techmash/accounts/logout/">Logout</a></p>
-<form action = "techmash/upload/" method = GET>
+<form action = "{{SITE_URL}}techmash/upload/" method = GET>
 <input type="submit" value="Add photo" />
 </form>
-<form action = "techmash/mashphotos/" method = GET>
+<form action = "{{SITE_URL}}techmash/mashphotos/" method = GET>
 <input type="submit" value="Mash photos" />
 </form>
 
