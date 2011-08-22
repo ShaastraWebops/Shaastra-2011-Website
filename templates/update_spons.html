@@ -58,6 +58,13 @@
 						</a>
 						<span></span>
 	</form>				</div>
+	
+	 <div>
+	 <p> list of pictures uploaded in the order</p>
+	 {%for images in image%}
+         {{images|safe}}
+     {%endfor%}
+	
 </div></div>
 </div>
 
