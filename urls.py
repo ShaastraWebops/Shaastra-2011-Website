@@ -25,7 +25,7 @@ urlpatterns = patterns('',
     url(r'^community/', include('sphene.community.urls'), defaultdict),
     url(r'^board/', include('sphene.sphboard.urls'), defaultdict),
     url(r'^wiki/', include('sphene.sphwiki.urls'), defaultdict),	
-
+    url(r'^techmash/',include('main_test.techmash.urls')),
     url(r'^home/$', 'main_test.misc.util.render_home' ),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^events/', include ('main_test.events.urls')),
