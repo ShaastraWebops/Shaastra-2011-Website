@@ -6,9 +6,7 @@
 <p> {{request.user.username}} </p>
 <form enctype="multipart/form-data" method="post" action="">
 <table>
-<tr><td>
-<b> {{ form.file.label_tag }}</b>  {{ form.file}}
-</td></tr>
+{{form.as_table}}
 </table>
 <div class="button2">
 <input type = "submit" value ="Upload"/>
