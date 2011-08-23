@@ -1,6 +1,8 @@
-{% extends "base.html" %}
-
-{% block content %}
+{% extends "index.html" %}
+{%block media_location%}
+{%endblock%}
+{% block body %}
+<div id ="profile">
 <p>Hi {{request.user.username}} Here is your profile</p>
 <p><a href="{{SITE_URL}}techmash/accounts/logout/">Logout</a></p>
 <form action = "{{SITE_URL}}techmash/upload/" method = GET>
@@ -15,5 +17,5 @@
 Rating {{image.rating}}
 </br>
 {% endfor %}
-
+</div>
 {% endblock %}
