@@ -139,6 +139,9 @@ def user_registration(request):
             activation_key = sha.new(salt+user.username).hexdigest()
             key_expires=datetime.datetime.today() + datetime.timedelta(2)
 
+            user.first_name = form.cleaned_data['first_name']
+            user.last_name = form.cleaned_data['last_name']
+            user.save()
             userprofile = UserProfile(
                     user = user,
                     gender     = form.cleaned_data['gender'],

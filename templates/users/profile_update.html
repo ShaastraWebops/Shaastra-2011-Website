@@ -1,11 +1,20 @@
 {% extends "index.html" %}
 
 {%block gradient%}{%include "gradient.html"%}{%endblock%}
+{%block media_location%}
+<style>
+#form{
 
+    position:relative;
+    left:320px;
+    }
+
+</style>
+{%endblock%}
 
 {%block body %}
 
-     <div id="form" style="position:absolute;overflow:auto;height:350px;left:180px;"> 
+     <div id="form"> 
 	  <form action="" method="POST" enctype="multipart/form-data">
 		{% csrf_token %}
 		<table>

@@ -50,15 +50,16 @@ def userportal_submissions(request,questionList,event):
         except: 
             raise
             return 
+    e = Event.objects.get(name = event)
     try:
         print request.user.id, event
-        team = Team.objects.get(members__pk = request.user.id, event__name = event)
+        if e.team_event:
+	    team = Team.objects.get(members__pk = request.user.id, event__name = event)
         print "Yeah i go a tema"
     except Team.DoesNotExist:
         print "faaaaaaaaack!"
         return None
 
-    e = Event.objects.get(name = event)
     if ( e.team_event ):
         submission = None
         try:
@@ -101,7 +102,7 @@ def userportal_submissions(request,questionList,event):
                         normalAns = Answer_Text( question = questionObject , submission = submission , text = request.POST['answer'+str(questionList[i].Q_Number)]) 
                         normalAns.save() 
                 elif ( questionType[i] == "FILE" ):
-                    if( 'answer'+str(questionList[i].Q_Number) in request.POST ):
+                    if( 'answer'+str(questionList[i].Q_Number) in request.FILES ):
                         fileAns = Answer_file( question = questionObject , submission = submission , File = request.FILES['answer'+str(questionList[i].Q_Number)])
                         fileAns.save()
                 else:
@@ -153,7 +154,7 @@ def userportal_submissions(request,questionList,event):
                         normalAns = Answer_Text( question = questionObject , submission = submission , text = request.POST['answer'+str(questionList[i].Q_Number)]) 
                         normalAns.save() 
                 elif ( questionType[i] == "FILE" ):
-                    if( 'answer'+str(questionList[i].Q_Number) in request.POST ):
+                    if( 'answer'+str(questionList[i].Q_Number) in request.FILES ):
                         fileAns = Answer_file( question = questionObject , submission = submission , File = request.FILES['answer'+str(questionList[i].Q_Number)])
                         fileAns.save()
                 else:
@@ -178,7 +179,6 @@ def show_quick_tab(request,event_name=None):
         
         category is a menu object for which the menu "text" is urlname. The corresponding category image is displayed in the template
         
-        If the event is registrable, a register button is displayed. Similarly, if the user is the coord for the event, a button is displayed which takes him/her to the dashboard
     """
     urlname=decamelize(event_name)
     tab_list=models.QuickTabs.objects.filter(event__name = urlname).order_by('pref')
@@ -211,7 +211,7 @@ def show_quick_tab(request,event_name=None):
             if(t.question_tab and event.questions):
                 questions_added = True
                 
-                ques_list = models.Question.objects.filter(event__name = event_name).order_by('Q_Number')
+                ques_list = models.Question.objects.filter(event__name=event.name).order_by('Q_Number')
     #So each object in tab_list will have a file_list which is a list of urls to be displayed for the correspdong tab    
         display_edit = False
         if request.method=='POST': 
@@ -222,14 +222,19 @@ def show_quick_tab(request,event_name=None):
                 if userprof.is_coord == True and event.name == event_name:
                     display_edit=True
             except:
-                pass                
-
+                pass
+            
+            if 'want_hopi' in request.POST and request.POST['want_hospi'] is not None:
+                if request.user.is_authenticated():
+                    userprof = request.user.get_profile()
+                    userprof.want_hospi = True
+                    userprof.save()
             val = None
             if ( request.user.is_authenticated()):
                 val = userportal_submissions(request,ques_list,urlname)
                 if val is None:
                     e = Event.objects.get(name = urlname)
-                    return HttpResponseRedirect('%smyshaastra/teams/create/%s/' % [ settings.SITE_URL, e.id])
+                    return HttpResponseRedirect('%smyshaastra/teams/create/%s/' % ( settings.SITE_URL, str(e.id)))
                 elif val == "saved":
                     saved = True
         options_list = []
@@ -260,8 +265,13 @@ def show_quick_tab(request,event_name=None):
         everything = []
         # team event => Team Submissions. 
         if( event.team_event and request.user.is_authenticated() ):
+            part_of_a_team = False
+            team_size_inappropriate = False
             try:
                 team = Team.objects.get(members__pk = request.user.id, event = event)
+                part_of_a_team = True
+                if team.members.all().count() < event.min_members or team.members.all().count() > event.max_members:
+                    team_size_inappropriate = True
                 submission = TeamSubmission.objects.get( team = team , event = event )
                 base_submission_id = int(submission.basesubmission_ptr_id)
                 base_submission = BaseSubmission.objects.get( id = base_submission_id ) 
@@ -289,6 +299,8 @@ def show_quick_tab(request,event_name=None):
                 pass
         # Individual submissions
         elif ( event.team_event == False and request.user.is_authenticated() ):
+            part_of_a_team = True
+            team_size_inappropriate = False
             try:
                 userprofile = UserProfile.objects.get( user = request.user )
                 submission = IndividualSubmissions.objects.get( participant = userprofile , event = event )

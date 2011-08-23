@@ -1,11 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
-<p>Hi {{username}} Here is your profile</p>
+<p>Hi {{request.user.username}} Here is your profile</p>
 <p><a href="{{SITE_URL}}techmash/accounts/logout/">Logout</a></p>
-<p><a href="{{SITE_URL}}techmash/upload/">Add a photo for techmash</a></p>
-<p><a href="{{SITE_URL}}techmash/mashphotos/">Ready for techmashing</a></p>
-
+<form action = "{{SITE_URL}}techmash/upload/" method = GET>
+<input type="submit" value="Add photo" />
+</form>
+<form action = "{{SITE_URL}}techmash/mashphotos/" method = GET>
+<input type="submit" value="Mash photos" />
+</form>
 
 {% for image in image_list %}
 <img src="{{MEDIA_URL}}techmash/images/{{image.title}}" style="padding:10px;height:200px;width:200px;">
