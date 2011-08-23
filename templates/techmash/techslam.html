@@ -1,13 +1,15 @@
-<html>
+{% extends "index.html" %}
 <head>
 <title>
 TechSlam!
 </title>
+{%block media_location%}
 <script src = "http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 <script src = "http://www.shaastra.org/2011/media/main/techslam/Scripts/slamscript.js"></script>
 <link rel="stylesheet" type = "text/css" href="http://www.shaastra.org/2011/media/main/techslam/Styles/slamStyle.css">
+{%endblock%}
 </head>
-<body>
+{% block body %}
 <div id = "slamContainer">
 	<div id = "slamCover">
 		<div id = "slamOver">
@@ -98,5 +100,4 @@ TechSlam!
 	<div id = xbutton>X</div>
     	</div>
 </div>
-</body>
 </html>
