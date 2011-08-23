@@ -131,7 +131,7 @@
               <div style="position:absolute; color:white; left:10px; top:145px; font-size:1em;">  
            {%endif%} 
             {%if category.text|slugify|stringformat:"s" == "workshops"%}
-             <div style="position:absolute; color:white; left:10px; top:70px; font-size:0.6em;"> 
+             <div style="position:absolute; color:white; left:10px; top:30px; font-size:0.6em;"> 
             {%endif%} 
         {% for event in category.events%}
           <p class="event"><a href="{{event.url}}">{{event.display_name|capfirst}}</a></p>
