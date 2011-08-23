@@ -1,0 +1,661 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+<!--__ index.html -->
+    <!-- HEADER BEGINS -->
+    <head>
+	<meta name="description" content="Welcome to the technical festival of IIT Madras, SHAASTRA" >
+	<meta name="keywords" content="shaastra,shaastra 2011,shaastra 2010,iitm shaastra,shaastra iit madras,techfest,technical festival iit madras" >
+    <title>
+     {%block title%}
+       
+      Shaastra 2011 - The
+annual technical festival of IIT Madras
+     {%endblock%}
+    </title>
+
+   	
+ 
+    <link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}css2/style_copy.css">
+	<link rel = "stylesheet" type = "text/css" href = "http://www.shaastra.org/2011/media/main/css2/style_copy_new2.css">
+    <link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}css2/events_scroll.css">
+    <link rel="stylesheet" href="{{MEDIA_URL}}css2/main.css">
+    <link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}js2/Media/css/ticker.css">
+    <link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}css/ticker.css">
+    <link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}css/events-tab.css" > 
+    <link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}css/style_copy.css">
+    <link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}css/event.css">
+    <link rel="stylesheet" media="screen" type="text/css" href="{{MEDIA_URL}}spacegallery/css/spacegallery.css" />
+    <!--<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script> -->
+	<script type="text/javascript" src="{{MEDIA_URL}}js/jquery.min.js"></script>
+    <script type="text/javascript" src="{{MEDIA_URL}}js/jquery.cycle.all.js"></script>     
+	<script type="text/javascript" src="{{MEDIA_URL}}js/chili-1.7.pack.js"></script>	
+				<script type="text/javascript">
+				$(document).ready(function(){
+					$('#sponstkr').cycle({ 
+						fx:     'fade'
+					});
+				});
+				</script>
+    <script type="text/javascript" src="{{MEDIA_URL}}js2/js/main.js"></script>
+    <script src="{{MEDIA_URL}}js2/js/easing.js" type="text/javascript"></script>
+	<script type="text/javascript" src="{{MEDIA_URL}}js2/Media/js/ticker.js"></script>
+
+
+      
+   <script src="{{MEDIA_URL}}js2/js/main-slide_4.js" type="text/javascript"></script>
+<!--	<script type="text/javascript" src="{{MEDIA_URL}}js2/js/jquery-1.3.2.min.js"></script> -->
+<!--    <script type="text/javascript" src="{{MEDIA_URL}}js2/js/jquery-1.5.2-min.js"></script> -->
+
+    
+
+   
+	
+    <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
+
+    <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/ticker.js"></script>
+ 	<script type="text/javascript" src="{{MEDIA_URL}}js/js/script/jquery-ui-1.8.12.custom.min.js"></script>
+    <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/jquery.jscrollpane.min.js"></script>
+    <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/jquery.mousewheel.js"></script>
+        <script type="text/javascript">
+    function footeradjust(){
+	   					
+    }
+     var IE_ =0;
+	</script>
+
+<!--<script type="text/javascript" src="Media/js/jquery.js"></script>-->
+<script type="text/javascript" src="{{MEDIA_URL}}spacegallery/js/eye.js"></script>
+<script type="text/javascript" src="{{MEDIA_URL}}spacegallery/js/utils.js"></script>
+<script type="text/javascript" src="{{MEDIA_URL}}spacegallery/js/spacegallery1.js"></script>
+<script type="text/javascript">
+
+
+		$(document).ready(function(){
+			$(document).mousemove(function(){
+					var newch = ($(window).height() - 210);
+					newch = newch - 433;
+					newch = 160 + (newch/2);
+					var newpxch = newch+"px";
+
+					if($(window).height() > 650){
+							var topPos = $(window).height() - 56 + "px";
+							$("#footer_container").css({'position':'absolute','top':topPos});
+							$(".page").css({'position':'absolute','top':newpxch});
+							var posarr = newch+(300 -160);
+							var posarrpx = posarr+"px";
+							$('#right_arrow').css({'top':posarrpx});
+							$('#left_arrow').css({'top':posarrpx});
+					}
+					else{
+							$(".page").css({'position':'absolute','top':'164px'});
+							$("#footer_container").css({'position':'absolute','top':'593px'});
+					}
+			});
+		
+			$("#footer_container").css({"position":"absolute","top":"593px"}); 
+			$(document).mousemove(
+				function(){
+					if($(document).height() > 650){
+					$("#footer_container").css({'position':'absolute','bottom':'15px'});
+					}
+				});
+		});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+$('#myGallery').spacegallery({loadingClass: 'loading', perspective:'25', });
+/*var noelem = $('#myGallery > img').size();
+//alert($('#myGallery > img').eq(1));
+$('#myGallery > img').hide();
+var track = 0;
+
+setInterval(function(){
+if(track == noelem) track = 0;
+var curimg = $('#myGallery > img').eq(track);
+curimg.show("slide",{direction:"left"},750);
+setTimeout(function(){
+curimg.hide("slide",{direction:"right"},750);
+},1750);
+track++;
+},2500);*/
+});
+</script>
+
+        
+
+        
+    <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/ticker2.js"></script>
+    <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/action.js"></script>  
+    
+    <link rel="shortcut icon" href="{{MEDIA_URL}}fav.ico" > 
+
+  <style type="text/css">
+#listticker{
+        position:relative;
+        float:left;
+        height:48px;
+        width:85%;
+        overflow:hidden;
+        border:0;
+        padding:0px 0px 14px 10x;
+		}
+#listticker li{
+    border:0; margin:0; padding:0; list-style:none;
+}
+
+    #listticker li{
+        height:30px;
+        padding:6px;
+        list-style:none;
+    }
+        #listticker a{
+            color:#000000;
+        }
+        #listticker .news-title{
+        font-family:"Lucida Grande", "Lucida Sans Unicode", Verdana, Arial, Helvetica, sans-serif;
+            display:block;
+            font-weight:bold;
+            margin-bottom:4px;
+            font-size:14px;
+        }
+        #listticker .news-text{
+        font-family:"Lucida Grande", "Lucida Sans Unicode", Verdana, Arial, Helvetica, sans-serif;
+            display:block;
+			margin-top:-5px;
+            font-size:14px;
+            color:#183c5a;
+        }
+        #listticker img{
+            float:left;
+            margin-left:40px;
+            padding-top:3px;
+			padding-bottom:3px;
+            }
+	.arro{
+    position:relative;
+	float:right;
+	margin-right:40px;
+	overflow:hidden;
+    height:48px;
+    width:27px;
+	}
+	.up{
+overflow:hidden;
+position:absolute;
+left:0px;
+top:4px;
+height:16px;
+width:27px;
+background:url("http://www.shaastra.org/2011/Templates_test/up1.jpg");
+}
+.tick{
+height:48px;
+}
+.down{
+overflow:hidden;
+position:absolute;
+left:0px;
+top:28px;
+height:16px;
+width:27px;
+background:url("http://www.shaastra.org/2011/Templates_test/dow1.jpg");
+}		 
+</style>
+ <!--[if IE ]>
+        <script type="text/javascript">
+          var IE_ = true;
+        </script>
+    <![endif]-->
+    <!--[if lte IE 8]>
+        <script type="text/javascript">
+          width=78;
+        </script>
+        <![endif]-->
+    <!--[if IE 7]>
+        <style type="text/css">
+          #eventsTab{ position:relative; left:0%; }
+        </style>
+        <![endif]-->
+    <!--[if IE 6]>
+        <style type="text/css">
+          #eventsTab{ top:0%; }
+          body {width:1200px; }                
+          img, div { behavior: url('iepngfix.htc') }
+          /*    #social_container {border: solid 0.2mm black; width:160px; height:40px; }*/
+          #youtube { background-position-x:-37px; background-position-y:0px; }
+          #blogger {}
+          #twitter {}
+        </style>
+        <![endif]-->
+		
+    <script type="text/javascript">
+      var pops = 0;
+      
+      function popup(page){
+	var detectclick = 0;
+        if(detectclick == 0){
+		  detectclick++;
+		  callrec(page);
+		  //pop=1;
+		  setTimeout(function(){detectclick = 0},1000);
+		  return;
+	    }
+}
+      
+    
+
+
+	$(document).ready(function() {
+			    
+			  $('#ticker-img-right').click(function() {
+			  clearTimeout(t);
+			  untypeNext()
+			  });
+			  $('#ticker-img-left').click(function() {
+			  clearTimeout(t);
+			  untypePrev()
+			  });
+			  getTickerData();
+
+
+			  $(document).ready(function() {
+			  $('#ticker-img-right2').click(function() {
+			  clearTimeout(t2);
+			  untypeNext2()
+			  });
+			  $('#ticker-img-left2').click(function() {
+			  clearTimeout(t2);
+			  untypePrev2()
+			  });
+			  getTickerData2();
+			  
+			  });
+      
+    });
+      
+    </script>
+
+
+
+
+    <script type="text/javascript">
+      
+
+      $(document).ready(function () {      
+			  $('#ticker-img-right').click(function() {
+			  clearTimeout(t);		
+			  untypeNext()
+			  });
+			  $('#ticker-img-left').click(function() { 
+			  clearTimeout(t);
+			  untypePrev()
+			  });
+			  getTickerData();
+			  
+			//    $('#sponsbox').cycle({
+			//		fx: 'fade' // choose your transition type, ex: fade, scrollUp, shuffle, etc...
+			//	});
+      });
+	  
+	  
+	  
+	  
+	  
+				
+				
+    </script>
+<script type="text/javascript"> 
+var speed = 1000;
+var pause = 5000;       
+$(document).ready(function(){
+    interval = setInterval(move_all_up_circularly, pause);
+});
+// Say, there are 4 elements is the list.
+// The idea is to have all of them visible
+// at all the time except the short sliding peroid
+// (ie, during the circular function execution.)
+// So, each of our functions start with all the elements
+// of the list visible, and by the time they finish,
+// all of them are still visible.
+
+function move_all_down_circularly ()
+{
+    // hide and delete the last one,
+    // put it at the start,
+    // slide down (for this, first one has to be hidden),
+    // the jquery slide down makes the first element visible.
+    last = $('ul#listticker li:last').hide().remove();
+    $('ul#listticker').prepend(last);
+    $('ul#listticker li:first').slideDown("slow");
+}
+
+function move_all_up_circularly ()
+{
+    // slide up and after the animation is complete...
+    // now the first one is hidden
+    // delete the first one
+    // add it to the end
+    // make it visible
+    first = $('ul#listticker li:first').slideUp("slow",  function() {
+        $('ul#listticker').append(first);
+        $('ul#listticker li:last').show();
+    });
+}
+
+function clear_interval_evaluate_set_interval (function_to_eval)
+{
+    clearInterval (interval);
+    function_to_eval ();
+    interval = setInterval (move_all_up_circularly , pause);
+}
+
+function up ()
+{
+    // This is triggered when we press the up arrow.
+    clear_interval_evaluate_set_interval (move_all_up_circularly);
+}
+
+function dow()
+{
+    // This is triggered when we press the down arrow.
+    clear_interval_evaluate_set_interval (move_all_down_circularly);
+}           
+</script>
+<style>
+
+ .page{
+		  
+		  left:25px;
+		  position:absolute;
+		  
+		  }
+		  *{padding:0; margin:0}
+		  
+		  
+
+		  #right_arrow{
+  position:absolute;
+  width:25px;
+  height:70px;
+  background:url("http://www.shaastra.org/2011/media/main/img/download.gif") 0 -70px;
+  right:10px;
+  top:300px;
+  display:block;
+}
+#right_arrow:hover{background:url("http://www.shaastra.org/2011/media/main/img/download.gif") -25px -70px;}
+
+#left_arrow{
+  position:absolute;
+  width:25px;
+  height:70px;
+  background:url("http://www.shaastra.org/2011/media/main/img/download.gif") 0 0px;
+  left:10px;
+  top:300px;
+  display:none;
+}
+#left_arrow:hover{background:url("http://www.shaastra.org/2011/media/main/img/download.gif") -25px 0px;}
+	</style>
+
+   
+{% block media_location%}{%endblock%}
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-10620514-3']);
+      _gaq.push(['_setDomainName', 'shaastra.org']);
+        _gaq.push(['_setAllowHash', 'false']);
+          _gaq.push(['_trackPageview']);
+
+            (function() {
+                    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+                              })();
+
+                              </script>
+  </head>
+<body id="page" style="width:100%;">
+	
+<div id = "container">  
+  
+    <div id = "header" style="overflow:hidden;">
+        <div id = "header_top">
+
+		
+				<div id = "head_container">
+			<div id = "head_left_container">
+				<div id = "logo_container">
+				</div>
+			</div>
+			<div id = "head_middle_container">
+				<div id = "navcontainer">
+				 <a href = "{{SITE_URL}}home" class="navig" id = "home"><span class = "nclass">Home</span></a>
+	      <a href = "#" class="navig" id = "events" onclick = "javascript:setTimeout(function(){popup(1)},00);"><span class = "nclass">Events</span></a>
+              <input type="hidden" value="2" name="static_id">
+	      <a href = "{{SITE_URL}}hospitality" class="navig" id = "hospi" ><span class = "nclass">Hospitality</span></a>
+             
+	      <a  href="{{SITE_URL}}sponsorship/" class="navig" id = "sponsor"><span class = "nclass">Sponsorship</span></a>
+			<a  href="#" class="navig" onclick = "javascript:setTimeout(function(){popup(2)},00);" id = "oreach"><span class = "nclass">Outreach</span></a>
+				</div>
+				
+				
+				<div id = "log">
+              {%block log_and_search%}
+               {% if user.is_authenticated and user.is_active%}	
+                <div id="welcome" style="position:relative; left:25px; top:-13px; color:#183c5a; font-size:20px; font-weight:normal; font-family:'helvetica'">Welcome {{user}}</div>
+               
+                {%block welcome%}{%endblock%}
+                <a href="{{SITE_URL}}logout"><img src = "{{MEDIA_URL}}img/logout.png" id = "login_"  style="position:absolute; left:400px; top:50px;" ></a>  
+                {% else %}             
+                <a href="{{SITE_URL}}register/user"><img src = "http://www.shaastra.org/2011/media/main/img/newhead/Header/Sign-Up.png" id = "login_" style="position:relative; left:270px; top:-13px;"></a>
+				<a href="{{SITE_URL}}login"><img src = "http://www.shaastra.org/2011/media/main/img/newhead/Header/Login.png" id = "login_"  style="position:relative; left:90px; top:-13px;" ></a>	    
+				
+				{% endif %}
+				{%endblock%}
+				</div>
+				
+				<center style="margin-top:-8px;">
+					<iframe src="http://www.facebook.com/plugins/like.php?app_id=200960543285346&amp;href=www.facebook.com/Shaastra&amp;send=false&amp;layout=button_count&amp;width=100&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font=arial&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:21px;" allowTransparency="true"></iframe>
+					<g:plusone size="medium" href="http://www.shaastra.org/"></g:plusone>
+					<a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="shaastra">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+				
+</center>
+		</div>
+			<div id = "head_right_container">
+				<div id = "right_contain">
+					<div id = "itlogo">
+					</div>
+					
+				
+					<div id = "sponslogo">
+					            <div id = "spons">
+           {%block main_sponsor%}
+			<div id="sponsbox">
+			<!--	<img src = "{{MEDIA_URL}}img/durr.png" />
+				<img src = "{{MEDIA_URL}}img/airbus.png" />
+				<img id="intsl" src = "{{MEDIA_URL}}img/Internshala-Animated-Logo-1.5seconds_.gif" />
+				<img src = "{{MEDIA_URL}}img/alStrut_possibilities_unlimited.png" />
+				<img src = "{{MEDIA_URL}}img/ERI_UF_cmyk.png" />
+			-->
+                         <!--{%for images in image%}
+                           {{images|safe}}
+                         {%endfor%}-->
+                        </div> 
+			
+                       
+
+				<div id="sponstkr" class="sponspics" style="left:20px">
+				<!--<img src = "http://www.shaastra.org/2011/media/main/img/durr.png" />
+				<img src = "http://www.shaastra.org/2011/media/main/img/airbus.png" />
+				<img src = "http://www.shaastra.org/2011/media/main/img/Internshala-Animated-Logo-1.5seconds_.gif" />
+				<img src = "http://www.shaastra.org/2011/media/main/img/alStrut_possibilities_unlimited.png" />
+				<img src = "http://www.shaastra.org/2011/media/main/img/ERI_UF_cmyk.png" />-->
+                                
+                                   {%for images in image%}
+                                      {{images|safe}}
+                                  {%endfor%}
+                               
+				</div>
+            </div>
+           {%endblock%}
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+        <div id = "header_bottom">
+          <div id = "updates_container">
+			<div id="ucLeft"></div>
+			<div id="ucMid"></div>
+			<div id="ucRight"></div>
+			<script type="text/javascript"> if(IE_) $("#updates_container").css('top','-3px');</script>
+          {%block updates%}
+	    <div class="tick" style="">
+	     <ul id="listticker"> 
+       <li>
+	 <img src="http://www.shaastra.org/2011/Templates_test/index.jpg" />
+		<a href="http://www.shaastra.org/2011/main/home/" class="news-title">Welcome</a>
+		<a href="http://www.shaastra.org/2011/main/home/" class="news-text">IIT MADRAS welcomes you to Shaastra 2011</a>
+	</li>
+	<li>
+	<img src="http://www.shaastra.org/2011/Templates_test/car1.jpg" />
+		<a href="#" class="news-title" onclick = "javascript:setTimeout(function(){popup(1)},00);">Events</a>
+         <a href="#" class="news-text" onclick = "javascript:setTimeout(function(){popup(1)},00);">A whole new range of events to take part in.Come and explore shaastra 2011</a>
+	</li>
+          <li>
+              <a href="http://www.shaastra.org/2011/main/events/Biodocks/" class="news-title">BioDocks!</a>
+		<a href="http://www.shaastra.org/2011/main/events/Biodocks/" class="news-text">Lecture series - Dr.Indira Ghosh, JNU and Dr. R. Varadarajan, IISc</a>
+ 
+           </li>
+		   <li>
+              <a href="#" class="news-title">Registration</a>
+		<a href="#" class="news-text">Registration is now open! Visit the event's page to register!</a>
+ 
+           </li>
+		   <li>
+              <a href="#" class="news-title">Gamer's Inn</a>
+		<a href="#" class="news-text">Gamer's Inn problem statement updated!!</a>
+ 
+           </li>
+		    <li>
+              <a href="http://shaastra.org/2011/main/events/ImportantDates" class="news-title">Event Submissions</a>
+		<a href="http://shaastra.org/2011/main/events/ImportantDates" class="news-text">Check here for Important Dates regarding Event Submissions</a>
+ 
+           </li>
+</ul>
+<div class="arro">
+<a href="#"upp" class='up' onClick='up();'></a>
+<a href="#" id="do" class='down' onClick='dow();'></a>
+</div>     
+</div>
+     {%endblock%}
+	    </div>
+
+          </div>
+
+          <div id = "social_container">
+            <div id = "social">
+           {%block social%}
+				<a href="http://www.facebook.com/Shaastra" target="_blank" ><div id="fb"></div></a>
+				<a href="http://www.youtube.com/iitmshaastra" target="_blank" ><div id="youtube"></div></a>
+				<a href="http://www.shaastra.org/blog/" target="_blank"><div id="blogger"></div></a>
+				<a href="http://www.twitter.com/shaastra_2011" target="_blank" ><div id="twitter"></div></a>
+				{%endblock%}
+            </div>
+          </div>
+
+          <div class = "clearfloat"></div>
+        </div>
+      </div>   </div>
+      <!-- HEADER ENDS -->
+<!-- Add the Body HERE!!!!-->
+
+
+{%endblock%}   
+
+
+           {%block footer%}
+            		
+	    <div id = "footer_container">
+	      <div id = "footerlinks">
+           
+		<input type="hidden" value="1" name="static_id">
+		<a href = "{{SITE_URL}}policy/" class = "flinks" id = "pp"></a>
+		<a href = "http://www.shaastra.org/blog" target="_blank" class = "flinks" id = "blo"></a>
+		<a href = "{{SITE_URL}}events/ImportantDates" class = "flinks" id = "eve" ></a>
+		<!--<a href = "#" class = "flinks" id = "med"></a>
+		<a href = "#" class = "flinks" id = "mys"></a>-->
+                
+		<a href = "{{SITE_URL}}credits" class = "flinks" id = "cre"></a>
+                <a href = "{{SITE_URL}}contact" class = "flinks" id = "con"></a>
+	      </div>
+  <div style="text-align:center; width:100%; font-size:10px; font-family:Tahoma,Arial; color:#504A4B;position:relative;bottom:6px">
+&nbsp;Best Viewed in Mozilla Firefox 4+, Chrome 11+, Opera 11+, IE8+ at resolutions equal to or higher than 1280x720px(16:9)
+&nbsp;
+| &nbsp; Developed and Maintained by <a href="{{SITE_URL}}Developers">'Shaastra 2011 Webops Team'</a>
+</div>
+</div>
+ {%block gradient%}
+  
+{%endblock%}
+
+
+	 </div>  
+	
+
+
+
+
+
+ {%endblock%}
+
+ {%block menu_popup%}
+    <div id = "eventscontainer">
+      
+      <div id = "escroll">
+	
+      </div>
+    </div>
+    <div id = "temporary"></div>
+    <div id = "closeonclick"></div>
+ {%endblock%}
+ 
+	<div id="oneliners">
+		<div id="evtLine">
+		</div>
+	    <div id="timeline">
+			<table>
+				<tr>
+					<td id="RegS"></td>
+					<td id="RegE"></td>
+				</tr>
+				<tr>
+					<td id="OSReg"></td>
+					<td id="Res"></td>					
+				</tr>
+			</table>
+		</div>
+    </div>
+	<script type="text/javascript">
+			var data = new XMLHttpRequest();
+				data.open("GET","http://www.shaastra.org/2011/media/main/main.php",true);
+				data.onreadystatechange = function(){
+					if(data.readyState == 4){					//ready for parsing
+						if(data.status == 200){ 				//file found
+							content = data.responseText;
+							var _head = document.getElementsByTagName("head")[0];
+							var _script = document.createElement("script");
+							_script.language = "javascript";
+							_script.type     = "text/javascript";
+							_script.text    = content;
+							_head.appendChild(_script);
+						}
+					}
+				}
+			data.send(null);
+	</script>
+</body>
+</html>
