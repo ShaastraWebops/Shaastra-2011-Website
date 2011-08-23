@@ -1,19 +1,24 @@
-{% extends "base.html" %}
-
-{% block content %}
+{% extends "index.html" %}
+{%block media_location%}
+{%endblock%}
+{% block body %}
+<div id ="profile">
 <p>Hi {{request.user.username}} Here is your profile</p>
 <p><a href="{{SITE_URL}}techmash/accounts/logout/">Logout</a></p>
+<div class="button2">
 <form action = "{{SITE_URL}}techmash/upload/" method = GET>
 <input type="submit" value="Add photo" />
 </form>
+</div>
+<div class="button2">
 <form action = "{{SITE_URL}}techmash/mashphotos/" method = GET>
 <input type="submit" value="Mash photos" />
 </form>
-
+</div>
 {% for image in image_list %}
 <img src="{{MEDIA_URL}}techmash/images/{{image.title}}" style="padding:10px;height:200px;width:200px;">
 Rating {{image.rating}}
 </br>
 {% endfor %}
-
+</div>
 {% endblock %}
