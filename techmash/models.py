@@ -5,8 +5,8 @@ from django import forms
 import os,os.path
 
 class UploadFileForm(forms.Form):
-    #title = forms.CharField(max_length=50)
-    file  = forms.ImageField()
+    caption     = forms.CharField(max_length=500)
+    file        = forms.ImageField()
 
 class selectaphoto(forms.Form):
     selectedid     =forms.IntegerField()
@@ -21,6 +21,7 @@ class Photo(models.Model):
     kvalue         = models.IntegerField(blank=True, null=True) 
     rating         = models.IntegerField(blank=True, null=True)
     user           = models.CharField(max_length=80)
+    caption        = models.CharField(max_length=500)
     
     def __str__(self):
         return str(self.photoid)

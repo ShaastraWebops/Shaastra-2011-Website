@@ -65,7 +65,7 @@ def upload(request):
             # Create the object
             if photopath.startswith(os.path.sep):
                 photopath = photopath[len(settings.TECHMASH_ROOT):]
-            photo = Photo(image=photopath,title = filename,rating=1600,kvalue = 32, user=request.user.username)
+            photo = Photo(image=photopath,title = filename,rating=1600,kvalue = 32, user=request.user.username,caption=form.cleaned_data['caption'])
             # Save it -- the thumbnails etc. get created.
             photo.save()
             #handle_uploaded_image(request.FILES['file'])
