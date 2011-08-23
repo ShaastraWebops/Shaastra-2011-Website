@@ -1,6 +1,8 @@
-{% extends "base.html" %}
-
+{% extends "index.html" %}
+{%block media_location%}
+{%endblock%}
 {% block body %}
+<div id = "someform">
 <p> {{request.user.username}} </p>
 <form enctype="multipart/form-data" method="post" action="">
 <table>
@@ -12,5 +14,5 @@
 <input type = "submit" value ="Upload"/>
 </form>
 <p><a href={{SITE_URL}}techmash/accounts/profile/>Go to mainpage</a></p>
-
+</div>
 {% endblock %}
