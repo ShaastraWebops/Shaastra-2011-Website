@@ -32,14 +32,14 @@ def register(request):
         form = UserCreationForm()
         c={'form':form}
     return render_to_response("registration/register.html",locals(),context_instance= global_context(request))
-@login_required  
+@needs_authentication  
 def profile(request):
     try:
         image_list = Photo.objects.filter(user = request.user).order_by('rating')
     except:
         image_list =list()    
     return render_to_response("techmash/profile.html", locals(),context_instance= global_context(request))
-@login_required 	
+@needs_authentication 	
 def upload(request):
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
