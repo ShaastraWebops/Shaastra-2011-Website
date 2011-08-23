@@ -48,8 +48,7 @@
     
     
     {%else%}
-   <p> hi </p>
-       {% include "submissions.html" %}
+       {% include "event/submissions.html" %}
         
 	{% for ques in ques_list %}
 	<div id="Ques{{ques.Q_Number}}">
@@ -65,7 +64,6 @@
           {% endif %}
           {% if ques.question_type == "MCQ" %}
 <!--           <p>This is a multiple choice question. Please select your choice and click on "Submit".</p> -->
-          <p> This will be functional soon.</p>
           <div id="mcq_question">
             <table style="border:solid 0.1mm #000; border-radius:4px; background-color:#fafafa;">
               <form>
@@ -119,7 +117,6 @@
           {% endif %}
           {% if ques.question_type == "FILE" %}
           <p> Choose the file you want to upload and click on "Upload".</p>
-          <p> This will be functional soon.</p>
           <br/>
           <input type="file" name="blah" size="30"><br/>
           <input type="submit" value="Upload">               

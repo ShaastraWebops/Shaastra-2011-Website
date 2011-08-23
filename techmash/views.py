@@ -32,15 +32,13 @@ def register(request):
         form = UserCreationForm()
         c={'form':form}
     return render_to_response("registration/register.html",locals(),context_instance= global_context(request))
-
-@needs_authentication   
+@needs_authentication  
 def profile(request):
     try:
-        image_list = Photo.objects.filter(user = request.user.username).order_by('rating')
+        image_list = Photo.objects.filter(user = request.user).order_by('rating')
     except:
         image_list =list()    
     return render_to_response("techmash/profile.html", locals(),context_instance= global_context(request))
-
 @needs_authentication 	
 def upload(request):
     if request.method == 'POST':
@@ -72,6 +70,8 @@ def upload(request):
             photo.save()
             #handle_uploaded_image(request.FILES['file'])
             return HttpResponseRedirect(("%stechmash/upload/" % settings.SITE_URL))
+        else:
+            return HttpResponseRedirect(("%stechmash/upload/" % settings.SITE_URL))   
     else:
         form = UploadFileForm()
         return render_to_response('techmash/upload_file.html', locals(),context_instance= global_context(request))

@@ -22,7 +22,10 @@ def home(request):
             category = Menu.objects.get(event = event).parent_menu
             event.similar = category.menu_set.exclude(event = event)
         except Menu.DoesNotExist:
-            raise Http404
+            if event.name == 'testevent':
+                pass
+            else:
+                raise Http404
     ''' 
         for event in events_list:
             try:
@@ -90,13 +93,25 @@ def team_home(request, team_id = None):
     raise Http404
 
 @needs_authentication
-def create_team(request):
+def create_team(request, event_id = None):
+    if event_id is None:
+        raise Http404
     user = request.user
-    form = CreateTeamForm()
+    event = None
+    try:
+        event = Event.objects.get(pk = int(event_id))
+    except:
+        raise Http404
+    form = CreateTeamForm(initial = { 'event' : event.id, } )
     view = "Create"
     if request.method == 'POST':
         form = CreateTeamForm(request.POST)
         if form.is_valid():
+            try:
+                Team.objects.get(members__pk = request.user.id, event = form.cleaned_data['event'])
+                return render_to_response('myshaastra/already_part_of_a_team.html', locals(), context_instance = global_context(request))
+            except Team.DoesNotExist:
+                pass
             team = form.save(commit = False)
             team.leader = user
             try:

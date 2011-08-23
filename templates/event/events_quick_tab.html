@@ -4,6 +4,7 @@
 {%block media_location%}   
 <script type="text/javascript">
   var IntExp=0;
+  tabsPreInit = false;
   /***********************************************************************************************************************************************
   How to add a new tab -
   1) Update the elem array with the id of the new tab.															e.g : newTab
@@ -42,6 +43,8 @@
 	    <span id="menu_path" style="font-size:medium"><a href="{{SITE_URL}}home/">Home</a> >> <a href = "#" onclick = "javascript:setTimeout(function(){popup(1)},00);">Events</a> >> <span id="evtname"> {{event.display_name}} </span> </span> -->
    
       </span>
+
+<!--
       {% if show_register %}
 	        {% if user_has_registered %}
               <div style="margin-left:640px;">
@@ -54,6 +57,8 @@
 	          </form>
 	        {% endif %}
 	  {% endif %}
+-->
+
     </div>
 
     <div id = "verticlleft">  
@@ -103,7 +108,12 @@
             
 	    
             {%else%}
-            {% include "submissions.html" %}
+                {% if event.registrable %}
+                    {% include "event/submissions.html" %}
+                {% else %}
+                    <p>The registration portal for this event is currently closed</p>
+                    <p>Watch this space for updates</p>
+                {% endif %}
             {% endif %}
 
 
@@ -189,17 +199,33 @@
       {%endif%}
     </div>
   </div>
+  
+  
+  {% for row in tab_list %}
+        {%if row.question_tab%}
+          {% if show_register %}
+                       {% if user_has_registered %}
+                     <!-- put the script herre -->
+                     <!-- for tab id use {{row.id}} -->
+                <script type="text/javascript">
+						setHeights();
+						$('#event-details').jScrollPane({showArrows: true,verticalScroll: true}); 
+						
+						setTabBgBlue({{row.id}});      
+						setVisible({{row.id}});
+						tabsPreInit = true;
+						console.log(tabsPreInit);
+						
+                </script>
+                       {% endif %}
+                 {% endif %}
+
+        {%endif%}
+
+        {%endfor%}
   {%endblock%}     
   
 </div> 
-
-
-
-
-
-
-
-
 
 
 </body>

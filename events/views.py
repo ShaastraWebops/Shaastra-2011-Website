@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.shortcuts import render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
 from django.http import Http404
@@ -37,35 +38,130 @@ def fileuploadhandler(f, eventname, tabid, file_title):
     
 
 def userportal_submissions(request,questionList,event):
+    print "cumming here ..."
     nQuestions = len( questionList )
     questionId = []
     questionAnswer = []
     questionType = []
     for i in range(nQuestions):
         try:
-            questionId.append(request.POST['question'+str(i+1)])
-            questionType.append(request.POST['type'+str(i+1)])
+            questionId.append(request.POST['question'+str(questionList[i].Q_Number)])
+            questionType.append(request.POST['type'+str(questionList[i].Q_Number)])
         except: 
-            return
+            raise
+            return 
+    e = Event.objects.get(name = event)
     try:
-        team = Team.objects.get(members__pk = request.user.id, event = event)
+        print request.user.id, event
+        if e.team_event:
+	    team = Team.objects.get(members__pk = request.user.id, event__name = event)
+        print "Yeah i go a tema"
     except Team.DoesNotExist:
-        return True
-    submission = TeamSubmission( event = event , team = team )
-    submission.save()
-    
-    for i in range( nQuestions ):
-        questionObject = models.Question.objects.get( id = questionId[i] )
-        if( questionType[i] == "NORMAL"):
-            normalAns = Answer_Text( question = questionObject , submission = submission , text = request.POST['answer'+str(i+1)]) 
-            normalAns.save() 
-        elif ( questionType[i] == "FILE" ):
-            fileAns = Answer_file( question = questionObject , submission = submission , File = request.FILES['answer'+str(i+1)])
-            fileAns.save()
-        else:
-            mcqAns = Answer_MCQ( question = questionObject , submission = submission , choice = models.MCQ_option.objects.get( id = int(request.POST['answer'+str(i+1)]) ))
-            mcqAns.save()
-    return False  
+        print "faaaaaaaaack!"
+        return None
+
+    if ( e.team_event ):
+        submission = None
+        try:
+            submission = TeamSubmission.objects.get(team = team)
+            for i in range( nQuestions ):
+                questionObject = models.Question.objects.get( id = questionId[i] )
+                if( questionType[i] == "NORMAL"):
+                    try:
+                        normalAns = Answer_Text.objects.get( question = questionObject , submission = submission ) 
+                        normalAns.text = request.POST['answer'+str(questionList[i].Q_Number)]
+                        normalAns.save() 
+                    except:
+                        normalAns = Answer_Text( question = questionObject , submission = submission , text = request.POST['answer'+str(questionList[i].Q_Number)]) 
+                        normalAns.save()                     
+                elif ( questionType[i] == "FILE" ):
+                    if(  'answer'+str(questionList[i].Q_Number) in request.FILES):
+                        try:
+                            fileAns = Answer_file.objects.get( question = questionObject , submission = submission )
+                            fileAns.File = request.FILES['answer'+str(questionList[i].Q_Number)]
+                            fileAns.save()
+                        except:
+                            fileAns = Answer_file( question = questionObject , submission = submission , File = request.FILES['answer'+str(questionList[i].Q_Number)])
+                            fileAns.save()                
+                else:
+                    if(  'answer'+str(questionList[i].Q_Number) in request.POST):
+                        try:
+                            mcqAns = Answer_MCQ.objects.get( question = questionObject , submission = submission )
+                            mcqAns.choice = models.MCQ_option.objects.get( id = int(request.POST['answer'+str(questionList[i].Q_Number)]))
+                            mcqAns.save()
+                        except:
+                            mcqAns = Answer_MCQ( question = questionObject , submission = submission , choice = models.MCQ_option.objects.get( id = int(request.POST['answer'+str(questionList[i].Q_Number)]) ))
+                            mcqAns.save()                    
+        except TeamSubmission.DoesNotExist:
+            submission = TeamSubmission( event = e , team = team )
+            submission.save()    
+            for i in range( nQuestions ):
+                questionObject = models.Question.objects.get( id = questionId[i] )
+                if( questionType[i] == "NORMAL"):
+                    if( 'answer'+str(questionList[i].Q_Number) in request.POST ):
+                        normalAns = Answer_Text( question = questionObject , submission = submission , text = request.POST['answer'+str(questionList[i].Q_Number)]) 
+                        normalAns.save() 
+                elif ( questionType[i] == "FILE" ):
+                    if( 'answer'+str(questionList[i].Q_Number) in request.FILES ):
+                        fileAns = Answer_file( question = questionObject , submission = submission , File = request.FILES['answer'+str(questionList[i].Q_Number)])
+                        fileAns.save()
+                else:
+                    if( 'answer'+str(questionList[i].Q_Number)  in request.POST):
+                        mcqAns = Answer_MCQ( question = questionObject , submission = submission , choice = models.MCQ_option.objects.get( id = int(request.POST['answer'+str(questionList[i].Q_Number)]) ))
+                        mcqAns.save()
+        return "saved"
+    else:
+        submission = None
+        try:
+            userprofile = UserProfile.objects.get( user = request.user )
+            submission = IndividualSubmissions.objects.get( participant = userprofile , event = e )
+            for i in range( nQuestions ):
+                questionObject = models.Question.objects.get( id = questionId[i] )
+                if( questionType[i] == "NORMAL"):
+                    try:
+                        normalAns = Answer_Text.objects.get( question = questionObject , submission = submission ) 
+                        normalAns.text = request.POST['answer'+str(questionList[i].Q_Number)]
+                        normalAns.save() 
+                    except:
+                        normalAns = Answer_Text( question = questionObject , submission = submission , text = request.POST['answer'+str(questionList[i].Q_Number)]) 
+                        normalAns.save()                     
+                elif ( questionType[i] == "FILE" ):
+                    if(  'answer'+str(questionList[i].Q_Number) in request.FILES):
+                        try:
+                            fileAns = Answer_file.objects.get( question = questionObject , submission = submission )
+                            fileAns.File = request.FILES['answer'+str(questionList[i].Q_Number)]
+                            fileAns.save()
+                        except:
+                            fileAns = Answer_file( question = questionObject , submission = submission , File = request.FILES['answer'+str(questionList[i].Q_Number)])
+                            fileAns.save()                
+                else:
+                    if(  'answer'+str(questionList[i].Q_Number) in request.POST):
+                        try:
+                            mcqAns = Answer_MCQ.objects.get( question = questionObject , submission = submission )
+                            mcqAns.choice = models.MCQ_option.objects.get( id = int(request.POST['answer'+str(questionList[i].Q_Number)]))
+                            mcqAns.save()
+                        except:
+                            mcqAns = Answer_MCQ( question = questionObject , submission = submission , choice = models.MCQ_option.objects.get( id = int(request.POST['answer'+str(questionList[i].Q_Number)]) ))
+                            mcqAns.save()                    
+        except IndividualSubmissions.DoesNotExist:
+            userprofile = UserProfile.objects.get( user = request.user )
+            submission = IndividualSubmissions( participant = userprofile , event  = e )
+            submission.save()    
+            for i in range( nQuestions ):
+                questionObject = models.Question.objects.get( id = questionId[i] )
+                if( questionType[i] == "NORMAL"):
+                    if( 'answer'+str(questionList[i].Q_Number) in request.POST ):
+                        normalAns = Answer_Text( question = questionObject , submission = submission , text = request.POST['answer'+str(questionList[i].Q_Number)]) 
+                        normalAns.save() 
+                elif ( questionType[i] == "FILE" ):
+                    if( 'answer'+str(questionList[i].Q_Number) in request.FILES ):
+                        fileAns = Answer_file( question = questionObject , submission = submission , File = request.FILES['answer'+str(questionList[i].Q_Number)])
+                        fileAns.save()
+                else:
+                    if( 'answer'+str(questionList[i].Q_Number)  in request.POST):
+                        mcqAns = Answer_MCQ( question = questionObject , submission = submission , choice = models.MCQ_option.objects.get( id = int(request.POST['answer'+str(questionList[i].Q_Number)]) ))
+                        mcqAns.save()
+        return "saved"
 
 #Handler for displaying /2011/event/eventname page 
 def show_quick_tab(request,event_name=None):
@@ -83,7 +179,6 @@ def show_quick_tab(request,event_name=None):
         
         category is a menu object for which the menu "text" is urlname. The corresponding category image is displayed in the template
         
-        If the event is registrable, a register button is displayed. Similarly, if the user is the coord for the event, a button is displayed which takes him/her to the dashboard
     """
     urlname=decamelize(event_name)
     tab_list=models.QuickTabs.objects.filter(event__name = urlname).order_by('pref')
@@ -99,6 +194,7 @@ def show_quick_tab(request,event_name=None):
         pass
     try:
         event=models.Event.objects.get(name = urlname)
+	print event
     except models.Event.DoesNotExist:
         raise Http404
     cat_name = ""
@@ -115,7 +211,7 @@ def show_quick_tab(request,event_name=None):
             if(t.question_tab and event.questions):
                 questions_added = True
                 
-                ques_list = models.Question.objects.filter(event__name = event_name).order_by('Q_Number')
+                ques_list = models.Question.objects.filter(event__name=event.name).order_by('Q_Number')
     #So each object in tab_list will have a file_list which is a list of urls to be displayed for the correspdong tab    
         display_edit = False
         if request.method=='POST': 
@@ -126,10 +222,21 @@ def show_quick_tab(request,event_name=None):
                 if userprof.is_coord == True and event.name == event_name:
                     display_edit=True
             except:
-                pass                
-            val = userportal_submissions(request,ques_list,event)
-            if val:
-                return HttpResponseRedirect('%smyshaastra/teams/create/' % settings.SITE_URL)
+                pass
+            
+            if 'want_hopi' in request.POST and request.POST['want_hospi'] is not None:
+                if request.user.is_authenticated():
+                    userprof = request.user.get_profile()
+                    userprof.want_hospi = True
+                    userprof.save()
+            val = None
+            if ( request.user.is_authenticated()):
+                val = userportal_submissions(request,ques_list,urlname)
+                if val is None:
+                    e = Event.objects.get(name = urlname)
+                    return HttpResponseRedirect('%smyshaastra/teams/create/%s/' % ( settings.SITE_URL, str(e.id)))
+                elif val == "saved":
+                    saved = True
         options_list = []
         for ques in ques_list:
             temp = models.MCQ_option.objects.filter(question=ques).order_by('option')
@@ -155,14 +262,72 @@ def show_quick_tab(request,event_name=None):
         # get initial values for forms
         answers = []
         already_submitted = False
-        try:
-            team = Team.objects.get(members__pk = request.user.id, event = event)
-            submission = TeamSubmission.object.get( team = team , event = event )
-            print submission
-            print "awesome!"
-        except:
-            pass
-        
+        everything = []
+        # team event => Team Submissions. 
+        if( event.team_event and request.user.is_authenticated() ):
+            part_of_a_team = False
+            team_size_inappropriate = False
+            try:
+                team = Team.objects.get(members__pk = request.user.id, event = event)
+                part_of_a_team = True
+                if team.members.all().count() < event.min_members or team.members.all().count() > event.max_members:
+                    team_size_inappropriate = True
+                submission = TeamSubmission.objects.get( team = team , event = event )
+                base_submission_id = int(submission.basesubmission_ptr_id)
+                base_submission = BaseSubmission.objects.get( id = base_submission_id ) 
+                for question in ques_list:
+                    if( question.question_type == 'NORMAL'):
+                        try:
+                            ansText = Answer_Text.objects.get( submission = base_submission , question = question )
+                            answers.append(ansText)
+                        except:
+                            answers.append("No normal answers")
+                    elif ( question.question_type == "FILE"):
+                        try:
+                            ansFile = Answer_file.objects.get( submission = base_submission , question = question )
+                            answers.append(ansFile)
+                        except:
+                            answers.append("No file answer")
+                    elif ( question.question_type == "MCQ"):
+                        try:
+                            ansMCQ = Answer_MCQ.objects.get( submission = base_submission , question = question )
+                            answers.append(ansMCQ)
+                        except:
+                            answers.append("No MCQ answers")
+                already_submitted = True
+            except:
+                pass
+        # Individual submissions
+        elif ( event.team_event == False and request.user.is_authenticated() ):
+            part_of_a_team = True
+            team_size_inappropriate = False
+            try:
+                userprofile = UserProfile.objects.get( user = request.user )
+                submission = IndividualSubmissions.objects.get( participant = userprofile , event = event )
+                base_submission_id = int(submission.basesubmission_ptr_id)
+                base_submission = BaseSubmission.objects.get( id = base_submission_id ) 
+                for question in ques_list:
+                    if( question.question_type == 'NORMAL'):
+                        try:
+                            ansText = Answer_Text.objects.get( submission = base_submission , question = question )
+                            answers.append(ansText)
+                        except:
+                            answers.append("No normal answers")
+                    elif ( question.question_type == "FILE"):
+                        try:
+                            ansFile = Answer_file.objects.get( submission = base_submission , question = question )
+                            answers.append(ansFile)
+                        except:
+                            answers.append("No file answer")
+                    elif ( question.question_type == "MCQ"):
+                        try:
+                            ansMCQ = Answer_MCQ.objects.get( submission = base_submission , question = question )
+                            answers.append(ansMCQ)
+                        except:
+                            answers.append("No MCQ answers")
+                already_submitted = True
+            except:
+                pass
         return render_to_response('event/events_quick_tab.html', locals(), context_instance= global_context(request))
     else:
         raise Http404    

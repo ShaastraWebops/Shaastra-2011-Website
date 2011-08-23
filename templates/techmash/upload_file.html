@@ -1,16 +1,19 @@
-{% extends "base.html" %}
-
-{% block content %}
+{% extends "index.html" %}
+{%block media_location%}
+{%endblock%}
+{% block body %}
+<div id = "someform">
 <p> {{request.user.username}} </p>
 <form enctype="multipart/form-data" method="post" action="">
-{% csrf_token %}
 <table>
 <tr><td>
 <b> {{ form.file.label_tag }}</b>  {{ form.file}}
 </td></tr>
 </table>
-<p><a href={{SITE_URL}}techmash/accounts/profile/>Go to mainpage</a></p>
+<div class="button2">
+<input type = "submit" value ="Upload"/>
+</div>
 </form>
-
-
+<p><a href={{SITE_URL}}techmash/accounts/profile/>Go to mainpage</a></p>
+</div>
 {% endblock %}

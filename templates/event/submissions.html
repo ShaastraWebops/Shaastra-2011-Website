@@ -31,13 +31,28 @@
 		document.form1.submit();		
 	}
 </script>-->
-<p><font size="3" color="red">testing the display..You will be able to submit answers to the questions soon. Please watch this space for more updates.</font></p>
+{% if saved %}
+    <p><font size="3" color="green"> Your answers have been saved!</font></p>
+{% endif %}
+
+{% if event.team_event %}
+    <br />
+    <p>This is a team event</p>
+    <p>Minimum team size: {{ event.min_members }}</p>
+    <p>Maximum team size: {{ event.max_members }}</p>
+    {% if user.is_authenticated %}
+        {% if not part_of_a_team %}
+            <br />
+            <p>Please <a href="{{ SITE_URL }}myshaastra/teams/create/{{ event.id }}/">create a team</a> in order to save answers</p>
+        {% endif %}
+    {% endif %}
+{% endif %}
 
 <form action ='' method='POST' enctype="multipart/form-data" name="form1">
 {% csrf_token %}
+
 {% for ques in ques_list %}
 <div id="Ques{{ques.Q_Number}}">
-<!--     <a href="#Question{{ques.Q_Number}}">{{ques.Q_Number|safe}}. {{ques.title|safe}}</a><br/> -->
     <br/>{{ques.Q_Number|safe}}. {{ques.title|safe}}<br/>
     </div>
     
@@ -46,7 +61,16 @@
         {% if ques.question_type == "NORMAL" %}
         <div id="normal_question">
         <input type="hidden" value="NORMAL" name="type{{ques.Q_Number}}"/>
-        <textarea id = "answer{{ques.Q_Number}}" name = "answer{{ques.Q_Number}}" rows="6" cols="40" >  </textarea><br/>
+        
+            {% if already_submitted %}                
+                {% for ans in answers%}
+                    {% if ans.question == ques %}
+                        <textarea id = "answer{{ques.Q_Number}}" name = "answer{{ques.Q_Number}}" rows="6" cols="40" >{{ans.text}}</textarea>
+                    {% endif%}
+                {% endfor %}
+            {% else %}
+                <textarea id = "answer{{ques.Q_Number}}" name = "answer{{ques.Q_Number}}" rows="6" cols="40" ></textarea>
+            {% endif %}
         </div>
         {% endif %}
         {% if ques.question_type == "MCQ" %}
@@ -57,28 +81,66 @@
         <table border="1">
             {% csrf_token %}
             {%for options in options_list %}
-            {%if options.question == ques %}
-            <tr><td>{{options.option}}</td><td><input type="radio" id = "answer{{ques.Q_Number}}" name = "answer{{ques.Q_Number}}" value="{{options.id}}"/></td><td>{{options.text}}</td></tr>
-            {%endif%}
+                {%if options.question == ques %}
+                    {% if already_submitted %} 
+                        {% for ans in answers %}
+                            {% if ans.question == ques %} 
+                                {% if ans.choice == options %}
+                                <tr><td>{{options.option}}</td><td><input type="radio" id = "answer{{ques.Q_Number}}" name = "answer{{ques.Q_Number}}" checked = "checked" value="{{options.id}}"/></td><td>{{options.text}}</td></tr>
+                                {% else %}
+                                <tr><td>{{options.option}}</td><td><input type="radio" id = "answer{{ques.Q_Number}}" name = "answer{{ques.Q_Number}}" value="{{options.id}}"/></td><td>{{options.text}}</td></tr>          
+                                {%endif%}
+                            {% endif %}
+                        {% endfor%}
+                    {% else %}
+                        <tr><td>{{options.option}}</td><td><input type="radio" id = "answer{{ques.Q_Number}}" name = "answer{{ques.Q_Number}}" checked ="checked" value="{{options.id}}"/></td><td>{{options.text}}</td></tr>
+                    {% endif %}
+                {%endif%}
             {%endfor%}
         </table>
         </div>            
         {% endif %}
         {% if ques.question_type == "FILE" %}
-        <input type="hidden" value="FILE" name="type{{ques.Q_Number}}"/>
-        <p> Choose the file you want to upload and click on "Upload".</p>
-        <p> <font color = "red">This will be functional soon.</font></p>
-        <br/>
-        <input type="file" id = "answer{{ques.Q_Number}}" name = "answer{{ques.Q_Number}}" size="30"><br/>
+            {% if already_submitted  %}
+                {% for ans in answers %}
+                    {% if ans.question == ques and ans != "No file answer" %}
+                        Previously submitted file: <a href="{{ans}}">{{ans.File}}</a>
+                    {% endif%}
+                {% endfor %}
+            {% endif %}
+            <input type="hidden" value="FILE" name="type{{ques.Q_Number}}"/>
+            <p> Choose the file you want to upload and click on "Upload".</p>
+            <br/>
+            <input type="file" id = "answer{{ques.Q_Number}}" name = "answer{{ques.Q_Number}}" size="30"><br/>
         {% endif %}
     </div>         
 {%endfor%}      
 
 
+{% if event.accommodation %}
+<!-- Want accommodation button -->
+    <label for="hospi">Apply for accommodation in IIT Madras</label>
+    <span>&nbsp;&nbsp;<input type="checkbox" name="want_hospi" /></span>
+    <br />
+    <span class="helptext">Checking this option DOES NOT GUARANTEE accommodation inside IIT Madras during Shaastra 2011. The Hospitality Department will get in touch with you or your team if your accommodation is confirmed</span>
+{% endif %}
+
 {% if user.is_authenticated %}
 <!-- <input type="button" value="Submit Answers" onclick="ValidateSubmission();"> -->
-<input type="submit" value="Submit Answers" >
+<!-- The views have been made such that, for an individual event, "part_of_a_team" is always true, and "team_size_inappropriate" is always false :P -->
+    {% if not part_of_a_team %}
+        <p>Please <a href="{{ SITE_URL }}myshaastra/teams/create/{{ event.id }}/">create a team</a> in order to save answers</p>
+    {% else %} {% if team_size_inappropriate %}
+        <p>Your team size is inappropriate. Please add or drop members in order to conform to the event's specifications. Only then can you submit answers</p>
+    {% else %}
+        <div class="button2">
+            <a href="#">
+                <input type="submit" value="Submit Answers">
+            </a>
+            <span></span>
+        </div>
+    {% endif %} {% endif %}
 {% endif %}
 
 </form>
-<br><div style="width:730px; border:solid 0.5mm #999;"></div><br>
+<br /><div style="width:730px; border:solid 0.5mm #999;"></div><br />

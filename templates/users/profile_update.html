@@ -1,0 +1,50 @@
+{% extends "index.html" %}
+
+{%block gradient%}{%include "gradient.html"%}{%endblock%}
+{%block media_location%}
+<style>
+#form{
+
+    position:relative;
+    left:320px;
+    }
+
+</style>
+{%endblock%}
+
+{%block body %}
+
+     <div id="form"> 
+	  <form action="" method="POST" enctype="multipart/form-data">
+		{% csrf_token %}
+		<table>
+		   <!-- <tr>
+			<td>First name: </td>
+			<td>
+			{{form.first_name}}
+			</td>
+			</tr>
+			<tr>
+			<td> Last name: </td>
+			<td>
+			{{form.last_name}}
+			</td></tr>-->
+			{{form.as_table}}
+			 
+			
+		
+		<tr><tr><td><td>
+		
+		<div class="button2">
+					<a href="#">
+						
+						<input type="submit" value="Update Profile" />
+						
+					</a>
+					<span></span>
+				</div>
+		</td></td></tr></tr></table>		
+	  </form>
+    </div>  
+
+{%endblock%}   

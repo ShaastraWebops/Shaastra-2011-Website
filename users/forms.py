@@ -67,6 +67,10 @@ class LoginForm(forms.Form):
 
 class AddUserForm(ModelForm):
 
+    first_name      = forms.CharField  (max_length=30,
+                                       help_text='Enter your first name here.')
+    last_name       = forms.CharField  (max_length=30,
+                                       help_text='Enter your last name here.')
     username       = forms.CharField  (max_length=30,
                                        help_text='30 characters or fewer. Letters, numbers and @/./+/-/_ characters')
     email          = forms.EmailField (help_text='Enter your e-mail address. eg, someone@gmail.com')
@@ -89,9 +93,8 @@ class AddUserForm(ModelForm):
                                                       help_text='Enter the words shown in the space provided')
     class Meta:
         model = models.UserProfile
-        fields=('username','password','password_again','email','age','gender','college','college_roll','branch','mobile_number')
+        fields=('first_name','last_name','username','password','password_again','email','age','gender','college','college_roll','branch','mobile_number')
         #except = ('is_coord','coord_event')        
-    
     
     def clean_username(self):
         if not alnum_re.search(self.cleaned_data['username']):
@@ -108,11 +111,14 @@ class AddUserForm(ModelForm):
 	else:
 	    return self.cleaned_data['age']
 	    
-    """def clean_mobile_number(self):
+    def clean_mobile_number(self):
 	if (len(self.cleaned_data['mobile_number'])!=10 or (self.cleaned_data['mobile_number'][0]!='7' and self.cleaned_data['mobile_number'][0]!='8' and self.cleaned_data['mobile_number'][0]!='9') or (not self.cleaned_data['mobile_number'].isdigit())):
 	    raise forms.ValidationError(u'Enter a valid mobile number')
+	if models.UserProfile.objects.filter(mobile_number=self.cleaned_data['mobile_number']):
+	    pass    
 	else:
-	  return self.cleaned_data['mobile_number']"""
+	  return self.cleaned_data['mobile_number']
+	raise forms.ValidationError('This mobile number is already registered')  
 	  
     def clean_first_name(self):
 	if not self.cleaned_data['first_name'].replace(' ','').isalpha():
@@ -169,14 +175,14 @@ class EditUserForm(ModelForm):
 
     first_name = forms.CharField(max_length=50, help_text="Your first name")
     last_name = forms.CharField(max_length=50, help_text="Your last name")
-    password=forms.CharField(min_length=6, max_length=30, widget=forms.PasswordInput,help_text='Enter a password that you can remember')
-    password_again=forms.CharField(max_length=30, widget=forms.PasswordInput,help_text='Enter the same password that you entered above')
+    password=forms.CharField(min_length=6, max_length=30, widget=forms.PasswordInput,required=False,help_text='Enter a password that you can remember')
+    password_again=forms.CharField(max_length=30, widget=forms.PasswordInput,required=False,help_text='Enter the same password that you entered above')
     
-    branch=forms.CharField(max_length=50,widget=forms.TextInput(attrs={'id':'branch_input'}),help_text='Select your branch from the list. If it does not show up, please select the "Other" option.')
+    #branch=forms.CharField(max_length=50,widget=forms.TextInput(attrs={'id':'branch_input'}),help_text='Select your branch from the list. If it does not show up, please select the "Other" option.')
 
     class Meta:
         model = models.UserProfile
-        fields=('first_name','last_name','age','password','password_again','college_roll','mobile_number','branch')
+        fields=('first_name','last_name','password','password_again','college_roll','mobile_number')
         #except = ('is_coord','coord_event')        
     
     #Commented out for the saudi arabia issue
@@ -201,7 +207,7 @@ class EditUserForm(ModelForm):
             field_name1 = 'password'
             field_name2 = 'password_again'
             
-        if self.data[field_name1] != '' and self.data[field_name1] != self.data[field_name2]:
+        if self.data[field_name1] != self.data[field_name2]:
             raise forms.ValidationError ("The entered passwords do not match.")
         else:
             return self.data[field_name1]

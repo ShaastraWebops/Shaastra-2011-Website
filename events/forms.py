@@ -55,7 +55,7 @@ class ExtFileField(forms.FileField):
         data = super(ExtFileField, self).clean(*args, **kwargs)
         if data is None:
             if self.required:
-                raise ValidationError("This file is required")
+                raise forms.ValidationError("This file is required")
             else:
                 return
         else:        
@@ -98,10 +98,20 @@ class EventForm(ModelForm):
     #start_time = forms.DateTimeField(input_formats=('%d-%m-%y %H:%M',), widget=forms.DateTimeInput(format=('%d-%m-%y %H:%M')), required=False, help_text="Registration start time: DD-MM-YY hh:mm",)
     #end_time = forms.DateTimeField(input_formats=('%d-%m-%y %H:%M',), widget=forms.DateTimeInput(format=('%d-%m-%y %H:%M')), required=False, help_text="Registration end time: DD-MM-YY hh:mm",)
     
+    def clean(self):
+        data = self.cleaned_data
+        if 'team_event' in data and 'min_members' in data and 'max_members' in data:
+            if data['team_event'] == True:
+                if data['min_members'] is None or data['max_members'] is None:
+                    raise forms.ValidationError('Min and max members must be entered for a team event')
+            if data['min_members'] > data['max_members']:
+                raise forms.ValidationError('The minimum limit must be less than or equal to the maximum limit')
+        return data
+    
     class Meta:
         model = Event
-        #fields = ('name', 'registrable', 'questions', 'start_time', 'end_time', 'accommodation', 'logo', 'sponslogo')
-        fields = ('display_name', 'menu_image', 'sponslogo','video','registrable','questions')
+        fields = ('display_name', 'menu_image', 'sponslogo', 'video', 'registrable', 'questions', 'team_event', 'min_members', 'max_members', 'accommodation')
+
 class EventUpdateForm(forms.Form):
     UpdateContent = forms.CharField(widget=forms.Textarea(), help_text = 'The content of the update, 140 characters or less')
 
