@@ -34,7 +34,7 @@
 {% if saved %}
     <p><font size="3" color="green"> Your answers have been saved!</font></p>
 {% endif %}
-
+<br><br>
 {% if event.team_event %}
     <br />
     <p>This is a team event</p>
@@ -47,7 +47,7 @@
         {% endif %}
     {% endif %}
 {% endif %}
-
+<br><br>
 <form action ='' method='POST' enctype="multipart/form-data" name="form1">
 {% csrf_token %}
 
@@ -115,7 +115,7 @@
         {% endif %}
     </div>         
 {%endfor%}      
-
+<br><br>
 
 {% if event.accommodation %}
 <!-- Want accommodation button -->
@@ -124,7 +124,7 @@
     <br />
     <span class="helptext">Checking this option DOES NOT GUARANTEE accommodation inside IIT Madras during Shaastra 2011. The Hospitality Department will get in touch with you or your team if your accommodation is confirmed</span>
 {% endif %}
-
+<br><br>
 {% if user.is_authenticated %}
 <!-- <input type="button" value="Submit Answers" onclick="ValidateSubmission();"> -->
 <!-- The views have been made such that, for an individual event, "part_of_a_team" is always true, and "team_size_inappropriate" is always false :P -->
