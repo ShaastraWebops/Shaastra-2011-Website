@@ -8,10 +8,16 @@
         }
         #add_member_form{
             position:absolute;
-            width:33%;
+            width:30%;
             left:33%;
-            top:-10px;
+            top:0px;
         }
+		#change_leader_form{
+            position:absolute;
+            width:30%;
+            left:63%;
+            top:0px;
+		}
         #leader{
             position:absolute;
             width:33%;
@@ -69,7 +75,7 @@
     <br /><br><br>
     
     {% if team.leader == user %}
-        <div id="add_member_form">
+        <div id="add_member_form"><br>
             <p>Add a member:</a>
             <form name="add_member" action="{{ SITE_URL }}myshaastra/teams/{{ team.id }}/add_member/" method="POST">
                 {% csrf_token %}
