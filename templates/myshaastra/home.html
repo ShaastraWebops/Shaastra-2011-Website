@@ -7,6 +7,31 @@
     {%include "gradient.html"%}
 {%endblock%}
 
+{% block media_location %}
+
+    <style>
+	    #registered_events{
+		    width:33%;
+	    }
+	    #member_teams{
+		    position:absolute;
+		    width:33%;
+		    left:33%;
+		    top:-10px;
+	    }
+	    #leader_teams{
+		    position:absolute;
+		    width:33%;
+		    left:66%;
+		    top:-10px;
+	    }
+	    ul{list-style:none;}
+	    li a{text-decoration:none; color:black}
+	    h3 {text-decoration:none; font-family: Arial, Helvetica, sans-serif;}
+    </style>
+
+{% endblock %}
+
 {% block body %}
     <div id="registered_events">
         <p>Events you have registered for:</p>
