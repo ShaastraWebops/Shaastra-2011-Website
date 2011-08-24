@@ -55,7 +55,7 @@
 <div id="Ques{{ques.Q_Number}}">
     <br/>{{ques.Q_Number|safe}}. {{ques.title|safe}}<br/>
     </div>
-    
+    <br>
     <input type="hidden" value="{{ques.id}}" name= "question{{ques.Q_Number}}" />
     <div id="Question{{ques.Q_Number}}">
         {% if ques.question_type == "NORMAL" %}
@@ -125,7 +125,7 @@
     <span class="helptext">Checking this option DOES NOT GUARANTEE accommodation inside IIT Madras during Shaastra 2011. The Hospitality Department will get in touch with you or your team if your accommodation is confirmed</span>
 {% endif %}
 <br><br>
-{% if user.is_authenticated %}
+{% if user.is_authenticated %}<br>
 <!-- <input type="button" value="Submit Answers" onclick="ValidateSubmission();"> -->
 <!-- The views have been made such that, for an individual event, "part_of_a_team" is always true, and "team_size_inappropriate" is always false :P -->
     {% if not part_of_a_team %}
