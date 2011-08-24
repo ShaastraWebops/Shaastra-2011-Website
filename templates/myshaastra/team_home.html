@@ -1,5 +1,30 @@
 {% extends "myshaastra/home.html" %}
 
+{% block media_location %}
+
+    <style>
+        #list_of_members{
+            width:33%;
+        }
+        #add_member_form{
+            position:absolute;
+            width:33%;
+            left:33%;
+            top:-10px;
+        }
+        #leader{
+            position:absolute;
+            width:33%;
+            left:66%;
+            top:-10px;
+        }
+        ul{list-style:none;}
+        li a{text-decoration:none; color:black}
+        h3 {text-decoration:none; font-family: Arial, Helvetica, sans-serif;}
+    </style>
+
+{% endblock %}
+
 {% block body %}
 
     <div id="list_of_members">
