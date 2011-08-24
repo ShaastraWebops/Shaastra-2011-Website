@@ -75,8 +75,8 @@
     <br /><br><br>
     
     {% if team.leader == user %}
-        <div id="add_member_form"><br>
-            <p>Add a member:</a>
+        <div id="add_member_form">
+            <p><h3>Add a member:</h3></a>
             <form name="add_member" action="{{ SITE_URL }}myshaastra/teams/{{ team.id }}/add_member/" method="POST">
                 {% csrf_token %}
                 {{ add_member_form.member.errors }}
@@ -108,8 +108,8 @@
     {% endif %}
 
     {% if team.leader == user %}
-        <h3>Change the team leader</h3>
         <div id="change_leader_form">
+        <h3>Change the team leader</h3>
             <form action="{{ SITE_URL }}myshaastra/teams/{{ team.id }}/change_leader/" method="POST">
                 {% csrf_token %}
                 {{ change_leader_form.new_leader.errors }}
