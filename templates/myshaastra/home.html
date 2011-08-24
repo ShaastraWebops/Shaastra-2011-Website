@@ -33,7 +33,7 @@
 {% endblock %}
 
 {% block body %}
-    <div id="registered_events">
+    <div id="registered_events"><br>
         <p>Events you have registered for:</p>
         <ul>
             {% for event in events_list %}
@@ -45,7 +45,7 @@
     </div><br><br>
     
     {% if teams %}
-        <div id="member_teams">
+        <div id="member_teams"><br>
             <p>You are a member (and not leader) of the following teams: (Click to see team details)</p>
             <ul>
                 {% for team in member_teams %}
@@ -61,7 +61,7 @@
         </div>
 		<br><br>
 		
-        <div id="leader_teams">
+        <div id="leader_teams"><br>
             <p>You are the leader of the following teams: (Click to see and change team details)</p>
             <ul>
                 {% for team in leader_teams %}
