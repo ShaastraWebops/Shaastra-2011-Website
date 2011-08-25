@@ -6,7 +6,7 @@
 <div id="user_list">
 	<script type="text/javascript"> $("#page1").css({'overflow':'scroll'}); </script>
 	
-    <h3>List of registered users</h3>
+    <h3>List of registered users</h3><br>
     <table id="user_details" border="1">
         <tr>
             <td style="font-family:Tahoma; padding:5px; font-size:18px; border-radius:0px; color:#000;" >Username</td>
@@ -35,6 +35,13 @@
             </tr>
         {% endfor %}
     </table>
+	<br>
+		<div class="button2">
+			<a href="#">
+				<input type="submit" value="Save Changes" />
+			</a>
+			<span></span>
+		</div><br>
 </div>
 </div>
 {%endblock%}
