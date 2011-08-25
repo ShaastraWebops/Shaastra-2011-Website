@@ -9,13 +9,16 @@
     <h3>List of registered users</h3>
     <table id="user_details" border="1">
         <tr>
-            <td>Username</td>
+            <td style="font-family:Tahoma; padding:3px; font-size:14px;" >Username</td>
 <!--             <td>First Name</td> -->
 <!--             <td>Last Name</td> -->
-            <td>College</td>
+            <td style="font-family:Tahoma; padding:3px; font-size:14px;">College</td>
             <td>Mobile number</td>
 <!--             <td>Email-id</td> -->
-            <td>Shaastra ID</td>
+            <td style="font-family:Tahoma; padding:3px; font-size:14px;">Shaastra ID</td>
+			<td style="font-family:Tahoma; padding:3px; font-size:14px;">Select for Next-Round</td>
+			<td style="font-family:Tahoma; padding:3px; font-size:14px;">Rank</td>
+			<td style="font-family:Tahoma; padding:3px; font-size:14px;">Forward for Accommodation</td>
         </tr>
         {% for u in users_list %}
             <tr>
@@ -26,6 +29,9 @@
                 <td>{{ u.mobile_number }}</td>
 <!--                 <td>{{ u.email }}</td> -->
                 <td>{{ u.shaastra_id }}</td>
+				<td> <input type="checkbox" name="" value="" /> </td>
+				<td> <input type="text" size=10 /> </td>
+				<td> <input type="checkbox" name="" value="" /> </td>
             </tr>
         {% endfor %}
     </table>
