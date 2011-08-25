@@ -139,7 +139,7 @@
     {% if not part_of_a_team %}
         <p>Please <a href="{{ SITE_URL }}myshaastra/teams/create/{{ event.id }}/">create a team</a> in order to save answers</p>
     {% else %} {% if team_size_inappropriate %}
-        <p>Your team size is inappropriate. Please add or drop members in order to conform to the event's specifications. Only then can you submit answers</p>
+        <p>Your team size is inappropriate. Please <a href="{{ SITE_URL }}myshaastra/teams/{{ team_id }}/">add or drop members</a> in order to conform to the event's specifications. Only then can you submit answers</p>
     {% else %}
         <div class="button2">
             <a href="#">

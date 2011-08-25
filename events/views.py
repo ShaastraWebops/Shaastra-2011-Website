@@ -267,8 +267,10 @@ def show_quick_tab(request,event_name=None):
         if( event.team_event and request.user.is_authenticated() ):
             part_of_a_team = False
             team_size_inappropriate = False
+            team_id = 0
             try:
                 team = Team.objects.get(members__pk = request.user.id, event = event)
+                team_id = team.id
                 part_of_a_team = True
                 if team.members.all().count() < event.min_members or team.members.all().count() > event.max_members:
                     team_size_inappropriate = True

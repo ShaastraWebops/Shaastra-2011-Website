@@ -120,7 +120,7 @@ def create_team(request, event_id = None):
                 team.leader.get_profile().registered.add(team.event)
             team.save()
             team.members.add(user)
-            return HttpResponseRedirect('%smyshaastra/' % SITE_URL)
+            return HttpResponseRedirect('%smyshaastra/teams/%s/' % (SITE_URL, team.id))
     return render_to_response('myshaastra/create_team.html', locals(), context_instance = global_context(request))
 
 '''
@@ -156,7 +156,7 @@ def add_member(request, team_id = None):
                 except Event.DoesNotExist:
                     member.get_profile().registered.add(team.event)
                 team.members.add(member)
-                return HttpResponseRedirect('%smyshaastra/' % SITE_URL)           # this probably needs to be changed to the submissions form page
+                return HttpResponseRedirect('%smyshaastra/teams/%s/' % (SITE_URL, team.id))
         return render_to_response('myshaastra/team_home.html', locals(), context_instance = global_context(request))
     raise Http404
 
@@ -175,7 +175,7 @@ def change_team_leader(request, team_id = None):
                 new_leader = team.members.get(username = change_leader_form.cleaned_data['new_leader'])
                 team.leader = new_leader
                 team.save()
-                return HttpResponseRedirect('%smyshaastra/' % SITE_URL)           # this probably needs to be changed - i dunno to what :P
+                return HttpResponseRedirect('%smyshaastra/teams/%s/' % (SITE_URL, team.id))
         return render_to_response('myshaastra/team_home.html', locals(), context_instance = global_context(request))
     raise Http404
 
@@ -206,7 +206,7 @@ def remove_member(request, team_id = None):
                     return HttpResponseRedirect('myshaastra/you_arent_leader.html', locals(), context_instance = global_context(request))
                 new_leader = team.members.get(username = change_leader_form.cleaned_data['new_leader'])           
                 team.members.remove(new_leader)                                                # yes i know, it looks bad. but what the hell. i'm lazy.
-                return HttpResponseRedirect('%smyshaastra/' % SITE_URL)           # this probably needs to be changed - i dunno to what :P
+                return HttpResponseRedirect('%smyshaastra/teams/%s/' % (SITE_URL, team.id))
         return render_to_response('myshaastra/team_home.html', locals(), context_instance = global_context(request))
     raise Http404
 
