@@ -258,7 +258,7 @@ def edit_profile(request):
             userprofile.save()
             return HttpResponseRedirect ("%slogin/"%settings.SITE_URL)
     else:
-        form=forms.EditUserForm(initial={'college_roll':userprofile.college_roll,'mobile_number':userprofile.mobile_number})
+        form=forms.EditUserForm(initial={'first_name':user.first_name, 'last_name':user.last_name, 'college_roll':userprofile.college_roll,'mobile_number':userprofile.mobile_number})
     return render_to_response('users/profile_update.html', locals(), context_instance= global_context(request))
 
 def feedback(request):
