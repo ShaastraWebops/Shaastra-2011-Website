@@ -1,0 +1,26 @@
+{% extends "index_techslam.html" %}
+{%block media_location%}
+{%endblock%}
+{% block body %}
+
+<div id = "container_compare" style = "margin : 0 auto 0 auto;min-width:1200px;width:100%;height:400px">
+<div id = "photosbox" style = "margin : 0 auto 0 auto;text-align:center">
+<form enctype="multipart/form-data" method="post" action="{{SITE_URL}}techmash/mashphotos/">
+<input type="hidden" name="selectedid" value={{photo1.photoid}} id="selectedid" />
+<input type="hidden" name="photoid1" value={{photo1.photoid1}} id="photoid1" />
+<input type="hidden" name="photoid2" value={{photo2.photoid2}} id="photoid2" />
+<input type="image" src="http://www.shaastra.org/2011/media/techmash/images/{{photo1.title}}" value="Select" id="Select"/>
+</form>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<form enctype="multipart/form-data" method="post" action="{{SITE_URL}}techmash/mashphotos/">
+<input type="hidden" name="selectedid" value={{photo1.photoid}} id="selectedid" />
+<input type="hidden" name="photoid1" value={{photo1.photoid1}} id="photoid1" />
+<input type="hidden" name="photoid2" value={{photo2.photoid2}} id="photoid2" />
+<input type="image" src="http://www.shaastra.org/2011/media/techmash/images/{{photo2.title}}" value="Select" id="Select"/>
+</form>
+
+</div>
+</div>
+{%endbloc%}
+
