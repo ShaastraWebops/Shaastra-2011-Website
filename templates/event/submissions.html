@@ -35,7 +35,7 @@
     <p><font size="3" color="green"> Your answers have been saved!</font></p>
 {% endif %}
 <br><br>
-{% if not user.authenticated %}
+{% if not user.is_authenticated %}
     <p>Please login to submit answers</p>
 {% endif %}
 {% if event.team_event %}
