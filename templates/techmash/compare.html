@@ -2,11 +2,45 @@
 {%block media_location%}
 {%endblock%}
 {% block body %}
+<script>
+$("#photo1").ready(
+function()
+{
+var phot = $("#photo1>input[type=image]");
+if(phot.height() > phot.width())
+{
+phot.css("{height:400px;width:auto;}");
+}
+else
+{
+phot.css("{height:auto;width:400px;}");
+}
+}
 
+
+
+
+);
+$("#photo2").ready(
+function()
+{
+var phot = $("#photo2>input[type=image]");
+if(phot.height() > phot.width())
+{
+phot.css("{height:400px;width:auto;}");
+}
+else
+{
+phot.css("{height:auto;width:400px;}");
+}
+}
+
+);
+</script>
 <div id = "container_compare" style = "margin : 0 auto 0 auto;min-width:1200px;width:100%;height:400px">
 <div id = "photosbox" style = "margin : 0 auto 0 auto;text-align:center">
 <div id  = "photocont" style = "margin : 0 auto 0 auto;text-align:center;width:900px;">
-<div id = photo1 style = "float:left;width:400px;height:400px;border:1px solid #CCC;">
+<div id = photo1 style = "float:left;width:400px;height:400px;">
 <form enctype="multipart/form-data" method="post" action="{{SITE_URL}}techmash/mashphotos/">
 <input type="hidden" name="selectedid" value={{photo1.photoid}} id="selectedid" />
 <input type="hidden" name="photoid1" value={{photo1.photoid1}} id="photoid1" />
@@ -15,7 +49,7 @@
 </form>
 </div>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<div id = photo1 style = "float:right;width:400px;height:400px;border:1px solid #CCC;">
+<div id = photo1 style = "float:right;width:400px;height:400px;">
 <form enctype="multipart/form-data" method="post" action="{{SITE_URL}}techmash/mashphotos/">
 <input type="hidden" name="selectedid" value={{photo1.photoid}} id="selectedid" />
 <input type="hidden" name="photoid1" value={{photo1.photoid1}} id="photoid1" />
