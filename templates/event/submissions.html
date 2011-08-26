@@ -44,6 +44,8 @@
         {% if not part_of_a_team %}
             <br />
             <p>Please <a href="{{ SITE_URL }}myshaastra/teams/create/{{ event.id }}/">create a team</a> in order to save answers</p>
+        {% else %}
+            <p><a href="{{ SITE_URL }}myshaastra/teams/{{ team_id }}/">Edit team structure</a></p>
         {% endif %}
     {% endif %}
 {% endif %}
@@ -138,19 +140,18 @@
 <!-- The views have been made such that, for an individual event, "part_of_a_team" is always true, and "team_size_inappropriate" is always false :P -->
     {% if not part_of_a_team %}
         <p>Please <a href="{{ SITE_URL }}myshaastra/teams/create/{{ event.id }}/">create a team</a> in order to save answers</p>
-    {% else %} {% if team_size_inappropriate %}
-        <p>Your team size is inappropriate. Please add or drop members in order to conform to the event's specifications. Only then can you submit answers</p>
     {% else %}
-        {% if event.team_event %}
-            <p><a href="{{ SITE_URL }}myshaastra/teams/{{ team_id }}/">Edit team structure</a></p>
+        {% if team_size_inappropriate %}
+            <p>Your team size is inappropriate. Please add or drop members in order to conform to the event's specifications. Only then can you submit answers</p>
+        {% else %}
+            <div class="button2">
+                <a href="#">
+                    <input type="submit" value="Submit Answers">
+                </a>
+                <span></span>
+            </div>
         {% endif %}
-        <div class="button2">
-            <a href="#">
-                <input type="submit" value="Submit Answers">
-            </a>
-            <span></span>
-        </div>
-    {% endif %} {% endif %}
+    {% endif %}
 {% endif %}
 
 </form>
