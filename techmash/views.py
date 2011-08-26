@@ -57,8 +57,9 @@ def upload(request):
             for c in i.chunks():
                 str += c
             imagefile  = StringIO.StringIO(str)
-            photo,thumbphoto = Image.open(imagefile)
+            photo = Image.open(imagefile)
             photo.thumbnail((500, 500),Image.ANTIALIAS)
+            thumbphoto = Image.open(thumbimagefile)
             thumbphoto.thumbnail((184, 164),Image.ANTIALIAS)
             hashcode = hashlib.md5(imagefile.getvalue()).hexdigest()
             filename = hashcode +'.jpg'
