@@ -53,7 +53,7 @@ def upload(request):
                 str += c
             imagefile  = StringIO.StringIO(str)
             photo = Image.open(imagefile)
-            photo.thumbnail((500, 500),Image.ANTIALIAS)
+            photo.thumbnail((400, 400),Image.ANTIALIAS)
             hashcode = hashlib.md5(imagefile.getvalue()).hexdigest()
             filename = hashcode +'.jpg'
             destdir= os.path.join(settings.TECHMASH_ROOT,'images/')
