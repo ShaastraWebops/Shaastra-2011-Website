@@ -52,7 +52,9 @@
                             </script>
                             <a href="javascript:submit_form_{{ member.id }}">   -->
                         <li>
-                            {{ member.username }}
+                            <div id="member_username_div">
+                                {{ member.username }}
+                            </div>
                         </li>
 <!--                            </a>   -->
                         <li>
@@ -70,7 +72,9 @@
                         </li>
                     {% else %}
                         <li>
-                            {{ member.username }}
+                            <div id="member_username_div">
+                                {{ member.username }}
+                            </div>
                         </li>
                     {% endif %}
                 {% endif %}
