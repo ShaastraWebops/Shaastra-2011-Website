@@ -75,6 +75,13 @@ def upload(request):
             #thumbfout = open(thumbphotopath, 'wb+')
             #thumbimagefile = open(thumbphotopath, 'w')
             #thumbphoto.save(imagefile,'JPEG')
+            thumbphoto = Image.open(imagefile)
+            thumbphoto.thumbnail((184, 164),Image.ANTIALIAS)
+            thumbfilename = hashcode + '_thumbnail' + '.jpg'
+            thumbphotopath = os.path.join(destdir, os.path.basename(thumbfilename))
+            thumbfout = open(thumbphotopath, 'wb+')
+            thumbimagefile = open(thumbphotopath, 'w')
+            thumbphoto.save(imagefile,'JPEG')
             # Create the object
             if photopath.startswith(os.path.sep):
                 photopath = photopath[len(settings.TECHMASH_ROOT):]
