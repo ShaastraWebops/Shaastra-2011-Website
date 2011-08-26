@@ -32,7 +32,7 @@ TechSlam!
 </div>
 <div class="button2" style = "position:relative; top : -150px">
 <form action = "{{SITE_URL}}techmash/mashphotos/" method = GET>
-<input type="submit" value="Mash photos" />
+<input type="submit" value="Mash photos">
 </form>
 </div>
 			</div>
@@ -41,7 +41,11 @@ TechSlam!
 			<!-- This MUST be auto rendered -->
 			{% for image in image_list %}
 			<div class = "imageContainer">
-			<div class = "imageHolder"><a href = "{{MEDIA_URL}}techmash/images/{{image.title}}" rel = "lightbox[profile]" title = "Caption Goes HERE!!!"><img src = "{{MEDIA_URL}}techmash/images/{{image.title}}" style="height:186px;width:auto;"></a></div>
+			<div class = "imageHolder">
+			<a href = "{{MEDIA_URL}}techmash/images/{{image.title}}" rel = "lightbox[profile]" title = "Caption Goes HERE!!!">
+			<img src = "{{MEDIA_URL}}techmash/images/{{image.title}}" style="height:186px;width:auto;">
+			</a>
+			</div>
 			</div>
             {% endfor %}
 			</div>
