@@ -59,11 +59,11 @@ def upload(request):
             imagefile  = StringIO.StringIO(str)
             photo = Image.open(imagefile)
             photo.thumbnail((500, 500),Image.ANTIALIAS)
-            thumbphoto = Image.open(imagefile)
-            thumbphoto.thumbnail((184, 164),Image.ANTIALIAS)
+            #thumbphoto = Image.open(imagefile)
+            #thumbphoto.thumbnail((184, 164),Image.ANTIALIAS)
             hashcode = hashlib.md5(imagefile.getvalue()).hexdigest()
             filename = hashcode +'.jpg'
-            thumbfilename = hashcode + '_thumbnail' + '.jpg'
+            #thumbfilename = hashcode + '_thumbnail' + '.jpg'
             destdir= os.path.join(settings.TECHMASH_ROOT,'images/')
             if not os.path.isdir(destdir):
                 os.makedirs(destdir, 0775)
@@ -71,10 +71,10 @@ def upload(request):
             fout = open(photopath, 'wb+')
             imagefile = open(photopath, 'w')
             photo.save(imagefile,'JPEG')
-            thumbphotopath = os.path.join(destdir, os.path.basename(thumbfilename))
-            thumbfout = open(thumbphotopath, 'wb+')
-            thumbimagefile = open(thumbphotopath, 'w')
-            thumbphoto.save(imagefile,'JPEG')
+            #thumbphotopath = os.path.join(destdir, os.path.basename(thumbfilename))
+            #thumbfout = open(thumbphotopath, 'wb+')
+            #thumbimagefile = open(thumbphotopath, 'w')
+            #thumbphoto.save(imagefile,'JPEG')
             # Create the object
             if photopath.startswith(os.path.sep):
                 photopath = photopath[len(settings.TECHMASH_ROOT):]
