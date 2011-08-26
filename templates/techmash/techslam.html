@@ -6,6 +6,10 @@ TechSlam!
 
 <script src = "http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 <script src = "http://www.shaastra.org/2011/media/main/techslam/Scripts/slamscript.js"></script>
+<script type="text/javascript" src="{{MEDIA_URL}}techmash/lbox/js/prototype.js"></script>
+<script type="text/javascript" src="{{MEDIA_URL}}techmash/lbox/scriptaculous.js?load=effects,builder"></script>
+<script type="text/javascript" src="{{MEDIA_URL}}techmash/lbox/lightbox.js"></script>
+<link rel="stylesheet" href="{{MEDIA_URL}}techmash/lbox/css/lightbox.css" type="text/css" media="screen" />
 <link rel="stylesheet" type = "text/css" href="http://www.shaastra.org/2011/media/main/techslam/Styles/slamStyle.css">
 {%endblock%}
 {% block body %}
@@ -37,7 +41,7 @@ TechSlam!
 			<!-- This MUST be auto rendered -->
 			{% for image in image_list %}
 			<div class = "imageContainer">
-			<div class = "imageHolder"><img src = "{{MEDIA_URL}}techmash/images/{{image.title}}" style="height:186px;width:auto;"></div>
+			<div class = "imageHolder"><a href = "{{MEDIA_URL}}techmash/images/{{image.title}}" rel = "lightbox[profile]" title = "Caption Goes HERE!!!"><img src = "{{MEDIA_URL}}techmash/images/{{image.title}}" style="height:186px;width:auto;"></a></div>
 			</div>
             {% endfor %}
 			</div>
@@ -45,7 +49,7 @@ TechSlam!
 			</div>
 		</div>
 	</div>
-	<div id = "slamClick">
+<!--	<div id = "slamClick">
       <div id = "slamcoveranother">
 		<div id = "slamclickCover">
 			<div id = "slamleftcover">
@@ -71,9 +75,9 @@ TechSlam!
 				<div id = "slamrightclick">
 				</div>
 	<div id = xbutton>X</div>
-    <!--</div>-->	
+    <!--</div>
 
-</div>
+</div>-->
 
 </div>
 {%endblock%}
