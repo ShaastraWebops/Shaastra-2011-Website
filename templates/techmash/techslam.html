@@ -17,13 +17,13 @@ function adjust(elem)
 {
 var es = elem.style;
 var phot = $(".profimg");
-if(es.height > es.width)
+if(es.height > es.width && es.height > 168)
 {
 //phot.css("{height:168px;width:auto;}");
 es.height = "168px";
 es.width = "auto";
 }
-else
+if(es.height < es.width && es.width > 186)
 {
 //phot.css("{height:auto;width:186px;}");
 //var newhei = phot.height();
