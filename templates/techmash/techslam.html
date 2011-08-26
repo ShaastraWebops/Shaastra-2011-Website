@@ -12,6 +12,32 @@ TechSlam!
 <link rel="stylesheet" type = "text/css" href="http://www.shaastra.org/2011/media/main/techslam/Styles/slamStyle.css">
 {%endblock%}
 {% block body %}
+<script>
+$(".profimg").ready(
+function()
+{
+var phot = $(".profimg");
+if(phot.height() > phot.width())
+{
+phot.css("{height:168px;width:auto;}");
+}
+else
+{
+phot.css("{height:auto;width:186px;}");
+var newhei = phot.height();
+var bottomtobring = (400-newhi)/2;
+phot.css("{position:relative;top:"+bottomtobring+"px}");
+}
+}
+
+
+
+
+);
+
+
+);
+</script>
 <div id = "slamContainer" onload = "">
 	<div id = "slamCover">
 		<div id = "slamOver">
