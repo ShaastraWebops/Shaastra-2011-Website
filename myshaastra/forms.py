@@ -83,7 +83,9 @@ class AddMemberForm(forms.Form):
             team = Team.objects.get(pk = data['team_id'])
             # check if this user is already a part of another team (any team) for the same event
             if Team.objects.filter(event = team.event).filter(members__username = data['member']).count() > 0:
-                raise forms.ValidationError('This user is already a part of a team for this event!')
+                msg = 'This user is already a part of a team for this event!'
+                self._errors['member'] = self.error_class([ msg, ])
+                del data['member']
         return data
 
 class ChangeLeaderForm(forms.Form):
