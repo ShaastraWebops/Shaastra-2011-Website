@@ -139,7 +139,7 @@ def join_team(request):
 
 @needs_authentication
 def add_member(request, team_id = None):
-    team = get_authentic_team(request, team_id)    
+    team = get_authentic_team(request, team_id)
     if team is not None:
         add_member_form = AddMemberForm()
         change_leader_form = ChangeLeaderForm()
@@ -157,6 +157,16 @@ def add_member(request, team_id = None):
                     member.get_profile().registered.add(team.event)
                 team.members.add(member)
                 return HttpResponseRedirect('%smyshaastra/teams/%s/' % (SITE_URL, team.id))
+            else:
+                try:
+                    if add_member_form.errors['member'] == 'This user is already a part of a team for this event!':
+                        return render_to_response(
+                            'myshaastra/already_part_of_a_team.html', 
+                            { 'user' : request.POST['member'], }, 
+                            context_instance = global_context(request)
+                        )
+                except KeyError:
+                    pass
         return render_to_response('myshaastra/team_home.html', locals(), context_instance = global_context(request))
     raise Http404
 
