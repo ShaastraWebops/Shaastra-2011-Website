@@ -160,13 +160,13 @@ def add_member(request, team_id = None):
             else:
                 try:
                     if add_member_form.member.errors != []:
-                    return render_to_response(
-                        'myshaastra/already_part_of_a_team.html', 
-                        { 'user' : request.POST['member'], }, 
-                        context_instance = global_context(request)
-                    )
+                        return render_to_response(
+                            'myshaastra/already_part_of_a_team.html', 
+                            { 'user' : request.POST['member'], }, 
+                            context_instance = global_context(request)
+                        )
                 except AttributeError:
-                    pass
+                    raise
         return render_to_response('myshaastra/team_home.html', locals(), context_instance = global_context(request))
     raise Http404
 
