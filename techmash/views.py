@@ -36,6 +36,11 @@ def register(request):
 def profile(request):
     try:
         image_list = Photo.objects.filter(user = request.user).order_by('rating')
+        name_list=list()
+        for image in image_list:
+            a = image.title.rstrip('.jpg')
+            b = a + "_thumbnail" + ".jpg"
+            name_list.append(b)
     except:
         image_list =list()    
     return render_to_response("techmash/techslam.html", locals(),context_instance= global_context(request))

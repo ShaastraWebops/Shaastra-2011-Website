@@ -35,9 +35,9 @@ TechSlam!
 			<div id = "slamRight">
 			<div id = "ImageWrappers">
 			<!-- This MUST be auto rendered -->
-			{% for image in image_list %}
+			{% for image in name_list %}
 			<div class = "imageContainer">
-			<div class = "imageHolder"><img src = "{{MEDIA_URL}}techmash/images/{{image.title}}" style="height:186px;width:auto;"></div>
+			<div class = "imageHolder"><img src = "{{MEDIA_URL}}techmash/images/{{image}}" style="height:186px;width:auto;"></div>
 			</div>
             {% endfor %}
 			</div>
