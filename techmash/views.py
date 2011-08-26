@@ -116,13 +116,13 @@ def mashphotos(request):
             rphoto1.save()
             rphoto2.save()
             photo1,photo2=selectimages(request)
-            return render_to_response("techmash/select.html", locals(),context_instance= global_context(request))
+            return render_to_response("techmash/compare.html", locals(),context_instance= global_context(request))
         else:
             photo1,photo2=selectimages(request)
-            return render_to_response("techmash/select.html", locals(),context_instance= global_context(request))    
+            return render_to_response("techmash/compare.html", locals(),context_instance= global_context(request))    
     else:
         photo1,photo2=selectimages(request)
-        return render_to_response("techmash/select.html", locals(),context_instance= global_context(request))
+        return render_to_response("techmash/compare.html", locals(),context_instance= global_context(request))
 
 
 
