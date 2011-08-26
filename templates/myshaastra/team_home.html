@@ -37,10 +37,10 @@
     <div id="list_of_members">
         <h3>Members:</h3>
         {% if team.leader == user %}
-            <p>Click to remove a member</p>
+            <p>Click to remove a member (you can't remove yourself this way)</p>
         {% endif %}
-        <ul>
-            <li>You</li>
+        <table>
+            <tr><td>You</td></tr>
             {% for member in team.members.all %}
                 {% if member != user %}
                     {% if team.leader == user %}
@@ -51,35 +51,39 @@
                                 }
                             </script>
                             <a href="javascript:submit_form_{{ member.id }}">   -->
-                        <li>
-                            <div id="member_username_div">
-                                {{ member.username }}
-                            </div>
-                        </li>
+                        <tr>
+                            <td>
+                                <div id="member_username_div">
+                                    {{ member.username }}
+                                </div>
+                            </td>
 <!--                            </a>   -->
-                        <li>
-                            <form name="remove_{{ member.id }}" action="{{ SITE_URL }}myshaastra/teams/{{ team.id }}/remove_member/" method="POST">
-                                {% csrf_token %}
-                                <input type="hidden" name="new_leader" value="{{ member.username }}" />
-                                <input type="hidden" name="team_id" value="{{ team.id }}" />
-                                <div class="button2">
-                                    <a href="#">
-                                        <input type="submit" value="Remove" />
-                                    </a>
-                                    <span></span>
-                                 </div>
-                            </form>
-                        </li>
+                            <td>
+                                <form name="remove_{{ member.id }}" action="{{ SITE_URL }}myshaastra/teams/{{ team.id }}/remove_member/" method="POST">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="new_leader" value="{{ member.username }}" />
+                                    <input type="hidden" name="team_id" value="{{ team.id }}" />
+                                    <div class="button2">
+                                        <a href="#">
+                                            <input type="submit" value="Remove" />
+                                        </a>
+                                        <span></span>
+                                     </div>
+                                </form>
+                            </td>
+                        </tr>
                     {% else %}
-                        <li>
-                            <div id="member_username_div">
-                                {{ member.username }}
-                            </div>
-                        </li>
+                        <tr>
+                            <td>
+                                <div id="member_username_div">
+                                    {{ member.username }}
+                                </div>
+                            </td>
+                        </tr>
                     {% endif %}
                 {% endif %}
             {% endfor %}
-        </ul>
+        </table>
     </div>
     
     <br /><br /><br />
