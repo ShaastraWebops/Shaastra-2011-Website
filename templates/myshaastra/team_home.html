@@ -43,8 +43,7 @@
             <li>You</li>
             {% for member in team.members.all %}
                 {% if member != user %}
-                    <li>
-                        {% if team.leader == user %}
+                    {% if team.leader == user %}
 <!--                            <script type="text/javascript">
                                 function submit_form_{{ member.id }}()
                                 {
@@ -52,8 +51,13 @@
                                 }
                             </script>
                             <a href="javascript:submit_form_{{ member.id }}">   -->
+                        <li>
+                            <div id="member_username_div">
                                 {{ member.username }}
+                            </div>
+                        </li>
 <!--                            </a>   -->
+                        <li>
                             <form name="remove_{{ member.id }}" action="{{ SITE_URL }}myshaastra/teams/{{ team.id }}/remove_member/" method="POST">
                                 {% csrf_token %}
                                 <input type="hidden" name="new_leader" value="{{ member.username }}" />
@@ -65,10 +69,14 @@
                                     <span></span>
                                  </div>
                             </form>
-                        {% else %}
-                            {{ member.username }}
-                        {% endif %}
-                    </li>
+                        </li>
+                    {% else %}
+                        <li>
+                            <div id="member_username_div">
+                                {{ member.username }}
+                            </div>
+                        </li>
+                    {% endif %}
                 {% endif %}
             {% endfor %}
         </ul>
