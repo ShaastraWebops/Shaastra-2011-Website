@@ -211,6 +211,20 @@ def remove_member(request, team_id = None):
     raise Http404
 
 @needs_authentication
+def dissolve_team(request, team_id = None):
+    team = get_authentic_team(request, team_id)
+    if team is not None:
+        if team.members.all().count() > 1:
+            return render_to_response('myshaastra/remove_members_first.html', locals(), context_instance = global_context(request))
+        else:
+            if team.leader != request.user:
+                return render_to_response('myshaastra/you_arent_leader.html', locals(), context_instance = global_context(request))
+            team.members.clear()
+            team.delete()
+            return HttpResponseRedirect('%smyshaastra/' % SITE_URL)
+    raise Http404
+
+@needs_authentication
 def ambassador_form(request):
     user = request.user
     sa = ShaastraAmbassador(user = user)

@@ -74,7 +74,7 @@
         </ul>
     </div>
     
-    <br /><br><br>
+    <br /><br /><br />
     
     {% if team.leader == user %}
         <div id="add_member_form">
@@ -94,7 +94,7 @@
                     </div>
                 </p>
             </form>
-        </div><br><br>
+        </div><br /><br />
     {% else %}
         <script type="text/javascript">
             function submit_dropout_form()
@@ -106,7 +106,7 @@
             {% csrf_token %}
             <input type="hidden" name="team_id" value="{{ team.id }}" />
         </form>
-        <a href="javascript:submit_dropout_form()">Leave this team</a><br><br>
+        <a href="javascript:submit_dropout_form()">Leave this team</a><br /><br />
     {% endif %}
 
     {% if team.leader == user %}
@@ -125,7 +125,12 @@
                     <span></span>
                 </div>
             </form>
-        </div><br><br>
+        </div>
+        <br />
+        <div id="dissolve_team">
+            <button href="{{ SITE_URL }}myshaastra/teams/{{ team.id }}/dissolve/">Dissolve this team</button>
+        </div>
+        <br /><br />
     {% endif %}   
 
 {% endblock %}
