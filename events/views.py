@@ -40,6 +40,8 @@ def submissions_view_by_coords(request):
     userprof = request.user.get_profile()
     event = userprof.coord_event
     tdp=[]
+    mcq=[]
+    normal=[]
     name=[]
     if userprof.is_coord:
         eventSubmissions=BaseSubmission.objects.filter(event=event)
@@ -54,8 +56,12 @@ def submissions_view_by_coords(request):
             submissions=Answer.objects.filter(question=question.id)
             for submission in submissions:
                 if question.question_type == "FILE" :
-                    tdp=Answer_file.objects.filter(answer_ptr=submission.id)
-        
+                    tdp.extend(Answer_file.objects.filter(answer_ptr=submission.id))
+                if question.question_type == "MCQ" :
+                    mcq.extend(Answer_MCQ.objects.filter(answer_ptr=submission.id))
+                if question.question_type == "NORMAL" :
+                    normal.extend(Answer_text.objects.filter(answer_ptr=submission.id))
+                         
         return render_to_response('event/show_coord_submission.html', locals(), context_instance= global_context(request))
     else:
         raise Http404

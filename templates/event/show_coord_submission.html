@@ -1,7 +1,30 @@
 {% extends "index.html"%}
 {%block body%}
 <table>
+<tr><td>Uploaded files : </td></tr>
 {% for files in tdp%}
+    <tr>
+      <td>
+        <a href="{{files}}">{{files}}</a>
+      </td>
+    </tr>
+ {%endfor%}
+ </table>
+ 
+ <table>
+ <tr><td> MCQ ANSWERS : </td></tr>
+{% for files in mcq%}
+    <tr>
+      <td>
+        <a href="{{files}}">{{files}}</a>
+      </td>
+    </tr>
+ {%endfor%}
+ </table>
+ 
+ <table>
+ <tr><td>NORMAL TYPE QUESTIONS : </td></tr>
+{% for files in normal%}
     <tr>
       <td>
         <a href="{{files}}">{{files}}</a>
