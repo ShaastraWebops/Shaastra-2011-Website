@@ -1,0 +1,15 @@
+{%extends "index.html" %}
+
+{%block body%}
+<table>
+{% for answer in team_name%}
+<tr>
+   
+   <td>
+   {{answer|urlize}}
+   </td>
+   </tr>
+{%endfor%}
+</table>
+
+{%endblock%}
