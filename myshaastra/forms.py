@@ -73,6 +73,8 @@ class AddMemberForm(forms.Form):
         member = self.cleaned_data['member']
         try:
             user = User.objects.get(username = member)
+            if not user.is_active:
+                raise forms.ValidationError('This user is not active! Please ask him/her to activate his account first.')
         except User.DoesNotExist:
             raise forms.ValidationError('No such user!')
         return member
