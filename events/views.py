@@ -67,7 +67,7 @@ def submissions_view_by_coords(request):
         
         """
         
-        answers_file=Answer_file.objects.filter(submission__event=event,question__question_type="FILE")
+        answers=Answer_file.objects.filter(submission__event=event,question__question_type="FILE")
         for answer in answers :
             submission_id=answer.submission.id
             team_submission_object=TeamSubmission.objects.get(id=submission_id)
