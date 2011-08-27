@@ -42,15 +42,17 @@ def submissions_view_by_coords(request):
     tdp=[]
     mcq=[]
     normal=[]
-    name=[]
+    team_name=[]
     if userprof.is_coord:
-        eventSubmissions=BaseSubmission.objects.filter(event=event)
+        """eventSubmissions=BaseSubmission.objects.filter(event=event)
         questions=main_test.events.models.Question.objects.filter(event=event)
-        #is_team_event=main_test.events.models.Event.objects.get(id=event)
+        is_team_event=main_test.events.models.Event.objects.get(id=event.id)
         
-        #for eventSubmission in eventSubmissions:
-            #if is_team_event:
-                #participants=TeamSubmission.objects.filter(basesubmission_ptr_id=eventSubmission.id)
+        for eventSubmission in eventSubmissions:
+            if is_team_event:
+                participants=TeamSubmission.objects.filter(basesubmission_ptr=eventSubmission.id)
+                for participant in participants:
+                    team_name.extend(main_test.users.models.Team.objects.filter(id=participant.team.id))
                 
         for question in questions:
             submissions=Answer.objects.filter(question=question.id)
@@ -61,8 +63,21 @@ def submissions_view_by_coords(request):
                     mcq.extend(Answer_MCQ.objects.filter(answer_ptr=submission.id))
                 if question.question_type == "NORMAL" :
                     normal.extend(Answer_text.objects.filter(answer_ptr=submission.id))
+        
+        
+        """
+        
+        answers=Answer_file.objects.filter(submission__event=event,question__question_type="FILE")
+        for answer in answers :
+            submission_id=answer.submission.id
+            team_submission_object=TeamSubmission.objects.get(id=submission_id)
+            team_name.append(team_submission_object.team.name)
+            team_name.append(answer.File.url)
+            
+        
+        
                          
-        return render_to_response('event/show_coord_submission.html', locals(), context_instance= global_context(request))
+        return render_to_response('event/view_answers.html', locals(), context_instance= global_context(request))
     else:
         raise Http404
 
