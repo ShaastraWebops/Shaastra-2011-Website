@@ -1,15 +1,21 @@
 {%extends "index.html" %}
 
 {%block body%}
+
+<div id="file_list" style="overflow:auto;height:433px">
+
 <table>
 {% for answer in team_name%}
 <tr>
    
    <td>
    {{answer|urlize}}
+   
    </td>
+   
    </tr>
 {%endfor%}
 </table>
-
+</div>
+</div>
 {%endblock%}
