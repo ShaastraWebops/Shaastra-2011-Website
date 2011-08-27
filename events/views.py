@@ -34,6 +34,31 @@ def fileuploadhandler(f, eventname, tabid, file_title):
     tabfileobject = models.TabFiles ( Tab = tab_of_file,url = settings.MEDIA_URL + settings.EVENTS_PATH + camelize(eventname) + '/files/' + camelize(f.name), title =  file_title)
     tabfileobject.save()
 
+@needs_authentication
+@coords_only
+def submissions_view_by_coords(request):
+    userprof = request.user.get_profile()
+    event = userprof.coord_event
+    tdp=[]
+    name=[]
+    if userprof.is_coord:
+        eventSubmissions=BaseSubmission.objects.filter(event=event)
+        questions=main_test.events.models.Question.objects.filter(event=event)
+        #is_team_event=main_test.events.models.Event.objects.get(id=event)
+        
+        #for eventSubmission in eventSubmissions:
+            #if is_team_event:
+                #participants=TeamSubmission.objects.filter(basesubmission_ptr_id=eventSubmission.id)
+                
+        for question in questions:
+            submissions=Answer.objects.filter(question=question.id)
+            for submission in submissions:
+                if question.question_type == "FILE" :
+                    tdp=Answer_file.objects.filter(answer_ptr=submission.id)
+        
+        return render_to_response('event/show_coord_submission.html', locals(), context_instance= global_context(request))
+    else:
+        raise Http404
 
     
 
@@ -84,11 +109,11 @@ def userportal_submissions(request,questionList,event):
                             fileAns = Answer_file( question = questionObject , submission = submission , File = request.FILES['answer'+str(questionList[i].Q_Number)])
                             fileAns.save()                
                 else:
-                    if(  'answer'+str(questionList[i].Q_Number) in request.POST):
                         try:
-                            mcqAns = Answer_MCQ.objects.get( question = questionObject , submission = submission )
-                            mcqAns.choice = models.MCQ_option.objects.get( id = int(request.POST['answer'+str(questionList[i].Q_Number)]))
-                            mcqAns.save()
+                            if(  'answer'+str(questionList[i].Q_Number) in request.POST):
+                                mcqAns = Answer_MCQ.objects.get( question = questionObject , submission = submission )
+                                mcqAns.choice = models.MCQ_option.objects.get( id = int(request.POST['answer'+str(questionList[i].Q_Number)]))
+                                mcqAns.save()
                         except:
                             mcqAns = Answer_MCQ( question = questionObject , submission = submission , choice = models.MCQ_option.objects.get( id = int(request.POST['answer'+str(questionList[i].Q_Number)]) ))
                             mcqAns.save()                    

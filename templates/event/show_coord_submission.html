@@ -1,0 +1,13 @@
+{% extends "index.html"%}
+{%block body%}
+<table>
+{% for files in tdp%}
+    <tr>
+      <td>
+        <a href="{{files}}">{{files}}</a>
+      </td>
+    </tr>
+ {%endfor%}
+ </table>
+ {%endblock%}       
+
