@@ -4,6 +4,12 @@
 <tr><td>Uploaded files : </td></tr>
 {% for files in tdp%}
     <tr>
+    <td>
+       {%for name in team_name%}
+       <tr><td>{{name}}</td></tr>
+       {%endfor%}
+    
+    </td>
       <td>
         <a href="{{files}}">{{files}}</a>
       </td>
