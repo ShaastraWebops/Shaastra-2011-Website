@@ -35,7 +35,7 @@ class Photo(models.Model):
         return self.title
     def __str__(self):
         return self.__unicode__().encode('utf8', 'replace')
-
+                
     def delete_thumbnails(self):
         """Remove thumbnail and display-sized images when deleting.
 

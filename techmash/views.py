@@ -22,16 +22,6 @@ from main_test.misc.util import *
 from math import fabs
 
 TECHMASH_URL = 'http://www.shaastra.org/2011/media/techmash/'
-def register(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            new_user = form.save()
-            return HttpResponseRedirect("%stechmash/accounts/login/" % settings.SITE_URL)
-    else:
-        form = UserCreationForm()
-        c={'form':form}
-    return render_to_response("registration/register.html",locals(),context_instance= global_context(request))
 @needs_authentication  
 def profile(request):
     try:
@@ -63,14 +53,6 @@ def upload(request):
             fout = open(photopath, 'wb+')
             imagefile = open(photopath, 'w')
             photo.save(imagefile,'JPEG')
-
-            #thumbphoto = Image.open(imagefile)
-            #thumbphoto.thumbnail((184, 164),Image.ANTIALIAS)
-            #thumbfilename = hashcode + '_thumbnail' + '.jpg'
-            #thumbphotopath = os.path.join(destdir, os.path.basename(thumbfilename))
-            #thumbfout = open(thumbphotopath, 'wb+')
-            #thumbimagefile = open(thumbphotopath, 'w')
-            #thumbphoto.save(imagefile,'JPEG')
             # Create the object
             if photopath.startswith(os.path.sep):
                 photopath = photopath[len(settings.TECHMASH_ROOT):]
@@ -115,37 +97,21 @@ def mashphotos(request):
             rphoto2.kvalue = kvaluegenerator(rphoto2.rating)                                
             rphoto1.save()
             rphoto2.save()
-            photo1,photo2=selectimages(request)
+            photo1,photo2=selectimages()
             return render_to_response("techmash/compare.html", locals(),context_instance= global_context(request))
         else:
-            photo1,photo2=selectimages(request)
+            photo1,photo2=selectimages()
             return render_to_response("techmash/compare.html", locals(),context_instance= global_context(request))    
     else:
-        photo1,photo2=selectimages(request)
+        photo1,photo2=selectimages()
         return render_to_response("techmash/compare.html", locals(),context_instance= global_context(request))
 
-
-
-def updategrp(self):
-    photo.objects.order_by(rating)
-    q = photo.objects.annotate(number_of_entries=Count('entry'))
-    a=q[0].number_of_entries
-    a1=a/10                     #Sorts in ascending order
-    j=0
-    k=0
-    m=0
-    aint=int(a1)+1    
-    while  j<a:
-       while m<aint:
-           photohere=photo(photo.id)
-           photohere.group=k
-           m=m+1 
-       k=k+1     
-       m=m-aint
-
-from random import randint, choice
-
-def selectimages(request):
+def deleteimage(request):
+    photo_to_delete = Photo.objects.get(id=request.POST['photo_id'])
+    photo_to_delete.delete()
+    return HttpResponseRedirect('%stechmash/profile'%settings.SITE_URL)
+    
+def selectimages():
     photo1=Photo.objects.order_by('?')[0]
     try:
         photo2=Photo.objects.filter(kvalue=photo1.kvalue).exclude(photoid=photo1.photoid).order_by('?')[0]
@@ -153,24 +119,3 @@ def selectimages(request):
         pass    
     return(photo1,photo2)
 
-def seephotos(request):   
-    photo_list=Photo.objects.all()
-    return render_to_response("techmash/mash.html", locals(),context_instance= global_context(request))
-    """
-def handle_uploaded_image(i):
-    str = ''
-    for c in i.chunks():
-        str += c
-    imagefile  = StringIO.StringIO(str)
-    photo = Image.open(imagefile)
-    photo.thumbnail((500, 500),Image.ANTIALIAS)
-    imagefile =StringIO.StringIO()
-    filename = hashlib.md5(imagefile.getvalue()).hexdigest()+'.jpg'
-    destdir= os.path.join(settings.TECHMASH_ROOT,'images/')
-    if not os.path.isdir(destdir):
-        os.makedirs(destdir, 0775)
-    photopath = os.path.join(destdir, os.path.basename(filename))
-    fout = open(photopath, 'wb+')
-    imagefile = open(photopath, 'w')
-    photo.save(imagefile,'JPEG')
-    """
