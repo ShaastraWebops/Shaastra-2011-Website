@@ -66,18 +66,23 @@ def submissions_view_by_coords(request):
         
         
         """
+        try:
+            answers=Answer_file.objects.filter(submission__event=event,question__question_type="FILE")
+            for answer in answers :
+                submission_id=answer.submission.id
+                team_submission_object=TeamSubmission.objects.get(id=submission_id)
+                team_name.append(team_submission_object.team.name)
+                team_name.append(answer.File.url)
+            return render_to_response('event/view_answers.html', locals(), context_instance= global_context(request))
         
-        answers=Answer_file.objects.filter(submission__event=event,question__question_type="FILE")
-        for answer in answers :
-            submission_id=answer.submission.id
-            team_submission_object=TeamSubmission.objects.get(id=submission_id)
-            team_name.append(team_submission_object.team.name)
-            team_name.append(answer.File.url)
-            
+        except:
+            pass    
         
+        
+        raise Http404
         
                          
-        return render_to_response('event/view_answers.html', locals(), context_instance= global_context(request))
+        
     else:
         raise Http404
 
