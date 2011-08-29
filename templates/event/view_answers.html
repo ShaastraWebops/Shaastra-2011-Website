@@ -5,7 +5,10 @@
 <div id="file_list" style="overflow:auto;height:433px">
 
 <table>
+{%if is_team_event%}
 {% for answer in team_name%}
+
+
 <tr>
    
    <td>
@@ -15,6 +18,22 @@
    
    </tr>
 {%endfor%}
+{%else%}
+{% for answer in person_name%}
+
+
+<tr>
+   
+   <td>
+   {{answer|urlize}}
+   
+   </td>
+   
+   </tr>
+{%endfor%}
+{%endif%}
+
+
 </table>
 </div>
 </div>

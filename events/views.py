@@ -43,6 +43,8 @@ def submissions_view_by_coords(request):
     mcq=[]
     normal=[]
     team_name=[]
+    team_file=[]
+    person_name=[]
     if userprof.is_coord:
         """eventSubmissions=BaseSubmission.objects.filter(event=event)
         questions=main_test.events.models.Question.objects.filter(event=event)
@@ -68,11 +70,22 @@ def submissions_view_by_coords(request):
         """
         try:
             answers=Answer_file.objects.filter(submission__event=event,question__question_type="FILE")
+            event_this=main_test.events.models.Event.objects.get(id=event.id)
+            is_team_event=event_this.team_event
+        
             for answer in answers :
                 submission_id=answer.submission.id
-                team_submission_object=TeamSubmission.objects.get(id=submission_id)
-                team_name.append(team_submission_object.team.name)
-                team_name.append(answer.File.url)
+                if is_team_event:
+                    team_submission_object=TeamSubmission.objects.get(id=submission_id)
+                    team_name.append(team_submission_object.team.name)
+                    team_name.append(answer.File.url)
+                else:
+                    individual_submission_object=IndividualSubmissions.objects.get(id=submission_id)
+                    person_name.append(individual_submission_object.participant.user)
+                    person_name.append(answer.File.url)
+                
+            
+                
             return render_to_response('event/view_answers.html', locals(), context_instance= global_context(request))
         
         except:
