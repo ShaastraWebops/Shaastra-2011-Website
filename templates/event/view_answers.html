@@ -6,15 +6,33 @@
 
 
 <table>
+
 {%if is_team_event%}
-{% for answer in team_name%}
+{% for answer in file_team%}
+
+<tr>   
+   <td>
+   {{answer.name}}
+   </td>
+   <td>
+   {{answer.answers|urlize}}
+   </td>
+   </tr>
+
+    
+{%endfor%}
+
+
+{% for text in normal_team%}
 
 
 <tr>
    
    <td>
-   {{answer|urlize}}
-   
+   {{text.name}}
+   </td>
+   <td>
+   {{text.answers}}
    </td>
    
    </tr>
@@ -26,36 +44,57 @@
 <tr>
    
    <td>
-   {{choice}}
-   
+   {{choice.name}}
+   </td>
+   <td>
+   {{choice.answers}}
    </td>
    
    </tr>
 {%endfor%}
 
 {%else%}
-{% for answer in person_name%}
+
+{% for answer in file_individual%}
 
 
 <tr>
    
    <td>
-   {{answer|urlize|slugify}}
+   {{answer.name}}
+   </td>
+   <td>
+   {{answer.answers|urlize}}
+   </td>
+   </tr>
+{%endfor%}
+
+
+{% for text in normal_individual%}
+
+
+<tr>
    
+   <td>
+   {{text.name}}
+   </td>
+   <td>
+   {{text.answers}}
    </td>
    
    </tr>
 {%endfor%}
-
 
 {% for choice in mcq_individual%}
 
 
 <tr>
    
+  <td>
+   {{choice.name}}
+   </td>
    <td>
-   {{choice}}
-   
+   {{choice.answers}}
    </td>
    
    </tr>
