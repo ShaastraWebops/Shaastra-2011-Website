@@ -3,7 +3,16 @@
 {%block body%}
 
 <div id="file_list" style="overflow:auto;height:433px">
-
+<!-- the buttons to view interesting answers-->
+<form action="{{SITE_URL}}events/dashboard/ViewAnswers/" method="GET">
+              <input type="hidden" value="3" name="selected"/>
+                     
+                       <div class="button">
+						  <a href="#">
+                         <input type="submit" value="show interesting answers " /><span></span>
+                         </a>
+                       </div>
+</form> 
 
 
 
@@ -24,9 +33,29 @@
             <td>
                <a href="{{answer.answers}}"> {{answer.answers}} </a>
             </td>
-        </tr><tr height="10px"></tr><tr></tr>
-
-    
+        </tr>
+        <tr>
+     <td>
+            <form action="{{SITE_URL}}events/dashboard/ViewAnswers/MarkInteresting" method="GET">
+              <input type="hidden" value="{{answer.id}}" name="submission_id"/>
+                     {%if not answer.interesting%}
+                       <div class="button">
+						  <a href="#">
+                         <input type="submit" value="mark as interesting " /><span></span>
+                         </a>
+                       </div>
+                     {%else%}
+                       <div class="button">
+						  <a href="#"><input type="submit" value="unmark as interesting"/><span></span></a>
+						</div>
+        
+                    {%endif%}</form> 
+      </td></tr>  
+        
+        
+        
+        <tr height="10px"></tr><tr></tr>
+        
         {%endfor%}
         </table>
     </div>
@@ -47,7 +76,32 @@
             <td>
                 {{text.answers}}
             </td>
-        </tr><tr height="10px"></tr><tr></tr>
+        </tr>
+        
+           <tr>
+     <td>
+            <form action="{{SITE_URL}}events/dashboard/ViewAnswers/MarkInteresting" method="GET">
+              <input type="hidden" value="{{answer.id}}" name="submission_id"/>
+                     {%if not answer.interesting%}
+                       <div class="button">
+						  <a href="#">
+                         <input type="submit" value="mark as interesting " /><span></span>
+                         </a>
+                       </div>
+                     {%else%}
+                       <div class="button">
+						  <a href="#"><input type="submit" value="unmark as interesting"/><span></span></a>
+						</div>
+        
+                    {%endif%}</form> 
+      </td></tr>  
+        
+        
+        
+        
+        
+        
+        <tr height="10px"></tr><tr></tr>
         {%endfor%}
         </table>
     </div>
@@ -68,7 +122,11 @@
             <td>
                 {{choice.answers}}
             </td>
-         </tr><tr height="10px"></tr><tr></tr>
+         </tr>
+         
+                  
+         
+         <tr height="10px"></tr><tr></tr>
         {%endfor%}
         </table>
     </div>
@@ -80,15 +138,31 @@
 
  <div id="file_individual">
  <table>
+ 
    {% for answer in file_individual%}
      <tr>
-       <td>
-            {{answer.name}}
-        </td>
-        <td>
-            <a href="{{answer.answers}}"> {{answer.answers}} </a>
-        </td>
-    </tr><tr height="10px"></tr><tr></tr>
+         <td>{{answer.name}}</td>
+        <td><a href="{{answer.answers}}"> {{answer.answers}}</a></td>
+     </tr>
+     
+     <tr>
+     <td>
+            <form action="{{SITE_URL}}events/dashboard/ViewAnswers/MarkInteresting" method="GET">
+              <input type="hidden" value="{{answer.id}}" name="submission_id"/>
+                     {%if not answer.interesting%}
+                       <div class="button">
+						  <a href="#">
+                         <input type="submit" value="mark as interesting " /><span></span>
+                         </a>
+                       </div>
+                     {%else%}
+                       <div class="button">
+						  <a href="#"><input type="submit" value="unmark as interesting"/><span></span></a>
+						</div>
+        
+                    {%endif%}</form> 
+      </td></tr>  
+    <tr height="10px"></tr><tr></tr>
   {%endfor%}
   </table>
  </div>
@@ -109,7 +183,30 @@
         <td>
             {{text.answers}}
         </td>
-     </tr><tr height="10px"></tr><tr></tr>
+     </tr>
+     
+        <tr>
+     <td>
+            <form action="{{SITE_URL}}events/dashboard/ViewAnswers/MarkInteresting" method="GET">
+              <input type="hidden" value="{{answer.id}}" name="submission_id"/>
+                     {%if not answer.interesting%}
+                       <div class="button">
+						  <a href="#">
+                         <input type="submit" value="mark as interesting " /><span></span>
+                         </a>
+                       </div>
+                     {%else%}
+                       <div class="button">
+						  <a href="#"><input type="submit" value="unmark as interesting"/><span></span></a>
+						</div>
+        
+                    {%endif%}</form> 
+      </td></tr>  
+     
+     
+     
+     
+     <tr height="10px"></tr><tr></tr>
    {%endfor%}
     </table>
     </div>

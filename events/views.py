@@ -37,6 +37,12 @@ def fileuploadhandler(f, eventname, tabid, file_title):
 @needs_authentication
 @coords_only
 def submissions_view_by_coords(request):
+
+    try:
+        value=request.GET["selected"]
+    except:
+        value="-1"    
+
     userprof = request.user.get_profile()
     event = userprof.coord_event
     
@@ -63,35 +69,43 @@ def submissions_view_by_coords(request):
         
             for answer in answers_file :
                 submission_id=answer.submission.id
+                ratings=BaseSubmission.objects.get(id=submission_id)
+                
                 if is_team_event:
                     team_submission_object=TeamSubmission.objects.get(id=submission_id)
-                    file_team.append({"name":team_submission_object.team.name,"answers":answer.File.url})
+                    
+                    file_team.append({"name":team_submission_object.team.name,"answers":answer.File.url,"id":submission_id,"interesting":ratings.interesting})
                     
                 else:
                     individual_submission_object=IndividualSubmissions.objects.get(id=submission_id)
-                    file_individual.append({"name":individual_submission_object.participant.user,"answers":answer.File.url})
+                    file_individual.append({"name":individual_submission_object.participant.user,"answers":answer.File.url,"id":submission_id,"interesting":ratings.interesting})
                     
             
             for text in answers_normal :
+                
                 submission_id=text.submission.id
+                ratings=BaseSubmission.objects.get(id=submission_id)
                 answer_pointer=Answer.objects.get(id=text.answer_ptr_id)
                 question=main_test.events.models.Question.objects.get(id=answer_pointer.question.id)
+                
                 if is_team_event:
                     team_submission_object=TeamSubmission.objects.get(id=submission_id)
-                    normal_team.append({"name:":team_submission_object.team.name,"answers":text.text,"question":question})
+                    normal_team.append({"name:":team_submission_object.team.name,"answers":text.text,"question":question,"id":submission_id,"interesting":ratings.interesting})
                     
                     
                 else:
                     individual_submission_object=IndividualSubmissions.objects.get(id=submission_id)
-                    normal_individual.append({"name":individual_submission_object.participant.user,"answers":text.text,"question":question})
+                    normal_individual.append({"name":individual_submission_object.participant.user,"answers":text.text,"question":question,"id":submission_id,"interesting":ratings.interesting})
                     
                     
-            mcq_individual.append({"name":"","answers":"","question":""})
-            mcq_team.append({"name":"","answers":"","question":""})
+            mcq_individual.append({"name":"","answers":"","question":"","id":"","interesting":""})
+            mcq_team.append({"name":"","answers":"","question":"","id":"","interesting":""})
             x=0
            
             for choices in answers_mcq :
+                
                 submission_id=choices.submission.id
+                ratings=BaseSubmission.objects.get(id=submission_id)
                 answer_pointer=Answer.objects.get(id=choices.answer_ptr_id)
                 question=main_test.events.models.Question.objects.get(id=answer_pointer.question.id)
                 if is_team_event:
@@ -99,10 +113,10 @@ def submissions_view_by_coords(request):
                     team_name=team_submission_object.team.name
                     
                     if not mcq_individual[x]["name"]==team_name:
-                        mcq_team.append({"name":team_name,"answers":choices.choice,"question":question})
+                        mcq_team.append({"name":team_name,"answers":choices.choice,"question":question,"id":submission_id,"interesting":ratings.interesting})
                         x=len(mcq_individual)-1
                     else:
-                        mcq_team.append({"name":"","answers":choices.choice,"question":question})
+                        mcq_team.append({"name":"","answers":choices.choice,"question":question,"id":submission_id,"interesting":ratings.interesting})
                     
                     
                     
@@ -111,17 +125,20 @@ def submissions_view_by_coords(request):
                     user_name=individual_submission_object.participant.user
                     
                     if not mcq_individual[x]["name"]==user_name:
-                        mcq_individual.append({"name":user_name,"answers":choices.choice,"question":question})
+                        mcq_individual.append({"name":user_name,"answers":choices.choice,"question":question,"id":submission_id,"interesting":ratings.interesting})
                         x=len(mcq_individual)-1
                         
                     else:
-                        mcq_individual.append({"name":"","answers":choices.choice,"question":question})
+                        mcq_individual.append({"name":"","answers":choices.choice,"question":question,"id":submission_id,"interesting":ratings.interesting})
                         
+            
+            
+           
                
-            
-            
-                 
-            return render_to_response('event/view_answers.html', locals(), context_instance= global_context(request))
+            if value=="3":
+                return render_to_response('event/show_interesting.html', locals(), context_instance= global_context(request))
+            else:     
+                return render_to_response('event/view_answers.html', locals(), context_instance= global_context(request))
         
         except:
             pass    
@@ -134,10 +151,44 @@ def submissions_view_by_coords(request):
     else:
         raise Http404
 
+""" button id :
+    1-unread
+    2-read
+    3-interesting
+    4-selected
+"""
+
+
+
+
+
+@needs_authentication
+@coords_only
+def mark_as_interesting(request):
+    
+    try:
+    
+        if request.method == 'GET':
+            button_selected=request.GET["submission_id"]
+            print "this :"
+            print button_selected
+            submission_to_mark=BaseSubmission.objects.get(id=button_selected)
+            print submission_to_mark.interesting
+            if submission_to_mark.interesting==True: 
+                submission_to_mark.interesting=False
+                
+            else:
+                submission_to_mark.interesting=True
+                
+            submission_to_mark.save()
+    except:
+        pass
+                  
+    return HttpResponseRedirect ("%sevents/dashboard/ViewAnswers/"%settings.SITE_URL)
     
 
 def userportal_submissions(request,questionList,event):
-    print "cumming here ..."
+    
     nQuestions = len( questionList )
     questionId = []
     questionAnswer = []
@@ -154,9 +205,9 @@ def userportal_submissions(request,questionList,event):
         print request.user.id, event
         if e.team_event:
 	    team = Team.objects.get(members__pk = request.user.id, event__name = event)
-        print "Yeah i go a tema"
+        
     except Team.DoesNotExist:
-        print "faaaaaaaaack!"
+        
         return None
 
     if ( e.team_event ):
