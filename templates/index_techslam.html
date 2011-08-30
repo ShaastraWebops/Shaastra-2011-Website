@@ -27,7 +27,8 @@ annual technical festival of IIT Madras
     <link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}css/event.css">
     <link rel="stylesheet" media="screen" type="text/css" href="{{MEDIA_URL}}spacegallery/css/spacegallery.css" />
     <!--<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script> -->
-	<script type="text/javascript" src="{{MEDIA_URL}}js/jquery.min.js"></script>
+
+<script src = "http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
     <script type="text/javascript" src="{{MEDIA_URL}}js/jquery.cycle.all.js"></script>     
 	<script type="text/javascript" src="{{MEDIA_URL}}js/chili-1.7.pack.js"></script>	
 				<script type="text/javascript">
@@ -65,14 +66,16 @@ annual technical festival of IIT Madras
 	</script>
 
 <!--<script type="text/javascript" src="Media/js/jquery.js"></script>-->
+<script type="text/javascript" src="{{MEDIA_URL}}js/prototype.js"></script>
+<script type="text/javascript" src="{{MEDIA_URL}}js/scriptaculous.js?load=effects,builder"></script>
+<script type="text/javascript" src="{{MEDIA_URL}}js/lightbox.js"></script>
 <script type="text/javascript" src="{{MEDIA_URL}}spacegallery/js/eye.js"></script>
 <script type="text/javascript" src="{{MEDIA_URL}}spacegallery/js/utils.js"></script>
 <script type="text/javascript" src="{{MEDIA_URL}}spacegallery/js/spacegallery1.js"></script>
 <script type="text/javascript">
 
-
-		$(document).ready(function(){
-			$(document).mousemove(function(){
+		function foot(){
+		alert("foot");
 					var newch = ($(window).height() - 210);
 					newch = newch - 433;
 					newch = 160 + (newch/2);
@@ -80,48 +83,23 @@ annual technical festival of IIT Madras
 
 					if($(window).height() > 650){
 							var topPos = $(window).height() - 56 + "px";
-							$("#footer_container").css({'position':'absolute','top':topPos});
+							$("#footer_container").css({'position':'absolute','bottom':'25px'});
 							$(".page").css({'position':'absolute','top':newpxch});
 							var posarr = newch+(300 -160);
 							var posarrpx = posarr+"px";
-							$('#right_arrow').css({'top':posarrpx});
-							$('#left_arrow').css({'top':posarrpx});
+							//$('#right_arrow').css({'top':posarrpx});
+							//$('#left_arrow').css({'top':posarrpx});
 					}
 					else{
 							$(".page").css({'position':'absolute','top':'164px'});
 							$("#footer_container").css({'position':'absolute','top':'593px'});
 					}
-			});
 		
-			$("#footer_container").css({"position":"absolute","top":"593px"}); 
-			$(document).mousemove(
-				function(){
-					if($(document).height() > 650){
-					$("#footer_container").css({'position':'absolute','bottom':'15px'});
-					}
-				});
-		});
+			}
+		
+
 </script>
 
-<script type="text/javascript">
-$(document).ready(function(){
-$('#myGallery').spacegallery({loadingClass: 'loading', perspective:'25', });
-/*var noelem = $('#myGallery > img').size();
-//alert($('#myGallery > img').eq(1));
-$('#myGallery > img').hide();
-var track = 0;
-
-setInterval(function(){
-if(track == noelem) track = 0;
-var curimg = $('#myGallery > img').eq(track);
-curimg.show("slide",{direction:"left"},750);
-setTimeout(function(){
-curimg.hide("slide",{direction:"right"},750);
-},1750);
-track++;
-},2500);*/
-});
-</script>
 
         
 
@@ -416,7 +394,7 @@ function dow()
 
                               </script>
   </head>
-<body id="page" style="width:100%;" onload = "initLightbox();">
+<body id="page" style="width:100%;" onload = onload = "foot();">
 	
 <div id = "container">  
   

@@ -4,14 +4,10 @@
 TechSlam!
 </title>
 
-<!--<script src = "http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>-->
-<script type="text/javascript" src="{{MEDIA_URL}}js/prototype.js"></script>
-<script type="text/javascript" src="{{MEDIA_URL}}js/scriptaculous.js?load=effects,builder"></script>
-<script type="text/javascript" src="{{MEDIA_URL}}js/lightbox.js"></script>
 
-<link rel="stylesheet" type = "text/css" href="http://www.shaastra.org/2011/media/main/techslam/Styles/slamStyle.css">
-{%endblock%}
-{% block body %}
+
+    
+
 <script>
 function adjust(elem)
 {
@@ -34,7 +30,11 @@ es.width = "186px";
 }
 }
 </script>
-<div id = "slamContainer" onload = "">
+<link rel="stylesheet" type = "text/css" href="http://www.shaastra.org/2011/media/main/techslam/Styles/slamStyle.css">
+{%endblock%}
+{% block body %}
+
+<div id = "slamContainer" >
 	<div id = "slamCover">
 		<div id = "slamOver">
 			<div id = "SlamLeft">
@@ -47,17 +47,24 @@ es.width = "186px";
 					</div>
 				</div>
 				<div class="button2" style = "position:relative; top : -150px">
-<form action = "{{SITE_URL}}techmash/upload/" method = GET>
-<input type="submit" value="Add photo" />
-</form>
+
 </div>
-<div class="button2" style = "position:relative; top : -150px">
+<!--<div class="button2" style = "position:relative; top : -150px">
 <form action = "{{SITE_URL}}techmash/mashphotos/" method = GET>
 <input type="submit" value="Mash photos">
 </form>
-</div>
+
+</div>-->
 			</div>
 			<div id = "slamRight">
+			<div id = "submitphotobutton" style = "width:100%;height:38px;">
+			<div class="button2" style = "position:relative; left : -30px;width : 160px;height: 38px;background : url({{MEDIA_URL}}techmash/images/submit.png);background-repeat:no-repeat;float:right;">
+			<form action = "{{SITE_URL}}techmash/upload/" method = GET >
+			<input type="submit" value="" />
+			</form>
+			</div>
+			</div>
+			<br>
 			<div id = "ImageWrappers">
 			<!-- This MUST be auto rendered -->
 			{% for image in image_list %}
