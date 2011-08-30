@@ -12,6 +12,55 @@ TechSlam!
 <link rel="stylesheet" type = "text/css" href="http://www.shaastra.org/2011/media/main/techslam/Styles/slamStyle.css">
 {%endblock%}
 {% block body %}
+<script type="text/javascript">
+
+var moveonce = 0;
+var moveonce2 = 0;
+		$(document).ready(function(){
+			$(document).mousemove(function(){
+					if(moveonce == 0){
+					var newch = ($(window).height() - 210);
+					newch = newch - 433;
+					newch = 160 + (newch/2);
+					var newpxch = newch+"px";
+
+					if($(window).height() > 650){
+							var topPos = $(window).height() - 56 + "px";
+							$("#footer_container").css({'position':'absolute','top':topPos});
+							$(".page").css({'position':'absolute','top':newpxch});
+							var posarr = newch+(300 -160);
+							var posarrpx = posarr+"px";
+							$('#right_arrow').css({'top':posarrpx});
+							$('#left_arrow').css({'top':posarrpx});
+					}
+					else{
+							$(".page").css({'position':'absolute','top':'164px'});
+							$("#footer_container").css({'position':'absolute','top':'593px'});
+					}
+			moveonce = 1;
+			setTimeout(function(){moveonce = 0},50000);
+			}
+			});
+		
+			
+			$(document).mousemove(
+					if(moveonce2 == 0){
+			
+				function(){
+					if($(document).height() > 650){
+					$("#footer_container").css({'position':'absolute','bottom':'25px'});
+					}
+					else
+					{
+					$("#footer_container").css({"position":"absolute","top":"593px"}); 
+					}
+				}
+				moveonce2 = 1;
+				setTimeout(function(){moveonce2 = 0},50000);
+
+				});
+		});
+</script>
 <script>
 function adjust(elem)
 {
@@ -58,7 +107,7 @@ es.width = "186px";
 			</div>
 			<div id = "slamRight">
 			<div id = "submitphotobutton">
-			<div class="button2" style = "position:relative; top : -150px;float:right;background : url();">
+			<div class="button2" style = "position:relative; top : -150px;float:right;background : url({{MEDIA_URL}}techmash/images/submit.png);">
 			<form action = "{{SITE_URL}}techmash/upload/" method = GET >
 			<input type="submit" value="Add photo" />
 			</form>
