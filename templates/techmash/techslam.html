@@ -47,17 +47,23 @@ es.width = "186px";
 					</div>
 				</div>
 				<div class="button2" style = "position:relative; top : -150px">
-<form action = "{{SITE_URL}}techmash/upload/" method = GET>
-<input type="submit" value="Add photo" />
-</form>
+
 </div>
-<div class="button2" style = "position:relative; top : -150px">
+<!--<div class="button2" style = "position:relative; top : -150px">
 <form action = "{{SITE_URL}}techmash/mashphotos/" method = GET>
 <input type="submit" value="Mash photos">
 </form>
+-->
 </div>
 			</div>
 			<div id = "slamRight">
+			<div id = "submitphotobutton">
+			<div class="button2" style = "position:relative; top : -150px;float:right;background : url();">
+			<form action = "{{SITE_URL}}techmash/upload/" method = GET >
+			<input type="submit" value="Add photo" />
+			</form>
+			</div>
+			</div>
 			<div id = "ImageWrappers">
 			<!-- This MUST be auto rendered -->
 			{% for image in image_list %}
