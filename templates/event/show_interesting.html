@@ -1,0 +1,173 @@
+{%extends "index.html" %}
+
+{%block body%}
+
+<div id="file_list" style="overflow:auto;height:433px">
+
+
+<div id="page_heading">
+<h3>DISPLAYING THE INTERESTING SUBMISSIONS</h3>
+</div>
+<form action="{{SITE_URL}}events/dashboard/ViewAnswers/" method="POST">
+
+  <div class="button">
+						  <a href="#">
+                         <input type="submit" value="BACK TO ALL ANSWERS" /><span></span>
+                         </a>
+                       </div>
+
+</form>
+
+<!-- to navigate to selected answers -->
+
+<form action="{{SITE_URL}}events/dashboard/ViewAnswers/" method="GET">
+              <input type="hidden" value="4" name="selected"/>
+                     
+                       <div class="button">
+						  <a href="#">
+                         <input type="submit" value="show selected answers " /><span></span>
+                         </a>
+                       </div>
+</form> 
+
+
+<!-- showing read answers -->
+<form action="{{SITE_URL}}events/dashboard/ViewAnswers/" method="GET">
+              <input type="hidden" value="2" name="selected"/>
+                     
+                       <div class="button">
+						  <a href="#">
+                         <input type="submit" value="show read answers " /><span></span>
+                         </a>
+                       </div>
+</form> 
+
+<!-- showing unread answers -->
+<form action="{{SITE_URL}}events/dashboard/ViewAnswers/" method="GET">
+              <input type="hidden" value="1" name="selected"/>
+                     
+                       <div class="button">
+						  <a href="#">
+                         <input type="submit" value="show unread answers " /><span></span>
+                         </a>
+                       </div>
+</form> 
+
+
+
+
+{%if is_team_event%}
+
+<div id="file_team_">
+ <b>Answers for questions of FILE type : </b><br/>
+  <b><div style="color:red">IF LINK DOES NOT WORK COPY PASTE THE URL ON THE ADRESS BAR.</div> </b>
+ </div>
+    <div id="file_team">
+        <table>
+        {% for answer in file_team%}
+           
+           {%if answer.interesting%}
+        <tr>   
+            <td>
+                {{answer.name}}
+            </td>
+            <td>
+               <a href="{{answer.answers}}"> {{answer.answers}} </a>
+            </td>
+        </tr>
+       
+        
+        <tr height="10px"></tr><tr></tr>
+        {%endif%}
+        {%endfor%}
+        </table>
+    </div>
+     <div id="normal_team_">
+      <b>Answers for questions of TEXT type : </b>
+     </div>
+     <div id="normal_team">
+     <table>
+        {% for text in normal_team%}
+          {%if text.interesting%}
+        <tr>
+           <td>
+            {{text.name}}
+            </td>
+            <td>
+            {{text.question}}
+            </td>
+            <td width="10px"></td>
+            <td>
+                {{text.answers}}
+            </td>
+        </tr>
+        
+           
+        
+        
+        <tr height="10px"></tr><tr></tr>
+        {%endif%}
+        {%endfor%}
+        </table>
+    </div>
+    
+{%else%}
+  <div id="file_individual_">
+ <b>Answers for questions of FILE type : </b><br/>
+ <b><div style="color:red">IF LINK DOES NOT WORK COPY PASTE THE URL ON THE ADRESS BAR.</div> </b>
+  </div>
+
+ <div id="file_individual">
+ <table>
+ 
+   {% for answer in file_individual%}
+   
+   {%if answer.interesting%}
+     <tr>
+         <td>{{answer.name}}</td>
+        <td><a href="{{answer.answers}}"> {{answer.answers}}</a></td>
+     </tr>
+     
+     
+    <tr height="10px"></tr><tr></tr>
+    {%endif%}
+  {%endfor%}
+  </table>
+ </div>
+       <div id="normal_individual_">
+ <b>Answers for questions of TEXT type : </b>
+ </div>
+   <div id="normal_individual">
+   <table>
+    {% for text in normal_individual%}
+    {%if text.interesting%}
+      <tr>
+       <td>
+        {{text.name}}
+        </td>
+        <td>
+            {{text.question}}
+        </td>
+        <td width="10px"></td>
+        <td>
+            {{text.answers}}
+        </td>
+     </tr>
+     
+       
+     
+     <tr height="10px"></tr><tr></tr>
+     {%endif%}
+   {%endfor%}
+    </table>
+    </div>
+       
+
+
+{%endif%}
+
+
+
+</div>
+</div>
+{%endblock%}
