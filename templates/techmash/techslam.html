@@ -8,10 +8,8 @@ TechSlam!
 <script type="text/javascript" src="{{MEDIA_URL}}js/prototype.js"></script>
 <script type="text/javascript" src="{{MEDIA_URL}}js/scriptaculous.js?load=effects,builder"></script>
 <script type="text/javascript" src="{{MEDIA_URL}}js/lightbox.js"></script>
-
-<link rel="stylesheet" type = "text/css" href="http://www.shaastra.org/2011/media/main/techslam/Styles/slamStyle.css">
-{%endblock%}
-{% block body %}
+<script type="text/javascript" src="{{MEDIA_URL}}js/jquery.min.js"></script>
+    
 <script type="text/javascript">
 
 var moveonce = 0;
@@ -83,6 +81,10 @@ es.width = "186px";
 }
 }
 </script>
+<link rel="stylesheet" type = "text/css" href="http://www.shaastra.org/2011/media/main/techslam/Styles/slamStyle.css">
+{%endblock%}
+{% block body %}
+
 <div id = "slamContainer" onload = "">
 	<div id = "slamCover">
 		<div id = "slamOver">
@@ -107,9 +109,9 @@ es.width = "186px";
 			</div>
 			<div id = "slamRight">
 			<div id = "submitphotobutton">
-			<div class="button2" style = "position:relative; top : 0px;height: 150px;float:right;background : url({{MEDIA_URL}}techmash/images/submit.png);">
+			<div class="button2" style = "position:relative; top : 0px;height: 38px;float:right;background : url({{MEDIA_URL}}techmash/images/submit.png);">
 			<form action = "{{SITE_URL}}techmash/upload/" method = GET >
-			<input type="submit" value="Add photo" />
+			<input type="submit" value="" />
 			</form>
 			</div>
 			</div>
