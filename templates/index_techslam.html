@@ -100,9 +100,10 @@ var moveonce2 = 0;
 		
 			
 			$(document).mousemove(
+							function(){
 					if(moveonce2 == 0){
 			
-				function(){
+		
 					if($(document).height() > 650){
 					$("#footer_container").css({'position':'absolute','bottom':'25px'});
 					}
@@ -110,9 +111,10 @@ var moveonce2 = 0;
 					{
 					$("#footer_container").css({"position":"absolute","top":"593px"}); 
 					}
-				}
-				moveonce2 = 1;
+						moveonce2 = 1;
 				setTimeout(function(){moveonce2 = 0},50000);
+					}
+	
 
 				});
 		});
