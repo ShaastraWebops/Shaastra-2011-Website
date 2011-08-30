@@ -109,12 +109,13 @@ es.width = "186px";
 			</div>
 			<div id = "slamRight">
 			<div id = "submitphotobutton">
-			<div class="button2" style = "position:relative; top : 0px;height: 38px;float:right;background : url({{MEDIA_URL}}techmash/images/submit.png);">
+			<div class="button2" style = "position:relative; top : 0px;height: 38px;background : url({{MEDIA_URL}}techmash/images/submit.png);">
 			<form action = "{{SITE_URL}}techmash/upload/" method = GET >
 			<input type="submit" value="" />
 			</form>
 			</div>
 			</div>
+			<br>
 			<div id = "ImageWrappers">
 			<!-- This MUST be auto rendered -->
 			{% for image in image_list %}
