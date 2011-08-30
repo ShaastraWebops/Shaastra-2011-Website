@@ -73,11 +73,7 @@ annual technical festival of IIT Madras
 <script type="text/javascript" src="{{MEDIA_URL}}spacegallery/js/spacegallery1.js"></script>
 <script type="text/javascript">
 
-var moveonce = 0;
-var moveonce2 = 0;
 		function foot(){
-			$(document).mousemove(function(){
-					if(moveonce == 0){
 					var newch = ($(window).height() - 210);
 					newch = newch - 433;
 					newch = 160 + (newch/2);
@@ -85,30 +81,29 @@ var moveonce2 = 0;
 
 					if($(window).height() > 650){
 							var topPos = $(window).height() - 56 + "px";
-							$("#footer_container").css({'position':'absolute','top':topPos});
+							$("#footer_container").css({'position':'absolute','bottom':'25px'});
 							$(".page").css({'position':'absolute','top':newpxch});
 							var posarr = newch+(300 -160);
 							var posarrpx = posarr+"px";
-							$('#right_arrow').css({'top':posarrpx});
-							$('#left_arrow').css({'top':posarrpx});
+							//$('#right_arrow').css({'top':posarrpx});
+							//$('#left_arrow').css({'top':posarrpx});
 					}
 					else{
 							$(".page").css({'position':'absolute','top':'164px'});
 							$("#footer_container").css({'position':'absolute','top':'593px'});
 					}
-			moveonce = 1;
-			setTimeout(function(){moveonce = 0},50000);
+		
 			}
-			});
+		
 		
 			
-			$(document).mousemove(
+			/*$(document).mousemove(
 							function(){
 					if(moveonce2 == 0){
 			
 		
 					if($(document).height() > 650){
-					$("#footer_container").css({'position':'absolute','bottom':'25px'});
+				
 					}
 					else
 					{
@@ -119,7 +114,7 @@ var moveonce2 = 0;
 	
 
 				});
-		}
+		}*/
 </script>
 
 
