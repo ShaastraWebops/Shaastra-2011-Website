@@ -5,106 +5,141 @@
 <div id="file_list" style="overflow:auto;height:433px">
 
 
-<table>
+
 
 {%if is_team_event%}
-{% for answer in file_team%}
 
-<tr>   
-   <td>
-   {{answer.name}}
-   </td>
-   <td>
-   {{answer.answers|urlize}}
-   </td>
-   </tr>
+<div id="file_team_">
+ <b>Answers for questions of FILE type : </b>
+ </div>
+    <div id="file_team">
+        <table>
+        {% for answer in file_team%}
+
+        <tr>   
+            <td>
+                {{answer.name}}
+            </td>
+            <td>
+                {{answer.answers|urlize}}
+            </td>
+        </tr><tr height="10px"></tr><tr></tr>
 
     
-{%endfor%}
-
-
-{% for text in normal_team%}
-
-
-<tr>
-   
-   <td>
-   {{text.name}}
-   </td>
-   <td>
-   {{text.answers}}
-   </td>
-   
-   </tr>
-{%endfor%}
-
-{% for choice in mcq_team%}
-
-
-<tr>
-   
-   <td>
-   {{choice.name}}
-   </td>
-   <td>
-   {{choice.answers}}
-   </td>
-   
-   </tr>
-{%endfor%}
-
+        {%endfor%}
+        </table>
+    </div>
+     <div id="normal_team_">
+      <b>Answers for questions of TEXT type : </b>
+     </div>
+     <div id="normal_team">
+     <table>
+        {% for text in normal_team%}
+        <tr>
+           <td>
+            {{text.name}}
+            </td>
+            <td>
+            {{text.question}}
+            </td>
+            <td width="10px"></td>
+            <td>
+                {{text.answers}}
+            </td>
+        </tr><tr height="10px"></tr><tr></tr>
+        {%endfor%}
+        </table>
+    </div>
+    <div id="mcq_team_">
+       <b>Answers for questions of MCQ type : </b>
+    </div>
+    <div id="mcq_team">
+    <table>
+        {% for choice in mcq_team%}
+          <tr>
+            <td>
+            {{choice.name}}
+            </td>    
+            <td>
+               {{choice.question|safe}}
+            </td>
+            <td width="10px"></td>
+            <td>
+                {{choice.answers}}
+            </td>
+         </tr><tr height="10px"></tr><tr></tr>
+        {%endfor%}
+        </table>
+    </div>
 {%else%}
+  <div id="file_individual_">
+ <b>Answers for questions of FILE type : </b>
+ </div>
 
-{% for answer in file_individual%}
-
-
-<tr>
+ <div id="file_individual">
+ <table>
+   {% for answer in file_individual%}
+     <tr>
+       <td>
+            {{answer.name}}
+        </td>
+        <td>
+            {{answer.answers|urlize}}
+        </td>
+    </tr><tr height="10px"></tr><tr></tr>
+  {%endfor%}
+  </table>
+ </div>
+       <div id="normal_individual_">
+ <b>Answers for questions of TEXT type : </b>
+ </div>
+   <div id="normal_individual">
+   <table>
+    {% for text in normal_individual%}
+      <tr>
+       <td>
+        {{text.name}}
+        </td>
+        <td>
+            {{text.question}}
+        </td>
+        <td width="10px"></td>
+        <td>
+            {{text.answers}}
+        </td>
+     </tr><tr height="10px"></tr><tr></tr>
+   {%endfor%}
+    </table>
+    </div>
+       <div id="mcq_individual_">
+ <b>Answers for questions of MCQ type : </b>
+ </div>
+    <div id="mcq_individual">
+    <table>
+    {% for choice in mcq_individual%}
+      <tr>
+        <td>
+            {{choice.name}}
+        </td>
+        <td>
+            {{choice.question|safe}}
+        </td>
+        <td width="10px"></td>
+        <td>
+            {{choice.answers}}
+        </td>
    
-   <td>
-   {{answer.name}}
-   </td>
-   <td>
-   {{answer.answers|urlize}}
-   </td>
-   </tr>
-{%endfor%}
-
-
-{% for text in normal_individual%}
-
-
-<tr>
-   
-   <td>
-   {{text.name}}
-   </td>
-   <td>
-   {{text.answers}}
-   </td>
-   
-   </tr>
-{%endfor%}
-
-{% for choice in mcq_individual%}
-
-
-<tr>
-   
-  <td>
-   {{choice.name}}
-   </td>
-   <td>
-   {{choice.answers}}
-   </td>
-   
-   </tr>
-{%endfor%}
+        </tr><tr height="10px"></tr><tr></tr>
+    {%endfor%}
+    </table>
+   </div> 
+    
 
 
 {%endif%}
 
 
-</table>
+
 </div>
 </div>
 {%endblock%}
