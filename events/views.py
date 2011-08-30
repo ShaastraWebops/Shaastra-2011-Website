@@ -74,11 +74,11 @@ def submissions_view_by_coords(request):
                 if is_team_event:
                     team_submission_object=TeamSubmission.objects.get(id=submission_id)
                     
-                    file_team.append({"name":team_submission_object.team.name,"answers":answer.File.url,"id":submission_id,"interesting":ratings.interesting})
+                    file_team.append({"name":team_submission_object.team.name,"answers":answer.File.url,"id":submission_id,"interesting":ratings.interesting,"sel":ratings.selected,"read":ratings.sub_read})
                     
                 else:
                     individual_submission_object=IndividualSubmissions.objects.get(id=submission_id)
-                    file_individual.append({"name":individual_submission_object.participant.user,"answers":answer.File.url,"id":submission_id,"interesting":ratings.interesting})
+                    file_individual.append({"name":individual_submission_object.participant.user,"answers":answer.File.url,"id":submission_id,"interesting":ratings.interesting,"sel":ratings.selected,"read":ratings.sub_read})
                     
             
             for text in answers_normal :
@@ -90,16 +90,16 @@ def submissions_view_by_coords(request):
                 
                 if is_team_event:
                     team_submission_object=TeamSubmission.objects.get(id=submission_id)
-                    normal_team.append({"name:":team_submission_object.team.name,"answers":text.text,"question":question,"id":submission_id,"interesting":ratings.interesting})
+                    normal_team.append({"name:":team_submission_object.team.name,"answers":text.text,"question":question,"id":submission_id,"interesting":ratings.interesting,"sel":ratings.selected,"read":ratings.sub_read})
                     
                     
                 else:
                     individual_submission_object=IndividualSubmissions.objects.get(id=submission_id)
-                    normal_individual.append({"name":individual_submission_object.participant.user,"answers":text.text,"question":question,"id":submission_id,"interesting":ratings.interesting})
+                    normal_individual.append({"name":individual_submission_object.participant.user,"answers":text.text,"question":question,"id":submission_id,"interesting":ratings.interesting,"sel":ratings.selected,"read":ratings.sub_read})
                     
                     
-            mcq_individual.append({"name":"","answers":"","question":"","id":"","interesting":""})
-            mcq_team.append({"name":"","answers":"","question":"","id":"","interesting":""})
+            mcq_individual.append({"name":"","answers":"","question":"","id":"","interesting":"","sel":"","read":""})
+            mcq_team.append({"name":"","answers":"","question":"","id":"","interesting":"","sel":"","read":""})
             x=0
            
             for choices in answers_mcq :
@@ -113,10 +113,10 @@ def submissions_view_by_coords(request):
                     team_name=team_submission_object.team.name
                     
                     if not mcq_individual[x]["name"]==team_name:
-                        mcq_team.append({"name":team_name,"answers":choices.choice,"question":question,"id":submission_id,"interesting":ratings.interesting})
+                        mcq_team.append({"name":team_name,"answers":choices.choice,"question":question,"id":submission_id,"interesting":ratings.interesting,"sel":ratings.selected,"read":ratings.sub_read})
                         x=len(mcq_individual)-1
                     else:
-                        mcq_team.append({"name":"","answers":choices.choice,"question":question,"id":submission_id,"interesting":ratings.interesting})
+                        mcq_team.append({"name":"","answers":choices.choice,"question":question,"id":submission_id,"interesting":ratings.interesting,"sel":ratings.selected,"read":ratings.sub_read})
                     
                     
                     
@@ -125,18 +125,22 @@ def submissions_view_by_coords(request):
                     user_name=individual_submission_object.participant.user
                     
                     if not mcq_individual[x]["name"]==user_name:
-                        mcq_individual.append({"name":user_name,"answers":choices.choice,"question":question,"id":submission_id,"interesting":ratings.interesting})
+                        mcq_individual.append({"name":user_name,"answers":choices.choice,"question":question,"id":submission_id,"interesting":ratings.interesting,"sel":ratings.selected,"read":sub_read})
                         x=len(mcq_individual)-1
                         
                     else:
-                        mcq_individual.append({"name":"","answers":choices.choice,"question":question,"id":submission_id,"interesting":ratings.interesting})
+                        mcq_individual.append({"name":"","answers":choices.choice,"question":question,"id":submission_id,"interesting":ratings.interesting,"sel":ratings.selected,"read":sub_read})
                         
             
-            
-           
+            if value=="1":
+                return render_to_response('event/show_unread.html', locals(), context_instance= global_context(request))
+            if value=="2":
+                return render_to_response('event/view_read.html', locals(), context_instance= global_context(request))
                
             if value=="3":
                 return render_to_response('event/show_interesting.html', locals(), context_instance= global_context(request))
+            if value=="4":
+                return render_to_response('event/show_selected.html', locals(), context_instance= global_context(request))    
             else:     
                 return render_to_response('event/view_answers.html', locals(), context_instance= global_context(request))
         
@@ -164,28 +168,50 @@ def submissions_view_by_coords(request):
 
 @needs_authentication
 @coords_only
-def mark_as_interesting(request):
+def mark_as(request,select):
     
     try:
     
         if request.method == 'GET':
             button_selected=request.GET["submission_id"]
-            print "this :"
-            print button_selected
+            
+            
             submission_to_mark=BaseSubmission.objects.get(id=button_selected)
-            print submission_to_mark.interesting
-            if submission_to_mark.interesting==True: 
-                submission_to_mark.interesting=False
+            
+            if select=="MarkInteresting":
+                if submission_to_mark.interesting==True: 
+                    submission_to_mark.interesting=False
+                    
+                else:
+                    submission_to_mark.interesting=True
+            elif select=="MarkSelected" :
+                if submission_to_mark.selected==True: 
+                    submission_to_mark.selected=False
+                
+                else:
+                    submission_to_mark.selected=True
+            
+            elif select=="MarkRead" :
+                if submission_to_mark.sub_read==True: 
+                    submission_to_mark.sub_read=False
+                
+                else:
+                    submission_to_mark.sub_read=True
+            
+                       
+               
                 
             else:
-                submission_to_mark.interesting=True
+                return Http404    
                 
+                   
             submission_to_mark.save()
     except:
         pass
                   
     return HttpResponseRedirect ("%sevents/dashboard/ViewAnswers/"%settings.SITE_URL)
-    
+
+
 
 def userportal_submissions(request,questionList,event):
     
