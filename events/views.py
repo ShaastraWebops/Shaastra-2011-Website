@@ -40,7 +40,8 @@ def submissions_view_by_coords(request):
     userprof = request.user.get_profile()
     event = userprof.coord_event
     tdp=[]
-    mcq=[]
+    mcq_team=[]
+    mcq_individual=[]
     normal=[]
     team_name=[]
     team_file=[]
@@ -68,28 +69,42 @@ def submissions_view_by_coords(request):
         
         
         """
-        try:
-            answers=Answer_file.objects.filter(submission__event=event,question__question_type="FILE")
-            event_this=main_test.events.models.Event.objects.get(id=event.id)
-            is_team_event=event_this.team_event
+        #try:
+        answers_file=Answer_file.objects.filter(submission__event=event,question__question_type="FILE")
+        answers_mcq=Answer_Text.objects.filter(submission__event=event,question__question_type="NORMAL")
+        print answers_mcq
+        event_this=main_test.events.models.Event.objects.get(id=event.id)
+        is_team_event=event_this.team_event
+    
+        for answer in answers_file :
+            submission_id=answer.submission.id
+            if is_team_event:
+                team_submission_object=TeamSubmission.objects.get(id=submission_id)
+                team_name.append(team_submission_object.team.name)
+                team_name.append(answer.File.url)
+            else:
+                individual_submission_object=IndividualSubmissions.objects.get(id=submission_id)
+                person_name.append(individual_submission_object.participant.user)
+                person_name.append(answer.File.url)
         
-            for answer in answers :
-                submission_id=answer.submission.id
-                if is_team_event:
-                    team_submission_object=TeamSubmission.objects.get(id=submission_id)
-                    team_name.append(team_submission_object.team.name)
-                    team_name.append(answer.File.url)
-                else:
-                    individual_submission_object=IndividualSubmissions.objects.get(id=submission_id)
-                    person_name.append(individual_submission_object.participant.user)
-                    person_name.append(answer.File.url)
-                
-            
-                
-            return render_to_response('event/view_answers.html', locals(), context_instance= global_context(request))
+        for choices in answers_mcq :
+            submission_id=choices.submission.id
+            if is_team_event:
+                team_submission_object=TeamSubmission.objects.get(id=submission_id)
+                mcq_team.append(team_submission_object.team.name)
+                mcq_team.append(choices.text)
+                print "coming"
+            else:
+                individual_submission_object=IndividualSubmissions.objects.get(id=submission_id)
+                mcq_individual.append(individual_submission_object.participant.user)
+                mcq_individual.append(choices.text)
+                print "not coming"
         
-        except:
-            pass    
+                
+        return render_to_response('event/view_answers.html', locals(), context_instance= global_context(request))
+        
+        #except:
+        #    pass    
         
         
         raise Http404
