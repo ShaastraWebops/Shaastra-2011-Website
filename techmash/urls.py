@@ -7,13 +7,9 @@ from django.contrib.auth.views import login, logout
 #admin.autodiscover()
 
 urlpatterns = patterns('',
-             (r'^accounts/login/$',  login),
-             (r'^accounts/logout/$', logout),
-             (r'^accounts/register/$', register),
+
              (r'^profile/$', profile),
              (r'^upload/$', upload),
-             (r'^seephotos/$', seephotos),
-             (r'^selectimages/$', selectimages),
              (r'^mashphotos/$', mashphotos),
 #            (r'^stockphoto/', include('stockphoto.urls')),
 #            (r'^admin/', include('admin.site.urls')),
