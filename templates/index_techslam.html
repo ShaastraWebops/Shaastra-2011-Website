@@ -27,14 +27,14 @@ annual technical festival of IIT Madras
     <link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}css/event.css">
     <link rel="stylesheet" media="screen" type="text/css" href="{{MEDIA_URL}}spacegallery/css/spacegallery.css" />
     <!--<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script> -->
-
-<script src = "http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+	<script type="text/javascript" src="{{MEDIA_URL}}js/jquery.min.js"></script>
     <script type="text/javascript" src="{{MEDIA_URL}}js/jquery.cycle.all.js"></script>     
 	<script type="text/javascript" src="{{MEDIA_URL}}js/chili-1.7.pack.js"></script>	
 				<script type="text/javascript">
 				$(document).ready(function(){
 					$('#sponstkr').cycle({ 
-						fx:     'fade'
+						fx:     'fade',
+						timeout:  1000 
 					});
 				});
 				</script>
@@ -50,8 +50,8 @@ annual technical festival of IIT Madras
 
     
 
-
-	<link rel="stylesheet" href="{{MEDIA_URL}}css2/lightbox.css" type="text/css" media="screen" />
+   
+	
     <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
 
     <script type="text/javascript" src="{{MEDIA_URL}}js/js/script/ticker.js"></script>
@@ -66,16 +66,16 @@ annual technical festival of IIT Madras
 	</script>
 
 <!--<script type="text/javascript" src="Media/js/jquery.js"></script>-->
-<script type="text/javascript" src="{{MEDIA_URL}}js/prototype.js"></script>
-<script type="text/javascript" src="{{MEDIA_URL}}js/scriptaculous.js?load=effects,builder"></script>
-<script type="text/javascript" src="{{MEDIA_URL}}js/lightbox.js"></script>
 <script type="text/javascript" src="{{MEDIA_URL}}spacegallery/js/eye.js"></script>
 <script type="text/javascript" src="{{MEDIA_URL}}spacegallery/js/utils.js"></script>
 <script type="text/javascript" src="{{MEDIA_URL}}spacegallery/js/spacegallery1.js"></script>
 <script type="text/javascript">
 
-		function foot(){
-		alert("foot");
+var moveonce = 0;
+var moveonce2 = 0;
+		$(document).ready(function(){
+			$(document).mousemove(function(){
+					if(moveonce == 0){
 					var newch = ($(window).height() - 210);
 					newch = newch - 433;
 					newch = 160 + (newch/2);
@@ -83,23 +83,61 @@ annual technical festival of IIT Madras
 
 					if($(window).height() > 650){
 							var topPos = $(window).height() - 56 + "px";
-							$("#footer_container").css({'position':'absolute','bottom':'25px'});
+							$("#footer_container").css({'position':'absolute','top':topPos});
 							$(".page").css({'position':'absolute','top':newpxch});
 							var posarr = newch+(300 -160);
 							var posarrpx = posarr+"px";
-							//$('#right_arrow').css({'top':posarrpx});
-							//$('#left_arrow').css({'top':posarrpx});
+							$('#right_arrow').css({'top':posarrpx});
+							$('#left_arrow').css({'top':posarrpx});
 					}
 					else{
 							$(".page").css({'position':'absolute','top':'164px'});
 							$("#footer_container").css({'position':'absolute','top':'593px'});
 					}
-		
+			moveonce = 1;
+			setTimeout(function(){moveonce = 0},50000);
 			}
+			});
 		
+			
+			$(document).mousemove(
+					if(moveonce2 == 0){
+			
+				function(){
+					if($(document).height() > 650){
+					$("#footer_container").css({'position':'absolute','bottom':'25px'});
+					}
+					else
+					{
+					$("#footer_container").css({"position":"absolute","top":"593px"}); 
+					}
+				}
+				moveonce2 = 1;
+				setTimeout(function(){moveonce2 = 0},50000);
 
+				});
+		});
 </script>
 
+<script type="text/javascript">
+$(document).ready(function(){
+$('#myGallery').spacegallery({loadingClass: 'loading', perspective:'25', });
+/*var noelem = $('#myGallery > img').size();
+//alert($('#myGallery > img').eq(1));
+$('#myGallery > img').hide();
+var track = 0;
+
+setInterval(function(){
+if(track == noelem) track = 0;
+var curimg = $('#myGallery > img').eq(track);
+curimg.show("slide",{direction:"left"},750);
+setTimeout(function(){
+curimg.hide("slide",{direction:"right"},750);
+},1750);
+track++;
+},2500);*/
+});
+</script>
 
         
 
@@ -394,7 +432,7 @@ function dow()
 
                               </script>
   </head>
-<body id="page" style="width:100%;" onload = onload = "foot();">
+<body id="page" style="width:100%;">
 	
 <div id = "container">  
   
@@ -415,7 +453,7 @@ function dow()
 	      <a href = "{{SITE_URL}}hospitality" class="navig" id = "hospi" ><span class = "nclass">Hospitality</span></a>
              
 	      <a  href="{{SITE_URL}}sponsorship/" class="navig" id = "sponsor"><span class = "nclass">Sponsorship</span></a>
-			<a  href="#" class="navig" onclick = "javascript:setTimeout(function(){popup(2)},00);" id = "oreach"><span class = "nclass">Outreach</span></a>
+			<a  href="{{SITE_URL}}events/Sampark" class="navig"  id = "oreach"><span class = "nclass">Outreach</span></a>
 				</div>
 				
 				
@@ -457,7 +495,9 @@ function dow()
 				<img src = "{{MEDIA_URL}}img/alStrut_possibilities_unlimited.png" />
 				<img src = "{{MEDIA_URL}}img/ERI_UF_cmyk.png" />
 			-->
-
+                         <!--{%for images in image%}
+                           {{images|safe}}
+                         {%endfor%}-->
                         </div> 
 			
                        
@@ -469,6 +509,9 @@ function dow()
 				<img src = "http://www.shaastra.org/2011/media/main/img/alStrut_possibilities_unlimited.png" />
 				<img src = "http://www.shaastra.org/2011/media/main/img/ERI_UF_cmyk.png" />-->
                                 
+                                   {%for images in image%}
+                                      {{images|safe}}
+                                  {%endfor%}
                                
 				</div>
             </div>
@@ -513,6 +556,11 @@ function dow()
 		<a href="#" class="news-text">Gamer's Inn problem statement updated!!</a>
  
            </li>
+		   <li>
+              <a href="#" class="news-title">Deadline extended</a>
+		<a href="#" class="news-text">The deadline has been extened by until MIDNIGHT of 28/08/11</a>
+ 
+           </li>
 		    <li>
               <a href="http://shaastra.org/2011/main/events/ImportantDates" class="news-title">Event Submissions</a>
 		<a href="http://shaastra.org/2011/main/events/ImportantDates" class="news-text">Check here for Important Dates regarding Event Submissions</a>
@@ -544,10 +592,82 @@ function dow()
         </div>
       </div>   </div>
       <!-- HEADER ENDS -->
-<!-- Add the Body HERE!!!!-->
+
+
+<div id="page1" class="page" style = "overflow:hidden; position:relative;height:433px;width:100%;left:0px;">
+    <div id = "content" >
+
+                   
 {%block body%}
+	 <div id="home">
+      <div id = "content_top">
+                	<div class = "content_container">
+                    <div id = "lefttop">
+			<img id="qOpen" src="http://www.shaastra.org/2011/media/main/img/quote_open.png"/>
+
+                        <div id="shString">
+			     
+			</div>
+						<img id="qClose_main" src="http://www.shaastra.org/2011/media/main/img/quote_close.png" style="float:right;margin-top :120px;  margin-right:25px"/> 			
+                    </div>
+
+                    </div>
+<script>function fadein(){
+document.write("<style type='text/css'>#myGallery{visibility:hidden;} </style>");
+
+$("#myGallery").fadeIn("slow");} 
+</script>
+                    <div class = "content_container">
+                    <div id = "righttop">
+ <div id="myGallery" class="spacegallery" style="width:529px; height:160px;" onload="fadein()">
+	<img src="{{MEDIA_URL}}spacegallery/img/einstien.png"/>
+	<img src="{{MEDIA_URL}}spacegallery/img/iitm_sym.jpg"/>
+	<img src="{{MEDIA_URL}}spacegallery/img/research_expo.png"/>
+  </div>
+
+                    </div>
 
 
+                    </div>
+                    <div class = "clearfloat"></div>
+                </div>
+                <div id = "content_bottom">
+                	<div class = "content_container_2">
+                    <div id = "leftbottom">
+						<iframe style="position:absolute; top:8px; left:107px;" width="409" height="224" src="http://www.youtube.com/embed/YH-frgafQuU" frameborder="0" allowfullscreen></iframe>
+                        
+                    </div>
+
+                    </div>
+                    <div class = "content_container_2">
+                    <div id = "rightbottom">
+			<div id = "rightbottomcontent">
+                       <p>The long wait for IIT Madras’ exalted technical festival will soon end. The 13th edition of Shaastra, to be held between September 28th and October 2nd, is set to amaze and enthrall audiences everywhere! Shaastra will extend its focus on challenging new boundaries and will be a platform of ingenuity and innovation. A dedicated show with spectacular displays of technology and science will stretch the limits of your imagination. Continuing the philosophy of promoting creativity and showcasing innovation, Shaastra 2011 is all set to truly <span style="color:blue">Inspire the Future</span>.</p> 
+			</div>
+                    </div>
+                    </div>
+                    <div class = "clearfloat"></div>
+
+                    
+                </div>
+
+
+{%endblock%}
+	</div>
+    </div>
+
+ </div></div>
+
+{%block event_categories%}
+
+   <div id="page2" class="page" style="display:none; position:absolute;left:1200px; top:176px; width:99%;" >{% include "event_categories.html" %}</div>
+
+<!-- commneting out gallery for time being -->
+       <div id="page3" class="page" style="display:none; position:absolute;left:1200px; top:176px; height:300px;width: 99%;text-align:center;"><a href = "http://www.shaastra.org/2011/main/events/Sampark"><img src = "http://www.shaastra.org/2011/media/main/img/fullER.png"> </a></div>
+
+<!--<div id="right_arrow" onclick="slide1()"></div>
+	<div id="left_arrow" onclick="slide_back()"></div>
+-->
 {%endblock%}   
 
 
@@ -582,7 +702,20 @@ function dow()
 
 
 
-
+	  
+    <div id = "scrollcontainer">
+      <div id = "scroll">
+        <div id = "1" class = "thumb"><div class = "thumbc"></div></div>
+        <div id = "2" class = "thumb"><div class = "thumbc"></div></div>
+        <div id = "3" class = "thumb"><div class = "thumbc"></div></div>
+        <div id = "4" class = "thumb"><div class = "thumbc"></div></div>
+        <div id = "5" class = "thumb"><div class = "thumbc"></div></div>
+        <div id = "6" class = "thumb"><div class = "thumbc"></div></div>
+        <div id = "7" class = "thumb"><div class = "thumbc"></div></div>
+        <div id = "8" class = "thumb"><div class = "thumbc"></div></div>
+        <div id = "9" class = "thumb"><div class = "thumbc"></div></div>
+      </div>
+    </div>
 
  {%endblock%}
 
