@@ -11,7 +11,7 @@
 <!-- the buttons to view interesting answers-->
 <div id="forms">
 <form action="{{SITE_URL}}events/dashboard/ViewAnswers/" method="GET">
-              <input type="hidden" value="3" name="selected"/>
+  {% csrf_token %}            <input type="hidden" value="3" name="selected"/>
                      
                        <div class="button">
 						  <a href="#">
@@ -21,7 +21,7 @@
 </form> 
 <!-- showing selected answers -->
 <form action="{{SITE_URL}}events/dashboard/ViewAnswers/" method="GET">
-              <input type="hidden" value="4" name="selected"/>
+   {% csrf_token %}           <input type="hidden" value="4" name="selected"/>
                      
                        <div class="button">
 						  <a href="#">
@@ -34,7 +34,8 @@
 
 <!-- showing read answers -->
 <form action="{{SITE_URL}}events/dashboard/ViewAnswers/" method="GET">
-              <input type="hidden" value="2" name="selected"/>
+{% csrf_token %}   
+           <input type="hidden" value="2" name="selected"/>
                      
                        <div class="button">
 						  <a href="#">
@@ -45,6 +46,7 @@
 
 <!-- showing unread answers -->
 <form action="{{SITE_URL}}events/dashboard/ViewAnswers/" method="GET">
+{% csrf_token %}
               <input type="hidden" value="1" name="selected"/>
                      
                        <div class="button">
