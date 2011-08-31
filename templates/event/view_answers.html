@@ -1,7 +1,8 @@
 {%extends "index.html" %}
 
 {%block media_location%}
-    <link rel="stylesheet" type="text/css" href= "http://www.shaastra.org/2011/media/main/css2/viewans.css">
+    <link rel="stylesheet" type="text/css" href= "{{MEDIA_URL}}css2/viewans.css">
+    <script src="{{MEDIA_URL}}js2/js/sorttable.js"></script>
 {%endblock%}
 
 {%block body%}
@@ -269,23 +270,25 @@
   </div>
 
  <div id="file_individual">
- <center><table>
+ <center><table class="sortable">
+ <tr>
+ <th class="">NAME</th>
+ <th class="">FILE</th>
+ <th></th><th></th><th></th>
  
    {% for answer in file_individual%}
      <tr>
          <td >{{answer.name}}</td>
         <td><a href="{{answer.answers}}"> {{answer.answers}}</a></td>
-     </tr>
      
-     <tr>
-     <td style="width:200px;">
+     <td style="width:400px;">
             <form action="{{SITE_URL}}events/dashboard/ViewAnswers/MarkInteresting" method="GET">
               <input type="hidden" value="{{answer.id}}" name="submission_id"/>
                      {%if not answer.interesting%}
                        <div class="button">
 						  <a href="#">
-                         <input type="submit" value="mark as interesting " /><span></span>
-                         </a>
+                         <input type="submit" value="mark as interesting " /></a><span></span>
+                         
                        </div>
                      {%else%}
                        <div class="button2">
@@ -296,7 +299,7 @@
       </td>
       
           <!-- mark as selected -->
-      <td style="width:600px;">
+      <td style="width:400px;">
             <form action="{{SITE_URL}}events/dashboard/ViewAnswers/MarkSelected" method="GET">
               <input type="hidden" value="{{answer.id}}" name="submission_id"/>
                      {%if not answer.sel%}
@@ -315,7 +318,7 @@
         
       
       <!-- mark as read -->
-      <td style="width:200px;">
+      <td style="width:400px;">
             <form action="{{SITE_URL}}events/dashboard/ViewAnswers/MarkRead" method="GET">
               <input type="hidden" value="{{answer.id}}" name="submission_id"/>
                      {%if not answer.read%}
@@ -334,8 +337,7 @@
       
       
       
-      </tr>  
-    <tr height="10px"></tr><tr></tr>
+      
   {%endfor%}
   </table></center>
  </div>
