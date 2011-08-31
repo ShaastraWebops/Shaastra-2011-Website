@@ -12,6 +12,7 @@
 <div id="page_heading">
 <h3>DISPLAYING THE INTERESTING SUBMISSIONS</h3>
 </div>
+<div id="forms">
 <form action="{{SITE_URL}}events/dashboard/ViewAnswers/" method="POST">
 
   <div class="button">
@@ -25,7 +26,7 @@
 <!-- to navigate to selected answers -->
 
 <form action="{{SITE_URL}}events/dashboard/ViewAnswers/" method="GET">
-              <input type="hidden" value="4" name="selected"/>
+           <input type="hidden" value="4" name="selected"/>
                      
                        <div class="button">
 						  <a href="#">
@@ -37,7 +38,7 @@
 
 <!-- showing read answers -->
 <form action="{{SITE_URL}}events/dashboard/ViewAnswers/" method="GET">
-              <input type="hidden" value="2" name="selected"/>
+             <input type="hidden" value="2" name="selected"/>
                      
                        <div class="button">
 						  <a href="#">
@@ -57,7 +58,7 @@
                        </div>
 </form> 
 
-
+</div>
 
 
 {%if is_team_event%}
