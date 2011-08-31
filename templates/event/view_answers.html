@@ -270,7 +270,7 @@
      </tr>
      
      <tr>
-     <td>
+     <td style="width:200px;">
             <form action="{{SITE_URL}}events/dashboard/ViewAnswers/MarkInteresting" method="GET">
               <input type="hidden" value="{{answer.id}}" name="submission_id"/>
                      {%if not answer.interesting%}
@@ -288,18 +288,18 @@
       </td>
       
           <!-- mark as selected -->
-      <td>
+      <td style="width:600px;">
             <form action="{{SITE_URL}}events/dashboard/ViewAnswers/MarkSelected" method="GET">
               <input type="hidden" value="{{answer.id}}" name="submission_id"/>
                      {%if not answer.sel%}
                        <div class="button">
 						  <a href="#">
-                         <input type="submit" value="mark as selected " /><span></span>
-                         </a>
+                         <input type="submit" value="mark as selected " />
+                         </a><span></span>
                        </div>
                      {%else%}
                        <div class="button2">
-						  <a href="#"><input type="submit" value="unmark as selected"/><span></span></a>
+						  <a href="#"><input type="submit" value="unmark as selected"/></a><span></span>
 						</div>
         
                     {%endif%}</form> 
@@ -307,14 +307,14 @@
         
       
       <!-- mark as read -->
-      <td>
+      <td style="width:200px;">
             <form action="{{SITE_URL}}events/dashboard/ViewAnswers/MarkRead" method="GET">
               <input type="hidden" value="{{answer.id}}" name="submission_id"/>
                      {%if not answer.read%}
                        <div class="button">
 						  <a href="#">
-                         <input type="submit" value="mark as read " /><span></span>
-                         </a>
+                         <input type="submit" value="mark as read " />
+                         </a><span></span>
                        </div>
                      {%else%}
                        <div class="button2">
