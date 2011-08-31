@@ -1,11 +1,16 @@
 {%extends "index.html" %}
 
+{%block media_location%}
+    <link rel="stylesheet" type="text/css" href= "http://www.shaastra.org/2011/media/main/css2/viewans.css">
+{%endblock%}
+
 {%block body%}
 
 
 <div id="file_list" style="overflow:auto;height:433px">
 <!-- the buttons to view interesting answers-->
-<form style="position:absolute; top:10px; left:20px;" action="{{SITE_URL}}events/dashboard/ViewAnswers/" method="GET">
+<div id="forms">
+<form action="{{SITE_URL}}events/dashboard/ViewAnswers/" method="GET">
               <input type="hidden" value="3" name="selected"/>
                      
                        <div class="button">
@@ -15,7 +20,7 @@
                        </div>
 </form> 
 <!-- showing selected answers -->
-<form style="position:absolute; top:10px; left:270px;" action="{{SITE_URL}}events/dashboard/ViewAnswers/" method="GET">
+<form action="{{SITE_URL}}events/dashboard/ViewAnswers/" method="GET">
               <input type="hidden" value="4" name="selected"/>
                      
                        <div class="button">
@@ -28,7 +33,7 @@
 
 
 <!-- showing read answers -->
-<form style="position:absolute; top:10px; left:520px;" action="{{SITE_URL}}events/dashboard/ViewAnswers/" method="GET">
+<form action="{{SITE_URL}}events/dashboard/ViewAnswers/" method="GET">
               <input type="hidden" value="2" name="selected"/>
                      
                        <div class="button">
@@ -39,7 +44,7 @@
 </form> 
 
 <!-- showing unread answers -->
-<form style="position:absolute; top:10px; left:750px;" action="{{SITE_URL}}events/dashboard/ViewAnswers/" method="GET">
+<form action="{{SITE_URL}}events/dashboard/ViewAnswers/" method="GET">
               <input type="hidden" value="1" name="selected"/>
                      
                        <div class="button">
@@ -50,17 +55,17 @@
 </form> 
 
 
-
+</div>
 
 
 {%if is_team_event%}
 
 <div id="file_team_">
  <b>Answers for questions of FILE type : </b><br/>
-  <b><div style="color:red">IF LINK DOES NOT WORK COPY PASTE THE URL ON THE ADRESS BAR.</div> </b>
+  <b><div style="color:red">IF LINK DOES NOT WORK COPY PASTE THE URL ON THE ADRESS BAR.</div> </b><br><br>
  </div>
     <div id="file_team">
-        <table>
+        <center><table>
         {% for answer in file_team%}
 
         <tr>   
@@ -138,13 +143,13 @@
         <tr height="10px"></tr><tr></tr>
         
         {%endfor%}
-        </table>
+        </table></center>
     </div>
      <div id="normal_team_">
       <b>Answers for questions of TEXT type : </b>
      </div>
      <div id="normal_team">
-     <table>
+     <center><table>
         {% for text in normal_team%}
         <tr>
            <td>
@@ -228,13 +233,13 @@
         
         <tr height="10px"></tr><tr></tr>
         {%endfor%}
-        </table>
+        </table></center>
     </div>
     <div id="mcq_team_">
        <b>Answers for questions of MCQ type : </b>
     </div>
     <div id="mcq_team">
-    <table>
+    <center><table>
         {% for choice in mcq_team%}
           <tr>
             <td>
@@ -253,7 +258,7 @@
          
          <tr height="10px"></tr><tr></tr>
         {%endfor%}
-        </table>
+        </table></center>
     </div>
 {%else%}
   <div id="file_individual_">
@@ -262,7 +267,7 @@
   </div>
 
  <div id="file_individual">
- <table>
+ <center><table>
  
    {% for answer in file_individual%}
      <tr>
@@ -330,13 +335,13 @@
       </tr>  
     <tr height="10px"></tr><tr></tr>
   {%endfor%}
-  </table>
+  </table></center>
  </div>
        <div id="normal_individual_">
  <b>Answers for questions of TEXT type : </b>
  </div>
    <div id="normal_individual">
-   <table>
+   <center><table>
     {% for text in normal_individual%}
       <tr>
        <td>
@@ -415,13 +420,13 @@
      
      <tr height="10px"></tr><tr></tr>
    {%endfor%}
-    </table>
+    </table></center>
     </div>
        <div id="mcq_individual_">
  <b>Answers for questions of MCQ type : </b>
  </div>
     <div id="mcq_individual">
-    <table>
+    <center><table>
     {% for choice in mcq_individual%}
       <tr>
         <td>
@@ -437,7 +442,7 @@
    
         </tr><tr height="10px"></tr><tr></tr>
     {%endfor%}
-    </table>
+    </table></center>
    </div> 
     
 
