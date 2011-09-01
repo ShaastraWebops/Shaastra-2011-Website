@@ -22,11 +22,13 @@ from main_test.misc.util import *
 from math import fabs
 
 TECHMASH_URL = 'http://www.shaastra.org/2011/media/techmash/'
-@needs_authentication  
 def profile(request,username=None):
     if username == None:
-        username = request.user.username
-        show_buttons = True    
+        try:
+            username = request.user.username
+            show_buttons = True
+        else:
+            pass        
     try:
         image_list = Photo.objects.filter(user = username).order_by('rating')
     except:
