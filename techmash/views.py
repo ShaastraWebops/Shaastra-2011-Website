@@ -119,7 +119,7 @@ def deleteimage(request,image_title=None):
             pass
     except:
         pass            
-    return HttpResponseRedirect('%stechmash/profile'%settings.SITE_URL)
+    return HttpResponseRedirect(settings.SITE_URL + 'techmash/' + request.user.username + '/showprofile/')
     
 def selectimages():
     photo1=Photo.objects.order_by('?')[0]
