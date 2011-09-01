@@ -11,6 +11,8 @@ urlpatterns = patterns('',
              (r'^profile/$', profile),
              (r'^upload/$', upload),
              (r'^mashphotos/$', mashphotos),
+             (r'^delete/(?P<image_id>.*)/$', deleteimage)
+             (r'^(?P<username>.*)/showprofile/$', profile),
 #            (r'^stockphoto/', include('stockphoto.urls')),
 #            (r'^admin/', include('admin.site.urls')),
 
