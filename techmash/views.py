@@ -24,7 +24,7 @@ from math import fabs
 TECHMASH_URL = 'http://www.shaastra.org/2011/media/techmash/'
 def profile(request,username=None):
     if username == request.user.username:
-        show_buttons = true      
+        show_buttons = True      
     try:
         image_list = Photo.objects.filter(user = username).order_by('rating')
     except:
