@@ -27,7 +27,7 @@ def profile(request,username=None):
         try:
             username = request.user.username
             show_buttons = True
-        else:
+        except:
             pass        
     try:
         image_list = Photo.objects.filter(user = username).order_by('rating')
