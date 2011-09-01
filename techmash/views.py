@@ -23,12 +23,8 @@ from math import fabs
 
 TECHMASH_URL = 'http://www.shaastra.org/2011/media/techmash/'
 def profile(request,username=None):
-    if username == None:
-        try:
-            username = request.user.username
-            show_buttons = True
-        except:
-            pass        
+    if username == request.user.username:
+        show_buttons = true      
     try:
         image_list = Photo.objects.filter(user = username).order_by('rating')
     except:
