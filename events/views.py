@@ -37,54 +37,184 @@ def fileuploadhandler(f, eventname, tabid, file_title):
 @needs_authentication
 @coords_only
 def submissions_view_by_coords(request):
+
+    try:
+        value=request.GET["selected"]
+    except:
+        value="-1"    
+
     userprof = request.user.get_profile()
     event = userprof.coord_event
-    tdp=[]
-    mcq=[]
-    normal=[]
-    team_name=[]
+    
+    normal_team=[]
+    normal_individual=[]
+    
+    
+    file_team=[]
+    file_individual=[]
+   
+    
+    mcq_team=[]
+    mcq_individual=[]
     if userprof.is_coord:
-        """eventSubmissions=BaseSubmission.objects.filter(event=event)
-        questions=main_test.events.models.Question.objects.filter(event=event)
-        is_team_event=main_test.events.models.Event.objects.get(id=event.id)
-        
-        for eventSubmission in eventSubmissions:
-            if is_team_event:
-                participants=TeamSubmission.objects.filter(basesubmission_ptr=eventSubmission.id)
-                for participant in participants:
-                    team_name.extend(main_test.users.models.Team.objects.filter(id=participant.team.id))
-                
-        for question in questions:
-            submissions=Answer.objects.filter(question=question.id)
-            for submission in submissions:
-                if question.question_type == "FILE" :
-                    tdp.extend(Answer_file.objects.filter(answer_ptr=submission.id))
-                if question.question_type == "MCQ" :
-                    mcq.extend(Answer_MCQ.objects.filter(answer_ptr=submission.id))
-                if question.question_type == "NORMAL" :
-                    normal.extend(Answer_text.objects.filter(answer_ptr=submission.id))
-        
-        
-        """
-        
-        answers=Answer_file.objects.filter(submission__event=event,question__question_type="FILE")
-        for answer in answers :
-            submission_id=answer.submission.id
-            team_submission_object=TeamSubmission.objects.get(id=submission_id)
-            team_name.append(team_submission_object.team.name)
-            team_name.append(answer.File.url)
+      
+        try:
+            answers_file=Answer_file.objects.filter(submission__event=event,question__question_type="FILE")
+            answers_normal=Answer_Text.objects.filter(submission__event=event,question__question_type="NORMAL")
+            answers_mcq=Answer_MCQ.objects.filter(submission__event=event,question__question_type="MCQ")
             
+            
+            event_this=main_test.events.models.Event.objects.get(id=event.id)
+            is_team_event=event_this.team_event
         
+            for answer in answers_file :
+                submission_id=answer.submission.id
+                ratings=BaseSubmission.objects.get(id=submission_id)
+                
+                if is_team_event:
+                    team_submission_object=TeamSubmission.objects.get(id=submission_id)
+                    
+                    file_team.append({"name":team_submission_object.team.name,"answers":answer.File.url,"id":submission_id,"interesting":ratings.interesting,"sel":ratings.selected,"read":ratings.sub_read})
+                    
+                else:
+                    individual_submission_object=IndividualSubmissions.objects.get(id=submission_id)
+                    file_individual.append({"name":individual_submission_object.participant.user,"answers":answer.File.url,"id":submission_id,"interesting":ratings.interesting,"sel":ratings.selected,"read":ratings.sub_read})
+                    
+            
+            for text in answers_normal :
+                
+                submission_id=text.submission.id
+                ratings=BaseSubmission.objects.get(id=submission_id)
+                answer_pointer=Answer.objects.get(id=text.answer_ptr_id)
+                question=main_test.events.models.Question.objects.get(id=answer_pointer.question.id)
+                
+                if is_team_event:
+                    team_submission_object=TeamSubmission.objects.get(id=submission_id)
+                    normal_team.append({"name:":team_submission_object.team.name,"answers":text.text,"question":question,"id":submission_id,"interesting":ratings.interesting,"sel":ratings.selected,"read":ratings.sub_read})
+                    
+                    
+                else:
+                    individual_submission_object=IndividualSubmissions.objects.get(id=submission_id)
+                    normal_individual.append({"name":individual_submission_object.participant.user,"answers":text.text,"question":question,"id":submission_id,"interesting":ratings.interesting,"sel":ratings.selected,"read":ratings.sub_read})
+                    
+                    
+            mcq_individual.append({"name":"","answers":"","question":"","id":"","interesting":"","sel":"","read":""})
+            mcq_team.append({"name":"","answers":"","question":"","id":"","interesting":"","sel":"","read":""})
+            x=0
+           
+            for choices in answers_mcq :
+                
+                submission_id=choices.submission.id
+                ratings=BaseSubmission.objects.get(id=submission_id)
+                answer_pointer=Answer.objects.get(id=choices.answer_ptr_id)
+                question=main_test.events.models.Question.objects.get(id=answer_pointer.question.id)
+                if is_team_event:
+                    team_submission_object=TeamSubmission.objects.get(id=submission_id)
+                    team_name=team_submission_object.team.name
+                    
+                    if not mcq_individual[x]["name"]==team_name:
+                        mcq_team.append({"name":team_name,"answers":choices.choice,"question":question,"id":submission_id,"interesting":ratings.interesting,"sel":ratings.selected,"read":ratings.sub_read})
+                        x=len(mcq_individual)-1
+                    else:
+                        mcq_team.append({"name":"","answers":choices.choice,"question":question,"id":submission_id,"interesting":ratings.interesting,"sel":ratings.selected,"read":ratings.sub_read})
+                    
+                    
+                    
+                else:
+                    individual_submission_object=IndividualSubmissions.objects.get(id=submission_id)
+                    user_name=individual_submission_object.participant.user
+                    
+                    if not mcq_individual[x]["name"]==user_name:
+                        mcq_individual.append({"name":user_name,"answers":choices.choice,"question":question,"id":submission_id,"interesting":ratings.interesting,"sel":ratings.selected,"read":sub_read})
+                        x=len(mcq_individual)-1
+                        
+                    else:
+                        mcq_individual.append({"name":"","answers":choices.choice,"question":question,"id":submission_id,"interesting":ratings.interesting,"sel":ratings.selected,"read":sub_read})
+                        
+            
+            if value=="1":
+                return render_to_response('event/show_unread.html', locals(), context_instance= global_context(request))
+            if value=="2":
+                return render_to_response('event/view_read.html', locals(), context_instance= global_context(request))
+               
+            if value=="3":
+                return render_to_response('event/show_interesting.html', locals(), context_instance= global_context(request))
+            if value=="4":
+                return render_to_response('event/show_selected.html', locals(), context_instance= global_context(request))    
+            else:     
+                return render_to_response('event/view_answers.html', locals(), context_instance= global_context(request))
+        
+        except:
+            pass    
+        
+        
+        raise Http404
         
                          
-        return render_to_response('event/view_answers.html', locals(), context_instance= global_context(request))
+        
     else:
         raise Http404
 
+""" button id :
+    1-unread
+    2-read
+    3-interesting
+    4-selected
+"""
+
+
+
+
+
+@needs_authentication
+@coords_only
+def mark_as(request,select):
     
+    try:
+    
+        if request.method == 'GET':
+            button_selected=request.GET["submission_id"]
+            
+            
+            submission_to_mark=BaseSubmission.objects.get(id=button_selected)
+            
+            if select=="MarkInteresting":
+                if submission_to_mark.interesting==True: 
+                    submission_to_mark.interesting=False
+                    
+                else:
+                    submission_to_mark.interesting=True
+            elif select=="MarkSelected" :
+                if submission_to_mark.selected==True: 
+                    submission_to_mark.selected=False
+                
+                else:
+                    submission_to_mark.selected=True
+            
+            elif select=="MarkRead" :
+                if submission_to_mark.sub_read==True: 
+                    submission_to_mark.sub_read=False
+                
+                else:
+                    submission_to_mark.sub_read=True
+            
+                       
+               
+                
+            else:
+                return Http404    
+                
+                   
+            submission_to_mark.save()
+    except:
+        pass
+                  
+    return HttpResponseRedirect ("%sevents/dashboard/ViewAnswers/"%settings.SITE_URL)
+
+
 
 def userportal_submissions(request,questionList,event):
-    print "cumming here ..."
+    
     nQuestions = len( questionList )
     questionId = []
     questionAnswer = []
@@ -101,9 +231,9 @@ def userportal_submissions(request,questionList,event):
         print request.user.id, event
         if e.team_event:
 	    team = Team.objects.get(members__pk = request.user.id, event__name = event)
-        print "Yeah i go a tema"
+        
     except Team.DoesNotExist:
-        print "faaaaaaaaack!"
+        
         return None
 
     if ( e.team_event ):

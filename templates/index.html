@@ -33,7 +33,8 @@ annual technical festival of IIT Madras
 				<script type="text/javascript">
 				$(document).ready(function(){
 					$('#sponstkr').cycle({ 
-						fx:     'fade'
+						fx:     'fade',
+						timeout:  1000 
 					});
 				});
 				</script>
@@ -70,9 +71,11 @@ annual technical festival of IIT Madras
 <script type="text/javascript" src="{{MEDIA_URL}}spacegallery/js/spacegallery1.js"></script>
 <script type="text/javascript">
 
-
+var moveonce = 0;
+var moveonce2 = 0;
 		$(document).ready(function(){
 			$(document).mousemove(function(){
+					if(moveonce == 0){
 					var newch = ($(window).height() - 210);
 					newch = newch - 433;
 					newch = 160 + (newch/2);
@@ -91,14 +94,27 @@ annual technical festival of IIT Madras
 							$(".page").css({'position':'absolute','top':'164px'});
 							$("#footer_container").css({'position':'absolute','top':'593px'});
 					}
+			moveonce = 1;
+			setTimeout(function(){moveonce = 0},50000);
+			}
 			});
 		
-			$("#footer_container").css({"position":"absolute","top":"593px"}); 
+			
 			$(document).mousemove(
+					if(moveonce2 == 0){
+			
 				function(){
 					if($(document).height() > 650){
 					$("#footer_container").css({'position':'absolute','bottom':'25px'});
 					}
+					else
+					{
+					$("#footer_container").css({"position":"absolute","top":"593px"}); 
+					}
+				}
+				moveonce2 = 1;
+				setTimeout(function(){moveonce2 = 0},50000);
+
 				});
 		});
 </script>
