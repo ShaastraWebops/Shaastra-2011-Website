@@ -115,7 +115,8 @@ def deleteimage(request,image_id=None):
         if request.user.username == photo_to_delete.user:
             try:
                 photo_to_delete.delete()
-            except:    
+            except:
+                pass    
         else:
             pass
     except:
