@@ -109,9 +109,9 @@ def mashphotos(request):
         photo1,photo2=selectimages()
         return render_to_response("techmash/compare.html", locals(),context_instance= global_context(request))
 
-def deleteimage(request,image_id=None):
+def deleteimage(request,image_title=None):
     try:
-        photo_to_delete = Photo.objects.get(id=image_id)
+        photo_to_delete = Photo.objects.get(title = image_title)
         if request.user.username == photo_to_delete.user:
             try:
                 photo_to_delete.delete()
