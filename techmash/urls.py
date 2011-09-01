@@ -8,7 +8,6 @@ from django.contrib.auth.views import login, logout
 
 urlpatterns = patterns('',
 
-             (r'^profile/$', profile),
              (r'^upload/$', upload),
              (r'^mashphotos/$', mashphotos),
              (r'^delete/(?P<image_title>.*)/$', deleteimage),
