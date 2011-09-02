@@ -72,7 +72,7 @@ es.width = "186px";
 			{% for image in image_list %}
 			<div class = "imageContainer">
 			<div class = "imageHolder">
-			<a href = "{{MEDIA_URL}}techmash/images/{{image.title}}" rel = "lightbox[profile]" title = "{{image.caption}}">
+			<a href = "{{MEDIA_URL}}techmash/images/{{image.title}}" rel = "lightbox[profile]" title = "{{image.caption}}  <br/>Rating = {{image.rating}}">
 			<img src = "{{MEDIA_URL}}techmash/images/{{image.title}}" style="height:186px;width:auto;" onload = "adjust(this)" class = "profimg">
 			</a>
 			<br>
