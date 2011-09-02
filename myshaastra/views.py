@@ -148,7 +148,7 @@ def add_member(request, team_id = None):
             add_member_form = AddMemberForm(request.POST)
             if add_member_form.is_valid():
                 if user != team.leader:
-                    return HttpResponseRedirect('myshaastra/you_arent_leader.html', locals(), context_instance = global_context(request))
+                    return render_to_response('myshaastra/you_arent_leader.html', locals(), context_instance = global_context(request))
                 member = User.objects.get(username = add_member_form.cleaned_data['member'])
                 # autoregister member on addition to the team
                 try:
@@ -213,7 +213,7 @@ def remove_member(request, team_id = None):
             if change_leader_form.is_valid():
                 team = Team.objects.get(pk = change_leader_form.cleaned_data['team_id'])
                 if user != team.leader:
-                    return HttpResponseRedirect('myshaastra/you_arent_leader.html', locals(), context_instance = global_context(request))
+                    return render_to_response('myshaastra/you_arent_leader.html', locals(), context_instance = global_context(request))
                 new_leader = team.members.get(username = change_leader_form.cleaned_data['new_leader'])           
                 team.members.remove(new_leader)                                                # yes i know, it looks bad. but what the hell. i'm lazy.
                 return HttpResponseRedirect('%smyshaastra/teams/%s/' % (SITE_URL, team.id))
