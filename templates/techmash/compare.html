@@ -52,6 +52,7 @@ phot.css("{position:relative;top:"+bottomtobring+"px}");
 <input type="hidden" name="photoid1" value={{photo1.photoid1}} id="photoid1" />
 <input type="hidden" name="photoid2" value={{photo2.photoid2}} id="photoid2" />
 <input type="image" src="http://www.shaastra.org/2011/media/main/techmash/images/{{photo1.title}}" value="Select" id="Select"/>
+<p>{{photo1.caption}}<br/>Uploaded by <a href= {{SITE_URL}}techmash/{{photo1.user}}/showprofile/>{{photo1.user}}</a><br/></p>
 </form>
 </div>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -61,6 +62,7 @@ phot.css("{position:relative;top:"+bottomtobring+"px}");
 <input type="hidden" name="photoid1" value={{photo1.photoid1}} id="photoid1" />
 <input type="hidden" name="photoid2" value={{photo2.photoid2}} id="photoid2" />
 <input type="image" src="http://www.shaastra.org/2011/media/main/techmash/images/{{photo2.title}}" value="Select" id="Select"/>
+<p>{{photo2.caption}}<br/>Uploaded by <a href= {{SITE_URL}}techmash/{{photo2.user}}/showprofile/>{{photo2.user}}</a><br/></p>
 </form>
 </div>
 </div>

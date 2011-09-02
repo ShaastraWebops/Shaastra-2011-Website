@@ -22,10 +22,11 @@ from main_test.misc.util import *
 from math import fabs
 
 TECHMASH_URL = 'http://www.shaastra.org/2011/media/techmash/'
-@needs_authentication  
-def profile(request):
+def profile(request,username=None):
+    if username == request.user.username:
+        show_buttons = True      
     try:
-        image_list = Photo.objects.filter(user = request.user).order_by('rating')
+        image_list = Photo.objects.filter(user = username).order_by('rating')
     except:
         image_list =list()    
     return render_to_response("techmash/techslam.html", locals(),context_instance= global_context(request))
@@ -106,10 +107,19 @@ def mashphotos(request):
         photo1,photo2=selectimages()
         return render_to_response("techmash/compare.html", locals(),context_instance= global_context(request))
 
-def deleteimage(request):
-    photo_to_delete = Photo.objects.get(id=request.POST['photo_id'])
-    photo_to_delete.delete()
-    return HttpResponseRedirect('%stechmash/profile'%settings.SITE_URL)
+def deleteimage(request,image_title=None):
+    try:
+        photo_to_delete = Photo.objects.get(title = image_title)
+        if request.user.username == photo_to_delete.user:
+            try:
+                photo_to_delete.delete()
+            except:
+                pass    
+        else:
+            pass
+    except:
+        pass            
+    return HttpResponseRedirect(settings.SITE_URL + 'techmash/' + request.user.username + '/showprofile/')
     
 def selectimages():
     photo1=Photo.objects.order_by('?')[0]

@@ -43,19 +43,20 @@ es.width = "186px";
 			<div id = "SlamLeft">
 				<div id = "slamID">
 					<div id = "slamImage" class = "floatleft">
-					<img src = "http://www.shaastra.org/2011/media/main/techslam/Images/pic2.png" class = "userImage">
+                    <div id="fb-root"></div><script src="http://connect.facebook.net/en_US/all.js#appId=227359657312070&amp;xfbml=1"></script><fb:like href="{{SITE_URL}}techmash/{{username}}/showprofile/" send="true" width="450" show_faces="true" action="recommend" font="arial"></fb:like>
 					</div>
 					<div id = "slamUser" class = "floatleft">
                     The name is Bond, James Bond. This is the most Useless thing EVER!
 					</div>
 				</div>
-						
+			{% if show_buttons %}			
 			<div class="button3" style = "position:relative; top : -150px" >
 			<form action = "{{SITE_URL}}techmash/upload/" method = GET >
 			<input type="submit" value="" style = "position:relative; left : 30px;background:url({{MEDIA_URL}}techmash/images/submit.png);width : 174px;" />
 			</form>
 		
 			</div>
+			{%endif%}
 <!--<div class="button2" style = "position:relative; top : -150px">
 <form action = "{{SITE_URL}}techmash/mashphotos/" method = GET>
 <input type="submit" value="Mash photos">
@@ -71,13 +72,15 @@ es.width = "186px";
 			{% for image in image_list %}
 			<div class = "imageContainer">
 			<div class = "imageHolder">
-			<a href = "{{MEDIA_URL}}techmash/images/{{image.title}}" rel = "lightbox[profile]" title = "{{image.caption}}">
+			<a href = "{{MEDIA_URL}}techmash/images/{{image.title}}" rel = "lightbox[profile]" title = "{{image.caption}}  <br/>Rating = {{image.rating}}">
 			<img src = "{{MEDIA_URL}}techmash/images/{{image.title}}" style="height:186px;width:auto;" onload = "adjust(this)" class = "profimg">
 			</a>
 			<br>
+			{% if show_buttons %}
 			<center>
-			<a href = "/delete?{{image.title}}" style = "color : #183f5a;text-decoration:none">Delete</a>
+			<a href = "{{SITE_URL}}techmash/delete/{{image.title}}/" style = "color : #183f5a;text-decoration:none">Delete</a>
 			</center>
+			{% endif %}
 			</div>
 			</div>
             {% endfor %}
