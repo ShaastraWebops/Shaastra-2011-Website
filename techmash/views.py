@@ -1,4 +1,5 @@
 # coding: utf-8
+# Word of advice - Don't read the code. Rewrite it. It sucks. 
 from django.template.loader import get_template
 from django.template import Context
 from django.http import HttpResponse, Http404, HttpResponseRedirect

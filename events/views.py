@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# Hello shaastra 2012 webops coords . Do not try to copy paste the code in this file. You will fail miserably.
 from django.shortcuts import render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
 from django.http import Http404
