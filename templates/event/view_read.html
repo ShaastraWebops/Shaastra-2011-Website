@@ -2,6 +2,7 @@
 
 {%block media_location%}
     <link rel="stylesheet" type="text/css" href= "http://www.shaastra.org/2011/media/main/css2/viewans.css">
+    <script src="{{MEDIA_URL}}js2/js/sorttable.js"></script>
 {%endblock%}
 
 {%block body%}
@@ -69,7 +70,11 @@
   <b><div style="color:red">IF LINK DOES NOT WORK COPY PASTE THE URL ON THE ADRESS BAR.</div> </b>
  </div>
     <div id="file_team">
-        <center><table>
+        <center><table class="sortable">
+ <tr>
+ <th class="">NAME</th>
+ <th class="">FILE</th>
+ 
         {% for answer in file_team%}
            
            {%if answer.read%}
@@ -83,7 +88,7 @@
         </tr>
        
         
-        <tr height="10px"></tr><tr></tr>
+       
         {%endif%}
         {%endfor%}
         </table></center>
@@ -124,7 +129,11 @@
   </div>
 
  <div id="file_individual">
- <center><table>
+ <center><table class="sortable">
+ <tr>
+ <th class="">NAME</th>
+ <th class="">FILE</th>
+ 
  
    {% for answer in file_individual%}
    
@@ -135,7 +144,7 @@
      </tr>
      
      
-    <tr height="10px"></tr><tr></tr>
+    
     {%endif%}
   {%endfor%}
   </table></center>
