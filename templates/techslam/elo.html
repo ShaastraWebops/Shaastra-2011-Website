@@ -1,0 +1,21 @@
+{%extends index_techslam.html%}
+{%block body%}
+<center><h3>About Elo</h3></center>
+<p>
+The system of rating photos during the Shaastra techslam will be similar to the Elo rating
+used to rank professional chess players. The algorithm has been slightly tweaked and entirely
+developed by the Shaastra Webops team.
+
+The rating of a photo in the techslam will be determined by its performance against other
+photos, and the relative ratings of the photos that it beats or loses to.
+
+For example, if a photo with a low rating were to beat one with a much higher rating, the
+rating of the former would increase drastically, and that of the latter would drop drastically.
+But if the reverse were to happen, i.e., a highly rated photo were to beat a much lower one,
+their ratings would not be affected as much.
+
+The algorithm is designed to take into account the dynamic nature of the ratings, and rank
+and re-rank photos accordingly.
+</p>
+{%endblock%}
+
