@@ -355,7 +355,7 @@ def show_quick_tab(request,event_name=None):
         Here, "Robotics" is the event_name
         
         category is a menu object for which the menu "text" is urlname. The corresponding category image is displayed in the template
-        
+        Don't even bother reading the question tab part. Just remove it and rewrite it totally. You ll never understand. 
     """
     urlname=decamelize(event_name)
     tab_list=models.QuickTabs.objects.filter(event__name = urlname).order_by('pref')

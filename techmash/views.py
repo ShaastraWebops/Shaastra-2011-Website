@@ -31,6 +31,14 @@ def profile(request,username=None):
     except:
         image_list =list()    
     return render_to_response("techmash/techslam.html", locals(),context_instance= global_context(request))
+
+def top_photos(request):
+    try:
+        image_list = Photo.objects.order_by('rating')
+    except:
+        image_list =list()    
+    return render_to_response("techmash/top_photos.html", locals(),context_instance= global_context(request))
+    
 @needs_authentication 	
 def upload(request):
     if request.method == 'POST':
