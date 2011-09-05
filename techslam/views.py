@@ -37,6 +37,10 @@ def profile(request,username=None):
         image_list =list()    
     return render_to_response("techslam/techslam.html", locals(),context_instance= global_context(request))
 
+def spons_backend(request):
+    image_list = Photo.objects.order_by('photoid').reverse()
+    return render_to_response("techslam/spons.html", locals(),context_instance = global_context(request))
+
 def top_photos(request):
     try:
         image_list = Photo.objects.order_by('rating')

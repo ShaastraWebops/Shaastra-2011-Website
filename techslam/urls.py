@@ -13,8 +13,10 @@ urlpatterns = patterns('',
              (r'^delete/(?P<image_title>.*)/$', deleteimage),
              (r'^(?P<username>.*)/showprofile/$', profile),
 #            (r'^stockphoto/', include('stockphoto.urls')),
-#            (r'^admin/', include('admin.site.urls')),
+#            (r'^admin/', include('admin.site.urls'))
+             (r'^spons/$', spons_backend),
              (r'^(?P<static_name>.*)/$', render_static),
+             
 
 
 # Examples:
