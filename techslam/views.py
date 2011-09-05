@@ -25,9 +25,9 @@ from math import fabs
 TECHMASH_URL = 'http://www.shaastra.org/2011/media/techslam/'
 def profile(request,username=None):
     if username == "myprofile":
-        try:
+        if user.is_authenticated():
             username == request.user.username
-        except:
+        else:
             return HttpResponseRedirect(settings.SITE_URL + "login")    
     if username == request.user.username:
         show_buttons = True          
