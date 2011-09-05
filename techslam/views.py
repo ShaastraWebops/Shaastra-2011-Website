@@ -146,4 +146,6 @@ def render_static(request,static_name):
     if static_name=="rules":
         return render_to_response('techslam/rules.html', locals(), context_instance = global_context(request)) 
     if static_name=="prizes":
-        return render_to_response('techslam/prizes.html', locals(), context_instance = global_context(request))  
+        return render_to_response('techslam/prizes.html', locals(), context_instance = global_context(request))
+    if static_name=="elo":
+        return render_to_response('techslam/elo.html', locals(), context_instance = global_context(request))
