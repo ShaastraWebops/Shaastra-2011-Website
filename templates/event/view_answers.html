@@ -68,7 +68,11 @@
   <b><div style="color:red">IF LINK DOES NOT WORK COPY PASTE THE URL ON THE ADRESS BAR.</div> </b><br><br>
  </div>
     <div id="file_team">
-        <center><table>
+        <center><table class="sortable">
+ <tr>
+ <th class="">NAME</th>
+ <th class="">FILE</th>
+ <th></th><th></th><th></th>
         {% for answer in file_team%}
 
         <tr>   
@@ -78,8 +82,8 @@
             <td>
                <a href="{{answer.answers}}"> {{answer.answers}} </a>
             </td>
-        </tr>
-        <tr>
+        
+        
      <td>
             <form action="{{SITE_URL}}events/dashboard/ViewAnswers/MarkInteresting" method="GET">
               <input type="hidden" value="{{answer.id}}" name="submission_id"/>
