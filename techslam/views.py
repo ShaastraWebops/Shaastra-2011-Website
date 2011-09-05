@@ -26,7 +26,7 @@ TECHMASH_URL = 'http://www.shaastra.org/2011/media/techslam/'
 def profile(request,username=None):
     if username == "myprofile":
         if request.user.is_authenticated():
-            username == request.user.username
+            username = request.user.username
         else:
             return HttpResponseRedirect(settings.SITE_URL + "login")    
     if username == request.user.username:
