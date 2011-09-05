@@ -24,8 +24,13 @@ from math import fabs
 
 TECHMASH_URL = 'http://www.shaastra.org/2011/media/techslam/'
 def profile(request,username=None):
+    if username == "myprofile":
+        try:
+            username == request.user.username
+        except:
+            return HttpResponseRedirect(settings.SITE_URL + "login")    
     if username == request.user.username:
-        show_buttons = True      
+        show_buttons = True          
     try:
         image_list = Photo.objects.filter(user = username).order_by('rating')
     except:
