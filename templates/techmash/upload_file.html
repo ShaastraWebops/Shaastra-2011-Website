@@ -3,7 +3,6 @@
 {%endblock%}
 {% block body %}
 <div id = "someform">
-<p> {{request.user.username}} </p>
 <form enctype="multipart/form-data" method="post" action="">
 <table>
 {{form.as_table}}
@@ -12,6 +11,6 @@
 <input type = "submit" value ="Upload"/>
 </div>
 </form>
-<p><a href={{SITE_URL}}techmash/profile/>Go to mainpage</a></p>
+<p><a href={{SITE_URL}}techslam/profile/>Go to mainpage</a></p>
 </div>
 {% endblock %}

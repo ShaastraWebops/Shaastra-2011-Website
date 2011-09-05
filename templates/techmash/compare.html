@@ -47,22 +47,22 @@ phot.css("{position:relative;top:"+bottomtobring+"px}");
 <div id = "photosbox" style = "margin : 0 auto 0 auto;text-align:center">
 <div id  = "photocont" style = "margin : 0 auto 0 auto;text-align:center;width:900px;">
 <div id = photo1 style = "float:left;width:400px;height:400px;">
-<form enctype="multipart/form-data" method="post" action="{{SITE_URL}}techmash/mashphotos/">
+<form enctype="multipart/form-data" method="post" action="{{SITE_URL}}techslam/mashphotos/">
 <input type="hidden" name="selectedid" value={{photo1.photoid}} id="selectedid" />
 <input type="hidden" name="photoid1" value={{photo1.photoid1}} id="photoid1" />
 <input type="hidden" name="photoid2" value={{photo2.photoid2}} id="photoid2" />
-<input type="image" src="http://www.shaastra.org/2011/media/main/techmash/images/{{photo1.title}}" value="Select" id="Select"/>
-<p>{{photo1.caption}}<br/>Uploaded by <a href= {{SITE_URL}}techmash/{{photo1.user}}/showprofile/>{{photo1.user}}</a><br/></p>
+<input type="image" src="http://www.shaastra.org/2011/media/main/techslam/images/{{photo1.title}}" value="Select" id="Select"/>
+<p>{{photo1.caption}}<br/>Uploaded by <a href= {{SITE_URL}}techslam/{{photo1.user}}/showprofile/>{{photo1.user}}</a><br/></p>
 </form>
 </div>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <div id = photo1 style = "float:right;width:400px;height:400px;">
-<form enctype="multipart/form-data" method="post" action="{{SITE_URL}}techmash/mashphotos/">
+<form enctype="multipart/form-data" method="post" action="{{SITE_URL}}techslam/mashphotos/">
 <input type="hidden" name="selectedid" value={{photo1.photoid}} id="selectedid" />
 <input type="hidden" name="photoid1" value={{photo1.photoid1}} id="photoid1" />
 <input type="hidden" name="photoid2" value={{photo2.photoid2}} id="photoid2" />
-<input type="image" src="http://www.shaastra.org/2011/media/main/techmash/images/{{photo2.title}}" value="Select" id="Select"/>
-<p>{{photo2.caption}}<br/>Uploaded by <a href= {{SITE_URL}}techmash/{{photo2.user}}/showprofile/>{{photo2.user}}</a><br/></p>
+<input type="image" src="http://www.shaastra.org/2011/media/main/techslam/images/{{photo2.title}}" value="Select" id="Select"/>
+<p>{{photo2.caption}}<br/>Uploaded by <a href= {{SITE_URL}}techslam/{{photo2.user}}/showprofile/>{{photo2.user}}</a><br/></p>
 </form>
 </div>
 </div>
