@@ -138,3 +138,6 @@ def selectimages():
         pass    
     return(photo1,photo2)
 
+def render_static(request,static_name):
+    if static_name=="landing":
+        return render_to_response('techslam/landing.html', locals(), context_instance = global_context(request))  

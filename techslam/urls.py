@@ -14,6 +14,7 @@ urlpatterns = patterns('',
              (r'^(?P<username>.*)/showprofile/$', profile),
 #            (r'^stockphoto/', include('stockphoto.urls')),
 #            (r'^admin/', include('admin.site.urls')),
+             (r'^(?P<static_name>.*)/$', render_static),
 
 
 # Examples:
