@@ -12,6 +12,23 @@ TechSlam!
     
 
 <script>
+$(document).ready(
+function() {
+var imgs =$("#slamImage>img"); 
+var inh = $("#slamImage>img").height();
+var inw = $("#slamImage>img").width();
+if(inh>inw && inh >150)
+{
+imgs.css("{height : 150px; width = auto}");
+}
+
+if(inh<inw && inw >200)
+{
+imgs.css("{height : auto; width = 200px}");
+}
+}
+
+);
 function adjust(elem)
 {
 var es = elem.style;
