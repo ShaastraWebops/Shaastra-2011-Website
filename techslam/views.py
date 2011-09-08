@@ -80,7 +80,7 @@ def upload(request):
             # Save it -- the thumbnails etc. get created.
             photo.save()
             #handle_uploaded_image(request.FILES['file'])
-            return HttpResponseRedirect(("%stechslam/upload/" % settings.SITE_URL))
+            return HttpResponseRedirect(("%stechslam/myprofile/showprofile/" % settings.SITE_URL))
         else:
             return HttpResponseRedirect(("%stechslam/upload/" % settings.SITE_URL))   
     else:
