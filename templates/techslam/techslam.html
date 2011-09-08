@@ -14,18 +14,19 @@ TechSlam!
 <script>
 $(document).ready(
 function() {
-var imgs =$("#slamImage>img"); 
-var inh = $("#slamImage>img").height();
-var inw = $("#slamImage>img").width();
+var imgs =document.getElementById("topimg").style; 
+var inh = imgs.height;
+var inw = imgs.width;
 if(inh>inw && inh >150)
 {
-imgs.css("{height : 150px; width = auto}");
+imgs.height = "150px"; 
+imgs.width = "auto";
 }
 
 if(inh<inw && inw >200)
 {
-imgs.css("{height : auto; width = 200px}");
-}
+imgs.height = "auto"; 
+imgs.width = "200px";
 }
 
 );
@@ -61,7 +62,7 @@ es.width = "186px";
                <div id="fb-root"></div><script src="http://connect.facebook.net/en_US/all.js#appId=227359657312070&amp;xfbml=1"></script><fb:like href="{{SITE_URL}}techslam/{{username}}/showprofile/" send="true" width="450" show_faces="true" action="recommend" font="arial"></fb:like>
 				<div id = "slamID">
 					<div id = "slamImage" class = "floatleft">
-                    
+                    <img src = # id = "topimg">
 					</div>
 					<div id = "slamUser" class = "floatleft">
                     This is your techslam profile`
