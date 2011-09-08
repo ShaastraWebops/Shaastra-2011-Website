@@ -14,19 +14,26 @@ TechSlam!
 <script>
 $(document).ready(
 function() {
-var imgs =document.getElementById("topimg").style; 
+var imgs =document.getElementById("topimg").style;
+var sdivs =  document.getElementById("slamImage").style;
 var inh = imgs.height;
 var inw = imgs.width;
 if(inh>inw && inh >150)
 {
 imgs.height = "150px"; 
 imgs.width = "auto";
+sdivs.height = "150px"; 
+sdivs.width = "auto";
+
 }
 
 if(inh<inw && inw >200)
 {
 imgs.height = "auto"; 
 imgs.width = "200px";
+sdivs.height = "auto"; 
+sdivs.width = "200px";
+
 }
 
 );
