@@ -1,9 +1,9 @@
 {% extends "index_techslam.html" %}
 {% block body %}
 {% for image in image_list %}
-<img src = {{image.title}}>
+<img src = {{MEDIA_URL}}techslam/images/{{image.title}}>
 {{image.rating}} 
-Uploaded by <a href="{{MEDIA_URL}}techslam/images/{{image.user}}/showprofile/">{{image.user}}</a> 
+Uploaded by <a href="{{SITE_URL}}techslam/{{image.user}}/showprofile/">{{image.user}}</a> 
 <br/>
 {% endfor %}
 <a href="{{SITE_URL}}techslam/spons/{{prevpage}}">Previous</a>                                                                
