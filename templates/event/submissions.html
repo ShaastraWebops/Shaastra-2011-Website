@@ -80,7 +80,7 @@
         {% endif %}
         {% if ques.question_type == "MCQ" %}
         <input type="hidden" value="MCQ" name="type{{ques.Q_Number}}"/>
-        <p>This is a multiple choice question. Please select your choice and click on "Submit".</p>
+        
         <div id="mcq_question">
         <table border="1">
             {% csrf_token %}
