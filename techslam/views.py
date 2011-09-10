@@ -39,7 +39,7 @@ def profile(request,username=None):
     return render_to_response("techslam/techslam.html", locals(),context_instance= global_context(request))
 
 def spons_backend(request,pageno):
-    image_list = Photo.objects.order_by('photoid').reverse()[pageno*20:pageno*20 + 20]
+    image_list = Photo.objects.order_by('photoid').reverse()[(pageno*20):(pageno*20 + 20)]
     prevpage = pageno-1
     nextpage = pageno+1
     return render_to_response("techslam/spons.html", locals(),context_instance = global_context(request))
