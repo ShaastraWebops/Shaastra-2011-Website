@@ -73,7 +73,7 @@ def submissions_view_by_coords(request):
                 ratings=BaseSubmission.objects.get(id=submission_id)
                 
                 if is_team_event:
-                    team_submission_object=TeamSubmission.objects.get(id=submission_id)
+                    team_submission_object=TeamSubmission.objects.get(basesubmission_ptr=submission_id)
                     
                     file_team.append({"name":team_submission_object.team.name,"answers":answer.File.url,"id":submission_id,"interesting":ratings.interesting,"sel":ratings.selected,"read":ratings.sub_read})
                     
