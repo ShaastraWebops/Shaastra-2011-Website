@@ -3,40 +3,15 @@
 <title>
 TechSlam!
 </title>
-<!--<script type="text/javascript" src="{{MEDIA_URL}}js/prototype.js"></script>
-<script type="text/javascript" src="{{MEDIA_URL}}js/scriptaculous.js?load=effects,builder"></script>-->
-<script type="text/javascript" src="{{MEDIA_URL}}js/shadowbox.js"></script>
-	<link rel="stylesheet" href="{{MEDIA_URL}}js/shadowbox.css" type="text/css" media="screen" />
+<script type="text/javascript" src="{{MEDIA_URL}}js/prototype.js"></script>
+<script type="text/javascript" src="{{MEDIA_URL}}js/scriptaculous.js?load=effects,builder"></script>
+<script type="text/javascript" src="{{MEDIA_URL}}js/lightbox.js"></script>
+	<link rel="stylesheet" href="{{MEDIA_URL}}css2/lightbox.css" type="text/css" media="screen" />
 
 
     
 
 <script>
-Shadowbox.init();
-function add()
-{
-var imgs =document.getElementById("topimg").style;
-var sdivs =  document.getElementById("slamImage").style;
-var inh = imgs.height;
-var inw = imgs.width;
-if(inh>inw && inh >150)
-{
-imgs.height = "150px"; 
-imgs.width = "auto";
-sdivs.height = "150px"; 
-sdivs.width = "auto";
-
-}
-
-if(inh<inw && inw >200)
-{
-imgs.height = "auto"; 
-imgs.width = "200px";
-sdivs.height = "auto"; 
-sdivs.width = "200px";
-
-}
-}
 function adjust(elem)
 {
 var es = elem.style;
@@ -66,23 +41,22 @@ es.width = "186px";
 	<div id = "slamCover">
 		<div id = "slamOver">
 			<div id = "SlamLeft">
-               <div id="fb-root"></div><script src="http://connect.facebook.net/en_US/all.js#appId=227359657312070&amp;xfbml=1"></script><fb:like href="{{SITE_URL}}techslam/{{username}}/showprofile/" send="true" width="450" show_faces="true" action="recommend" font="arial"></fb:like>
 				<div id = "slamID">
 					<div id = "slamImage" class = "floatleft">
-                    <img src = # id = "topimg" onload = "add()">
+                    <div id="fb-root"></div><script src="http://connect.facebook.net/en_US/all.js#appId=227359657312070&amp;xfbml=1"></script><fb:like href="{{SITE_URL}}techslam/{{username}}/showprofile/" send="true" width="450" show_faces="true" action="recommend" font="arial"></fb:like>
 					</div>
 					<div id = "slamUser" class = "floatleft">
-                    This is your techslam profile
+                    This is your techslam profile`
 					</div>
 				</div>
-                {%if show_buttons  %}		
+			{% if show_buttons %}			
 			<div class="button3" style = "position:relative; top : -150px" >
 			<form action = "{{SITE_URL}}techslam/upload/" method = GET >
 			<input type="submit" value="" style = "position:relative; left : 30px;background:url({{MEDIA_URL}}techslam/images/submit.png);width : 174px;" />
 			</form>
 		
 			</div>
-            {% endif %}
+			{%endif%}
 <!--<div class="button2" style = "position:relative; top : -150px">
 <form action = "{{SITE_URL}}techslam/mashphotos/" method = GET>
 <input type="submit" value="Mash photos">
@@ -98,7 +72,7 @@ es.width = "186px";
 			{% for image in image_list %}
 			<div class = "imageContainer">
 			<div class = "imageHolder">
-			<a href = "{{MEDIA_URL}}techslam/images/{{image.title}}" rel = "shadowbox[profile]" title = "{{image.caption}}  <br/>Rating = {{image.rating}}">
+			<a href = "{{MEDIA_URL}}techslam/images/{{image.title}}" rel = "lightbox[profile]" title = "{{image.caption}}  <br/>Rating = {{image.rating}}">
 			<img src = "{{MEDIA_URL}}techslam/images/{{image.title}}" style="height:186px;width:auto;" onload = "adjust(this)" class = "profimg">
 			</a>
 			<br>
