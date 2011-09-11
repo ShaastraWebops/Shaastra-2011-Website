@@ -59,7 +59,7 @@ def submissions_view_by_coords(request):
     mcq_individual=[]
     if userprof.is_coord:
       
-        try:
+        #try:
             answers_file=Answer_file.objects.filter(submission__event=event,question__question_type="FILE")
             answers_normal=Answer_Text.objects.filter(submission__event=event,question__question_type="NORMAL")
             answers_mcq=Answer_MCQ.objects.filter(submission__event=event,question__question_type="MCQ")
@@ -145,13 +145,12 @@ def submissions_view_by_coords(request):
             else:     
                 return render_to_response('event/view_answers.html', locals(), context_instance= global_context(request))
         
-        except:
-            pass    
+        #except:
+            #pass    
         
         
-        raise Http404
-        
-                         
+            raise Http404
+                     
         
     else:
         raise Http404
