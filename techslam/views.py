@@ -34,8 +34,10 @@ def profile(request,username=None):
         show_buttons = True          
     try:
         image_list = Photo.objects.filter(user = username).order_by('rating')
+        top_photo = image_list[0]
     except:
-        image_list =list()    
+        image_list =list()
+        top_photo = "#"
     return render_to_response("techslam/techslam.html", locals(),context_instance= global_context(request))
 
 @needs_authentication
