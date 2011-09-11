@@ -127,11 +127,11 @@ def submissions_view_by_coords(request):
                     user_name=individual_submission_object.participant.user
                     
                     if not mcq_individual[x]["name"]==user_name:
-                        mcq_individual.append({"name":user_name,"answers":choices.choice,"question":question,"id":submission_id,"interesting":ratings.interesting,"sel":ratings.selected,"read":sub_read})
+                        mcq_individual.append({"name":user_name,"answers":choices.choice,"question":question,"id":submission_id,"interesting":ratings.interesting,"sel":ratings.selected,"read":ratings.sub_read})
                         x=len(mcq_individual)-1
                         
                     else:
-                        mcq_individual.append({"name":"","answers":choices.choice,"question":question,"id":submission_id,"interesting":ratings.interesting,"sel":ratings.selected,"read":sub_read})
+                        mcq_individual.append({"name":"","answers":choices.choice,"question":question,"id":submission_id,"interesting":ratings.interesting,"sel":ratings.selected,"read":ratings.sub_read})
                         
             
             if value=="1":
