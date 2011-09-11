@@ -146,7 +146,7 @@ def deleteimage(request,image_title=None):
             pass
     except:
         pass
-    if request.user.username == "sponstechslam"
+    if request.user.username == "sponstechslam":
         return HttpResponseRedirect(request.session['from_url'])
     return HttpResponseRedirect(settings.SITE_URL + 'techslam/' + request.user.username + '/showprofile/')
     
