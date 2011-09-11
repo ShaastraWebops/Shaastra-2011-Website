@@ -38,13 +38,16 @@ def profile(request,username=None):
         image_list =list()    
     return render_to_response("techslam/techslam.html", locals(),context_instance= global_context(request))
 
-def spons_backend(request):
-    image_list = Photo.objects.order_by('photoid').reverse()
+def spons_backend(request,pageno):
+    pageno = int(pageno)
+    image_list = Photo.objects.order_by('photoid').reverse()[(pageno*20):(pageno*20 + 20)]
+    prevpage = pageno-1
+    nextpage = pageno+1
     return render_to_response("techslam/spons.html", locals(),context_instance = global_context(request))
 
 def top_photos(request):
     try:
-        image_list = Photo.objects.order_by('rating')
+        image_list = Photo.objects.order_by('rating')[:10]
     except:
         image_list =list()    
     return render_to_response("techslam/top_photos.html", locals(),context_instance= global_context(request))
@@ -129,7 +132,7 @@ def slamphotos(request):
 def deleteimage(request,image_title=None):
     try:
         photo_to_delete = Photo.objects.get(title = image_title)
-        if request.user.username == photo_to_delete.user:
+        if request.user.username == photo_to_delete.user or request.user.username == "spons":
             try:
                 photo_to_delete.delete()
             except:
