@@ -597,7 +597,8 @@ def edit_tab_content(request):
                     form = forms.EditTabForm(data)
             if form.is_valid():
                 tab_to_edit.title= form.cleaned_data['title']
-                tab_to_edit.text = form.cleaned_data['text']
+                if(not tab_to_edit.question_tab):
+                    tab_to_edit.text = form.cleaned_data['text']
                 tab_to_edit.pref = form.cleaned_data['tab_pref']
                 tab_to_edit.save()
 
