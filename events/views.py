@@ -73,9 +73,10 @@ def submissions_view_by_coords(request):
                 ratings=BaseSubmission.objects.get(id=submission_id)
                 
                 if is_team_event:
-                    team_submission_object=TeamSubmission.objects.get(id=submission_id)
+                    if not submission_id==566: 
+                        team_submission_object=TeamSubmission.objects.get(id=submission_id)
                     
-                    file_team.append({"name":team_submission_object.team.name,"answers":answer.File.url,"id":submission_id,"interesting":ratings.interesting,"sel":ratings.selected,"read":ratings.sub_read})
+                        file_team.append({"name":team_submission_object.team.name,"answers":answer.File.url,"id":submission_id,"interesting":ratings.interesting,"sel":ratings.selected,"read":ratings.sub_read})
                     
                 else:
                     individual_submission_object=IndividualSubmissions.objects.get(id=submission_id)
@@ -126,11 +127,11 @@ def submissions_view_by_coords(request):
                     user_name=individual_submission_object.participant.user
                     
                     if not mcq_individual[x]["name"]==user_name:
-                        mcq_individual.append({"name":user_name,"answers":choices.choice,"question":question,"id":submission_id,"interesting":ratings.interesting,"sel":ratings.selected,"read":sub_read})
+                        mcq_individual.append({"name":user_name,"answers":choices.choice,"question":question,"id":submission_id,"interesting":ratings.interesting,"sel":ratings.selected,"read":ratings.sub_read})
                         x=len(mcq_individual)-1
                         
                     else:
-                        mcq_individual.append({"name":"","answers":choices.choice,"question":question,"id":submission_id,"interesting":ratings.interesting,"sel":ratings.selected,"read":sub_read})
+                        mcq_individual.append({"name":"","answers":choices.choice,"question":question,"id":submission_id,"interesting":ratings.interesting,"sel":ratings.selected,"read":ratings.sub_read})
                         
             
             if value=="1":
@@ -150,8 +151,7 @@ def submissions_view_by_coords(request):
         
         
         raise Http404
-        
-                         
+                     
         
     else:
         raise Http404
@@ -597,7 +597,8 @@ def edit_tab_content(request):
                     form = forms.EditTabForm(data)
             if form.is_valid():
                 tab_to_edit.title= form.cleaned_data['title']
-                tab_to_edit.text = form.cleaned_data['text']
+                if(not tab_to_edit.question_tab):
+                    tab_to_edit.text = form.cleaned_data['text']
                 tab_to_edit.pref = form.cleaned_data['tab_pref']
                 tab_to_edit.save()
 
