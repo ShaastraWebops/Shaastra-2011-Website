@@ -38,12 +38,17 @@ def profile(request,username=None):
         image_list =list()    
     return render_to_response("techslam/techslam.html", locals(),context_instance= global_context(request))
 
+@needs_authentication
 def spons_backend(request,pageno):
-    pageno = int(pageno)
-    image_list = Photo.objects.order_by('photoid').reverse()[(pageno*20):(pageno*20 + 20)]
-    prevpage = pageno-1
-    nextpage = pageno+1
-    return render_to_response("techslam/spons.html", locals(),context_instance = global_context(request))
+    if request.user.username == "sponstechslam":
+        pageno = int(pageno)
+        image_list = Photo.objects.order_by('photoid').reverse()[(pageno*20):(pageno*20 + 20)]
+        prevpage = pageno-1
+        nextpage = pageno+1
+        request.session['from_url'] = request.path
+        return render_to_response("techslam/spons.html", locals(),context_instance = global_context(request))
+    else :
+        raise Http404
 
 def top_photos(request):
     try:
@@ -132,7 +137,7 @@ def slamphotos(request):
 def deleteimage(request,image_title=None):
     try:
         photo_to_delete = Photo.objects.get(title = image_title)
-        if request.user.username == photo_to_delete.user or request.user.username == "spons":
+        if request.user.username == photo_to_delete.user or request.user.username == "sponstechslam":
             try:
                 photo_to_delete.delete()
             except:
@@ -140,7 +145,9 @@ def deleteimage(request,image_title=None):
         else:
             pass
     except:
-        pass            
+        pass
+    if request.user.username == "sponstechslam"
+        return HttpResponseRedirect(request.session['from_url'])
     return HttpResponseRedirect(settings.SITE_URL + 'techslam/' + request.user.username + '/showprofile/')
     
 def selectimages():
