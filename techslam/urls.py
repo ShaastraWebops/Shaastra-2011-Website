@@ -8,7 +8,7 @@ from django.contrib.auth.views import login, logout
 
 from django.views.generic.simple import redirect_to
 urlpatterns = patterns('',
-             (r'^$',redirect_to,{'url': 'r^/landing/$'}),   
+             (r'^$',redirect_to,{'url': '^/landing/'}),   
              (r'^upload/$', upload),
              (r'^selectphotos/$', slamphotos),
              (r'^delete/(?P<image_title>.*)/$', deleteimage),
