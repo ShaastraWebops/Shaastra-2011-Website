@@ -13,16 +13,16 @@ TechSlam!
 
 <script>
 Shadowbox.init();
-function add()
+function add(elem)
 {
-var imgs =document.getElementById("topimg").style;
+var imgs =$("#topimg");
 var sdivs =  document.getElementById("slamImage").style;
-var inh = imgs.height;
-var inw = imgs.width;
+var inh = imgs.height();
+var inw = imgs.width();
 if(inh>inw && inh >150)
 {
-imgs.height = "150px"; 
-imgs.width = "auto";
+imgs.css("{height : 150px;width:auto}"); 
+//imgs.width = "auto";
 sdivs.height = "150px"; 
 sdivs.width = "auto";
 
@@ -30,8 +30,7 @@ sdivs.width = "auto";
 
 if(inh<inw && inw >200)
 {
-imgs.height = "auto"; 
-imgs.width = "200px";
+imgs.css("{height : auto;width:200}"); 
 sdivs.height = "auto"; 
 sdivs.width = "200px";
 
@@ -69,10 +68,9 @@ es.width = "186px";
                <div id="fb-root"></div><script src="http://connect.facebook.net/en_US/all.js#appId=227359657312070&amp;xfbml=1"></script><fb:like href="{{SITE_URL}}techslam/{{username}}/showprofile/" send="true" width="450" show_faces="true" action="recommend" font="arial"></fb:like>
 				<div id = "slamID">
 					<div id = "slamImage" class = "floatleft">
-                        <img src = "{{MEDIA_URL}}techslam/images/{{image_list.0.title}}" id = "topimg" onload = "add()">
+<a href = "{{MEDIA_URL}}techslam/images/{{image_list.0.title}}" rel = "shadowbox" title = "{{image.caption}}  <br/>Rating = {{image.rating}}">                        <img src = "{{MEDIA_URL}}techslam/images/{{image_list.0.title}}" id = "topimg" onload = "add(this)" style = "height : 150px;width:auto;"></a>
 					</div>
 					<div id = "slamUser" class = "floatleft">
-                    This is your techslam profile
 					</div>
 				</div>
                 {%if show_buttons  %}		

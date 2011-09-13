@@ -7,9 +7,10 @@
 <table>
 {{form.as_table}}
 </table>
-<div class="button2">
-<input type = "submit" value ="Upload"/>
-</div>
+<div class="button3" style = "position:relative; top : 0px" >
+			<form action = "{{SITE_URL}}techslam/upload/" method = GET >
+			<input type="submit" value="" style = "position:relative; left : 30px;background:url({{MEDIA_URL}}techslam/images/submit.png);width : 174px;" />
+			</form>
 </form>
 <p><a href={{SITE_URL}}techslam/myprofile/showprofile/>Back to profile</a></p>
 </div>
