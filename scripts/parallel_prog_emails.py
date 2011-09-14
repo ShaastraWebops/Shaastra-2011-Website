@@ -1,10 +1,9 @@
 from users.models import *
-f = open('final_results.txt')
-usernames = []
-for line in f:
-    usernames.append(str(line))
+f = open('/home/shaastra/final_results.txt')
+usernames = f.readlines()
 f.close()
 users = []
-for username in useranmes:
-    users.append(User.objects.get(username))
+for username in usernames:
+    username = username.replace('\n', '')
+    users.append(User.objects.get(username = username))
 print users
