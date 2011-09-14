@@ -32,7 +32,7 @@
 	}
 </script>-->
 {% if saved %}
-    <p><font size="3" color="green"> Your answers have been saved!</font></p>
+    <p><span style = "font-size : 15px color : #A00"> Your answers have been saved!</span></p>
 {% endif %}
 <br><br>
 {% if not user.is_authenticated %}
@@ -46,7 +46,7 @@
     {% if user.is_authenticated %}
         {% if not part_of_a_team %}
             <br />
-            <p><font color="red">Please <a href="{{ SITE_URL }}myshaastra/teams/create/{{ event.id }}/">create a team</a> in order to save answers</font></p>
+            <p><span style = "font-size : 15px color : #A00">Please <a href="{{ SITE_URL }}myshaastra/teams/create/{{ event.id }}/">create a team</a> in order to save answers</span></p>
         {% else %}
             <p><a href="{{ SITE_URL }}myshaastra/teams/{{ team_id }}/">Edit team structure</a></p>
         {% endif %}
