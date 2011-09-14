@@ -1,0 +1,24 @@
+{%extends "index.html"%}
+
+
+{% block body%}
+<div id="nameblock" style="overflow:auto;height:400px">
+<table>
+
+{% for names in name%}
+<tr><td>
+ 
+ <!--<form action="{{SITE_URL}}events/ViewAnswers/Answers/" method="GET">
+ 
+ <input type="hidden" value="{{names}}" name="names"/> -->
+{% if is_team_event %}
+ <a href="{{SITE_URL}}events/ViewAnswers/Answers/{{names}}" />{{names}}</a>
+{%else%}
+   <a href="{{SITE_URL}}events/ViewAnswers/Answers/{{names.participant_id}}" />{{names.participant}}</a>
+   {%endif%}
+</tr></td>
+
+{% endfor%}
+</table>
+</div>
+{% endblock%}
