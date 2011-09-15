@@ -46,7 +46,7 @@ def profile(request,username=None):
             username = request.user.username
         else:
             request.session['from_url'] = settings.SITE_URL + "techslam/myprofile/showprofile"
-            return HttpResponseRedirect(settings.SITE_URL + "login")    
+            return HttpResponseRedirect(settings.SITE_URL + "techslam/myprofile/showprofile/")    
     if username == request.user.username:
         show_buttons = True          
     try:
