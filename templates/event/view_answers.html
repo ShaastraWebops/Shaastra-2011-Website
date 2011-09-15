@@ -9,10 +9,12 @@
 
 
 <div id="file_list" style="overflow:auto;height:433px">
+
 <!-- the buttons to view interesting answers-->
 <div id="forms">
 <form action="{{SITE_URL}}events/dashboard/ViewAnswers/" method="GET">
-  {% csrf_token %}            <input type="hidden" value="3" name="selected"/>
+  {% csrf_token %}
+              <input type="hidden" value="3" name="selected"/>
                      
                        <div class="button">
 						  <a href="#">
@@ -60,6 +62,63 @@
 
 </div>
 
+<!-- displaying one universal button for marking as selected,interesting -->
+
+
+
+<form action="{{SITE_URL}}events/dashboard/ViewAnswers/MarkInteresting" method="GET">
+              <input type="hidden" value="{{sub_id}}" name="submission_id"/>
+                     {%if not interesting%}
+                       <div class="button">
+						  <a href="#">
+                         <input type="submit" value="mark as interesting" />
+                         
+                         </a><span></span>
+                       </div>
+                     {%else%}
+                       <div class="button2">
+						  <a href="#"><input type="submit" value="unmark as interesting"/></a><span></span>
+						</div>
+        
+                    {%endif%}</form> 
+      
+      
+      <!-- mark as selected -->
+      
+            <form action="{{SITE_URL}}events/dashboard/ViewAnswers/MarkSelected" method="GET">
+              <input type="hidden" value="{{sub_id}}" name="submission_id"/>
+                     {%if not selected%}
+                       <div class="button">
+						  <a href="#">
+                         <input type="submit" value="mark as selected " />
+                         </a><span></span>
+                       </div>
+                     {%else%}
+                       <div class="button2">
+						  <a href="#"><input type="submit" value="unmark as selected"/></a><span></span>
+						</div>
+        
+                    {%endif%}</form> 
+      
+      
+      
+      <!-- mark as read -->
+      
+            <form action="{{SITE_URL}}events/dashboard/ViewAnswers/MarkRead" method="GET">
+              <input type="hidden" value="{{sub_id}}" name="submission_id"/>
+                     {%if not read%}
+                       <div class="button">
+						  <a href="#">
+                         <input type="submit" value="mark as read " />
+                         </a><span></span>
+                       </div>
+                     {%else%}
+                       <div class="button2">
+						  <a href="#"><input type="submit" value="mark as unread"/></a><span></span>
+						</div>
+        
+                    {%endif%}</form> 
+      
 
 {%if is_team_event%}
 
@@ -72,7 +131,7 @@
  <tr>
  <th class="">NAME</th>
  <th class="">FILE</th>
- <th></th><th></th><th></th>
+ 
         {% for answer in file_team%}
 
         <tr>   
@@ -83,75 +142,15 @@
                <a href="{{answer.answers}}"> {{answer.answers}} </a>
             </td>
         
-        
-     <td>
-            <form action="{{SITE_URL}}events/dashboard/ViewAnswers/MarkInteresting" method="GET">
-              <input type="hidden" value="{{answer.id}}" name="submission_id"/>
-                     {%if not answer.interesting%}
-                       <div class="button">
-						  <a href="#">
-                         <input type="submit" value="mark as interesting " />
-                         </a><span></span>
-                       </div>
-                     {%else%}
-                       <div class="button2">
-						  <a href="#"><input type="submit" value="unmark as interesting"/></a><span></span>
-						</div>
-        
-                    {%endif%}</form> 
-      </td>
-      
-      <!-- mark as selected -->
-      <td>
-            <form action="{{SITE_URL}}events/dashboard/ViewAnswers/MarkSelected" method="GET">
-              <input type="hidden" value="{{answer.id}}" name="submission_id"/>
-                     {%if not answer.sel%}
-                       <div class="button">
-						  <a href="#">
-                         <input type="submit" value="mark as selected " />
-                         </a><span></span>
-                       </div>
-                     {%else%}
-                       <div class="button2">
-						  <a href="#"><input type="submit" value="unmark as selected"/></a><span></span>
-						</div>
-        
-                    {%endif%}</form> 
-      </td>
-      
-      
-      <!-- mark as read -->
-      <td>
-            <form action="{{SITE_URL}}events/dashboard/ViewAnswers/MarkRead" method="GET">
-              <input type="hidden" value="{{answer.id}}" name="submission_id"/>
-                     {%if not answer.read%}
-                       <div class="button">
-						  <a href="#">
-                         <input type="submit" value="mark as read " />
-                         </a><span></span>
-                       </div>
-                     {%else%}
-                       <div class="button2">
-						  <a href="#"><input type="submit" value="mark as unread"/></a><span></span>
-						</div>
-        
-                    {%endif%}</form> 
-      </td>
-      
-      
-      
-      
-      
-      
-      </tr>  
-        
-        
+        </tr>  
+            
         
         <tr height="10px"></tr><tr></tr>
         
         {%endfor%}
         </table></center>
     </div>
+    
      <div id="normal_team_">
       <b>Answers for questions of TEXT type : </b>
      </div>
@@ -171,73 +170,8 @@
             </td>
         </tr>
         
-           <tr>
-     <td>
-            <form action="{{SITE_URL}}events/dashboard/ViewAnswers/MarkInteresting" method="GET">
-              <input type="hidden" value="{{answer.id}}" name="submission_id"/>
-                     {%if not answer.interesting%}
-                       <div class="button">
-						  <a href="#">
-                         <input type="submit" value="mark as interesting " />
-                         </a><span></span>
-                       </div>
-                     {%else%}
-                       <div class="button2">
-						  <a href="#"><input type="submit" value="unmark as interesting"/></a><span></span>
-						</div>
-        
-                    {%endif%}</form> 
-      </td>
-      
-      
-      <!-- mark as selected -->
-      <td>
-            <form action="{{SITE_URL}}events/dashboard/ViewAnswers/MarkSelected" method="GET">
-              <input type="hidden" value="{{answer.id}}" name="submission_id"/>
-                     {%if not answer.sel%}
-                       <div class="button">
-						  <a href="#">
-                         <input type="submit" value="mark as selected " /><span></span>
-                         </a>
-                       </div>
-                     {%else%}
-                       <div class="button2">
-						  <a href="#"><input type="submit" value="unmark as selected"/></a><span></span>
-						</div>
-        
-                    {%endif%}</form> 
-      </td>
-      
-      
-      <!-- mark as read -->
-      <td>
-            <form action="{{SITE_URL}}events/dashboard/ViewAnswers/MarkRead" method="GET">
-              <input type="hidden" value="{{answer.id}}" name="submission_id"/>
-                     {%if not answer.read%}
-                       <div class="button">
-						  <a href="#">
-                         <input type="submit" value="mark as read " />
-                         </a><span></span>
-                       </div>
-                     {%else%}
-                       <div class="button2">
-						  <a href="#"><input type="submit" value="mark as unread"/></a><span></span>
-						</div>
-        
-                    {%endif%}</form> 
-      </td>
-      
-      
-      
-      
-      
-      </tr>  
-        
-        
-        
-        
-        
-        
+           
+     
         <tr height="10px"></tr><tr></tr>
         {%endfor%}
         </table></center>
@@ -267,6 +201,8 @@
         {%endfor%}
         </table></center>
     </div>
+    
+    
 {%else%}
   <div id="file_individual_">
  <b>Answers for questions of FILE type : </b><br/>
@@ -278,7 +214,7 @@
  <tr>
  <th class="">NAME</th>
  <th class="">FILE</th>
- <th></th><th></th><th></th>
+ 
  
    {% for answer in file_individual%}
      <tr>
@@ -302,49 +238,13 @@
                     {%endif%}</form> 
       </td>
       
-          <!-- mark as selected -->
-      <td style="width:400px;">
-            <form action="{{SITE_URL}}events/dashboard/ViewAnswers/MarkSelected" method="GET">
-              <input type="hidden" value="{{answer.id}}" name="submission_id"/>
-                     {%if not answer.sel%}
-                       <div class="button">
-						  <a href="#">
-                         <input type="submit" value="mark as selected " />
-                         </a><span></span>
-                       </div>
-                     {%else%}
-                       <div class="button2">
-						  <a href="#"><input type="submit" value="unmark as selected"/></a><span></span>
-						</div>
-        
-                    {%endif%}</form> 
-      </td>
-        
-      
-      <!-- mark as read -->
-      <td style="width:400px;">
-            <form action="{{SITE_URL}}events/dashboard/ViewAnswers/MarkRead" method="GET">
-              <input type="hidden" value="{{answer.id}}" name="submission_id"/>
-                     {%if not answer.read%}
-                       <div class="button">
-						  <a href="#">
-                         <input type="submit" value="mark as read " />
-                         </a><span></span>
-                       </div>
-                     {%else%}
-                       <div class="button2">
-						  <a href="#"><input type="submit" value="mark as unread"/></a><span></span>
-						</div>
-        
-                    {%endif%}</form> 
-      </td>
-      
-      
+       
       
       
   {%endfor%}
   </table></center>
  </div>
+ 
        <div id="normal_individual_">
  <b>Answers for questions of TEXT type : </b>
  </div>
@@ -363,68 +263,6 @@
             {{text.answers}}
         </td>
      </tr>
-     
-        <tr>
-     <td>
-            <form action="{{SITE_URL}}events/dashboard/ViewAnswers/MarkInteresting" method="GET">
-              <input type="hidden" value="{{answer.id}}" name="submission_id"/>
-                     {%if not answer.interesting%}
-                       <div class="button">
-						  <a href="#">
-                         <input type="submit" value="mark as interesting " />
-                         </a><span></span>
-                       </div>
-                     {%else%}
-                       <div class="button2">
-						  <a href="#"><input type="submit" value="unmark as interesting"/></a><span></span>
-						</div>
-        
-                    {%endif%}</form> 
-      </td>
-      
-      <!-- mark as selected -->
-      <td>
-            <form action="{{SITE_URL}}events/dashboard/ViewAnswers/MarkSelected" method="GET">
-              <input type="hidden" value="{{answer.id}}" name="submission_id"/>
-                     {%if not answer.sel%}
-                       <div class="button">
-						  <a href="#">
-                         <input type="submit" value="mark as selected " />
-                         </a><span></span>
-                       </div>
-                     {%else%}
-                       <div class="button2">
-						  <a href="#"><input type="submit" value="unmark as selected"/></a><span></span>
-						</div>
-        
-                    {%endif%}</form> 
-      </td>
-      
-      
-      <!-- mark as read -->
-      <td>
-            <form action="{{SITE_URL}}events/dashboard/ViewAnswers/MarkRead" method="GET">
-              <input type="hidden" value="{{answer.id}}" name="submission_id"/>
-                     {%if not answer.read%}
-                       <div class="button">
-						  <a href="#">
-                         <input type="submit" value="mark as read " />
-                         </a><span></span>
-                       </div>
-                     {%else%}
-                       <div class="button2">
-						  <a href="#"><input type="submit" value="mark as unread"/></a><span></span>
-						</div>
-        
-                    {%endif%}</form> 
-      </td>
-      
-      
-      
-      </tr>  
-     
-     
-     
      
      <tr height="10px"></tr><tr></tr>
    {%endfor%}

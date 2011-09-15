@@ -183,3 +183,6 @@ def render_static(request,static_name):
         return render_to_response('techslam/prizes.html', locals(), context_instance = global_context(request))
     if static_name=="elo":
         return render_to_response('techslam/elo.html', locals(), context_instance = global_context(request))
+    else:
+        print "cehc"
+        raise Http404

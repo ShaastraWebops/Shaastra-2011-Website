@@ -59,129 +59,23 @@
 </form> 
 
 </div>
+<table>
+{% for names in names_list%}
+<tr><td>
 
+{%if names.sel%}
+{% if is_team_event %}
 
-
-{%if is_team_event%}
-
-<div id="file_team_">
- <b>Answers for questions of FILE type : </b><br/>
-  <b><div style="color:red">IF LINK DOES NOT WORK COPY PASTE THE URL ON THE ADRESS BAR.</div> </b>
- </div>
-    <div id="file_team">
-        <center><table class="sortable">
- <tr>
- <th class="">NAME</th>
- <th class="">FILE</th>
- 
-        {% for answer in file_team%}
-           
-           {%if answer.sel%}
-        <tr>   
-            <td>
-                {{answer.name}}
-            </td>
-            <td>
-               <a href="{{answer.answers}}"> {{answer.answers}} </a>
-            </td>
-        </tr>
-       
-        
-        
-        {%endif%}
-        {%endfor%}
-        </table></center>
-    </div>
-     <div id="normal_team_">
-      <b>Answers for questions of TEXT type : </b>
-     </div>
-     <div id="normal_team">
-     <center><table>
-        {% for text in normal_team%}
-          {%if text.sel%}
-        <tr>
-           <td>
-            {{text.name}}
-            </td>
-            <td>
-            {{text.question}}
-            </td>
-            <td width="10px"></td>
-            <td>
-                {{text.answers}}
-            </td>
-        </tr>
-        
-           
-        
-        
-        <tr height="10px"></tr><tr></tr>
-        {%endif%}
-        {%endfor%}
-        </table></center>
-    </div>
-    
+ <a href="{{SITE_URL}}events/ViewAnswers/Answers/{{names.name_id}}" />{{names.name}}</a>
 {%else%}
-  <div id="file_individual_">
- <b>Answers for questions of FILE type : </b><br/>
- <b><div style="color:red">IF LINK DOES NOT WORK COPY PASTE THE URL ON THE ADRESS BAR.</div> </b>
-  </div>
+   <a href="{{SITE_URL}}events/ViewAnswers/Answers/{{names.name_id}}" />{{names.name}}</a>
+   {%endif%}
+   {%endif%}
+</tr></td>
 
- <div id="file_individual">
- <center><table class="sortable">
- <tr>
- <th class="">NAME</th>
- <th class="">FILE</th>
- 
- 
-   {% for answer in file_individual%}
-   
-   {%if answer.sel%}
-     <tr>
-         <td>{{answer.name}}</td>
-        <td><a href="{{answer.answers}}"> {{answer.answers}}</a></td>
-     </tr>
-     
-     
-   
-    {%endif%}
-  {%endfor%}
-  </table></center>
- </div>
-       <div id="normal_individual_">
- <b>Answers for questions of TEXT type : </b>
- </div>
-   <div id="normal_individual">
-   <center><table>
-    {% for text in normal_individual%}
-    {%if text.sel%}
-      <tr>
-       <td>
-        {{text.name}}
-        </td>
-        <td>
-            {{text.question}}
-        </td>
-        <td width="10px"></td>
-        <td>
-            {{text.answers}}
-        </td>
-     </tr>
-     
-       
-     
-     <tr height="10px"></tr><tr></tr>
-     {%endif%}
-   {%endfor%}
-    </table></center>
-    </div>
-       
-
-
-{%endif%}
-
-
-
+{% endfor%}
+</table>
 </div>
+
 </div>
 {%endblock%}
