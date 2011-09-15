@@ -33,6 +33,9 @@ def register_user(request):
             user = User.objects.create_user(first_name = form.cleaned_data['first_name'], last_name = form.cleaned_data['last_name'], username = form.cleaned_data['username'], email = form.cleaned_data['email'],password = form.cleaned_data['password'],)
             user.is_active = True
             user.save()
+            return HttpResponseRedirect(settings.SITE_URL + "login")
+        return render_to_response('techslam/register.html', locals(), context_instance= global_context(request))
+            
     else:
         form = AddUserForm()
     return render_to_response('techslam/register.html', locals(), context_instance= global_context(request))            
