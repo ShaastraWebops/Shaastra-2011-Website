@@ -3,8 +3,12 @@ from django.conf import settings
 
 from django import forms
 from main_test.recaptcha import fields as recaptcha_fields
-
+from django.forms import ModelForm
+from django.db import models as d_models
 from main_test.misc import util
+from django.contrib.auth.models import User
+from django.template import Template, Context
+from django.utils.safestring import mark_safe
 import re
 import os,os.path
 
