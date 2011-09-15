@@ -47,20 +47,19 @@ def submissions_view_by_coords(request):
     except:
         value="-1"
 
-
+    names_list=[]
     userprof = request.user.get_profile()
     event = userprof.coord_event
 
     event_this=main_test.events.models.Event.objects.get(id=event.id)
     is_team_event=event_this.team_event
 
-    if userprof.is_coord:
+    if userprof.is_coord and value=="-1":
         
 
         if is_team_event:
             name=Team.objects.filter(event=event)   
             
-
         else:
             
             name=IndividualSubmissions.objects.filter(event=event)
@@ -68,6 +67,44 @@ def submissions_view_by_coords(request):
                 
                
         return render_to_response('event/view_names.html', locals(), context_instance= global_context(request))
+    elif userprof.is_coord:
+        if is_team_event:
+            name=Team.objects.filter(event=event)   
+            
+            for names in name:
+                team_submission_object=TeamSubmission.objects.filter(team=names)
+            
+                for answer in team_submission_object:
+                    submission_id=answer.basesubmission_ptr.id
+                    ratings=BaseSubmission.objects.get(id=submission_id)
+                        
+                    names_list.append({"name":names,"name_id":names.id,"id":submission_id,"interesting":ratings.interesting,"sel":ratings.selected,"read":ratings.sub_read})    
+                    
+            
+        else:
+            
+            name=IndividualSubmissions.objects.filter(event=event)
+            for names in name:
+                individual_submission_object=IndividualSubmissions.objects.filter(participant = names)
+                for answer in individual_submission_object:
+                    submission_id=answer.basesubmission_ptr.id
+                    ratings=BaseSubmission.objects.get(id=submission_id)
+                    
+                    names_list.append({"name":names.participant,"name_id":names.participant.id,"id":submission_id,"interesting":ratings.interesting,"sel":ratings.selected,"read":ratings.sub_read})
+                    
+        
+        
+        
+        if value=="1":
+            return render_to_response('event/show_unread.html', locals(), context_instance= global_context(request))
+        
+        if value=="2":
+            return render_to_response('event/view_read.html', locals(), context_instance= global_context(request))
+                   
+        if value=="3":
+            return render_to_response('event/show_interesting.html', locals(), context_instance= global_context(request))
+        if value=="4":
+            return render_to_response('event/show_selected.html', locals(), context_instance= global_context(request))    
     else:
         raise Http404
 

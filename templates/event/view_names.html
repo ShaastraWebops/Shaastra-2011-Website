@@ -4,13 +4,15 @@
 {% block body%}
 <div id="nameblock" style="overflow:auto;height:400px">
 <table>
+<tr><td>
+If you see an empty page on clicking a team, It means that they have not yet submitted their answers!!
 
+</td>
+</tr>
 {% for names in name%}
 <tr><td>
  
- <!--<form action="{{SITE_URL}}events/ViewAnswers/Answers/" method="GET">
- 
- <input type="hidden" value="{{names}}" name="names"/> -->
+
 {% if is_team_event %}
  <a href="{{SITE_URL}}events/ViewAnswers/Answers/{{names.id}}" />{{names}}</a>
 {%else%}
