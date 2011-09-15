@@ -98,7 +98,7 @@ def submissions_answers(request,names):
         
         file_team=[]
         file_individual=[]
-       
+        
         
         mcq_team=[]
         mcq_individual=[]
@@ -112,41 +112,51 @@ def submissions_answers(request,names):
                 answers_file=Answer_file.objects.filter(submission__event=event,submission=submission_id)
                 answers_normal=Answer_Text.objects.filter(submission__event=event,submission=submission_id)
                 answers_mcq=Answer_MCQ.objects.filter(submission__event=event,submission=submission_id)
+                #rating.append({"id":submission_id,"interesting":ratings.interesting,"sel":ratings.selected,"read":ratings.sub_read})
+                sub_id=submission_id
+                interesting=ratings.interesting
+                selected=ratings.selected
+                read=ratings.sub_read
                 
                 user_name=answer.participant.user
                 
                 for choices in answers_mcq:
                     answer_pointer=Answer.objects.get(id=choices.answer_ptr_id)
                     question=main_test.events.models.Question.objects.get(id=answer_pointer.question.id)
-                    mcq_individual.append({"name":user_name,"answers":choices.choice,"question":question,"id":submission_id,"interesting":ratings.interesting,"sel":ratings.selected,"read":ratings.sub_read})
+                    mcq_individual.append({"name":user_name,"answers":choices.choice,"question":question,"id":submission_id})
                 for files in answers_file:
-                    file_individual.append({"name":answer.participant.user,"answers":files.File.url,"id":submission_id,"interesting":ratings.interesting,"sel":ratings.selected,"read":ratings.sub_read})
+                    file_individual.append({"name":answer.participant.user,"answers":files.File.url,"id":submission_id})
                 for text in answers_normal: 
-                    normal_individual.append({"name":answer.participant.user,"answers":text.text,"question":question,"id":submission_id,"interesting":ratings.interesting,"sel":ratings.selected,"read":ratings.sub_read})
+                    normal_individual.append({"name":answer.participant.user,"answers":text.text,"question":question,"id":submission_id})
 
         else:
                    
-            team_submission_object=TeamSubmission.objects.filter(team__name=name)
-            print team_submission_object
+            team_submission_object=TeamSubmission.objects.filter(team=name)
+            
             for answer in team_submission_object:
                 submission_id=answer.basesubmission_ptr.id
                 ratings=BaseSubmission.objects.get(id=submission_id)
-                print ratings.event
+                
                 answers_file=Answer_file.objects.filter(submission__event=event,submission=submission_id)
                 answers_normal=Answer_Text.objects.filter(submission__event=event,submission=submission_id)
                 answers_mcq=Answer_MCQ.objects.filter(submission__event=event,submission=submission_id)
                 
                 user_name=answer.team.name
+                #rating.append({"id":submission_id,"interesting":ratings.interesting,"sel":ratings.selected,"read":ratings.sub_read})    
                 
+                sub_id=submission_id
+                interesting=ratings.interesting
+                selected=ratings.selected
+                read=ratings.sub_read
                 
                 for choices in answers_mcq:
                     answer_pointer=Answer.objects.get(id=choices.answer_ptr_id)
                     question=main_test.events.models.Question.objects.get(id=answer_pointer.question.id)
-                    mcq_team.append({"name":user_name,"answers":choices.choice,"question":question,"id":submission_id,"interesting":ratings.interesting,"sel":ratings.selected,"read":ratings.sub_read})
+                    mcq_team.append({"name":user_name,"answers":choices.choice,"question":question,"id":submission_id})
                 for files in answers_file:
-                    file_team.append({"name":answer.team.name,"answers":files.File.url,"id":submission_id,"interesting":ratings.interesting,"sel":ratings.selected,"read":ratings.sub_read})
+                    file_team.append({"name":answer.team.name,"answers":files.File.url,"id":submission_id})
                 for text in answers_normal: 
-                    normal_team.append({"name":answer.team.name,"answers":text.text,"question":question,"id":submission_id,"interesting":ratings.interesting,"sel":ratings.selected,"read":ratings.sub_read})
+                    normal_team.append({"name":answer.team.name,"answers":text.text,"question":question,"id":submission_id})
 
         
             
@@ -154,7 +164,7 @@ def submissions_answers(request,names):
         
         
         
-        
+        print value
         if value=="1":
             return render_to_response('event/show_unread.html', locals(), context_instance= global_context(request))
         

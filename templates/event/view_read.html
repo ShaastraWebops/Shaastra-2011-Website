@@ -77,7 +77,7 @@
  
         {% for answer in file_team%}
            
-           {%if answer.read%}
+           {%if read%}
         <tr>   
             <td>
                 {{answer.name}}
@@ -99,7 +99,7 @@
      <div id="normal_team">
      <center><table>
         {% for text in normal_team%}
-          {%if text.read%}
+          {%if read%}
         <tr>
            <td>
             {{text.name}}
