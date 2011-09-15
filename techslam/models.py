@@ -5,7 +5,7 @@ from django import forms
 from main_test.recaptcha import fields as recaptcha_fields
 
 from main_test.misc import util
-
+import re
 import os,os.path
 
 class UploadFileForm(forms.Form):
