@@ -76,7 +76,7 @@ def submissions_view_by_coords(request):
 
 def submissions_answers(request,names):
         
-    #try:
+    try:
         
         userprof = request.user.get_profile()
         event = userprof.coord_event
@@ -124,17 +124,20 @@ def submissions_answers(request,names):
                 for text in answers_normal: 
                     normal_individual.append({"name":answer.participant.user,"answers":text.text,"question":question,"id":submission_id,"interesting":ratings.interesting,"sel":ratings.selected,"read":ratings.sub_read})
 
-        else:        
+        else:
+                   
             team_submission_object=TeamSubmission.objects.filter(team__name=name)
+            print team_submission_object
             for answer in team_submission_object:
                 submission_id=answer.basesubmission_ptr.id
                 ratings=BaseSubmission.objects.get(id=submission_id)
-                
+                print ratings.event
                 answers_file=Answer_file.objects.filter(submission__event=event,submission=submission_id)
                 answers_normal=Answer_Text.objects.filter(submission__event=event,submission=submission_id)
                 answers_mcq=Answer_MCQ.objects.filter(submission__event=event,submission=submission_id)
                 
                 user_name=answer.team.name
+                
                 
                 for choices in answers_mcq:
                     answer_pointer=Answer.objects.get(id=choices.answer_ptr_id)
@@ -165,10 +168,10 @@ def submissions_answers(request,names):
         else:     
             return render_to_response('event/view_answers.html', locals(), context_instance= global_context(request))
             
-    #except:
-        #pass
+    except:
+        pass
             
-    #raise Http404
+    raise Http404
 #################################################3
 """
 @needs_authentication
