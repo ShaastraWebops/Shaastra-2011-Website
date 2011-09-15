@@ -36,7 +36,7 @@
 {% endif %}
 <br><br>
 {% if not user.is_authenticated %}
-    <p>Please login to submit answers</p>
+    <p style="color:red;">Please login to submit answers</p>
 {% endif %}
 {% if event.team_event %}
     <br />
@@ -46,7 +46,7 @@
     {% if user.is_authenticated %}
         {% if not part_of_a_team %}
             <br />
-            <p>Please <a href="{{ SITE_URL }}myshaastra/teams/create/{{ event.id }}/">create a team</a> in order to save answers</p>
+            <p><font color="red">Please <a href="{{ SITE_URL }}myshaastra/teams/create/{{ event.id }}/">create a team</a> in order to save answers</font></p>
         {% else %}
             <p><a href="{{ SITE_URL }}myshaastra/teams/{{ team_id }}/">Edit team structure</a></p>
         {% endif %}
