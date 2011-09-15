@@ -11,7 +11,8 @@ from django.template import Template, Context
 from django.utils.safestring import mark_safe
 import re
 import os,os.path
-
+alnum_re = re.compile(r'^[\w.-]+$') # regexp. from jamesodo in #django  [a-zA-Z0-9_.]
+alphanumric = re.compile(r"[a-zA-Z0-9]+$")
 class UploadFileForm(forms.Form):
     caption     = forms.CharField(max_length=500)
     file        = forms.ImageField()
