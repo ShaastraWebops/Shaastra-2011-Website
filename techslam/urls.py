@@ -13,6 +13,7 @@ urlpatterns = patterns('',
              (r'^selectphotos/$', slamphotos),
              (r'^delete/(?P<image_title>.*)/$', deleteimage),
              (r'^(?P<username>.*)/showprofile/$', profile),
+             (r'^register/$',register_user), 
 #            (r'^stockphoto/', include('stockphoto.urls')),
 #            (r'^admin/', include('admin.site.urls'))
              (r'^spons/(\d+)/$', spons_backend),

@@ -23,6 +23,20 @@ from main_test.misc.util import *
 from math import fabs
 
 TECHMASH_URL = 'http://www.shaastra.org/2011/media/techslam/'
+
+def register_user(request):
+    if request.method == 'POST':
+        data = request.POST.copy()
+        form = AddUserForm(data)
+  
+        if form.is_valid():
+            user = User.objects.create_user(first_name = form.cleaned_data['first_name'], last_name = form.cleaned_data['last_name'], username = form.cleaned_data['username'], email = form.cleaned_data['email'],password = form.cleaned_data['password'],)
+            user.is_active = True
+            user.save()
+    else:
+        form = AddUserForm()
+    return render_to_response('techslam/register.html', locals(), context_instance= global_context(request))            
+            
 def profile(request,username=None):
     if username == "myprofile":
         if request.user.is_authenticated():
