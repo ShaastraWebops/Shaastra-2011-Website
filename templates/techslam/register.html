@@ -1,0 +1,15 @@
+{% extends "index_techslam.html" %}
+{% block body %}
+<center style="height:400px; overflow:auto; margin-right:20px;">
+  <h1 align="center">
+    Techslam Registration
+  </h1>
+  <br>
+  <form action = "" method = "POST">
+  <table id = "maintable" cellpadding = "10" rules = "cols" border="0">
+    {{form.as_table}}
+  </table>
+  <p><input type="submit" value="Submit"></p>
+  </form>  
+
+{% endblock %}
