@@ -1,5 +1,0 @@
-DOCUMENTATION FOR TEMPLATES :
-
-In all templates i have inherited "index.html"
-in index.html, i have blocks for login, sponsor,main picture and content area.
-also i have one big block enclosing the above called body, which i will override in other pages.

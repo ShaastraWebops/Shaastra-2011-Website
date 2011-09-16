@@ -1,0 +1,26 @@
+{%extends "index.html"%}
+
+
+{% block body%}
+<div id="nameblock" style="overflow:auto;height:400px">
+<table>
+<tr><td>
+If you see an empty page on clicking a team, It means that they have not yet submitted their answers!!
+
+</td>
+</tr>
+{% for names in name%}
+<tr><td>
+ 
+
+{% if is_team_event %}
+ <a href="{{SITE_URL}}events/ViewAnswers/Answers/{{names.id}}" />{{names}}</a>
+{%else%}
+   <a href="{{SITE_URL}}events/ViewAnswers/Answers/{{names.participant_id}}" />{{names.participant}}</a>
+   {%endif%}
+</tr></td>
+
+{% endfor%}
+</table>
+</div>
+{% endblock%}

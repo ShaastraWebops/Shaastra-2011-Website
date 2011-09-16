@@ -35,9 +35,195 @@ def fileuploadhandler(f, eventname, tabid, file_title):
     tabfileobject = models.TabFiles ( Tab = tab_of_file,url = settings.MEDIA_URL + settings.EVENTS_PATH + camelize(eventname) + '/files/' + camelize(f.name), title =  file_title)
     tabfileobject.save()
 
+# this is a test code i am writing from here
 @needs_authentication
 @coords_only
+
 def submissions_view_by_coords(request):
+    
+    try:
+        value=request.GET["selected"]
+
+    except:
+        value="-1"
+
+    names_list=[]
+    userprof = request.user.get_profile()
+    event = userprof.coord_event
+
+    event_this=main_test.events.models.Event.objects.get(id=event.id)
+    is_team_event=event_this.team_event
+
+    if userprof.is_coord and value=="-1":
+        
+
+        if is_team_event:
+            name=Team.objects.filter(event=event)   
+            
+        else:
+            
+            name=IndividualSubmissions.objects.filter(event=event)
+            
+                
+               
+        return render_to_response('event/view_names.html', locals(), context_instance= global_context(request))
+    elif userprof.is_coord:
+        if is_team_event:
+            name=Team.objects.filter(event=event)   
+            
+            for names in name:
+                team_submission_object=TeamSubmission.objects.filter(team=names)
+            
+                for answer in team_submission_object:
+                    submission_id=answer.basesubmission_ptr.id
+                    ratings=BaseSubmission.objects.get(id=submission_id)
+                        
+                    names_list.append({"name":names,"name_id":names.id,"id":submission_id,"interesting":ratings.interesting,"sel":ratings.selected,"read":ratings.sub_read})    
+                    
+            
+        else:
+            
+            name=IndividualSubmissions.objects.filter(event=event)
+            for names in name:
+                individual_submission_object=IndividualSubmissions.objects.filter(participant = names)
+                for answer in individual_submission_object:
+                    submission_id=answer.basesubmission_ptr.id
+                    ratings=BaseSubmission.objects.get(id=submission_id)
+                    
+                    names_list.append({"name":names.participant,"name_id":names.participant.id,"id":submission_id,"interesting":ratings.interesting,"sel":ratings.selected,"read":ratings.sub_read})
+                    
+        
+        
+        
+        if value=="1":
+            return render_to_response('event/show_unread.html', locals(), context_instance= global_context(request))
+        
+        if value=="2":
+            return render_to_response('event/view_read.html', locals(), context_instance= global_context(request))
+                   
+        if value=="3":
+            return render_to_response('event/show_interesting.html', locals(), context_instance= global_context(request))
+        if value=="4":
+            return render_to_response('event/show_selected.html', locals(), context_instance= global_context(request))    
+    else:
+        raise Http404
+
+@needs_authentication
+@coords_only
+
+def submissions_answers(request,names):
+        
+    try:
+        
+        userprof = request.user.get_profile()
+        event = userprof.coord_event
+
+        
+        
+            
+        event_this=main_test.events.models.Event.objects.get(id=event.id)
+        is_team_event=event_this.team_event
+        
+        
+        name=names
+        
+        
+        
+        normal_team=[]
+        normal_individual=[]
+        
+        
+        file_team=[]
+        file_individual=[]
+        
+        
+        mcq_team=[]
+        mcq_individual=[]
+        
+        if not is_team_event:
+            individual_submission_object=IndividualSubmissions.objects.filter(participant = name)
+            for answer in individual_submission_object:
+                submission_id=answer.basesubmission_ptr.id
+                ratings=BaseSubmission.objects.get(id=submission_id)
+                
+                answers_file=Answer_file.objects.filter(submission__event=event,submission=submission_id)
+                answers_normal=Answer_Text.objects.filter(submission__event=event,submission=submission_id)
+                answers_mcq=Answer_MCQ.objects.filter(submission__event=event,submission=submission_id)
+                #rating.append({"id":submission_id,"interesting":ratings.interesting,"sel":ratings.selected,"read":ratings.sub_read})
+                sub_id=submission_id
+                interesting=ratings.interesting
+                selected=ratings.selected
+                read=ratings.sub_read
+                
+                user_name=answer.participant.user
+                
+                for choices in answers_mcq:
+                    answer_pointer=Answer.objects.get(id=choices.answer_ptr_id)
+                    question=main_test.events.models.Question.objects.get(id=answer_pointer.question.id)
+                    mcq_individual.append({"name":user_name,"answers":choices.choice,"question":question,"id":submission_id})
+                for files in answers_file:
+                    file_individual.append({"name":answer.participant.user,"answers":files.File.url,"id":submission_id})
+                for text in answers_normal: 
+                    normal_individual.append({"name":answer.participant.user,"answers":text.text,"question":question,"id":submission_id})
+
+        else:
+                   
+            team_submission_object=TeamSubmission.objects.filter(team=name)
+            
+            for answer in team_submission_object:
+                submission_id=answer.basesubmission_ptr.id
+                ratings=BaseSubmission.objects.get(id=submission_id)
+                
+                answers_file=Answer_file.objects.filter(submission__event=event,submission=submission_id)
+                answers_normal=Answer_Text.objects.filter(submission__event=event,submission=submission_id)
+                answers_mcq=Answer_MCQ.objects.filter(submission__event=event,submission=submission_id)
+                
+                user_name=answer.team.name
+                #rating.append({"id":submission_id,"interesting":ratings.interesting,"sel":ratings.selected,"read":ratings.sub_read})    
+                
+                sub_id=submission_id
+                interesting=ratings.interesting
+                selected=ratings.selected
+                read=ratings.sub_read
+                
+                for choices in answers_mcq:
+                    answer_pointer=Answer.objects.get(id=choices.answer_ptr_id)
+                    question=main_test.events.models.Question.objects.get(id=answer_pointer.question.id)
+                    mcq_team.append({"name":user_name,"answers":choices.choice,"question":question,"id":submission_id})
+                for files in answers_file:
+                    file_team.append({"name":answer.team.name,"answers":files.File.url,"id":submission_id})
+                for text in answers_normal: 
+                    normal_team.append({"name":answer.team.name,"answers":text.text,"question":question,"id":submission_id})
+
+        
+            
+        return render_to_response('event/view_answers.html', locals(), context_instance= global_context(request))
+        
+        
+        
+        print value
+        if value=="1":
+            return render_to_response('event/show_unread.html', locals(), context_instance= global_context(request))
+        
+        if value=="2":
+            return render_to_response('event/view_read.html', locals(), context_instance= global_context(request))
+                   
+        if value=="3":
+            return render_to_response('event/show_interesting.html', locals(), context_instance= global_context(request))
+        if value=="4":
+            return render_to_response('event/show_selected.html', locals(), context_instance= global_context(request))    
+        else:     
+            return render_to_response('event/view_answers.html', locals(), context_instance= global_context(request))
+            
+    except:
+        pass
+            
+    raise Http404
+#################################################3
+"""
+@needs_authentication
+@coords_only
+def submissions_view_by_coord(request):
 
     try:
         value=request.GET["selected"]
@@ -59,15 +245,19 @@ def submissions_view_by_coords(request):
     mcq_individual=[]
     if userprof.is_coord:
       
-        try:
+        #try:
+        
+                  
+        
+        
             answers_file=Answer_file.objects.filter(submission__event=event,question__question_type="FILE")
             answers_normal=Answer_Text.objects.filter(submission__event=event,question__question_type="NORMAL")
             answers_mcq=Answer_MCQ.objects.filter(submission__event=event,question__question_type="MCQ")
             
             
-            event_this=main_test.events.models.Event.objects.get(id=event.id)
             is_team_event=event_this.team_event
-        
+            event_this=main_test.events.models.Event.objects.get(id=event.id)
+            
             for answer in answers_file :
                 submission_id=answer.submission.id
                 ratings=BaseSubmission.objects.get(id=submission_id)
@@ -78,7 +268,7 @@ def submissions_view_by_coords(request):
                     
                         file_team.append({"name":team_submission_object.team.name,"answers":answer.File.url,"id":submission_id,"interesting":ratings.interesting,"sel":ratings.selected,"read":ratings.sub_read})
                     
-                else:
+                else:   
                     individual_submission_object=IndividualSubmissions.objects.get(id=submission_id)
                     file_individual.append({"name":individual_submission_object.participant.user,"answers":answer.File.url,"id":submission_id,"interesting":ratings.interesting,"sel":ratings.selected,"read":ratings.sub_read})
                     
@@ -96,6 +286,7 @@ def submissions_view_by_coords(request):
                     
                     
                 else:
+                    
                     individual_submission_object=IndividualSubmissions.objects.get(id=submission_id)
                     normal_individual.append({"name":individual_submission_object.participant.user,"answers":text.text,"question":question,"id":submission_id,"interesting":ratings.interesting,"sel":ratings.selected,"read":ratings.sub_read})
                     
@@ -114,25 +305,26 @@ def submissions_view_by_coords(request):
                     team_submission_object=TeamSubmission.objects.get(id=submission_id)
                     team_name=team_submission_object.team.name
                     
-                    if not mcq_individual[x]["name"]==team_name:
+                    if not mcq_team[x]["name"]==team_name:
                         mcq_team.append({"name":team_name,"answers":choices.choice,"question":question,"id":submission_id,"interesting":ratings.interesting,"sel":ratings.selected,"read":ratings.sub_read})
-                        x=len(mcq_individual)-1
+                        x=len(mcq_team)-1
                     else:
                         mcq_team.append({"name":"","answers":choices.choice,"question":question,"id":submission_id,"interesting":ratings.interesting,"sel":ratings.selected,"read":ratings.sub_read})
                     
                     
                     
                 else:
+                    
                     individual_submission_object=IndividualSubmissions.objects.get(id=submission_id)
                     user_name=individual_submission_object.participant.user
-                    
+                            
                     if not mcq_individual[x]["name"]==user_name:
                         mcq_individual.append({"name":user_name,"answers":choices.choice,"question":question,"id":submission_id,"interesting":ratings.interesting,"sel":ratings.selected,"read":ratings.sub_read})
                         x=len(mcq_individual)-1
                         
                     else:
                         mcq_individual.append({"name":"","answers":choices.choice,"question":question,"id":submission_id,"interesting":ratings.interesting,"sel":ratings.selected,"read":ratings.sub_read})
-                        
+                     
             
             if value=="1":
                 return render_to_response('event/show_unread.html', locals(), context_instance= global_context(request))
@@ -146,16 +338,16 @@ def submissions_view_by_coords(request):
             else:     
                 return render_to_response('event/view_answers.html', locals(), context_instance= global_context(request))
         
-        except:
-            pass    
+        #except:
+            #pass    
         
         
-        raise Http404
+        #raise Http404
                      
         
     else:
         raise Http404
-
+"""
 """ button id :
     1-unread
     2-read

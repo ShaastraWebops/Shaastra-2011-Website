@@ -23,13 +23,32 @@ from main_test.misc.util import *
 from math import fabs
 
 TECHMASH_URL = 'http://www.shaastra.org/2011/media/techslam/'
+
+def register_user(request):
+    if request.method == 'POST':
+        data = request.POST.copy()
+        form = AddUserForm(data)
+  
+        if form.is_valid():
+            user = User.objects.create_user( username = form.cleaned_data['username'], email = form.cleaned_data['email'],password = form.cleaned_data['password'],)
+            user.is_active = True
+            user.first_name = form.cleaned_data['first_name']
+            user.last_name = form.cleaned_data['last_name']
+            user.save()
+            return HttpResponseRedirect(settings.SITE_URL + "login")
+        return render_to_response('techslam/register.html', locals(), context_instance= global_context(request))
+            
+    else:
+        form = AddUserForm()
+    return render_to_response('techslam/register.html', locals(), context_instance= global_context(request))            
+            
 def profile(request,username=None):
     if username == "myprofile":
         if request.user.is_authenticated():
             username = request.user.username
         else:
             request.session['from_url'] = settings.SITE_URL + "techslam/myprofile/showprofile"
-            return HttpResponseRedirect(settings.SITE_URL + "login")    
+            return HttpResponseRedirect(settings.SITE_URL + "techslam/myprofile/showprofile/")    
     if username == request.user.username:
         show_buttons = True          
     try:
@@ -169,3 +188,6 @@ def render_static(request,static_name):
         return render_to_response('techslam/prizes.html', locals(), context_instance = global_context(request))
     if static_name=="elo":
         return render_to_response('techslam/elo.html', locals(), context_instance = global_context(request))
+    else:
+        print "cehc"
+        raise Http404

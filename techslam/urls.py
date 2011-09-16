@@ -8,11 +8,12 @@ from django.contrib.auth.views import login, logout
 
 from django.views.generic.simple import redirect_to
 urlpatterns = patterns('',
-             (r'^$','redirect_to',{'url': 'landing/'}),   
+             
              (r'^upload/$', upload),
              (r'^selectphotos/$', slamphotos),
              (r'^delete/(?P<image_title>.*)/$', deleteimage),
              (r'^(?P<username>.*)/showprofile/$', profile),
+             (r'^register/$',register_user), 
 #            (r'^stockphoto/', include('stockphoto.urls')),
 #            (r'^admin/', include('admin.site.urls'))
              (r'^spons/(\d+)/$', spons_backend),
@@ -31,3 +32,7 @@ urlpatterns = patterns('',
    # url(r'^admin/', include(admin.site.urls)),
 )
 
+urlpatterns += patterns('django.views.generic.simple',
+    url(r'^$', 'redirect_to', {'url':'landing/'}),
+)
+  
