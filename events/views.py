@@ -113,7 +113,7 @@ def submissions_view_by_coords(request):
 
 def submissions_answers(request,names):
         
-    try:
+    #try:
         
         userprof = request.user.get_profile()
         event = userprof.coord_event
@@ -215,10 +215,10 @@ def submissions_answers(request,names):
         else:     
             return render_to_response('event/view_answers.html', locals(), context_instance= global_context(request))
             
-    except:
-        pass
+    #except:
+        #pass
             
-    raise Http404
+    #raise Http404
 #################################################3
 """
 @needs_authentication
