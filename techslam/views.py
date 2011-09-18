@@ -153,9 +153,9 @@ def slamphotos(request):
         photo1,photo2=selectimages()
         return render_to_response("techslam/compare.html", locals(),context_instance= global_context(request))
 
-def deleteimage(request,image_title=None):
+def deleteimage(request,image_id=None):
     try:
-        photo_to_delete = Photo.objects.get(title = image_title)
+        photo_to_delete = Photo.objects.get(photoid = image_id)
         if request.user.username == photo_to_delete.user or request.user.username == "sponstechslam":
             try:
                 photo_to_delete.delete()
