@@ -77,6 +77,13 @@
 		<br><br>
     {% endif %}
 
+    {% if accom %}
+        <p>You have applied for accommodation. Please wait for the hospitality team to confirm the same.</p>
+    {% else %}
+        <p>You have not yet applied for accommodation. Apply <a href="{{ SITE_URL }}myshaastra/accommodation/apply/">here.</a></p>
+        <br />
+        <br />
+    {% endif %}
 <!--    <div id="edit_profile">
         <div class="button">
             <a href="#">
