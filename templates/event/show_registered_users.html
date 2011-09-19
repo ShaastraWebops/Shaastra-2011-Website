@@ -16,9 +16,8 @@
             <td style="font-family:Tahoma; padding:5px; font-size:18px; border-radius:0px; color:#000;">Mobile number</td>
 <!--             <td>Email-id</td> -->
             <td style="font-family:Tahoma; padding:5px; font-size:18px; border-radius:0px; color:#000;">Shaastra ID</td>
-			<td style="font-family:Tahoma; padding:5px; font-size:18px; border-radius:0px; color:#000;">Select for Next-Round</td>
-			<td style="font-family:Tahoma; padding:5px; font-size:18px; border-radius:0px; color:#000;">Rank</td>
-			<td style="font-family:Tahoma; padding:5px; font-size:18px; border-radius:0px; color:#000;">Forward for Accommodation</td>
+			<td style="font-family:Tahoma; padding:5px; font-size:18px; border-radius:0px; color:#000;">Email ID</td>
+			
         </tr>
         {% for u in users_list %}
             <tr>
@@ -29,9 +28,8 @@
                 <td>{{ u.mobile_number }}</td>
 <!--                 <td>{{ u.email }}</td> -->
                 <td>{{ u.shaastra_id }}</td>
-				<td> <input type="checkbox" name="" value="" /> </td>
-				<td style="padding:2px;"> <input type="text" size="6" style="padding:3px; background-color:#fafafa" /> </td>
-				<td> <input type="checkbox" name="" value="" /> </td>
+				<td> {{u.user.email}} </td>
+				
             </tr>
         {% endfor %}
     </table>

@@ -10,8 +10,8 @@ from django.views.generic.simple import redirect_to
 urlpatterns = patterns('',
              
              (r'^upload/$', upload),
-             (r'^selectphotos/$', slamphotos),
-             (r'^delete/(?P<image_title>.*)/$', deleteimage),
+             (r'^slamphotos/$', slamphotos),
+             (r'^delete/(?P<image_id>.*)/$', deleteimage),
              (r'^(?P<username>.*)/showprofile/$', profile),
              (r'^register/$',register_user), 
 #            (r'^stockphoto/', include('stockphoto.urls')),
