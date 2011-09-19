@@ -129,3 +129,15 @@ class ShaastraAmbassadorForm(forms.ModelForm):
             'user' : forms.HiddenInput(),
         }
 
+class AccommodationForm(forms.Form):
+    username = forms.CharField(max_length = 80, widget = forms.HiddenInput)
+    
+    def clean_username(self):
+        data = self.cleaned_data
+        if 'username' in data:
+            try:
+                User.objects.get(username = data['username'])
+            except User.DoesNotExist:
+                raise forms.ValidationError('This user does not exist!')
+        return data['username']
+    

@@ -66,6 +66,9 @@ def home(request):
     #Add/join team functionality
     #Account settings page
     create_team_form = CreateTeamForm()
+    accom = False
+    if userprof.want_hospi == True:
+        accom = True
     return render_to_response('myshaastra/home.html', locals(), context_instance = global_context(request))
 
 def get_authentic_team(request = None, team_id = None):
@@ -271,3 +274,21 @@ def ambassador_details(request, ambassador_id = None):
     except ShaastraAmbassador.DoesNotExist:
         raise Http404
     raise Http404
+    
+@needs_authentication
+def apply_for_accommodation(request):
+    user = request.user
+    form = AccommodationForm(initial = { 'username' : user.username, })
+    if request.method == 'POST':
+        form = AccommodationForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            if username != user.username:
+                raise Http404
+            profile = user.get_profile()
+            profile.want_hospi = True
+            profile.save()
+            return HttpResponseRedirect('%smyshaastra/' % SITE_URL)
+    return render_to_response('myshaastra/accommodation_form.html', locals(), context_instance = global_context(request))
+
+

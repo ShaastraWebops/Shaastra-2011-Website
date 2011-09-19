@@ -56,7 +56,7 @@ def submissions_view_by_coords(request):
 
     if userprof.is_coord and value=="-1":
         
-
+ 
         if is_team_event:
             name=Team.objects.filter(event=event)   
             
@@ -113,7 +113,7 @@ def submissions_view_by_coords(request):
 
 def submissions_answers(request,names):
         
-    try:
+    #try:
         
         userprof = request.user.get_profile()
         event = userprof.coord_event
@@ -196,6 +196,15 @@ def submissions_answers(request,names):
                     normal_team.append({"name":answer.team.name,"answers":text.text,"question":question,"id":submission_id})
 
         
+        
+        
+        
+        
+        
+        
+        
+        
+        
             
         return render_to_response('event/view_answers.html', locals(), context_instance= global_context(request))
         
@@ -215,10 +224,10 @@ def submissions_answers(request,names):
         else:     
             return render_to_response('event/view_answers.html', locals(), context_instance= global_context(request))
             
-    except:
-        pass
+    #except:
+        #pass
             
-    raise Http404
+    #raise Http404
 #################################################3
 """
 @needs_authentication
@@ -1122,9 +1131,17 @@ def show_registered_users(request):
     if request.method == 'GET':
         event_id = request.GET['event_id']
         event = models.Event.objects.get(id = event_id)
+        
+        if event.team_event:
+            users_list=Team.objects.filter(event=event)   
+            
+        else:
+            
+            users_list=IndividualSubmissions.objects.filter(event=event)
+        
         if request.user.get_profile().is_coord != True or request.user.get_profile().coord_event != event:
             raise Http404
-        users_list = event.registered_users.all()
+        #users_list = event.registered_users.all()
         return render_to_response('event/show_registered_users.html', locals(), context_instance = global_context(request))
     else:
         return HttpResponseRedirect('%sevents/dashboard' % settings.SITE_URL)
