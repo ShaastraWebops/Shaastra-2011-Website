@@ -21,22 +21,47 @@
 	<input type="submit" value="Submit">
   </div> -->
   </form>  
+  <div id = "dabbacover">
+
 <div id = "dabbadiv" style = "background : #fff;z-index:50;width : 500px;height : 400px;margin : 0 auto 0 auto;text-align:center;display:none">
 <span style = "float:right;border : 1px solid #CCC;padding:5px;" onclick = fo() id = "xf">X</span>
-To Complete the registration process, you'll have to register with gild.
+<span id = k>To Complete the registration process, you'll have to register with gild.
 <div class="button2">
 			<a href="#">
 			<input type="button" value="Proceed" onclick = "subform()" />
 			</a>
 			<span></span>
 		</div>
-	
+	</span>
+</div>
 </div>
 <style>
+#k
+{
+
+position : relative ;
+top : 40px;
+text-align : center;
+}
 #xf:hover
 {
 font-weight : bold;
 color : #800;
+background : #FC0;
+}
+#xf
+{
+position:relative;
+left : -40px;
+}
+#dabbacover
+{
+width : 100%;
+height : 100%;
+position:absolute;
+top:0px;
+left:0px;
+background : rgba(0,0,0,.7);
 }
 </style>
 <script>
