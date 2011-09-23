@@ -271,10 +271,11 @@ def feedback(request):
         feedback_list = [request.POST['graphics1'],request.POST['graphics2'],request.POST['graphics3'],request.POST['structure1'],request.POST['structure2'],request.POST['info1'],request.POST['info2'], request.POST['info3'], request.POST['gen1'],request.POST['gen2'],request.POST['gen3']]
         radiofeedbackstring = ''
         for i in feedback_list:
-            radiofeedbackstring += '***'
+            radiofeedbackstring += '***___***'
             radiofeedbackstring += str(i)
-        radiofeedbackstring += '***'
-        newfeedback = models.Feedback ( name = request.POST['name'], email = request.POST['email'], content = request.POST['text'], radiocontent = radiofeedbackstring )
+        radiofeedbackstring += '***___***'
+        feedbackstring = request.POST['gtext'] + "***___***"+ request.POST['stext'] + "***___***"+request.POST['text']
+        newfeedback = models.Feedback ( name = request.POST['name'], email = request.POST['email'], content = feedbackstring, radiocontent = radiofeedbackstring )
         newfeedback.save()        
         return HttpResponseRedirect ("%shome/"%settings.SITE_URL)
     else:            
