@@ -23,7 +23,7 @@
   </form>  
   <div id = "dabbacover">
 
-<div id = "dabbadiv" style = "background : #fff;z-index:50;width : 500px;height : 400px;margin : 0 auto 0 auto;text-align:center;display:none">
+<div id = "dabbadiv" style = "background : #fff;z-index:50;width : 500px;height : 400px;margin : 0 auto 0 auto;text-align:center;">
 <span style = "float:right;border : 1px solid #CCC;padding:5px;" onclick = fo() id = "xf">X</span>
 <span id = k>To Complete the registration process, you'll have to register with gild.
 <div class="button2">
@@ -56,6 +56,7 @@ left : -40px;
 }
 #dabbacover
 {
+display:none
 width : 100%;
 height : 100%;
 position:absolute;
@@ -67,17 +68,17 @@ background : rgba(0,0,0,.7);
 <script>
 function opendabba()
 {
-$("#dabbadiv").fadeIn();
+$("#dabbacover").fadeIn();
 }
 function subform()
 {
 window.open("Random URL HERE");
-$("#dabbadiv").fadeOut();
+$("#dabbacover").fadeOut();
 document.getElementById("regform").submit();
 }
 function fo()
 {
-$("#dabbadiv").fadeOut();
+$("#dabbacover").fadeOut();
 }
 </script>
 {% endblock %}
