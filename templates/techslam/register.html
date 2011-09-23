@@ -5,13 +5,13 @@
     Techslam Registration
   </h1>
   <br>
-  <form action = "" method = "POST">
+  <form action = "" method = "POST" id="regform">
   <table id = "maintable" cellpadding = "10" rules = "cols" border="0">
     {{form.as_table}}
 	<td colspan="2" style="padding-left:290px">
 		<div class="button2">
 			<a href="#">
-			<input type="submit" value="Submit"/>
+			<input type="button" value="Submit" onclick = "opendabba()" />
 			</a>
 			<span></span>
 		</div>
@@ -21,5 +21,38 @@
 	<input type="submit" value="Submit">
   </div> -->
   </form>  
-
+<div id = "dabbadiv" style = "background : #fff;z-index:50;width : 500px;height : 400px;margin : 0 auto 0 auto;text-align:center;display:none">
+<span style = "float:right;border : 1px solid #CCC;padding:5px;" onclick = fo() id = "xf">X</span>
+To Complete the registration process, you'll have to register with gild.
+<div class="button2">
+			<a href="#">
+			<input type="button" value="Proceed" onclick = "subform()" />
+			</a>
+			<span></span>
+		</div>
+	
+</div>
+<style>
+#xf:hover
+{
+font-weight : bold;
+color : #800;
+}
+</style>
+<script>
+function opendabba()
+{
+$("#dabbadiv").fadeIn();
+}
+function subform()
+{
+window.open("Random URL HERE");
+$("#dabbadiv").fadeOut();
+document.getElementById("regform").submit();
+}
+function fo()
+{
+$("#dabbadiv").fadeOut();
+}
+</script>
 {% endblock %}
