@@ -32,7 +32,10 @@
 {% endblock %}
 
 {% block body %}
+<p><h3>Username :{{user.username}} </h3></p>
     <div id="registered_events"><br>
+        
+        
         <p><h3>Events you have registered for:</h3></p>
         <ul>
             {% for event in events_list %}
