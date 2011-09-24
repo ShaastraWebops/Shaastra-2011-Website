@@ -21,6 +21,9 @@
         </tr>
         {% for user in users_list %}
             <tr>
+                {% if event.team_event %}
+                    <td>{{ user.team_name }}</td>
+                {% endif %}
                 <td>{{ user.username }}</td>
                 <td>{{ user.profile.college.name }}</td>
                 <td>{{ user.profile.mobile_number }}</td>

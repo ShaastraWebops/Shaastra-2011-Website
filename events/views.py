@@ -1137,6 +1137,7 @@ def show_registered_users(request):
             for team in team_list:
                 for user in team.members.all():
                     user.profile = user.get_profile()
+                    user.team_name = team.name
                     users_list.append(user)
         else:
             i = IndividualSubmissions.objects.filter(event=event)
