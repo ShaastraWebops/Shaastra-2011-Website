@@ -19,18 +19,28 @@
 			<td style="font-family:Tahoma; padding:5px; font-size:18px; border-radius:0px; color:#000;">Email ID</td>
 			
         </tr>
+        {% for user in users_list %}
+            <tr>
+                <td>{{ user.username }}</td>
+                <td>{{ user.profile.college.name }}</td>
+                <td>{{ user.profile.mobile_number }}</td>
+                <td>{{ user.profile.shaastra_id }}</td>
+                <td>{{ user.email }}</td>
+            </tr>
+        {% endfor %}
+<!--
         {% for u in users_list %}
             <tr>
                 <td>{{ u.participant.user.username }}</td>
 <!--                 <td>{{ u.user.first_name }}</td> -->
 <!--                 <td>{{ u.user.last_name }}</td> -->
-                <td>{{ u.participant.college.name }}</td>
+<!--                <td>{{ u.participant.college.name }}</td>
                 <td>{{ u.participant.mobile_number }}</td>
 <!--                 <td>{{ u.email }}</td> -->
-                <td>{{ u.participant.shaastra_id }}</td>
+<!--                <td>{{ u.participant.shaastra_id }}</td>
 				<td> {{u.participant.user.email}} </td>
 				
-            </tr>
+            </tr>  -->
         {% endfor %}
     </table>
 	<br>
