@@ -8,6 +8,9 @@ from main_test.users.models import Team
 from django.contrib.auth.models import User, Group
 import ho.pisa as pisa
 import os
+
+SPAM_ROOT = "/home/sudharshan/Shaastra/main_test/templates/saars/"
+SAAR_TEMPLATE = "/home/sudharshan/Shaastra/main_test/templates/saars/"
 def email_embed_image(email, img_content_id, img_data):
     """
     email is a django.core.mail.EmailMessage object
@@ -97,15 +100,15 @@ Shaastra-2011 website : http://www.shaastra.org/2011/main/home/
         for user in users_list:
             user_profile = user.get_profile()
             college,phone_number,gender = user_profile.college.name,user_profile.mobile_number,user_profile.gender
-            mail = EmailMessage(subject,text,"hospitality@shaastra.org",[user.email])
+            mail = EmailMessage(subject,text,"hospitality@shaastra.org",[user.email],['psbbboyz@gmail.com'],headers={"Reply-To":"hospitality@shaastra.org"})
             rawhtml = open("/home/swaroop/prefinal.html","r")
             t = Template(rawhtml.read())
             c = Context(locals())
-            f = open("/home/swaroop/saarspam/"+saar_id + "_"+ str(user.id)+"saar.html" , "w")
+            f = open(SPAM_ROOT+saar_id + "_"+ str(user.id)+"saar.html" , "w")
             f.write(t.render(c).encode('utf-8'))
             os.system("xhtml2pdf /home/swaroop/saarspam/"+ saar_id+ "_"+str(user.id)+ "saar.html")
-            saarpdf_data = open("/home/swaroop/saarspam/"+saar_id +"_"+ str(user.id)+ "saar.pdf","rb")
-            mail.attach_file("/home/swaroop/saarspam/"+saar_id +"_"+ str(user.id)+"saar.pdf")
+            saarpdf_data = open(SPAM_ROOT+saar_id +"_"+ str(user.id)+ "saar.pdf","rb")
+            mail.attach_file(SPAM_ROOT+saar_id +"_"+ str(user.id)+"saar.pdf")
             try:
                 mail.send()
                 success = True
@@ -147,8 +150,9 @@ Shaastra-2011 website : http://www.shaastra.org/2011/main/home/
 """
     success = False
     try:
+        print email_id
         user_object=User.objects.get(email=email_id)
-        print "h1"
+        print user_object 
         user_object_profile = user_object.get_profile()
         print "hi2"
         try:
@@ -158,16 +162,21 @@ Shaastra-2011 website : http://www.shaastra.org/2011/main/home/
         print "hi6"        
         saar_id = "SHA11U"+str(user_object.id)
         print "hi5"
-        mail = EmailMessage(subject,text,"hospitality@shaastra.org",[user_object.email])
+        mail = EmailMessage(subject,text,"ee08b049@smail.iitm.ac.in",[user_object.email])
         print "hi3"
-        rawhtml = open("/home/swaroop/indprefinal.html","r")
-        t = Template(rawhtml.read())
+        try:
+	  print SAAR_TEMPLATE+"indprefinal.html"
+	  rawhtml = open(SAAR_TEMPLATE+"indprefinal.html","r")
+        except:
+	  raise
+	print "check"
+	t = Template(rawhtml.read())
         c = Context(locals())
-        f = open("/home/swaroop/saarspam/"+saar_id + "saar.html" , "w")
+        f = open(SPAM_ROOT+saar_id + "saar.html" , "w")
         f.write(t.render(c).encode('utf-8'))
-        os.system("xhtml2pdf /home/swaroop/saarspam/"+ saar_id +"saar.html")
-        saarpdf_data = open("/home/swaroop/saarspam/"+saar_id +"saar.pdf","rb")
-        mail.attach_file("/home/swaroop/saarspam/"+saar_id+"saar.pdf")
+        os.system("xhtml2pdf " +SPAM_ROOT+ saar_id +"saar.html")
+        saarpdf_data = open(SPAM_ROOT+saar_id +"saar.pdf","rb")
+        mail.attach_file(SPAM_ROOT+saar_id+"saar.pdf")
         print "hifin"
         try:
             mail.send()
@@ -176,7 +185,7 @@ Shaastra-2011 website : http://www.shaastra.org/2011/main/home/
         except:
             success = False
     except:
-        print "fail"
+	print email_id      
     return success             
         
 def hospispamind():

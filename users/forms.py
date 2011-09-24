@@ -189,4 +189,8 @@ class UsernameForm(forms.Form):
             except User.DoesNotExist:
                 raise forms.ValidationError('Invalid username')
         return self.cleaned_data['username']
+class AddCollegeForm (ModelForm):
+    class Meta:
+        model = models.College
+        fields=('name','city','state')
 
