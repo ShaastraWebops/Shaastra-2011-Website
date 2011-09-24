@@ -89,6 +89,7 @@ Shaastra-2011 website : http://www.shaastra.org/2011/main/home/
 """
     success = False
     try:
+        print eventname
         team_object=Team.objects.get(name = team_name,event__name=eventname)
         print "Got team"
         users_list=team_object.members.all()
@@ -100,16 +101,17 @@ Shaastra-2011 website : http://www.shaastra.org/2011/main/home/
         for user in users_list:
             user_profile = user.get_profile()
             college,phone_number,gender = user_profile.college.name,user_profile.mobile_number,user_profile.gender
-            mail = EmailMessage(subject,text,"hospitality@shaastra.org",[user.email],['psbbboyz@gmail.com'],headers={"Reply-To":"hospitality@shaastra.org"})
-            rawhtml = open("/home/swaroop/prefinal.html","r")
+            mail = EmailMessage(subject,text,"shaastra@iitm.ac.in",[user.email],['psbbboyz@gmail.com'],headers={"Reply-To":"hospitality@shaastra.org"})
+            rawhtml = open(SAAR_TEMPLATE+"prefinal.html","r")
             t = Template(rawhtml.read())
             c = Context(locals())
             f = open(SPAM_ROOT+saar_id + "_"+ str(user.id)+"saar.html" , "w")
             f.write(t.render(c).encode('utf-8'))
-            os.system("xhtml2pdf /home/swaroop/saarspam/"+ saar_id+ "_"+str(user.id)+ "saar.html")
+            os.system("xhtml2pdf " + SAAR_TEMPLATE + saar_id+ "_"+str(user.id)+ "saar.html")
             saarpdf_data = open(SPAM_ROOT+saar_id +"_"+ str(user.id)+ "saar.pdf","rb")
             mail.attach_file(SPAM_ROOT+saar_id +"_"+ str(user.id)+"saar.pdf")
-            try:
+            print " gonna send"
+	    try:
                 mail.send()
                 success = True
             except:
@@ -162,7 +164,7 @@ Shaastra-2011 website : http://www.shaastra.org/2011/main/home/
         print "hi6"        
         saar_id = "SHA11U"+str(user_object.id)
         print "hi5"
-        mail = EmailMessage(subject,text,"ee08b049@smail.iitm.ac.in",[user_object.email])
+        mail = EmailMessage(subject,text,"shaastra@iitm.ac.in",[user_object.email])
         print "hi3"
         try:
 	  print SAAR_TEMPLATE+"indprefinal.html"
@@ -189,23 +191,23 @@ Shaastra-2011 website : http://www.shaastra.org/2011/main/home/
     return success             
         
 def hospispamind():
-    teamfile=open("/home/swaroop/list_1.csv","r")
-    teamfileresults = open("/home/swaroop/cfrwsuccess.csv","w")
+    teamfile=open(SAAR_TEMPLATE+"list_1.csv","r")
+    teamfileresults = open(SAAR_TEMPLATE+"cfrwsuccess.csv","w")
     for line in teamfile:
         data = line.rstrip()
         print data
         datalist = data.split(",")
         print datalist
-        teamname = datalist[1]
-        eventname = datalist[0]
+        teamname = datalist[0]
+        eventname = datalist[1]
         teamfileresults.write(data)
         teamfileresults.write(" --> ")
         teamfileresults.write(str(superspam(teamname,eventname)))
         teamfileresults.write('\n')
     teamfile.close()
     teamfileresults.close()
-    indfile = open("/home/swaroop/indlist.csv","r")
-    indfileresults = open("/home/swaroop/indlistsuccess.csv","w")
+    indfile = open(SAAR_TEMPLATE+"indlist.csv","r")
+    indfileresults = open(SAAR_TEMPLATE+"indlistsuccess.csv","w")
     for line in indfile:
         data = line.rstrip()
         indfileresults.write(data)
