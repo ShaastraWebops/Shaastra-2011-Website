@@ -20,16 +20,16 @@
 			<td style="font-family:Tahoma; padding:5px; font-size:18px; border-radius:0px; color:#000;">Email ID</td>
 			
         </tr>
-        {% for user in users_list %}
+        {% for u in users_list %}
             <tr>
                 {% if event.team_event %}
-                    <td>{{ user.team_name }}</td>
+                    <td>{{ u.team_name }}</td>
                 {% endif %}
-                <td>{{ user.username }}</td>
-                <td>{{ user.profile.college.name }}</td>
-                <td>{{ user.profile.mobile_number }}</td>
-                <td>{{ user.profile.shaastra_id }}</td>
-                <td>{{ user.email }}</td>
+                <td>{{ u.username }}</td>
+                <td>{{ u.profile.college.name }}</td>
+                <td>{{ u.profile.mobile_number }}</td>
+                <td>{{ u.profile.shaastra_id }}</td>
+                <td>{{ u.email }}</td>
             </tr>
         {% endfor %}
 <!--
