@@ -3,7 +3,8 @@
 {%endblock%}
 {% block body %}
 <script>
-function adj1()
+$(document).ready(
+function()
 {
 var phot = $("#Select1");
 if(phot.height() >= phot.width())
@@ -17,10 +18,7 @@ var newhei = phot.height();
 var bottomtobring = (400-newhi)/2;
 phot.css("{position:relative;top:"+bottomtobring+"px}");
 }
-}
-function adj2()
-{
-var phot = $("#Select2");
+phot = $("#Select2");
 if(phot.height() >= phot.width())
 {
 phot.css("{height:350px;width:auto;}");
@@ -28,11 +26,12 @@ phot.css("{height:350px;width:auto;}");
 else
 {
 phot.css("{height:auto;width:400px;}");
-var newhei = phot.height();
-var bottomtobring = (400-newhi)/2;
+newhei = phot.height();
+bottomtobring = (400-newhi)/2;
 phot.css("{position:relative;top:"+bottomtobring+"px}");
 }
 }
+);
 </script>
 <style>
 
