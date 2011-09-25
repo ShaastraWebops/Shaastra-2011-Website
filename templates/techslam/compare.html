@@ -6,8 +6,8 @@
 $("#photo1").ready(
 function()
 {
-var phot = $("#photo1>input[type=image]");
-if(phot.height() > phot.width())
+var phot = $("#select");
+if(phot.height() >= phot.width())
 {
 phot.css("{height:400px;width:auto;}");
 }
@@ -27,8 +27,8 @@ phot.css("{position:relative;top:"+bottomtobring+"px}");
 $("#photo2").ready(
 function()
 {
-var phot = $("#photo2>input[type=image]");
-if(phot.height() > phot.width())
+var phot = $("#select");
+if(phot.height() >= phot.width())
 {
 phot.css("{height:350px;width:auto;}");
 }
@@ -57,11 +57,7 @@ background : -webkit-gradient(linear, left top, left bottom, from(#67a3de), to(#
 position:relative;
 left : -20px;
 }
-input[type = image]
-{
-width : 400px;
-height : auto;
-}
+
 </style>
 <div id = "container_compare" style = "margin : 30px auto 0 auto;min-width:1200px;width:100%;height:400px">
 <div id = "photosbox" style = "margin : 0 auto 0 auto;text-align:center">
@@ -75,8 +71,8 @@ height : auto;
 <p>{{photo1.caption}}<br/>Uploaded by <a href= {{SITE_URL}}techslam/{{photo1.user}}/showprofile/>{{photo1.user}}</a><br/></p>
 </form>
 </div>
-&nbsp;&nbsp;&nbsp;&nbsp;<span style = "font-size:25px;color:#183f5a">OR</span>&nbsp;&nbsp;&nbsp;&nbsp;
-<div id = photo1 style = "float:right;width:400px;height:350px;margin: 0 auto 0 auto;-webkit-border-radius : 5px;border-radius : 5px;text-align:center">
+&nbsp;&nbsp;&nbsp;&nbsp;<span style = "font-size:25px;color:#183f5a;position:relative;top:150px;left:20px">OR</span>&nbsp;&nbsp;&nbsp;&nbsp;
+<div id = photo2 style = "float:right;width:400px;height:350px;margin: 0 auto 0 auto;-webkit-border-radius : 5px;border-radius : 5px;text-align:center">
 <form enctype="multipart/form-data" method="post" action="">
 <input type="hidden" name="selectedid" value={{photo1.photoid}} id="selectedid" />
 <input type="hidden" name="photoid1" value={{photo1.photoid1}} id="photoid1" />
