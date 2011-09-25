@@ -3,53 +3,44 @@
 {%endblock%}
 {% block body %}
 <script>
-$(document).mousemove(
-function(){
-var phot = $("#Select1");
-if(phot.height() >= phot.width())
+//$(document).mousemove(
+function adj1(id){
+var phot = document.getElementById(id);
+//alert(phot.height +">="+ phot.width)
+if(phot.height >= phot.width)
 {
-phot.css("{height:400px;width:auto;}");
+phot.style.height = "350px";
+phot.style.width = "auto";
 }
 else
 {
-phot.css("{height:auto;width:400px;}");
-var newhei = phot.height();
+phot.style.height = "auto";
+phot.style.width = "400px";
+var newhei = phot.height;
+var bottomtobring = (350-newhei)/2;
+phot.style.position = "relative";
+var t = bottomtobring + "px";
+phot.style.top = t;
+}
+}
+function adj2(){
+var phot = document.getElementById("Select2").style;
+if(phot.height.split("px")[0] >= phot.width.split("px")[0])
+{
+phot.height = "350px";
+phot.width = "auto";
+}
+else
+{
+phot.height = "auto";
+phot.width = "380px";
+var newhei = phot.height.split('px')[0];
 var bottomtobring = (400-newhi)/2;
-var css = "{position:relative;top:"+bottomtobring+"px}";
-phot.css(css);
-}
-phot = $("#Select2");
-if(phot.height() >= phot.width())
-{
-phot.css("{height:350px;width:auto;}");
-}
-else
-{
-var css = "{position:relative;top:"+bottomtobring+"px}";
-
-phot.css("{height:auto;width:400px;}");
-newhei = phot.height();
-bottomtobring = (400-newhi)/2;
-phot.css(css);
+phot.position = "relative";
+phot.top = bottomtobring + "px";
 }
 }
-);
 </script>
-<style>
-
-#photo1
-{
-background : -webkit-gradient(linear, left top, left bottom, from(#67a3de), to(#4573b1));
-position:relative;
-left : 20px;
-}
-#photo2
-{
-background : -webkit-gradient(linear, left top, left bottom, from(#67a3de), to(#4573b1));
-position:relative;
-left : -20px;
-}
-
 </style>
 <div id = "container_compare" style = "margin : 30px auto 0 auto;min-width:1200px;width:100%;height:400px">
 <div id = "photosbox" style = "margin : 0 auto 0 auto;text-align:center">
@@ -59,17 +50,19 @@ left : -20px;
 <input type="hidden" name="selectedid" value={{photo1.photoid}} id="selectedid" />
 <input type="hidden" name="photoid1" value={{photo1.photoid1}} id="photoid1" />
 <input type="hidden" name="photoid2" value={{photo2.photoid2}} id="photoid2" />
-<img src="http://www.shaastra.org/2011/media/main/techslam/images/{{photo1.title}}" value="Select" id="Select1" onclick = "this.form.submit()"/>
+<!-- "http://www.shaastra.org/2011/media/main/techslam/images/{{photo1.title}}" --> 
+<img src= "is.png" value="Select" id="Select1" onclick = "this.form.submit()" onload = "adj1(this.id)"/>
 <p>{{photo1.caption}}<br/>Uploaded by <a href= {{SITE_URL}}techslam/{{photo1.user}}/showprofile/>{{photo1.user}}</a><br/></p>
 </form>
 </div>
-&nbsp;&nbsp;&nbsp;&nbsp;<span style = "font-size:25px;color:#183f5a;position:relative;top:150px;left:20px">OR</span>&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;<span style = "font-size:25px;color:#183f5a;position:relative;top:150px;left:10px">OR</span>&nbsp;&nbsp;&nbsp;&nbsp;
 <div id = photo2 style = "float:right;width:400px;height:350px;margin: 0 auto 0 auto;-webkit-border-radius : 5px;border-radius : 5px;text-align:center">
 <form enctype="multipart/form-data" method="post" action="">
 <input type="hidden" name="selectedid" value={{photo1.photoid}} id="selectedid" />
 <input type="hidden" name="photoid1" value={{photo1.photoid1}} id="photoid1" />
 <input type="hidden" name="photoid2" value={{photo2.photoid2}} id="photoid2" />
-<img src="http://www.shaastra.org/2011/media/main/techslam/images/{{photo2.title}}" value="Select" id="Select2" onclick = "this.form.submit()"/>
+ <!-- "http://www.shaastra.org/2011/media/main/techslam/images/{{photo2.title}}"-->
+<img src=is.png value="Select" id="Select2" onclick = "this.Parent.submit()" onload = "adj1(this.id)"/>
 <p>{{photo2.caption}}<br/>Uploaded by <a href= {{SITE_URL}}techslam/{{photo2.user}}/showprofile/>{{photo2.user}}</a><br/></p>
 </form>
 </div>
