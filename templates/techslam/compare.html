@@ -15,7 +15,8 @@ else
 phot.css("{height:auto;width:400px;}");
 var newhei = phot.height();
 var bottomtobring = (400-newhi)/2;
-phot.css("{position:relative;top:"+bottomtobring+"px}");
+var css = "{position:relative;top:"+bottomtobring+"px}";
+phot.css(css);
 }
 phot = $("#Select2");
 if(phot.height() >= phot.width())
@@ -24,10 +25,12 @@ phot.css("{height:350px;width:auto;}");
 }
 else
 {
+var css = "{position:relative;top:"+bottomtobring+"px}";
+
 phot.css("{height:auto;width:400px;}");
 newhei = phot.height();
 bottomtobring = (400-newhi)/2;
-phot.css("{position:relative;top:"+bottomtobring+"px}");
+phot.css(css);
 }
 }
 );
