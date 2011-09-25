@@ -57,15 +57,16 @@ class AddUserForm(ModelForm):
     password_again = forms.CharField  (max_length=30,
                                        widget=forms.PasswordInput,
                                        help_text='Enter the same password that you entered above')
+    college        = forms.CharField  (max_length=120,
+                                       widget=forms.TextInput(attrs={'id':'coll_input'}),
+                                       help_text='Select your college from the list. If it is not there, use the link below')
+    college_roll   = forms.CharField  (max_length=25,
+                                       help_text='Enter your college ID / roll number here.')
+    branch         = forms.CharField  (max_length=50,
+                                       widget=forms.TextInput(attrs={'id':'branch_input'}),
+                                       help_text='Select your branch from the list. If it does not show up, please select the "Other" option.')
     recaptcha      = recaptcha_fields.ReCaptchaField (label='Show us that you are not a bot!',
                                                       help_text='Enter the words shown in the space provided')
-    college        = forms.CharField  (max_length=120,
-                                           widget=forms.TextInput(attrs={'id':'coll_input'}),
-                                           help_text='Select your college from the list. If it is not there, use the link below')
-    branch         = forms.CharField  (max_length=50,
-                                           widget=forms.TextInput(attrs={'id':'branch_input'}),
-                                           help_text='Select your branch from the list. If it does not show up, please select the "Other" option.')
-
     class Meta:
         model = models.UserProfile
         fields=('first_name','last_name','username','password','password_again','email','age','gender','college','college_roll','branch','mobile_number')
@@ -86,7 +87,15 @@ class AddUserForm(ModelForm):
 	else:
 	    return self.cleaned_data['age']
 	    
-    	  
+    def clean_mobile_number(self):
+	if (len(self.cleaned_data['mobile_number'])!=10 or (self.cleaned_data['mobile_number'][0]!='7' and self.cleaned_data['mobile_number'][0]!='8' and self.cleaned_data['mobile_number'][0]!='9') or (not self.cleaned_data['mobile_number'].isdigit())):
+	    raise forms.ValidationError(u'Enter a valid mobile number')
+	if models.UserProfile.objects.filter(mobile_number=self.cleaned_data['mobile_number']):
+	    pass    
+	else:
+	  return self.cleaned_data['mobile_number']
+	raise forms.ValidationError('This mobile number is already registered')  
+	  
     def clean_first_name(self):
 	if not self.cleaned_data['first_name'].replace(' ','').isalpha():
 	    raise forms.ValidationError(u'Names cannot contain anything other than alphabets.')
@@ -119,6 +128,24 @@ class AddUserForm(ModelForm):
         else:
             return self.data[field_name1]
     
+    def clean_college(self):
+        coll_input = self.cleaned_data['college']
+        try:
+            coll_name, coll_city = coll_input.rsplit(',',1)
+            collchk = models.College.objects.get(name = coll_name, city=coll_city)
+        except: 
+            raise forms.ValidationError ("Invalid college name, or college does not exist. Please use add college form below to add your college if it does not already exist")
+        if(collchk):
+            return collchk
+        else :
+            raise forms.ValidationError ("The College that you entered Does not exist or was Not Right")
+               
+    def clean_college_roll(self):
+        if (not alphanumric.search(self.cleaned_data['college_roll'])) or self.cleaned_data['college_roll'].isalpha():
+           raise forms.ValidationError(u'Enter a valid roll number.')
+        else:
+           return self.cleaned_data['college_roll']
+         
          
      
 class EditUserForm(ModelForm):
