@@ -3,8 +3,7 @@
 {%endblock%}
 {% block body %}
 <script>
-$("#photo1").ready(
-function()
+function adj1()
 {
 var phot = $("#Select1");
 if(phot.height() >= phot.width())
@@ -19,13 +18,7 @@ var bottomtobring = (400-newhi)/2;
 phot.css("{position:relative;top:"+bottomtobring+"px}");
 }
 }
-
-
-
-
-);
-$("#photo2").ready(
-function()
+function adj2()
 {
 var phot = $("#Select2");
 if(phot.height() >= phot.width())
@@ -40,8 +33,6 @@ var bottomtobring = (400-newhi)/2;
 phot.css("{position:relative;top:"+bottomtobring+"px}");
 }
 }
-
-);
 </script>
 <style>
 
@@ -67,7 +58,7 @@ left : -20px;
 <input type="hidden" name="selectedid" value={{photo1.photoid}} id="selectedid" />
 <input type="hidden" name="photoid1" value={{photo1.photoid1}} id="photoid1" />
 <input type="hidden" name="photoid2" value={{photo2.photoid2}} id="photoid2" />
-<input type="image" src="http://www.shaastra.org/2011/media/main/techslam/images/{{photo1.title}}" value="Select" id="Select1"/>
+<input type="image" src="http://www.shaastra.org/2011/media/main/techslam/images/{{photo1.title}}" value="Select" id="Select1" onload = "adj1()"/>
 <p>{{photo1.caption}}<br/>Uploaded by <a href= {{SITE_URL}}techslam/{{photo1.user}}/showprofile/>{{photo1.user}}</a><br/></p>
 </form>
 </div>
@@ -77,7 +68,7 @@ left : -20px;
 <input type="hidden" name="selectedid" value={{photo1.photoid}} id="selectedid" />
 <input type="hidden" name="photoid1" value={{photo1.photoid1}} id="photoid1" />
 <input type="hidden" name="photoid2" value={{photo2.photoid2}} id="photoid2" />
-<input type="image" src="http://www.shaastra.org/2011/media/main/techslam/images/{{photo2.title}}" value="Select" id="Select2"/>
+<input type="image" src="http://www.shaastra.org/2011/media/main/techslam/images/{{photo2.title}}" value="Select" id="Select2"onload = "adj2()"/>
 <p>{{photo2.caption}}<br/>Uploaded by <a href= {{SITE_URL}}techslam/{{photo2.user}}/showprofile/>{{photo2.user}}</a><br/></p>
 </form>
 </div>
