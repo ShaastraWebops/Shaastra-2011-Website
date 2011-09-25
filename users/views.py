@@ -46,9 +46,13 @@ def login (request):
         form = forms.LoginForm(data)
         if form.is_valid():
             user = auth.authenticate(username=form.cleaned_data['username'], password=form.cleaned_data["password"])
+
             if user is not None and user.is_active == True:
                 auth.login (request, user)
                 request.session['logged_in'] = True
+	        if_profile = UserProfile.objects.filter(user=user).count()
+		if not if_profile :
+		    return HttpResponseRedirect("%stechslam/" %settings.SITE_URL)
                 if user.username == 'cores':
                     return HttpResponseRedirect("%sevents/cores/" % settings.SITE_URL)
                 elif user.username == 'spons':
