@@ -3,9 +3,6 @@
 {%endblock%}
 {% block body %}
 <script>
-$(document).ready(
-function()
-{
 var phot = $("#Select1");
 if(phot.height() >= phot.width())
 {
@@ -30,8 +27,7 @@ newhei = phot.height();
 bottomtobring = (400-newhi)/2;
 phot.css("{position:relative;top:"+bottomtobring+"px}");
 }
-}
-);
+
 </script>
 <style>
 
