@@ -195,7 +195,7 @@ def hospispamind():
         teamfileresults.write('\n')
     teamfile.close()
     teamfileresults.close()
-    indfile = open("/home/swaroop/indlist.csv","r")
+    indfile = open("/home/swaroop/teamlist.csv","r")
     indfileresults = open("/home/swaroop/indlistsuccess.csv","w")
     for line in indfile:
         data = line.rstrip()
