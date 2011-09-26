@@ -333,3 +333,9 @@ def reset_password(request):
         return render_to_response('users/reset_password_form.html', locals(), context_instance = global_context(request))
     else:
         raise Http404
+
+@needs_authentication
+def show_profile(request):
+    profile = request.user.get_profile()
+    return render_to_response('users/show_profile.html', locals(), context_instance = global_context(request))
+
