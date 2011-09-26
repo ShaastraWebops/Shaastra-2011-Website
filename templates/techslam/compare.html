@@ -85,8 +85,8 @@ cursor:pointer;
 <div id = photo1 style = "float:left;width:400px;height:350px;margin: 0 auto 0 auto;float:left;-webkit-border-radius : 5px;border-radius : 5px; text-align:center">
 <form enctype="multipart/form-data" method="post" action="" id = "f1">
 <input type="hidden" name="selectedid" value={{photo1.photoid}} id="selectedid" />
-<input type="hidden" name="photoid1" value={{photo1.photoid1}} id="photoid1" />
-<input type="hidden" name="photoid2" value={{photo2.photoid2}} id="photoid2" />
+<input type="hidden" name="photoid1" value={{photo1.photoid}} id="photoid1" />
+<input type="hidden" name="photoid2" value={{photo2.photoid}} id="photoid2" />
 <!--  --> 
 <img src= "http://www.shaastra.org/2011/media/main/techslam/images/{{photo1.title}}" value="Select" id="Select1" onclick = "func()" onload = "adj1('photo1',this.id)"/>
 <p>{{photo1.caption}}<br/>Uploaded by <a href= {{SITE_URL}}techslam/{{photo1.user}}/showprofile/>{{photo1.user}}</a><br/></p>
@@ -96,8 +96,8 @@ cursor:pointer;
 <div id = photo2 style = "float:right;width:400px;height:350px;margin: 0 auto 0 auto;-webkit-border-radius : 5px;border-radius : 5px;text-align:center">
 <form enctype="multipart/form-data" method="post" action="" id = "f2">
 <input type="hidden" name="selectedid" value={{photo1.photoid}} id="selectedid" />
-<input type="hidden" name="photoid1" value={{photo1.photoid1}} id="photoid1" />
-<input type="hidden" name="photoid2" value={{photo2.photoid2}} id="photoid2" />
+<input type="hidden" name="photoid1" value={{photo1.photoid}} id="photoid1" />
+<input type="hidden" name="photoid2" value={{photo2.photoid}} id="photoid2" />
  <!-- -->
 <img src="http://www.shaastra.org/2011/media/main/techslam/images/{{photo2.title}}" value="Select" id="Select2" onclick = "funct()" onload = "adj1('photo2',this.id)"/>
 <p>{{photo2.caption}}<br/>Uploaded by <a href= {{SITE_URL}}techslam/{{photo2.user}}/showprofile/>{{photo2.user}}</a><br/></p>
