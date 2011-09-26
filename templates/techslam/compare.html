@@ -3,6 +3,16 @@
 {%endblock%}
 {% block body %}
 <script>
+function funct()
+{
+document.getElementById('f2').submit();
+$("#Select2").fadeOut();
+}
+function func()
+{
+document.getElementById('f1').submit();
+$("#Select1").fadeOut();
+}
 //$(document).mousemove(
 function adj1(id){
 var jid = "#"+id;
@@ -44,23 +54,23 @@ phot.top = bottomtobring + "px";
 }
 </script>
 <style>
-#select1
+#Select1
 {
 cursor:pointer;
 display:none;
 }
-#select1:hover
+#Select1:hover
 {
 opacity : .85;
 filter :alpha("opacity = 85");
 cursor:pointer;
 }
-#select2
+#Select2
 {
 
 display:none;
 }
-#select2:hover
+#Select2:hover
 {
 opacity : .85;
 filter :alpha("opacity = 85");
@@ -76,7 +86,7 @@ cursor:pointer;
 <input type="hidden" name="photoid1" value={{photo1.photoid1}} id="photoid1" />
 <input type="hidden" name="photoid2" value={{photo2.photoid2}} id="photoid2" />
 <!--  --> 
-<img src= "http://www.shaastra.org/2011/media/main/techslam/images/{{photo1.title}}" value="Select" id="Select1" onclick = "function(){document.getElementById('f1').submit();$(this).fadeOut();}" onload = "adj1(this.id)"/>
+<img src= "http://www.shaastra.org/2011/media/main/techslam/images/{{photo1.title}}" value="Select" id="Select1" onclick = "func()" onload = "adj1(this.id)"/>
 <p>{{photo1.caption}}<br/>Uploaded by <a href= {{SITE_URL}}techslam/{{photo1.user}}/showprofile/>{{photo1.user}}</a><br/></p>
 </form>
 </div>
@@ -87,7 +97,7 @@ cursor:pointer;
 <input type="hidden" name="photoid1" value={{photo1.photoid1}} id="photoid1" />
 <input type="hidden" name="photoid2" value={{photo2.photoid2}} id="photoid2" />
  <!-- -->
-<img src="http://www.shaastra.org/2011/media/main/techslam/images/{{photo2.title}}" value="Select" id="Select2" onclick = "function(){document.getElementById('f2').submit();$(this).fadeOut();}" onload = "adj1(this.id)"/>
+<img src="http://www.shaastra.org/2011/media/main/techslam/images/{{photo2.title}}" value="Select" id="Select2" onclick = "funct()" onload = "adj1(this.id)"/>
 <p>{{photo2.caption}}<br/>Uploaded by <a href= {{SITE_URL}}techslam/{{photo2.user}}/showprofile/>{{photo2.user}}</a><br/></p>
 </form>
 </div>
