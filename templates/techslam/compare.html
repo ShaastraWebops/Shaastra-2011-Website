@@ -19,6 +19,8 @@ $("#photo2").parent().fadeOut(100);
 function adj1(idr,id){
 var jid = "#"+idr;
 $(jid).fadeIn(150);
+jimg = jid+">img";
+$(jimg).fadeIn(200);
 var phot = document.getElementById(id);
 //alert(phot.height +">="+ phot.width)
 if(phot.height >= phot.width)
