@@ -73,14 +73,26 @@ es.width = "186px";
 					<div id = "slamUser" class = "floatleft">
 					</div>
 				</div>
-                {%if show_buttons  %}		
+{%if show_buttons  %}
 			<div class="button3" style = "position:relative; top : -150px" >
 			<form action = "{{SITE_URL}}techslam/upload/" method = GET >
 			<input type="submit" value="" style = "position:relative; left : 30px;background:url({{MEDIA_URL}}techslam/images/submit.png);width : 174px;" />
 			</form>
 		
 			</div>
-            {% endif %}
+			               		
+			<div class="button3" style = "position:relative; top : -230px;color:#183f5a;" >
+			<form action = "{{SITE_URL}}techslam/slamphotos/" method = GET >
+			<input type="submit" value="SLAM!" style = "position:relative; left : 30px;width : 174px;color:#183f5a;border:1px solid #Cde;-webkit-border-radius:5px;border-radius:5px;" />
+			</form>
+					<div class="button3" style = "text-align:center;position:relative; top : -230px;color:#183f5a;height : 40px;" >
+			Brought to you by:
+			<br>
+			<a href = "http://www.gild.com/?utm_source=techslam&utm_medium=referall&utm_campaign=Techslam2011">
+<img src = "http://www.gild.com/blog/wp-content/uploads/2011/08/gildlogoCMYK.jpg" style = "height : 40px;width : auto;">
+</a>			
+			</div>
+            {% endif %} 
 <!--<div class="button2" style = "position:relative; top : -150px">
 <form action = "{{SITE_URL}}techslam/mashphotos/" method = GET>
 <input type="submit" value="Mash photos">

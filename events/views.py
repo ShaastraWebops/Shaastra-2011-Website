@@ -1131,14 +1131,19 @@ def show_registered_users(request):
     if request.method == 'GET':
         event_id = request.GET['event_id']
         event = models.Event.objects.get(id = event_id)
-        
+        users_list = []
         if event.team_event:
-            users_list=Team.objects.filter(event=event)   
-            
+            team_list = Team.objects.filter(event = event)
+            for team in team_list:
+                for user in team.members.all():
+                    user.profile = user.get_profile()
+                    user.team_name = team.name
+                    users_list.append(user)
         else:
-            
-            users_list=IndividualSubmissions.objects.filter(event=event)
-        
+            i = IndividualSubmissions.objects.filter(event=event)
+            u = i.participant.user
+            u.profile = u.get_profile()
+            users_list.append(u)
         if request.user.get_profile().is_coord != True or request.user.get_profile().coord_event != event:
             raise Http404
         #users_list = event.registered_users.all()

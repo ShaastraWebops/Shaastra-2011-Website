@@ -5,13 +5,13 @@
     Techslam Registration
   </h1>
   <br>
-  <form action = "" method = "POST">
+  <form action = "" method = "POST" id="regform">
   <table id = "maintable" cellpadding = "10" rules = "cols" border="0">
     {{form.as_table}}
 	<td colspan="2" style="padding-left:290px">
 		<div class="button2">
 			<a href="#">
-			<input type="submit" value="Submit"/>
+			<input type="button" value="Submit" onclick = "opendabba()" />
 			</a>
 			<span></span>
 		</div>
@@ -21,5 +21,70 @@
 	<input type="submit" value="Submit">
   </div> -->
   </form>  
+  <div id = "dabbacover">
 
+<div id = "dabbadiv" style = "background : rgba(255,255,255,.8);z-index:50;border:1px solid #CCC;width : 500px;height : 200px;margin : 0 auto 0 auto;text-align:center;">
+<span style = "float:right;border : 1px solid #CCC;padding:5px;" onclick = fo() id = "xf">X</span>
+<span id = k><div id = "gen" style = "width : 60%;padding:5px;margin:30px auto 0 auto;">To avail yourself of the grand prize, an Ipad-2, Please register with our techslam partner - gild.com
+<br><br>
+<img src = "http://www.gild.com/blog/wp-content/uploads/2011/08/gildlogoCMYK.jpg" style = "height : 40px;width : auto">
+</div>
+<div class="button2" style = "width :100%;margin:0 auto 0 auto;position:relative;top:-20px;left:200px">
+			<a href="#">
+			<center>
+			<input type="button" value="Proceed" onclick = "subform()" />
+			<center>
+			</a>
+			<span></span>
+		</div>
+	</span>
+</div>
+</div>
+<style>
+#k
+{
+
+position : relative ;
+top : 40px;
+text-align : center;
+}
+#xf:hover
+{
+font-weight : bold;
+color : #800;
+cursor : pointer;
+}
+#xf
+{
+position:relative;
+left : -10px;
+}
+#dabbacover
+{
+display:none;
+width : 100%;
+height : 100%;
+position:absolute;
+top:0px;
+left:0px;
+z-index: 49;
+
+}
+</style>
+<script>
+function opendabba()
+{
+$("#dabbacover").fadeIn();
+}
+function subform()
+{
+window.open("http://www.gild.com/?utm_source=techslam&utm_medium=referall&utm_campaign=Techslam2011");
+$("#dabbacover").fadeOut();
+document.getElementById("regform").submit();
+}
+function fo()
+{
+$("#dabbacover").fadeOut();
+}
+</script>
 {% endblock %}
