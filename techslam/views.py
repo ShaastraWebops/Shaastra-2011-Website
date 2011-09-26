@@ -128,8 +128,8 @@ def slamphotos(request):
     #    if form.is_valid():    
     #        print "form valid"
         selectedid=request.POST['selectedid']
-        photoid1=int(request.POST['photoid1'])
-        photoid2=int(request.POST['photoid2'])
+        photoid1=request.POST['photoid1']
+        photoid2=request.POST['photoid2']
         rphoto1=Photo.objects.get(photoid=photoid1)
         rphoto2=Photo.objects.get(photoid=photoid2)
         photo1winprob= 1/((10**(( rphoto2.rating-rphoto1.rating)/400)) + 1)
