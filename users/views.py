@@ -285,6 +285,34 @@ def feedback(request):
     else:            
         return render_to_response('users/feedback.html', locals(), context_instance= global_context(request))        
 
+
+def view_feedback(request):
+    objs = models.Feedback.objects.all()
+    ans = []
+    for obj in objs:
+        temp = []
+        content = obj.content.split('***___***')
+        radiocontent = obj.radiocontent.split('***___***')
+        print content
+        print radiocontent
+        temp.append(radiocontent[0])
+        temp.append(radiocontent[1])
+        temp.append(radiocontent[2])
+        temp.append(radiocontent[3])
+        temp.append(content[0])
+        temp.append(radiocontent[4])
+        temp.append(radiocontent[5])
+        temp.append(radiocontent[6])
+        temp.append(radiocontent[7])
+        temp.append(radiocontent[8])
+        temp.append(content[1])
+        temp.append(radiocontent[9])
+        temp.append(content[2])
+        temp.append(radiocontent[10])
+        temp.append(radiocontent[11])
+        ans.append(temp)
+    return render_to_response('users/view_feedback.html', locals(), context_instance= global_context(request))        
+
 def forgot_password(request):
     reset_password_form = forms.ResetPasswordForm()
     username_form = forms.UsernameForm()
