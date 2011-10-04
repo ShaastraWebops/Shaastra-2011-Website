@@ -1,0 +1,35 @@
+
+
+
+{%block gradient%}{%include "gradient.html"%}{%endblock%}
+
+{% block body %}
+
+<table border="1">
+<th>
+<td>Look and feel of the webpages</td>
+<td>Style of presentation </td>
+<td>Did you feel any part out of place ? </td>
+<td>Comments about previous answer, if any.</td>
+<td>Ease of navigation</td>
+<td>Loading speed of web pages </td>
+<td>Relevance of information presented on our website </td>
+<td>Self sufficieny of information </td>
+<!-- <td>Organisation of information </td> -->
+<td>Is there anything that you expected but didn't find on our website?</td>
+<td>Comments about previous answer, if any.</td>
+<td>How did you come to know about this website? </td>
+<td>Comments about previous answer, if any. </td>
+<td>How often do you visit this website? </td>
+<td>Overall rating for this website  </td>
+
+</th>
+{% for row in ans %}
+    <tr>
+    {% for cols in row %}
+        <td>{{cols}}</td>
+    {% endfor %}
+    </tr>
+{% endfor %}
+</table>
+{% endblock %}                

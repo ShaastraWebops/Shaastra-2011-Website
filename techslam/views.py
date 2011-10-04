@@ -123,32 +123,29 @@ def kvaluegenerator(rating):
 
 def slamphotos(request):
     if request.method == 'POST':
-        form = selectaphoto(request.POST)
-        print "request method post"
-        if form.is_valid():    
-            print "form valid"
-            selectedid=request.POST['selectedid']
-            photoid1=request.POST['photoid1']
-            photoid2=request.POST['photoid2']
-            rphoto1=Photo.objects.get(photoid=photoid1)
-            rphoto2=Photo.objects.get(photoid=photoid2)
-            photo1winprob= 1/((10**(( rphoto2.rating-rphoto1.rating)/400)) + 1)
-            photo2winprob= 1/((10**(( rphoto1.rating-rphoto2.rating)/400)) + 1)
-            if selectedid==photoid1:
-                rphoto1.rating = rphoto1.rating + (rphoto1.kvalue * (1-photo1winprob))
-                rphoto2.rating = rphoto2.rating + (rphoto2.kvalue * (0-photo2winprob))
-            else:
-                rphoto2.rating = rphoto2.rating + (rphoto2.kvalue * (1-photo2winprob))
-                rphoto1.rating = rphoto1.rating + (rphoto1.kvalue * (0-photo1winprob))
-            rphoto1.kvalue = kvaluegenerator(rphoto1.rating)
-            rphoto2.kvalue = kvaluegenerator(rphoto2.rating)                                
-            rphoto1.save()
-            rphoto2.save()
-            photo1,photo2=selectimages()
-            return render_to_response("techslam/compare.html", locals(),context_instance= global_context(request))
+    #    form = selectaphoto(request.POST)
+    #    print "request method post"
+    #    if form.is_valid():    
+    #        print "form valid"
+        selectedid=request.POST['selectedid']
+        photoid1=request.POST['photoid1']
+        photoid2=request.POST['photoid2']
+        rphoto1=Photo.objects.get(photoid=photoid1)
+        rphoto2=Photo.objects.get(photoid=photoid2)
+        photo1winprob= 1/((10**(( rphoto2.rating-rphoto1.rating)/400)) + 1)
+        photo2winprob= 1/((10**(( rphoto1.rating-rphoto2.rating)/400)) + 1)
+        if selectedid==photoid1:
+            rphoto1.rating = rphoto1.rating + (rphoto1.kvalue * (1-photo1winprob))
+            rphoto2.rating = rphoto2.rating + (rphoto2.kvalue * (0-photo2winprob))
         else:
-            photo1,photo2=selectimages()
-            return render_to_response("techslam/compare.html", locals(),context_instance= global_context(request))    
+            rphoto2.rating = rphoto2.rating + (rphoto2.kvalue * (1-photo2winprob))
+            rphoto1.rating = rphoto1.rating + (rphoto1.kvalue * (0-photo1winprob))
+        rphoto1.kvalue = kvaluegenerator(rphoto1.rating)
+        rphoto2.kvalue = kvaluegenerator(rphoto2.rating)                                
+        rphoto1.save()
+        rphoto2.save()
+        photo1,photo2=selectimages()
+        return render_to_response("techslam/compare.html", locals(),context_instance= global_context(request))    
     else:
         photo1,photo2=selectimages()
         return render_to_response("techslam/compare.html", locals(),context_instance= global_context(request))
